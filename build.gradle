@@ -1,0 +1,45 @@
+plugins {
+    id 'java-library'
+}
+
+apply plugin: 'java'
+
+group 'uk.gov.hmcts.ccd'
+version '1.0.0-SNAPSHOT'
+
+// tag::repositories[]
+repositories {
+    mavenLocal()
+    mavenCentral()
+    jcenter()
+    maven {
+        url 'https://dl.bintray.com/hmcts/hmcts-maven'
+    }
+}
+// end::repositories[]
+
+ext {
+    junitJupiterVersion = '5.2.0'
+    junitVintageVersion = '5.2.0'
+}
+
+dependencies {
+    compile "com.fasterxml.jackson.core:jackson-databind:2.9.10.1"
+
+    compile group: 'io.rest-assured', name: 'rest-assured', version: '3.1.0'
+
+    compile group: 'io.cucumber', name: 'cucumber-java', version: '5.0.0-RC1'
+    compile group: 'io.cucumber', name: 'cucumber-junit', version: '5.0.0-RC1'
+
+    compile 'org.projectlombok:lombok:1.18.4'
+
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.26'
+    compile group: 'uk.gov.hmcts.reform', name: 'service-auth-provider-client', version: '2.0.0'
+    compile group: 'org.apache.httpcomponents', name: 'httpcore', version: '4.4.12'
+        
+    testCompile 'io.github.openfeign:feign-jackson:9.7.0'
+    testCompile group: 'org.mockito', name: 'mockito-core', version: '2.24.0'
+    
+}
+// end::dependencies[]
+
