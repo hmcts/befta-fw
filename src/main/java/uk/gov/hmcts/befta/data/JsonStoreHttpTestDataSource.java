@@ -15,7 +15,7 @@ public class JsonStoreHttpTestDataSource implements HttpTestDataSource {
 
     private ArrayList<String> resourcePaths = new ArrayList<>();
 
-    private JsonResourceStoreWithInheritance jsonStore;
+    private JsonResourceStoreWithInheritance jsonStore = null;
 
     public JsonStoreHttpTestDataSource(String[] resourcePackages) {
         long start = System.currentTimeMillis();
@@ -41,16 +41,20 @@ public class JsonStoreHttpTestDataSource implements HttpTestDataSource {
 
     @Override
     public HttpTestData getDataForTestCall(String testDataId) {
-        loadDataStoreIfNotAlreadyLoaded();
+        long start = System.currentTimeMillis();
+        if (jsonStore == null) {
+            jsonStore = new JsonResourceStoreWithInheritance(resourcePaths.toArray(new String[0]));
+        }
         try {
             return jsonStore.getObjectWithId(testDataId, HttpTestData.class);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }
-
-    private void loadDataStoreIfNotAlreadyLoaded() {
-        jsonStore = new JsonResourceStoreWithInheritance(resourcePaths.toArray(new String[0]));
+        finally {
+            long finish = System.currentTimeMillis();
+            double seconds = (finish - start) / 1000.0;
+            logger.info("Fetched test data for {} in {} seconds.", testDataId, seconds);
+        }
     }
 
 }
