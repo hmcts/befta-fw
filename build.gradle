@@ -23,6 +23,10 @@ ext {
     junitVintageVersion = '5.2.0'
 }
 
+jar {
+    baseName = "befta-fw"
+}
+
 dependencies {
     compile "com.fasterxml.jackson.core:jackson-databind:2.9.10.1"
 
