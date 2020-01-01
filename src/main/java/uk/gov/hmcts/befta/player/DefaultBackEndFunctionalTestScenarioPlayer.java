@@ -323,7 +323,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
                 + user.getPassword() + "] ";
         try {
             BeftaMain.getAdapter().authenticate(user);
-            logger.info(logPrefix + "authenticated");
+            logger.info(logPrefix + "authenticated.");
         } catch (Exception ex) {
             logger.info(logPrefix + "could not authenticate.");
         }
