@@ -1,5 +1,8 @@
 package uk.gov.hmcts.befta.data;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.common.reflect.ClassPath;
 
 import java.util.ArrayList;
@@ -8,11 +11,14 @@ import uk.gov.hmcts.jsonstore.JsonResourceStoreWithInheritance;
 
 public class JsonStoreHttpTestDataSource implements HttpTestDataSource {
 
+    private Logger logger = LoggerFactory.getLogger(JsonStoreHttpTestDataSource.class);
+
     private ArrayList<String> resourcePaths = new ArrayList<>();
 
     private JsonResourceStoreWithInheritance jsonStore;
 
     public JsonStoreHttpTestDataSource(String[] resourcePackages) {
+        long start = System.currentTimeMillis();
         try {
             ClassPath cp = ClassPath.from(Thread.currentThread().getContextClassLoader());
             for (String resourcePackage : resourcePackages) {
@@ -26,6 +32,10 @@ public class JsonStoreHttpTestDataSource implements HttpTestDataSource {
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
+        } finally {
+            long finish = System.currentTimeMillis();
+            double seconds = (finish - start) / 1000.0;
+            logger.info("Located {} test data resource files in {} seconds.", resourcePaths.size(), seconds);
         }
     }
 
