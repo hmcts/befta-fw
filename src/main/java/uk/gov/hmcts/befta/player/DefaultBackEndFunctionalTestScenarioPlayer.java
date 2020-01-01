@@ -325,7 +325,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
             BeftaMain.getAdapter().authenticate(user);
             logger.info(logPrefix + "authenticated");
         } catch (Exception ex) {
-            logger.info(logPrefix + "credentials invalid");
+            logger.info(logPrefix + "could not authenticate.");
         }
     }
 }
