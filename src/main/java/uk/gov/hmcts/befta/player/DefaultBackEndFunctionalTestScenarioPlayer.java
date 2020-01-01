@@ -24,8 +24,7 @@ import io.restassured.response.Response;
 import io.restassured.specification.QueryableRequestSpecification;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.SpecificationQuerier;
-import uk.gov.hmcts.befta.DefaultTestAutomationAdapter;
-import uk.gov.hmcts.befta.TestAutomationAdapter;
+import uk.gov.hmcts.befta.BeftaMain;
 import uk.gov.hmcts.befta.TestAutomationConfig;
 import uk.gov.hmcts.befta.data.HttpTestData;
 import uk.gov.hmcts.befta.data.RequestData;
@@ -43,15 +42,9 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     private Logger logger = LoggerFactory.getLogger(DefaultBackEndFunctionalTestScenarioPlayer.class);
 
     private final BackEndFunctionalTestScenarioContext scenarioContext;
-    private final TestAutomationAdapter taAdapter;
     private Scenario scenario;
 
     public DefaultBackEndFunctionalTestScenarioPlayer() {
-        this(new DefaultTestAutomationAdapter(TestAutomationConfig.INSTANCE));
-    }
-
-    protected DefaultBackEndFunctionalTestScenarioPlayer(TestAutomationAdapter taAdapter) {
-        this.taAdapter = taAdapter;
         RestAssured.baseURI = TestAutomationConfig.INSTANCE.getTestUrl();
         RestAssured.useRelaxedHTTPSValidation();
         scenarioContext = new BackEndFunctionalTestScenarioContext();
@@ -60,7 +53,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     @Before()
     public void prepare(Scenario scenario) {
         this.scenario = scenario;
-        taAdapter.loadTestDataIfNecessary();
+        BeftaMain.getAdapter().loadTestDataIfNecessary();
     }
 
     @Override
@@ -117,7 +110,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
 
         HttpTestData testData = scenarioContext.getTestData();
 
-        new DynamicValueInjector(taAdapter, testData, scenarioContext).injectDataFromContext();
+        new DynamicValueInjector(BeftaMain.getAdapter(), testData, scenarioContext).injectDataFromContext();
 
         RequestSpecification raRequest = buildRestAssuredRequestWith(testData.getRequest());
 
@@ -329,7 +322,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         String logPrefix = scenarioContext.getCurrentScenarioTag() + ": " + prefix + " [" + user.getUsername() + "]["
                 + user.getPassword() + "] ";
         try {
-            taAdapter.authenticate(user);
+            BeftaMain.getAdapter().authenticate(user);
             logger.info(logPrefix + "authenticated");
         } catch (Exception ex) {
             logger.info(logPrefix + "credentials invalid");

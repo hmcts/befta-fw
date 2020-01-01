@@ -29,15 +29,16 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
 
     private static boolean isTestDataLoaded = false;
 
-    public DefaultTestAutomationAdapter(TestAutomationConfig config) {
+    public DefaultTestAutomationAdapter() {
         final ServiceAuthorisationApi serviceAuthorisationApi = Feign.builder().encoder(new JacksonEncoder())
-                .contract(new SpringMvcContract()).target(ServiceAuthorisationApi.class, config.getS2SURL());
+                .contract(new SpringMvcContract())
+                .target(ServiceAuthorisationApi.class, BeftaMain.getConfig().getS2SURL());
 
-        this.tokenGenerator = new ServiceAuthTokenGenerator(config.getOauth2Config().getClientSecret(),
-                config.getGatewayServiceName(), serviceAuthorisationApi);
+        this.tokenGenerator = new ServiceAuthTokenGenerator(BeftaMain.getConfig().getOauth2Config().getClientSecret(),
+                BeftaMain.getConfig().getGatewayServiceName(), serviceAuthorisationApi);
 
         idamApi = Feign.builder().encoder(new JacksonEncoder()).decoder(new JacksonDecoder()).target(AuthApi.class,
-                config.getIdamURL());
+                BeftaMain.getConfig().getIdamURL());
     }
 
     @Override

@@ -3,11 +3,11 @@ package uk.gov.hmcts.befta;
 import uk.gov.hmcts.befta.auth.OAuth2;
 import uk.gov.hmcts.befta.util.EnvUtils;
 
-public enum TestAutomationConfig {
+public class TestAutomationConfig {
 
-    INSTANCE;
+    public static final TestAutomationConfig INSTANCE = new TestAutomationConfig();
 
-    TestAutomationConfig() {
+    private TestAutomationConfig() {
     }
 
     public String getTestUrl() {
