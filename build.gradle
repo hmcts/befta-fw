@@ -4,8 +4,8 @@ plugins {
 
 apply plugin: 'java'
 
-group 'uk.gov.hmcts.ccd'
-version '1.0.0-SNAPSHOT'
+group 'uk.gov.hmcts'
+version '1.0.3-SNAPSHOT'
 
 // tag::repositories[]
 repositories {
