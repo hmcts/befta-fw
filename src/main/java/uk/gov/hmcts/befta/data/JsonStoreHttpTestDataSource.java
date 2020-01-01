@@ -1,9 +1,7 @@
 package uk.gov.hmcts.befta.data;
 
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import com.google.common.reflect.ClassPath;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import uk.gov.hmcts.jsonstore.JsonResourceStoreWithInheritance;
@@ -15,20 +13,19 @@ public class JsonStoreHttpTestDataSource implements HttpTestDataSource {
     private JsonResourceStoreWithInheritance jsonStore;
 
     public JsonStoreHttpTestDataSource(String[] resourcePackages) {
-        PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver(
-                this.getClass().getClassLoader());
-        for (String resourcePackage : resourcePackages) {
-            try {
-                String packagePath = this.getClass().getClassLoader().getResource(resourcePackage).getPath();
-                Resource[] resources = resolver
-                        .getResources("classpath*:" + resourcePackage + "/**/*.json");
-                for (Resource resource : resources) {
-                    String resourcePath = resource.getURL().getPath();
-                    resourcePaths.add(resourcePackage + resourcePath.substring(packagePath.length()));
+        try {
+            ClassPath cp = ClassPath.from(Thread.currentThread().getContextClassLoader());
+            for (String resourcePackage : resourcePackages) {
+                String prefix = resourcePackage + "/";
+                for (ClassPath.ResourceInfo info : cp.getResources()) {
+                    if (info.getResourceName().startsWith(prefix)
+                            && info.getResourceName().endsWith(".td.json")) {
+                        resourcePaths.add(info.getResourceName());
+                    }
                 }
-            } catch (IOException e) {
-                throw new RuntimeException(e);
             }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
