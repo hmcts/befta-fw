@@ -12,7 +12,7 @@
 		"invokingUser": {
 			"username": "mutlu.sancaktutar@hmcts.net",
 			"password": "[[$CCD_CASEWORKER_AUTOTEST_PASSWORD]]",
-			"uid": 4567
+			"id": 4567
 		}
 	},
 	"request": {

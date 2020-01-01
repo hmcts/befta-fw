@@ -2,6 +2,7 @@ package uk.gov.hmcts.befta.util;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Test;
 import org.mockito.Mock;
 
 import uk.gov.hmcts.befta.DefaultTestAutomationAdapter;
@@ -35,7 +36,7 @@ public class DynamicValueInjectorTest {
         scenarioContext.addChildContext(subcontext);
     }
     
-    // @Test
+    @Test
     public void shoudlInjectAllValues() {
 
         HttpTestData testData = scenarioContext.getTestData();
@@ -51,10 +52,6 @@ public class DynamicValueInjectorTest {
         Assert.assertEquals("token value", testData.getRequest().getPathVariables().get("token"));
         Assert.assertEquals("token value at index 2", testData.getRequest().getPathVariables().get("token_2"));
         Assert.assertEquals("token value", testData.getRequest().getBody().get("event_token"));
-
-        // Assert.assertEquals("[[DYNAMIC]]",
-        // testData.getRequest().getHeaders().get("uid"));
-
     }
 
     class BackEndFunctionalTestScenarioContextForTest extends BackEndFunctionalTestScenarioContext {
