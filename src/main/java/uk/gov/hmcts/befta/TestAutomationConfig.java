@@ -26,6 +26,10 @@ public class TestAutomationConfig {
         return EnvUtils.require("CCD_GW_SERVICE_NAME");
     }
 
+    public String getGatewayServiceSecret() {
+        return EnvUtils.require("CCD_GW_SERVICE_SECRET");
+    }
+
     public String getDefinitionStoreUrl() {
         return EnvUtils.require("DEFINITION_STORE_HOST");
     }
