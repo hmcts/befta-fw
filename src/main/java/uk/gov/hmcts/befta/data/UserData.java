@@ -2,13 +2,21 @@ package uk.gov.hmcts.befta.data;
 
 public class UserData {
 
+    private String id;
+
     private String username;
 
     private String password;
 
-    private String token;
+    private String accessToken;
 
-    private String uid;
+    public UserData() {
+    }
+
+    public UserData(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 
     public String getUsername() {
         return username;
@@ -26,20 +34,20 @@ public class UserData {
         this.password = password;
     }
 
-    public String getToken() {
-        return token;
+    public String getAccessToken() {
+        return accessToken;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
     }
 
-    public String getUid() {
-        return uid;
+    public String getId() {
+        return id;
     }
 
-    public void setUid(String uid) {
-        this.uid = uid;
+    public void setId(String id) {
+        this.id = id;
     }
 
 }

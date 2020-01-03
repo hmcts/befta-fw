@@ -4,8 +4,8 @@ plugins {
 
 apply plugin: 'java'
 
-group 'uk.gov.hmcts.ccd'
-version '1.0.0-SNAPSHOT'
+group 'uk.gov.hmcts'
+version '1.0.8-SNAPSHOT'
 
 // tag::repositories[]
 repositories {
@@ -23,6 +23,10 @@ ext {
     junitVintageVersion = '5.2.0'
 }
 
+jar {
+    baseName = "befta-fw"
+}
+
 dependencies {
     compile "com.fasterxml.jackson.core:jackson-databind:2.9.10.1"
 
@@ -36,7 +40,9 @@ dependencies {
     compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.26'
     compile group: 'uk.gov.hmcts.reform', name: 'service-auth-provider-client', version: '2.0.0'
     compile group: 'org.apache.httpcomponents', name: 'httpcore', version: '4.4.12'
-        
+    
+    compile group: 'com.google.guava', name: 'guava', version: '28.1-jre'
+
     testCompile 'io.github.openfeign:feign-jackson:9.7.0'
     testCompile group: 'org.mockito', name: 'mockito-core', version: '2.24.0'
     

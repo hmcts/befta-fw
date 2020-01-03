@@ -8,9 +8,8 @@ import java.util.Map;
 import uk.gov.hmcts.befta.data.HttpTestData;
 import uk.gov.hmcts.befta.data.HttpTestDataSource;
 import uk.gov.hmcts.befta.data.JsonStoreHttpTestDataSource;
-import uk.gov.hmcts.befta.steps.MapVerificationResult;
-import uk.gov.hmcts.befta.steps.MapVerifier;
-
+import uk.gov.hmcts.befta.util.MapVerificationResult;
+import uk.gov.hmcts.befta.util.MapVerifier;
 
 
 public class JsonStoreWithInheritanceTest {
