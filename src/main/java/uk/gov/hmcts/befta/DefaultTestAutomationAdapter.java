@@ -34,16 +34,11 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
                 .contract(new SpringMvcContract())
                 .target(ServiceAuthorisationApi.class, BeftaMain.getConfig().getS2SURL());
 
-        this.tokenGenerator = new ServiceAuthTokenGenerator(BeftaMain.getConfig().getOauth2Config().getClientSecret(),
+        this.tokenGenerator = new ServiceAuthTokenGenerator(BeftaMain.getConfig().getGatewayServiceSecret(),
                 BeftaMain.getConfig().getGatewayServiceName(), serviceAuthorisationApi);
 
         idamApi = Feign.builder().encoder(new JacksonEncoder()).decoder(new JacksonDecoder()).target(AuthApi.class,
                 BeftaMain.getConfig().getIdamURL());
-    }
-
-    @Override
-    public TestAutomationConfig getAutomationConfig() {
-        return TestAutomationConfig.INSTANCE;
     }
 
     @Override
@@ -52,13 +47,19 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
     }
 
     @Override
-    public UserData authenticate(UserData user) {
-        return users.computeIfAbsent(user.getUsername(), e -> {
+    public void authenticate(UserData user) {
+        UserData cached = users.computeIfAbsent(user.getUsername(), e -> {
             final String accessToken = getIdamOauth2Token(user.getUsername(), user.getPassword());
             final AuthApi.User idamUser = idamApi.getUser(accessToken);
             user.setId(idamUser.getId());
+            user.setAccessToken(accessToken);
             return user;
         });
+
+        if (user != cached) {
+            user.setId(cached.getId());
+            user.setAccessToken(cached.getAccessToken());
+        }
     }
 
     @Override
@@ -81,7 +82,7 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
         String authorisation = username + ":" + password;
         String base64Authorisation = Base64.getEncoder().encodeToString(authorisation.getBytes());
 
-        OAuth2 oauth2 = getAutomationConfig().getOauth2Config();
+        OAuth2 oauth2 = BeftaMain.getConfig().getOauth2Config();
         AuthApi.AuthenticateUserResponse authenticateUserResponse = idamApi
                 .authenticateUser(BASIC + base64Authorisation, CODE, oauth2.getClientId(), oauth2.getRedirectUri());
 
