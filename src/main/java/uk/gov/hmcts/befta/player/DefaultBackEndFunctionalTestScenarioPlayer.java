@@ -53,7 +53,6 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     @Before()
     public void prepare(Scenario scenario) {
         this.scenario = scenario;
-        BeftaMain.getAdapter().loadTestDataIfNecessary();
     }
 
     @Override
