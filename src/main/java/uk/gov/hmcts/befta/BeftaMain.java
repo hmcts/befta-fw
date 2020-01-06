@@ -8,7 +8,7 @@ public class BeftaMain {
     private static TestAutomationAdapter taAdapter = new DefaultTestAutomationAdapter();
 
     public static void main(String[] args) {
-        taAdapter.loadTestDataIfNecessary();
+        BeftaTestDataLoader.main(args);
         Main.main(args);
     }
 
