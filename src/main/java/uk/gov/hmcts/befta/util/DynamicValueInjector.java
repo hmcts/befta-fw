@@ -3,10 +3,11 @@ package uk.gov.hmcts.befta.util;
 import java.util.List;
 import java.util.Map;
 
-import uk.gov.hmcts.befta.TestAutomationAdapter;
-import uk.gov.hmcts.befta.data.HttpTestData;
-import uk.gov.hmcts.befta.data.RequestData;
-import uk.gov.hmcts.befta.data.UserData;
+import ch.qos.logback.core.net.*;
+import io.cucumber.java.*;
+import org.slf4j.*;
+import uk.gov.hmcts.befta.*;
+import uk.gov.hmcts.befta.data.*;
 import uk.gov.hmcts.befta.exception.FunctionalTestException;
 import uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext;
 
@@ -14,6 +15,7 @@ public class DynamicValueInjector {
 
     private static final String DYNAMIC_CONTENT_PLACEHOLDER = "[[DYNAMIC]]";
     private final TestAutomationAdapter taAdapter;
+    private Logger logger = LoggerFactory.getLogger(DynamicValueInjector.class);
 
     private BackEndFunctionalTestScenarioContext scenarioContext;
     private HttpTestData testData;
@@ -92,6 +94,13 @@ public class DynamicValueInjector {
                 injectDynamicValuesInto(path + "." + key, (Object[]) value);
             } else if (value instanceof Map<?, ?>) {
                 injectDynamicValuesInto(path + "." + key, (Map<String, Object>) value);
+
+                ((Map<String, Object>) value).forEach((keyA, valueA) -> {
+                    if (isUrl(valueA.toString())){
+                        Object envVariable = calculateFromEnvVariable (valueA.toString());
+                        ((Map<String, Object>) value).replace(keyA, valueA, envVariable);
+                    }
+                });
             }
         });
 
@@ -119,9 +128,20 @@ public class DynamicValueInjector {
         return valueString != null && valueString.startsWith("${") && valueString.endsWith("}");
     }
 
+    private boolean isUrl(String valueString) {
+        return valueString != null && valueString.contains("${[") && valueString.contains("]}");
+    }
+
     private Object calculateFromContext(Object container, String formula) {
         String[] fields = formula.substring(3).split("\\]\\[|\\]\\}");
         return calculateInContainer(container, fields, 1);
+    }
+
+    private String calculateFromEnvVariable(String value) {
+        String envVariable = value.substring((value.indexOf("${[") + 3) , value.indexOf("]}"));
+        String envVariableValue = BeftaMain.getConfig().getDocumentManagementUrl(envVariable);
+        String valueSubString = value.substring((value.indexOf("]}") + 2));
+        return envVariableValue + valueSubString;
     }
 
     private Object calculateInContainer(Object container, String[] fields, int fieldIndex) {

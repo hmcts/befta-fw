@@ -38,6 +38,10 @@ public class TestAutomationConfig {
         return EnvUtils.require("CCD_IMPORT_AUTOTEST_EMAIL");
     }
 
+    public String getDocumentManagementUrl(String EnvVariable) {
+        return EnvUtils.require(EnvVariable);
+    }
+
     public String getImporterAutoTestPassword() {
         return EnvUtils.require("CCD_IMPORT_AUTOTEST_PASSWORD");
     }
