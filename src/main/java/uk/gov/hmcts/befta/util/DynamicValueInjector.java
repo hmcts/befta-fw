@@ -3,8 +3,6 @@ package uk.gov.hmcts.befta.util;
 import java.util.List;
 import java.util.Map;
 
-import ch.qos.logback.core.net.*;
-import io.cucumber.java.*;
 import org.slf4j.*;
 import uk.gov.hmcts.befta.*;
 import uk.gov.hmcts.befta.data.*;
@@ -139,7 +137,7 @@ public class DynamicValueInjector {
 
     private String calculateFromEnvVariable(String value) {
         String envVariable = value.substring((value.indexOf("${[") + 3) , value.indexOf("]}"));
-        String envVariableValue = BeftaMain.getConfig().getDocumentManagementUrl(envVariable);
+        String envVariableValue = BeftaMain.getConfig().getEnvironmentVariable(envVariable);
         String valueSubString = value.substring((value.indexOf("]}") + 2));
         return envVariableValue + valueSubString;
     }
