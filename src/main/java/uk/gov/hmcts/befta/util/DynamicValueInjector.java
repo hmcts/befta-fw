@@ -1,8 +1,10 @@
 package uk.gov.hmcts.befta.util;
 
-import java.util.List;
-import java.util.Map;
+import java.lang.reflect.*;
+import java.util.*;
+import java.util.regex.*;
 
+import org.apache.logging.log4j.util.*;
 import org.slf4j.*;
 import uk.gov.hmcts.befta.*;
 import uk.gov.hmcts.befta.data.*;
@@ -12,6 +14,8 @@ import uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext;
 public class DynamicValueInjector {
 
     private static final String DYNAMIC_CONTENT_PLACEHOLDER = "[[DYNAMIC]]";
+    private static final String DYNAMIC_REGEX_DATA = "\\]\\[|\\]\\}|\\]\\{";
+    private static final String DYNAMIC_REGEX_ENVIRONMENT_VARIABLE = "\\}\\{|\\}\\}|\\}\\[";
     private final TestAutomationAdapter taAdapter;
     private Logger logger = LoggerFactory.getLogger(DynamicValueInjector.class);
 
@@ -19,7 +23,7 @@ public class DynamicValueInjector {
     private HttpTestData testData;
 
     public DynamicValueInjector(TestAutomationAdapter taAdapter, HttpTestData testData,
-            BackEndFunctionalTestScenarioContext scenarioContext) {
+                                BackEndFunctionalTestScenarioContext scenarioContext) {
         this.scenarioContext = scenarioContext;
         this.testData = testData;
         this.taAdapter = taAdapter;
@@ -54,7 +58,7 @@ public class DynamicValueInjector {
     private Object getDynamicValueFor(String path, String key, Object value) {
         if (value == null || !(value instanceof String))
             return value;
-
+        Object resolvedValue = new Object();
         String valueString = (String) value;
         if (valueString.equalsIgnoreCase(DYNAMIC_CONTENT_PLACEHOLDER)) {
             UserData theInvokingUser = scenarioContext.getTheInvokingUser();
@@ -68,15 +72,20 @@ public class DynamicValueInjector {
             } else if (key.equalsIgnoreCase("uid") && theInvokingUser.getId() != null) {
                 return theInvokingUser.getId();
             } else if (key.equalsIgnoreCase("cid")) {
-                return calculateFromContext(scenarioContext,
+                return calculateFromContextFormula(scenarioContext,
                         "${[scenarioContext][childContexts][Standard_Full_Case_Creation_Data][testData][actualResponse][body][id]}");
             }
             throw new FunctionalTestException("Dynamic value for '" + path + "." + key + "' does not exist!");
-        } else if (isFormula(valueString)) {
-            return calculateFromContext(scenarioContext, valueString);
+        } else if (isPartFormula((String) value)) {
+            Object retrievedValue = new Object();
+            resolvedValue = getFormulaOrEnvironmentVariables((String) value, retrievedValue);
+            return resolvedValue;
+
         }
+
         return value;
     }
+
 
     @SuppressWarnings("unchecked")
     private void injectDynamicValuesInto(String path, Map<String, Object> map) {
@@ -85,23 +94,45 @@ public class DynamicValueInjector {
         }
         map.forEach((key, value) -> {
             if (value instanceof String) {
-                if (isFormula((String) value)) {
-                    map.put(key, calculateFromContext(scenarioContext, (String) value));
+                Object resolvedValue = new Object();
+                Object retrievedValue = new Object();
+                if (isPartFormula((String) value)) {
+                    resolvedValue = getFormulaOrEnvironmentVariables((String) value, retrievedValue);
                 }
+                map.put(key, resolvedValue);
             } else if (isArray(value)) {
                 injectDynamicValuesInto(path + "." + key, (Object[]) value);
             } else if (value instanceof Map<?, ?>) {
                 injectDynamicValuesInto(path + "." + key, (Map<String, Object>) value);
-
-                ((Map<String, Object>) value).forEach((keyA, valueA) -> {
-                    if (isUrl(valueA.toString())){
-                        Object envVariable = calculateFromEnvVariable (valueA.toString());
-                        ((Map<String, Object>) value).replace(keyA, valueA, envVariable);
-                    }
-                });
             }
         });
 
+    }
+
+    private Object getFormulaOrEnvironmentVariables(String value, Object retrievedValue) {
+        Object resolvedValue;
+        String preText = Strings.EMPTY;
+        String postText = Strings.EMPTY;
+        String toAnalyse;
+        if (!isFormula(value)) {
+            preText = value.substring(0, value.indexOf("${"));
+            postText = value.substring((value.lastIndexOf("}") + 1));
+            toAnalyse = value.substring(value.indexOf("${"), (value.lastIndexOf("}") + 1));
+        } else {
+            toAnalyse = value;
+        }
+
+        if (isFormula(toAnalyse)) {
+            if (isData(value, DYNAMIC_REGEX_DATA) && isData(toAnalyse, DYNAMIC_REGEX_ENVIRONMENT_VARIABLE)) {
+                retrievedValue = calculateFromContext(scenarioContext, toAnalyse);
+            } else if (isData(toAnalyse, DYNAMIC_REGEX_DATA) && !isData(toAnalyse, DYNAMIC_REGEX_ENVIRONMENT_VARIABLE)) {
+                retrievedValue = calculateFromContextFormula(scenarioContext, toAnalyse);
+            } else if (isData(toAnalyse, DYNAMIC_REGEX_ENVIRONMENT_VARIABLE) && !isData(toAnalyse, DYNAMIC_REGEX_DATA)) {
+                retrievedValue = calculateFromContextForEnvVariable(toAnalyse);
+            }
+        }
+        resolvedValue = preText + retrievedValue + postText;
+        return resolvedValue;
     }
 
     @SuppressWarnings("unchecked")
@@ -112,7 +143,7 @@ public class DynamicValueInjector {
         for (int i = 0; i < objects.length; i++) {
             if (objects[i] instanceof String) {
                 if (isFormula((String) objects[i])) {
-                    objects[i] = calculateFromContext(scenarioContext, (String) objects[i]);
+                    objects[i] = calculateFromContextFormula(scenarioContext, (String) objects[i]);
                 }
             } else if (objects[i] instanceof Map<?, ?>) {
                 injectDynamicValuesInto(path + "[" + i + "]", (Map<String, Object>) objects[i]);
@@ -126,20 +157,74 @@ public class DynamicValueInjector {
         return valueString != null && valueString.startsWith("${") && valueString.endsWith("}");
     }
 
-    private boolean isUrl(String valueString) {
-        return valueString != null && valueString.contains("${[") && valueString.contains("]}");
+    private boolean isPartFormula(String valueString) {
+        return valueString != null && valueString.contains("${") && valueString.contains("}");
     }
 
-    private Object calculateFromContext(Object container, String formula) {
-        String[] fields = formula.substring(3).split("\\]\\[|\\]\\}");
+    private boolean isData(String valueString, String regex) {
+        Pattern p = Pattern.compile(regex);
+        Matcher m = p.matcher(valueString);
+        return m.find();
+    }
+
+    private Object calculateFromContextFormula(Object container, String formula) {
+        String[] fields = formula.substring(3).split(DYNAMIC_REGEX_DATA);
         return calculateInContainer(container, fields, 1);
     }
 
+    private Object calculateFromContext(Object container, String formula) {
+        ArrayList<String> dataItems = new ArrayList<>();
+        ArrayList<String> envItems = new ArrayList<>();
+        int count = 0;
+        for (int i = 0; i < formula.length(); i++) {
+            if (formula.length() != (i + 1)) {
+                String s = formula.substring(i, (i + 2));
+                if (s.matches("\\}\\[|\\}\\}|\\}\\{")) {
+                    envItems.add(formula.substring(count, i).replaceAll("\\]\\{|\\]\\}|\\}\\[|\\}\\{|\\$\\{\\{|\\$\\{\\[", ""));
+                    count = i;
+                } else if (s.matches("\\]\\{|\\]\\}|\\]\\[")) {
+                    dataItems.add(formula.substring(count, i).replaceAll("\\]\\{|\\]\\}|\\}\\[|\\}\\{|\\$\\{\\{|\\$\\{\\[|\\]\\[", ""));
+                    count = i;
+                }
+            }
+        }
+
+        String responseString = retrieveValues(container, formula, dataItems, envItems);
+        return responseString;
+    }
+
+    private String retrieveValues(Object container, String formula, ArrayList<String> dataItems, ArrayList<String> envItems) {
+        HashMap<String, String> environmentVariableHashMap = new HashMap<>();
+        for (int i = 0; i < envItems.size(); i++) {
+            environmentVariableHashMap.put(envItems.get(i), calculateFromEnvVariable(envItems.get(i)));
+        }
+
+        String[] stringArray = new String[dataItems.size()];
+        for (int i = 0; i < dataItems.size(); i++) {
+            stringArray[i] = dataItems.get(i);
+        }
+        Object response = calculateInContainer(container, stringArray, 1);
+
+        String responseString = Strings.EMPTY;
+        for (Map.Entry<String, String> entry : environmentVariableHashMap.entrySet()) {
+            String key = entry.getKey();
+            Object value = entry.getValue();
+            responseString += formula.replaceAll(key, value.toString());
+
+        }
+
+        responseString = responseString.replace((responseString.substring(responseString.indexOf("["), (responseString.lastIndexOf("]") + 1))), response.toString());
+        responseString = responseString.replaceAll("\\$|\\{|\\}", "");
+        return responseString;
+    }
+
+    private Object calculateFromContextForEnvVariable(String formula) {
+        String[] fields = formula.substring(3).split(DYNAMIC_REGEX_ENVIRONMENT_VARIABLE);
+        return calculateEnvironmentVariables(fields, 0);
+    }
+
     private String calculateFromEnvVariable(String value) {
-        String envVariable = value.substring((value.indexOf("${[") + 3) , value.indexOf("]}"));
-        String envVariableValue = BeftaMain.getConfig().getEnvironmentVariable(envVariable);
-        String valueSubString = value.substring((value.indexOf("]}") + 2));
-        return envVariableValue + valueSubString;
+        return BeftaMain.getConfig().getEnvironmentVariable(value);
     }
 
     private Object calculateInContainer(Object container, String[] fields, int fieldIndex) {
@@ -163,6 +248,14 @@ public class DynamicValueInjector {
             return calculateInContainer(value, fields, fieldIndex + 1);
         }
 
+    }
+
+    private String calculateEnvironmentVariables(String[] fields, int fieldIndex) {
+        String value = Strings.EMPTY;
+        for (int i = 0; i < fields.length; i++) {
+            value += calculateFromEnvVariable(fields[fieldIndex]);
+        }
+        return value;
     }
 
     private boolean isArray(Object object) {

@@ -37,7 +37,7 @@ public class DynamicValueInjectorTest {
     }
     
     @Test
-    public void shoudlInjectAllValues() {
+    public void shoudlInjectAllFormulaValues() {
 
         HttpTestData testData = scenarioContext.getTestData();
 
@@ -52,6 +52,35 @@ public class DynamicValueInjectorTest {
         Assert.assertEquals("token value", testData.getRequest().getPathVariables().get("token"));
         Assert.assertEquals("token value at index 2", testData.getRequest().getPathVariables().get("token_2"));
         Assert.assertEquals("token value", testData.getRequest().getBody().get("event_token"));
+    }
+
+    @Test
+    public void shoudlInjectAllDataValues() {
+
+        scenarioContext = new BackEndFunctionalTestScenarioContextForTest();
+
+        scenarioContext.initializeTestDataFor("Simple-Test-Data-With-All-Possible-Dynamic-Data-Values");
+
+        BackEndFunctionalTestScenarioContext subcontext = new BackEndFunctionalTestScenarioContextForTest();
+        subcontext.initializeTestDataFor("Token_Creation_Call_Data");
+        subcontext.getTestData().setActualResponse(subcontext.getTestData().getExpectedResponse());
+
+        scenarioContext.setTheInvokingUser(scenarioContext.getTestData().getInvokingUser());
+        scenarioContext.addChildContext(subcontext);
+
+        HttpTestData testData = scenarioContext.getTestData();
+
+        DynamicValueInjector underTest = new DynamicValueInjector(taAdapter, testData, scenarioContext);
+
+        Assert.assertEquals("[[DYNAMIC]]", testData.getRequest().getPathVariables().get("uid"));
+
+        underTest.injectDataFromContext();
+
+        Assert.assertEquals("http://http://localhost:5000token value at index 2http://localhost:5000/documents/binary", testData.getRequest().getPathVariables().get("email"));
+
+        Assert.assertEquals("http://http://localhost:5000/documents/binary", testData.getRequest().getPathVariables().get("token"));
+        Assert.assertEquals("http://localhost:5000", testData.getRequest().getPathVariables().get("token_2"));
+        Assert.assertEquals("http://http://localhost:5000/documents/binary", testData.getRequest().getBody().get("event_token"));
     }
 
     class BackEndFunctionalTestScenarioContextForTest extends BackEndFunctionalTestScenarioContext {
