@@ -37,7 +37,7 @@ public class DynamicValueInjectorTest {
     }
     
     @Test
-    public void shoudlInjectAllFormulaValues() {
+    public void shouldInjectAllFormulaValues() {
 
         HttpTestData testData = scenarioContext.getTestData();
 
@@ -55,7 +55,7 @@ public class DynamicValueInjectorTest {
     }
 
     @Test
-    public void shoudlInjectAllDataValues() {
+    public void shouldInjectAllEnvironmentVariables() {
 
         scenarioContext = new BackEndFunctionalTestScenarioContextForTest();
 
