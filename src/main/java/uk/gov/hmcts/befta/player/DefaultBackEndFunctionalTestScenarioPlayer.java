@@ -7,8 +7,6 @@ import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -26,13 +24,14 @@ import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.SpecificationQuerier;
 import uk.gov.hmcts.befta.BeftaMain;
 import uk.gov.hmcts.befta.TestAutomationConfig;
+import uk.gov.hmcts.befta.TestAutomationConfig.ResponseHeaderCheckPolicy;
 import uk.gov.hmcts.befta.data.HttpTestData;
 import uk.gov.hmcts.befta.data.RequestData;
 import uk.gov.hmcts.befta.data.ResponseData;
 import uk.gov.hmcts.befta.data.UserData;
 import uk.gov.hmcts.befta.exception.FunctionalTestException;
 import uk.gov.hmcts.befta.util.DynamicValueInjector;
-import uk.gov.hmcts.befta.util.EnvUtils;
+import uk.gov.hmcts.befta.util.EnvironmentVariableUtils;
 import uk.gov.hmcts.befta.util.JsonUtils;
 import uk.gov.hmcts.befta.util.MapVerificationResult;
 import uk.gov.hmcts.befta.util.MapVerifier;
@@ -243,30 +242,62 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
             throws IOException {
         ResponseData expectedResponse = scenarioContext.getTestData().getExpectedResponse();
         ResponseData actualResponse = scenarioContext.getTheResponse();
-        Map<String, List<?>> issues = new HashMap<>();
+        
+        List<String> issuesInResponseHeaders = null, issuesInResponseBody = null;
+        String issueWithResponseCode = null;
 
         if (actualResponse.getResponseCode() != expectedResponse.getResponseCode()) {
-            issues.put("responseCode", Collections.singletonList("Response code mismatch, expected: "
-                    + expectedResponse.getResponseCode() + ", actual: " + actualResponse.getResponseCode()));
+            issueWithResponseCode="Response code mismatch, expected: "
+                    + expectedResponse.getResponseCode() + ", actual: " + actualResponse.getResponseCode();
         }
 
         MapVerificationResult headerVerification = new MapVerifier("actualResponse.headers", 1, false)
                 .verifyMap(expectedResponse.getHeaders(), actualResponse.getHeaders());
         if (!headerVerification.isVerified()) {
-            issues.put("headers", headerVerification.getAllIssues());
+            issuesInResponseHeaders = headerVerification.getAllIssues();
         }
 
         MapVerificationResult bodyVerification = new MapVerifier("actualResponse.body", 20)
                 .verifyMap(expectedResponse.getBody(), actualResponse.getBody());
         if (!bodyVerification.isVerified()) {
-            issues.put("body", bodyVerification.getAllIssues());
+            issuesInResponseBody = bodyVerification.getAllIssues();
         }
 
-        scenario.write("Response: " + JsonUtils.getPrettyJsonFromObject(scenarioContext.getTheResponse()));
+        scenario.write("Response:\n" + JsonUtils.getPrettyJsonFromObject(scenarioContext.getTheResponse()));
 
-        if (issues.get("responseCode") != null || issues.get("headers") != null || issues.get("body") != null) {
-            String errorMessage = "Response failures: " + JsonUtils.getPrettyJsonFromObject(issues);
-            throw new FunctionalTestException(errorMessage);
+        processAnyIssuesInResponse(issueWithResponseCode, issuesInResponseHeaders, issuesInResponseBody);
+    }
+
+    private void processAnyIssuesInResponse(String issueWithResponseCode, List<String> issuesInResponseHeaders,
+            List<String> issuesInResponseBody) {
+        StringBuffer allVerificationIssues = new StringBuffer(
+                "Could not verify the actual response against expected one. Below are the issues.").append('\n');
+
+        if (issueWithResponseCode != null) {
+            allVerificationIssues.append(issueWithResponseCode).append('\n');
+        }
+
+        ResponseHeaderCheckPolicy headerPolicy = BeftaMain.getConfig().getResponseHeaderCheckPolicy();
+        if (issuesInResponseHeaders != null) {
+            if (headerPolicy.equals(ResponseHeaderCheckPolicy.JUST_WARN)) {
+                logger.warn("Issues found in actual response headers as follows:");
+                issuesInResponseHeaders.forEach(issue -> logger.warn(issue));
+                allVerificationIssues.append("***").append(issuesInResponseHeaders)
+                        .append(" issues in headers are listed just as warnings.").append('\n');
+            }
+            if (headerPolicy.equals(ResponseHeaderCheckPolicy.FAIL_TEST)) {
+                issuesInResponseHeaders.forEach(issue -> allVerificationIssues.append(issue).append('\n'));
+            }
+        }
+
+        if (issuesInResponseBody != null) {
+            issuesInResponseBody.forEach(issue -> allVerificationIssues.append(issue).append('\n'));
+        }
+
+        if (issueWithResponseCode != null
+                || (issuesInResponseHeaders != null && headerPolicy.equals(ResponseHeaderCheckPolicy.FAIL_TEST))
+                || issuesInResponseBody != null) {
+            throw new FunctionalTestException(allVerificationIssues.toString());
         }
     }
 
@@ -299,14 +330,14 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     }
 
     private void resolveUserData(String prefix, UserData aUser) {
-        String resolvedUsername = EnvUtils.resolvePossibleEnvironmentVariable(aUser.getUsername());
+        String resolvedUsername = EnvironmentVariableUtils.resolvePossibleVariable(aUser.getUsername());
         if (resolvedUsername.equals(aUser.getUsername())) {
             logger.info(scenarioContext.getCurrentScenarioTag() + ": Expected environment variable declaration "
                     + "for " + prefix + ".username but found '" + resolvedUsername + "', which may cause issues "
                     + "in higher environments");
         }
 
-        String resolvedPassword = EnvUtils.resolvePossibleEnvironmentVariable(aUser.getPassword());
+        String resolvedPassword = EnvironmentVariableUtils.resolvePossibleVariable(aUser.getPassword());
         if (resolvedPassword.equals(aUser.getPassword())) {
             logger.info(scenarioContext.getCurrentScenarioTag() + ": Expected environment variable declaration "
                     + "for " + prefix + ".password but found '" + resolvedPassword + "', which may cause issues "
