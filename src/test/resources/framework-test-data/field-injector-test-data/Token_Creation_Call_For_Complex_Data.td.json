@@ -1,6 +1,6 @@
 {
-	"_guid_": "Token_Creation_Call_Data",
-	"title": "Token Creation Call_Data",
+	"_guid_": "Token_Creation_Call_For_Complex_Data",
+	"title": "Token Creation Call For Complex Data",
 	"expectedResponse": {
 		"body": {
 			"token": "http://http://localhost:5000/documents/binary",
