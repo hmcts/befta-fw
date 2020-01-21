@@ -23,9 +23,9 @@
 		},
 		"pathVariables": {
 			"uid": "[[DYNAMIC]]",
-			"email": "http://${{IDAM_USER_URL}[scenarioContext][childContexts][Token_Creation_Call_For_Complex_Data][testData][actualResponse][body][tokens][2][value]{IDAM_USER_URL}}/documents/binary",
-			"token": "http://${{IDAM_USER_URL}}/documents/binary",
-			"token_2": "${{IDAM_USER_URL}}"
+			"dummyComplexPathVariable": "a.user@{{IDAM_URL}}/${[scenarioContext][childContexts][Token_Creation_Call_For_Complex_Data][testData][actualResponse][body][tokens][2][value]}#{{IDAM_USER_URL}}/documents/binary",
+			"binanyUrlOverIdam": "{{IDAM_URL}}/documents/binary",
+			"justIdamUrl": "{{IDAM_URL}}"
 		},
 		"body": {
 			"event": {
@@ -49,7 +49,7 @@
 				"complicatedNestedValue_1": "${[scenarioContext][childContexts][Token_Creation_Call_For_Complex_Data][testData][actualResponse][body][tokens][2][value]}{{IDAM_USER_URL}}abc123{{DEFINITION_STORE_HOST}}",
 				"complicatedNestedValue_2": "abc${[scenarioContext][childContexts][Token_Creation_Call_For_Complex_Data][testData][actualResponse][body][tokens][2][value]}.=.{{IDAM_USER_URL}}${[scenarioContext][childContexts][Token_Creation_Call_For_Complex_Data][testData][actualResponse][body][tokens][2][value]}abc123{{DEFINITION_STORE_HOST}}"
 			},
-			"event_token": "http://${{IDAM_USER_URL}}/documents/binary",
+			"event_token": "{{IDAM_USER_URL}}/documents/binary",
 			"ignore_warning": false,
 			"draft_id": null
 		}
@@ -78,12 +78,12 @@
 			"onlyPredefinedDynamic": "[[DYNAMIC]]",
 			"onlyFormulaOnly": "token value at index 2",
 
-			"oneEnvironmentVariableOnly": "http://localhost:5000",
-			"threeEnvironmentVariablesOnly": "http://localhost:5000Pa55word11http://localhost:4451",
+			"oneEnvironmentVariableOnly": "{{DEFINITION_STORE_HOST}}",
+			"threeEnvironmentVariablesOnly": "{{DEFINITION_STORE_HOST}}Pa55word11{{DEFINITION_STORE_HOST}}",
 			"twoFormulasOnly": "token value at index 2token value at index 2",
 
-			"complicatedNestedValue_1": "token value at index 2http://localhost:5000abc123http://localhost:4451",
-			"complicatedNestedValue_2": "abctoken value at index 2.=.http://localhost:5000token value at index 2abc123http://localhost:4451"
+			"complicatedNestedValue_1": "token value at index 2{{DEFINITION_STORE_HOST}}abc123{{DEFINITION_STORE_HOST}}",
+			"complicatedNestedValue_2": "abctoken value at index 2.=.{{DEFINITION_STORE_HOST}}token value at index 2abc123{{DEFINITION_STORE_HOST}}"
 		}
 	}
 }
