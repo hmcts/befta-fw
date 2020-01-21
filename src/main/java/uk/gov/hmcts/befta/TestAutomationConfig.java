@@ -39,7 +39,7 @@ public class TestAutomationConfig {
     }
 
     public String getEnvironmentVariable(String envVariable) {
-        return EnvUtils.require(envVariable);
+        return EnvironmentVariableUtils.getRequiredVariable(envVariable);
     }
 
     public String getImporterAutoTestPassword() {
