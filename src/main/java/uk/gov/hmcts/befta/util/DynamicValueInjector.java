@@ -76,7 +76,7 @@ public class DynamicValueInjector {
             } else if (key.equalsIgnoreCase("uid") && theInvokingUser.getId() != null) {
                 return theInvokingUser.getId();
             } else if (key.equalsIgnoreCase("cid")) {
-                return calculateFromContextFormula(scenarioContext,
+                return calculateFormulaFromContext(scenarioContext,
                         "${[scenarioContext][childContexts][Standard_Full_Case_Creation_Data][testData][actualResponse][body][id]}");
             }
             throw new FunctionalTestException("Dynamic value for '" + path + "." + key + "' does not exist!");
@@ -128,7 +128,7 @@ public class DynamicValueInjector {
             if (isData(value, DYNAMIC_REGEX_DATA) && isData(toAnalyse, DYNAMIC_REGEX_ENVIRONMENT_VARIABLE)) {
                 retrievedValue = calculateFromContext(scenarioContext, toAnalyse);
             } else if (isData(toAnalyse, DYNAMIC_REGEX_DATA) && !isData(toAnalyse, DYNAMIC_REGEX_ENVIRONMENT_VARIABLE)) {
-                retrievedValue = calculateFromContextFormula(scenarioContext, toAnalyse);
+                retrievedValue = calculateFormulaFromContext(scenarioContext, toAnalyse);
             } else if (isData(toAnalyse, DYNAMIC_REGEX_ENVIRONMENT_VARIABLE) && !isData(toAnalyse, DYNAMIC_REGEX_DATA)) {
                 retrievedValue = calculateFromContextForEnvVariable(toAnalyse);
             }
@@ -145,7 +145,7 @@ public class DynamicValueInjector {
         for (int i = 0; i < objects.length; i++) {
             if (objects[i] instanceof String) {
                 if (isFormula((String) objects[i])) {
-                    objects[i] = calculateFromContextFormula(scenarioContext, (String) objects[i]);
+                    objects[i] = calculateFormulaFromContext(scenarioContext, (String) objects[i]);
                 }
             } else if (objects[i] instanceof Map<?, ?>) {
                 injectDynamicValuesInto(path + "[" + i + "]", (Map<String, Object>) objects[i]);
@@ -169,7 +169,7 @@ public class DynamicValueInjector {
         return m.find();
     }
 
-    private Object calculateFromContextFormula(Object container, String formula) {
+    private Object calculateFormulaFromContext(Object container, String formula) {
         String[] fields = formula.substring(3).split(DYNAMIC_REGEX_DATA);
         return calculateInContainer(container, fields, 1);
     }
