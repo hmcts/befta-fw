@@ -195,7 +195,8 @@ public class DynamicValueInjector {
     private String retrieveValues(Object container, String formula, ArrayList<String> dataItems, ArrayList<String> envItems) {
         HashMap<String, String> environmentVariableHashMap = new HashMap<>();
         for (int i = 0; i < envItems.size(); i++) {
-            environmentVariableHashMap.put(envItems.get(i), calculateFromEnvVariable(envItems.get(i)));
+            environmentVariableHashMap.put(envItems.get(i),
+                    BeftaMain.getConfig().getEnvironmentVariable(envItems.get(i)));
         }
 
         String[] stringArray = new String[dataItems.size()];
@@ -220,10 +221,6 @@ public class DynamicValueInjector {
     private String calculateFromContextForEnvVariable(String formula) {
         String[] fields = formula.substring(3).split(DYNAMIC_REGEX_ENVIRONMENT_VARIABLE);
         return calculateEnvironmentVariables(fields, 0);
-    }
-
-    private String calculateFromEnvVariable(String value) {
-        return BeftaMain.getConfig().getEnvironmentVariable(value);
     }
 
     private Object calculateInContainer(Object container, String[] fields, int fieldIndex) {
@@ -252,7 +249,7 @@ public class DynamicValueInjector {
     private String calculateEnvironmentVariables(String[] fields, int fieldIndex) {
         String value = Strings.EMPTY;
         for (int i = 0; i < fields.length; i++) {
-            value += calculateFromEnvVariable(fields[fieldIndex]);
+            value += BeftaMain.getConfig().getEnvironmentVariable(fields[fieldIndex]);
         }
         return value;
     }
