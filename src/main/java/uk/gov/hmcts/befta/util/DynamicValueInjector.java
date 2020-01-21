@@ -1,13 +1,19 @@
 package uk.gov.hmcts.befta.util;
 
-import java.lang.reflect.*;
-import java.util.*;
-import java.util.regex.*;
+import org.apache.logging.log4j.util.Strings;
 
-import org.apache.logging.log4j.util.*;
-import org.slf4j.*;
-import uk.gov.hmcts.befta.*;
-import uk.gov.hmcts.befta.data.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import uk.gov.hmcts.befta.BeftaMain;
+import uk.gov.hmcts.befta.TestAutomationAdapter;
+import uk.gov.hmcts.befta.data.HttpTestData;
+import uk.gov.hmcts.befta.data.RequestData;
+import uk.gov.hmcts.befta.data.UserData;
 import uk.gov.hmcts.befta.exception.FunctionalTestException;
 import uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext;
 
@@ -17,7 +23,6 @@ public class DynamicValueInjector {
     private static final String DYNAMIC_REGEX_DATA = "\\]\\[|\\]\\}|\\]\\{";
     private static final String DYNAMIC_REGEX_ENVIRONMENT_VARIABLE = "\\}\\{|\\}\\}|\\}\\[";
     private final TestAutomationAdapter taAdapter;
-    private Logger logger = LoggerFactory.getLogger(DynamicValueInjector.class);
 
     private BackEndFunctionalTestScenarioContext scenarioContext;
     private HttpTestData testData;
@@ -58,7 +63,6 @@ public class DynamicValueInjector {
     private Object getDynamicValueFor(String path, String key, Object value) {
         if (value == null || !(value instanceof String))
             return value;
-        Object resolvedValue = new Object();
         String valueString = (String) value;
         if (valueString.equalsIgnoreCase(DYNAMIC_CONTENT_PLACEHOLDER)) {
             UserData theInvokingUser = scenarioContext.getTheInvokingUser();
@@ -78,9 +82,7 @@ public class DynamicValueInjector {
             throw new FunctionalTestException("Dynamic value for '" + path + "." + key + "' does not exist!");
         } else if (isPartFormula((String) value)) {
             Object retrievedValue = new Object();
-            resolvedValue = getFormulaOrEnvironmentVariables((String) value, retrievedValue);
-            return resolvedValue;
-
+            return getFormulaOrEnvironmentVariables((String) value, retrievedValue);
         }
 
         return value;
