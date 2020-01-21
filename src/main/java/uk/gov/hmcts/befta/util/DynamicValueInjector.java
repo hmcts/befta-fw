@@ -220,7 +220,11 @@ public class DynamicValueInjector {
 
     private String calculateFromContextForEnvVariable(String formula) {
         String[] fields = formula.substring(3).split(DYNAMIC_REGEX_ENVIRONMENT_VARIABLE);
-        return calculateEnvironmentVariables(fields);
+        String value = Strings.EMPTY;
+        for (int i = 0; i < fields.length; i++) {
+            value += BeftaMain.getConfig().getEnvironmentVariable(fields[0]);
+        }
+        return value;
     }
 
     private Object calculateInContainer(Object container, String[] fields, int fieldIndex) {
@@ -244,14 +248,6 @@ public class DynamicValueInjector {
             return calculateInContainer(value, fields, fieldIndex + 1);
         }
 
-    }
-
-    private String calculateEnvironmentVariables(String[] fields) {
-        String value = Strings.EMPTY;
-        for (int i = 0; i < fields.length; i++) {
-            value += BeftaMain.getConfig().getEnvironmentVariable(fields[0]);
-        }
-        return value;
     }
 
     private boolean isArray(Object object) {
