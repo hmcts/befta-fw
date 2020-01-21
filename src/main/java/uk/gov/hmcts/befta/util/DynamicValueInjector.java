@@ -95,7 +95,7 @@ public class DynamicValueInjector {
         }
         map.forEach((key, value) -> {
             if (value instanceof String) {
-                Object resolvedValue = new Object();
+                Object resolvedValue = Strings.EMPTY;
                 if (isPartFormula((String) value)) {
                     resolvedValue = getFormulaOrEnvironmentVariables((String) value);
                 }
