@@ -110,7 +110,7 @@ public class DynamicValueInjector {
 
     }
 
-    private Object getFormulaOrEnvironmentVariables(String value) {
+    private String getFormulaOrEnvironmentVariables(String value) {
         String preText = Strings.EMPTY;
         String postText = Strings.EMPTY;
         String toAnalyse;
@@ -122,7 +122,7 @@ public class DynamicValueInjector {
             toAnalyse = value;
         }
 
-        Object retrievedValue = new Object();
+        Object retrievedValue = new String();
 
         if (isFormula(toAnalyse)) {
             if (isData(value, DYNAMIC_REGEX_DATA) && isData(toAnalyse, DYNAMIC_REGEX_ENVIRONMENT_VARIABLE)) {
@@ -173,7 +173,7 @@ public class DynamicValueInjector {
         return calculateInContainer(container, fields, 1);
     }
 
-    private Object calculateFromContext(Object container, String formula) {
+    private String calculateFromContext(Object container, String formula) {
         ArrayList<String> dataItems = new ArrayList<>();
         ArrayList<String> envItems = new ArrayList<>();
         int count = 0;
@@ -219,7 +219,7 @@ public class DynamicValueInjector {
         return responseString;
     }
 
-    private Object calculateFromContextForEnvVariable(String formula) {
+    private String calculateFromContextForEnvVariable(String formula) {
         String[] fields = formula.substring(3).split(DYNAMIC_REGEX_ENVIRONMENT_VARIABLE);
         return calculateEnvironmentVariables(fields, 0);
     }
