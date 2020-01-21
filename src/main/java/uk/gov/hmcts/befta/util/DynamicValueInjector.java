@@ -63,7 +63,6 @@ public class DynamicValueInjector {
     private Object getDynamicValueFor(String path, String key, Object value) {
         if (value == null || !(value instanceof String))
             return value;
-        Object resolvedValue = new Object();
         String valueString = (String) value;
         if (valueString.equalsIgnoreCase(DYNAMIC_CONTENT_PLACEHOLDER)) {
             UserData theInvokingUser = scenarioContext.getTheInvokingUser();
@@ -83,9 +82,7 @@ public class DynamicValueInjector {
             throw new FunctionalTestException("Dynamic value for '" + path + "." + key + "' does not exist!");
         } else if (isPartFormula((String) value)) {
             Object retrievedValue = new Object();
-            resolvedValue = getFormulaOrEnvironmentVariables((String) value, retrievedValue);
-            return resolvedValue;
-
+            return getFormulaOrEnvironmentVariables((String) value, retrievedValue);
         }
 
         return value;
