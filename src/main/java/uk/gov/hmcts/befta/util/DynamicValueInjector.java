@@ -82,7 +82,7 @@ public class DynamicValueInjector {
             throw new FunctionalTestException("Dynamic value for '" + path + "." + key + "' does not exist!");
         } else if (isPartFormula((String) value)) {
             Object retrievedValue = new Object();
-            return getFormulaOrEnvironmentVariables((String) value, retrievedValue);
+            return getFormulaOrEnvironmentVariables((String) value);
         }
 
         return value;
@@ -97,9 +97,8 @@ public class DynamicValueInjector {
         map.forEach((key, value) -> {
             if (value instanceof String) {
                 Object resolvedValue = new Object();
-                Object retrievedValue = new Object();
                 if (isPartFormula((String) value)) {
-                    resolvedValue = getFormulaOrEnvironmentVariables((String) value, retrievedValue);
+                    resolvedValue = getFormulaOrEnvironmentVariables((String) value);
                 }
                 map.put(key, resolvedValue);
             } else if (isArray(value)) {
@@ -111,7 +110,7 @@ public class DynamicValueInjector {
 
     }
 
-    private Object getFormulaOrEnvironmentVariables(String value, Object retrievedValue) {
+    private Object getFormulaOrEnvironmentVariables(String value) {
         String preText = Strings.EMPTY;
         String postText = Strings.EMPTY;
         String toAnalyse;
@@ -122,6 +121,8 @@ public class DynamicValueInjector {
         } else {
             toAnalyse = value;
         }
+
+        Object retrievedValue = new Object();
 
         if (isFormula(toAnalyse)) {
             if (isData(value, DYNAMIC_REGEX_DATA) && isData(toAnalyse, DYNAMIC_REGEX_ENVIRONMENT_VARIABLE)) {
