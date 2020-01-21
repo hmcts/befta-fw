@@ -121,7 +121,7 @@ public class DynamicValueInjector {
             toAnalyse = value;
         }
 
-        Object retrievedValue = new String();
+        Object retrievedValue = Strings.EMPTY;
 
         if (isFormula(toAnalyse)) {
             if (isData(value, DYNAMIC_REGEX_DATA) && isData(toAnalyse, DYNAMIC_REGEX_ENVIRONMENT_VARIABLE)) {
@@ -189,8 +189,7 @@ public class DynamicValueInjector {
             }
         }
 
-        String responseString = retrieveValues(container, formula, dataItems, envItems);
-        return responseString;
+        return retrieveValues(container, formula, dataItems, envItems);
     }
 
     private String retrieveValues(Object container, String formula, ArrayList<String> dataItems, ArrayList<String> envItems) {
