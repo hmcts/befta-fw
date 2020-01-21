@@ -54,7 +54,20 @@
 			"Content-Type": "application/json;charset=UTF-8"
 		},
 		"body": {
-			
+			"nullValueField": null,
+			"emptyString": "",
+			"onlyStaticNumber": 4.6,
+			"onlyStaticString": "string without any dynamic part",
+			"onlyPredefinedAny": "[[ANY]]",
+			"onlyPredefinedDynamic": "[[DYNAMIC]]",
+			"onlyFormulaOnly": "${[scenarioContext][childContexts][Token_Creation_Call_Data][testData][actualResponse][body][tokens][2][value]}",
+
+			"oneEnvironmentVariableOnly": "{{IDAM_USER_URL}",
+			"threeEnvironmentVariablesOnly": "{{IDAM_USER_URL}}{{CCD_CASEWORKER_AUTOTEST_PASSWORD}}blabla{{DEFINITION_STORE_HOST}}",
+			"twoFormulasOnly": "xyz${[scenarioContext][childContexts][Token_Creation_Call_Data][testData][actualResponse][body][tokens][2][value]}--abc987${[scenarioContext][childContexts][Token_Creation_Call_Data][testData][actualResponse][body][tokens][2][value]}",
+
+			"complicatedNestedValue_1": "${[scenarioContext][childContexts][Token_Creation_Call_Data][testData][actualResponse][body][tokens][2][value]}{{IDAM_USER_URL}}abc123{{DEFINITION_STORE_HOST}}",			
+			"complicatedNestedValue_2": "abc${[scenarioContext][childContexts][Token_Creation_Call_Data][testData][actualResponse][body][tokens][2][value]}.=.{{IDAM_USER_URL}}${[scenarioContext][childContexts][Token_Creation_Call_Data][testData][actualResponse][body][tokens][2][value]}abc123{{DEFINITION_STORE_HOST}}"
 		}
 	}
 }
