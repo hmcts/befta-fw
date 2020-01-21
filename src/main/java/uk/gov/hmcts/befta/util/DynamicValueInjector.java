@@ -112,7 +112,6 @@ public class DynamicValueInjector {
     }
 
     private Object getFormulaOrEnvironmentVariables(String value, Object retrievedValue) {
-        Object resolvedValue;
         String preText = Strings.EMPTY;
         String postText = Strings.EMPTY;
         String toAnalyse;
@@ -133,8 +132,7 @@ public class DynamicValueInjector {
                 retrievedValue = calculateFromContextForEnvVariable(toAnalyse);
             }
         }
-        resolvedValue = preText + retrievedValue + postText;
-        return resolvedValue;
+        return preText + retrievedValue + postText;
     }
 
     @SuppressWarnings("unchecked")
