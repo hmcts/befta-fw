@@ -81,7 +81,6 @@ public class DynamicValueInjector {
             }
             throw new FunctionalTestException("Dynamic value for '" + path + "." + key + "' does not exist!");
         } else if (isPartFormula((String) value)) {
-            Object retrievedValue = new Object();
             return getFormulaOrEnvironmentVariables((String) value);
         }
 
