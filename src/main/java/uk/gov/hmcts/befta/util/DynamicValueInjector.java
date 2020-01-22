@@ -3,7 +3,6 @@ package uk.gov.hmcts.befta.util;
 import java.util.List;
 import java.util.Map;
 
-import uk.gov.hmcts.befta.BeftaMain;
 import uk.gov.hmcts.befta.TestAutomationAdapter;
 import uk.gov.hmcts.befta.data.HttpTestData;
 import uk.gov.hmcts.befta.data.RequestData;
@@ -104,8 +103,8 @@ public class DynamicValueInjector {
                     throw new RuntimeException(
                             "'{{' is not matched with a '}}' for " + input + " at position: " + pos + ".");
                 }
-                partValue = BeftaMain.getConfig()
-                        .getEnvironmentVariable(input.substring(pos + 2, closingAt));
+                partValue = EnvironmentVariableUtils
+                        .getRequiredVariable(input.substring(pos + 2, closingAt));
                 jumpTo = closingAt + 2;
             }
             if (jumpTo > 0) {

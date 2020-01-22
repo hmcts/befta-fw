@@ -38,10 +38,6 @@ public class TestAutomationConfig {
         return EnvironmentVariableUtils.getRequiredVariable("CCD_IMPORT_AUTOTEST_EMAIL");
     }
 
-    public String getEnvironmentVariable(String envVariable) {
-        return EnvironmentVariableUtils.getRequiredVariable(envVariable);
-    }
-
     public String getImporterAutoTestPassword() {
         return EnvironmentVariableUtils.getRequiredVariable("CCD_IMPORT_AUTOTEST_PASSWORD");
     }
