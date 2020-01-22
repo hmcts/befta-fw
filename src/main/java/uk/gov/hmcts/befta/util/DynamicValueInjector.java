@@ -97,7 +97,7 @@ public class DynamicValueInjector {
                 partValue = calculateFormulaFromContext(scenarioContext, formulaPart);
                 jumpTo = closingAt + 1;
             }
-            else if (aEnvVarIsStartingAt(input, pos)) {
+            else if (anEnvVarIsStartingAt(input, pos)) {
                 int closingAt = input.indexOf("}}", pos + 2);
                 if (closingAt < 0) {
                     throw new RuntimeException(
@@ -123,7 +123,7 @@ public class DynamicValueInjector {
         return input.substring(pos, pos + 2).equals("${");
     }
 
-    private boolean aEnvVarIsStartingAt(String input, int pos) {
+    private boolean anEnvVarIsStartingAt(String input, int pos) {
         if (pos >= input.length() - 1)
             return false;
         return input.substring(pos, pos + 2).equals("{{");
