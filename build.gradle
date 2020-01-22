@@ -1,5 +1,7 @@
 plugins {
     id 'java-library'
+    id 'maven-publish'
+    id "net.researchgate.release" version "2.8.1"
 }
 
 apply plugin: 'java'
@@ -26,6 +28,47 @@ ext {
 jar {
     baseName = "befta-fw"
 }
+
+publishing {
+    publications {
+        ccdAutomationFrameWorkLibrary(MavenPublication) {
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            url = 'https://dl.bintray.com/hmcts/hmcts-maven'
+        }
+    }
+}
+
+release {
+    failOnUnversionedFiles = false
+    failOnCommitNeeded = false
+    failOnPublishNeeded = false
+    failOnUpdateNeeded = true
+    git {
+        requireBranch = ''
+        requireBranch = ''
+        pushToRemote = 'origin'
+        pushToBranchPrefix = ''
+        commitVersionFileOnly = false
+        signTag = false
+    }
+}
+
+task(startmessage) << {
+    println 'starting build'
+}
+
+task(printversion) << {
+    println project.version
+}
+
+beforeReleaseBuild.dependsOn startmessage
+afterReleaseBuild.dependsOn printversion
+
+wrapper.gradleVersion = '2.10'
 
 dependencies {
     compile "com.fasterxml.jackson.core:jackson-databind:2.9.10.1"
