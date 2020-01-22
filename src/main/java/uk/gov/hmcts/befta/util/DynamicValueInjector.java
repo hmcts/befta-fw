@@ -13,7 +13,7 @@ import uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext;
 public class DynamicValueInjector {
 
     private static final String DYNAMIC_CONTENT_PLACEHOLDER = "[[DYNAMIC]]";
-    private static final String DYNAMIC_REGEX_DATA = "\\]\\[|\\]\\}|\\]\\{";
+
     private final TestAutomationAdapter taAdapter;
 
     private BackEndFunctionalTestScenarioContext scenarioContext;
@@ -94,7 +94,7 @@ public class DynamicValueInjector {
                             "'${' is not matched with a '}' for " + input + " at position: " + pos + ".");
                 }
                 String formulaPart = input.substring(pos, closingAt + 1);
-                partValue = calculateFromContext(scenarioContext, formulaPart);
+                partValue = calculateFormulaFromContext(scenarioContext, formulaPart);
                 jumpTo = closingAt + 1;
             }
             else if (aEnvVarIsStartingAt(input, pos)) {
@@ -163,11 +163,6 @@ public class DynamicValueInjector {
     }
 
     private Object calculateFormulaFromContext(Object container, String formula) {
-        String[] fields = formula.substring(3).split(DYNAMIC_REGEX_DATA);
-        return calculateInContainer(container, fields, 1);
-    }
-
-    private Object calculateFromContext(Object container, String formula) {
         String[] fields = formula.substring(3).split("\\]\\[|\\]\\}");
         if (fields.length <= 1) {
             throw new FunctionalTestException("No processible field found in " + formula);
