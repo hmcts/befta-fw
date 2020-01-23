@@ -70,7 +70,7 @@ publishing {
             artifact sourcesJar
             artifact javadocJar
             groupId project.group
-            artifactId 'idam-client'
+            artifactId 'ccd-api-test-automation-fw'
             version project.version
 
             pom.withXml {
