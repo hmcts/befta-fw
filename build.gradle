@@ -7,9 +7,10 @@ plugins {
 
 apply plugin: 'java'
 
-def buildNumber = System.getenv("RELEASE_VERSION")?.replace("refs/tags/", "") ?: "DEV-SNAPSHOT"
+def buildNumber = System.getenv("RELEASE_VERSION")?.replace("refs/tags/", "") ?: "1.0.10-SNAPSHOT"
 
 group 'uk.gov.hmcts'
+
 version buildNumber
 
 def gitRepo = "https://github.com/hmcts/ccd-api-test-automation-fw"
