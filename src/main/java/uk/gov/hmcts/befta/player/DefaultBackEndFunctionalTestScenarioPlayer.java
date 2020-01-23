@@ -85,11 +85,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         scenarioContext.setTheInvokingUser(aUser);
 
         boolean doesTestDataMeetSpec = scenarioContext.getTestData().meetsSpec(specificationAboutAUser);
-        if (!doesTestDataMeetSpec) {
-            String errorMessage = "Test data does not confirm it meets the specification about a user: "
-                    + specificationAboutAUser;
-            throw new FunctionalTestException(errorMessage);
-        }
+        assert doesTestDataMeetSpec : "Test data does not confirm it meets the specification about a user: " + specificationAboutAUser;
     }
 
     @Override
@@ -149,11 +145,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     private void verifyTheRequestInTheContextWithAParticularSpecification(
             BackEndFunctionalTestScenarioContext scenarioContext, String requestSpecification) {
         boolean check = scenarioContext.getTestData().meetsSpec(requestSpecification);
-        if (!check) {
-            String errorMessage = "Test data does not confirm it meets the specification about the request: "
-                    + requestSpecification;
-            throw new FunctionalTestException(errorMessage);
-        }
+        assert check : "Test data does not confirm it meets the specification about the request: " + requestSpecification;
     }
 
     @Override
@@ -166,11 +158,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     private void submitTheRequestToCallAnOperationOfAProduct(BackEndFunctionalTestScenarioContext scenarioContext,
             String operation, String productName) throws IOException {
         boolean isCorrectOperation = scenarioContext.getTestData().meetsOperationOfProduct(operation, productName);
-        if (!isCorrectOperation) {
-            String errorMessage = "Test data does not confirm it is calling the following operation of a product: "
-                    + operation + " -> " + productName;
-            throw new FunctionalTestException(errorMessage);
-        }
+        assert isCorrectOperation : "Test data does not confirm it is calling the following operation of a product: " + operation + " -> " + productName;;
 
         RequestSpecification theRequest = scenarioContext.getTheRequest();
         String uri = scenarioContext.getTestData().getUri();
@@ -215,10 +203,8 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     public void verifyThatAPositiveResponseWasReceived() {
         int responseCode = scenarioContext.getTheResponse().getResponseCode();
         scenario.write("Response code: " + responseCode);
-        if (responseCode / 100 != 2) {
-            String errorMessage = "Response code '" + responseCode + "' is not a success code";
-            throw new FunctionalTestException(errorMessage);
-        }
+        boolean value = responseCode / 100 != 2;
+        assert !value : "Response code '" + responseCode + "' is not a success code";
     }
 
     @Override
@@ -226,10 +212,8 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     public void verifyThatANegativeResponseWasReceived() {
         int responseCode = scenarioContext.getTheResponse().getResponseCode();
         scenario.write("Response code: " + responseCode);
-        if (responseCode / 100 == 2) {
-            String errorMessage = "Response code '" + responseCode + "' is a success code";
-            throw new FunctionalTestException(errorMessage);
-        }
+        boolean value =  responseCode / 100 == 2;
+        assert !value: "Response code '" + responseCode + "' is a success code";
     }
 
     @Override
@@ -263,22 +247,15 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         }
 
         scenario.write("Response: " + JsonUtils.getPrettyJsonFromObject(scenarioContext.getTheResponse()));
-
-        if (issues.get("responseCode") != null || issues.get("headers") != null || issues.get("body") != null) {
-            String errorMessage = "Response failures: " + JsonUtils.getPrettyJsonFromObject(issues);
-            throw new FunctionalTestException(errorMessage);
-        }
+        boolean value = issues.get("responseCode") != null || issues.get("headers") != null || issues.get("body") != null;
+        assert !value : "Response failures: " + JsonUtils.getPrettyJsonFromObject(issues);
     }
 
     @Override
     @Then("the response [{}]")
     public void verifyTheResponseInTheContextWithAParticularSpecification(String responseSpecification) {
         boolean check = scenarioContext.getTestData().meetsSpec(responseSpecification);
-        if (!check) {
-            String errorMessage = "Test data does not confirm it meets the specification about the response: "
-                    + responseSpecification;
-            throw new FunctionalTestException(errorMessage);
-        }
+        assert check : "Test data does not confirm it meets the specification about the response: " + responseSpecification;
     }
 
     @Override
