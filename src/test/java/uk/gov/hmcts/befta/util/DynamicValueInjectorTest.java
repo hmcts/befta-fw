@@ -52,9 +52,7 @@ public class DynamicValueInjectorTest {
         Mockito.when(EnvironmentVariableUtils.getRequiredVariable("DEFINITION_STORE_HOST"))
                 .thenReturn("http://defstore.hmcts.bla.bla");
         Mockito.when(EnvironmentVariableUtils.getRequiredVariable("CCD_CASEWORKER_AUTOTEST_PASSWORD"))
-                .thenReturn("http://idam.hmcts.bla.bla");
-        Mockito.when(EnvironmentVariableUtils.getRequiredVariable("CCD_CASEWORKER_AUTOTEST_PASSWORD"))
-                .thenReturn("http://idam.hmcts.bla.bla");
+                .thenReturn("PassQ@rT");
 
     }
     
