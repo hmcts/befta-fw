@@ -28,7 +28,6 @@ def pomConfig = {
         url "https://github.com/hmcts/ccd-api-test-automation-fw"
     }
 }
->>>>>>> refs/heads/master
 
 // tag::repositories[]
 repositories {
