@@ -22,12 +22,12 @@ public class TestAutomationConfig {
         return EnvironmentVariableUtils.getRequiredVariable("S2S_URL");
     }
 
-    public String getGatewayServiceName() {
-        return EnvironmentVariableUtils.getRequiredVariable("CCD_GW_SERVICE_NAME");
+    public String getS2SClientId() {
+        return EnvironmentVariableUtils.getRequiredVariable("BEFTA_S2S_CLIENT_ID");
     }
 
-    public String getGatewayServiceSecret() {
-        return EnvironmentVariableUtils.getRequiredVariable("CCD_GW_SERVICE_SECRET");
+    public String getS2SClientSecret() {
+        return EnvironmentVariableUtils.getRequiredVariable("BEFTA_S2S_CLIENT_SECRET");
     }
 
     public String getDefinitionStoreUrl() {

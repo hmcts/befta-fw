@@ -34,8 +34,8 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
                 .contract(new SpringMvcContract())
                 .target(ServiceAuthorisationApi.class, BeftaMain.getConfig().getS2SURL());
 
-        this.tokenGenerator = new ServiceAuthTokenGenerator(BeftaMain.getConfig().getGatewayServiceSecret(),
-                BeftaMain.getConfig().getGatewayServiceName(), serviceAuthorisationApi);
+        this.tokenGenerator = new ServiceAuthTokenGenerator(BeftaMain.getConfig().getS2SClientSecret(),
+                BeftaMain.getConfig().getS2SClientId(), serviceAuthorisationApi);
 
         idamApi = Feign.builder().encoder(new JacksonEncoder()).decoder(new JacksonDecoder()).target(AuthApi.class,
                 BeftaMain.getConfig().getIdamURL());
