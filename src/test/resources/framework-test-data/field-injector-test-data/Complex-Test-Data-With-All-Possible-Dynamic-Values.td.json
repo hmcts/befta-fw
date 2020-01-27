@@ -1,0 +1,89 @@
+{
+	"_guid_": "Complex-Test-Data-With-All-Possible-Dynamic-Values",
+	"title": "Complex-Test-Data-With-All-Possible-Dynamic-Values",
+	"specs": [
+		"a detailed profile in CCD"
+	],
+	"productName": "CCD Data Store",
+	"operationName": "Get default settings for user",
+	"method": "GET",
+	"uri": "/caseworkers/{uid}/profile",
+	"users": {
+		"invokingUser": {
+			"username": "mutlu.sancaktutar@hmcts.net",
+			"password": "[[$CCD_CASEWORKER_AUTOTEST_PASSWORD]]",
+			"id": 4567
+		}
+	},
+	"request": {
+		"headers": {
+			"Authorization": "--[[DYNAMIC]]",
+			"ServiceAuthorization": "--[[DYNAMIC]]",
+			"Content-Type": "application/json"
+		},
+		"pathVariables": {
+			"uid": "[[DYNAMIC]]",
+			"dummyComplexPathVariable": "a.user@{{IDAM_URL}}/${[scenarioContext][childContexts][Token_Creation_Call_For_Complex_Data][testData][actualResponse][body][tokens][2][value]}#{{IDAM_USER_URL}}/documents/binary",
+			"binanyUrlOverIdam": "{{IDAM_URL}}/documents/binary",
+			"justIdamUrl": "{{IDAM_URL}}"
+		},
+		"body": {
+			"event": {
+				"id": "CREATE",
+				"summary": "",
+				"description": ""
+			},
+			"body": {
+				"nullValueField": null,
+				"emptyString": "",
+				"onlyStaticNumber": 4.6,
+				"onlyStaticString": "string without any dynamic part",
+				"onlyPredefinedAny": "Any Random string",
+				"onlyPredefinedDynamic": "[[DYNAMIC]]",
+				"onlyFormulaOnly": "${[scenarioContext][childContexts][Token_Creation_Call_For_Complex_Data][testData][actualResponse][body][tokens][2][value]}",
+
+				"oneEnvironmentVariableOnly": "{{IDAM_USER_URL}}",
+				"threeEnvironmentVariablesOnly": "{{IDAM_USER_URL}}{{CCD_CASEWORKER_AUTOTEST_PASSWORD}}{{DEFINITION_STORE_HOST}}",
+				"twoFormulasOnly": "${[scenarioContext][childContexts][Token_Creation_Call_For_Complex_Data][testData][actualResponse][body][tokens][2][value]}${[scenarioContext][childContexts][Token_Creation_Call_For_Complex_Data][testData][actualResponse][body][tokens][2][value]}",
+
+				"complicatedNestedValue_1": "${[scenarioContext][childContexts][Token_Creation_Call_For_Complex_Data][testData][actualResponse][body][tokens][2][value]}{{IDAM_USER_URL}}abc123{{DEFINITION_STORE_HOST}}",
+				"complicatedNestedValue_2": "abc${[scenarioContext][childContexts][Token_Creation_Call_For_Complex_Data][testData][actualResponse][body][tokens][2][value]}.=.{{IDAM_USER_URL}}${[scenarioContext][childContexts][Token_Creation_Call_For_Complex_Data][testData][actualResponse][body][tokens][2][value]}abc123{{DEFINITION_STORE_HOST}}"
+			},
+			"event_token": "{{IDAM_USER_URL}}/documents/binary",
+			"ignore_warning": false,
+			"draft_id": null
+		}
+	},
+	"expectedResponse": {
+		"responseCode": 200,
+		"headers": {
+			"X-Frame-Options": "DENY",
+			"Transfer-Encoding": "chunked",
+			"Cache-Control": "no-cache, no-store, max-age=0, must-revalidate",
+			"vary": "accept-encoding",
+			"X-Content-Type-Options": "nosniff",
+			"Content-Encoding": "gzip",
+			"Pragma": "no-cache",
+			"Expires": "0",
+			"X-XSS-Protection": "1; mode=block",
+			"Date": "[[ANY]]",
+			"Content-Type": "application/json;charset=UTF-8"
+		},
+		"body": {
+			"nullValueField": null,
+			"emptyString": "",
+			"onlyStaticNumber": 4.6,
+			"onlyStaticString": "string without any dynamic part",
+			"onlyPredefinedAny": "[[ANY]]",
+			"onlyPredefinedDynamic": "[[DYNAMIC]]",
+			"onlyFormulaOnly": "token value at index 2",
+
+			"oneEnvironmentVariableOnly": "{{DEFINITION_STORE_HOST}}",
+			"threeEnvironmentVariablesOnly": "{{DEFINITION_STORE_HOST}}Pa55word11{{DEFINITION_STORE_HOST}}",
+			"twoFormulasOnly": "token value at index 2token value at index 2",
+
+			"complicatedNestedValue_1": "token value at index 2{{DEFINITION_STORE_HOST}}abc123{{DEFINITION_STORE_HOST}}",
+			"complicatedNestedValue_2": "abctoken value at index 2.=.{{DEFINITION_STORE_HOST}}token value at index 2abc123{{DEFINITION_STORE_HOST}}"
+		}
+	}
+}

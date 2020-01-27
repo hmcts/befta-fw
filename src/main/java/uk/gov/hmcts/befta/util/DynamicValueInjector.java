@@ -13,13 +13,14 @@ import uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext;
 public class DynamicValueInjector {
 
     private static final String DYNAMIC_CONTENT_PLACEHOLDER = "[[DYNAMIC]]";
+
     private final TestAutomationAdapter taAdapter;
 
     private BackEndFunctionalTestScenarioContext scenarioContext;
     private HttpTestData testData;
 
     public DynamicValueInjector(TestAutomationAdapter taAdapter, HttpTestData testData,
-            BackEndFunctionalTestScenarioContext scenarioContext) {
+                                BackEndFunctionalTestScenarioContext scenarioContext) {
         this.scenarioContext = scenarioContext;
         this.testData = testData;
         this.taAdapter = taAdapter;
@@ -49,12 +50,12 @@ public class DynamicValueInjector {
                     (key, value) -> queryParams.put(key, getDynamicValueFor("request.queryParams", key, value)));
         }
         injectDynamicValuesInto("request.body", requestData.getBody());
+        injectDynamicValuesInto("expectedResponse.body", testData.getExpectedResponse().getBody());
     }
 
     private Object getDynamicValueFor(String path, String key, Object value) {
         if (value == null || !(value instanceof String))
             return value;
-
         String valueString = (String) value;
         if (valueString.equalsIgnoreCase(DYNAMIC_CONTENT_PLACEHOLDER)) {
             UserData theInvokingUser = scenarioContext.getTheInvokingUser();
@@ -68,14 +69,64 @@ public class DynamicValueInjector {
             } else if (key.equalsIgnoreCase("uid") && theInvokingUser.getId() != null) {
                 return theInvokingUser.getId();
             } else if (key.equalsIgnoreCase("cid")) {
-                return calculateFromContext(scenarioContext,
+                return calculateFormulaFromContext(scenarioContext,
                         "${[scenarioContext][childContexts][Standard_Full_Case_Creation_Data][testData][actualResponse][body][id]}");
             }
             throw new FunctionalTestException("Dynamic value for '" + path + "." + key + "' does not exist!");
-        } else if (isFormula(valueString)) {
-            return calculateFromContext(scenarioContext, valueString);
         }
-        return value;
+
+        return processDynamicValuesIn(valueString);
+    }
+
+    private Object processDynamicValuesIn(String input) {
+        if (input == null || input.equals(""))
+            return input;
+        StringBuffer output = new StringBuffer();
+        int pos = 0, jumpTo;
+        Object partValue = null;
+        while (pos < input.length()) {
+            partValue = null;
+            jumpTo = -1;
+            if (aFormulaIsStartingAt(input, pos)) {
+                int closingAt = input.indexOf("}", pos + 2);
+                if (closingAt < 0) {
+                    throw new RuntimeException(
+                            "'${' is not matched with a '}' for " + input + " at position: " + pos + ".");
+                }
+                String formulaPart = input.substring(pos, closingAt + 1);
+                partValue = calculateFormulaFromContext(scenarioContext, formulaPart);
+                jumpTo = closingAt + 1;
+            }
+            else if (anEnvVarIsStartingAt(input, pos)) {
+                int closingAt = input.indexOf("}}", pos + 2);
+                if (closingAt < 0) {
+                    throw new RuntimeException(
+                            "'{{' is not matched with a '}}' for " + input + " at position: " + pos + ".");
+                }
+                partValue = EnvironmentVariableUtils
+                        .getRequiredVariable(input.substring(pos + 2, closingAt));
+                jumpTo = closingAt + 2;
+            }
+            if (jumpTo > 0) {
+                pos = jumpTo;
+                output.append(partValue);
+            } else {
+                output.append(input.charAt(pos++));
+            }
+        }
+        return output.toString();
+    }
+
+    private boolean aFormulaIsStartingAt(String input, int pos) {
+        if (pos >= input.length() - 1)
+            return false;
+        return input.substring(pos, pos + 2).equals("${");
+    }
+
+    private boolean anEnvVarIsStartingAt(String input, int pos) {
+        if (pos >= input.length() - 1)
+            return false;
+        return input.substring(pos, pos + 2).equals("{{");
     }
 
     @SuppressWarnings("unchecked")
@@ -85,9 +136,7 @@ public class DynamicValueInjector {
         }
         map.forEach((key, value) -> {
             if (value instanceof String) {
-                if (isFormula((String) value)) {
-                    map.put(key, calculateFromContext(scenarioContext, (String) value));
-                }
+                map.put(key, processDynamicValuesIn((String) value));
             } else if (isArray(value)) {
                 injectDynamicValuesInto(path + "." + key, (Object[]) value);
             } else if (value instanceof Map<?, ?>) {
@@ -104,9 +153,7 @@ public class DynamicValueInjector {
         }
         for (int i = 0; i < objects.length; i++) {
             if (objects[i] instanceof String) {
-                if (isFormula((String) objects[i])) {
-                    objects[i] = calculateFromContext(scenarioContext, (String) objects[i]);
-                }
+                objects[i] = processDynamicValuesIn((String) objects[i]);
             } else if (objects[i] instanceof Map<?, ?>) {
                 injectDynamicValuesInto(path + "[" + i + "]", (Map<String, Object>) objects[i]);
             } else if (isArray(objects[i])) {
@@ -115,12 +162,11 @@ public class DynamicValueInjector {
         }
     }
 
-    private boolean isFormula(String valueString) {
-        return valueString != null && valueString.startsWith("${") && valueString.endsWith("}");
-    }
-
-    private Object calculateFromContext(Object container, String formula) {
+    private Object calculateFormulaFromContext(Object container, String formula) {
         String[] fields = formula.substring(3).split("\\]\\[|\\]\\}");
+        if (fields.length <= 1) {
+            throw new FunctionalTestException("No processible field found in " + formula);
+        }
         return calculateInContainer(container, fields, 1);
     }
 
@@ -136,7 +182,7 @@ public class DynamicValueInjector {
             try {
                 value = ReflectionUtils.retrieveFieldInObject(container, fields[fieldIndex]);
             } catch (Exception e) {
-                throw new FunctionalTestException(e.getMessage());
+                throw new FunctionalTestException("Unable to extract " + fields[fieldIndex] + " from " + container, e);
             }
         }
         if (fieldIndex == fields.length - 1) {
