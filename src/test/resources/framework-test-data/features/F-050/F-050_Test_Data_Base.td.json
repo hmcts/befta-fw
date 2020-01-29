@@ -6,6 +6,10 @@
 	"method": "POST",
 	"uri": "/caseworkers/{uid}/jurisdictions/{jid}/case-types/{ctid}/validate",
 
+	"specs": [
+		"an active profile in CCD"
+	],
+
 	"user": {
 		"_extends_": "Common_User_For_Request"
 	},
