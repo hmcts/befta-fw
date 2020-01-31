@@ -7,6 +7,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+import uk.gov.hmcts.befta.data.HttpTestData;
 import uk.gov.hmcts.befta.data.JsonStoreHttpTestDataSource;
 
 import java.util.ArrayList;
@@ -15,8 +16,7 @@ import java.util.Collections;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.powermock.api.mockito.PowerMockito.whenNew;
 
 @RunWith(PowerMockRunner.class)
@@ -36,6 +36,7 @@ public class BackEndFunctionalTestScenarioContextTest {
     private Scenario scenario;
 
     private static final Collection<String> VALID_TAGS = Collections.singletonList("@S-133");
+    private static final String VALID_TAG_ID = "S-133";
 
     @Before
     public void setUp() throws Exception {
@@ -45,11 +46,13 @@ public class BackEndFunctionalTestScenarioContextTest {
 
     @Test
     public void shouldInitializeTestDataForScenario() {
+        final HttpTestData expectedData = mock(HttpTestData.class);
         when(scenario.getSourceTagNames()).thenReturn(VALID_TAGS);
+        when(dataSource.getDataForTestCall(eq(VALID_TAG_ID))).thenReturn(expectedData);
 
         context.initializeTestDataFor(scenario);
 
-        verify(dataSource).getDataForTestCall(eq("S-133"));
+        assertEquals(expectedData, context.getTestData());
     }
 
     @Test
@@ -65,7 +68,7 @@ public class BackEndFunctionalTestScenarioContextTest {
 
         String result = context.getCurrentScenarioTag();
 
-        assertEquals("S-133", result);
+        assertEquals(VALID_TAG_ID, result);
     }
 
     @Test
