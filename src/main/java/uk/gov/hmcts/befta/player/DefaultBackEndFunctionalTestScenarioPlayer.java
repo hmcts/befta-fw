@@ -55,7 +55,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     }
 
     @Override
-    @Given("an appropriate test context as detailed in the test data source")
+    @Given("an appropriate test context as detailed in the test data source(.)(,)")
     public void initializeAppropriateTestContextAsDetailedInTheTestDataSource() {
         scenarioContext.initializeTestDataFor(scenario);
         String logPrefix = scenarioContext.getCurrentScenarioTag() + ": Test data ";
@@ -67,7 +67,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     }
 
     @Override
-    @Given("a case that has just been created as in [{}]")
+    @Given("a case that has just been created as in [{}](.)(,)")
     public void createCaseWithTheDataProvidedInATestDataObject(String caseCreationDataId) throws IOException {
 
         performAndVerifyTheExpectedResponseForAnApiCall("to create a token for case creation", "Standard_Token_Creation_Data_For_Case_Creation");
@@ -75,7 +75,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     }
 
     @Override
-    @Given("a user with [{}]")
+    @Given("a user with [{}](.)(,)")
     public void verifyThatThereIsAUserInTheContextWithAParticularSpecification(String specificationAboutAUser) {
         UserData aUser = scenarioContext.getTestData().getInvokingUser();
         resolveUserData("users.invokingUser", aUser);
@@ -92,7 +92,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     }
 
     @Override
-    @When("a request is prepared with appropriate values")
+    @When("a request is prepared with appropriate values(.)(,)")
     public void prepareARequestWithAppropriateValues() throws IOException {
         prepareARequestWithAppropriateValues(this.scenarioContext);
     }
@@ -140,7 +140,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     }
 
     @Override
-    @When("the request [{}]")
+    @When("the request [{}](.)(,)")
     public void verifyTheRequestInTheContextWithAParticularSpecification(String requestSpecification) {
         verifyTheRequestInTheContextWithAParticularSpecification(this.scenarioContext, requestSpecification);
     }
@@ -156,7 +156,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     }
 
     @Override
-    @When("it is submitted to call the [{}] operation of [{}]")
+    @When("it is submitted to call the [{}] operation of [{}](.)(,)")
     public void submitTheRequestToCallAnOperationOfAProduct(String operation, String productName) throws IOException {
         submitTheRequestToCallAnOperationOfAProduct(this.scenarioContext, operation, productName);
     }
@@ -210,7 +210,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     }
 
     @Override
-    @Then("a positive response is received")
+    @Then("a positive response is received(.)(,)")
     public void verifyThatAPositiveResponseWasReceived() {
         int responseCode = scenarioContext.getTheResponse().getResponseCode();
         scenario.write("Response code: " + responseCode);
@@ -221,7 +221,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     }
 
     @Override
-    @Then("a negative response is received")
+    @Then("a negative response is received(.)(,)")
     public void verifyThatANegativeResponseWasReceived() {
         int responseCode = scenarioContext.getTheResponse().getResponseCode();
         scenario.write("Response code: " + responseCode);
@@ -232,8 +232,8 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     }
 
     @Override
-    @Then("the response has all the details as expected")
-    @Then("the response has all other details as expected")
+    @Then("the response has all the details as expected(.)(,)")
+    @Then("the response has all other details as expected(.)(,)")
     public void verifyThatTheResponseHasAllTheDetailsAsExpected() throws IOException {
         verifyThatTheResponseHasAllTheDetailsAsExpected(this.scenarioContext);
     }
@@ -302,7 +302,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     }
 
     @Override
-    @Then("the response [{}]")
+    @Then("the response [{}](.)(,)")
     public void verifyTheResponseInTheContextWithAParticularSpecification(String responseSpecification) {
         boolean check = scenarioContext.getTestData().meetsSpec(responseSpecification);
         if (!check) {
@@ -313,10 +313,10 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     }
 
     @Override
-    @Given("a successful call [{}] as in [{}]")
-    @Given("another successful call [{}] as in [{}]")
-    @Then("a call [{}] will get the expected response as in [{}]")
-    @Then("another call [{}] will get the expected response as in [{}]")
+    @Given("a successful call [{}] as in [{}](.)(,)")
+    @Given("another successful call [{}] as in [{}](.)(,)")
+    @Then("a call [{}] will get the expected response as in [{}](.)(,)")
+    @Then("another call [{}] will get the expected response as in [{}](.)(,)")
     public void performAndVerifyTheExpectedResponseForAnApiCall(String testDataSpec, String testDataId)
             throws IOException {
         BackEndFunctionalTestScenarioContext subcontext = new BackEndFunctionalTestScenarioContext();
