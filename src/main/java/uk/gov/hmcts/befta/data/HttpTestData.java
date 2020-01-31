@@ -35,6 +35,8 @@ public class HttpTestData {
 
     private Map<String, UserData> users = new HashMap<>();
 
+    private UserData userSet = null;
+
     public boolean meetsSpec(String specification) {
         return specs.contains(specification);
     }
@@ -50,8 +52,6 @@ public class HttpTestData {
     public void setInvokingUser(UserData invokingUser) {
         getUsers().put(KEY_INVOKING_USER, invokingUser);
     }
-
-    private UserData userSet = null;
 
     public void setUser(UserData user) {
         setInvokingUser(user);

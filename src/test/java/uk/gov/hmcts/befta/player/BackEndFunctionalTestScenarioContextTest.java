@@ -45,17 +45,6 @@ public class BackEndFunctionalTestScenarioContextTest {
     }
 
     @Test
-    public void shouldInitializeTestDataForScenario() {
-        final HttpTestData expectedData = mock(HttpTestData.class);
-        when(scenario.getSourceTagNames()).thenReturn(VALID_TAGS);
-        when(dataSource.getDataForTestCall(eq(VALID_TAG_ID))).thenReturn(expectedData);
-
-        context.initializeTestDataFor(scenario);
-
-        assertEquals(expectedData, context.getTestData());
-    }
-
-    @Test
     public void shouldGetCurrentScenarioTagForCorrectPrefixOnly() {
         final Collection<String> tags = new ArrayList<String>() {{
             add("@A-133");
