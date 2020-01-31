@@ -1,39 +1,22 @@
 package uk.gov.hmcts.befta.player;
 
 import io.cucumber.java.Scenario;
-import io.restassured.RestAssured;
-import io.restassured.http.Headers;
-import io.restassured.http.Method;
-import io.restassured.response.Response;
-import io.restassured.response.ResponseBody;
-import io.restassured.specification.QueryableRequestSpecification;
-import io.restassured.specification.RequestSpecification;
-import io.restassured.specification.SpecificationQuerier;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
 import org.mockito.Mock;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-import uk.gov.hmcts.befta.BeftaMain;
-import uk.gov.hmcts.befta.DefaultTestAutomationAdapter;
-import uk.gov.hmcts.befta.data.*;
-import uk.gov.hmcts.befta.exception.FunctionalTestException;
-import uk.gov.hmcts.befta.util.*;
+import uk.gov.hmcts.befta.data.JsonStoreHttpTestDataSource;
 
-import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
-import static org.hamcrest.core.StringContains.containsString;
 import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.*;
-import static org.powermock.api.mockito.PowerMockito.mockStatic;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.whenNew;
 
 @RunWith(PowerMockRunner.class)
@@ -71,7 +54,7 @@ public class BackEndFunctionalTestScenarioContextTest {
 
     @Test
     public void shouldGetCurrentScenarioTagForCorrectPrefixOnly() {
-        final Collection<String> tags = new ArrayList<String>(){{
+        final Collection<String> tags = new ArrayList<String>() {{
             add("@A-133");
             add("S-987");
             add("@S-133");
@@ -87,7 +70,7 @@ public class BackEndFunctionalTestScenarioContextTest {
 
     @Test
     public void shouldGetCurrentScenarioTagWithMultipleScenarios() {
-        final Collection<String> tags = new ArrayList<String>(){{
+        final Collection<String> tags = new ArrayList<String>() {{
             add("@S-133");
             add("@S-456");
         }};
