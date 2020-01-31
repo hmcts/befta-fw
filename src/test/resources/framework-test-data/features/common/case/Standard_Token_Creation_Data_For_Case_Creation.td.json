@@ -37,7 +37,7 @@
       "Transfer-Encoding" : "chunked"
     },
     "body" : {
-      "token" : "[[ANY]]",
+      "token" : "[[ANYTHING_PRESENT]]",
       "case_details" : {
         "id" : null,
         "jurisdiction" : "AUTOTEST1",

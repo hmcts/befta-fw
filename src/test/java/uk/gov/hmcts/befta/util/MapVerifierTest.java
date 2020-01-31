@@ -1,18 +1,36 @@
 package uk.gov.hmcts.befta.util;
 
-import org.junit.Assert;
-import org.junit.Test;
-
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
-
+import org.junit.Assert;
+import org.junit.Test;
 import uk.gov.hmcts.befta.data.HttpTestDataSource;
 import uk.gov.hmcts.befta.data.JsonStoreHttpTestDataSource;
-import uk.gov.hmcts.befta.util.MapVerificationResult;
-import uk.gov.hmcts.befta.util.MapVerifier;
+
+import static uk.gov.hmcts.befta.util.MapPlaceholders.ANYTHING_IF_EXISTS;
+import static uk.gov.hmcts.befta.util.MapPlaceholders.ANYTHING_PRESENT;
+import static uk.gov.hmcts.befta.util.MapPlaceholders.ANY_INTEGER_NOT_NULLABLE;
+import static uk.gov.hmcts.befta.util.MapPlaceholders.ANY_OBJECT_NULLABLE;
+import static uk.gov.hmcts.befta.util.MapPlaceholders.ANY_STRING_NOT_NULLABLE;
+import static uk.gov.hmcts.befta.util.MapPlaceholders.ANY_TIMESTAMP_NOT_NULLABLE;
+import static uk.gov.hmcts.befta.util.MapPlaceholders.ANY_NULLABLE;
+
+import static uk.gov.hmcts.befta.util.MapPlaceholders.ANY_DATE_NOT_NULLABLE;
+import static uk.gov.hmcts.befta.util.MapPlaceholders.ANY_DATE_NULLABLE;
+import static uk.gov.hmcts.befta.util.MapPlaceholders.ANY_FLOATING_NOT_NULLABLE;
+import static uk.gov.hmcts.befta.util.MapPlaceholders.ANY_FLOATING_NULLABLE;
+import static uk.gov.hmcts.befta.util.MapPlaceholders.ANY_INTEGER_NULLABLE;
+import static uk.gov.hmcts.befta.util.MapPlaceholders.ANY_NOT_NULLABLE;
+import static uk.gov.hmcts.befta.util.MapPlaceholders.ANY_NUMBER_NOT_NULLABLE;
+import static uk.gov.hmcts.befta.util.MapPlaceholders.ANY_NUMBER_NULLABLE;
+import static uk.gov.hmcts.befta.util.MapPlaceholders.ANY_OBJECT_NOT_NULLABLE;
+import static uk.gov.hmcts.befta.util.MapPlaceholders.ANY_STRING_NULLABLE;
+import static uk.gov.hmcts.befta.util.MapPlaceholders.ANY_TIMESTAMP_NULLABLE;
+import static uk.gov.hmcts.befta.util.MapPlaceholders.NOT_NULL;
 
 public class MapVerifierTest {
 
@@ -96,11 +114,12 @@ public class MapVerifierTest {
         expected.put("responseCode", 400);
         expected.put("body", expectedBody);
         expectedBody.put("exception", "uk.gov.hmcts.ccd.endpoint.exceptions.BadRequestException");
-        expectedBody.put("timestamp", "[[ANY]]");
+        expectedBody.put("timestamp", ANY_TIMESTAMP_NOT_NULLABLE.getValue());
+        expectedBody.put("timestamp2", ANY_TIMESTAMP_NULLABLE.getValue());
         expectedBody.put("status", 400);
         expectedBody.put("error", "Bad Request");
         expectedBody.put("message", "Unknown sort direction: someInvalidSortDirection");
-        expectedBody.put("path", "[[ANY]]");
+        expectedBody.put("path", ANYTHING_PRESENT.getValue());
         expectedBody.put("details", null);
         expectedBody.put("callbackErrors", null);
         expectedBody.put("callbackWarnings", null);
@@ -112,6 +131,7 @@ public class MapVerifierTest {
         actual.put("body", actualBody);
         actualBody.put("exception", "uk.gov.hmcts.ccd.endpoint.exceptions.BadRequestException");
         actualBody.put("timestamp", "2019-11-13T14:02:43.431");
+        actualBody.put("timestamp2", null);
         actualBody.put("status", 400);
         actualBody.put("error", "Bad Request");
         actualBody.put("message", "Unknown sort direction: someInvalidSortDirection");
@@ -125,6 +145,192 @@ public class MapVerifierTest {
         Assert.assertEquals(0, result.getAllIssues().size());
         Assert.assertTrue(result.isVerified());
     }
+
+    @Test
+    public void shouldVerifyContentWithWildcards() {
+        Map<String, Object> expected = new HashMap<>();
+        Map<String, Object> expectedBody = new HashMap<>();
+
+        expected.put("responseCode", ANY_INTEGER_NOT_NULLABLE.getValue());
+        expected.put("body", expectedBody);
+        expectedBody.put("exception", "uk.gov.hmcts.ccd.endpoint.exceptions.BadRequestException");
+        expectedBody.put("timestamp", ANY_TIMESTAMP_NOT_NULLABLE.getValue());
+        expectedBody.put("status", ANY_INTEGER_NOT_NULLABLE.getValue());
+        expectedBody.put("error", "Bad Request");
+        expectedBody.put("message", ANY_STRING_NOT_NULLABLE.getValue());
+        expectedBody.put("message2", ANY_STRING_NULLABLE.getValue());
+        expectedBody.put("path", ANYTHING_PRESENT.getValue());
+        expectedBody.put("details", ANY_OBJECT_NULLABLE.getValue());
+        expectedBody.put("details2", ANY_OBJECT_NOT_NULLABLE.getValue());
+        expectedBody.put("callbackErrors", ANY_OBJECT_NULLABLE.getValue());
+        expectedBody.put("callbackWarnings", null);
+
+        Map<String, Object> actual = new ConcurrentHashMap<>();
+        Map<String, Object> actualBody = new HashMap<>();
+
+        actual.put("responseCode", 400);
+        actual.put("body", actualBody);
+        actualBody.put("exception", "uk.gov.hmcts.ccd.endpoint.exceptions.BadRequestException");
+        actualBody.put("timestamp", "2019-11-13T14:02:43.431");
+        actualBody.put("status", 400);
+        actualBody.put("error", "Bad Request");
+        actualBody.put("message", "Unknown sort direction: someInvalidSortDirection");
+        actualBody.put("message2", null);
+
+        actualBody.put("path", "/caseworkers/bfb6eeaa-cbcd-466d-aafa-07fe99e7462b/jurisdictions/AUTOTEST1"
+                + "/case-types/AAT/cases/pagination_metadata");
+        actualBody.put("details", null);
+        actualBody.put("details2", Calendar.getInstance().getTime());
+        actualBody.put("callbackErrors", null);
+        actualBody.put("callbackWarnings", null);
+
+        MapVerificationResult result = new MapVerifier("actualResponse", 0).verifyMap(expected, actual);
+        Assert.assertEquals(0, result.getAllIssues().size());
+        Assert.assertTrue(result.isVerified());
+    }
+
+    @Test
+    public void shouldVerifyContentWithWildcardAnythingIfExists() {
+        Map<String, Object> expected = new HashMap<>();
+        Map<String, Object> expectedBody = new HashMap<>();
+
+        expected.put("responseCode", ANY_INTEGER_NOT_NULLABLE.getValue());
+        expected.put("body", expectedBody);
+        expectedBody.put("exception", "uk.gov.hmcts.ccd.endpoint.exceptions.BadRequestException");
+        expectedBody.put("timestamp", ANY_TIMESTAMP_NOT_NULLABLE.getValue());
+        expectedBody.put("status", ANY_INTEGER_NOT_NULLABLE.getValue());
+        expectedBody.put("error", "Bad Request");
+        expectedBody.put("message", ANY_STRING_NOT_NULLABLE.getValue());
+        expectedBody.put("path", ANYTHING_PRESENT.getValue());
+        expectedBody.put("details", ANY_OBJECT_NULLABLE.getValue());
+        expectedBody.put("callbackErrors", ANYTHING_IF_EXISTS.getValue());
+        expectedBody.put("callbackWarnings", ANYTHING_IF_EXISTS.getValue());
+
+        Map<String, Object> actual = new ConcurrentHashMap<>();
+        Map<String, Object> actualBody = new HashMap<>();
+
+        actual.put("responseCode", 400);
+        actual.put("body", actualBody);
+        actualBody.put("exception", "uk.gov.hmcts.ccd.endpoint.exceptions.BadRequestException");
+        actualBody.put("timestamp", "2019-11-13T14:02:43.431");
+        actualBody.put("status", 400);
+        actualBody.put("error", "Bad Request");
+        actualBody.put("message", "Unknown sort direction: someInvalidSortDirection");
+        actualBody.put("path", "/caseworkers/bfb6eeaa-cbcd-466d-aafa-07fe99e7462b/jurisdictions/AUTOTEST1"
+                + "/case-types/AAT/cases/pagination_metadata");
+        actualBody.put("details", null);
+        actualBody.put("callbackErrors", null);
+        actualBody.put("callbackWarnings", "Test Warnings");
+
+        MapVerificationResult result = new MapVerifier("actualResponse", 0).verifyMap(expected, actual);
+        Assert.assertEquals(0, result.getAllIssues().size());
+        Assert.assertTrue(result.isVerified());
+    }
+
+    @Test
+    public void shouldVerifyContentWithWildcardAnythingNullable() {
+        Map<String, Object> expected = new HashMap<>();
+        Map<String, Object> expectedBody = new HashMap<>();
+
+        expected.put("responseCode", ANY_INTEGER_NOT_NULLABLE.getValue());
+        expected.put("body", expectedBody);
+        expectedBody.put("exception", "uk.gov.hmcts.ccd.endpoint.exceptions.BadRequestException");
+        expectedBody.put("timestamp", ANY_TIMESTAMP_NOT_NULLABLE.getValue());
+        expectedBody.put("status", ANY_INTEGER_NOT_NULLABLE.getValue());
+        expectedBody.put("error", "Bad Request");
+        expectedBody.put("message", ANY_STRING_NOT_NULLABLE.getValue());
+        expectedBody.put("path", ANYTHING_PRESENT.getValue());
+        expectedBody.put("details", ANY_OBJECT_NULLABLE.getValue());
+        expectedBody.put("callbackErrors", ANY_NULLABLE.getValue());
+        expectedBody.put("callbackErrors2", ANY_NOT_NULLABLE.getValue());
+        expectedBody.put("callbackWarnings", ANYTHING_IF_EXISTS.getValue());
+        expectedBody.put("serialNumber", ANY_INTEGER_NULLABLE.getValue());
+        expectedBody.put("serialNumber2", ANY_NUMBER_NOT_NULLABLE.getValue());
+        expectedBody.put("serialNumber3", ANY_NUMBER_NULLABLE.getValue());
+        expectedBody.put("status", NOT_NULL.getValue());
+
+        Map<String, Object> actual = new ConcurrentHashMap<>();
+        Map<String, Object> actualBody = new HashMap<>();
+
+        actual.put("responseCode", 400);
+        actual.put("body", actualBody);
+        actualBody.put("exception", "uk.gov.hmcts.ccd.endpoint.exceptions.BadRequestException");
+        actualBody.put("timestamp", "2019-11-13T14:02:43.431");
+        actualBody.put("status", 400);
+        actualBody.put("error", "Bad Request");
+        actualBody.put("message", "Unknown sort direction: someInvalidSortDirection");
+        actualBody.put("path", "/caseworkers/bfb6eeaa-cbcd-466d-aafa-07fe99e7462b/jurisdictions/AUTOTEST1"
+                + "/case-types/AAT/cases/pagination_metadata");
+        actualBody.put("details", null);
+        actualBody.put("callbackErrors", null);
+        actualBody.put("callbackErrors2", new Object());
+        actualBody.put("callbackWarnings", "Test Warnings");
+        actualBody.put("serialNumber", null);
+        actualBody.put("serialNumber2", 600);
+        actualBody.put("serialNumber3", null);
+        actualBody.put("status", "Created");
+
+
+        MapVerificationResult result = new MapVerifier("actualResponse", 0).verifyMap(expected, actual);
+        Assert.assertEquals(0, result.getAllIssues().size());
+        Assert.assertTrue(result.isVerified());
+    }
+
+    @Test
+    public void shouldVerifyContentWithWildcardAnyDate() {
+        Map<String, Object> expected = new HashMap<>();
+        Map<String, Object> expectedBody = new HashMap<>();
+
+        expected.put("responseCode", ANY_INTEGER_NOT_NULLABLE.getValue());
+        expected.put("body", expectedBody);
+        expectedBody.put("exception", "uk.gov.hmcts.ccd.endpoint.exceptions.BadRequestException");
+        expectedBody.put("timestamp", ANY_TIMESTAMP_NOT_NULLABLE.getValue());
+        expectedBody.put("createDate", ANY_DATE_NOT_NULLABLE.getValue());
+        expectedBody.put("updatedDate", ANY_DATE_NULLABLE.getValue());
+
+        Map<String, Object> actual = new ConcurrentHashMap<>();
+        Map<String, Object> actualBody = new HashMap<>();
+
+        actual.put("responseCode", 400);
+        actual.put("body", actualBody);
+        actualBody.put("exception", "uk.gov.hmcts.ccd.endpoint.exceptions.BadRequestException");
+        actualBody.put("timestamp", "2019-11-13T14:02:43.431");
+        actualBody.put("createDate", Calendar.getInstance().getTime());
+        actualBody.put("updatedDate", null);
+
+        MapVerificationResult result = new MapVerifier("actualResponse", 0).verifyMap(expected, actual);
+        Assert.assertEquals(0, result.getAllIssues().size());
+        Assert.assertTrue(result.isVerified());
+    }
+
+
+    @Test
+    public void shouldVerifyContentWithWildcardAnyFloating() {
+        Map<String, Object> expected = new HashMap<>();
+        Map<String, Object> expectedBody = new HashMap<>();
+
+        expected.put("responseCode", ANY_INTEGER_NOT_NULLABLE.getValue());
+        expected.put("body", expectedBody);
+        expectedBody.put("exception", "uk.gov.hmcts.ccd.endpoint.exceptions.BadRequestException");
+        expectedBody.put("solicitorFee", ANY_FLOATING_NOT_NULLABLE.getValue());
+        expectedBody.put("fine", ANY_FLOATING_NULLABLE.getValue());
+
+        Map<String, Object> actual = new ConcurrentHashMap<>();
+        Map<String, Object> actualBody = new HashMap<>();
+
+        actual.put("responseCode", 400);
+        actual.put("body", actualBody);
+        actualBody.put("exception", "uk.gov.hmcts.ccd.endpoint.exceptions.BadRequestException");
+        actualBody.put("solicitorFee", 2000.45f);
+        actualBody.put("fine", null);
+
+        MapVerificationResult result = new MapVerifier("actualResponse", 0).verifyMap(expected, actual);
+        Assert.assertEquals(0, result.getAllIssues().size());
+        Assert.assertTrue(result.isVerified());
+    }
+
+
+
 
     @Test
     public void shouldVerifySimpleMapOfAcceptableContentCaseInsensitively() {

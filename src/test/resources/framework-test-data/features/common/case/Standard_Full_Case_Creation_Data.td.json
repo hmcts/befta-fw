@@ -44,13 +44,13 @@
 			"Transfer-Encoding": "chunked"
 		},
 		"body": {
-			"token": "[[ANY]]",
+			"token": "[[ANYTHING_PRESENT]]",
 			"case_details": {
 				"id": null,
-				"jurisdiction": "[[ANY]]",
+				"jurisdiction": "[[ANYTHING_PRESENT]]",
 				"state": null,
 				"version": null,
-				"case_type_id": "[[ANY]]",
+				"case_type_id": "[[ANYTHING_PRESENT]]",
 				"created_date": null,
 				"last_modified": null,
 				"security_classification": null,
@@ -69,7 +69,7 @@
 					
 				}
 			},
-			"event_id": "[[ANY]]"
+			"event_id": "[[ANYTHING_PRESENT]]"
 		}
 	}
 }
