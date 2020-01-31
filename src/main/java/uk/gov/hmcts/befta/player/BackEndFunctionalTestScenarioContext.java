@@ -58,8 +58,8 @@ public class BackEndFunctionalTestScenarioContext {
     public String getCurrentScenarioTag() {
         return scenario.getSourceTagNames().stream()
             .filter(tag -> tag.startsWith("@S-"))
-            .collect(Collectors.joining())
-            .substring(1);
+            .map(tag -> tag.substring(1))
+            .collect(Collectors.joining(","));
     }
 
     public HttpTestData getTestData() {
