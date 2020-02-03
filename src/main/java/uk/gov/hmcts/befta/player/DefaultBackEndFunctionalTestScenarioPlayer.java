@@ -86,7 +86,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         }
 
         UserData[] userArray = scenarioContext.getTestData().getUsers().values().toArray(new UserData[] {});
-        UserData userBeingSpecified = userArray[usersSpecified];
+        UserData userBeingSpecified = userArray[usersSpecified++];
         String prefix = usersSpecified == 0 ? "users.invokingUser" : "users[" + usersSpecified + "]";
         resolveUserData(prefix, userBeingSpecified);
         scenario.write("prefix: " + userBeingSpecified.getUsername());
@@ -94,7 +94,6 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         if (usersSpecified == 0) {
             scenarioContext.setTheInvokingUser(userBeingSpecified);
         }
-        usersSpecified++;
     }
 
     @Override
