@@ -58,10 +58,6 @@ public class HttpTestData {
         userSet = user;
     }
 
-    public Map<String, UserData> getUsers() {
-        return users;
-    }
-
     public void setUsers(Map<String, UserData> users) {
         if (users == null)
             throw new IllegalArgumentException("User map cannot be null.");
