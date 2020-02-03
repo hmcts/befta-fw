@@ -74,21 +74,27 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         performAndVerifyTheExpectedResponseForAnApiCall("to create a full case", caseCreationDataId);
     }
 
+    private int usersSpecified = 0;
     @Override
     @Given("a user with [{}]")
     public void verifyThatThereIsAUserInTheContextWithAParticularSpecification(String specificationAboutAUser) {
-        UserData aUser = scenarioContext.getTestData().getInvokingUser();
-        resolveUserData("users.invokingUser", aUser);
-        scenario.write("Invoking user: " + aUser.getUsername());
-        authenticateUser("users.invokingUser", aUser);
-        scenarioContext.setTheInvokingUser(aUser);
-
         boolean doesTestDataMeetSpec = scenarioContext.getTestData().meetsSpec(specificationAboutAUser);
         if (!doesTestDataMeetSpec) {
             String errorMessage = "Test data does not confirm it meets the specification about a user: "
                     + specificationAboutAUser;
             throw new FunctionalTestException(errorMessage);
         }
+
+        UserData[] userArray = scenarioContext.getTestData().getUsers().values().toArray(new UserData[] {});
+        UserData userBeingSpecified = userArray[usersSpecified];
+        String prefix = usersSpecified == 0 ? "users.invokingUser" : "users[" + usersSpecified + "]";
+        resolveUserData(prefix, userBeingSpecified);
+        scenario.write("prefix: " + userBeingSpecified.getUsername());
+        authenticateUser(prefix, userBeingSpecified);
+        if (usersSpecified == 0) {
+            scenarioContext.setTheInvokingUser(userBeingSpecified);
+        }
+        usersSpecified++;
     }
 
     @Override
