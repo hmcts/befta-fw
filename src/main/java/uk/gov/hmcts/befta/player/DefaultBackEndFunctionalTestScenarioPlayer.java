@@ -78,6 +78,8 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     @Override
     @Given("a user with [{}]")
     public void verifyThatThereIsAUserInTheContextWithAParticularSpecification(String specificationAboutAUser) {
+        usersSpecified++;
+        final int userIndex = usersSpecified - 1;
         boolean doesTestDataMeetSpec = scenarioContext.getTestData().meetsSpec(specificationAboutAUser);
         if (!doesTestDataMeetSpec) {
             String errorMessage = "Test data does not confirm it meets the specification about a user: "
@@ -86,12 +88,12 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         }
 
         UserData[] userArray = scenarioContext.getTestData().getUsers().values().toArray(new UserData[] {});
-        UserData userBeingSpecified = userArray[usersSpecified++];
-        String prefix = usersSpecified == 0 ? "users.invokingUser" : "users[" + usersSpecified + "]";
+        UserData userBeingSpecified = userArray[userIndex];
+        String prefix = userIndex == 0 ? "users.invokingUser" : "users[" + userIndex + "]";
         resolveUserData(prefix, userBeingSpecified);
         scenario.write("prefix: " + userBeingSpecified.getUsername());
         authenticateUser(prefix, userBeingSpecified);
-        if (usersSpecified == 0) {
+        if (userIndex == 0) {
             scenarioContext.setTheInvokingUser(userBeingSpecified);
         }
     }
