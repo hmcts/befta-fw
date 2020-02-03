@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.BooleanNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
@@ -120,7 +121,13 @@ public abstract class JsonStoreWithInheritance {
                     JsonNode parentFieldCopy = parentNode.get(fieldNameInParent).deepCopy();
                     if (object.has(fieldNameInParent)) {
                         JsonNode thisField = object.get(fieldNameInParent);
-                        if (thisField.isContainerNode()) {
+                        if (thisField.isArray()) {
+                            ((ArrayNode) thisField).forEach(element -> {
+                                overwriteInheritedValuesOf(element);
+                            });
+                            ((ArrayNode) parentFieldCopy).addAll((ArrayNode) thisField);
+                            ((ObjectNode) object).set(fieldNameInParent, parentFieldCopy);
+                        } else if (thisField.isContainerNode()) {
                             overwriteInheritedValuesOf(thisField);
                             ((ObjectNode) object).set(fieldNameInParent, parentFieldCopy);
                             underlayFor(parentFieldCopy, thisField);

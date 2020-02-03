@@ -28,6 +28,10 @@ public class JsonStoreWithInheritanceTest {
                 (Map<String, Object>) base.getRequest().getBody().get("data"),
                 (Map<String, Object>) extension.getExpectedResponse().getBody().get("data"));
 
+        Assert.assertArrayEquals(new Object[] { "an active profile in CCD" }, base.getSpecs().toArray());
+        Assert.assertArrayEquals(new Object[] { "an active profile in CCD", "has the 200 return code" },
+                extension.getSpecs().toArray());
+
         Assert.assertTrue(result.isVerified());
     }
 
