@@ -7,5 +7,6 @@
 	"Pragma": "no-cache",
 	"Expires": "0",
 	"X-XSS-Protection": "1; mode=block",
-	"Date": "[[ANYTHING_PRESENT]]"
+	"Date": "[[ANYTHING_PRESENT]]",
+	"Strict-Transport-Security": "max-age=31536000 ; includeSubDomains"
 }
