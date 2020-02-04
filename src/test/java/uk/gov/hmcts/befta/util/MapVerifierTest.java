@@ -1,6 +1,5 @@
 package uk.gov.hmcts.befta.util;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -11,26 +10,24 @@ import org.junit.Test;
 import uk.gov.hmcts.befta.data.HttpTestDataSource;
 import uk.gov.hmcts.befta.data.JsonStoreHttpTestDataSource;
 
-import static uk.gov.hmcts.befta.util.MapPlaceholders.ANYTHING_IF_EXISTS;
-import static uk.gov.hmcts.befta.util.MapPlaceholders.ANYTHING_PRESENT;
-import static uk.gov.hmcts.befta.util.MapPlaceholders.ANY_INTEGER_NOT_NULLABLE;
-import static uk.gov.hmcts.befta.util.MapPlaceholders.ANY_OBJECT_NULLABLE;
-import static uk.gov.hmcts.befta.util.MapPlaceholders.ANY_STRING_NOT_NULLABLE;
-import static uk.gov.hmcts.befta.util.MapPlaceholders.ANY_TIMESTAMP_NOT_NULLABLE;
-import static uk.gov.hmcts.befta.util.MapPlaceholders.ANY_NULLABLE;
-
-import static uk.gov.hmcts.befta.util.MapPlaceholders.ANY_DATE_NOT_NULLABLE;
-import static uk.gov.hmcts.befta.util.MapPlaceholders.ANY_DATE_NULLABLE;
-import static uk.gov.hmcts.befta.util.MapPlaceholders.ANY_FLOATING_NOT_NULLABLE;
-import static uk.gov.hmcts.befta.util.MapPlaceholders.ANY_FLOATING_NULLABLE;
-import static uk.gov.hmcts.befta.util.MapPlaceholders.ANY_INTEGER_NULLABLE;
-import static uk.gov.hmcts.befta.util.MapPlaceholders.ANY_NOT_NULLABLE;
-import static uk.gov.hmcts.befta.util.MapPlaceholders.ANY_NUMBER_NOT_NULLABLE;
-import static uk.gov.hmcts.befta.util.MapPlaceholders.ANY_NUMBER_NULLABLE;
-import static uk.gov.hmcts.befta.util.MapPlaceholders.ANY_OBJECT_NOT_NULLABLE;
-import static uk.gov.hmcts.befta.util.MapPlaceholders.ANY_STRING_NULLABLE;
-import static uk.gov.hmcts.befta.util.MapPlaceholders.ANY_TIMESTAMP_NULLABLE;
-import static uk.gov.hmcts.befta.util.MapPlaceholders.NOT_NULL;
+import static uk.gov.hmcts.befta.util.ExpectedValuePlaceholder.ANYTHING_IF_EXISTS;
+import static uk.gov.hmcts.befta.util.ExpectedValuePlaceholder.ANYTHING_PRESENT;
+import static uk.gov.hmcts.befta.util.ExpectedValuePlaceholder.ANY_DATE_NOT_NULLABLE;
+import static uk.gov.hmcts.befta.util.ExpectedValuePlaceholder.ANY_DATE_NULLABLE;
+import static uk.gov.hmcts.befta.util.ExpectedValuePlaceholder.ANY_FLOATING_NOT_NULLABLE;
+import static uk.gov.hmcts.befta.util.ExpectedValuePlaceholder.ANY_FLOATING_NULLABLE;
+import static uk.gov.hmcts.befta.util.ExpectedValuePlaceholder.ANY_INTEGER_NOT_NULLABLE;
+import static uk.gov.hmcts.befta.util.ExpectedValuePlaceholder.ANY_INTEGER_NULLABLE;
+import static uk.gov.hmcts.befta.util.ExpectedValuePlaceholder.ANY_NOT_NULLABLE;
+import static uk.gov.hmcts.befta.util.ExpectedValuePlaceholder.ANY_NULLABLE;
+import static uk.gov.hmcts.befta.util.ExpectedValuePlaceholder.ANY_NUMBER_NOT_NULLABLE;
+import static uk.gov.hmcts.befta.util.ExpectedValuePlaceholder.ANY_NUMBER_NULLABLE;
+import static uk.gov.hmcts.befta.util.ExpectedValuePlaceholder.ANY_OBJECT_NOT_NULLABLE;
+import static uk.gov.hmcts.befta.util.ExpectedValuePlaceholder.ANY_OBJECT_NULLABLE;
+import static uk.gov.hmcts.befta.util.ExpectedValuePlaceholder.ANY_STRING_NOT_NULLABLE;
+import static uk.gov.hmcts.befta.util.ExpectedValuePlaceholder.ANY_STRING_NULLABLE;
+import static uk.gov.hmcts.befta.util.ExpectedValuePlaceholder.ANY_TIMESTAMP_NOT_NULLABLE;
+import static uk.gov.hmcts.befta.util.ExpectedValuePlaceholder.ANY_TIMESTAMP_NULLABLE;
 
 public class MapVerifierTest {
 
@@ -180,7 +177,7 @@ public class MapVerifierTest {
         actualBody.put("path", "/caseworkers/bfb6eeaa-cbcd-466d-aafa-07fe99e7462b/jurisdictions/AUTOTEST1"
                 + "/case-types/AAT/cases/pagination_metadata");
         actualBody.put("details", null);
-        actualBody.put("details2", Calendar.getInstance().getTime());
+        actualBody.put("details2", "2019-11-13");
         actualBody.put("callbackErrors", null);
         actualBody.put("callbackWarnings", null);
 
@@ -247,7 +244,6 @@ public class MapVerifierTest {
         expectedBody.put("serialNumber", ANY_INTEGER_NULLABLE.getValue());
         expectedBody.put("serialNumber2", ANY_NUMBER_NOT_NULLABLE.getValue());
         expectedBody.put("serialNumber3", ANY_NUMBER_NULLABLE.getValue());
-        expectedBody.put("status", NOT_NULL.getValue());
 
         Map<String, Object> actual = new ConcurrentHashMap<>();
         Map<String, Object> actualBody = new HashMap<>();
@@ -268,8 +264,6 @@ public class MapVerifierTest {
         actualBody.put("serialNumber", null);
         actualBody.put("serialNumber2", 600);
         actualBody.put("serialNumber3", null);
-        actualBody.put("status", "Created");
-
 
         MapVerificationResult result = new MapVerifier("actualResponse", 0).verifyMap(expected, actual);
         Assert.assertEquals(0, result.getAllIssues().size());
@@ -295,7 +289,7 @@ public class MapVerifierTest {
         actual.put("body", actualBody);
         actualBody.put("exception", "uk.gov.hmcts.ccd.endpoint.exceptions.BadRequestException");
         actualBody.put("timestamp", "2019-11-13T14:02:43.431");
-        actualBody.put("createDate", Calendar.getInstance().getTime());
+        actualBody.put("createDate", "2019-11-13");
         actualBody.put("updatedDate", null);
 
         MapVerificationResult result = new MapVerifier("actualResponse", 0).verifyMap(expected, actual);

@@ -1,5 +1,6 @@
 package uk.gov.hmcts.befta.util;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -7,25 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static uk.gov.hmcts.befta.util.MapPlaceholders.ANYTHING_IF_EXISTS;
-import static uk.gov.hmcts.befta.util.MapPlaceholders.ANY_NULLABLE;
-import static uk.gov.hmcts.befta.util.MapPlaceholders.ANYTHING_PRESENT;
-import static uk.gov.hmcts.befta.util.MapPlaceholders.ANY_DATE_NOT_NULLABLE;
-import static uk.gov.hmcts.befta.util.MapPlaceholders.ANY_DATE_NULLABLE;
-import static uk.gov.hmcts.befta.util.MapPlaceholders.ANY_FLOATING_NOT_NULLABLE;
-import static uk.gov.hmcts.befta.util.MapPlaceholders.ANY_FLOATING_NULLABLE;
-import static uk.gov.hmcts.befta.util.MapPlaceholders.ANY_INTEGER_NOT_NULLABLE;
-import static uk.gov.hmcts.befta.util.MapPlaceholders.ANY_INTEGER_NULLABLE;
-import static uk.gov.hmcts.befta.util.MapPlaceholders.ANY_NOT_NULLABLE;
-import static uk.gov.hmcts.befta.util.MapPlaceholders.ANY_NUMBER_NOT_NULLABLE;
-import static uk.gov.hmcts.befta.util.MapPlaceholders.ANY_NUMBER_NULLABLE;
-import static uk.gov.hmcts.befta.util.MapPlaceholders.ANY_OBJECT_NOT_NULLABLE;
-import static uk.gov.hmcts.befta.util.MapPlaceholders.ANY_OBJECT_NULLABLE;
-import static uk.gov.hmcts.befta.util.MapPlaceholders.ANY_STRING_NOT_NULLABLE;
-import static uk.gov.hmcts.befta.util.MapPlaceholders.ANY_STRING_NULLABLE;
-import static uk.gov.hmcts.befta.util.MapPlaceholders.ANY_TIMESTAMP_NOT_NULLABLE;
-import static uk.gov.hmcts.befta.util.MapPlaceholders.ANY_TIMESTAMP_NULLABLE;
-import static uk.gov.hmcts.befta.util.MapPlaceholders.NOT_NULL;
+import static uk.gov.hmcts.befta.util.ExpectedValuePlaceholder.ANYTHING_IF_EXISTS;
 
 public class MapVerifier {
 
@@ -139,7 +122,7 @@ public class MapVerifier {
                         //
                     } else if (expectedValue == null) {
                         badValueMessages.add("Must be null: " + commonKey);
-                    } else if (actualValue == null && notNullable(expectedValue)) {
+                    } else if (actualValue == null && !nullable((String) expectedValue)) {
                         badValueMessages.add("Must not be null: " + commonKey);
                     } else if (!(expectedValue instanceof Map && actualValue instanceof Map)) {
                         if (expectedValue instanceof Collection<?> && actualValue instanceof Collection<?>) {
@@ -147,7 +130,7 @@ public class MapVerifier {
                                     (Collection<?>) expectedValue,
                                     (Collection<?>) actualValue, currentDepth, maxMessageDepth, badValueMessages);
                         } else {
-                            Object outcome = compareValues(fieldPrefix, commonKey, expectedValue, actualValue,
+                            Object outcome = compareValues(commonKey, expectedValue, actualValue,
                                 currentDepth, maxMessageDepth);
                             if (!Boolean.TRUE.equals(outcome)) {
                                 if (outcome instanceof String) {
@@ -188,8 +171,7 @@ public class MapVerifier {
                 collectBadValueMessagesFromCollection(fieldPrefix, subfield, (Collection<?>) o1, (Collection<?>) o2,
                         currentDepth + 1, maxMessageDepth, badValueMessages);
             } else {
-                Object outcome = compareValues(subfield, subfield, o1, o2, currentDepth + 1,
-                        maxMessageDepth);
+                Object outcome = compareValues(subfield, o1, o2, currentDepth + 1, maxMessageDepth);
                 if (!Boolean.TRUE.equals(outcome)) {
                     if (outcome instanceof String) {
                         badValueMessages.add((String) outcome);
@@ -203,13 +185,16 @@ public class MapVerifier {
         }
     }
 
-    private Object compareValues(String fieldPrefix, String commonKey, Object expectedValue,
+    private Object compareValues(String commonKey, Object expectedValue,
             Object actualValue, int currentDepth, int maxMessageDepth) {
         boolean justCompare = currentDepth > maxMessageDepth;
-        if (expectedValue instanceof String && (ANYTHING_IF_EXISTS.getValue().equalsIgnoreCase((String) expectedValue)
-                || notNullable(expectedValue))) {
+        if (expectedValue instanceof String &&
+                ANYTHING_IF_EXISTS.getValue().equalsIgnoreCase((String) expectedValue)) {
             return Boolean.TRUE;
-        } else if (expectedValue == actualValue) {
+        } else if(expectedValue instanceof String && isValid((String) expectedValue, actualValue)) {
+            return Boolean.TRUE;
+        }
+        else if (expectedValue == actualValue) {
             return Boolean.TRUE;
         } else if (expectedValue == null) {
             return justCompare ? Boolean.FALSE : "Must be null: " + commonKey;
@@ -235,8 +220,10 @@ public class MapVerifier {
 
     private boolean isExpectedToBeAvailableInActual(Object expectedValue) {
         if (expectedValue instanceof String) {
-            String strExpectedValue = (String) expectedValue;
-            return !(nullable(strExpectedValue) || notNullable(strExpectedValue));
+            ExpectedValuePlaceholder expectedValuePlaceholder = ExpectedValuePlaceholder.getByValue((String) expectedValue);
+            if (expectedValuePlaceholder != null) {
+                return expectedValuePlaceholder.isNullable();
+            }
         }
         return true;
     }
@@ -245,39 +232,19 @@ public class MapVerifier {
         if (!(expectedValue instanceof String)) {
             return Boolean.FALSE;
         }
-        String strExpectedValue = (String) expectedValue;
-        return nullable(strExpectedValue) || !notNullable(strExpectedValue);
+        return nullable((String) expectedValue);
     }
 
     private boolean nullable(String strExpectedValue) {
-        return ANY_INTEGER_NULLABLE.getValue().equalsIgnoreCase(strExpectedValue) ||
-                ANY_DATE_NULLABLE.getValue().equalsIgnoreCase(strExpectedValue) ||
-                ANY_FLOATING_NULLABLE.getValue().equalsIgnoreCase(strExpectedValue) ||
-                ANY_NUMBER_NULLABLE.getValue().equalsIgnoreCase(strExpectedValue) ||
-                ANY_STRING_NULLABLE.getValue().equalsIgnoreCase(strExpectedValue) ||
-                ANY_OBJECT_NULLABLE.getValue().equalsIgnoreCase(strExpectedValue) ||
-                ANY_TIMESTAMP_NULLABLE.getValue().equalsIgnoreCase(strExpectedValue) ||
-                ANY_NULLABLE.getValue().equalsIgnoreCase(strExpectedValue) ||
-                ANYTHING_IF_EXISTS.getValue().equalsIgnoreCase(strExpectedValue);
+        ExpectedValuePlaceholder expectedValuePlaceholder = ExpectedValuePlaceholder.getByValue(strExpectedValue);
+        return expectedValuePlaceholder != null ?  expectedValuePlaceholder.isNullable(): true;
     }
 
-    private boolean notNullable(Object expectedValue) {
-        if (expectedValue instanceof String) {
-            return notNullable((String) expectedValue);
+    private boolean isValid(String strExpectedValue, Object actualValue) {
+        ExpectedValuePlaceholder expectedValuePlaceholder = ExpectedValuePlaceholder.getByValue(strExpectedValue);
+        if (expectedValuePlaceholder != null) {
+            return expectedValuePlaceholder.isValid(actualValue);
         }
         return false;
-    }
-
-    private boolean notNullable(String strExpectedValue) {
-        return ANY_INTEGER_NOT_NULLABLE.getValue().equalsIgnoreCase(strExpectedValue) ||
-                ANY_DATE_NOT_NULLABLE.getValue().equalsIgnoreCase(strExpectedValue) ||
-                ANY_FLOATING_NOT_NULLABLE.getValue().equalsIgnoreCase(strExpectedValue) ||
-                ANY_NUMBER_NOT_NULLABLE.getValue().equalsIgnoreCase(strExpectedValue) ||
-                ANY_STRING_NOT_NULLABLE.getValue().equalsIgnoreCase(strExpectedValue) ||
-                ANY_OBJECT_NOT_NULLABLE.getValue().equalsIgnoreCase(strExpectedValue) ||
-                ANY_TIMESTAMP_NOT_NULLABLE.getValue().equalsIgnoreCase(strExpectedValue) ||
-                ANY_NOT_NULLABLE.getValue().equalsIgnoreCase(strExpectedValue) ||
-                NOT_NULL.getValue().equalsIgnoreCase(strExpectedValue) ||
-                ANYTHING_PRESENT.getValue().equalsIgnoreCase(strExpectedValue);
     }
 }
