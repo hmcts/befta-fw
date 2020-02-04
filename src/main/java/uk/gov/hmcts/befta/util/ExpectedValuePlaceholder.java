@@ -45,7 +45,7 @@ public enum ExpectedValuePlaceholder {
         return this.nullable;
     }
 
-    public boolean isValid(Object actualObject) {
+    public boolean isValidFormat(Object actualObject) {
         if (isNullable() && actualObject == null) {
             return true;
         } else if (!isNullable() && actualObject == null) {

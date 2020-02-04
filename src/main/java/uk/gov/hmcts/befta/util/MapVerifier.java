@@ -190,7 +190,7 @@ public class MapVerifier {
         if (expectedValue instanceof String &&
                 ANYTHING_IF_EXISTS.getValue().equalsIgnoreCase((String) expectedValue)) {
             return Boolean.TRUE;
-        } else if(expectedValue instanceof String && isValid((String) expectedValue, actualValue)) {
+        } else if(expectedValue instanceof String && isValidFormat((String) expectedValue, actualValue)) {
             return Boolean.TRUE;
         }
         else if (expectedValue == actualValue) {
@@ -239,10 +239,10 @@ public class MapVerifier {
         return expectedValuePlaceholder != null ?  expectedValuePlaceholder.isNullable(): true;
     }
 
-    private boolean isValid(String strExpectedValue, Object actualValue) {
+    private boolean isValidFormat(String strExpectedValue, Object actualValue) {
         ExpectedValuePlaceholder expectedValuePlaceholder = ExpectedValuePlaceholder.getByValue(strExpectedValue);
         if (expectedValuePlaceholder != null) {
-            return expectedValuePlaceholder.isValid(actualValue);
+            return expectedValuePlaceholder.isValidFormat(actualValue);
         }
         return false;
     }
