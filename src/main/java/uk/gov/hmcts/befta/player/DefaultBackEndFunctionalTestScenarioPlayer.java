@@ -43,6 +43,8 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     private final BackEndFunctionalTestScenarioContext scenarioContext;
     private Scenario scenario;
 
+    private int usersSpecifiedSoFar = 0;
+
     public DefaultBackEndFunctionalTestScenarioPlayer() {
         RestAssured.baseURI = TestAutomationConfig.INSTANCE.getTestUrl();
         RestAssured.useRelaxedHTTPSValidation();
@@ -74,12 +76,10 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         performAndVerifyTheExpectedResponseForAnApiCall("to create a full case", caseCreationDataId);
     }
 
-    private int usersSpecified = 0;
     @Override
     @Given("a user with [{}]")
     public void verifyThatThereIsAUserInTheContextWithAParticularSpecification(String specificationAboutAUser) {
-        usersSpecified++;
-        final int userIndex = usersSpecified - 1;
+        usersSpecifiedSoFar++;
         boolean doesTestDataMeetSpec = scenarioContext.getTestData().meetsSpec(specificationAboutAUser);
         if (!doesTestDataMeetSpec) {
             String errorMessage = "Test data does not confirm it meets the specification about a user: "
@@ -87,15 +87,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
             throw new FunctionalTestException(errorMessage);
         }
 
-        UserData[] userArray = scenarioContext.getTestData().getUsers().values().toArray(new UserData[] {});
-        UserData userBeingSpecified = userArray[userIndex];
-        String prefix = userIndex == 0 ? "users.invokingUser" : "users[" + userIndex + "]";
-        resolveUserData(prefix, userBeingSpecified);
-        scenario.write("prefix: " + userBeingSpecified.getUsername());
-        authenticateUser(prefix, userBeingSpecified);
-        if (userIndex == 0) {
-            scenarioContext.setTheInvokingUser(userBeingSpecified);
-        }
+        verifyTheUserBeingSpecifiedInTheContext(scenarioContext, usersSpecifiedSoFar - 1);
     }
 
     @Override
@@ -106,13 +98,6 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
 
     private void prepareARequestWithAppropriateValues(BackEndFunctionalTestScenarioContext scenarioContext)
             throws IOException {
-        if (scenarioContext.getTheInvokingUser() == null) {
-            UserData anInvokingUser = scenarioContext.getTestData().getInvokingUser();
-            resolveUserData("users.invokingUser", anInvokingUser);
-            authenticateUser("users.invokingUser", anInvokingUser);
-            scenarioContext.setTheInvokingUser(anInvokingUser);
-        }
-
         HttpTestData testData = scenarioContext.getTestData();
 
         new DynamicValueInjector(BeftaMain.getAdapter(), testData, scenarioContext).injectDataFromContext();
@@ -329,11 +314,30 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         BackEndFunctionalTestScenarioContext subcontext = new BackEndFunctionalTestScenarioContext();
         subcontext.initializeTestDataFor(testDataId);
         this.scenarioContext.addChildContext(subcontext);
+        verifyAllUsersInTheConext(subcontext);
         prepareARequestWithAppropriateValues(subcontext);
         verifyTheRequestInTheContextWithAParticularSpecification(subcontext, testDataSpec);
         submitTheRequestToCallAnOperationOfAProduct(subcontext, subcontext.getTestData().getOperationName(),
                 subcontext.getTestData().getProductName());
         verifyThatTheResponseHasAllTheDetailsAsExpected(subcontext);
+    }
+
+    private void verifyAllUsersInTheConext(BackEndFunctionalTestScenarioContext scenarioContext) {
+        scenarioContext.getTestData().getUsers()
+                .forEach((K, V) -> verifyTheUserBeingSpecifiedInTheContext(scenarioContext, usersSpecifiedSoFar++));
+    }
+
+    private void verifyTheUserBeingSpecifiedInTheContext(final BackEndFunctionalTestScenarioContext scenarioContext,
+            final int userIndex) {
+        UserData[] userArray = scenarioContext.getTestData().getUsers().values().toArray(new UserData[] {});
+        UserData userBeingSpecified = userArray[userIndex];
+        String prefix = userIndex == 0 ? "users.invokingUser" : "users[" + userIndex + "]";
+        resolveUserData(prefix, userBeingSpecified);
+        scenario.write("prefix: " + userBeingSpecified.getUsername());
+        authenticateUser(prefix, userBeingSpecified);
+        if (userIndex == 0) {
+            scenarioContext.setTheInvokingUser(userBeingSpecified);
+        }
     }
 
     private void resolveUserData(String prefix, UserData aUser) {
