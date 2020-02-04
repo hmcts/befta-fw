@@ -87,7 +87,9 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
             throw new FunctionalTestException(errorMessage);
         }
 
-        verifyTheUserBeingSpecifiedInTheContext(scenarioContext, usersSpecifiedSoFar - 1);
+        final int userIndex = usersSpecifiedSoFar - 1;
+        UserData userData = (UserData) scenarioContext.getTestData().getUsers().values().toArray()[userIndex];
+        verifyTheUserBeingSpecifiedInTheContext(scenarioContext, userData, userIndex);
     }
 
     @Override
@@ -324,13 +326,12 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
 
     private void verifyAllUsersInTheConext(BackEndFunctionalTestScenarioContext scenarioContext) {
         scenarioContext.getTestData().getUsers()
-                .forEach((K, V) -> verifyTheUserBeingSpecifiedInTheContext(scenarioContext, usersSpecifiedSoFar++));
+                .forEach((key, userData) -> verifyTheUserBeingSpecifiedInTheContext(scenarioContext, userData,
+                        usersSpecifiedSoFar++));
     }
 
     private void verifyTheUserBeingSpecifiedInTheContext(final BackEndFunctionalTestScenarioContext scenarioContext,
-            final int userIndex) {
-        UserData[] userArray = scenarioContext.getTestData().getUsers().values().toArray(new UserData[] {});
-        UserData userBeingSpecified = userArray[userIndex];
+            final UserData userBeingSpecified, int userIndex) {
         String prefix = userIndex == 0 ? "users.invokingUser" : "users[" + userIndex + "]";
         resolveUserData(prefix, userBeingSpecified);
         scenario.write("prefix: " + userBeingSpecified.getUsername());
