@@ -2,7 +2,6 @@ package uk.gov.hmcts.befta.util;
 
 import java.sql.Timestamp;
 import java.text.NumberFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 

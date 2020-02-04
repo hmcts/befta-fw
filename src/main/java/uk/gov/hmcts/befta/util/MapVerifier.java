@@ -1,6 +1,5 @@
 package uk.gov.hmcts.befta.util;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
