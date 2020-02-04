@@ -26,6 +26,7 @@ public class BackEndFunctionalTestScenarioContext {
     private BackEndFunctionalTestScenarioContext parentContext;
     private Map<String, BackEndFunctionalTestScenarioContext> childContexts = new HashMap<>();
 
+    private int userCountSpecifiedSoFar = 0;
 
     public void addChildContext(BackEndFunctionalTestScenarioContext childContext) {
         childContext.setParentContext(this);
@@ -87,5 +88,13 @@ public class BackEndFunctionalTestScenarioContext {
 
     public void setTheResponse(ResponseData theResponse) {
         this.theResponse = theResponse;
+    }
+
+    public int getUserCountSpecifiedSoFar() {
+        return userCountSpecifiedSoFar;
+    }
+
+    public int getAndIncrementUserCountSpecifiedSoFar() {
+        return userCountSpecifiedSoFar++;
     }
 }

@@ -43,7 +43,6 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     private final BackEndFunctionalTestScenarioContext scenarioContext;
     private Scenario scenario;
 
-    private int usersSpecifiedSoFar = 0;
 
     public DefaultBackEndFunctionalTestScenarioPlayer() {
         RestAssured.baseURI = TestAutomationConfig.INSTANCE.getTestUrl();
@@ -79,7 +78,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     @Override
     @Given("a user with [{}]")
     public void verifyThatThereIsAUserInTheContextWithAParticularSpecification(String specificationAboutAUser) {
-        usersSpecifiedSoFar++;
+        final int userIndex = scenarioContext.getAndIncrementUserCountSpecifiedSoFar();
         boolean doesTestDataMeetSpec = scenarioContext.getTestData().meetsSpec(specificationAboutAUser);
         if (!doesTestDataMeetSpec) {
             String errorMessage = "Test data does not confirm it meets the specification about a user: "
@@ -87,7 +86,6 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
             throw new FunctionalTestException(errorMessage);
         }
 
-        final int userIndex = usersSpecifiedSoFar - 1;
         UserData userData = (UserData) scenarioContext.getTestData().getUsers().values().toArray()[userIndex];
         verifyTheUserBeingSpecifiedInTheContext(scenarioContext, userData, userIndex);
     }
@@ -327,7 +325,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     private void verifyAllUsersInTheConext(BackEndFunctionalTestScenarioContext scenarioContext) {
         scenarioContext.getTestData().getUsers()
                 .forEach((key, userData) -> verifyTheUserBeingSpecifiedInTheContext(scenarioContext, userData,
-                        usersSpecifiedSoFar++));
+                        scenarioContext.getAndIncrementUserCountSpecifiedSoFar()));
     }
 
     private void verifyTheUserBeingSpecifiedInTheContext(final BackEndFunctionalTestScenarioContext scenarioContext,
