@@ -2,9 +2,8 @@ package uk.gov.hmcts.befta.data;
 
 import lombok.Data;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 @Data
 public class HttpTestData {
@@ -33,7 +32,7 @@ public class HttpTestData {
 
     private ResponseData actualResponse;
 
-    private Map<String, UserData> users = new HashMap<>();
+    private LinkedHashMap<String, UserData> users = new LinkedHashMap<>();
 
     private UserData userSet = null;
 
@@ -58,7 +57,7 @@ public class HttpTestData {
         userSet = user;
     }
 
-    public void setUsers(Map<String, UserData> users) {
+    public void setUsers(LinkedHashMap<String, UserData> users) {
         if (users == null)
             throw new IllegalArgumentException("User map cannot be null.");
         this.users = users;

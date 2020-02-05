@@ -6,9 +6,8 @@ import org.junit.runner.RunWith;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.util.Arrays;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -78,7 +77,7 @@ public class HttpTestDataTest {
 
     @Test
     public void shouldSetInvokingUserToUserSetWhenNotNull() {
-        Map<String, UserData> users = new HashMap<>();
+        LinkedHashMap<String, UserData> users = new LinkedHashMap<>();
         final UserData user = new UserData("USERNAME", "PASSWORD");
         users.put("someUser", user);
         testData.setUserSet(user);

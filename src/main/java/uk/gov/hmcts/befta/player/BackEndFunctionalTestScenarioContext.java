@@ -8,11 +8,7 @@ import io.cucumber.java.Scenario;
 import io.restassured.specification.RequestSpecification;
 import lombok.Getter;
 import lombok.Setter;
-import uk.gov.hmcts.befta.data.HttpTestData;
-import uk.gov.hmcts.befta.data.HttpTestDataSource;
-import uk.gov.hmcts.befta.data.JsonStoreHttpTestDataSource;
-import uk.gov.hmcts.befta.data.ResponseData;
-import uk.gov.hmcts.befta.data.UserData;
+import uk.gov.hmcts.befta.data.*;
 
 public class BackEndFunctionalTestScenarioContext {
 
@@ -23,9 +19,6 @@ public class BackEndFunctionalTestScenarioContext {
 
     @Getter
     protected HttpTestData testData;
-
-    @Getter @Setter
-    private UserData theInvokingUser;
 
     @Getter @Setter
     private RequestSpecification theRequest;
@@ -39,6 +32,7 @@ public class BackEndFunctionalTestScenarioContext {
     @Getter
     private Map<String, BackEndFunctionalTestScenarioContext> childContexts = new HashMap<>();
 
+    private int userCountSpecifiedSoFar = 0;
 
     public void addChildContext(BackEndFunctionalTestScenarioContext childContext) {
         childContext.setParentContext(this);
@@ -60,5 +54,21 @@ public class BackEndFunctionalTestScenarioContext {
             .filter(tag -> tag.startsWith("@S-"))
             .map(tag -> tag.substring(1))
             .collect(Collectors.joining(","));
+    }
+
+    public UserData getTheInvokingUser() {
+        return testData.getInvokingUser();
+    }
+
+    public void setTheInvokingUser(UserData theInvokingUser) {
+        testData.setInvokingUser(theInvokingUser);
+    }
+
+    public int getUserCountSpecifiedSoFar() {
+        return userCountSpecifiedSoFar;
+    }
+
+    public int getAndIncrementUserCountSpecifiedSoFar() {
+        return userCountSpecifiedSoFar++;
     }
 }

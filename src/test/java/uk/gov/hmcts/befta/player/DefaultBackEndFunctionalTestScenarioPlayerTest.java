@@ -31,6 +31,7 @@ import uk.gov.hmcts.befta.util.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static org.hamcrest.core.StringContains.containsString;
@@ -189,18 +190,13 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
     public void shouldPrepareARequestWithAppropriateValuesUsingMinData() throws IOException {
         HttpTestData testData = new HttpTestData();
         RequestData requestData = new RequestData();
-        UserData userData = createUserData(USERNAME, PASSWORD);
         testData.setRequest(requestData);
-        testData.setInvokingUser(userData);
 
         when(RestAssured.given()).thenReturn(requestSpecification);
-        when(EnvironmentVariableUtils.resolvePossibleVariable(USERNAME)).thenReturn(USERNAME);
-        when(EnvironmentVariableUtils.resolvePossibleVariable(PASSWORD)).thenReturn(PASSWORD);
         when(context.getTestData()).thenReturn(testData);
 
         scenarioPlayer.prepareARequestWithAppropriateValues();
 
-        verify(context).setTheInvokingUser(eq(userData));
         verifyNoMoreInteractions(requestSpecification);
     }
 
@@ -271,9 +267,13 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         final String specificationAboutUser = "USER SPEC";
         HttpTestData testData = mock(HttpTestData.class);
         UserData userData = createUserData(USERNAME, PASSWORD);
+        LinkedHashMap<String, UserData> users = new LinkedHashMap<String, UserData>() {{
+            put("invokingUser", userData);
+        }};
 
         when(testData.meetsSpec(any())).thenReturn(true);
         when(testData.getInvokingUser()).thenReturn(userData);
+        when(testData.getUsers()).thenReturn(users);
         when(context.getTestData()).thenReturn(testData);
         when(EnvironmentVariableUtils.resolvePossibleVariable(USERNAME)).thenReturn(USERNAME);
         when(EnvironmentVariableUtils.resolvePossibleVariable(PASSWORD)).thenReturn(PASSWORD);
