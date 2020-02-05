@@ -50,7 +50,7 @@ public class HttpTestDataTest {
         testData.setOperationName(OPERATION);
         testData.setProductName(PRODUCT);
 
-        boolean result = testData.meetsOperationOfProduct(OPERATION, PRODUCT);
+        boolean result = testData.meetsOperationOfProduct(PRODUCT, OPERATION);
 
         assertTrue(result);
     }
@@ -60,7 +60,7 @@ public class HttpTestDataTest {
         testData.setOperationName(OPERATION);
         testData.setProductName(PRODUCT);
 
-        boolean result = testData.meetsOperationOfProduct("OTHER OPERATION", PRODUCT);
+        boolean result = testData.meetsOperationOfProduct(PRODUCT, "OTHER OPERATION");
 
         assertFalse(result);
     }
@@ -70,7 +70,7 @@ public class HttpTestDataTest {
         testData.setOperationName(OPERATION);
         testData.setProductName(PRODUCT);
 
-        boolean result = testData.meetsOperationOfProduct(OPERATION, "OTHER PRODUCT");
+        boolean result = testData.meetsOperationOfProduct("OTHER PRODUCT", OPERATION);
 
         assertFalse(result);
     }

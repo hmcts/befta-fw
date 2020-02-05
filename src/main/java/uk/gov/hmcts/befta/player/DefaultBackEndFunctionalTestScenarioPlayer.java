@@ -207,7 +207,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     public void verifyThatAPositiveResponseWasReceived() {
         int responseCode = scenarioContext.getTheResponse().getResponseCode();
         scenario.write("Response code: " + responseCode);
-        boolean responseCodePositive = responseCode / 100 != 2;
+        boolean responseCodePositive = responseCode / 100 == 2;
         Assert.assertTrue("Response code '" + responseCode + "' is not a success code.", responseCodePositive);
     }
 

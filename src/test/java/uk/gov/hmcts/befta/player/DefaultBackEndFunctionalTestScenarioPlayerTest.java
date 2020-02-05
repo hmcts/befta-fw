@@ -26,6 +26,8 @@ import uk.gov.hmcts.befta.data.RequestData;
 import uk.gov.hmcts.befta.data.ResponseData;
 import uk.gov.hmcts.befta.data.UserData;
 import uk.gov.hmcts.befta.exception.FunctionalTestException;
+import uk.gov.hmcts.befta.exception.UnconfirmedApiCallException;
+import uk.gov.hmcts.befta.exception.UnconfirmedDataSpecException;
 import uk.gov.hmcts.befta.util.*;
 
 import java.io.IOException;
@@ -125,7 +127,8 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
     @Test
     public void shouldErrorWhenVerifyingThatAPositiveResponseWasReceivedForCode50x() {
         createResponseDataWithResponseCode(500);
-        exceptionRule.expect(FunctionalTestException.class);
+        exceptionRule.expect(AssertionError.class);
+        exceptionRule.expectMessage("Response code '500' is not a success code.");
 
         scenarioPlayer.verifyThatAPositiveResponseWasReceived();
     }
@@ -142,7 +145,8 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
     @Test
     public void shouldErrorWhenVerifyingThatANegativeResponseWasReceivedForCode20x() {
         createResponseDataWithResponseCode(201);
-        exceptionRule.expect(FunctionalTestException.class);
+        exceptionRule.expect(AssertionError.class);
+        exceptionRule.expectMessage("Response code '201' is unexpectedly a success code.");
 
         scenarioPlayer.verifyThatANegativeResponseWasReceived();
     }
@@ -226,7 +230,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         when(mapVerifier.verifyMap(any(), any())).thenReturn(verificationResult);
         when(verificationResult.isVerified()).thenReturn(true);
 
-        exceptionRule.expect(FunctionalTestException.class);
+        exceptionRule.expect(AssertionError.class);
         exceptionRule.expectMessage(containsString("Response code mismatch, expected: 200, actual: 500"));
 
         scenarioPlayer.verifyThatTheResponseHasAllTheDetailsAsExpected();
@@ -253,7 +257,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
             add("Body issue 2");
         }});
 
-        exceptionRule.expect(FunctionalTestException.class);
+        exceptionRule.expect(AssertionError.class);
         exceptionRule.expectMessage(containsString("Header issue 1"));
         exceptionRule.expectMessage(containsString("Header issue 2"));
         exceptionRule.expectMessage(containsString("Body issue 1"));
@@ -296,8 +300,8 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         when(EnvironmentVariableUtils.resolvePossibleVariable(USERNAME)).thenReturn(USERNAME);
         when(EnvironmentVariableUtils.resolvePossibleVariable(PASSWORD)).thenReturn(PASSWORD);
 
-        exceptionRule.expect(FunctionalTestException.class);
-        exceptionRule.expectMessage("Test data does not confirm it meets the specification about a user: USER SPEC");
+        exceptionRule.expect(UnconfirmedDataSpecException.class);
+        exceptionRule.expectMessage("Test data does not confirm it meets the specification: 'USER SPEC'");
 
         scenarioPlayer.verifyThatThereIsAUserInTheContextWithAParticularSpecification(specificationAboutUser);
     }
@@ -323,8 +327,8 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         when(testData.meetsSpec(any())).thenReturn(false);
         when(context.getTestData()).thenReturn(testData);
 
-        exceptionRule.expect(FunctionalTestException.class);
-        exceptionRule.expectMessage("Test data does not confirm it meets the specification about the request: REQUEST SPEC");
+        exceptionRule.expect(UnconfirmedDataSpecException.class);
+        exceptionRule.expectMessage("Test data does not confirm it meets the specification: 'REQUEST SPEC'");
 
         scenarioPlayer.verifyTheRequestInTheContextWithAParticularSpecification(requestSpecification);
     }
@@ -350,8 +354,8 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         when(testData.meetsSpec(any())).thenReturn(false);
         when(context.getTestData()).thenReturn(testData);
 
-        exceptionRule.expect(FunctionalTestException.class);
-        exceptionRule.expectMessage("Test data does not confirm it meets the specification about the response: RESPONSE SPEC");
+        exceptionRule.expect(UnconfirmedDataSpecException.class);
+        exceptionRule.expectMessage("Test data does not confirm it meets the specification: 'RESPONSE SPEC'");
 
         scenarioPlayer.verifyTheResponseInTheContextWithAParticularSpecification(responseSpecification);
     }
@@ -367,7 +371,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         ResponseBody responseBody = mock(ResponseBody.class);
         QueryableRequestSpecification queryableRequest = mock(QueryableRequestSpecification.class);
 
-        when(testData.meetsOperationOfProduct(eq(OPERATION), eq(PRODUCT_NAME))).thenReturn(true);
+        when(testData.meetsOperationOfProduct(eq(PRODUCT_NAME), eq(OPERATION))).thenReturn(true);
         when(testData.getMethod()).thenReturn(methodType);
         when(testData.getUri()).thenReturn(uri);
         when(context.getTestData()).thenReturn(testData);
@@ -395,7 +399,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
     public void shouldFailToSubmitTheRequestToCallAnOperationOfAProductWithInvalidMethodType() throws IOException {
         HttpTestData testData = mock(HttpTestData.class);
 
-        when(testData.meetsOperationOfProduct(eq(OPERATION), eq(PRODUCT_NAME))).thenReturn(true);
+        when(testData.meetsOperationOfProduct(eq(PRODUCT_NAME), eq(OPERATION))).thenReturn(true);
         when(context.getTestData()).thenReturn(testData);
         when(testData.getMethod()).thenReturn("X");
         when(Method.valueOf(any())).thenThrow(IllegalArgumentException.class);
@@ -410,10 +414,10 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
     public void shouldFailToSubmitTheRequestToCallAnOperationOfAProductWithIncorrectOperation() throws IOException {
         HttpTestData testData = mock(HttpTestData.class);
 
-        when(testData.meetsOperationOfProduct(eq(OPERATION), eq(PRODUCT_NAME))).thenReturn(false);
+        when(testData.meetsOperationOfProduct(eq(PRODUCT_NAME), eq(OPERATION))).thenReturn(false);
         when(context.getTestData()).thenReturn(testData);
 
-        exceptionRule.expect(FunctionalTestException.class);
+        exceptionRule.expect(UnconfirmedApiCallException.class);
         exceptionRule.expectMessage("Test data does not confirm it is calling the following operation of a product: OPERATION -> PRODUCT NAME");
 
         scenarioPlayer.submitTheRequestToCallAnOperationOfAProduct(OPERATION, PRODUCT_NAME);
