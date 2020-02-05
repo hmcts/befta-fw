@@ -1,8 +1,7 @@
 package uk.gov.hmcts.befta.data;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 public class HttpTestData {
 
@@ -30,7 +29,7 @@ public class HttpTestData {
 
     private ResponseData actualResponse;
 
-    private Map<String, UserData> users = new HashMap<>();
+    private LinkedHashMap<String, UserData> users = new LinkedHashMap<>();
 
     public String get_guid_() {
         return _guid_;
@@ -124,7 +123,7 @@ public class HttpTestData {
         return specs.contains(specification);
     }
 
-    public boolean meetsOperationOfProduct(String operationName, String productName) {
+    public boolean meetsOperationOfProduct(final String productName, final String operationName) {
         return operationName.equals(this.operationName) && productName.equals(this.productName);
     }
 
@@ -143,11 +142,11 @@ public class HttpTestData {
         userSet = user;
     }
 
-    public Map<String, UserData> getUsers() {
+    public LinkedHashMap<String, UserData> getUsers() {
         return users;
     }
 
-    public void setUsers(Map<String, UserData> users) {
+    public void setUsers(LinkedHashMap<String, UserData> users) {
         if (users == null)
             throw new IllegalArgumentException("User map cannot be null.");
         this.users = users;

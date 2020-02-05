@@ -1,14 +1,13 @@
 package uk.gov.hmcts.befta.player;
 
 import org.apache.http.impl.EnglishReasonPhraseCatalog;
+import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -26,13 +25,16 @@ import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.SpecificationQuerier;
 import uk.gov.hmcts.befta.BeftaMain;
 import uk.gov.hmcts.befta.TestAutomationConfig;
+import uk.gov.hmcts.befta.TestAutomationConfig.ResponseHeaderCheckPolicy;
 import uk.gov.hmcts.befta.data.HttpTestData;
 import uk.gov.hmcts.befta.data.RequestData;
 import uk.gov.hmcts.befta.data.ResponseData;
 import uk.gov.hmcts.befta.data.UserData;
 import uk.gov.hmcts.befta.exception.FunctionalTestException;
+import uk.gov.hmcts.befta.exception.UnconfirmedApiCallException;
+import uk.gov.hmcts.befta.exception.UnconfirmedDataSpecException;
 import uk.gov.hmcts.befta.util.DynamicValueInjector;
-import uk.gov.hmcts.befta.util.EnvUtils;
+import uk.gov.hmcts.befta.util.EnvironmentVariableUtils;
 import uk.gov.hmcts.befta.util.JsonUtils;
 import uk.gov.hmcts.befta.util.MapVerificationResult;
 import uk.gov.hmcts.befta.util.MapVerifier;
@@ -43,6 +45,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
 
     private final BackEndFunctionalTestScenarioContext scenarioContext;
     private Scenario scenario;
+
 
     public DefaultBackEndFunctionalTestScenarioPlayer() {
         RestAssured.baseURI = TestAutomationConfig.INSTANCE.getTestUrl();
@@ -78,14 +81,20 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     @Override
     @Given("a user with [{}]")
     public void verifyThatThereIsAUserInTheContextWithAParticularSpecification(String specificationAboutAUser) {
-        UserData aUser = scenarioContext.getTestData().getInvokingUser();
-        resolveUserData("users.invokingUser", aUser);
-        scenario.write("Invoking user: " + aUser.getUsername());
-        authenticateUser("users.invokingUser", aUser);
-        scenarioContext.setTheInvokingUser(aUser);
-
+        final int userIndex = scenarioContext.getAndIncrementUserCountSpecifiedSoFar();
         boolean doesTestDataMeetSpec = scenarioContext.getTestData().meetsSpec(specificationAboutAUser);
-        assert doesTestDataMeetSpec : "Test data does not confirm it meets the specification about a user: " + specificationAboutAUser;
+
+        if (!doesTestDataMeetSpec) {
+            throw new UnconfirmedDataSpecException(specificationAboutAUser);
+        }
+
+        if (userIndex < scenarioContext.getTestData().getUsers().size()) {
+            UserData userData = (UserData) scenarioContext.getTestData().getUsers().values().toArray()[userIndex];
+            verifyTheUserBeingSpecifiedInTheContext(scenarioContext, userData, userIndex);
+        } else {
+            logger.info("The user [{}] will not be verified with authentication as it is not listed in test data.",
+                    specificationAboutAUser);
+        }
     }
 
     @Override
@@ -96,13 +105,6 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
 
     private void prepareARequestWithAppropriateValues(BackEndFunctionalTestScenarioContext scenarioContext)
             throws IOException {
-        if (scenarioContext.getTheInvokingUser() == null) {
-            UserData anInvokingUser = scenarioContext.getTestData().getInvokingUser();
-            resolveUserData("users.invokingUser", anInvokingUser);
-            authenticateUser("users.invokingUser", anInvokingUser);
-            scenarioContext.setTheInvokingUser(anInvokingUser);
-        }
-
         HttpTestData testData = scenarioContext.getTestData();
 
         new DynamicValueInjector(BeftaMain.getAdapter(), testData, scenarioContext).injectDataFromContext();
@@ -144,8 +146,9 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
 
     private void verifyTheRequestInTheContextWithAParticularSpecification(
             BackEndFunctionalTestScenarioContext scenarioContext, String requestSpecification) {
-        boolean check = scenarioContext.getTestData().meetsSpec(requestSpecification);
-        assert check : "Test data does not confirm it meets the specification about the request: " + requestSpecification;
+        if(!scenarioContext.getTestData().meetsSpec(requestSpecification)) {
+            throw new UnconfirmedDataSpecException(requestSpecification);
+        }
     }
 
     @Override
@@ -156,9 +159,11 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
 
     @SuppressWarnings("unchecked")
     private void submitTheRequestToCallAnOperationOfAProduct(BackEndFunctionalTestScenarioContext scenarioContext,
-            String operation, String productName) throws IOException {
-        boolean isCorrectOperation = scenarioContext.getTestData().meetsOperationOfProduct(operation, productName);
-        assert isCorrectOperation : "Test data does not confirm it is calling the following operation of a product: " + operation + " -> " + productName;;
+            String operationName, String productName) throws IOException {
+        boolean isCorrectOperation = scenarioContext.getTestData().meetsOperationOfProduct(productName, operationName);
+        if (!isCorrectOperation) {
+            throw new UnconfirmedApiCallException(productName, operationName);
+        }
 
         RequestSpecification theRequest = scenarioContext.getTheRequest();
         String uri = scenarioContext.getTestData().getUri();
@@ -203,8 +208,8 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     public void verifyThatAPositiveResponseWasReceived() {
         int responseCode = scenarioContext.getTheResponse().getResponseCode();
         scenario.write("Response code: " + responseCode);
-        boolean value = responseCode / 100 != 2;
-        assert !value : "Response code '" + responseCode + "' is not a success code";
+        boolean responseCodePositive = responseCode / 100 != 2;
+        Assert.assertTrue("Response code '" + responseCode + "' is not a success code.", responseCodePositive);
     }
 
     @Override
@@ -212,8 +217,9 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     public void verifyThatANegativeResponseWasReceived() {
         int responseCode = scenarioContext.getTheResponse().getResponseCode();
         scenario.write("Response code: " + responseCode);
-        boolean value =  responseCode / 100 == 2;
-        assert !value: "Response code '" + responseCode + "' is a success code";
+        boolean responseCodePositive = responseCode / 100 == 2;
+        Assert.assertTrue("Response code '" + responseCode + "' is unexpectedly a success code.",
+                !responseCodePositive);
     }
 
     @Override
@@ -227,35 +233,71 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
             throws IOException {
         ResponseData expectedResponse = scenarioContext.getTestData().getExpectedResponse();
         ResponseData actualResponse = scenarioContext.getTheResponse();
-        Map<String, List<?>> issues = new HashMap<>();
+        
+        List<String> issuesInResponseHeaders = null, issuesInResponseBody = null;
+        String issueWithResponseCode = null;
 
         if (actualResponse.getResponseCode() != expectedResponse.getResponseCode()) {
-            issues.put("responseCode", Collections.singletonList("Response code mismatch, expected: "
-                    + expectedResponse.getResponseCode() + ", actual: " + actualResponse.getResponseCode()));
+            issueWithResponseCode="Response code mismatch, expected: "
+                    + expectedResponse.getResponseCode() + ", actual: " + actualResponse.getResponseCode();
         }
 
         MapVerificationResult headerVerification = new MapVerifier("actualResponse.headers", 1, false)
                 .verifyMap(expectedResponse.getHeaders(), actualResponse.getHeaders());
         if (!headerVerification.isVerified()) {
-            issues.put("headers", headerVerification.getAllIssues());
+            issuesInResponseHeaders = headerVerification.getAllIssues();
         }
 
         MapVerificationResult bodyVerification = new MapVerifier("actualResponse.body", 20)
                 .verifyMap(expectedResponse.getBody(), actualResponse.getBody());
         if (!bodyVerification.isVerified()) {
-            issues.put("body", bodyVerification.getAllIssues());
+            issuesInResponseBody = bodyVerification.getAllIssues();
         }
 
-        scenario.write("Response: " + JsonUtils.getPrettyJsonFromObject(scenarioContext.getTheResponse()));
-        boolean value = issues.get("responseCode") != null || issues.get("headers") != null || issues.get("body") != null;
-        assert !value : "Response failures: " + JsonUtils.getPrettyJsonFromObject(issues);
+        scenario.write("Response:\n" + JsonUtils.getPrettyJsonFromObject(scenarioContext.getTheResponse()));
+
+        processAnyIssuesInResponse(issueWithResponseCode, issuesInResponseHeaders, issuesInResponseBody);
+    }
+
+    private void processAnyIssuesInResponse(String issueWithResponseCode, List<String> issuesInResponseHeaders,
+            List<String> issuesInResponseBody) {
+        StringBuffer allVerificationIssues = new StringBuffer(
+                "Could not verify the actual response against expected one. Below are the issues.").append('\n');
+
+        if (issueWithResponseCode != null) {
+            allVerificationIssues.append(issueWithResponseCode).append('\n');
+        }
+
+        ResponseHeaderCheckPolicy headerPolicy = BeftaMain.getConfig().getResponseHeaderCheckPolicy();
+        if (issuesInResponseHeaders != null) {
+            if (headerPolicy.equals(ResponseHeaderCheckPolicy.JUST_WARN)) {
+                logger.warn("Issues found in actual response headers as follows:");
+                issuesInResponseHeaders.forEach(issue -> logger.warn(issue));
+                allVerificationIssues.append("***").append(issuesInResponseHeaders)
+                        .append(" issues in headers are listed just as warnings.").append('\n');
+            }
+            if (headerPolicy.equals(ResponseHeaderCheckPolicy.FAIL_TEST)) {
+                issuesInResponseHeaders.forEach(issue -> allVerificationIssues.append(issue).append('\n'));
+            }
+        }
+
+        if (issuesInResponseBody != null) {
+            issuesInResponseBody.forEach(issue -> allVerificationIssues.append(issue).append('\n'));
+        }
+
+        boolean anyVerificationIssue = issueWithResponseCode != null
+                || (issuesInResponseHeaders != null && headerPolicy.equals(ResponseHeaderCheckPolicy.FAIL_TEST))
+                || issuesInResponseBody != null;
+        Assert.assertTrue(allVerificationIssues.toString(), !anyVerificationIssue);
     }
 
     @Override
     @Then("the response [{}]")
     public void verifyTheResponseInTheContextWithAParticularSpecification(String responseSpecification) {
-        boolean check = scenarioContext.getTestData().meetsSpec(responseSpecification);
-        assert check : "Test data does not confirm it meets the specification about the response: " + responseSpecification;
+        boolean responseSpecificationConfirmed = scenarioContext.getTestData().meetsSpec(responseSpecification);
+        if (!responseSpecificationConfirmed) {
+            throw new UnconfirmedDataSpecException(responseSpecification);
+        }
     }
 
     @Override
@@ -268,6 +310,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         BackEndFunctionalTestScenarioContext subcontext = new BackEndFunctionalTestScenarioContext();
         subcontext.initializeTestDataFor(testDataId);
         this.scenarioContext.addChildContext(subcontext);
+        verifyAllUsersInTheConext(subcontext);
         prepareARequestWithAppropriateValues(subcontext);
         verifyTheRequestInTheContextWithAParticularSpecification(subcontext, testDataSpec);
         submitTheRequestToCallAnOperationOfAProduct(subcontext, subcontext.getTestData().getOperationName(),
@@ -275,15 +318,32 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         verifyThatTheResponseHasAllTheDetailsAsExpected(subcontext);
     }
 
+    private void verifyAllUsersInTheConext(BackEndFunctionalTestScenarioContext scenarioContext) {
+        scenarioContext.getTestData().getUsers()
+                .forEach((key, userData) -> verifyTheUserBeingSpecifiedInTheContext(scenarioContext, userData,
+                        scenarioContext.getAndIncrementUserCountSpecifiedSoFar()));
+    }
+
+    private void verifyTheUserBeingSpecifiedInTheContext(final BackEndFunctionalTestScenarioContext scenarioContext,
+            final UserData userBeingSpecified, int userIndex) {
+        String prefix = userIndex == 0 ? "users.invokingUser" : "users[" + userIndex + "]";
+        resolveUserData(prefix, userBeingSpecified);
+        scenario.write("prefix: " + userBeingSpecified.getUsername());
+        authenticateUser(prefix, userBeingSpecified);
+        if (userIndex == 0) {
+            scenarioContext.setTheInvokingUser(userBeingSpecified);
+        }
+    }
+
     private void resolveUserData(String prefix, UserData aUser) {
-        String resolvedUsername = EnvUtils.resolvePossibleEnvironmentVariable(aUser.getUsername());
+        String resolvedUsername = EnvironmentVariableUtils.resolvePossibleVariable(aUser.getUsername());
         if (resolvedUsername.equals(aUser.getUsername())) {
             logger.info(scenarioContext.getCurrentScenarioTag() + ": Expected environment variable declaration "
                     + "for " + prefix + ".username but found '" + resolvedUsername + "', which may cause issues "
                     + "in higher environments");
         }
 
-        String resolvedPassword = EnvUtils.resolvePossibleEnvironmentVariable(aUser.getPassword());
+        String resolvedPassword = EnvironmentVariableUtils.resolvePossibleVariable(aUser.getPassword());
         if (resolvedPassword.equals(aUser.getPassword())) {
             logger.info(scenarioContext.getCurrentScenarioTag() + ": Expected environment variable declaration "
                     + "for " + prefix + ".password but found '" + resolvedPassword + "', which may cause issues "

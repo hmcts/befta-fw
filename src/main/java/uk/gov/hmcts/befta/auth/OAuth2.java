@@ -1,6 +1,6 @@
 package uk.gov.hmcts.befta.auth;
 
-import uk.gov.hmcts.befta.util.EnvUtils;
+import uk.gov.hmcts.befta.util.EnvironmentVariableUtils;
 
 public class OAuth2 {
 
@@ -11,9 +11,9 @@ public class OAuth2 {
     private final String redirectUri;
 
     private OAuth2() {
-        clientId = EnvUtils.require("OAUTH2_CLIENT_ID");
-        clientSecret = EnvUtils.require("OAUTH2_CLIENT_SECRET");
-        redirectUri = EnvUtils.require("OAUTH2_REDIRECT_URI");
+        clientId = EnvironmentVariableUtils.getRequiredVariable("OAUTH2_CLIENT_ID");
+        clientSecret = EnvironmentVariableUtils.getRequiredVariable("OAUTH2_CLIENT_SECRET");
+        redirectUri = EnvironmentVariableUtils.getRequiredVariable("OAUTH2_REDIRECT_URI");
     }
 
     public String getClientId() {
