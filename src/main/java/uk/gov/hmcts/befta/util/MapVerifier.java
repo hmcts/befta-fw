@@ -236,13 +236,13 @@ public class MapVerifier {
 
     private boolean nullable(String strExpectedValue) {
         ExpectedValuePlaceholder expectedValuePlaceholder = ExpectedValuePlaceholder.getByValue(strExpectedValue);
-        return expectedValuePlaceholder != null ?  expectedValuePlaceholder.isNullable(): true;
+        return expectedValuePlaceholder == null ?  true : expectedValuePlaceholder.isNullable();
     }
 
     private boolean isValidFormat(String strExpectedValue, Object actualValue) {
         ExpectedValuePlaceholder expectedValuePlaceholder = ExpectedValuePlaceholder.getByValue(strExpectedValue);
         if (expectedValuePlaceholder != null) {
-            return expectedValuePlaceholder.isValidFormat(actualValue);
+            return expectedValuePlaceholder.accepts(actualValue);
         }
         return false;
     }
