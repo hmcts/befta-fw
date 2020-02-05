@@ -86,8 +86,13 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
             throw new FunctionalTestException(errorMessage);
         }
 
-        UserData userData = (UserData) scenarioContext.getTestData().getUsers().values().toArray()[userIndex];
-        verifyTheUserBeingSpecifiedInTheContext(scenarioContext, userData, userIndex);
+        if (userIndex < scenarioContext.getTestData().getUsers().size()) {
+            UserData userData = (UserData) scenarioContext.getTestData().getUsers().values().toArray()[userIndex];
+            verifyTheUserBeingSpecifiedInTheContext(scenarioContext, userData, userIndex);
+        } else {
+            logger.info("The user [{}] will not be verified with authentication as it is not listed in test data.",
+                    specificationAboutAUser);
+        }
     }
 
     @Override
