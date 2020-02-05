@@ -2,5 +2,5 @@
 	"_guid_": "Common_4XX_Response_Body",
 
 	"timestamp": "[[ANYTHING_PRESENT]]",
-	"path": "[[ANYTHING_PRESENT]]"
+	"path": "[[ANY_STRING_NOT_NULLABLE]]"
 }
