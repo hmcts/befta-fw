@@ -218,8 +218,8 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         int responseCode = scenarioContext.getTheResponse().getResponseCode();
         scenario.write("Response code: " + responseCode);
         boolean responseCodePositive = responseCode / 100 == 2;
-        Assert.assertTrue("Response code '" + responseCode + "' is unexpectedly a success code.",
-                !responseCodePositive);
+        Assert.assertFalse("Response code '" + responseCode + "' is unexpectedly a success code.",
+                responseCodePositive);
     }
 
     @Override
@@ -288,7 +288,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         boolean anyVerificationIssue = issueWithResponseCode != null
                 || (issuesInResponseHeaders != null && headerPolicy.equals(ResponseHeaderCheckPolicy.FAIL_TEST))
                 || issuesInResponseBody != null;
-        Assert.assertTrue(allVerificationIssues.toString(), !anyVerificationIssue);
+        Assert.assertFalse(allVerificationIssues.toString(), anyVerificationIssue);
     }
 
     @Override
