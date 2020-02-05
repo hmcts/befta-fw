@@ -1,6 +1,7 @@
 package uk.gov.hmcts.befta.player;
 
 import org.apache.http.impl.EnglishReasonPhraseCatalog;
+import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,6 +31,8 @@ import uk.gov.hmcts.befta.data.RequestData;
 import uk.gov.hmcts.befta.data.ResponseData;
 import uk.gov.hmcts.befta.data.UserData;
 import uk.gov.hmcts.befta.exception.FunctionalTestException;
+import uk.gov.hmcts.befta.exception.UnconfirmedApiCallException;
+import uk.gov.hmcts.befta.exception.UnconfirmedDataSpecException;
 import uk.gov.hmcts.befta.util.DynamicValueInjector;
 import uk.gov.hmcts.befta.util.EnvironmentVariableUtils;
 import uk.gov.hmcts.befta.util.JsonUtils;
@@ -80,10 +83,9 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     public void verifyThatThereIsAUserInTheContextWithAParticularSpecification(String specificationAboutAUser) {
         final int userIndex = scenarioContext.getAndIncrementUserCountSpecifiedSoFar();
         boolean doesTestDataMeetSpec = scenarioContext.getTestData().meetsSpec(specificationAboutAUser);
+
         if (!doesTestDataMeetSpec) {
-            String errorMessage = "Test data does not confirm it meets the specification about a user: "
-                    + specificationAboutAUser;
-            throw new FunctionalTestException(errorMessage);
+            throw new UnconfirmedDataSpecException(specificationAboutAUser);
         }
 
         if (userIndex < scenarioContext.getTestData().getUsers().size()) {
@@ -144,11 +146,8 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
 
     private void verifyTheRequestInTheContextWithAParticularSpecification(
             BackEndFunctionalTestScenarioContext scenarioContext, String requestSpecification) {
-        boolean check = scenarioContext.getTestData().meetsSpec(requestSpecification);
-        if (!check) {
-            String errorMessage = "Test data does not confirm it meets the specification about the request: "
-                    + requestSpecification;
-            throw new FunctionalTestException(errorMessage);
+        if(!scenarioContext.getTestData().meetsSpec(requestSpecification)) {
+            throw new UnconfirmedDataSpecException(requestSpecification);
         }
     }
 
@@ -160,12 +159,10 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
 
     @SuppressWarnings("unchecked")
     private void submitTheRequestToCallAnOperationOfAProduct(BackEndFunctionalTestScenarioContext scenarioContext,
-            String operation, String productName) throws IOException {
-        boolean isCorrectOperation = scenarioContext.getTestData().meetsOperationOfProduct(operation, productName);
+            String operationName, String productName) throws IOException {
+        boolean isCorrectOperation = scenarioContext.getTestData().meetsOperationOfProduct(productName, operationName);
         if (!isCorrectOperation) {
-            String errorMessage = "Test data does not confirm it is calling the following operation of a product: "
-                    + operation + " -> " + productName;
-            throw new FunctionalTestException(errorMessage);
+            throw new UnconfirmedApiCallException(productName, operationName);
         }
 
         RequestSpecification theRequest = scenarioContext.getTheRequest();
@@ -211,10 +208,8 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     public void verifyThatAPositiveResponseWasReceived() {
         int responseCode = scenarioContext.getTheResponse().getResponseCode();
         scenario.write("Response code: " + responseCode);
-        if (responseCode / 100 != 2) {
-            String errorMessage = "Response code '" + responseCode + "' is not a success code";
-            throw new FunctionalTestException(errorMessage);
-        }
+        boolean responseCodePositive = responseCode / 100 != 2;
+        Assert.assertTrue("Response code '" + responseCode + "' is not a success code.", responseCodePositive);
     }
 
     @Override
@@ -222,10 +217,9 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     public void verifyThatANegativeResponseWasReceived() {
         int responseCode = scenarioContext.getTheResponse().getResponseCode();
         scenario.write("Response code: " + responseCode);
-        if (responseCode / 100 == 2) {
-            String errorMessage = "Response code '" + responseCode + "' is a success code";
-            throw new FunctionalTestException(errorMessage);
-        }
+        boolean responseCodePositive = responseCode / 100 == 2;
+        Assert.assertFalse("Response code '" + responseCode + "' is unexpectedly a success code.",
+                responseCodePositive);
     }
 
     @Override
@@ -291,21 +285,18 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
             issuesInResponseBody.forEach(issue -> allVerificationIssues.append(issue).append('\n'));
         }
 
-        if (issueWithResponseCode != null
+        boolean anyVerificationIssue = issueWithResponseCode != null
                 || (issuesInResponseHeaders != null && headerPolicy.equals(ResponseHeaderCheckPolicy.FAIL_TEST))
-                || issuesInResponseBody != null) {
-            throw new FunctionalTestException(allVerificationIssues.toString());
-        }
+                || issuesInResponseBody != null;
+        Assert.assertFalse(allVerificationIssues.toString(), anyVerificationIssue);
     }
 
     @Override
     @Then("the response [{}]")
     public void verifyTheResponseInTheContextWithAParticularSpecification(String responseSpecification) {
-        boolean check = scenarioContext.getTestData().meetsSpec(responseSpecification);
-        if (!check) {
-            String errorMessage = "Test data does not confirm it meets the specification about the response: "
-                    + responseSpecification;
-            throw new FunctionalTestException(errorMessage);
+        boolean responseSpecificationConfirmed = scenarioContext.getTestData().meetsSpec(responseSpecification);
+        if (!responseSpecificationConfirmed) {
+            throw new UnconfirmedDataSpecException(responseSpecification);
         }
     }
 
