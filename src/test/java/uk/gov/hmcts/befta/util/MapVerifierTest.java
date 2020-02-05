@@ -271,26 +271,253 @@ public class MapVerifierTest {
     }
 
     @Test
-    public void shouldVerifyContentWithWildcardAnyDate() {
+    public void shouldVerifyContentWithWildcardAnyInteger() {
         Map<String, Object> expected = new HashMap<>();
-        Map<String, Object> expectedBody = new HashMap<>();
 
         expected.put("responseCode", ANY_INTEGER_NOT_NULLABLE.getValue());
-        expected.put("body", expectedBody);
-        expectedBody.put("exception", "uk.gov.hmcts.ccd.endpoint.exceptions.BadRequestException");
-        expectedBody.put("timestamp", ANY_TIMESTAMP_NOT_NULLABLE.getValue());
-        expectedBody.put("createDate", ANY_DATE_NOT_NULLABLE.getValue());
-        expectedBody.put("updatedDate", ANY_DATE_NULLABLE.getValue());
+        expected.put("serialNumber", ANY_INTEGER_NULLABLE.getValue());
 
-        Map<String, Object> actual = new ConcurrentHashMap<>();
-        Map<String, Object> actualBody = new HashMap<>();
+        Map<String, Object> actual = new HashMap<>();
 
         actual.put("responseCode", 400);
-        actual.put("body", actualBody);
-        actualBody.put("exception", "uk.gov.hmcts.ccd.endpoint.exceptions.BadRequestException");
-        actualBody.put("timestamp", "2019-11-13T14:02:43.431");
-        actualBody.put("createDate", "2019-11-13");
-        actualBody.put("updatedDate", null);
+        actual.put("serialNumber", null);
+
+        MapVerificationResult result = new MapVerifier("actualResponse", 0).verifyMap(expected, actual);
+        Assert.assertEquals(0, result.getAllIssues().size());
+        Assert.assertTrue(result.isVerified());
+    }
+
+    @Test
+    public void shouldFailContentWithWildcardAnyIntegerNotNull() {
+        Map<String, Object> expected = new HashMap<>();
+
+        expected.put("responseCode", ANY_INTEGER_NOT_NULLABLE.getValue());
+        expected.put("serialNumber", ANY_INTEGER_NULLABLE.getValue());
+        expected.put("serialNumber2", ANY_INTEGER_NULLABLE.getValue());
+
+        Map<String, Object> actual = new HashMap<>();
+
+        actual.put("responseCode", null);
+        actual.put("serialNumber", null);
+        actual.put("serialNumber2", 400);
+
+        MapVerificationResult result = new MapVerifier("actualResponse", 0).verifyMap(expected, actual);
+        Assert.assertEquals(1, result.getAllIssues().size());
+        Assert.assertFalse(result.isVerified());
+    }
+
+
+    @Test
+    public void shouldVerifyContentWithWildcardAnyTimestamp() {
+        Map<String, Object> expected = new HashMap<>();
+
+        expected.put("timestamp", ANY_TIMESTAMP_NOT_NULLABLE.getValue());
+        expected.put("timestamp2", ANY_TIMESTAMP_NULLABLE.getValue());
+
+        Map<String, Object> actual = new HashMap<>();
+
+        actual.put("timestamp", "2019-11-13T14:02:43.431");
+        actual.put("timestamp2", "2019-11-13T14:02:43.431");
+
+        MapVerificationResult result = new MapVerifier("actualResponse", 0).verifyMap(expected, actual);
+        Assert.assertEquals(0, result.getAllIssues().size());
+        Assert.assertTrue(result.isVerified());
+    }
+
+    @Test
+    public void shouldFailContentWithWildcardAnyTimestamp() {
+        Map<String, Object> expected = new HashMap<>();
+
+        expected.put("timestamp", ANY_TIMESTAMP_NOT_NULLABLE.getValue());
+        expected.put("timestamp2", ANY_TIMESTAMP_NULLABLE.getValue());
+        expected.put("timestamp3", ANY_TIMESTAMP_NULLABLE.getValue());
+
+        Map<String, Object> actual = new HashMap<>();
+
+        actual.put("timestamp", null);
+        actual.put("timestamp2", "2019-11-13T14:02:43.431");
+        actual.put("timestamp3", null);
+
+        MapVerificationResult result = new MapVerifier("actualResponse", 0).verifyMap(expected, actual);
+        Assert.assertEquals(1, result.getAllIssues().size());
+        Assert.assertFalse(result.isVerified());
+    }
+
+
+    @Test
+    public void shouldVerifyContentWithWildcardAnyString() {
+        Map<String, Object> expected = new HashMap<>();
+
+        expected.put("message", ANY_STRING_NOT_NULLABLE.getValue());
+        expected.put("message2", ANY_STRING_NULLABLE.getValue());
+        expected.put("message3", ANY_STRING_NULLABLE.getValue());
+
+        Map<String, Object> actual = new HashMap<>();
+
+        actual.put("message", "Unknown sort direction: someInvalidSortDirection");
+        actual.put("message2", null);
+        actual.put("message3", "Unknown sort direction: someInvalidSortDirection");
+
+        MapVerificationResult result = new MapVerifier("actualResponse", 0).verifyMap(expected, actual);
+        Assert.assertEquals(0, result.getAllIssues().size());
+        Assert.assertTrue(result.isVerified());
+    }
+
+    @Test
+    public void shouldFailContentWithWildcardAnyString() {
+        Map<String, Object> expected = new HashMap<>();
+
+        expected.put("message", ANY_STRING_NOT_NULLABLE.getValue());
+        expected.put("message2", ANY_STRING_NULLABLE.getValue());
+        expected.put("message3", ANY_STRING_NULLABLE.getValue());
+
+        Map<String, Object> actual = new HashMap<>();
+
+        actual.put("message", null);
+        actual.put("message2", null);
+        actual.put("message3", "Unknown sort direction: someInvalidSortDirection");
+
+        MapVerificationResult result = new MapVerifier("actualResponse", 0).verifyMap(expected, actual);
+        Assert.assertEquals(1, result.getAllIssues().size());
+        Assert.assertFalse(result.isVerified());
+    }
+
+    @Test
+    public void shouldVerifyContentWithWildcardAnyObject() {
+        Map<String, Object> expected = new HashMap<>();
+        expected.put("details", ANY_OBJECT_NULLABLE.getValue());
+        expected.put("details1", ANY_OBJECT_NULLABLE.getValue());
+        expected.put("details2", ANY_OBJECT_NOT_NULLABLE.getValue());
+
+        Map<String, Object> actual = new HashMap<>();
+        actual.put("details", null);
+        actual.put("details1", 400);
+        actual.put("details2", 400);
+
+        MapVerificationResult result = new MapVerifier("actualResponse", 0).verifyMap(expected, actual);
+        Assert.assertEquals(0, result.getAllIssues().size());
+        Assert.assertTrue(result.isVerified());
+    }
+
+    @Test
+    public void shouldFailContentWithWildcardAnyObject() {
+        Map<String, Object> expected = new HashMap<>();
+        expected.put("details", ANY_OBJECT_NULLABLE.getValue());
+        expected.put("details1", ANY_OBJECT_NULLABLE.getValue());
+        expected.put("details2", ANY_OBJECT_NOT_NULLABLE.getValue());
+
+        Map<String, Object> actual = new HashMap<>();
+        actual.put("details", null);
+        actual.put("details1", 400);
+        actual.put("details2", null);
+
+        MapVerificationResult result = new MapVerifier("actualResponse", 0).verifyMap(expected, actual);
+        Assert.assertEquals(1, result.getAllIssues().size());
+        Assert.assertFalse(result.isVerified());
+    }
+
+    @Test
+    public void shouldVerifyContentWithWildcardAnyNumber() {
+        Map<String, Object> expected = new HashMap<>();
+
+        expected.put("serialNumber2", ANY_NUMBER_NOT_NULLABLE.getValue());
+        expected.put("serialNumber3", ANY_NUMBER_NULLABLE.getValue());
+        expected.put("serialNumber4", ANY_NUMBER_NULLABLE.getValue());
+
+        Map<String, Object> actual = new HashMap<>();
+        actual.put("serialNumber2", 600);
+        actual.put("serialNumber3", null);
+        actual.put("serialNumber4", 700.50);
+
+        MapVerificationResult result = new MapVerifier("actualResponse", 0).verifyMap(expected, actual);
+        Assert.assertEquals(0, result.getAllIssues().size());
+        Assert.assertTrue(result.isVerified());
+    }
+
+    @Test
+    public void shouldFailContentWithWildcardAnyNumber() {
+        Map<String, Object> expected = new HashMap<>();
+
+        expected.put("serialNumber2", ANY_NUMBER_NOT_NULLABLE.getValue());
+        expected.put("serialNumber3", ANY_NUMBER_NULLABLE.getValue());
+        expected.put("serialNumber4", ANY_NUMBER_NULLABLE.getValue());
+
+        Map<String, Object> actual = new HashMap<>();
+        actual.put("serialNumber2", null);
+        actual.put("serialNumber3", null);
+        actual.put("serialNumber4", 700.50);
+
+        MapVerificationResult result = new MapVerifier("actualResponse", 0).verifyMap(expected, actual);
+        Assert.assertEquals(1, result.getAllIssues().size());
+        Assert.assertFalse(result.isVerified());
+    }
+
+    @Test
+    public void shouldVerifyContentWithWildcardAnyDate() {
+        Map<String, Object> expected = new HashMap<>();
+
+        expected.put("date", ANY_DATE_NOT_NULLABLE.getValue());
+        expected.put("date1", ANY_DATE_NULLABLE.getValue());
+        expected.put("date2", ANY_DATE_NULLABLE.getValue());
+
+        Map<String, Object> actual = new HashMap<>();
+        actual.put("date", "2019-11-23");
+        actual.put("date1", null);
+        actual.put("date2", "2019-11-24");
+
+        MapVerificationResult result = new MapVerifier("actualResponse", 0).verifyMap(expected, actual);
+        Assert.assertEquals(0, result.getAllIssues().size());
+        Assert.assertTrue(result.isVerified());
+    }
+
+    @Test
+    public void shouldFailContentWithWildcardAnyDate() {
+        Map<String, Object> expected = new HashMap<>();
+
+        expected.put("date", ANY_DATE_NOT_NULLABLE.getValue());
+        expected.put("date1", ANY_DATE_NULLABLE.getValue());
+        expected.put("date2", ANY_DATE_NULLABLE.getValue());
+
+        Map<String, Object> actual = new HashMap<>();
+        actual.put("date", null);
+        actual.put("date1", null);
+        actual.put("date2", "2019-11-24");
+
+        MapVerificationResult result = new MapVerifier("actualResponse", 0).verifyMap(expected, actual);
+        Assert.assertEquals(1, result.getAllIssues().size());
+        Assert.assertFalse(result.isVerified());
+    }
+
+    @Test
+    public void shouldFailContentWithWildcardAnyNullale() {
+        Map<String, Object> expected = new HashMap<>();
+
+        expected.put("date", ANY_NOT_NULLABLE.getValue());
+        expected.put("date1", ANY_NULLABLE.getValue());
+        expected.put("date2", ANY_NULLABLE.getValue());
+
+        Map<String, Object> actual = new HashMap<>();
+        actual.put("date", null);
+        actual.put("date1", null);
+        actual.put("date2", "2019-11-24");
+
+        MapVerificationResult result = new MapVerifier("actualResponse", 0).verifyMap(expected, actual);
+        Assert.assertEquals(1, result.getAllIssues().size());
+        Assert.assertFalse(result.isVerified());
+    }
+
+    @Test
+    public void shouldVerifyContentWithWildcardAnyNullale() {
+        Map<String, Object> expected = new HashMap<>();
+
+        expected.put("date", ANY_NOT_NULLABLE.getValue());
+        expected.put("date1", ANY_NULLABLE.getValue());
+        expected.put("date2", ANY_NULLABLE.getValue());
+
+        Map<String, Object> actual = new HashMap<>();
+        actual.put("date", new Object());
+        actual.put("date1", null);
+        actual.put("date2", "2019-11-24");
 
         MapVerificationResult result = new MapVerifier("actualResponse", 0).verifyMap(expected, actual);
         Assert.assertEquals(0, result.getAllIssues().size());
