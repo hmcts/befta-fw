@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static uk.gov.hmcts.befta.util.ExpectedValuePlaceholder.ANYTHING_IF_EXISTS;
-
 public class MapVerifier {
 
     private String fieldPrefix;
@@ -121,7 +119,7 @@ public class MapVerifier {
                         //
                     } else if (expectedValue == null) {
                         badValueMessages.add("Must be null: " + commonKey);
-                    } else if (actualValue == null && !nullable((String) expectedValue)) {
+                    } else if (actualValue == null && isNoneNullablePlaceholder((String) expectedValue)) {
                         badValueMessages.add("Must not be null: " + commonKey);
                     } else if (!(expectedValue instanceof Map && actualValue instanceof Map)) {
                         if (expectedValue instanceof Collection<?> && actualValue instanceof Collection<?>) {
@@ -187,13 +185,9 @@ public class MapVerifier {
     private Object compareValues(String commonKey, Object expectedValue,
             Object actualValue, int currentDepth, int maxMessageDepth) {
         boolean justCompare = currentDepth > maxMessageDepth;
-        if (expectedValue instanceof String &&
-                ANYTHING_IF_EXISTS.getValue().equalsIgnoreCase((String) expectedValue)) {
+        if(actualAcceptedByPlaceholder(expectedValue, actualValue)) {
             return Boolean.TRUE;
-        } else if(expectedValue instanceof String && isValidFormat((String) expectedValue, actualValue)) {
-            return Boolean.TRUE;
-        }
-        else if (expectedValue == actualValue) {
+        } else if (expectedValue == actualValue) {
             return Boolean.TRUE;
         } else if (expectedValue == null) {
             return justCompare ? Boolean.FALSE : "Must be null: " + commonKey;
@@ -231,18 +225,25 @@ public class MapVerifier {
         if (!(expectedValue instanceof String)) {
             return Boolean.FALSE;
         }
-        return nullable((String) expectedValue);
+        return isNullablePlaceholder((String) expectedValue);
     }
 
-    private boolean nullable(String strExpectedValue) {
+    private boolean isNullablePlaceholder(String strExpectedValue) {
         ExpectedValuePlaceholder expectedValuePlaceholder = ExpectedValuePlaceholder.getByValue(strExpectedValue);
         return expectedValuePlaceholder == null ?  true : expectedValuePlaceholder.isNullable();
     }
 
-    private boolean isValidFormat(String strExpectedValue, Object actualValue) {
+    private boolean isNoneNullablePlaceholder(String strExpectedValue) {
         ExpectedValuePlaceholder expectedValuePlaceholder = ExpectedValuePlaceholder.getByValue(strExpectedValue);
-        if (expectedValuePlaceholder != null) {
-            return expectedValuePlaceholder.accepts(actualValue);
+        return expectedValuePlaceholder == null ?  true : !expectedValuePlaceholder.isNullable();
+    }
+
+    private boolean actualAcceptedByPlaceholder(Object expectedValue, Object actualValue) {
+        if (expectedValue instanceof String) {
+            ExpectedValuePlaceholder expectedValuePlaceholder = ExpectedValuePlaceholder.getByValue((String) expectedValue);
+            if (expectedValuePlaceholder != null) {
+                return expectedValuePlaceholder.accepts(actualValue);
+            }
         }
         return false;
     }
