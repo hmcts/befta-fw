@@ -40,7 +40,7 @@ public class HttpTestData {
         return specs.contains(specification);
     }
 
-    public boolean meetsOperationOfProduct(String operationName, String productName) {
+    public boolean meetsOperationOfProduct(final String productName, final String operationName) {
         return operationName.equals(this.operationName) && productName.equals(this.productName);
     }
 
