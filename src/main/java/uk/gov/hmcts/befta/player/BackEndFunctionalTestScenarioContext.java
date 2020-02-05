@@ -20,13 +20,13 @@ public class BackEndFunctionalTestScenarioContext {
     private Scenario scenario;
     protected HttpTestData testData;
 
-    private UserData theInvokingUser;
     private RequestSpecification theRequest;
     private ResponseData theResponse;
 
     private BackEndFunctionalTestScenarioContext parentContext;
     private Map<String, BackEndFunctionalTestScenarioContext> childContexts = new HashMap<>();
 
+    private int userCountSpecifiedSoFar = 0;
 
     public void addChildContext(BackEndFunctionalTestScenarioContext childContext) {
         childContext.setParentContext(this);
@@ -67,11 +67,11 @@ public class BackEndFunctionalTestScenarioContext {
     }
 
     public UserData getTheInvokingUser() {
-        return theInvokingUser;
+        return testData.getInvokingUser();
     }
 
     public void setTheInvokingUser(UserData theInvokingUser) {
-        this.theInvokingUser = theInvokingUser;
+        testData.setInvokingUser(theInvokingUser);
     }
 
     public void setTheRequest(RequestSpecification theRequest) {
@@ -88,5 +88,13 @@ public class BackEndFunctionalTestScenarioContext {
 
     public void setTheResponse(ResponseData theResponse) {
         this.theResponse = theResponse;
+    }
+
+    public int getUserCountSpecifiedSoFar() {
+        return userCountSpecifiedSoFar;
+    }
+
+    public int getAndIncrementUserCountSpecifiedSoFar() {
+        return userCountSpecifiedSoFar++;
     }
 }

@@ -43,6 +43,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     private final BackEndFunctionalTestScenarioContext scenarioContext;
     private Scenario scenario;
 
+
     public DefaultBackEndFunctionalTestScenarioPlayer() {
         RestAssured.baseURI = TestAutomationConfig.INSTANCE.getTestUrl();
         RestAssured.useRelaxedHTTPSValidation();
@@ -77,17 +78,20 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     @Override
     @Given("a user with [{}]")
     public void verifyThatThereIsAUserInTheContextWithAParticularSpecification(String specificationAboutAUser) {
-        UserData aUser = scenarioContext.getTestData().getInvokingUser();
-        resolveUserData("users.invokingUser", aUser);
-        scenario.write("Invoking user: " + aUser.getUsername());
-        authenticateUser("users.invokingUser", aUser);
-        scenarioContext.setTheInvokingUser(aUser);
-
+        final int userIndex = scenarioContext.getAndIncrementUserCountSpecifiedSoFar();
         boolean doesTestDataMeetSpec = scenarioContext.getTestData().meetsSpec(specificationAboutAUser);
         if (!doesTestDataMeetSpec) {
             String errorMessage = "Test data does not confirm it meets the specification about a user: "
                     + specificationAboutAUser;
             throw new FunctionalTestException(errorMessage);
+        }
+
+        if (userIndex < scenarioContext.getTestData().getUsers().size()) {
+            UserData userData = (UserData) scenarioContext.getTestData().getUsers().values().toArray()[userIndex];
+            verifyTheUserBeingSpecifiedInTheContext(scenarioContext, userData, userIndex);
+        } else {
+            logger.info("The user [{}] will not be verified with authentication as it is not listed in test data.",
+                    specificationAboutAUser);
         }
     }
 
@@ -99,13 +103,6 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
 
     private void prepareARequestWithAppropriateValues(BackEndFunctionalTestScenarioContext scenarioContext)
             throws IOException {
-        if (scenarioContext.getTheInvokingUser() == null) {
-            UserData anInvokingUser = scenarioContext.getTestData().getInvokingUser();
-            resolveUserData("users.invokingUser", anInvokingUser);
-            authenticateUser("users.invokingUser", anInvokingUser);
-            scenarioContext.setTheInvokingUser(anInvokingUser);
-        }
-
         HttpTestData testData = scenarioContext.getTestData();
 
         new DynamicValueInjector(BeftaMain.getAdapter(), testData, scenarioContext).injectDataFromContext();
@@ -322,11 +319,29 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         BackEndFunctionalTestScenarioContext subcontext = new BackEndFunctionalTestScenarioContext();
         subcontext.initializeTestDataFor(testDataId);
         this.scenarioContext.addChildContext(subcontext);
+        verifyAllUsersInTheConext(subcontext);
         prepareARequestWithAppropriateValues(subcontext);
         verifyTheRequestInTheContextWithAParticularSpecification(subcontext, testDataSpec);
         submitTheRequestToCallAnOperationOfAProduct(subcontext, subcontext.getTestData().getOperationName(),
                 subcontext.getTestData().getProductName());
         verifyThatTheResponseHasAllTheDetailsAsExpected(subcontext);
+    }
+
+    private void verifyAllUsersInTheConext(BackEndFunctionalTestScenarioContext scenarioContext) {
+        scenarioContext.getTestData().getUsers()
+                .forEach((key, userData) -> verifyTheUserBeingSpecifiedInTheContext(scenarioContext, userData,
+                        scenarioContext.getAndIncrementUserCountSpecifiedSoFar()));
+    }
+
+    private void verifyTheUserBeingSpecifiedInTheContext(final BackEndFunctionalTestScenarioContext scenarioContext,
+            final UserData userBeingSpecified, int userIndex) {
+        String prefix = userIndex == 0 ? "users.invokingUser" : "users[" + userIndex + "]";
+        resolveUserData(prefix, userBeingSpecified);
+        scenario.write("prefix: " + userBeingSpecified.getUsername());
+        authenticateUser(prefix, userBeingSpecified);
+        if (userIndex == 0) {
+            scenarioContext.setTheInvokingUser(userBeingSpecified);
+        }
     }
 
     private void resolveUserData(String prefix, UserData aUser) {
