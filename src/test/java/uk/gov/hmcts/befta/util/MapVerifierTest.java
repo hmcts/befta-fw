@@ -1,15 +1,5 @@
 package uk.gov.hmcts.befta.util;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.TreeMap;
-import java.util.concurrent.ConcurrentHashMap;
-import org.junit.Assert;
-import org.junit.Test;
-import uk.gov.hmcts.befta.data.HttpTestDataSource;
-import uk.gov.hmcts.befta.data.JsonStoreHttpTestDataSource;
-
 import static uk.gov.hmcts.befta.util.ExpectedValuePlaceholder.ANYTHING_IF_EXISTS;
 import static uk.gov.hmcts.befta.util.ExpectedValuePlaceholder.ANYTHING_PRESENT;
 import static uk.gov.hmcts.befta.util.ExpectedValuePlaceholder.ANY_DATE_NOT_NULLABLE;
@@ -28,6 +18,19 @@ import static uk.gov.hmcts.befta.util.ExpectedValuePlaceholder.ANY_STRING_NOT_NU
 import static uk.gov.hmcts.befta.util.ExpectedValuePlaceholder.ANY_STRING_NULLABLE;
 import static uk.gov.hmcts.befta.util.ExpectedValuePlaceholder.ANY_TIMESTAMP_NOT_NULLABLE;
 import static uk.gov.hmcts.befta.util.ExpectedValuePlaceholder.ANY_TIMESTAMP_NULLABLE;
+
+import org.junit.Assert;
+import org.junit.Test;
+
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.concurrent.ConcurrentHashMap;
+
+import uk.gov.hmcts.befta.data.HttpTestDataSource;
+import uk.gov.hmcts.befta.data.JsonStoreHttpTestDataSource;
+
 
 public class MapVerifierTest {
 

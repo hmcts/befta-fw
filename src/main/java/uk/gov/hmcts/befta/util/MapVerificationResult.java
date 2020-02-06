@@ -1,8 +1,11 @@
 package uk.gov.hmcts.befta.util;
 
+import lombok.Data;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
 public class MapVerificationResult {
 
     public static final MapVerificationResult DEFAULT_VERIFIED = new MapVerificationResult(null, true,
@@ -39,46 +42,6 @@ public class MapVerificationResult {
         this.badSubmaps = badSubmaps;
         this.currentDepth = currentDepth;
         this.maxMessageDepth = maxMessageDepth;
-    }
-
-    public String getField() {
-        return field;
-    }
-
-    public void setField(String field) {
-        this.field = field;
-    }
-
-    public String getSummary() {
-        return summary;
-    }
-
-    public void setSummary(String summary) {
-        this.summary = summary;
-    }
-
-    public List<String> getUnexpectedFields() {
-        return unexpectedFields;
-    }
-
-    public void setUnexpectedFields(List<String> unexpectedFields) {
-        this.unexpectedFields = unexpectedFields;
-    }
-
-    public List<String> getUnavailableFields() {
-        return unavailableFields;
-    }
-
-    public void setUnavailableFields(List<String> unavailableFields) {
-        this.unavailableFields = unavailableFields;
-    }
-
-    public List<String> getBadValueFields() {
-        return badValueFields;
-    }
-
-    public void setBadValueFields(List<String> badValueFields) {
-        this.badValueFields = badValueFields;
     }
 
     public List<String> getAllIssues() {
