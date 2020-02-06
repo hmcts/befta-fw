@@ -9,9 +9,6 @@ import java.util.stream.Collectors;
 
 public class MapVerifier {
 
-    private static final String ANY = "[[ANY]]";
-    private static final String NOT_NULL = "[[NOT_NULL]]";
-
     private String fieldPrefix;
 
     private int maxMessageDepth;
@@ -122,7 +119,7 @@ public class MapVerifier {
                         //
                     } else if (expectedValue == null) {
                         badValueMessages.add("Must be null: " + commonKey);
-                    } else if (actualValue == null) {
+                    } else if (actualValue == null && isNoneNullablePlaceholder((String) expectedValue)) {
                         badValueMessages.add("Must not be null: " + commonKey);
                     } else if (!(expectedValue instanceof Map && actualValue instanceof Map)) {
                         if (expectedValue instanceof Collection<?> && actualValue instanceof Collection<?>) {
@@ -130,7 +127,7 @@ public class MapVerifier {
                                     (Collection<?>) expectedValue,
                                     (Collection<?>) actualValue, currentDepth, maxMessageDepth, badValueMessages);
                         } else {
-                            Object outcome = compareValues(fieldPrefix, commonKey, expectedValue, actualValue,
+                            Object outcome = compareValues(commonKey, expectedValue, actualValue,
                                 currentDepth, maxMessageDepth);
                             if (!Boolean.TRUE.equals(outcome)) {
                                 if (outcome instanceof String) {
@@ -171,8 +168,7 @@ public class MapVerifier {
                 collectBadValueMessagesFromCollection(fieldPrefix, subfield, (Collection<?>) o1, (Collection<?>) o2,
                         currentDepth + 1, maxMessageDepth, badValueMessages);
             } else {
-                Object outcome = compareValues(subfield, subfield, o1, o2, currentDepth + 1,
-                        maxMessageDepth);
+                Object outcome = compareValues(subfield, o1, o2, currentDepth + 1, maxMessageDepth);
                 if (!Boolean.TRUE.equals(outcome)) {
                     if (outcome instanceof String) {
                         badValueMessages.add((String) outcome);
@@ -186,10 +182,10 @@ public class MapVerifier {
         }
     }
 
-    private Object compareValues(String fieldPrefix, String commonKey, Object expectedValue,
+    private Object compareValues(String commonKey, Object expectedValue,
             Object actualValue, int currentDepth, int maxMessageDepth) {
         boolean justCompare = currentDepth > maxMessageDepth;
-        if (expectedValue instanceof String && ANY.equalsIgnoreCase((String) expectedValue)) {
+        if(actualAcceptedByPlaceholder(expectedValue, actualValue)) {
             return Boolean.TRUE;
         } else if (expectedValue == actualValue) {
             return Boolean.TRUE;
@@ -217,7 +213,10 @@ public class MapVerifier {
 
     private boolean isExpectedToBeAvailableInActual(Object expectedValue) {
         if (expectedValue instanceof String) {
-            return !ANY.equalsIgnoreCase((String) expectedValue);
+            ExpectedValuePlaceholder expectedValuePlaceholder = ExpectedValuePlaceholder.getByValue((String) expectedValue);
+            if (expectedValuePlaceholder != null) {
+                return expectedValuePlaceholder.isNullable();
+            }
         }
         return true;
     }
@@ -226,6 +225,26 @@ public class MapVerifier {
         if (!(expectedValue instanceof String)) {
             return Boolean.FALSE;
         }
-        return !NOT_NULL.equalsIgnoreCase((String) expectedValue);
+        return isNullablePlaceholder((String) expectedValue);
+    }
+
+    private boolean isNullablePlaceholder(String strExpectedValue) {
+        ExpectedValuePlaceholder expectedValuePlaceholder = ExpectedValuePlaceholder.getByValue(strExpectedValue);
+        return expectedValuePlaceholder == null ?  true : expectedValuePlaceholder.isNullable();
+    }
+
+    private boolean isNoneNullablePlaceholder(String strExpectedValue) {
+        ExpectedValuePlaceholder expectedValuePlaceholder = ExpectedValuePlaceholder.getByValue(strExpectedValue);
+        return expectedValuePlaceholder == null ?  true : !expectedValuePlaceholder.isNullable();
+    }
+
+    private boolean actualAcceptedByPlaceholder(Object expectedValue, Object actualValue) {
+        if (expectedValue instanceof String) {
+            ExpectedValuePlaceholder expectedValuePlaceholder = ExpectedValuePlaceholder.getByValue((String) expectedValue);
+            if (expectedValuePlaceholder != null) {
+                return expectedValuePlaceholder.accepts(actualValue);
+            }
+        }
+        return false;
     }
 }

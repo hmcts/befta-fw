@@ -1,6 +1,6 @@
 {
 	"_guid_": "Common_4XX_Response_Body",
 
-	"timestamp": "[[ANY]]",
-	"path": "[[ANY]]"
+	"timestamp": "[[ANYTHING_PRESENT]]",
+	"path": "[[ANY_STRING_NOT_NULLABLE]]"
 }
