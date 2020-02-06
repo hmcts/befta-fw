@@ -1,7 +1,9 @@
 package uk.gov.hmcts.befta.auth;
 
+import lombok.Getter;
 import uk.gov.hmcts.befta.util.EnvironmentVariableUtils;
 
+@Getter
 public class OAuth2 {
 
     public static final OAuth2 INSTANCE = new OAuth2();
@@ -14,17 +16,5 @@ public class OAuth2 {
         clientId = EnvironmentVariableUtils.getRequiredVariable("OAUTH2_CLIENT_ID");
         clientSecret = EnvironmentVariableUtils.getRequiredVariable("OAUTH2_CLIENT_SECRET");
         redirectUri = EnvironmentVariableUtils.getRequiredVariable("OAUTH2_REDIRECT_URI");
-    }
-
-    public String getClientId() {
-        return clientId;
-    }
-
-    public String getClientSecret() {
-        return clientSecret;
-    }
-
-    public String getRedirectUri() {
-        return redirectUri;
     }
 }

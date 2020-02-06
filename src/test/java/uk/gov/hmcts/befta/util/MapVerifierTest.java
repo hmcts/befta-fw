@@ -11,8 +11,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import uk.gov.hmcts.befta.data.HttpTestDataSource;
 import uk.gov.hmcts.befta.data.JsonStoreHttpTestDataSource;
-import uk.gov.hmcts.befta.util.MapVerificationResult;
-import uk.gov.hmcts.befta.util.MapVerifier;
 
 public class MapVerifierTest {
 
