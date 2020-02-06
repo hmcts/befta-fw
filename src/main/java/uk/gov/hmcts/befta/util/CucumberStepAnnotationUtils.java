@@ -165,7 +165,8 @@ public final class CucumberStepAnnotationUtils {
     }
 
     private static String substituteStepAnnotationValue(final String value) {
+        // RDM-7423: Optional Comma or Full Stop At End Of DSL Elements: i.e. append optionals "(.)" & "(,)"
         // RDM-7424: Extra Space Tolerance Between Words of DSL Elements: i.e. " " => "([\s]+)"
-        return value.replace(" ", "([\\s]+)");
+        return value.replace(" ", "([\\s]+)") + "(.)(,)";
     }
 }
