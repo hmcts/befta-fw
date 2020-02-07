@@ -1,0 +1,35 @@
+{
+	"_guid_": "Simple-Data-With-Inheritance",
+	"_extends_": "Simple-Data-Without-Inheritance",
+	"users": {
+		"otherUser": {
+			"username": "OTHER USERNAME",
+			"password": "OTHER PASSWORD",
+			"id": 456
+		}
+	},
+	"request": {
+		"pathVariables": {
+			"reqvar3": "REQ PATH VAR 3"
+		},
+		"queryParams": {
+			"reqparam3": "REQ PARAM 3"
+		},
+		"headers": {
+			"reqheader3": "REQ HEADER 3"
+		},
+		"body": {
+			"reqbody3": "REQ BODY 3"
+		}
+	},
+	"expectedResponse": {
+		"responseCode": 400,
+		"responseMessage": "RESPONSE MESSAGE",
+		"headers": {
+			"resheader3": "RES HEADER 3"
+		},
+		"body": {
+			"resbody3": "RES BODY 3"
+		}
+	}
+}

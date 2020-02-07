@@ -1,0 +1,35 @@
+{
+	"_guid_": "Simple-Data-With-Overrides",
+	"_extends_": "Simple-Data-Without-Inheritance",
+	"users": {
+		"invokingUser": {
+			"username": "NEW USERNAME",
+			"password": "NEW PASSWORD",
+			"id": 789
+		}
+	},
+	"request": {
+		"pathVariables": {
+			"reqvar2": "NEW REQ PATH VAR 2"
+		},
+		"queryParams": {
+			"reqparam2": "NEW REQ PARAM 2"
+		},
+		"headers": {
+			"reqheader2": "NEW REQ HEADER 2"
+		},
+		"body": {
+			"reqbody2": "NEW REQ BODY 2"
+		}
+	},
+	"expectedResponse": {
+		"responseCode": 200,
+		"responseMessage": "NEW RESPONSE MESSAGE",
+		"headers": {
+			"resheader2": "NEW RES HEADER 2"
+		},
+		"body": {
+			"resbody2": "NEW RES BODY 2"
+		}
+	}
+}

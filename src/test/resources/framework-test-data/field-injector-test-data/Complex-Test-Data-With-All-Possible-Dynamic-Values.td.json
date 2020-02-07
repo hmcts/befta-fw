@@ -66,7 +66,7 @@
 			"Pragma": "no-cache",
 			"Expires": "0",
 			"X-XSS-Protection": "1; mode=block",
-			"Date": "[[ANY]]",
+			"Date": "[[ANYTHING_PRESENT]]",
 			"Content-Type": "application/json;charset=UTF-8"
 		},
 		"body": {
@@ -74,7 +74,7 @@
 			"emptyString": "",
 			"onlyStaticNumber": 4.6,
 			"onlyStaticString": "string without any dynamic part",
-			"onlyPredefinedAny": "[[ANY]]",
+			"onlyPredefinedAny": "[[ANYTHING_PRESENT]]",
 			"onlyPredefinedDynamic": "[[DYNAMIC]]",
 			"onlyFormulaOnly": "token value at index 2",
 

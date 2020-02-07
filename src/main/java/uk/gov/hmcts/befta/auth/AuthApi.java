@@ -8,6 +8,7 @@ import feign.Body;
 import feign.Headers;
 import feign.Param;
 import feign.RequestLine;
+import lombok.Getter;
 
 public interface AuthApi {
 
@@ -32,39 +33,25 @@ public interface AuthApi {
     @Headers("Authorization: Bearer {access_token}")
     User getUser(@Param("access_token") String accessToken);
 
+    @Getter
     class AuthenticateUserResponse {
         @JsonProperty("code")
         private String code;
-
-        public String getCode() {
-            return code;
-        }
     }
 
+    @Getter
     class TokenExchangeResponse {
-
         @JsonProperty("access_token")
         private String accessToken;
-
-        public String getAccessToken() {
-            return accessToken;
-        }
     }
 
+    @Getter
     class User {
         @JsonProperty("id")
         private String id;
 
         @JsonProperty("roles")
         private List<String> roles;
-
-        public String getId() {
-            return id;
-        }
-
-        public List<String> getRoles() {
-            return roles;
-        }
     }
 }
 
