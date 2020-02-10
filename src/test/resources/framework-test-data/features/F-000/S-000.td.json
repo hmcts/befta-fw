@@ -16,7 +16,6 @@
     }
   },
   "expectedResponse": {
-    "responseCode": 200,
     "headers" : {
       "X-Frame-Options" : "[[ANY]]",
       "Transfer-Encoding" : "[[ANY]]",

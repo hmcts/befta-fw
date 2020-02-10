@@ -18,6 +18,15 @@ public class JsonStoreWithInheritanceTest {
     private static final HttpTestDataSource TEST_DATA_RESOURCE = new JsonStoreHttpTestDataSource(
             TEST_DATA_RESOURCE_PACKAGES);
 
+    private static final String[] TEST_DATA_RESOURCE_PACKAGES_WITH_DUPLICATE_GUIDS = { "framework-test-data/features-with-duplicate-guids" };
+    private static final HttpTestDataSource TEST_DATA_RESOURCE_WITH_DUPLICATE_GUIDS = new JsonStoreHttpTestDataSource(
+            TEST_DATA_RESOURCE_PACKAGES_WITH_DUPLICATE_GUIDS);
+
+    @Test(expected = RuntimeException.class)
+    public void shouldHaveOnlyUniqueGUID() {
+        TEST_DATA_RESOURCE_WITH_DUPLICATE_GUIDS.getDataForTestCall("F-050_Test_Data_Base");
+    }
+
     @Test
     public void shouldHaveTheSameDataInBaseRequestAndExtensionResponseBodies() {
         HttpTestData base = TEST_DATA_RESOURCE.getDataForTestCall("F-050_Test_Data_Base");

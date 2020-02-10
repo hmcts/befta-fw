@@ -51,7 +51,7 @@ public abstract class JsonStoreWithInheritance {
             buildObjectStore();
             addToLibrary(rootNode);
             for (String id : nodeLibrary.keySet())
-                overwriteInheritedValuesOf(nodeLibrary.get(id));
+                inheritAndOverlayValuesFor(nodeLibrary.get(id));
             removeInheritanceMechanismFields(rootNode);
         } catch (Throwable t) {
             t.printStackTrace();
@@ -104,7 +104,7 @@ public abstract class JsonStoreWithInheritance {
 
     protected abstract void buildObjectStore() throws Exception;
 
-    private void overwriteInheritedValuesOf(JsonNode object) {
+    private void inheritAndOverlayValuesFor(JsonNode object) {
         if (!shouldApplyInheritanceOn(object))
             return;
         JsonNode parentIdField = object.get(inheritanceFieldName);
@@ -112,39 +112,41 @@ public abstract class JsonStoreWithInheritance {
             String parentId = parentIdField.asText();
             JsonNode parentNode = nodeLibrary.get(parentId);
             throwExceptionIfParentNotFound(object, parentNode, parentId);
-            overwriteInheritedValuesOf(parentNode);
+            inheritAndOverlayValuesFor(parentNode);
             Iterator<String> parentIterator = parentNode.fieldNames();
             while (parentIterator.hasNext()) {
                 String fieldNameInParent = parentIterator.next();
                 if (!isInheritanceMechanismField(fieldNameInParent)) {
-                    overwriteInheritedValuesOf(parentNode.get(fieldNameInParent));
+                    inheritAndOverlayValuesFor(parentNode.get(fieldNameInParent));
                     JsonNode parentFieldCopy = parentNode.get(fieldNameInParent).deepCopy();
-                    if (object.has(fieldNameInParent)) {
-                        JsonNode thisField = object.get(fieldNameInParent);
-                        if (thisField.isArray()) {
-                            ((ArrayNode) thisField).forEach(element -> {
-                                overwriteInheritedValuesOf(element);
-                            });
-                            ((ArrayNode) parentFieldCopy).addAll((ArrayNode) thisField);
-                            ((ObjectNode) object).set(fieldNameInParent, parentFieldCopy);
-                        } else if (thisField.isContainerNode()) {
-                            overwriteInheritedValuesOf(thisField);
-                            ((ObjectNode) object).set(fieldNameInParent, parentFieldCopy);
-                            underlayFor(parentFieldCopy, thisField);
-                        }
-                    } else {
-                        ((ObjectNode) object).set(fieldNameInParent, parentFieldCopy);
-                    }
+                    inheritAndOverlayChildValuesFromParent(object, fieldNameInParent, parentFieldCopy);
                 }
             }
         }
 
-        Iterator<JsonNode> fields = object.iterator();
-        while (fields.hasNext())
-            overwriteInheritedValuesOf(fields.next());
+        for (final JsonNode jsonNode : object) inheritAndOverlayValuesFor(jsonNode);
 
         if (object instanceof ObjectNode)
             ((ObjectNode) object).set(INHERITANCE_APPLIED, BooleanNode.TRUE);
+    }
+
+    private void inheritAndOverlayChildValuesFromParent(final JsonNode object, final String fieldNameInParent, final JsonNode parentFieldCopy) {
+        if (object.has(fieldNameInParent)) {
+            JsonNode thisField = object.get(fieldNameInParent);
+            if (thisField.isArray()) {
+                ((ArrayNode) thisField).forEach(element -> {
+                    inheritAndOverlayValuesFor(element);
+                });
+                ((ArrayNode) parentFieldCopy).addAll((ArrayNode) thisField);
+                ((ObjectNode) object).set(fieldNameInParent, parentFieldCopy);
+            } else if (thisField.isContainerNode()) {
+                inheritAndOverlayValuesFor(thisField);
+                ((ObjectNode) object).set(fieldNameInParent, parentFieldCopy);
+                overlayFieldWith(parentFieldCopy, thisField);
+            }
+        } else {
+            ((ObjectNode) object).set(fieldNameInParent, parentFieldCopy);
+        }
     }
 
     private boolean shouldApplyInheritanceOn(JsonNode object) {
@@ -153,10 +155,6 @@ public abstract class JsonStoreWithInheritance {
         if (object.has(INHERITANCE_APPLIED))
             return false;
         return true;
-    }
-
-    boolean containsAnyMechanismFields(JsonNode object) {
-        return object.has(idFieldName) || object.has(inheritanceFieldName) || object.has(INHERITANCE_APPLIED);
     }
 
     private void throwExceptionIfParentNotFound(JsonNode object, JsonNode parentNode, String parentId) {
@@ -169,19 +167,18 @@ public abstract class JsonStoreWithInheritance {
         }
     }
 
-    private void underlayFor(JsonNode under, JsonNode over) {
-        if (over.isArray()) {
-        } else {
-            Iterator<String> overFields = over.fieldNames();
-            while (overFields.hasNext()) {
-                String subfieldName = overFields.next();
-                if (!isInheritanceMechanismField(subfieldName)) {
-                    JsonNode overField = over.get(subfieldName);
-                    JsonNode underField = under.get(subfieldName);
-                    if (underField != null && underField.isContainerNode()) {
-                        underlayFor(underField, overField);
+    private void overlayFieldWith(JsonNode overlaidField, JsonNode overlayingField) {
+        if (!overlayingField.isArray()) {
+            Iterator<String> overlayingFields = overlayingField.fieldNames();
+            while (overlayingFields.hasNext()) {
+                String overlayingSubFieldName = overlayingFields.next();
+                if (!isInheritanceMechanismField(overlayingSubFieldName)) {
+                    JsonNode overlayingSubField = overlayingField.get(overlayingSubFieldName);
+                    JsonNode overlaidSubField = overlaidField.get(overlayingSubFieldName);
+                    if (overlaidSubField != null && overlaidSubField.isContainerNode()) {
+                        overlayFieldWith(overlaidSubField, overlayingSubField);
                     } else {
-                        ((ObjectNode) under).set(subfieldName, overField);
+                        ((ObjectNode) overlaidField).set(overlayingSubFieldName, overlayingSubField);
                     }
                 }
             }

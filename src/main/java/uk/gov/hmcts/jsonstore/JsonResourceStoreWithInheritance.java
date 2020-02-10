@@ -3,9 +3,15 @@ package uk.gov.hmcts.jsonstore;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.google.common.collect.Sets;
+
+import java.util.Set;
 
 public class JsonResourceStoreWithInheritance extends JsonStoreWithInheritance {
+    public static final String GUID = "_guid_";
     private String[] resourcePaths;
+    private ObjectMapper mapper = new ObjectMapper();
+    private Set<String> processedGUIDs = Sets.newHashSet();
 
     public JsonResourceStoreWithInheritance(String[] resourcePaths) {
         super();
@@ -28,13 +34,16 @@ public class JsonResourceStoreWithInheritance extends JsonStoreWithInheritance {
             JsonNode substore = null;
             if (resource.toLowerCase().endsWith(".json"))
                 substore = buildObjectStoreInAResource(resource);
-
             if (substore != null) {
+                String guid = substore.get(GUID).asText();
+                if (processedGUIDs.contains(guid))
+                    throw new RuntimeException("Object with _guid_ " + guid + " already exists");
                 if (substore.isArray()) {
                     for (int i = 0; i < substore.size(); i++)
                         store.add(substore.get(i));
                 } else
                     store.add(substore);
+                processedGUIDs.add(guid);
             }
         }
         if (store.size() == 1)
@@ -43,7 +52,6 @@ public class JsonResourceStoreWithInheritance extends JsonStoreWithInheritance {
     }
 
     private JsonNode buildObjectStoreInAResource(String resource) throws Exception {
-        ObjectMapper mapper = new ObjectMapper();
         return mapper.readTree(this.getClass().getClassLoader().getResourceAsStream(resource));
     }
 
