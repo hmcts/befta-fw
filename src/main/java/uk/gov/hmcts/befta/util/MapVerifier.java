@@ -215,7 +215,7 @@ public class MapVerifier {
         if (expectedValue instanceof String) {
             ExpectedValuePlaceholder expectedValuePlaceholder = ExpectedValuePlaceholder.getByValue((String) expectedValue);
             if (expectedValuePlaceholder != null) {
-                return expectedValuePlaceholder.isNullable();
+                return !expectedValuePlaceholder.isNullable();
             }
         }
         return true;
