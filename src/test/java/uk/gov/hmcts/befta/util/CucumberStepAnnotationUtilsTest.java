@@ -32,7 +32,7 @@ public class CucumberStepAnnotationUtilsTest {
     private static final String MULTIPLE_TEST_ANNOTATION_2_RESULT = "multiple([\\s]+)test([\\s]+)annotation([\\s]+)2(.)(,)";
 
     @Test
-    public void shouldAdjustSingleGivenCucumberStepAnnotation() {
+    public void injectCommonSyntacticFlexibilitiesIntoStepDefinitions_shouldAdjustSingleGivenCucumberStepAnnotation() { //NOSONAR
         // ARRANGE
         class SingleGiven {
 
@@ -44,7 +44,7 @@ public class CucumberStepAnnotationUtilsTest {
         }
 
         // ACT
-        CucumberStepAnnotationUtils.adjustCucumberStepAnnotations(SingleGiven.class);
+        CucumberStepAnnotationUtils.injectCommonSyntacticFlexibilitiesIntoStepDefinitions(SingleGiven.class);
 
         // ASSERT
         Map<String, Map<String, List<String>>> annotationInfo = readAnnotations(SingleGiven.class);
@@ -59,7 +59,7 @@ public class CucumberStepAnnotationUtilsTest {
     }
 
     @Test
-    public void shouldAdjustSingleThenCucumberStepAnnotation() {
+    public void injectCommonSyntacticFlexibilitiesIntoStepDefinitions_shouldAdjustSingleThenCucumberStepAnnotation() { //NOSONAR
         // ARRANGE
         class SingleThen {
 
@@ -71,7 +71,7 @@ public class CucumberStepAnnotationUtilsTest {
         }
 
         // ACT
-        CucumberStepAnnotationUtils.adjustCucumberStepAnnotations(SingleThen.class);
+        CucumberStepAnnotationUtils.injectCommonSyntacticFlexibilitiesIntoStepDefinitions(SingleThen.class);
 
         // ASSERT
         Map<String, Map<String, List<String>>> annotationInfo = readAnnotations(SingleThen.class);
@@ -86,7 +86,7 @@ public class CucumberStepAnnotationUtilsTest {
     }
 
     @Test
-    public void shouldAdjustSingleWhenCucumberStepAnnotation() {
+    public void injectCommonSyntacticFlexibilitiesIntoStepDefinitions_shouldAdjustSingleWhenCucumberStepAnnotation() { //NOSONAR
         // ARRANGE
         class SingleWhen {
 
@@ -98,7 +98,7 @@ public class CucumberStepAnnotationUtilsTest {
         }
 
         // ACT
-        CucumberStepAnnotationUtils.adjustCucumberStepAnnotations(SingleWhen.class);
+        CucumberStepAnnotationUtils.injectCommonSyntacticFlexibilitiesIntoStepDefinitions(SingleWhen.class);
 
         // ASSERT
         Map<String, Map<String, List<String>>> annotationInfo = readAnnotations(SingleWhen.class);
@@ -113,7 +113,7 @@ public class CucumberStepAnnotationUtilsTest {
     }
 
     @Test
-    public void shouldAdjustSingleMixedCucumberStepAnnotations() {
+    public void injectCommonSyntacticFlexibilitiesIntoStepDefinitions_shouldAdjustSingleMixedCucumberStepAnnotations() { //NOSONAR
         // ARRANGE
         class SingleMixed {
 
@@ -139,7 +139,7 @@ public class CucumberStepAnnotationUtilsTest {
         }
 
         // ACT
-        CucumberStepAnnotationUtils.adjustCucumberStepAnnotations(SingleMixed.class);
+        CucumberStepAnnotationUtils.injectCommonSyntacticFlexibilitiesIntoStepDefinitions(SingleMixed.class);
 
         // ASSERT
         Map<String, Map<String, List<String>>> annotationInfo = readAnnotations(SingleMixed.class);
@@ -172,7 +172,7 @@ public class CucumberStepAnnotationUtilsTest {
     }
 
     @Test
-    public void shouldAdjustMultipleGivenCucumberStepAnnotations() {
+    public void injectCommonSyntacticFlexibilitiesIntoStepDefinitions_shouldAdjustMultipleGivenCucumberStepAnnotations() { //NOSONAR
         // ARRANGE
         class MultipleThen {
 
@@ -185,7 +185,7 @@ public class CucumberStepAnnotationUtilsTest {
         }
 
         // ACT
-        CucumberStepAnnotationUtils.adjustCucumberStepAnnotations(MultipleThen.class);
+        CucumberStepAnnotationUtils.injectCommonSyntacticFlexibilitiesIntoStepDefinitions(MultipleThen.class);
 
         // ASSERT
         Map<String, Map<String, List<String>>> annotationInfo = readAnnotations(MultipleThen.class);
@@ -200,7 +200,7 @@ public class CucumberStepAnnotationUtilsTest {
     }
 
     @Test
-    public void shouldAdjustMultipleThenCucumberStepAnnotations() {
+    public void injectCommonSyntacticFlexibilitiesIntoStepDefinitions_shouldAdjustMultipleThenCucumberStepAnnotations() { //NOSONAR
         // ARRANGE
         class MultipleThen {
 
@@ -213,7 +213,7 @@ public class CucumberStepAnnotationUtilsTest {
         }
 
         // ACT
-        CucumberStepAnnotationUtils.adjustCucumberStepAnnotations(MultipleThen.class);
+        CucumberStepAnnotationUtils.injectCommonSyntacticFlexibilitiesIntoStepDefinitions(MultipleThen.class);
 
         // ASSERT
         Map<String, Map<String, List<String>>> annotationInfo = readAnnotations(MultipleThen.class);
@@ -228,7 +228,7 @@ public class CucumberStepAnnotationUtilsTest {
     }
 
     @Test
-    public void shouldAdjustMultipleWhensCucumberStepAnnotations() {
+    public void injectCommonSyntacticFlexibilitiesIntoStepDefinitions_shouldAdjustMultipleWhenCucumberStepAnnotations() { //NOSONAR
         // ARRANGE
         class MultipleThen {
 
@@ -241,7 +241,7 @@ public class CucumberStepAnnotationUtilsTest {
         }
 
         // ACT
-        CucumberStepAnnotationUtils.adjustCucumberStepAnnotations(MultipleThen.class);
+        CucumberStepAnnotationUtils.injectCommonSyntacticFlexibilitiesIntoStepDefinitions(MultipleThen.class);
 
         // ASSERT
         Map<String, Map<String, List<String>>> annotationInfo = readAnnotations(MultipleThen.class);
@@ -256,7 +256,7 @@ public class CucumberStepAnnotationUtilsTest {
     }
 
     @Test
-    public void shouldNotErrorWhenNoCucumberStepAnnotation() {
+    public void injectCommonSyntacticFlexibilitiesIntoStepDefinitions_shouldNotErrorWhenNoCucumberStepAnnotation() { //NOSONAR
         // ARRANGE
         class NoStepAnnotations {
 
@@ -273,7 +273,7 @@ public class CucumberStepAnnotationUtilsTest {
         }
 
         // ACT
-        CucumberStepAnnotationUtils.adjustCucumberStepAnnotations(NoStepAnnotations.class);
+        CucumberStepAnnotationUtils.injectCommonSyntacticFlexibilitiesIntoStepDefinitions(NoStepAnnotations.class);
 
         // ASSERT
         Map<String, Map<String, List<String>>> annotationInfo = readAnnotations(NoStepAnnotations.class);
@@ -290,7 +290,7 @@ public class CucumberStepAnnotationUtilsTest {
         (new NoStepAnnotations()).notAStepAnnotation().noAnnotations();
     }
 
-    private Map<String, Map<String, List<String>>> readAnnotations(Class<?> testClass) {
+    private Map<String, Map<String, List<String>>> readAnnotations(Class<?> testClass) {  //NOSONAR
         Map<String, Map<String, List<String>>> classAnnotationInfo = new HashMap<>();
         Method[] methods = testClass.getMethods();
 

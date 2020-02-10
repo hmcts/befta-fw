@@ -16,7 +16,7 @@ public final class CucumberStepAnnotationUtils {
     // Hide Utility Class Constructor : Utility classes should not have a public or default constructor (squid:S1118)
     private CucumberStepAnnotationUtils() { }
 
-    public static void adjustCucumberStepAnnotations(Class<?> testClass) {
+    public static void injectCommonSyntacticFlexibilitiesIntoStepDefinitions(Class<?> testClass) {
         try {
             Method[] methods = testClass.getMethods();
 

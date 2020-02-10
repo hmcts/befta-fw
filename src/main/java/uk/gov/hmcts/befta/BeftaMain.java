@@ -12,7 +12,7 @@ public class BeftaMain {
 
     public static void main(String[] args) {
 
-        CucumberStepAnnotationUtils.adjustCucumberStepAnnotations(DefaultBackEndFunctionalTestScenarioPlayer.class);
+        CucumberStepAnnotationUtils.injectCommonSyntacticFlexibilitiesIntoStepDefinitions(DefaultBackEndFunctionalTestScenarioPlayer.class);
 
         BeftaTestDataLoader.main(args);
         Main.main(args);
