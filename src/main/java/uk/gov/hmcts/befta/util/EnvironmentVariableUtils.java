@@ -1,7 +1,6 @@
 package uk.gov.hmcts.befta.util;
 
 import org.apache.commons.lang3.Validate;
-import org.junit.Assert;
 
 public class EnvironmentVariableUtils {
 
