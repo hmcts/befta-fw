@@ -1,6 +1,5 @@
 package uk.gov.hmcts.befta.util;
 
-import static uk.gov.hmcts.befta.util.ExpectedValuePlaceholder.ANYTHING_IF_EXISTS;
 import static uk.gov.hmcts.befta.util.ExpectedValuePlaceholder.ANYTHING_PRESENT;
 import static uk.gov.hmcts.befta.util.ExpectedValuePlaceholder.ANY_DATE_NOT_NULLABLE;
 import static uk.gov.hmcts.befta.util.ExpectedValuePlaceholder.ANY_DATE_NULLABLE;
@@ -203,8 +202,8 @@ public class MapVerifierTest {
         expectedBody.put("message", ANY_STRING_NOT_NULLABLE.getValue());
         expectedBody.put("path", ANYTHING_PRESENT.getValue());
         expectedBody.put("details", ANY_OBJECT_NULLABLE.getValue());
-        expectedBody.put("callbackErrors", ANYTHING_IF_EXISTS.getValue());
-        expectedBody.put("callbackWarnings", ANYTHING_IF_EXISTS.getValue());
+        expectedBody.put("callbackErrors", ANY_NULLABLE.getValue());
+        expectedBody.put("callbackWarnings", ANY_NULLABLE.getValue());
 
         Map<String, Object> actual = new ConcurrentHashMap<>();
         Map<String, Object> actualBody = new HashMap<>();
@@ -243,7 +242,7 @@ public class MapVerifierTest {
         expectedBody.put("details", ANY_OBJECT_NULLABLE.getValue());
         expectedBody.put("callbackErrors", ANY_NULLABLE.getValue());
         expectedBody.put("callbackErrors2", ANY_NOT_NULLABLE.getValue());
-        expectedBody.put("callbackWarnings", ANYTHING_IF_EXISTS.getValue());
+        expectedBody.put("callbackWarnings", ANY_NULLABLE.getValue());
         expectedBody.put("serialNumber", ANY_INTEGER_NULLABLE.getValue());
         expectedBody.put("serialNumber2", ANY_NUMBER_NOT_NULLABLE.getValue());
         expectedBody.put("serialNumber3", ANY_NUMBER_NULLABLE.getValue());
