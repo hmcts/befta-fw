@@ -2,12 +2,18 @@ package uk.gov.hmcts.befta;
 
 import io.cucumber.core.cli.Main;
 
+import uk.gov.hmcts.befta.player.DefaultBackEndFunctionalTestScenarioPlayer;
+import uk.gov.hmcts.befta.util.CucumberStepAnnotationUtils;
+
 public class BeftaMain {
 
     private static TestAutomationConfig config = TestAutomationConfig.INSTANCE;
     private static TestAutomationAdapter taAdapter = new DefaultTestAutomationAdapter();
 
     public static void main(String[] args) {
+
+        CucumberStepAnnotationUtils.injectCommonSyntacticFlexibilitiesIntoStepDefinitions(DefaultBackEndFunctionalTestScenarioPlayer.class);
+
         BeftaTestDataLoader.main(args);
         Main.main(args);
     }
