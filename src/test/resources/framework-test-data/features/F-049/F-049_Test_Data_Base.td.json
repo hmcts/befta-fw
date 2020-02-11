@@ -20,7 +20,7 @@
 	},
 	"expectedResponse": {
 		"headers": {
-			"Content-Length": "[[ANY]]"
+			"Content-Length": "[[ANYTHING_PRESENT]]"
 		}
 	}
 }

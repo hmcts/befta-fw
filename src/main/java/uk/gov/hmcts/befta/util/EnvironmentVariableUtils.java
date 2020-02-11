@@ -1,7 +1,6 @@
 package uk.gov.hmcts.befta.util;
 
 import org.apache.commons.lang3.Validate;
-import org.junit.Assert;
 
 public class EnvironmentVariableUtils {
 
@@ -9,8 +8,6 @@ public class EnvironmentVariableUtils {
         if (key.startsWith("[[$")) {
             String envKey = key.substring(3, key.length() - 2);
             String envValue = getRequiredVariable(envKey);
-            String errorMessage = "Specified environment variable '" + envValue + "' not found";
-            Assert.assertNotNull(errorMessage, envValue);
             return envValue;
         }
         return key;
