@@ -31,7 +31,7 @@ public class JsonResourceStoreWithInheritance extends JsonStoreWithInheritance {
                 substore = buildObjectStoreInAResource(resource);
             if (substore != null) {
                 String guid = substore.get(GUID).asText();
-                validateGUIDs(guid);
+                validateGUID(guid);
                 if (substore.isArray()) {
                     for (int i = 0; i < substore.size(); i++)
                         store.add(substore.get(i));

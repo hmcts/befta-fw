@@ -107,7 +107,7 @@ public abstract class JsonStoreWithInheritance {
 
     protected abstract void buildObjectStore() throws Exception;
 
-    protected void validateGUIDs(String guid) {
+    protected void validateGUID(String guid) {
         if (processedGUIDs.contains(guid))
             throw new RuntimeException("Object with _guid_ " + guid + " already exists");
     }

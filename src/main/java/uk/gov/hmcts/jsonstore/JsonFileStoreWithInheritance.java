@@ -39,7 +39,7 @@ public class JsonFileStoreWithInheritance extends JsonStoreWithInheritance {
 
             if (substore != null) {
                 String guid = substore.get(GUID).asText();
-                validateGUIDs(guid);
+                validateGUID(guid);
                 if (substore.isArray()) {
                     for (int i = 0; i < substore.size(); i++)
                         store.add(substore.get(i));
