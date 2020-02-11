@@ -15,6 +15,7 @@ import java.util.Set;
 import java.util.UUID;
 
 import com.google.common.collect.Sets;
+import uk.gov.hmcts.befta.exception.InvalidTestDataException;
 import uk.gov.hmcts.befta.util.ReflectionUtils;
 
 public abstract class JsonStoreWithInheritance {
@@ -43,22 +44,22 @@ public abstract class JsonStoreWithInheritance {
         return rootNode;
     }
 
-    protected Map<String, JsonNode> getNodeLibrary() {
+    protected Map<String, JsonNode> getNodeLibrary() throws Exception {
         if (rootNode == null)
             loadStore();
         return nodeLibrary;
     }
 
-    private void loadStore() {
+    private void loadStore() throws Exception {
         try {
             buildObjectStore();
             addToLibrary(rootNode);
             for (String id : nodeLibrary.keySet())
                 inheritAndOverlayValuesFor(nodeLibrary.get(id));
             removeInheritanceMechanismFields(rootNode);
-        } catch (Throwable t) {
-            t.printStackTrace();
-            throw new RuntimeException(t);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
         }
     }
 
@@ -109,7 +110,7 @@ public abstract class JsonStoreWithInheritance {
 
     protected void validateGUID(String guid) {
         if (processedGUIDs.contains(guid))
-            throw new RuntimeException("Object with _guid_ " + guid + " already exists");
+            throw new InvalidTestDataException("Object with _guid_=" + guid + " already exists");
     }
 
     private void inheritAndOverlayValuesFor(JsonNode object) {
