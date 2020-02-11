@@ -1,6 +1,6 @@
 package uk.gov.hmcts.befta.exception;
 
-public class InvalidTestDataException extends RuntimeException {
+public class InvalidTestDataException extends FunctionalTestException {
 
     private static final long serialVersionUID = 1L;
 
