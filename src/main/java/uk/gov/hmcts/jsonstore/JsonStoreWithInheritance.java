@@ -14,16 +14,19 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
+import com.google.common.collect.Sets;
 import uk.gov.hmcts.befta.util.ReflectionUtils;
 
 public abstract class JsonStoreWithInheritance {
 
     private static final String INHERITANCE_APPLIED = "inheritanceApplied";
+    protected static final String GUID = "_guid_";
     protected JsonNode rootNode;
     protected Map<String, JsonNode> nodeLibrary = new HashMap<>();
     protected Map<Class<?>, Map<String, ?>> objectLibraryPerTypes = new HashMap<>();
     protected final String idFieldName;
     protected final String inheritanceFieldName;
+    protected Set<String> processedGUIDs = Sets.newHashSet();
 
     public JsonStoreWithInheritance() {
         this("_guid_", "_extends_");
@@ -103,6 +106,11 @@ public abstract class JsonStoreWithInheritance {
     }
 
     protected abstract void buildObjectStore() throws Exception;
+
+    protected void validateGUIDs(String guid) {
+        if (processedGUIDs.contains(guid))
+            throw new RuntimeException("Object with _guid_ " + guid + " already exists");
+    }
 
     private void inheritAndOverlayValuesFor(JsonNode object) {
         if (!shouldApplyInheritanceOn(object))

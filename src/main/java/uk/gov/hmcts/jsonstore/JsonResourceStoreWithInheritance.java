@@ -8,10 +8,8 @@ import com.google.common.collect.Sets;
 import java.util.Set;
 
 public class JsonResourceStoreWithInheritance extends JsonStoreWithInheritance {
-    public static final String GUID = "_guid_";
     private String[] resourcePaths;
     private ObjectMapper mapper = new ObjectMapper();
-    private Set<String> processedGUIDs = Sets.newHashSet();
 
     public JsonResourceStoreWithInheritance(String[] resourcePaths) {
         super();
@@ -36,8 +34,7 @@ public class JsonResourceStoreWithInheritance extends JsonStoreWithInheritance {
                 substore = buildObjectStoreInAResource(resource);
             if (substore != null) {
                 String guid = substore.get(GUID).asText();
-                if (processedGUIDs.contains(guid))
-                    throw new RuntimeException("Object with _guid_ " + guid + " already exists");
+                validateGUIDs(guid);
                 if (substore.isArray()) {
                     for (int i = 0; i < substore.size(); i++)
                         store.add(substore.get(i));

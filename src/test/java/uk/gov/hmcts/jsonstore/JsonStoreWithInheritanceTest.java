@@ -18,7 +18,7 @@ public class JsonStoreWithInheritanceTest {
     private static final HttpTestDataSource TEST_DATA_RESOURCE = new JsonStoreHttpTestDataSource(
             TEST_DATA_RESOURCE_PACKAGES);
 
-    private static final String[] TEST_DATA_RESOURCE_PACKAGES_WITH_DUPLICATE_GUIDS = { "framework-test-data/features-with-duplicate-guids" };
+    private static final String[] TEST_DATA_RESOURCE_PACKAGES_WITH_DUPLICATE_GUIDS = {"framework-test-data-duplicate-guids/features-with-duplicate-guids"};
     private static final HttpTestDataSource TEST_DATA_RESOURCE_WITH_DUPLICATE_GUIDS = new JsonStoreHttpTestDataSource(
             TEST_DATA_RESOURCE_PACKAGES_WITH_DUPLICATE_GUIDS);
 
