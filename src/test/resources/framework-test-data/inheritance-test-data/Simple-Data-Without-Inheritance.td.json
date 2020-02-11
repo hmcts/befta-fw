@@ -1,0 +1,50 @@
+{
+	"_guid_": "Simple-Data-Without-Inheritance",
+	"title": "TITLE",
+
+	"productName": "CCD Data Store",
+	"operationName": "OPERATION",
+	"method": "POST",
+	"uri": "URI",
+	"users": {
+		"invokingUser": {
+			"username": "INVOKING USERNAME",
+			"password": "INVOKING PASSWORD",
+			"id": "123"
+		}
+	},
+	"specs": [
+		"SPEC 1",
+		"SPEC 2"
+	],
+	"request": {
+		"pathVariables": {
+			"reqvar1": "REQ PATH VAR 1",
+			"reqvar2": "REQ PATH VAR 2"
+		},
+		"queryParams": {
+			"reqparam1": "REQ PARAM 1",
+			"reqparam2": "REQ PARAM 2"
+		},
+		"headers": {
+			"reqheader1": "REQ HEADER 1",
+			"reqheader2": "REQ HEADER 2"
+		},
+		"body": {
+			"reqbody1": "REQ BODY 1",
+			"reqbody2": "REQ BODY 2"
+		}
+	},
+	"expectedResponse": {
+		"responseCode": 400,
+		"responseMessage": "RESPONSE MESSAGE",
+		"headers": {
+			"resheader1": "RES HEADER 1",
+			"resheader2": "RES HEADER 2"
+		},
+		"body": {
+			"resbody1": "RES BODY 1",
+			"resbody2": "RES BODY 2"
+		}
+	}
+}
