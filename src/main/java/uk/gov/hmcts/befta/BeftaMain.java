@@ -6,8 +6,8 @@ import uk.gov.hmcts.befta.util.CucumberStepAnnotationUtils;
 
 public class BeftaMain {
 
-    private static TestAutomationConfig config;
-    private static TestAutomationAdapter taAdapter;
+    private static TestAutomationConfig config = TestAutomationConfig.INSTANCE;
+    private static TestAutomationAdapter taAdapter = new DefaultTestAutomationAdapter();
 
     public static void main(String[] args) {
         main(args, new DefaultTestAutomationAdapter());
