@@ -8,6 +8,7 @@ import java.io.File;
 
 public class JsonFileStoreWithInheritance extends JsonStoreWithInheritance {
     private File location;
+    private ObjectMapper mapper = new ObjectMapper();
 
     public JsonFileStoreWithInheritance(File location) {
         super();
@@ -37,6 +38,8 @@ public class JsonFileStoreWithInheritance extends JsonStoreWithInheritance {
                 substore = buildObjectStoreInAFile(subfile);
 
             if (substore != null) {
+                String guid = substore.get(GUID).asText();
+                validateGUID(guid);
                 if (substore.isArray()) {
                     for (int i = 0; i < substore.size(); i++)
                         store.add(substore.get(i));
@@ -50,7 +53,6 @@ public class JsonFileStoreWithInheritance extends JsonStoreWithInheritance {
     }
 
     private JsonNode buildObjectStoreInAFile(File file) throws Exception {
-        ObjectMapper mapper = new ObjectMapper();
         return mapper.readTree(file);
     }
 }
