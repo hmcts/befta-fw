@@ -15,7 +15,7 @@ public class BeftaMain {
         tearDown();
     }
 
-    public static void main(TestAutomationAdapter taAdapter, String[] args) {
+    public static void main(String[] args, TestAutomationAdapter taAdapter) {
         setUp(taAdapter);
         runCucumberMain(args);
         tearDown();
