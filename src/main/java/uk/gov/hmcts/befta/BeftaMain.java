@@ -6,17 +6,40 @@ import uk.gov.hmcts.befta.util.CucumberStepAnnotationUtils;
 
 public class BeftaMain {
 
-    private static TestAutomationConfig config = TestAutomationConfig.INSTANCE;
-    private static TestAutomationAdapter taAdapter = new DefaultTestAutomationAdapter();
+    private static TestAutomationConfig config;
+    private static TestAutomationAdapter taAdapter;
 
     public static void main(String[] args) {
-        BeftaMain.tearUp();
+        setUp();
+        runCucumberMain(args);
+        tearDown();
+    }
+
+    public static void runCucumberMain(String[] args) {
         Main.main(args);
     }
 
-    public static void tearUp() {
+    public static void setUp() {
+        setUp(TestAutomationConfig.INSTANCE, new DefaultTestAutomationAdapter());
+    }
+
+    public static void setUp(TestAutomationConfig config) {
+        setUp(config, new DefaultTestAutomationAdapter());
+    }
+
+    public static void setUp(TestAutomationAdapter taAdapter) {
+        setUp(TestAutomationConfig.INSTANCE, taAdapter);
+    }
+
+    public static void tearDown() {
+
+    }
+
+    public static void setUp(TestAutomationConfig config, TestAutomationAdapter taAdapter) {
+        setConfig(config);
+        setTaAdapter(taAdapter);
         CucumberStepAnnotationUtils.injectCommonSyntacticFlexibilitiesIntoStepDefinitions(DefaultBackEndFunctionalTestScenarioPlayer.class);
-        BeftaMain.getAdapter().loadTestDataIfNecessary();
+        getAdapter().loadTestDataIfNecessary();
     }
 
     public static TestAutomationAdapter getAdapter() {
