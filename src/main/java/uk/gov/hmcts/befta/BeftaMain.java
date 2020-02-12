@@ -10,9 +10,7 @@ public class BeftaMain {
     private static TestAutomationAdapter taAdapter;
 
     public static void main(String[] args) {
-        setUp(new DefaultTestAutomationAdapter());
-        runCucumberMain(args);
-        tearDown();
+        main(args, new DefaultTestAutomationAdapter());
     }
 
     public static void main(String[] args, TestAutomationAdapter taAdapter) {
