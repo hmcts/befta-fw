@@ -6,6 +6,8 @@ public interface TestAutomationAdapter {
 
     String getNewS2SToken();
 
+    String getNewS2SToken(String clientId);
+
     void authenticate(UserData user);
 
     void loadTestDataIfNecessary();

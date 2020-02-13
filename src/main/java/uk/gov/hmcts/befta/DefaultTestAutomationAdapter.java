@@ -5,6 +5,7 @@ import org.springframework.cloud.openfeign.support.SpringMvcContract;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import feign.Feign;
 import feign.jackson.JacksonDecoder;
@@ -23,19 +24,14 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
 
     private final AuthApi idamApi;
 
-    private final ServiceAuthTokenGenerator tokenGenerator;
+    private final Map<String, ServiceAuthTokenGenerator> tokenGenerators = new ConcurrentHashMap<>();
 
     private final Map<String, UserData> users = new HashMap<>();
 
     private static boolean isTestDataLoaded = false;
 
     public DefaultTestAutomationAdapter() {
-        final ServiceAuthorisationApi serviceAuthorisationApi = Feign.builder().encoder(new JacksonEncoder())
-                .contract(new SpringMvcContract())
-                .target(ServiceAuthorisationApi.class, BeftaMain.getConfig().getS2SURL());
-
-        this.tokenGenerator = new ServiceAuthTokenGenerator(BeftaMain.getConfig().getS2SClientSecret(),
-                BeftaMain.getConfig().getS2SClientId(), serviceAuthorisationApi);
+        registerTokenGeneratorWith(BeftaMain.getConfig().getS2SClientId(), BeftaMain.getConfig().getS2SClientSecret());
 
         idamApi = Feign.builder().encoder(new JacksonEncoder()).decoder(new JacksonDecoder()).target(AuthApi.class,
                 BeftaMain.getConfig().getIdamURL());
@@ -43,7 +39,12 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
 
     @Override
     public String getNewS2SToken() {
-        return tokenGenerator.generate();
+        return getNewS2SToken(BeftaMain.getConfig().getS2SClientId());
+    }
+
+    @Override
+    public String getNewS2SToken(String clientId) {
+        return tokenGenerators.get(clientId).generate();
     }
 
     @Override
@@ -76,6 +77,17 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
     }
 
     protected void doLoadTestData() {
+    }
+
+    protected void registerTokenGeneratorWith(String clientId, String clientSecret) {
+        final ServiceAuthorisationApi serviceAuthorisationApi = Feign.builder().encoder(new JacksonEncoder())
+                .contract(new SpringMvcContract())
+                .target(ServiceAuthorisationApi.class, BeftaMain.getConfig().getS2SURL());
+
+        ServiceAuthTokenGenerator tokenGenerator = new ServiceAuthTokenGenerator(
+                BeftaMain.getConfig().getS2SClientSecret(), clientId, serviceAuthorisationApi);
+
+        tokenGenerators.put(BeftaMain.getConfig().getS2SClientId(), tokenGenerator);
     }
 
     private String getIdamOauth2Token(String username, String password) {
