@@ -13,6 +13,7 @@ import feign.jackson.JacksonEncoder;
 import uk.gov.hmcts.befta.auth.AuthApi;
 import uk.gov.hmcts.befta.auth.OAuth2;
 import uk.gov.hmcts.befta.data.UserData;
+import uk.gov.hmcts.befta.exception.FunctionalTestException;
 import uk.gov.hmcts.reform.authorisation.ServiceAuthorisationApi;
 import uk.gov.hmcts.reform.authorisation.generators.ServiceAuthTokenGenerator;
 
@@ -44,7 +45,9 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
 
     @Override
     public String getNewS2SToken(String clientId) {
-        return tokenGenerators.get(clientId).generate();
+        return tokenGenerators.computeIfAbsent(clientId, key -> {
+            throw new FunctionalTestException("No S2S token generator registered for " + key + ".");
+        }).generate();
     }
 
     @Override
