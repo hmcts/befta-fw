@@ -78,20 +78,6 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     }
 
     @Override
-    @Given("user profile that has just been created as in [{}]")
-    public void createUserProfileWithTheDataProvidedInATestDataObject(String userProfileId) throws IOException {
-
-        performAndVerifyTheExpectedResponseForAnApiCall("to create user profile", userProfileId);
-    }
-
-    @Override
-    @Given("user profiles that have just been created as in [{}]")
-    public void createUserProfilesWithTheDataProvidedInATestDataObject(String userProfileIds) throws IOException {
-
-        performAndVerifyTheExpectedResponseForAnApiCall("to create user profiles", userProfileIds);
-    }
-
-    @Override
     @Given("a user with [{}]")
     public void verifyThatThereIsAUserInTheContextWithAParticularSpecification(String specificationAboutAUser) {
         final int userIndex = scenarioContext.getAndIncrementUserCountSpecifiedSoFar();
