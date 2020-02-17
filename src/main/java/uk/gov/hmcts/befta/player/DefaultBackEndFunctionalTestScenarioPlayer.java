@@ -78,6 +78,20 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     }
 
     @Override
+    @Given("user profile that has just been created as in [{}]")
+    public void createUserProfileWithTheDataProvidedInATestDataObject(String userProfileId) throws IOException {
+
+        performAndVerifyTheExpectedResponseForAnApiCall("to create user profile", userProfileId);
+    }
+
+    @Override
+    @Given("user profiles that have just been created as in [{}]")
+    public void createUserProfilesWithTheDataProvidedInATestDataObject(String userProfileIds) throws IOException {
+
+        performAndVerifyTheExpectedResponseForAnApiCall("to create user profiles", userProfileIds);
+    }
+
+    @Override
     @Given("a user with [{}]")
     public void verifyThatThereIsAUserInTheContextWithAParticularSpecification(String specificationAboutAUser) {
         final int userIndex = scenarioContext.getAndIncrementUserCountSpecifiedSoFar();
@@ -132,7 +146,10 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         }
 
         if (requestData.getBody() != null) {
-            aRequest.body(new ObjectMapper().writeValueAsBytes(requestData.getBody()));
+            Object bodyToSend = requestData.getBody();
+            if (requestData.getBody().containsKey("arrayInMap"))
+                bodyToSend = requestData.getBody().get("arrayInMap");
+            aRequest.body(new ObjectMapper().writeValueAsBytes(bodyToSend));
         }
         return aRequest;
     }

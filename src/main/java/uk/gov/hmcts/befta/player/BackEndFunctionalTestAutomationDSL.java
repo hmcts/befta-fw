@@ -13,6 +13,14 @@ public interface BackEndFunctionalTestAutomationDSL {
     void createCaseWithTheDataProvidedInATestDataObject(String caseDataId) throws IOException;
 
     // DSL Element:
+    // "user profile that have just been created as in [<some test data unique id>]"
+    void createUserProfileWithTheDataProvidedInATestDataObject(String userProfileIds) throws IOException;
+
+    // DSL Element:
+    // "user profiles that have just been created as in [<some test data unique id>]"
+    void createUserProfilesWithTheDataProvidedInATestDataObject(String userProfileIds) throws IOException;
+
+    // DSL Element:
     // "a user with [<some specification about user data>]"
     void verifyThatThereIsAUserInTheContextWithAParticularSpecification(String specificationAboutAUser);
 
