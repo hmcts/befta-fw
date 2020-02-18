@@ -119,7 +119,7 @@ public class MapVerifier {
                         //
                     } else if (expectedValue == null) {
                         badValueMessages.add("Must be null: " + commonKey);
-                    } else if (actualValue == null && isNoneNullablePlaceholder((String) expectedValue)) {
+                    } else if (actualValue == null && isNoneNullablePlaceholder(expectedValue)) {
                         badValueMessages.add("Must not be null: " + commonKey);
                     } else if (!(expectedValue instanceof Map && actualValue instanceof Map)) {
                         if (expectedValue instanceof Collection<?> && actualValue instanceof Collection<?>) {
@@ -233,7 +233,11 @@ public class MapVerifier {
         return expectedValuePlaceholder == null ?  true : expectedValuePlaceholder.isNullable();
     }
 
-    private boolean isNoneNullablePlaceholder(String strExpectedValue) {
+    private boolean isNoneNullablePlaceholder(Object value) {
+        if (!(value instanceof String)) {
+            return false;
+        }
+        String strExpectedValue = (String) value;
         ExpectedValuePlaceholder expectedValuePlaceholder = ExpectedValuePlaceholder.getByValue(strExpectedValue);
         return expectedValuePlaceholder == null ?  true : !expectedValuePlaceholder.isNullable();
     }
