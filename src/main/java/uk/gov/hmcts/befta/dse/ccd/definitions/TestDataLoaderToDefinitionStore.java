@@ -30,6 +30,8 @@ public class TestDataLoaderToDefinitionStore {
 
     private static final File TEMP_FILE = new File("___temp___.temp");
 
+    public static final String DEFAULT_DEFINITIONS_PATH = "uk/gov/hmcts/befta/dse/ccd/definitions/";
+
     private static final String[][] CCD_ROLES_NEEDED_FOR_TA = {
             { "caseworker-autotest1", "PUBLIC" },
             { "caseworker-autotest1-private", "PRIVATE" },
@@ -58,7 +60,7 @@ public class TestDataLoaderToDefinitionStore {
     private String definitionStoreUrl;
 
     public TestDataLoaderToDefinitionStore(TestAutomationAdapter adapter) {
-        this(adapter, "uk/gov/hmcts/befta/dse/ccd/definitions/", BeftaMain.getConfig().getDefinitionStoreUrl());
+        this(adapter, DEFAULT_DEFINITIONS_PATH, BeftaMain.getConfig().getDefinitionStoreUrl());
     }
 
     public TestDataLoaderToDefinitionStore(TestAutomationAdapter adapter, String definitionsPath,
