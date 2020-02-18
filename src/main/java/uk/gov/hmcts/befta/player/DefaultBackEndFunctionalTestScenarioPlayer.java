@@ -132,7 +132,10 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         }
 
         if (requestData.getBody() != null) {
-            aRequest.body(new ObjectMapper().writeValueAsBytes(requestData.getBody()));
+            Object bodyToSend = requestData.getBody();
+            if (requestData.getBody().containsKey("arrayInMap"))
+                bodyToSend = requestData.getBody().get("arrayInMap");
+            aRequest.body(new ObjectMapper().writeValueAsBytes(bodyToSend));
         }
         return aRequest;
     }
