@@ -6,10 +6,7 @@ import org.slf4j.LoggerFactory;
 import com.google.common.reflect.ClassPath;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,12 +20,11 @@ import uk.gov.hmcts.befta.BeftaMain;
 import uk.gov.hmcts.befta.TestAutomationAdapter;
 import uk.gov.hmcts.befta.data.UserData;
 import uk.gov.hmcts.befta.exception.FunctionalTestException;
+import uk.gov.hmcts.befta.util.BeftaUtils;
 
 public class TestDataLoaderToDefinitionStore {
 
     private static final Logger logger = LoggerFactory.getLogger(TestDataLoaderToDefinitionStore.class);
-
-    private static final File TEMP_FILE = new File("___temp___.temp");
 
     public static final String DEFAULT_DEFINITIONS_PATH = "uk/gov/hmcts/befta/dse/ccd/definitions/";
 
@@ -108,8 +104,6 @@ public class TestDataLoaderToDefinitionStore {
                 logger.info("\nImported {}.\n\n", fileName);
             } catch (Exception e) {
                 logger.error("Couldn't import {} - Exception: {}.\n\n", fileName, e);
-            } finally {
-                TEMP_FILE.delete();
             }
         }
     }
@@ -130,25 +124,19 @@ public class TestDataLoaderToDefinitionStore {
         }
     }
 
-    private void importDefinition(String fileName) throws IOException {
-        InputStream stream = getClass().getClassLoader().getResource(fileName).openStream();
-        copyInputStreamToFile(stream, TEMP_FILE);
-        Response response = asAutoTestImporter().given().multiPart(TEMP_FILE).when().post("/import");
+    private void importDefinition(String fileResourcePath) throws IOException {
+        File file = BeftaUtils.getClassPathResourceIntoTemporaryFile(fileResourcePath);
+        try {
+            Response response = asAutoTestImporter().given().multiPart(file).when().post("/import");
+            if (response.getStatusCode() != 201) {
+                String message = "Import failed with response body: " + response.body().prettyPrint();
+                message += "\nand http code: " + response.statusCode();
+                throw new FunctionalTestException(message);
+            }
 
-        if (response.getStatusCode() != 201) {
-            String message = "Import failed with response body: " + response.body().prettyPrint();
-            message += "\nand http code: " + response.statusCode();
-            throw new FunctionalTestException(message);
+        } finally {
+            file.delete();
         }
-    }
-
-    private void copyInputStreamToFile(InputStream inStream, File file) throws IOException {
-        byte[] buffer = new byte[inStream.available()];
-        inStream.read(buffer);
-        OutputStream outStream = new FileOutputStream(file);
-        outStream.write(buffer);
-        outStream.close();
-        inStream.close();
     }
 
     private RequestSpecification asAutoTestImporter() {
