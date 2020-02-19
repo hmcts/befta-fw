@@ -1,4 +1,4 @@
-package uk.gov.hmcts.befta.dse.ccd.definitions;
+package uk.gov.hmcts.befta.dse.ccd;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
