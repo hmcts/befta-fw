@@ -13,7 +13,7 @@ group 'uk.gov.hmcts'
 
 version buildNumber
 
-def gitRepo = "https://github.com/hmcts/ccd-api-test-automation-fw"
+def gitRepo = "https://github.com/hmcts/befta-fw"
 
 def pomConfig = {
     licenses {
@@ -25,7 +25,7 @@ def pomConfig = {
     }
 
     scm {
-        url "https://github.com/hmcts/ccd-api-test-automation-fw"
+        url "https://github.com/hmcts/befta-fw"
     }
 }
 
@@ -71,13 +71,13 @@ publishing {
             artifact sourcesJar
             artifact javadocJar
             groupId project.group
-            artifactId 'ccd-api-test-automation-fw'
+            artifactId 'befta-fw'
             version project.version
 
             pom.withXml {
                 def root = asNode()
-                root.appendNode('description', 'CCD Test Automation Framework')
-                root.appendNode('name', 'CCD Api Test Automation FW')
+                root.appendNode('description', 'Backend Functional Test Automation Framework')
+                root.appendNode('name', 'BEFTA FW')
                 root.appendNode('url', gitRepo)
                 root.children().last() + pomConfig
             }
@@ -92,7 +92,7 @@ bintray {
     publish = true
     pkg {
         repo = 'hmcts-maven'
-        name = 'ccd-api-test-automation-fw'
+        name = 'befta-fw'
         userOrg = 'hmcts'
         licenses = ['MIT']
         vcsUrl = gitRepo
