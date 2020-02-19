@@ -72,8 +72,7 @@ public class TestDataLoaderToDefinitionStore {
     }
 
     public void addCcdRoles() {
-        logger.info("{} roles will be added to '{}'.", CCD_ROLES_NEEDED_FOR_TA.length,
-                BeftaMain.getConfig().getDefinitionStoreUrl());
+        logger.info("{} roles will be added to '{}'.", CCD_ROLES_NEEDED_FOR_TA.length, definitionStoreUrl);
         for (String[] roleInfo : CCD_ROLES_NEEDED_FOR_TA) {
             try {
                 logger.info("\n\nAdding CCD Role {}, {}...", roleInfo[0], roleInfo[1]);
@@ -101,7 +100,7 @@ public class TestDataLoaderToDefinitionStore {
     public void importDefinitions() {
         List<String> definitionFileResources = getAllDefinitionFilesToLoad();
         logger.info("{} definition files will be uploaded to '{}'.", definitionFileResources.size(),
-                BeftaMain.getConfig().getDefinitionStoreUrl());
+                definitionStoreUrl);
         for (String fileName : definitionFileResources) {
             try {
                 logger.info("\n\nImporting {}...", fileName);
