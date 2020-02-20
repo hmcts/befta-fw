@@ -209,6 +209,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         ResponseData responseData = convertRestAssuredResponseToBeftaResponse(response);
         scenarioContext.getTestData().setActualResponse(responseData);
         scenarioContext.setTheResponse(responseData);
+        scenario.write("Response:\n" + JsonUtils.getPrettyJsonFromObject(scenarioContext.getTheResponse()));
     }
 
     @SuppressWarnings("unchecked")
@@ -318,8 +319,6 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
             issuesInResponseBody = bodyVerification.getAllIssues();
         }
 
-        scenario.write("Response:\n" + JsonUtils.getPrettyJsonFromObject(scenarioContext.getTheResponse()));
-
         processAnyIssuesInResponse(issueWithResponseCode, issuesInResponseHeaders, issuesInResponseBody);
     }
 
@@ -392,7 +391,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
             final UserData userBeingSpecified, int userIndex) {
         String prefix = userIndex == 0 ? "users.invokingUser" : "users[" + userIndex + "]";
         resolveUserData(prefix, userBeingSpecified);
-        scenario.write("prefix: " + userBeingSpecified.getUsername());
+        scenario.write("User being specified: " + userBeingSpecified.getUsername());
         authenticateUser(prefix, userBeingSpecified);
         if (userIndex == 0) {
             scenarioContext.setTheInvokingUser(userBeingSpecified);
