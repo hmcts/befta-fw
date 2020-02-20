@@ -239,17 +239,25 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     }
 
     private String wrapInMapIfNecessary(InputStream inputStream) throws IOException {
-        File f = new File("__download__" + System.currentTimeMillis());
-        f.createNewFile();
-        FileOutputStream outputStream = new FileOutputStream(f);
-        FileUtil.copyStream(inputStream, outputStream);
-        outputStream.close();
-        FileInBody fib = new FileInBody("file");
-        fib.setSize("" + f.length());
-        fib.setContentHash("hash");
-        String json = JsonUtils.getJsonFromObject(fib);
-        json = "{\"__fileInBody__\":" + json + "}";
-        return json;
+        if (inputStream == null) {
+            return null;
+        }
+        File tempFile = new File("__download__" + System.currentTimeMillis());
+        try {
+            tempFile.createNewFile();
+            FileOutputStream outputStream = new FileOutputStream(tempFile);
+            FileUtil.copyStream(inputStream, outputStream);
+            outputStream.close();
+            FileInBody fib = new FileInBody("file");
+            fib.setSize("" + tempFile.length());
+            fib.setContentHash("hash");
+            String json = JsonUtils.getJsonFromObject(fib);
+            json = "{\"__fileInBody__\":" + json + "}";
+            return json;
+
+        } finally {
+            tempFile.delete();
+        }
     }
 
     private String wrapInMapIfNecessary(String apiResponse) {
