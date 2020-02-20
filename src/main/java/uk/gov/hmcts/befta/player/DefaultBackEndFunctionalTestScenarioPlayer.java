@@ -222,7 +222,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         responseData.setHeaders(responseHeaders);
         
         String jsonTextForBody = null;
-        if (response.contentType() != null && response.contentType().toLowerCase().contains("application/json")) {
+        if (response.contentType() != null && response.contentType().toLowerCase().contains("json")) {
             if (!response.getBody().asString().isEmpty()) {
                 jsonTextForBody = response.getBody().asString();
                 jsonTextForBody = wrapInMapIfNecessary(jsonTextForBody);
