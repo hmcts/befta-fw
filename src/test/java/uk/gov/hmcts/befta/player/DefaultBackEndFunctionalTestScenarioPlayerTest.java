@@ -1,14 +1,17 @@
 package uk.gov.hmcts.befta.player;
 
-import io.cucumber.java.Scenario;
-import io.restassured.RestAssured;
-import io.restassured.http.Headers;
-import io.restassured.http.Method;
-import io.restassured.response.Response;
-import io.restassured.response.ResponseBody;
-import io.restassured.specification.QueryableRequestSpecification;
-import io.restassured.specification.RequestSpecification;
-import io.restassured.specification.SpecificationQuerier;
+import static org.hamcrest.core.StringContains.containsString;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
+import static org.powermock.api.mockito.PowerMockito.mockStatic;
+import static org.powermock.api.mockito.PowerMockito.whenNew;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -19,6 +22,24 @@ import org.mockito.Captor;
 import org.mockito.Mock;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import io.cucumber.java.Scenario;
+import io.restassured.RestAssured;
+import io.restassured.http.Header;
+import io.restassured.http.Headers;
+import io.restassured.http.Method;
+import io.restassured.response.Response;
+import io.restassured.response.ResponseBody;
+import io.restassured.specification.QueryableRequestSpecification;
+import io.restassured.specification.RequestSpecification;
+import io.restassured.specification.SpecificationQuerier;
 import uk.gov.hmcts.befta.BeftaMain;
 import uk.gov.hmcts.befta.DefaultTestAutomationAdapter;
 import uk.gov.hmcts.befta.data.HttpTestData;
@@ -28,21 +49,11 @@ import uk.gov.hmcts.befta.data.UserData;
 import uk.gov.hmcts.befta.exception.FunctionalTestException;
 import uk.gov.hmcts.befta.exception.UnconfirmedApiCallException;
 import uk.gov.hmcts.befta.exception.UnconfirmedDataSpecException;
-import uk.gov.hmcts.befta.util.*;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
-import static org.hamcrest.core.StringContains.containsString;
-import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.*;
-import static org.powermock.api.mockito.PowerMockito.mockStatic;
-import static org.powermock.api.mockito.PowerMockito.whenNew;
+import uk.gov.hmcts.befta.util.DynamicValueInjector;
+import uk.gov.hmcts.befta.util.EnvironmentVariableUtils;
+import uk.gov.hmcts.befta.util.JsonUtils;
+import uk.gov.hmcts.befta.util.MapVerificationResult;
+import uk.gov.hmcts.befta.util.MapVerifier;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({
@@ -360,6 +371,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         scenarioPlayer.verifyTheResponseInTheContextWithAParticularSpecification(responseSpecification);
     }
 
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     @Test
     public void shouldSubmitTheRequestToCallAnOperationOfAProductWithCorrectOperation() throws IOException {
         final String methodType = "POST";
@@ -376,9 +388,11 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         when(testData.getUri()).thenReturn(uri);
         when(context.getTestData()).thenReturn(testData);
         when(context.getTheRequest()).thenReturn(requestSpecification);
-        when(response.getHeaders()).thenReturn(new Headers());
+        when(response.getHeaders())
+                .thenReturn(new Headers(Arrays.asList(new Header("Content-Type", "application/json;charset=UTF-8"))));
         when(response.getStatusCode()).thenReturn(200);
         when(response.getBody()).thenReturn(responseBody);
+        when(response.contentType()).thenReturn("application/json;charset=UTF-8");
         when(responseBody.asString()).thenReturn(bodyString);
         when(requestSpecification.request(eq(Method.POST), eq(uri))).thenReturn(response);
         when(Method.valueOf(eq(methodType))).thenReturn(Method.POST);
@@ -390,7 +404,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         verify(testData).setActualResponse((ResponseData) captor.capture());
         ResponseData responseData = (ResponseData) captor.getValue();
         assertEquals(200, responseData.getResponseCode());
-        assertEquals(0, responseData.getHeaders().size());
+        assertEquals(1, responseData.getHeaders().size());
         assertEquals(body, responseData.getBody());
         assertEquals("OK", responseData.getResponseMessage());
     }
