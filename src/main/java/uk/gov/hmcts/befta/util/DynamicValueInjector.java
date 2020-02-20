@@ -1,9 +1,10 @@
 package uk.gov.hmcts.befta.util;
 
+import com.google.common.collect.FluentIterable;
+
 import java.util.List;
 import java.util.Map;
 
-import com.google.common.collect.FluentIterable;
 import uk.gov.hmcts.befta.TestAutomationAdapter;
 import uk.gov.hmcts.befta.data.HttpTestData;
 import uk.gov.hmcts.befta.data.RequestData;
@@ -143,7 +144,8 @@ public class DynamicValueInjector {
             } else if (value instanceof Map<?, ?>) {
                 injectDynamicValuesInto(path + "." + key, (Map<String, Object>) value);
             } else if (value instanceof Iterable) {
-                injectDynamicValuesInto(path + "." + key, FluentIterable.from((Iterable)value).toArray(Object.class));
+                injectDynamicValuesInto(path + "." + key,
+                        FluentIterable.from((Iterable<Object>) value).toArray(Object.class));
             }
         });
 
