@@ -206,14 +206,15 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         scenario.write("Calling " + queryableRequest.getMethod() + " " + queryableRequest.getURI());
         Response response = theRequest.request(method, uri);
 
-        ResponseData responseData = convertRestAssuredResponseToBeftaResponse(response);
+        ResponseData responseData = convertRestAssuredResponseToBeftaResponse(scenarioContext, response);
         scenarioContext.getTestData().setActualResponse(responseData);
         scenarioContext.setTheResponse(responseData);
         scenario.write("Response:\n" + JsonUtils.getPrettyJsonFromObject(scenarioContext.getTheResponse()));
     }
 
     @SuppressWarnings("unchecked")
-    private ResponseData convertRestAssuredResponseToBeftaResponse(Response response) throws IOException {
+    private ResponseData convertRestAssuredResponseToBeftaResponse(BackEndFunctionalTestScenarioContext scenarioContext,
+            Response response) throws IOException {
         Map<String, Object> responseHeaders = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
         response.getHeaders().forEach(header -> responseHeaders.put(header.getName(), header.getValue()));
         ResponseData responseData = new ResponseData();
@@ -222,24 +223,28 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         responseData.setResponseMessage(reasonPhrase);
         responseData.setHeaders(responseHeaders);
         
-        String jsonTextForBody = null;
-        if (response.contentType() != null && response.contentType().toLowerCase().contains("json")) {
+        String jsonForBody = null;
+        if (shouldTreatBodyAsAFile(scenarioContext.getTestData().getExpectedResponse())) {
+            jsonForBody = getFileInMapJson(response);
+        } else {
             if (!response.getBody().asString().isEmpty()) {
-                jsonTextForBody = response.getBody().asString();
-                jsonTextForBody = wrapInMapIfNecessary(jsonTextForBody);
+                jsonForBody = response.getBody().asString();
+                jsonForBody = wrapInMapIfNecessary(jsonForBody);
             }            
         }
-        else {
-            jsonTextForBody = wrapInMapIfNecessary(response.getBody().asInputStream());
-        }
-        if (jsonTextForBody != null) {
-            responseData.setBody(JsonUtils.readObjectFromJsonText(jsonTextForBody, Map.class));
-        }
+
+        responseData
+                .setBody(jsonForBody == null ? null : JsonUtils.readObjectFromJsonText(jsonForBody, Map.class));
 
         return responseData;
     }
 
-    private String wrapInMapIfNecessary(InputStream inputStream) throws IOException {
+    private boolean shouldTreatBodyAsAFile(ResponseData expectedResponse) {
+        return expectedResponse.getBody() != null && expectedResponse.getBody().containsKey("__fileInBody__");
+    }
+
+    private String getFileInMapJson(Response response) throws IOException {
+        InputStream inputStream = response.getBody().asInputStream();
         if (inputStream == null) {
             return null;
         }
