@@ -386,6 +386,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         when(testData.meetsOperationOfProduct(eq(PRODUCT_NAME), eq(OPERATION))).thenReturn(true);
         when(testData.getMethod()).thenReturn(methodType);
         when(testData.getUri()).thenReturn(uri);
+        when(testData.getExpectedResponse()).thenReturn(new ResponseData());
         when(context.getTestData()).thenReturn(testData);
         when(context.getTheRequest()).thenReturn(requestSpecification);
         when(response.getHeaders())
