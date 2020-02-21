@@ -28,28 +28,27 @@ public class TestDataLoaderToDefinitionStore {
 
     public static final String DEFAULT_DEFINITIONS_PATH = "uk/gov/hmcts/befta/dse/ccd/definitions/";
 
-    private static final String[][] CCD_ROLES_NEEDED_FOR_TA = {
-            { "caseworker-autotest1", "PUBLIC" },
-            { "caseworker-autotest1-private", "PRIVATE" },
-            { "caseworker-autotest1-senior", "RESTRICTED" },
-            { "caseworker-autotest1-solicitor", "PRIVATE" },
+    private static final CcdRoleConfig[] CCD_ROLES_NEEDED_FOR_TA = {
+            new CcdRoleConfig("caseworker-autotest1", "PUBLIC"),
+            new CcdRoleConfig("caseworker-autotest1-private", "PRIVATE"),
+            new CcdRoleConfig("caseworker-autotest1-senior", "RESTRICTED"),
+            new CcdRoleConfig("caseworker-autotest1-solicitor", "PRIVATE"),
 
-            { "caseworker-autotest2", "PUBLIC" },
-            { "caseworker-autotest2-private", "PRIVATE" },
-            { "caseworker-autotest2-senior", "RESTRICTED" },
-            { "caseworker-autotest2-solicitor", "PRIVATE" },
+            new CcdRoleConfig("caseworker-autotest2", "PUBLIC"),
+            new CcdRoleConfig("caseworker-autotest2-private", "PRIVATE"),
+            new CcdRoleConfig("caseworker-autotest2-senior", "RESTRICTED"),
+            new CcdRoleConfig("caseworker-autotest2-solicitor", "PRIVATE"),
 
-            { "caseworker-befta_jurisdiction_1", "PUBLIC" },
+            new CcdRoleConfig("caseworker-befta_jurisdiction_1", "PUBLIC"),
 
-            { "caseworker-befta_jurisdiction_2", "PUBLIC" },
-            { "caseworker-befta_jurisdiction_2-solicitor_1", "PUBLIC" },
-            { "caseworker-befta_jurisdiction_2-solicitor_2", "PUBLIC" },
-            { "caseworker-befta_jurisdiction_2-solicitor_3", "PUBLIC" },
-            { "citizen", "PUBLIC" },
+            new CcdRoleConfig("caseworker-befta_jurisdiction_2", "PUBLIC"),
+            new CcdRoleConfig("caseworker-befta_jurisdiction_2-solicitor_1", "PUBLIC"),
+            new CcdRoleConfig("caseworker-befta_jurisdiction_2-solicitor_2", "PUBLIC"),
+            new CcdRoleConfig("caseworker-befta_jurisdiction_2-solicitor_3", "PUBLIC"),
+            new CcdRoleConfig("citizen", "PUBLIC"),
 
-            { "caseworker-befta_jurisdiction_3", "PUBLIC" },
-            { "caseworker-befta_jurisdiction_3-solicitor", "PUBLIC" }
-    };
+            new CcdRoleConfig("caseworker-befta_jurisdiction_3", "PUBLIC"),
+            new CcdRoleConfig("caseworker-befta_jurisdiction_3-solicitor", "PUBLIC") };
 
     private TestAutomationAdapter adapter;
     private String definitionsPath;
@@ -69,21 +68,21 @@ public class TestDataLoaderToDefinitionStore {
 
     public void addCcdRoles() {
         logger.info("{} roles will be added to '{}'.", CCD_ROLES_NEEDED_FOR_TA.length, definitionStoreUrl);
-        for (String[] roleInfo : CCD_ROLES_NEEDED_FOR_TA) {
+        for (CcdRoleConfig roleConfig : CCD_ROLES_NEEDED_FOR_TA) {
             try {
-                logger.info("\n\nAdding CCD Role {}, {}...", roleInfo[0], roleInfo[1]);
-                addCcdRole(roleInfo[0], roleInfo[1]);
-                logger.info("\n\nAdded CCD Role {}, {}...", roleInfo[0], roleInfo[1]);
+                logger.info("\n\nAdding CCD Role {}.", roleConfig);
+                addCcdRole(roleConfig);
+                logger.info("\n\nAdded CCD Role {}.", roleConfig);
             } catch (Exception e) {
-                logger.error("\n\nCouldn't adding CCD Role {}, {} - Exception: {}.\\n\\n", roleInfo[0], roleInfo[1], e);
+                logger.error("\n\nCouldn't adding CCD Role {} - Exception: {}.\\n\\n", roleConfig, e);
             }
         }
     }
 
-    private void addCcdRole(String role, String classification) {
+    private void addCcdRole(CcdRoleConfig roleConfig) {
         Map<String, String> ccdRoleInfo = new HashMap<>();
-        ccdRoleInfo.put("role", role);
-        ccdRoleInfo.put("security_classification", classification);
+        ccdRoleInfo.put("role", roleConfig.getRole());
+        ccdRoleInfo.put("security_classification", roleConfig.getSecurityClassification());
         Response response = asAutoTestImporter().given().header("Content-type", "application/json").body(ccdRoleInfo)
                 .when().put("/api/user-role");
         if (response.getStatusCode() / 100 != 2) {
@@ -145,8 +144,7 @@ public class TestDataLoaderToDefinitionStore {
         adapter.authenticate(caseworker);
 
         String s2sToken = adapter.getNewS2SToken();
-        return RestAssured
-                .given(new RequestSpecBuilder().setBaseUri(definitionStoreUrl).build())
+        return RestAssured.given(new RequestSpecBuilder().setBaseUri(definitionStoreUrl).build())
                 .header("Authorization", "Bearer " + caseworker.getAccessToken())
                 .header("ServiceAuthorization", s2sToken);
     }
