@@ -1,18 +1,19 @@
 package uk.gov.hmcts.befta.util;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-import uk.gov.hmcts.befta.data.HttpTestData;
-import uk.gov.hmcts.befta.data.RequestData;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
+import uk.gov.hmcts.befta.data.HttpTestData;
+import uk.gov.hmcts.befta.data.RequestData;
 
 
 @RunWith(PowerMockRunner.class)
@@ -61,7 +62,7 @@ public class JsonUtilsTest {
         }});
 
         final String expectedResult = "{\"headers\":null,\"pathVariables\":null,\"queryParams\":null," +
-                "\"body\":{\"key1\":\"value1\",\"key2\":\"value2\"}}";
+                "\"body\":{\"key1\":\"value1\",\"key2\":\"value2\"},\"multipart\":false}";
 
         final String result = JsonUtils.getJsonFromObject(testObject);
 
@@ -83,7 +84,8 @@ public class JsonUtilsTest {
                 "  \"body\" : {\n" +
                 "    \"key1\" : \"value1\",\n" +
                 "    \"key2\" : \"value2\"\n" +
-                "  }\n" +
+                "  },\n" +
+                "  \"multipart\" : false\n" +
                 "}";
 
         final String result = JsonUtils.getPrettyJsonFromObject(testObject);
