@@ -151,8 +151,8 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
             requestBodyContent = requestData.getBody().get("arrayInMap");
 
         if (requestData.isMultipart()) {
-            if (requestBodyContent != null && requestBodyContent.getClass().isArray()) {
-                for (Object object : (Object[]) requestBodyContent) {
+            if (requestBodyContent instanceof List<?>) {
+                for (Object object : (List<?>) requestBodyContent) {
                     putMultipartToRequest(request, object);
                 }
             } else {
