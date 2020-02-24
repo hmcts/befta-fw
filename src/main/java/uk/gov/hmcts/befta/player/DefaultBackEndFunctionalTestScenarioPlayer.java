@@ -51,6 +51,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
 
     private final BackEndFunctionalTestScenarioContext scenarioContext;
     private Scenario scenario;
+    private ObjectMapper mapper = new ObjectMapper();
 
     public DefaultBackEndFunctionalTestScenarioPlayer() {
         RestAssured.baseURI = TestAutomationConfig.INSTANCE.getTestUrl();
@@ -144,24 +145,44 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     }
 
     private void buildRequestBody(RequestSpecification request, RequestData requestData) throws IOException {
-        if (requestData.getBody().containsKey("__fileInBody__")) {
-            @SuppressWarnings("unchecked")
-            Map<String, String> fileInfo = (Map<String, String>) requestData.getBody().get("__fileInBody__");
-            String fullPath = fileInfo.get("fullPath");
-            File fileToUpload = BeftaUtils.getClassPathResourceIntoTemporaryFile(fullPath);
-            try {
-                request.multiPart(fileToUpload);
-            } catch (Exception e) {
-                throw new FunctionalTestException("Unable to upload the file: " + fullPath, e);
-            } finally {
+
+        Object requestBodyContent = requestData.getBody();
+        if (requestData.getBody().containsKey("arrayInMap"))
+            requestBodyContent = requestData.getBody().get("arrayInMap");
+
+        if (requestData.isMultipart()) {
+            if (requestBodyContent != null && requestBodyContent.getClass().isArray()) {
+                for (Object object : (Object[]) requestBodyContent) {
+                    putMultipartToRequest(request, object);
+                }
+            } else {
+                putMultipartToRequest(request, requestBodyContent);
+
+            }
+        } else {
+            request.body(mapper.writeValueAsBytes(requestBodyContent));
+        }
+    }
+
+    private void putMultipartToRequest(RequestSpecification request, Object multipartObject) {
+        @SuppressWarnings("unchecked")
+        Map<String, String> multipartInfo = (Map<String, String>) multipartObject;
+        String controlName = multipartInfo.get("key");
+        Object multipartValue = multipartInfo.get("value");
+
+        File fileToUpload = null;
+        try {
+            if (multipartInfo.containsKey("filePath")) {
+                fileToUpload = BeftaUtils.getClassPathResourceIntoTemporaryFile(multipartInfo.get("filePath"));
+                multipartValue = fileToUpload;
+            }
+            request.multiPart(controlName, multipartValue);
+        } catch (Exception e) {
+            throw new FunctionalTestException("Failed to put multi-part into the request: " + controlName, e);
+        } finally {
+            if (fileToUpload != null) {
                 fileToUpload.delete();
             }
-
-        } else {
-            Object bodyToSend = requestData.getBody();
-            if (requestData.getBody().containsKey("arrayInMap"))
-                bodyToSend = requestData.getBody().get("arrayInMap");
-            request.body(new ObjectMapper().writeValueAsBytes(bodyToSend));
         }
     }
 
@@ -222,7 +243,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         String reasonPhrase = EnglishReasonPhraseCatalog.INSTANCE.getReason(response.getStatusCode(), null);
         responseData.setResponseMessage(reasonPhrase);
         responseData.setHeaders(responseHeaders);
-        
+
         String jsonForBody = null;
         if (shouldTreatBodyAsAFile(scenarioContext.getTestData().getExpectedResponse())) {
             jsonForBody = getFileInMapJson(response);
@@ -230,11 +251,10 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
             if (!response.getBody().asString().isEmpty()) {
                 jsonForBody = response.getBody().asString();
                 jsonForBody = wrapInMapIfNecessary(jsonForBody);
-            }            
+            }
         }
 
-        responseData
-                .setBody(jsonForBody == null ? null : JsonUtils.readObjectFromJsonText(jsonForBody, Map.class));
+        responseData.setBody(jsonForBody == null ? null : JsonUtils.readObjectFromJsonText(jsonForBody, Map.class));
 
         return responseData;
     }

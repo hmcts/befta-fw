@@ -1,8 +1,8 @@
 package uk.gov.hmcts.befta.data;
 
-import lombok.Data;
-
 import java.util.Map;
+
+import lombok.Data;
 
 @Data
 public class RequestData {
@@ -14,4 +14,9 @@ public class RequestData {
     private Map<String, Object> queryParams;
 
     private Map<String, Object> body;
+
+    public boolean isMultipart() {
+        return headers != null && headers.get("media-type") != null
+                && headers.get("media-type").toString().toLowerCase().contains("multipart");
+    }
 }
