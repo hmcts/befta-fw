@@ -181,7 +181,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
             throw new FunctionalTestException("Failed to put multi-part into the request: " + controlName, e);
         } finally {
             if (fileToUpload != null) {
-                fileToUpload.delete();
+                fileToUpload.deleteOnExit();
             }
         }
     }

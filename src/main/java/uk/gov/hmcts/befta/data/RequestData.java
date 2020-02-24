@@ -16,7 +16,7 @@ public class RequestData {
     private Map<String, Object> body;
 
     public boolean isMultipart() {
-        return headers != null && headers.get("media-type") != null
-                && headers.get("media-type").toString().toLowerCase().contains("multipart");
+        return headers != null && headers.get("Content-Type") != null
+                && headers.get("Content-Type").toString().toLowerCase().contains("multipart");
     }
 }
