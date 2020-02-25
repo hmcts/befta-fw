@@ -117,14 +117,14 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
                 case "actual-response":
                     return scenarioContext.getTestData().getActualResponse();
             }
-            String dateTimeFormat = checkDateTimeFormatRequested((String) key);
+            String dateTimeFormat = getDateTimeFormatRequested((String) key);
             if (dateTimeFormat != null)
                 return LocalDate.now().format(DateTimeFormatter.ofPattern(dateTimeFormat));
         }
         return null;
     }
 
-    protected String checkDateTimeFormatRequested(String key) {
+    protected String getDateTimeFormatRequested(String key) {
         if (key.equals("today"))
             return "yyyy-MM-dd";
         else if (key.equals("now"))
