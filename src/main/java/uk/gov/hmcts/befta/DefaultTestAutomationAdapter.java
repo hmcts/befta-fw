@@ -12,6 +12,7 @@ import feign.jackson.JacksonEncoder;
 import uk.gov.hmcts.befta.auth.AuthApi;
 import uk.gov.hmcts.befta.auth.OAuth2;
 import uk.gov.hmcts.befta.data.UserData;
+import uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext;
 import uk.gov.hmcts.reform.authorisation.ServiceAuthorisationApi;
 import uk.gov.hmcts.reform.authorisation.generators.ServiceAuthTokenGenerator;
 
@@ -90,5 +91,31 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
                 AUTHORIZATION_CODE, oauth2.getClientId(), oauth2.getClientSecret(), oauth2.getRedirectUri());
 
         return tokenExchangeResponse.getAccessToken();
+    }
+
+    @Override
+    public Object calculateCustomValue(BackEndFunctionalTestScenarioContext scenarioContext, Object key) {
+        if (key instanceof String) {
+            switch (((String) key).toLowerCase()) {
+            case "request":
+                return scenarioContext.getTestData().getRequest();
+
+            case "requestbody":
+            case "request body":
+            case "request-body":
+                return scenarioContext.getTestData().getRequest().getBody();
+            
+            case "expextedresponse":
+            case "expexted response":
+            case "expexted-response":
+                return scenarioContext.getTestData().getExpectedResponse();        
+            
+            case "actualresponse":
+            case "actual response":
+            case "actual-response":
+                return scenarioContext.getTestData().getActualResponse();        
+            }
+        }
+        return null;
     }
 }
