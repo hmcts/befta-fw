@@ -47,7 +47,7 @@ public enum ExpectedValuePlaceholder {
             switch (this) {
                 case ANY_STRING_NULLABLE:
                 case ANY_STRING_NOT_NULLABLE:
-                    valid &= actualObject instanceof String;
+                    valid = actualObject instanceof String;
                     break;
 
                 case ANY_INTEGER_NOT_NULLABLE:
@@ -85,7 +85,7 @@ public enum ExpectedValuePlaceholder {
 
             }
         } catch (Exception e) {
-            valid &= false;
+            valid = false;
         }
 
         return valid;

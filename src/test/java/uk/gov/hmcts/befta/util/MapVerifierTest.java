@@ -1,5 +1,7 @@
 package uk.gov.hmcts.befta.util;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static uk.gov.hmcts.befta.util.ExpectedValuePlaceholder.ANYTHING_PRESENT;
 import static uk.gov.hmcts.befta.util.ExpectedValuePlaceholder.ANY_DATE_NOT_NULLABLE;
 import static uk.gov.hmcts.befta.util.ExpectedValuePlaceholder.ANY_DATE_NULLABLE;
@@ -27,6 +29,8 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import uk.gov.hmcts.befta.data.HttpTestDataSource;
 import uk.gov.hmcts.befta.data.JsonStoreHttpTestDataSource;
 
@@ -43,7 +47,7 @@ public class MapVerifierTest {
     }
 
     @Test
-    public void shouldVerifyNullVsNullCase() {
+    public void shouldVerifyNullVsNull() {
         MapVerificationResult result = new MapVerifier("").verifyMap(null, null);
         Assert.assertTrue(result.isVerified());
         result = new MapVerifier("", 1).verifyMap(null, null);
@@ -55,23 +59,23 @@ public class MapVerifierTest {
     }
 
     @Test
-    public void shouldNotVerifyNullVsNonNullCase() {
+    public void shouldNotVerifyNullVsNonNull() {
         MapVerificationResult result = new MapVerifier("", 999).verifyMap(new HashMap<String, Object>(), null);
         Assert.assertArrayEquals(new Object[] { "Map is expected to be non-null, but is actually null." },
                 result.getAllIssues().toArray());
     }
 
     @Test
-    public void shouldNotVerifyNonNullVsNullCase() {
+    public void shouldNotVerifyNonNullVsNull() {
         MapVerificationResult result = new MapVerifier("", 999).verifyMap(null, new HashMap<String, Object>());
         Assert.assertArrayEquals(new Object[] { "Map is expected to be null, but is actually not." },
                 result.getAllIssues().toArray());
     }
 
     @Test
-    public void shouldVerifyEmptyVsEmptyCase() {
+    public void shouldVerifyEmptyVsEmpty() {
         MapVerificationResult result = new MapVerifier("", 0).verifyMap(new HashMap<>(), new HashMap<>());
-        Assert.assertEquals(0, result.getAllIssues().size());
+        assertEquals(0, result.getAllIssues().size());
         result = new MapVerifier("", 0).verifyMap(new ConcurrentHashMap<>(), new LinkedHashMap<>());
         Assert.assertTrue(result.isVerified());
     }
@@ -92,12 +96,12 @@ public class MapVerifierTest {
         expected.put("key", "value");
         actual.put("key", "value");
         MapVerificationResult result = new MapVerifier("", 0).verifyMap(expected, actual);
-        Assert.assertEquals(0, result.getAllIssues().size());
+        assertEquals(0, result.getAllIssues().size());
 
         expected.put("key2", "value2");
         actual.put("key2", "value2");
         result = new MapVerifier("", 0).verifyMap(expected, actual);
-        Assert.assertEquals(0, result.getAllIssues().size());
+        assertEquals(0, result.getAllIssues().size());
 
         expected.put("key3", 333.333);
         actual.put("key3", 333.333);
@@ -141,7 +145,7 @@ public class MapVerifierTest {
         actualBody.put("callbackWarnings", null);
 
         MapVerificationResult result = new MapVerifier("actualResponse", 0).verifyMap(expected, actual);
-        Assert.assertEquals(0, result.getAllIssues().size());
+        assertEquals(0, result.getAllIssues().size());
         Assert.assertTrue(result.isVerified());
     }
 
@@ -184,7 +188,7 @@ public class MapVerifierTest {
         actualBody.put("callbackWarnings", null);
 
         MapVerificationResult result = new MapVerifier("actualResponse", 0).verifyMap(expected, actual);
-        Assert.assertEquals(0, result.getAllIssues().size());
+        assertEquals(0, result.getAllIssues().size());
         Assert.assertTrue(result.isVerified());
     }
 
@@ -222,7 +226,7 @@ public class MapVerifierTest {
         actualBody.put("callbackWarnings", "Test Warnings");
 
         MapVerificationResult result = new MapVerifier("actualResponse", 0).verifyMap(expected, actual);
-        Assert.assertEquals(0, result.getAllIssues().size());
+        assertEquals(0, result.getAllIssues().size());
         Assert.assertTrue(result.isVerified());
     }
 
@@ -268,7 +272,7 @@ public class MapVerifierTest {
         actualBody.put("serialNumber3", null);
 
         MapVerificationResult result = new MapVerifier("actualResponse", 0).verifyMap(expected, actual);
-        Assert.assertEquals(0, result.getAllIssues().size());
+        assertEquals(0, result.getAllIssues().size());
         Assert.assertTrue(result.isVerified());
     }
 
@@ -285,7 +289,7 @@ public class MapVerifierTest {
         actual.put("serialNumber", null);
 
         MapVerificationResult result = new MapVerifier("actualResponse", 0).verifyMap(expected, actual);
-        Assert.assertEquals(0, result.getAllIssues().size());
+        assertEquals(0, result.getAllIssues().size());
         Assert.assertTrue(result.isVerified());
     }
 
@@ -304,8 +308,8 @@ public class MapVerifierTest {
         actual.put("serialNumber2", 400);
 
         MapVerificationResult result = new MapVerifier("actualResponse", 0).verifyMap(expected, actual);
-        Assert.assertEquals(1, result.getAllIssues().size());
-        Assert.assertFalse(result.isVerified());
+        assertEquals(1, result.getAllIssues().size());
+        assertFalse(result.isVerified());
     }
 
 
@@ -322,7 +326,7 @@ public class MapVerifierTest {
         actual.put("timestamp2", "2019-11-13T14:02:43.431");
 
         MapVerificationResult result = new MapVerifier("actualResponse", 0).verifyMap(expected, actual);
-        Assert.assertEquals(0, result.getAllIssues().size());
+        assertEquals(0, result.getAllIssues().size());
         Assert.assertTrue(result.isVerified());
     }
 
@@ -341,8 +345,8 @@ public class MapVerifierTest {
         actual.put("timestamp3", null);
 
         MapVerificationResult result = new MapVerifier("actualResponse", 0).verifyMap(expected, actual);
-        Assert.assertEquals(1, result.getAllIssues().size());
-        Assert.assertFalse(result.isVerified());
+        assertEquals(1, result.getAllIssues().size());
+        assertFalse(result.isVerified());
     }
 
 
@@ -361,7 +365,7 @@ public class MapVerifierTest {
         actual.put("message3", "Unknown sort direction: someInvalidSortDirection");
 
         MapVerificationResult result = new MapVerifier("actualResponse", 0).verifyMap(expected, actual);
-        Assert.assertEquals(0, result.getAllIssues().size());
+        assertEquals(0, result.getAllIssues().size());
         Assert.assertTrue(result.isVerified());
     }
 
@@ -380,8 +384,8 @@ public class MapVerifierTest {
         actual.put("message3", "Unknown sort direction: someInvalidSortDirection");
 
         MapVerificationResult result = new MapVerifier("actualResponse", 0).verifyMap(expected, actual);
-        Assert.assertEquals(1, result.getAllIssues().size());
-        Assert.assertFalse(result.isVerified());
+        assertEquals(1, result.getAllIssues().size());
+        assertFalse(result.isVerified());
     }
 
     @Test
@@ -397,7 +401,7 @@ public class MapVerifierTest {
         actual.put("details2", 400);
 
         MapVerificationResult result = new MapVerifier("actualResponse", 0).verifyMap(expected, actual);
-        Assert.assertEquals(0, result.getAllIssues().size());
+        assertEquals(0, result.getAllIssues().size());
         Assert.assertTrue(result.isVerified());
     }
 
@@ -414,8 +418,8 @@ public class MapVerifierTest {
         actual.put("details2", null);
 
         MapVerificationResult result = new MapVerifier("actualResponse", 0).verifyMap(expected, actual);
-        Assert.assertEquals(1, result.getAllIssues().size());
-        Assert.assertFalse(result.isVerified());
+        assertEquals(1, result.getAllIssues().size());
+        assertFalse(result.isVerified());
     }
 
     @Test
@@ -432,7 +436,7 @@ public class MapVerifierTest {
         actual.put("serialNumber4", 700.50);
 
         MapVerificationResult result = new MapVerifier("actualResponse", 0).verifyMap(expected, actual);
-        Assert.assertEquals(0, result.getAllIssues().size());
+        assertEquals(0, result.getAllIssues().size());
         Assert.assertTrue(result.isVerified());
     }
 
@@ -450,8 +454,8 @@ public class MapVerifierTest {
         actual.put("serialNumber4", 700.50);
 
         MapVerificationResult result = new MapVerifier("actualResponse", 0).verifyMap(expected, actual);
-        Assert.assertEquals(1, result.getAllIssues().size());
-        Assert.assertFalse(result.isVerified());
+        assertEquals(1, result.getAllIssues().size());
+        assertFalse(result.isVerified());
     }
 
     @Test
@@ -468,7 +472,7 @@ public class MapVerifierTest {
         actual.put("date2", "2019-11-24");
 
         MapVerificationResult result = new MapVerifier("actualResponse", 0).verifyMap(expected, actual);
-        Assert.assertEquals(0, result.getAllIssues().size());
+        assertEquals(0, result.getAllIssues().size());
         Assert.assertTrue(result.isVerified());
     }
 
@@ -486,30 +490,12 @@ public class MapVerifierTest {
         actual.put("date2", "2019-11-24");
 
         MapVerificationResult result = new MapVerifier("actualResponse", 0).verifyMap(expected, actual);
-        Assert.assertEquals(1, result.getAllIssues().size());
-        Assert.assertFalse(result.isVerified());
+        assertEquals(1, result.getAllIssues().size());
+        assertFalse(result.isVerified());
     }
 
     @Test
-    public void shouldFailContentWithWildcardAnyNullale() {
-        Map<String, Object> expected = new HashMap<>();
-
-        expected.put("date", ANY_NOT_NULLABLE.getValue());
-        expected.put("date1", ANY_NULLABLE.getValue());
-        expected.put("date2", ANY_NULLABLE.getValue());
-
-        Map<String, Object> actual = new HashMap<>();
-        actual.put("date", null);
-        actual.put("date1", null);
-        actual.put("date2", "2019-11-24");
-
-        MapVerificationResult result = new MapVerifier("actualResponse", 0).verifyMap(expected, actual);
-        Assert.assertEquals(1, result.getAllIssues().size());
-        Assert.assertFalse(result.isVerified());
-    }
-
-    @Test
-    public void shouldVerifyContentWithWildcardAnyNullale() {
+    public void shouldVerifyContentWithWildcardAnyNullable() {
         Map<String, Object> expected = new HashMap<>();
 
         expected.put("date", ANY_NOT_NULLABLE.getValue());
@@ -522,10 +508,27 @@ public class MapVerifierTest {
         actual.put("date2", "2019-11-24");
 
         MapVerificationResult result = new MapVerifier("actualResponse", 0).verifyMap(expected, actual);
-        Assert.assertEquals(0, result.getAllIssues().size());
+        assertEquals(0, result.getAllIssues().size());
         Assert.assertTrue(result.isVerified());
     }
 
+    @Test
+    public void shouldFailContentWithWildcardAnyNullable() {
+        Map<String, Object> expected = new HashMap<>();
+
+        expected.put("date", ANY_NOT_NULLABLE.getValue());
+        expected.put("date1", ANY_NULLABLE.getValue());
+        expected.put("date2", ANY_NULLABLE.getValue());
+
+        Map<String, Object> actual = new HashMap<>();
+        actual.put("date", null);
+        actual.put("date1", null);
+        actual.put("date2", "2019-11-24");
+
+        MapVerificationResult result = new MapVerifier("actualResponse", 0).verifyMap(expected, actual);
+        assertEquals(1, result.getAllIssues().size());
+        assertFalse(result.isVerified());
+    }
 
     @Test
     public void shouldVerifyContentWithWildcardAnyFloating() {
@@ -548,12 +551,34 @@ public class MapVerifierTest {
         actualBody.put("fine", null);
 
         MapVerificationResult result = new MapVerifier("actualResponse", 0).verifyMap(expected, actual);
-        Assert.assertEquals(0, result.getAllIssues().size());
+        assertEquals(0, result.getAllIssues().size());
         Assert.assertTrue(result.isVerified());
     }
 
+    @Test
+    public void shouldFailContentWithWildcardAnyFloating() {
+        Map<String, Object> expected = new HashMap<>();
+        Map<String, Object> expectedBody = new HashMap<>();
 
+        expected.put("responseCode", ANY_INTEGER_NOT_NULLABLE.getValue());
+        expected.put("body", expectedBody);
+        expectedBody.put("exception", "uk.gov.hmcts.ccd.endpoint.exceptions.BadRequestException");
+        expectedBody.put("solicitorFee", ANY_FLOATING_NOT_NULLABLE.getValue());
+        expectedBody.put("fine", ANY_FLOATING_NULLABLE.getValue());
 
+        Map<String, Object> actual = new ConcurrentHashMap<>();
+        Map<String, Object> actualBody = new HashMap<>();
+
+        actual.put("responseCode", 400);
+        actual.put("body", actualBody);
+        actualBody.put("exception", "uk.gov.hmcts.ccd.endpoint.exceptions.BadRequestException");
+        actualBody.put("solicitorFee", null);
+        actualBody.put("fine", null);
+
+        MapVerificationResult result = new MapVerifier("actualResponse", 0).verifyMap(expected, actual);
+        assertEquals(1, result.getAllIssues().size());
+        assertFalse(result.isVerified());
+    }
 
     @Test
     public void shouldVerifySimpleMapOfAcceptableContentCaseInsensitively() {
@@ -565,13 +590,24 @@ public class MapVerifierTest {
 
         actual.put("vary", "AccEpt-EncoDing");
 
-        MapVerificationResult result = new MapVerifier("actualResponse.headers", 1).verifyMap(expected, actual);
-        Assert.assertEquals(1, result.getAllIssues().size());
-        Assert.assertTrue(!result.isVerified());
-
-        result = new MapVerifier("actualResponse.headers", 1, false).verifyMap(expected, actual);
-        Assert.assertEquals(0, result.getAllIssues().size());
+        MapVerificationResult result = new MapVerifier("actualResponse.headers", 1, false).verifyMap(expected, actual);
+        assertEquals(0, result.getAllIssues().size());
         Assert.assertTrue(result.isVerified());
+    }
+
+    @Test
+    public void shouldFailContentCaseInsensitively() {
+        Map<String, Object> expected = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+
+        expected.put("Vary", "accept-encoding");
+
+        Map<String, Object> actual = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+
+        actual.put("vary", "AccEpt-EncoDing");
+
+        MapVerificationResult result = new MapVerifier("actualResponse.headers", 1).verifyMap(expected, actual);
+        assertEquals(1, result.getAllIssues().size());
+        assertFalse(result.isVerified());
     }
 
     @Test
@@ -644,7 +680,7 @@ public class MapVerifierTest {
         expected.put("key2", "value2");
         actual.put("key2", "value2_bad");
         MapVerificationResult result = new MapVerifier("actualResponse.body", 0).verifyMap(expected, actual);
-        Assert.assertFalse(result.isVerified());
+        assertFalse(result.isVerified());
         Assert.assertArrayEquals(new Object[] {
             "actualResponse.body contains 1 bad value(s): [key2: expected 'value2' but got 'value2_bad']"
         }, result.getAllIssues().toArray());
@@ -727,57 +763,65 @@ public class MapVerifierTest {
                 + ".subsubmap.subsubmapfield1, actualResponse.body.submap.subsubmap.subsubmapfield2]"
         }, result.getAllIssues().toArray());
 
-        Assert.assertFalse(result.isVerified());
+        assertFalse(result.isVerified());
     }
 
-    @Test
-    public void shouldVerifyABigRealResponseBodyAgainstItselfWithoutWildcards() {
+    @Nested
+    @DisplayName("Real response tests")
+    class RealResponse {
 
-        HashMap<String, Object> expected = (HashMap<String, Object>) TEST_DATA_RESOURCE
-                .getDataForTestCall("HttpTestData-with-a-Big-ExpectedResponseBody_expected")
-                .getExpectedResponse().getBody();
-        HashMap<String, Object> actual = (HashMap<String, Object>) TEST_DATA_RESOURCE
-                .getDataForTestCall("HttpTestData-with-a-Big-ExpectedResponseBody_actual")
-                .getExpectedResponse().getBody();
+        @Test
+        @DisplayName("Should verify response body without wildcards")
+        public void shouldVerifyABigRealResponseBodyAgainstItselfWithoutWildcards() {
 
-        MapVerificationResult result = new MapVerifier("actualResponse.body", 5).verifyMap(expected, actual);
-        Assert.assertArrayEquals(new Object[] {
-            "actualResponse.body.user contains a bad value: idam[0] contains a bad value: jurisdiction: "
-                + "expected 'AUTOTEST1' but got 'AUTOTEST1_x'"
-        }, result.getAllIssues().toArray());
+            HashMap<String, Object> expected = (HashMap<String, Object>) TEST_DATA_RESOURCE
+                    .getDataForTestCall("HttpTestData-with-a-Big-ExpectedResponseBody_expected")
+                    .getExpectedResponse().getBody();
+            HashMap<String, Object> actual = (HashMap<String, Object>) TEST_DATA_RESOURCE
+                    .getDataForTestCall("HttpTestData-with-a-Big-ExpectedResponseBody_actual")
+                    .getExpectedResponse().getBody();
 
-        Assert.assertFalse(result.isVerified());
-    }
+            MapVerificationResult result = new MapVerifier("actualResponse.body", 5).verifyMap(expected, actual);
+            Assert.assertArrayEquals(new Object[]{
+                    "actualResponse.body.user contains a bad value: idam[0] contains a bad value: jurisdiction: "
+                            + "expected 'AUTOTEST1' but got 'AUTOTEST1_x'"
+            }, result.getAllIssues().toArray());
 
-    @Test
-    public void shouldVerifyAResponseHeaderMapCaseInsensitively() {
+            assertFalse(result.isVerified());
+        }
 
-        Map<String, Object> expected = TEST_DATA_RESOURCE
-                .getDataForTestCall("HttpTestData-with-a-Big-ExpectedResponseBody_expected").getExpectedResponse()
-                .getHeaders();
-        Map<String, Object> actual = TEST_DATA_RESOURCE
-                .getDataForTestCall("HttpTestData-with-a-Big-ExpectedResponseBody_actual").getExpectedResponse()
-                .getHeaders();
+        @Test
+        @DisplayName("Should verify response header case insensitively")
+        public void shouldVerifyAResponseHeaderMapCaseInsensitively() {
 
-        MapVerificationResult result = new MapVerifier("", 5).verifyMap(expected, actual);
+            Map<String, Object> expected = TEST_DATA_RESOURCE
+                    .getDataForTestCall("HttpTestData-with-a-Big-ExpectedResponseBody_expected").getExpectedResponse()
+                    .getHeaders();
+            Map<String, Object> actual = TEST_DATA_RESOURCE
+                    .getDataForTestCall("HttpTestData-with-a-Big-ExpectedResponseBody_actual").getExpectedResponse()
+                    .getHeaders();
 
-        Assert.assertEquals(0, result.getAllIssues().size());
-        Assert.assertTrue(result.isVerified());
-    }
+            MapVerificationResult result = new MapVerifier("", 5).verifyMap(expected, actual);
 
-    @Test
-    public void shoudlFailForCollectionsOfDifferentSizes() {
-        Map<String, Object> expected = TEST_DATA_RESOURCE.getDataForTestCall("MapWithArray_expected")
-                .getExpectedResponse()
-                .getBody();
-        Map<String, Object> actual = TEST_DATA_RESOURCE.getDataForTestCall("MapWithArray_actual").getExpectedResponse()
-                .getBody();
+            assertEquals(0, result.getAllIssues().size());
+            Assert.assertTrue(result.isVerified());
+        }
 
-        MapVerificationResult result = new MapVerifier("actualResponse.body", 5).verifyMap(expected, actual);
+        @Test
+        @DisplayName("Should fail for collections of different sizes")
+        public void shouldFailForCollectionsOfDifferentSizes() {
+            Map<String, Object> expected = TEST_DATA_RESOURCE.getDataForTestCall("MapWithArray_expected")
+                    .getExpectedResponse()
+                    .getBody();
+            Map<String, Object> actual = TEST_DATA_RESOURCE.getDataForTestCall("MapWithArray_actual").getExpectedResponse()
+                    .getBody();
 
-        Assert.assertArrayEquals(new Object[] {
-                "actualResponse.body.details contains a bad value: actualResponse.body.details.field_errors has unexpected number of elements. Expected: 1, but actual: 2." },
-                result.getAllIssues().toArray());
+            MapVerificationResult result = new MapVerifier("actualResponse.body", 5).verifyMap(expected, actual);
 
+            Assert.assertArrayEquals(new Object[]{
+                                             "actualResponse.body.details contains a bad value: actualResponse.body.details.field_errors has unexpected number of elements. Expected: 1, but actual: 2."},
+                                     result.getAllIssues().toArray());
+
+        }
     }
 }

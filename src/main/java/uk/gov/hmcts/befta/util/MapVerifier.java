@@ -63,8 +63,8 @@ public class MapVerifier {
         List<String> badValueMessages = collectBadValueMessagesFromMap(expectedMap, actualMap, fieldPrefix,
                 currentDepth,
                 maxMessageDepth);
-        List<MapVerificationResult> badSubmaps = collectBadSubmaps(expectedMap, actualMap, fieldPrefix,
-                currentDepth, maxMessageDepth);
+        List<MapVerificationResult> badSubmaps = collectBadSubMaps(expectedMap, actualMap, fieldPrefix,
+                                                                   currentDepth);
 
         if (unexpectedFields.size() == 0 && unavailableFields.size() == 0 && badValueMessages.size() == 0
                 && badSubmaps.size() == 0) {
@@ -76,10 +76,10 @@ public class MapVerifier {
     }
 
     @SuppressWarnings("unchecked")
-    private List<MapVerificationResult> collectBadSubmaps(Map<String, Object> expectedMap,
-            Map<String, Object> actualMap, String fieldPrefix, int currentDepth, int maxMessageDepth) {
+    private List<MapVerificationResult> collectBadSubMaps(Map<String, Object> expectedMap,
+                          Map<String, Object> actualMap, String fieldPrefix, int currentDepth) {
         ArrayList<MapVerificationResult> differences = new ArrayList<>();
-        expectedMap.keySet().stream().filter(keyOfExpected -> actualMap.containsKey(keyOfExpected))
+        expectedMap.keySet().stream().filter(actualMap::containsKey)
                 .forEach(commonKey -> {
                     Object expectedValue = expectedMap.get(commonKey);
                     Object actualValue = actualMap.get(commonKey);
@@ -111,15 +111,13 @@ public class MapVerifier {
             Map<String, Object> actualMap,
             String fieldPrefix, int currentDepth, int maxMessageDepth) {
         List<String> badValueMessages = new ArrayList<>();
-        expectedMap.keySet().stream().filter(keyOfExpected -> actualMap.containsKey(keyOfExpected))
+        expectedMap.keySet().stream().filter(actualMap::containsKey)
                 .forEach(commonKey -> {
                     Object expectedValue = expectedMap.get(commonKey);
                     Object actualValue = actualMap.get(commonKey);
-                    if (expectedValue == actualValue) {
-                        //
-                    } else if (expectedValue == null) {
+                    if (expectedValue == null) {
                         badValueMessages.add("Must be null: " + commonKey);
-                    } else if (actualValue == null && isNoneNullablePlaceholder(expectedValue)) {
+                    } else if (actualValue == null && isNonNullablePlaceholder(expectedValue)) {
                         badValueMessages.add("Must not be null: " + commonKey);
                     } else if (!(expectedValue instanceof Map && actualValue instanceof Map)) {
                         if (expectedValue instanceof Collection<?> && actualValue instanceof Collection<?>) {
@@ -230,15 +228,15 @@ public class MapVerifier {
 
     private boolean isNullablePlaceholder(String strExpectedValue) {
         ExpectedValuePlaceholder expectedValuePlaceholder = ExpectedValuePlaceholder.getByValue(strExpectedValue);
-        return expectedValuePlaceholder == null ?  true : expectedValuePlaceholder.isNullable();
+        return expectedValuePlaceholder != null && expectedValuePlaceholder.isNullable();
     }
 
-    private boolean isNoneNullablePlaceholder(Object value) {
+    private boolean isNonNullablePlaceholder(Object value) {
         if (!(value instanceof String)) {
             return false;
         }
         ExpectedValuePlaceholder expectedValuePlaceholder = ExpectedValuePlaceholder.getByValue((String) value);
-        return expectedValuePlaceholder == null ?  true : !expectedValuePlaceholder.isNullable();
+        return expectedValuePlaceholder != null && !expectedValuePlaceholder.isNullable();
     }
 
     private boolean actualAcceptedByPlaceholder(Object expectedValue, Object actualValue) {
