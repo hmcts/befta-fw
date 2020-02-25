@@ -105,9 +105,9 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
             case "request-body":
                 return scenarioContext.getTestData().getRequest().getBody();
             
-            case "expextedresponse":
-            case "expexted response":
-            case "expexted-response":
+            case "expectedresponse":
+            case "expected response":
+            case "expected-response":
                 return scenarioContext.getTestData().getExpectedResponse();        
             
             case "actualresponse":
