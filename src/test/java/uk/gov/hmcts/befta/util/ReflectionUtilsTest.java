@@ -1,20 +1,26 @@
 package uk.gov.hmcts.befta.util;
 
+import static org.hamcrest.Matchers.startsWith;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.powermock.modules.junit4.PowerMockRunner;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import uk.gov.hmcts.befta.data.HttpTestData;
 import uk.gov.hmcts.befta.data.ResponseData;
 import uk.gov.hmcts.befta.data.UserData;
-
-import java.util.*;
-
-import static org.hamcrest.Matchers.hasItem;
-import static org.hamcrest.Matchers.startsWith;
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
 
 
 @RunWith(PowerMockRunner.class)
@@ -69,68 +75,30 @@ public class ReflectionUtilsTest {
 
     @Test
     public void shouldRetrieveFieldFromMultiValueListAsList() throws Exception {
-        List<UserData> testList = new ArrayList<UserData>() {{
+        List<UserData> testList = new ArrayList<UserData>() {
+            private static final long serialVersionUID = 1L;
+            {
             add(new UserData("USERNAME1", "PASSWORD1"));
             add(new UserData("USERNAME2", "PASSWORD2"));
         }};
 
-        final Object result = ReflectionUtils.retrieveFieldInObject(testList, "username");
+        Map<String, List<UserData>> map = new HashMap<String, List<UserData>>();
+        map.put("userList", testList);
 
-        final List<String> resultAsList = (ArrayList) result;
-        assertEquals(2, resultAsList.size());
-        assertEquals("USERNAME1", resultAsList.get(0));
-        assertEquals("USERNAME2", resultAsList.get(1));
+        Object result = ReflectionUtils.retrieveFieldInObject(map, "userList[0]");
+        assertEquals(testList.get(0), result);
+
+        result = ReflectionUtils.retrieveFieldInObject(map, "userList[1]");
+        assertEquals(testList.get(1), result);
     }
 
     @Test
-    public void shouldRetrieveFieldFromSingleValueListAsSingleObject() throws Exception {
+    public void shouldRetrieveFieldFromAnObject() throws Exception {
         HttpTestData testData = new HttpTestData();
         UserData user = new UserData();
         testData.setUserSet(user);
-        List<HttpTestData> testList = Collections.singletonList(testData);
 
-        final Object result = ReflectionUtils.retrieveFieldInObject(testList, "userSet");
-
-        assertEquals(user, result);
-    }
-
-    @Test
-    public void shouldRetrieveFieldFromSetAsSet() throws Exception {
-        Set<UserData> testSet = new HashSet<UserData>() {{
-            add(new UserData("USERNAME1", "PASSWORD1"));
-            add(new UserData("USERNAME2", "PASSWORD2"));
-        }};
-
-        final Object result = ReflectionUtils.retrieveFieldInObject(testSet, "username");
-
-        final Set<String> resultAsSet = (LinkedHashSet) result;
-        assertEquals(2, resultAsSet.size());
-        assertThat(resultAsSet, hasItem("USERNAME1"));
-        assertThat(resultAsSet, hasItem("USERNAME2"));
-    }
-
-    @Test
-    public void shouldRetrieveFieldFromSingleValueSetAsSingleObject() throws Exception {
-        HttpTestData testData = new HttpTestData();
-        UserData user = new UserData();
-        testData.setUserSet(user);
-        Set<HttpTestData> testList = new HashSet<HttpTestData>() {{
-            add(testData);
-        }};
-
-        final Object result = ReflectionUtils.retrieveFieldInObject(testList, "userSet");
-
-        assertEquals(user, result);
-    }
-
-    @Test
-    public void shouldReturnDummyPlaceHolderWhenTryingToRetrieveFieldWithNullValueFromList() throws Exception {
-        HttpTestData testData = new HttpTestData();
-        List<HttpTestData> testList = Collections.singletonList(testData);
-
-        final Object result = ReflectionUtils.retrieveFieldInObject(testList, "userSet");
-
-        assertEquals(ReflectionUtils.DummyPlaceHolder.class, result.getClass());
+        assertEquals(user, ReflectionUtils.retrieveFieldInObject(testData, "userSet"));
     }
 
     @Test
