@@ -398,7 +398,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         BackEndFunctionalTestScenarioContext subcontext = new BackEndFunctionalTestScenarioContext();
         subcontext.initializeTestDataFor(testDataId);
         this.scenarioContext.addChildContext(subcontext);
-        verifyAllUsersInTheConext(subcontext);
+        verifyAllUsersInTheContext(subcontext);
         prepareARequestWithAppropriateValues(subcontext);
         verifyTheRequestInTheContextWithAParticularSpecification(subcontext, testDataSpec);
         submitTheRequestToCallAnOperationOfAProduct(subcontext, subcontext.getTestData().getOperationName(),
@@ -406,7 +406,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         verifyThatTheResponseHasAllTheDetailsAsExpected(subcontext);
     }
 
-    private void verifyAllUsersInTheConext(BackEndFunctionalTestScenarioContext scenarioContext) {
+    private void verifyAllUsersInTheContext(BackEndFunctionalTestScenarioContext scenarioContext) {
         scenarioContext.getTestData().getUsers()
                 .forEach((key, userData) -> verifyTheUserBeingSpecifiedInTheContext(scenarioContext, userData,
                         scenarioContext.getAndIncrementUserCountSpecifiedSoFar()));
