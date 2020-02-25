@@ -2,6 +2,8 @@ package uk.gov.hmcts.befta;
 
 import org.springframework.cloud.openfeign.support.SpringMvcContract;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
@@ -95,27 +97,40 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
 
     @Override
     public Object calculateCustomValue(BackEndFunctionalTestScenarioContext scenarioContext, Object key) {
+        if (key == null)
+            return null;
         if (key instanceof String) {
-            switch (((String) key).toLowerCase()) {
-            case "request":
-                return scenarioContext.getTestData().getRequest();
-
-            case "requestbody":
-            case "request body":
-            case "request-body":
-                return scenarioContext.getTestData().getRequest().getBody();
-            
-            case "expectedresponse":
-            case "expected response":
-            case "expected-response":
-                return scenarioContext.getTestData().getExpectedResponse();        
-            
-            case "actualresponse":
-            case "actual response":
-            case "actual-response":
-                return scenarioContext.getTestData().getActualResponse();        
+            String keyString = ((String) key).toLowerCase().replaceAll(" ", "");
+            switch (keyString) {
+                case "request":
+                    return scenarioContext.getTestData().getRequest();
+    
+                case "requestbody":
+                case "request-body":
+                    return scenarioContext.getTestData().getRequest().getBody();
+    
+                case "expectedresponse":
+                case "expected-response":
+                    return scenarioContext.getTestData().getExpectedResponse();
+    
+                case "actualresponse":
+                case "actual-response":
+                    return scenarioContext.getTestData().getActualResponse();
             }
+            String dateTimeFormat = checkDateTimeFormatRequested((String) key);
+            if (dateTimeFormat != null)
+                return LocalDate.now().format(DateTimeFormatter.ofPattern(dateTimeFormat));
         }
+        return null;
+    }
+
+    protected String checkDateTimeFormatRequested(String key) {
+        if (key.equals("today"))
+            return "yyyy-MM-dd";
+        else if (key.equals("now"))
+            return "yyyy-MM-dd'T'HH:mm:ss.SSS";
+        else if (key.startsWith("now("))
+            return key.substring(4, key.length() - 1);
         return null;
     }
 }
