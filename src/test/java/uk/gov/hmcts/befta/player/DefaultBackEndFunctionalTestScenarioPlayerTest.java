@@ -56,17 +56,9 @@ import uk.gov.hmcts.befta.util.MapVerificationResult;
 import uk.gov.hmcts.befta.util.MapVerifier;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({
-        DefaultBackEndFunctionalTestScenarioPlayer.class,
-        RestAssured.class,
-        Scenario.class,
-        BeftaMain.class,
-        DynamicValueInjector.class,
-        EnvironmentVariableUtils.class,
-        JsonUtils.class,
-        Method.class,
-        SpecificationQuerier.class
-})
+@PrepareForTest({ DefaultBackEndFunctionalTestScenarioPlayer.class, RestAssured.class, Scenario.class, BeftaMain.class,
+        DynamicValueInjector.class, EnvironmentVariableUtils.class, JsonUtils.class, Method.class,
+        SpecificationQuerier.class })
 public class DefaultBackEndFunctionalTestScenarioPlayerTest {
 
     private DefaultBackEndFunctionalTestScenarioPlayer scenarioPlayer;
@@ -101,7 +93,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
     public ExpectedException exceptionRule = ExpectedException.none();
 
     @Captor
-    private ArgumentCaptor captor;
+    private ArgumentCaptor<?> captor;
 
     @Before
     public void setUp() throws Exception {
@@ -166,22 +158,34 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
     public void shouldPrepareARequestWithAppropriateValuesUsingMaxData() throws IOException {
         HttpTestData testData = new HttpTestData();
         RequestData requestData = new RequestData();
-        requestData.setHeaders(new HashMap<String, Object>() {{
-            put("header1", "header value 1");
-            put("header2", "header value 2");
-        }});
-        requestData.setPathVariables(new HashMap<String, Object>() {{
-            put("pathvar1", "path var value 1");
-            put("pathvar2", "path var value 2");
-        }});
-        requestData.setQueryParams(new HashMap<String, Object>() {{
-            put("param1", "param value 1");
-            put("param2", "param value 2");
-        }});
-        requestData.setBody(new HashMap<String, Object>() {{
-            put("key1", "value 1");
-            put("key2", "value 2");
-        }});
+        requestData.setHeaders(new HashMap<String, Object>() {
+            private static final long serialVersionUID = 1L;
+            {
+                put("header1", "header value 1");
+                put("header2", "header value 2");
+            }
+        });
+        requestData.setPathVariables(new HashMap<String, Object>() {
+            private static final long serialVersionUID = 1L;
+            {
+                put("pathvar1", "path var value 1");
+                put("pathvar2", "path var value 2");
+            }
+        });
+        requestData.setQueryParams(new HashMap<String, Object>() {
+            private static final long serialVersionUID = 1L;
+            {
+                put("param1", "param value 1");
+                put("param2", "param value 2");
+            }
+        });
+        requestData.setBody(new HashMap<String, Object>() {
+            private static final long serialVersionUID = 1L;
+            {
+                put("key1", "value 1");
+                put("key2", "value 2");
+            }
+        });
         testData.setRequest(requestData);
 
         when(RestAssured.given()).thenReturn(requestSpecification);
@@ -215,7 +219,6 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         verifyNoMoreInteractions(requestSpecification);
     }
 
-
     @Test
     public void shouldVerifyThatTheResponseHasAllTheDetailsAsExpectedSuccessfully() throws IOException {
         ResponseData response = createResponseDataWithResponseCode(200);
@@ -247,6 +250,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         scenarioPlayer.verifyThatTheResponseHasAllTheDetailsAsExpected();
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     public void shouldFailToVerifyResponsesWithMapVerifierIssues() throws IOException {
         ResponseData response = new ResponseData();
@@ -260,13 +264,19 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         when(mapVerifier.verifyMap(any(), any())).thenReturn(verificationResult);
         when(verificationResult.isVerified()).thenReturn(false);
 
-        when(verificationResult.getAllIssues()).thenReturn(new ArrayList<String>() {{
-            add("Header issue 1");
-            add("Header issue 2");
-        }}, new ArrayList<String>() {{
-            add("Body issue 1");
-            add("Body issue 2");
-        }});
+        when(verificationResult.getAllIssues()).thenReturn(new ArrayList<String>() {
+            private static final long serialVersionUID = 1L;
+            {
+                add("Header issue 1");
+                add("Header issue 2");
+            }
+        }, new ArrayList<String>() {
+            private static final long serialVersionUID = 1L;
+            {
+                add("Body issue 1");
+                add("Body issue 2");
+            }
+        });
 
         exceptionRule.expect(AssertionError.class);
         exceptionRule.expectMessage(containsString("Header issue 1"));
@@ -282,9 +292,12 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         final String specificationAboutUser = "USER SPEC";
         HttpTestData testData = mock(HttpTestData.class);
         UserData userData = createUserData(USERNAME, PASSWORD);
-        LinkedHashMap<String, UserData> users = new LinkedHashMap<String, UserData>() {{
-            put("invokingUser", userData);
-        }};
+        LinkedHashMap<String, UserData> users = new LinkedHashMap<String, UserData>() {
+            private static final long serialVersionUID = 1L;
+            {
+                put("invokingUser", userData);
+            }
+        };
 
         when(testData.meetsSpec(any())).thenReturn(true);
         when(testData.getInvokingUser()).thenReturn(userData);
@@ -433,7 +446,8 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         when(context.getTestData()).thenReturn(testData);
 
         exceptionRule.expect(UnconfirmedApiCallException.class);
-        exceptionRule.expectMessage("Test data does not confirm it is calling the following operation of a product: OPERATION -> PRODUCT NAME");
+        exceptionRule.expectMessage(
+                "Test data does not confirm it is calling the following operation of a product: OPERATION -> PRODUCT NAME");
 
         scenarioPlayer.submitTheRequestToCallAnOperationOfAProduct(OPERATION, PRODUCT_NAME);
     }

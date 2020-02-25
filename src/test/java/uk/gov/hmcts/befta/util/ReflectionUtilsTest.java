@@ -22,7 +22,6 @@ import uk.gov.hmcts.befta.data.HttpTestData;
 import uk.gov.hmcts.befta.data.ResponseData;
 import uk.gov.hmcts.befta.data.UserData;
 
-
 @RunWith(PowerMockRunner.class)
 public class ReflectionUtilsTest {
 
@@ -64,9 +63,12 @@ public class ReflectionUtilsTest {
     @Test
     public void shouldRetrieveFieldInMapByKey() throws Exception {
         ResponseData responseData = new ResponseData();
-        Map<String, ResponseData> testMap = new HashMap<String, ResponseData>() {{
-            put("key", responseData);
-        }};
+        Map<String, ResponseData> testMap = new HashMap<String, ResponseData>() {
+            private static final long serialVersionUID = 1L;
+            {
+                put("key", responseData);
+            }
+        };
 
         final Object result = ReflectionUtils.retrieveFieldInObject(testMap, "key");
 
@@ -78,9 +80,10 @@ public class ReflectionUtilsTest {
         List<UserData> testList = new ArrayList<UserData>() {
             private static final long serialVersionUID = 1L;
             {
-            add(new UserData("USERNAME1", "PASSWORD1"));
-            add(new UserData("USERNAME2", "PASSWORD2"));
-        }};
+                add(new UserData("USERNAME1", "PASSWORD1"));
+                add(new UserData("USERNAME2", "PASSWORD2"));
+            }
+        };
 
         Map<String, List<UserData>> map = new HashMap<String, List<UserData>>();
         map.put("userList", testList);
@@ -122,9 +125,12 @@ public class ReflectionUtilsTest {
 
     @Test
     public void shouldErrorWhenTryingToRetrieveNonExistingFieldInList() throws Exception {
-        List<UserData> testList = new ArrayList<UserData>() {{
-            add(new UserData("USERNAME1", "PASSWORD1"));
-        }};
+        List<UserData> testList = new ArrayList<UserData>() {
+            private static final long serialVersionUID = 1L;
+            {
+                add(new UserData("USERNAME1", "PASSWORD1"));
+            }
+        };
 
         exceptionRule.expect(NoSuchFieldException.class);
         exceptionRule.expectMessage(startsWith("nonExistingField not retrievable"));
@@ -134,12 +140,18 @@ public class ReflectionUtilsTest {
 
     @Test
     public void shouldReturnTrueForMapContainsWhenTwoMapsAreEqual() {
-        Map<String, String> big = new HashMap<String, String>() {{
-            put("key1", "val1");
-        }};
-        Map<String, String> small = new HashMap<String, String>() {{
-            put("key1", "val1");
-        }};
+        Map<String, String> big = new HashMap<String, String>() {
+            private static final long serialVersionUID = 1L;
+            {
+                put("key1", "val1");
+            }
+        };
+        Map<String, String> small = new HashMap<String, String>() {
+            private static final long serialVersionUID = 1L;
+            {
+                put("key1", "val1");
+            }
+        };
 
         final boolean result = ReflectionUtils.mapContains(big, small);
 
@@ -148,13 +160,19 @@ public class ReflectionUtilsTest {
 
     @Test
     public void shouldReturnTrueForMapContainsWhenBigMapExtendsSmallMap() {
-        Map<String, String> big = new HashMap<String, String>() {{
-            put("key1", "val1");
-            put("key2", "val2");
-        }};
-        Map<String, String> small = new HashMap<String, String>() {{
-            put("key1", "val1");
-        }};
+        Map<String, String> big = new HashMap<String, String>() {
+            private static final long serialVersionUID = 1L;
+            {
+                put("key1", "val1");
+                put("key2", "val2");
+            }
+        };
+        Map<String, String> small = new HashMap<String, String>() {
+            private static final long serialVersionUID = 1L;
+            {
+                put("key1", "val1");
+            }
+        };
 
         final boolean result = ReflectionUtils.mapContains(big, small);
 
@@ -163,12 +181,18 @@ public class ReflectionUtilsTest {
 
     @Test
     public void shouldReturnFalseForMapContainsWhenSmallMapHasDifferentKey() {
-        Map<String, String> big = new HashMap<String, String>() {{
-            put("key1", "val1");
-        }};
-        Map<String, String> small = new HashMap<String, String>() {{
-            put("OTHER KEY", "val1");
-        }};
+        Map<String, String> big = new HashMap<String, String>() {
+            private static final long serialVersionUID = 1L;
+            {
+                put("key1", "val1");
+            }
+        };
+        Map<String, String> small = new HashMap<String, String>() {
+            private static final long serialVersionUID = 1L;
+            {
+                put("OTHER KEY", "val1");
+            }
+        };
 
         final boolean result = ReflectionUtils.mapContains(big, small);
 
@@ -177,12 +201,18 @@ public class ReflectionUtilsTest {
 
     @Test
     public void shouldReturnFalseForMapContainsWhenSmallMapHasDifferentValue() {
-        Map<String, String> big = new HashMap<String, String>() {{
-            put("key1", "val1");
-        }};
-        Map<String, String> small = new HashMap<String, String>() {{
-            put("key1", "OTHER VAL");
-        }};
+        Map<String, String> big = new HashMap<String, String>() {
+            private static final long serialVersionUID = 1L;
+            {
+                put("key1", "val1");
+            }
+        };
+        Map<String, String> small = new HashMap<String, String>() {
+            private static final long serialVersionUID = 1L;
+            {
+                put("key1", "OTHER VAL");
+            }
+        };
 
         final boolean result = ReflectionUtils.mapContains(big, small);
 
@@ -191,13 +221,19 @@ public class ReflectionUtilsTest {
 
     @Test
     public void shouldReturnFalseForMapContainsWhenSmallMapSizeIsGreaterThanBigMap() {
-        Map<String, String> big = new HashMap<String, String>() {{
-            put("key1", "val1");
-        }};
-        Map<String, String> small = new HashMap<String, String>() {{
-            put("key1", "val1");
-            put("key2", "val2");
-        }};
+        Map<String, String> big = new HashMap<String, String>() {
+            private static final long serialVersionUID = 1L;
+            {
+                put("key1", "val1");
+            }
+        };
+        Map<String, String> small = new HashMap<String, String>() {
+            private static final long serialVersionUID = 1L;
+            {
+                put("key1", "val1");
+                put("key2", "val2");
+            }
+        };
 
         final boolean result = ReflectionUtils.mapContains(big, small);
 
@@ -206,13 +242,20 @@ public class ReflectionUtilsTest {
 
     @Test
     public void shouldReturnTrueForMapContainsWithSameEmbeddedMap() {
+        @SuppressWarnings("unchecked")
         Map<Object, Object> map = mock(Map.class);
-        Map<String, Map<Object, Object>> small = new HashMap<String, Map<Object, Object>>() {{
-            put("key1", map);
-        }};
-        Map<String, Map<Object, Object>> big = new HashMap<String, Map<Object, Object>>() {{
-            put("key1", map);
-        }};
+        Map<String, Map<Object, Object>> small = new HashMap<String, Map<Object, Object>>() {
+            private static final long serialVersionUID = 1L;
+            {
+                put("key1", map);
+            }
+        };
+        Map<String, Map<Object, Object>> big = new HashMap<String, Map<Object, Object>>() {
+            private static final long serialVersionUID = 1L;
+            {
+                put("key1", map);
+            }
+        };
 
         final boolean result = ReflectionUtils.mapContains(big, small);
 

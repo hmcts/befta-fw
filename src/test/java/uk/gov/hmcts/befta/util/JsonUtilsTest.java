@@ -46,7 +46,7 @@ public class JsonUtilsTest {
     public void shouldReadObjectFromJsonText() throws IOException {
         final String testValue = "{\"key1\":\"value1\",\"key2\":\"value2\"}";
 
-        final Map result = JsonUtils.readObjectFromJsonText(testValue, Map.class);
+        final Map<?, ?> result = JsonUtils.readObjectFromJsonText(testValue, Map.class);
 
         assertEquals(2, result.keySet().size());
         assertEquals("value1", result.get("key1"));
@@ -56,7 +56,9 @@ public class JsonUtilsTest {
     @Test
     public void shouldGetJsonFromObject() throws IOException {
         RequestData testObject = new RequestData();
-        testObject.setBody(new HashMap<String, Object>(){{
+        testObject.setBody(new HashMap<String, Object>() {
+            private static final long serialVersionUID = 1L;
+            {
             put("key1", "value1");
             put("key2", "value2");
         }});
@@ -72,7 +74,9 @@ public class JsonUtilsTest {
     @Test
     public void shouldGetPrettyJsonFromObject() throws IOException {
         RequestData testObject = new RequestData();
-        testObject.setBody(new HashMap<String, Object>(){{
+        testObject.setBody(new HashMap<String, Object>() {
+            private static final long serialVersionUID = 1L;
+            {
             put("key1", "value1");
             put("key2", "value2");
         }});
