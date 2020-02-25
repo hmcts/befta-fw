@@ -100,22 +100,31 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
         if (key == null)
             return null;
         if (key instanceof String) {
-            String keyString = ((String) key).toLowerCase().replaceAll(" ", "");
+            String keyString = ((String) key).toLowerCase().replaceAll(" ", "").replaceAll("-", "").replaceAll("_", "");
             switch (keyString) {
                 case "request":
                     return scenarioContext.getTestData().getRequest();
     
                 case "requestbody":
-                case "request-body":
                     return scenarioContext.getTestData().getRequest().getBody();
-    
+
                 case "expectedresponse":
-                case "expected-response":
                     return scenarioContext.getTestData().getExpectedResponse();
     
+                case "expectedresponseheaders":
+                    return scenarioContext.getTestData().getExpectedResponse().getHeaders();
+    
+                case "expectedresponsebody":
+                    return scenarioContext.getTestData().getExpectedResponse().getBody();
+    
                 case "actualresponse":
-                case "actual-response":
                     return scenarioContext.getTestData().getActualResponse();
+    
+                case "actualresponseheaders":
+                    return scenarioContext.getTestData().getActualResponse().getHeaders();
+    
+                case "actualresponsebody":
+                    return scenarioContext.getTestData().getActualResponse().getBody();
             }
             String dateTimeFormat = getDateTimeFormatRequested((String) key);
             if (dateTimeFormat != null)
