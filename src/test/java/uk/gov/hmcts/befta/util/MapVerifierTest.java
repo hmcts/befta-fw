@@ -916,15 +916,78 @@ public class MapVerifierTest {
             }
 
             @Test
-            @DisplayName("Should fail content that does not meet default equivalent-of operator due to actual being a superset")
+            @DisplayName("Should fail content that does not meet default equivalent-of (all fields build id) operator due to actual being a superset")
             public void shouldFailContentThatDoesNotMeetDefaultEquivalentOfOperatorDueToActualBeingASuperset() {
+                Map<String, Object> expected = Maps.newHashMap();
+                Map<String, Object> actual = new ConcurrentHashMap<>();
 
+                List<Object> actualArrayInMap = Lists.newArrayList();
+                Map<String, Object> actualElement1 = Maps.newHashMap();
+                actualElement1.put("item1", "value1");
+                actualElement1.put("item2", "value2");
+                Map<String, Object> actualElement2 = Maps.newHashMap();
+                actualElement2.put("item3", "value3");
+                actualElement2.put("item4", "value4");
+                Map<String, Object> actualElement3 = Maps.newHashMap();
+                actualElement3.put("item5", "value5");
+                actualElement3.put("item6", "value6");
+                actualArrayInMap.add(actualElement1);
+                actualArrayInMap.add(actualElement2);
+                actualArrayInMap.add(actualElement3);
+                actual.put("arrayInMap", actualArrayInMap);
+
+                List<Object> expectedArrayInMap = Lists.newArrayList();
+                Map<String, Object> expectedElement1 = Maps.newHashMap();
+                expectedElement1.put("item1", "value1");
+                expectedElement1.put("item2", "value2");
+                Map<String, Object> expectedElement2 = Maps.newHashMap();
+                expectedElement2.put("item3", "value3");
+                expectedElement2.put("item4", "value4");
+                expectedArrayInMap.add(expectedElement1);
+                expectedArrayInMap.add(expectedElement2);
+                expected.put("arrayInMap", expectedArrayInMap);
+
+                MapVerificationResult result = new MapVerifier("", 0).verifyMap(expected, actual);
+                assertEquals(1, result.getAllIssues().size());
+                assertFalse(result.isVerified());
             }
 
             @Test
-            @DisplayName("Should fail content that does not meet default equivalent-of operator due to actual being a subset")
+            @DisplayName("Should fail content that does not meet default equivalent-of (all fields build id) operator due to actual being a subset")
             public void shouldFailContentThatDoesNotMeetDefaultEquivalentOfOperatorDueToActualBeingASubset() {
+                Map<String, Object> expected = Maps.newHashMap();
+                Map<String, Object> actual = new ConcurrentHashMap<>();
 
+                List<Object> actualArrayInMap = Lists.newArrayList();
+                Map<String, Object> actualElement1 = Maps.newHashMap();
+                actualElement1.put("item1", "value1");
+                actualElement1.put("item2", "value2");
+                Map<String, Object> actualElement2 = Maps.newHashMap();
+                actualElement2.put("item3", "value3");
+                actualElement2.put("item4", "value4");
+                actualArrayInMap.add(actualElement1);
+                actualArrayInMap.add(actualElement2);
+                actual.put("arrayInMap", actualArrayInMap);
+
+                List<Object> expectedArrayInMap = Lists.newArrayList();
+                Map<String, Object> expectedElement1 = Maps.newHashMap();
+                expectedElement1.put("item1", "value1");
+                expectedElement1.put("item2", "value2");
+                Map<String, Object> expectedElement2 = Maps.newHashMap();
+                expectedElement2.put("item3", "value3");
+                expectedElement2.put("item4", "value4");
+                Map<String, Object> expectedElement3 = Maps.newHashMap();
+                expectedElement3.put("item5", "value5");
+                expectedElement3.put("item6", "value6");
+
+                expectedArrayInMap.add(expectedElement1);
+                expectedArrayInMap.add(expectedElement2);
+                expectedArrayInMap.add(expectedElement3);
+                expected.put("arrayInMap", expectedArrayInMap);
+
+                MapVerificationResult result = new MapVerifier("", 0).verifyMap(expected, actual);
+                assertEquals(1, result.getAllIssues().size());
+                assertFalse(result.isVerified());
             }
         }
 
