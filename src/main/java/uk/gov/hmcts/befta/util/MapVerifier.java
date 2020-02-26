@@ -84,11 +84,11 @@ public class MapVerifier {
                     Object expectedValue = expectedMap.get(commonKey);
                     Object actualValue = actualMap.get(commonKey);
                     if (expectedValue instanceof Map && actualValue instanceof Map) {
-                        MapVerificationResult subresult = verifyMap(fieldPrefix + "." + commonKey,
+                        MapVerificationResult subResult = verifyMap(fieldPrefix + "." + commonKey,
                                 (Map<String, Object>) expectedValue,
                                 (Map<String, Object>) actualValue, currentDepth + 1);
-                        if (!subresult.isVerified()) {
-                            differences.add(subresult);
+                        if (!subResult.isVerified()) {
+                            differences.add(subResult);
                         }
                     }
                 });
@@ -158,11 +158,11 @@ public class MapVerifier {
             Object o2 = e2.next();
             String subfield = field + "[" + i + "]";
             if (o1 instanceof Map && o2 instanceof Map) {
-                MapVerificationResult subresult = verifyMap(subfield, (Map<String, Object>) o1,
+                MapVerificationResult subResult = verifyMap(subfield, (Map<String, Object>) o1,
                         (Map<String, Object>) o2,
                         currentDepth + 1);
-                if (!subresult.isVerified()) {
-                    badValueMessages.addAll(subresult.getAllIssues());
+                if (!subResult.isVerified()) {
+                    badValueMessages.addAll(subResult.getAllIssues());
                 }
             } else if (o1 instanceof Collection && o2 instanceof Collection) {
                 collectBadValueMessagesFromCollection(fieldPrefix, subfield, (Collection<?>) o1, (Collection<?>) o2,

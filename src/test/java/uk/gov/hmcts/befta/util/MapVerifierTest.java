@@ -21,14 +21,18 @@ import static uk.gov.hmcts.befta.util.ExpectedValuePlaceholder.ANY_TIMESTAMP_NOT
 import static uk.gov.hmcts.befta.util.ExpectedValuePlaceholder.ANY_TIMESTAMP_NULLABLE;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import org.junit.Assert;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -836,6 +840,378 @@ public class MapVerifierTest {
             Assert.assertArrayEquals(new Object[]{
                                              "actualResponse.body.details contains a bad value: actualResponse.body.details.field_errors has unexpected number of elements. Expected: 1, but actual: 2."},
                                      result.getAllIssues().toArray());
+
+        }
+    }
+
+    @Nested
+    @DisplayName("Array tests")
+    class ArrayInMap {
+
+        Map<String, Object> expected = Maps.newHashMap();
+        Map<String, Object> actual = new ConcurrentHashMap<>();
+
+        @BeforeEach
+        void setUp() {
+
+        }
+
+        @Nested
+        @DisplayName("Defaults")
+        class Defaults {
+
+            @Test
+            @DisplayName("Should verify response with default options")
+            public void shouldVerifyResponseWithDefaultOptions() {
+
+                List<Object> actualArrayInMap = Lists.newArrayList();
+                Map<String, Object> actualElement1 = Maps.newHashMap();
+                actualElement1.put("id", "BEFTA_JURISDICTION_1");
+                Map<String, Object> actualElement2 = Maps.newHashMap();
+                actualElement2.put("id", "BEFTA_JURISDICTION_2");
+                actualArrayInMap.add(actualElement1);
+                actualArrayInMap.add(actualElement2);
+                actual.put("arrayInMap", actualArrayInMap);
+
+                List<Object> expectedArrayInMap = Lists.newArrayList();
+                Map<String, Object> expectedElement1 = Maps.newHashMap();
+                expectedElement1.put("id", "BEFTA_JURISDICTION_1");
+                Map<String, Object> expectedElement2 = Maps.newHashMap();
+                expectedElement2.put("id", "BEFTA_JURISDICTION_2");
+                expectedArrayInMap.add(expectedElement1);
+                expectedArrayInMap.add(expectedElement2);
+                expected.put("arrayInMap", expectedArrayInMap);
+
+                MapVerificationResult result = new MapVerifier("", 0).verifyMap(expected, actual);
+                Assert.assertTrue(result.isVerified());
+            }
+
+            @Test
+            @DisplayName("Should fail content that does not meet default ordering")
+            public void shouldFailContentThatDoesNotMeetDefaultOrdering() {
+                Map<String, Object> expected = Maps.newHashMap();
+                Map<String, Object> actual = new ConcurrentHashMap<>();
+
+                List<Object> actualArrayInMap = Lists.newArrayList();
+                Map<String, Object> actualElement1 = Maps.newHashMap();
+                actualElement1.put("id", "BEFTA_JURISDICTION_1");
+                Map<String, Object> actualElement2 = Maps.newHashMap();
+                actualElement2.put("id", "BEFTA_JURISDICTION_2");
+                actualArrayInMap.add(actualElement1);
+                actualArrayInMap.add(actualElement2);
+                actual.put("arrayInMap", actualArrayInMap);
+
+                List<Object> expectedArrayInMap = Lists.newArrayList();
+                Map<String, Object> expectedElement1 = Maps.newHashMap();
+                expectedElement1.put("id", "BEFTA_JURISDICTION_1");
+                Map<String, Object> expectedElement2 = Maps.newHashMap();
+                expectedElement2.put("id", "BEFTA_JURISDICTION_2");
+                expectedArrayInMap.add(expectedElement2);
+                expectedArrayInMap.add(expectedElement1);
+                expected.put("arrayInMap", expectedArrayInMap);
+
+                MapVerificationResult result = new MapVerifier("", 0).verifyMap(expected, actual);
+                assertEquals(1, result.getAllIssues().size());
+                assertFalse(result.isVerified());
+            }
+
+            @Test
+            @DisplayName("Should fail content that does not meet default equivalent-of operator due to actual being a superset")
+            public void shouldFailContentThatDoesNotMeetDefaultEquivalentOfOperatorDueToActualBeingASuperset() {
+
+            }
+
+            @Test
+            @DisplayName("Should fail content that does not meet default equivalent-of operator due to actual being a subset")
+            public void shouldFailContentThatDoesNotMeetDefaultEquivalentOfOperatorDueToActualBeingASubset() {
+
+            }
+        }
+
+        @Nested
+        @DisplayName("Operator option provided")
+        class OperatorProvided {
+
+            @Test
+            @DisplayName("Should verify content that meets superset operator")
+            public void shouldVerifyContentThatMeetsSupersetOperator() {
+
+            }
+
+
+            @Test
+            @DisplayName("Should fail content that does not meet superset operator due to actual being an equivalent-of")
+            public void shouldFailContentThatDoesNotMeetSupersetOperatorDueToActualBeingAnEquivalentOf() {
+
+            }
+
+            @Test
+            @DisplayName("Should fail content that does not meet superset operator due to actual being a subset")
+            public void shouldFailContentThatDoesNotMeetDefaultEquivalentOfOperatorDueToActualBeingASubset() {
+
+            }
+
+            @Test
+            @DisplayName("Should verify content that meets subset operator")
+            public void shouldVerifyContentThatMeetsSubsetOperator() {
+
+            }
+
+            @Test
+            @DisplayName("Should fail content that does not meet subset operator due to actual being an equivalent-of")
+            public void shouldFailContentThatDoesNotMeetSubsetOperatorDueToActualBeingAnEquivalentOf() {
+
+            }
+
+            @Test
+            @DisplayName("Should fail content that does not meet subset operator due to actual being a superset")
+            public void shouldFailContentThatDoesNotMeetSubsetOperatorDueToActualBeingASuperset() {
+
+            }
+
+        }
+
+        @Nested
+        @DisplayName("Ordering option provided")
+        class OrderingProvided {
+
+            @Test
+            @DisplayName("Should verify content that meets ordered ordering")
+            public void shouldVerifyContentThatMeetsOrderedOrdering() {
+
+            }
+
+            @Test
+            @DisplayName("Should fail content that does not meet ordered ordering")
+            public void shouldFailContentThatDoesNotMeetOrderedOrdering() {
+
+            }
+
+            @Test
+            @DisplayName("Should verify content that meets unordered ordering")
+            public void shouldVerifyContentThatMeetsUnorderedOrdering() {
+
+            }
+
+            @Test
+            @DisplayName("Should fail content that does not meet unordered ordering")
+            public void shouldFailContentThatDoesNotMeetUnorderedOrdering() {
+
+            }
+
+        }
+
+
+        @Nested
+        @DisplayName("Element id option provided")
+        class ElementIdProvided {
+
+            @Test
+            @DisplayName("Should verify content that meets element id")
+            public void shouldVerifyContentThatMeetsElementId() {
+
+            }
+
+            @Test
+            @DisplayName("Should fail content that does not meet element id")
+            public void shouldFailContentThatDoesNotMeetElementId() {
+
+            }
+        }
+
+        @Nested
+        @DisplayName("Multiple options provided")
+        class MultipleOptionsProvided {
+
+            @Nested
+            @DisplayName("With Ordered")
+            class WithOrdered {
+
+                @Nested
+                @DisplayName("With Varying Operator")
+                class WithVaryingOperator {
+
+                    @Test
+                    @DisplayName("Should verify content that meets superset-of operator and ordered ordering options")
+                    public void shouldVerifyContentThatMeetsSupersetOfOperatorAndOrderedOrderingOptions() {
+
+                    }
+
+                    @Test
+                    @DisplayName("Should fail content that does not meet superset-of operator but meets ordered ordering options")
+                    public void shouldFailContentThatDoesNotMeetSupersetOfOperatorButMeetsOrderedOrderingOptions() {
+
+                    }
+
+                    @Test
+                    @DisplayName("Should fail content that meets superset-of operator but does not meet ordered ordering options")
+                    public void shouldFailContentThatMeetsSupersetOfOperatorButDoesNotMeetOrderedOrderingOptions() {
+
+                    }
+
+                    @Test
+                    @DisplayName("Should fail content that does not meet neither superset-of operator nor ordered ordering options")
+                    public void shouldFailContentThatDoesNotMeetNeitherSupersetOfOperatorNorOrderedOrderingOptions() {
+
+                    }
+
+                    @Test
+                    @DisplayName("Should verify content that meets subset-of operator and ordered ordering options")
+                    public void shouldVerifyContentThatMeetsSubsetOfOperatorAndOrderedOrderingOptions() {
+
+                    }
+
+                    @Test
+                    @DisplayName("Should fail content that does not meet subset-of operator but meets ordered ordering options")
+                    public void shouldFailContentThatDoesNotMeetSubsetOfOperatorButMeetsOrderedOrderingOptions() {
+
+                    }
+
+                    @Test
+                    @DisplayName("Should fail content that does not meet neither subset-of operator nor ordered ordering options")
+                    public void shouldFailContentThatDoesNotMeetNeitherSubsetOfOperatorNorOrderedOrderingOptions() {
+
+                    }
+
+                    @Test
+                    @DisplayName("Should verify content that meets equivalent-to operator and ordered ordering options")
+                    public void shouldVerifyContentThatMeetsEquivalentOfOperatorAndOrderedOrderingOptions() {
+
+                    }
+
+                    @Test
+                    @DisplayName("Should fail content that does not meet equivalent-of operator but meets ordered ordering options")
+                    public void shouldFailContentThatDoesNotMeetEquivalentOfOperatorButMeetsOrderedOrderingOptions() {
+
+                    }
+
+                    @Test
+                    @DisplayName("Should fail content that meets equivalent-of operator but does not meet ordered ordering options")
+                    public void shouldFailContentThatMeetsEquivalentOfOperatorButDoesNotMeetOrderedOrderingOptions() {
+
+                    }
+
+                    @Test
+                    @DisplayName("Should fail content that does not meet neither equivalent-of operator nor ordered ordering options")
+                    public void shouldFailContentThatDoesNotMeetNeitherEquivalentOfOperatorNorOrderedOrderingOptions() {
+
+                    }
+
+                }
+
+            }
+
+            @Nested
+            @DisplayName("With Unrdered")
+            class WithUnordered {
+
+                @Nested
+                @DisplayName("With Varying Operator")
+                class WithVaryingOperator {
+                    @Test
+                    @DisplayName("Should verify content that meets superset-of operator and unordered ordering options")
+                    public void shouldVerifyContentThatMeetsSupersetOfOperatorAndUnorderedOrderingOptions() {
+
+                    }
+
+                    @Test
+                    @DisplayName("Should fail content that does not meet superset operator but meets unordered ordering options")
+                    public void shouldFailContentThatDoesNotMeetSupersetOfOperatorButMeetsUnorderedOrderingOptions() {
+
+                    }
+
+                    @Test
+                    @DisplayName("Should fail content that meets superset-of operator but does not meet unordered ordering options")
+                    public void shouldFailContentThatMeetsSupersetOfOperatorButDoesNotMeetUnorderedOrderingOptions() {
+
+                    }
+
+                    @Test
+                    @DisplayName("Should fail content that does not meet neither superset-of operator nor unordered ordering options")
+                    public void shouldFailContentThatDoesNotMeetNeitherSupersetOfOperatorNorUnorderedOrderingOptions() {
+
+                    }
+
+                    @Test
+                    @DisplayName("Should verify content that meets subset-of operator and unordered ordering options")
+                    public void shouldVerifyContentThatMeetsSubsetOfOperatorAndUnorderedOrderingOptions() {
+
+                    }
+
+                    @Test
+                    @DisplayName("Should fail content that does not meet subset-of operator but meets unordered ordering options")
+                    public void shouldFailContentThatDoesNotMeetSubsetOfOperatorButMeetsUnorderedOrderingOptions() {
+
+                    }
+
+                    @Test
+                    @DisplayName("Should fail content meets subset-of operator but does not meets unordered ordering options")
+                    public void shouldFailContentThatMeetsSubsetOfOperatorButDoesNotMeetUnorderedOrderingOptions() {
+
+                    }
+
+                    @Test
+                    @DisplayName("Should fail content that does not meet neither subset-of operator nor unordered ordering options")
+                    public void shouldFailContentThatDoesNotMeetNeitherSubsetOfOperatorNorUnorderedOrderingOptions() {
+
+                    }
+
+                    @Test
+                    @DisplayName("Should verify content that meets equivalent-of operator and unordered ordering options")
+                    public void shouldVerifyContentThatMeetsEquivalentOfOperatorAndUnorderedOrderingOptions() {
+
+                    }
+
+                    @Test
+                    @DisplayName("Should fail content that does not meet equivalent-of operator but meets unordered ordering options")
+                    public void shouldFailContentThatDoesNotMeetEquivalentOfOperatorButMeetsUnorderedOrderingOptions() {
+
+                    }
+
+                    @Test
+                    @DisplayName("Should fail content that meets equivalent-of operator but does not meet unordered ordering options")
+                    public void shouldFailContentThatMeetsEquivalentOfOperatorButDoesNotMeetUnorderedOrderingOptions() {
+
+                    }
+
+                    @Test
+                    @DisplayName("Should fail content that does not meet neither equivalent-of operator nor unordered ordering options")
+                    public void shouldFailContentThatDoesNotMeetNeitherEquivalentOfOperatorNorUnorderedOrderingOptions() {
+
+                    }
+
+                }
+
+                @Nested
+                @DisplayName("With Varying Element-Id")
+                class WithVaryingElementId {
+
+                    @Test
+                    @DisplayName("Should verify content that meets element-id and unordered ordering options")
+                    public void shouldVerifyContentThatMeetsElementIdAndUnorderedOrderingOptions() {
+
+                    }
+
+                    @Test
+                    @DisplayName("Should fail content that does not meet element-id but meets unordered ordering options")
+                    public void shouldFailContentThatDoesNotMeetElementIdButMeetsUnorderedOrderingOptions() {
+
+                    }
+
+                    @Test
+                    @DisplayName("Should fail content that meets element-id but does not meet unordered ordering options")
+                    public void shouldFailContentThatMeetsElementIdButDoesNotMeetUnorderedOrderingOptions() {
+
+                    }
+
+                    @Test
+                    @DisplayName("Should fail content that does not meet neither element-id nor unordered ordering options")
+                    public void shouldFailContentThatDoesNotMeetNeitherElementIdNorUnorderedOrderingOptions() {
+
+                    }
+                }
+
+            }
 
         }
     }
