@@ -777,31 +777,6 @@ public class MapVerifierTest {
         }
     }
 
-    private static final String[] TEST_DATA_RESOURCE_PACKAGES = { "framework-test-data" };
-    private static final HttpTestDataSource TEST_DATA_RESOURCE = new JsonStoreHttpTestDataSource(
-            TEST_DATA_RESOURCE_PACKAGES);
-
-
-    @Test
-    @DisplayName("Should verify response body without wildcards")
-    public void shouldVerifyABigRealResponseBodyAgainstItselfWithoutWildcards() {
-
-        HashMap<String, Object> expected = (HashMap<String, Object>) TEST_DATA_RESOURCE
-                .getDataForTestCall("HttpTestData-with-a-Big-ExpectedResponseBody_expected")
-                .getExpectedResponse().getBody();
-        HashMap<String, Object> actual = (HashMap<String, Object>) TEST_DATA_RESOURCE
-                .getDataForTestCall("HttpTestData-with-a-Big-ExpectedResponseBody_actual")
-                .getExpectedResponse().getBody();
-
-        MapVerificationResult result = new MapVerifier("actualResponse.body", 5).verifyMap(expected, actual);
-        Assert.assertArrayEquals(new Object[]{
-                "actualResponse.body.user contains a bad value: idam[0] contains a bad value: jurisdiction: "
-                        + "expected 'AUTOTEST1' but got 'AUTOTEST1_x'"
-        }, result.getAllIssues().toArray());
-
-        assertFalse(result.isVerified());
-    }
-
     @Nested
     @DisplayName("Real response tests")
     class RealResponse {
@@ -809,6 +784,26 @@ public class MapVerifierTest {
         private final String[] TEST_DATA_RESOURCE_PACKAGES = { "framework-test-data" };
         private final HttpTestDataSource TEST_DATA_RESOURCE = new JsonStoreHttpTestDataSource(
                 TEST_DATA_RESOURCE_PACKAGES);
+
+        @Test
+        @DisplayName("Should verify response body without wildcards")
+        public void shouldVerifyABigRealResponseBodyAgainstItselfWithoutWildcards() {
+
+            HashMap<String, Object> expected = (HashMap<String, Object>) TEST_DATA_RESOURCE
+                    .getDataForTestCall("HttpTestData-with-a-Big-ExpectedResponseBody_expected")
+                    .getExpectedResponse().getBody();
+            HashMap<String, Object> actual = (HashMap<String, Object>) TEST_DATA_RESOURCE
+                    .getDataForTestCall("HttpTestData-with-a-Big-ExpectedResponseBody_actual")
+                    .getExpectedResponse().getBody();
+
+            MapVerificationResult result = new MapVerifier("actualResponse.body", 5).verifyMap(expected, actual);
+            Assert.assertArrayEquals(new Object[]{
+                    "actualResponse.body.user contains a bad value: idam[0] contains a bad value: jurisdiction: "
+                            + "expected 'AUTOTEST1' but got 'AUTOTEST1_x'"
+            }, result.getAllIssues().toArray());
+
+            assertFalse(result.isVerified());
+        }
 
         @Test
         @DisplayName("Should verify response header case insensitively")

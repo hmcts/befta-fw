@@ -115,23 +115,25 @@ public class MapVerifier {
                 .forEach(commonKey -> {
                     Object expectedValue = expectedMap.get(commonKey);
                     Object actualValue = actualMap.get(commonKey);
-                    if (expectedValue == null) {
-                        badValueMessages.add("Must be null: " + commonKey);
-                    } else if (actualValue == null && isNonNullablePlaceholder(expectedValue)) {
-                        badValueMessages.add("Must not be null: " + commonKey);
-                    } else if (!(expectedValue instanceof Map && actualValue instanceof Map)) {
-                        if (expectedValue instanceof Collection<?> && actualValue instanceof Collection<?>) {
-                            collectBadValueMessagesFromCollection(fieldPrefix + "." + commonKey, commonKey,
-                                    (Collection<?>) expectedValue,
-                                    (Collection<?>) actualValue, currentDepth, maxMessageDepth, badValueMessages);
-                        } else {
-                            Object outcome = compareValues(commonKey, expectedValue, actualValue,
-                                currentDepth, maxMessageDepth);
-                            if (!Boolean.TRUE.equals(outcome)) {
-                                if (outcome instanceof String) {
-                                    badValueMessages.add((String) outcome);
-                                } else {
-                                    badValueMessages.add(fieldPrefix + "." + commonKey);
+                    if (expectedValue != actualValue) {
+                        if (expectedValue == null) {
+                            badValueMessages.add("Must be null: " + commonKey);
+                        } else if (actualValue == null && isNonNullablePlaceholder(expectedValue)) {
+                            badValueMessages.add("Must not be null: " + commonKey);
+                        } else if (!(expectedValue instanceof Map && actualValue instanceof Map)) {
+                            if (expectedValue instanceof Collection<?> && actualValue instanceof Collection<?>) {
+                                collectBadValueMessagesFromCollection(fieldPrefix + "." + commonKey, commonKey,
+                                        (Collection<?>) expectedValue,
+                                        (Collection<?>) actualValue, currentDepth, maxMessageDepth, badValueMessages);
+                            } else {
+                                Object outcome = compareValues(commonKey, expectedValue, actualValue,
+                                    currentDepth, maxMessageDepth);
+                                if (!Boolean.TRUE.equals(outcome)) {
+                                    if (outcome instanceof String) {
+                                        badValueMessages.add((String) outcome);
+                                    } else {
+                                        badValueMessages.add(fieldPrefix + "." + commonKey);
+                                    }
                                 }
                             }
                         }
