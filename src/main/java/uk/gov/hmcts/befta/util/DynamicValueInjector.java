@@ -4,6 +4,7 @@ import com.google.common.collect.FluentIterable;
 
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
 import uk.gov.hmcts.befta.TestAutomationAdapter;
 import uk.gov.hmcts.befta.data.HttpTestData;
@@ -175,6 +176,7 @@ public class DynamicValueInjector {
         return calculateInContainer(container, fields, 1);
     }
 
+    @SuppressWarnings("unchecked")
     private Object calculateInContainer(Object container, String[] fields, int fieldIndex) {
         Object value = null;
         if (isArray(container)) {
@@ -183,6 +185,8 @@ public class DynamicValueInjector {
             value = ((List<?>) container).get(Integer.parseInt(fields[fieldIndex]));
         } else if (container instanceof Map<?, ?>) {
             value = ((Map<?, ?>) container).get(fields[fieldIndex]);
+        } else if (container instanceof Function<?, ?>) {
+            value = ((Function<String, Object>) container).apply(fields[fieldIndex]);
         } else {
             try {
                 value = ReflectionUtils.retrieveFieldInObject(container, fields[fieldIndex]);

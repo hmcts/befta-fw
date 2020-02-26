@@ -2,13 +2,19 @@ package uk.gov.hmcts.befta.player;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import io.cucumber.java.Scenario;
 import io.restassured.specification.RequestSpecification;
 import lombok.Getter;
 import lombok.Setter;
-import uk.gov.hmcts.befta.data.*;
+import uk.gov.hmcts.befta.BeftaMain;
+import uk.gov.hmcts.befta.data.HttpTestData;
+import uk.gov.hmcts.befta.data.HttpTestDataSource;
+import uk.gov.hmcts.befta.data.JsonStoreHttpTestDataSource;
+import uk.gov.hmcts.befta.data.ResponseData;
+import uk.gov.hmcts.befta.data.UserData;
 
 public class BackEndFunctionalTestScenarioContext {
 
@@ -25,6 +31,9 @@ public class BackEndFunctionalTestScenarioContext {
 
     @Getter @Setter
     private ResponseData theResponse;
+
+    @Getter
+    private Function<String, Object> customValues = (valueKey -> calculateCustomValue(valueKey));
 
     @Getter @Setter
     private BackEndFunctionalTestScenarioContext parentContext;
@@ -71,4 +80,9 @@ public class BackEndFunctionalTestScenarioContext {
     public int getAndIncrementUserCountSpecifiedSoFar() {
         return userCountSpecifiedSoFar++;
     }
+
+    protected Object calculateCustomValue(Object key) {
+        return BeftaMain.getAdapter().calculateCustomValue(this, key);
+    }
+
 }
