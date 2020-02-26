@@ -1,0 +1,71 @@
+{
+		"_guid_": "default-config-not-verify-different-element",
+		"expectedResponse": {
+			"body": {
+				"collection": [
+					{
+						"jurisdiction": "AUTOTEST1_x",
+						"state": "TODO",
+						"version": 0,
+						"case_type_id": "AAT",
+						"created_date": "2019-11-13T15:07:10.925"
+					},
+					{
+						"jurisdiction": "AUTOTEST1_x",
+						"state": "TODO",
+						"version": 0,
+						"case_type_id": "AAT",
+						"created_date": "2019-11-13T15:07:10.925"
+					},
+					{
+						"jurisdiction": "AUTOTEST1_x",
+						"state": "TODO",
+						"version": 0,
+						"case_type_id": "AAT",
+						"created_date": "2019-11-13T15:07:10.925"
+					},
+					{
+						"jurisdiction": "AUTOTEST1_x",
+						"state": "TODO",
+						"version": 0,
+						"case_type_id": "AAT",
+						"created_date": "2019-11-13T15:07:10.925"
+					}
+				]
+			}
+		},
+		"actualResponse": {
+			"body": {
+				"collection": [
+					{
+						"jurisdiction": "AUTOTEST1_x",
+						"state": "TODO",
+						"version": 0,
+						"case_type_id": "AAT",
+						"created_date": "2019-11-13T15:07:10.925"
+					},
+					{
+						"jurisdiction": "AUTOTEST1_z",
+						"state": "TODOOO",
+						"versionX": 0,
+						"case_type_id": "AAT",
+						"created_date": "2019-11-13T15:07:10.925"
+					},
+					{
+						"jurisdiction": "AUTOTEST1_x",
+						"state": "TODO",
+						"version": 0,
+						"case_type_id": "AAT",
+						"created_date": "2019-11-13T15:07:10.925"
+					},
+					{
+						"jurisdiction": "AUTOTEST1_x",
+						"state": "TODO",
+						"version": 0,
+						"case_type_id": "AAT",
+						"created_date": "2019-11-13T15:07:10.925"
+					}
+				]
+			}
+		}
+}

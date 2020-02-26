@@ -2,6 +2,7 @@ package uk.gov.hmcts.befta.util;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static uk.gov.hmcts.befta.util.ExpectedValuePlaceholder.ANYTHING_PRESENT;
 import static uk.gov.hmcts.befta.util.ExpectedValuePlaceholder.ANY_DATE_NOT_NULLABLE;
 import static uk.gov.hmcts.befta.util.ExpectedValuePlaceholder.ANY_DATE_NULLABLE;
@@ -19,11 +20,15 @@ import static uk.gov.hmcts.befta.util.ExpectedValuePlaceholder.ANY_STRING_NOT_NU
 import static uk.gov.hmcts.befta.util.ExpectedValuePlaceholder.ANY_STRING_NULLABLE;
 import static uk.gov.hmcts.befta.util.ExpectedValuePlaceholder.ANY_TIMESTAMP_NOT_NULLABLE;
 import static uk.gov.hmcts.befta.util.ExpectedValuePlaceholder.ANY_TIMESTAMP_NULLABLE;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.Assert;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import org.junit.Assert;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -32,15 +37,62 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
+import uk.gov.hmcts.befta.data.HttpTestData;
 import uk.gov.hmcts.befta.data.HttpTestDataSource;
 import uk.gov.hmcts.befta.data.JsonStoreHttpTestDataSource;
 
 
 public class MapVerifierTest {
+
+    private static final String[] TEST_DATA_RESOURCE_PACKAGES = {
+            "framework-test-data/map-verifier-test-data/collections" };
+    private static final HttpTestDataSource TEST_DATA_RESOURCE = new JsonStoreHttpTestDataSource(
+            TEST_DATA_RESOURCE_PACKAGES);
+    @Test
+    public void testDefaultConfigVerify() {
+        assertVerificationErrors("default-config-verify");
+    }
+
+    @Test
+    public void testDefaultConfigNotVerifyDueToMissingElement() {
+        assertVerificationErrors("default-config-not-verify-missing-element",
+                "response contains a bad value: response.collection has unexpected number of elements. Expected: 4, but actual: 3.");
+    }
+
+    @Test
+    public void testDefaultConfigNotVerifyDueToExtraElement() {
+        assertVerificationErrors("default-config-not-verify-extra-element",
+                "response contains a bad value: response.collection has unexpected number of elements. Expected: 4, but actual: 5.");
+    }
+
+    @Test
+    public void testDefaultConfigNotVerifyDueToDifferentElement() {
+        assertVerificationErrors("default-config-not-verify-different-element",
+                "response contains a bad value: collection[1].versionX is unexpected.",
+                "response contains a bad value: collection[1].version is unavailable though it was expected to be there",
+                "response contains a bad value: collection[1] contains a bad value: jurisdiction: expected 'AUTOTEST1_x' but got 'AUTOTEST1_z'",
+                "response contains a bad value: collection[1] contains a bad value: state: expected 'TODO' but got 'TODOOO'");
+    }
+
+    private void assertVerificationErrors(String testDataId, String... issues) {
+        HttpTestData testData = getTestData(testDataId);
+        MapVerificationResult result = verifiyBodies(testData);
+        if (issues.length == 0) {
+            Assert.assertTrue(result.isVerified());
+        } else {
+            Assert.assertFalse(result.isVerified());
+            Assert.assertArrayEquals(issues, result.getAllIssues().toArray(new String[] {}));
+        }
+    }
+
+    private MapVerificationResult verifiyBodies(HttpTestData testData) {
+        return new MapVerifier("response").verifyMap(testData.getExpectedResponse().getBody(),
+                testData.getActualResponse().getBody());
+    }
+
+    private HttpTestData getTestData(String dataId) {
+        return TEST_DATA_RESOURCE.getDataForTestCall(dataId);
+    }
 
     @Nested
     @DisplayName("Basic tests")
@@ -1063,7 +1115,6 @@ public class MapVerifierTest {
             }
 
         }
-
 
         @Nested
         @DisplayName("Element id option provided")
