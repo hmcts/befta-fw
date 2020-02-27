@@ -79,19 +79,6 @@ public class TestDataLoaderToDefinitionStore {
         }
     }
 
-    private void addCcdRole(CcdRoleConfig roleConfig) {
-        Map<String, String> ccdRoleInfo = new HashMap<>();
-        ccdRoleInfo.put("role", roleConfig.getRole());
-        ccdRoleInfo.put("security_classification", roleConfig.getSecurityClassification());
-        Response response = asAutoTestImporter().given().header("Content-type", "application/json").body(ccdRoleInfo)
-                .when().put("/api/user-role");
-        if (response.getStatusCode() / 100 != 2) {
-            String message = "Import failed with response body: " + response.body().prettyPrint();
-            message += "\nand http code: " + response.statusCode();
-            throw new FunctionalTestException(message);
-        }
-    }
-
     public void importDefinitions() {
         List<String> definitionFileResources = getAllDefinitionFilesToLoad();
         logger.info("{} definition files will be uploaded to '{}'.", definitionFileResources.size(),
@@ -107,7 +94,20 @@ public class TestDataLoaderToDefinitionStore {
         }
     }
 
-    private List<String> getAllDefinitionFilesToLoad() {
+    protected void addCcdRole(CcdRoleConfig roleConfig) {
+        Map<String, String> ccdRoleInfo = new HashMap<>();
+        ccdRoleInfo.put("role", roleConfig.getRole());
+        ccdRoleInfo.put("security_classification", roleConfig.getSecurityClassification());
+        Response response = asAutoTestImporter().given().header("Content-type", "application/json").body(ccdRoleInfo)
+                .when().put("/api/user-role");
+        if (response.getStatusCode() / 100 != 2) {
+            String message = "Import failed with response body: " + response.body().prettyPrint();
+            message += "\nand http code: " + response.statusCode();
+            throw new FunctionalTestException(message);
+        }
+    }
+
+    protected List<String> getAllDefinitionFilesToLoad() {
         try {
             List<String> definitionFileResources = new ArrayList<String>();
             ClassPath cp = ClassPath.from(Thread.currentThread().getContextClassLoader());
@@ -123,7 +123,7 @@ public class TestDataLoaderToDefinitionStore {
         }
     }
 
-    private void importDefinition(String fileResourcePath) throws IOException {
+    protected void importDefinition(String fileResourcePath) throws IOException {
         File file = BeftaUtils.getClassPathResourceIntoTemporaryFile(fileResourcePath);
         try {
             Response response = asAutoTestImporter().given().multiPart(file).when().post("/import");
@@ -138,7 +138,7 @@ public class TestDataLoaderToDefinitionStore {
         }
     }
 
-    private RequestSpecification asAutoTestImporter() {
+    protected RequestSpecification asAutoTestImporter() {
         UserData caseworker = new UserData(BeftaMain.getConfig().getImporterAutoTestEmail(),
                 BeftaMain.getConfig().getImporterAutoTestPassword());
         adapter.authenticate(caseworker);
