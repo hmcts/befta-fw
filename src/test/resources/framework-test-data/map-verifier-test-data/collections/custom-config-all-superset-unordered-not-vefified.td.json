@@ -1,0 +1,67 @@
+{
+		"_guid_": "custom-config-without-id-field-1",
+		"expectedResponse": {
+			"body": {
+				"collection": [
+					{
+						"operator": "superset-of",
+						"ordering": "unordered",
+						"element-id": "jurisdiction"
+					},
+					{
+						"jurisdiction": "jur_1",
+						"state": "TODO",
+						"version": 0,
+						"case_type_id": "AAT",
+						"created_date": "2019-11-13T15:07:10.925"
+					},
+					{
+						"jurisdiction": "jur_2",
+						"state": "TODO",
+						"version": 0,
+						"case_type_id": "AAT",
+						"created_date": "2019-11-13T15:07:10.925"
+					},
+					{
+						"jurisdiction": "jur_3",
+						"state": "TODO",
+						"version": 0,
+						"case_type_id": "AAT",
+						"created_date": "2019-11-13T15:07:10.925"
+					},
+					{
+						"jurisdiction": "jur_4",
+						"state": "TODO",
+						"version": 0,
+						"case_type_id": "AAT",
+						"created_date": "2019-11-13T15:07:10.925"
+					}
+				]
+			}
+		},
+		"actualResponse": {
+			"body": {
+				"collection": [
+					{
+						"jurisdiction": "jur_2",
+						"case_type_id": "AAT",
+						"created_date": "2019-11-13T15:07:10.925"
+					},
+					{
+						"jurisdiction": "jur_5",
+						"state": "TODO",
+						"version": 0,
+						"case_type_id": "AAT",
+						"created_date": "2019-11-13T15:07:10.925"
+					},
+					{
+						"jurisdiction": "jur_1",
+						"state": "TODO",
+						"version": 0,
+						"case_type_id": "AAT",
+						"created_date": "2019-11-13T15:07:10.925"
+					},
+				]
+			}
+		}
+}
