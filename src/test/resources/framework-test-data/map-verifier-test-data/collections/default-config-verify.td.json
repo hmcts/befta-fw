@@ -4,28 +4,28 @@
 			"body": {
 				"collection": [
 					{
-						"jurisdiction": "AUTOTEST1_x",
+						"id": "AUTOTEST1_x",
 						"state": "TODO",
 						"version": 0,
 						"case_type_id": "AAT",
 						"created_date": "2019-11-13T15:07:10.925"
 					},
 					{
-						"jurisdiction": "AUTOTEST1_x",
+						"id": "AUTOTEST1_x",
 						"state": "TODO",
 						"version": 0,
 						"case_type_id": "AAT",
 						"created_date": "2019-11-13T15:07:10.925"
 					},
 					{
-						"jurisdiction": "AUTOTEST1_x",
+						"id": "AUTOTEST1_x",
 						"state": "TODO",
 						"version": 0,
 						"case_type_id": "AAT",
 						"created_date": "2019-11-13T15:07:10.925"
 					},
 					{
-						"jurisdiction": "AUTOTEST1_x",
+						"id": "AUTOTEST1_x",
 						"state": "TODO",
 						"version": 0,
 						"case_type_id": "AAT",
@@ -38,28 +38,28 @@
 			"body": {
 				"collection": [
 					{
-						"jurisdiction": "AUTOTEST1_x",
+						"id": "AUTOTEST1_x",
 						"state": "TODO",
 						"version": 0,
 						"case_type_id": "AAT",
 						"created_date": "2019-11-13T15:07:10.925"
 					},
 					{
-						"jurisdiction": "AUTOTEST1_x",
+						"id": "AUTOTEST1_x",
 						"state": "TODO",
 						"version": 0,
 						"case_type_id": "AAT",
 						"created_date": "2019-11-13T15:07:10.925"
 					},
 					{
-						"jurisdiction": "AUTOTEST1_x",
+						"id": "AUTOTEST1_x",
 						"state": "TODO",
 						"version": 0,
 						"case_type_id": "AAT",
 						"created_date": "2019-11-13T15:07:10.925"
 					},
 					{
-						"jurisdiction": "AUTOTEST1_x",
+						"id": "AUTOTEST1_x",
 						"state": "TODO",
 						"version": 0,
 						"case_type_id": "AAT",

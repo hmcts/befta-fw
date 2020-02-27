@@ -1,7 +1,24 @@
 package uk.gov.hmcts.befta.util;
 
+import com.google.common.collect.Maps;
+import org.junit.Assert;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+import uk.gov.hmcts.befta.data.HttpTestData;
+import uk.gov.hmcts.befta.data.HttpTestDataSource;
+import uk.gov.hmcts.befta.data.JsonStoreHttpTestDataSource;
+
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.concurrent.ConcurrentHashMap;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static uk.gov.hmcts.befta.util.ExpectedValuePlaceholder.ANYTHING_PRESENT;
 import static uk.gov.hmcts.befta.util.ExpectedValuePlaceholder.ANY_DATE_NOT_NULLABLE;
@@ -21,26 +38,6 @@ import static uk.gov.hmcts.befta.util.ExpectedValuePlaceholder.ANY_STRING_NULLAB
 import static uk.gov.hmcts.befta.util.ExpectedValuePlaceholder.ANY_TIMESTAMP_NOT_NULLABLE;
 import static uk.gov.hmcts.befta.util.ExpectedValuePlaceholder.ANY_TIMESTAMP_NULLABLE;
 
-import org.junit.Assert;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
-
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-import java.util.concurrent.ConcurrentHashMap;
-
-import uk.gov.hmcts.befta.data.HttpTestData;
-import uk.gov.hmcts.befta.data.HttpTestDataSource;
-import uk.gov.hmcts.befta.data.JsonStoreHttpTestDataSource;
-
 
 public class MapVerifierTest {
 
@@ -48,54 +45,9 @@ public class MapVerifierTest {
             "framework-test-data/map-verifier-test-data/collections" };
     private static final HttpTestDataSource TEST_DATA_RESOURCE = new JsonStoreHttpTestDataSource(
             TEST_DATA_RESOURCE_PACKAGES);
-    @Test
-    public void testDefaultConfigVerify() {
-        assertVerificationErrors("default-config-verify");
-    }
-
-    @Test
-    public void testDefaultConfigNotVerifyDueToMissingElement() {
-        assertVerificationErrors("default-config-not-verify-missing-element",
-                "response contains a bad value: response.collection has unexpected number of elements. Expected: 4, but actual: 3.");
-    }
-
-    @Test
-    public void testDefaultConfigNotVerifyDueToExtraElement() {
-        assertVerificationErrors("default-config-not-verify-extra-element",
-                "response contains a bad value: response.collection has unexpected number of elements. Expected: 4, but actual: 5.");
-    }
-
-    @Test
-    public void testDefaultConfigNotVerifyDueToDifferentElement() {
-        assertVerificationErrors("default-config-not-verify-different-element",
-                "response contains a bad value: collection[1].versionX is unexpected.",
-                "response contains a bad value: collection[1].version is unavailable though it was expected to be there",
-                "response contains a bad value: collection[1] contains a bad value: jurisdiction: expected 'AUTOTEST1_x' but got 'AUTOTEST1_z'",
-                "response contains a bad value: collection[1] contains a bad value: state: expected 'TODO' but got 'TODOOO'");
-    }
-
-    private void assertVerificationErrors(String testDataId, String... issues) {
-        HttpTestData testData = getTestData(testDataId);
-        MapVerificationResult result = verifiyBodies(testData);
-        if (issues.length == 0) {
-            Assert.assertTrue(result.isVerified());
-        } else {
-            Assert.assertFalse(result.isVerified());
-            Assert.assertArrayEquals(issues, result.getAllIssues().toArray(new String[] {}));
-        }
-    }
-
-    private MapVerificationResult verifiyBodies(HttpTestData testData) {
-        return new MapVerifier("response").verifyMap(testData.getExpectedResponse().getBody(),
-                testData.getActualResponse().getBody());
-    }
-
-    private HttpTestData getTestData(String dataId) {
-        return TEST_DATA_RESOURCE.getDataForTestCall(dataId);
-    }
-
     @Nested
     @DisplayName("Basic tests")
+
     class Basic {
 
         @Test
@@ -106,13 +58,13 @@ public class MapVerifierTest {
         @Test
         void shouldVerifyNullVsNull() {
             MapVerificationResult result = new MapVerifier("").verifyMap(null, null);
-            Assert.assertTrue(result.isVerified());
+            assertTrue(result.isVerified());
             result = new MapVerifier("", 1).verifyMap(null, null);
-            Assert.assertTrue(result.isVerified());
+            assertTrue(result.isVerified());
             result = new MapVerifier("", 2).verifyMap(null, null);
-            Assert.assertTrue(result.isVerified());
+            assertTrue(result.isVerified());
             result = new MapVerifier("", 1000).verifyMap(null, null);
-            Assert.assertTrue(result.isVerified());
+            assertTrue(result.isVerified());
         }
 
         @Test
@@ -134,7 +86,7 @@ public class MapVerifierTest {
             MapVerificationResult result = new MapVerifier("", 0).verifyMap(new HashMap<>(), new HashMap<>());
             assertEquals(0, result.getAllIssues().size());
             result = new MapVerifier("", 0).verifyMap(new ConcurrentHashMap<>(), new LinkedHashMap<>());
-            Assert.assertTrue(result.isVerified());
+            assertTrue(result.isVerified());
         }
 
         @Test
@@ -142,7 +94,7 @@ public class MapVerifierTest {
             Map<String, Object> expected = new HashMap<>();
             expected.put("key", "value");
             MapVerificationResult result = new MapVerifier("", 0).verifyMap(expected, expected);
-            Assert.assertTrue(result.isVerified());
+            assertTrue(result.isVerified());
         }
     }
 
@@ -168,7 +120,7 @@ public class MapVerifierTest {
             expected.put("key3", 333.333);
             actual.put("key3", 333.333);
             result = new MapVerifier("", 0).verifyMap(expected, actual);
-            Assert.assertTrue(result.isVerified());
+            assertTrue(result.isVerified());
         }
 
         @Test
@@ -208,7 +160,7 @@ public class MapVerifierTest {
 
             MapVerificationResult result = new MapVerifier("actualResponse", 0).verifyMap(expected, actual);
             assertEquals(0, result.getAllIssues().size());
-            Assert.assertTrue(result.isVerified());
+            assertTrue(result.isVerified());
         }
 
         @Test
@@ -251,7 +203,7 @@ public class MapVerifierTest {
 
             MapVerificationResult result = new MapVerifier("actualResponse", 0).verifyMap(expected, actual);
             assertEquals(0, result.getAllIssues().size());
-            Assert.assertTrue(result.isVerified());
+            assertTrue(result.isVerified());
         }
 
         @Test
@@ -289,7 +241,7 @@ public class MapVerifierTest {
 
             MapVerificationResult result = new MapVerifier("actualResponse", 0).verifyMap(expected, actual);
             assertEquals(0, result.getAllIssues().size());
-            Assert.assertTrue(result.isVerified());
+            assertTrue(result.isVerified());
         }
 
         @Test
@@ -335,7 +287,7 @@ public class MapVerifierTest {
 
             MapVerificationResult result = new MapVerifier("actualResponse", 0).verifyMap(expected, actual);
             assertEquals(0, result.getAllIssues().size());
-            Assert.assertTrue(result.isVerified());
+            assertTrue(result.isVerified());
         }
 
         @Test
@@ -352,7 +304,7 @@ public class MapVerifierTest {
 
             MapVerificationResult result = new MapVerifier("actualResponse", 0).verifyMap(expected, actual);
             assertEquals(0, result.getAllIssues().size());
-            Assert.assertTrue(result.isVerified());
+            assertTrue(result.isVerified());
         }
 
         @Test
@@ -389,7 +341,7 @@ public class MapVerifierTest {
 
             MapVerificationResult result = new MapVerifier("actualResponse", 0).verifyMap(expected, actual);
             assertEquals(0, result.getAllIssues().size());
-            Assert.assertTrue(result.isVerified());
+            assertTrue(result.isVerified());
         }
 
         @Test
@@ -428,7 +380,7 @@ public class MapVerifierTest {
 
             MapVerificationResult result = new MapVerifier("actualResponse", 0).verifyMap(expected, actual);
             assertEquals(0, result.getAllIssues().size());
-            Assert.assertTrue(result.isVerified());
+            assertTrue(result.isVerified());
         }
 
         @Test
@@ -464,7 +416,7 @@ public class MapVerifierTest {
 
             MapVerificationResult result = new MapVerifier("actualResponse", 0).verifyMap(expected, actual);
             assertEquals(0, result.getAllIssues().size());
-            Assert.assertTrue(result.isVerified());
+            assertTrue(result.isVerified());
         }
 
         @Test
@@ -499,7 +451,7 @@ public class MapVerifierTest {
 
             MapVerificationResult result = new MapVerifier("actualResponse", 0).verifyMap(expected, actual);
             assertEquals(0, result.getAllIssues().size());
-            Assert.assertTrue(result.isVerified());
+            assertTrue(result.isVerified());
         }
 
         @Test
@@ -535,7 +487,7 @@ public class MapVerifierTest {
 
             MapVerificationResult result = new MapVerifier("actualResponse", 0).verifyMap(expected, actual);
             assertEquals(0, result.getAllIssues().size());
-            Assert.assertTrue(result.isVerified());
+            assertTrue(result.isVerified());
         }
 
         @Test
@@ -571,7 +523,7 @@ public class MapVerifierTest {
 
             MapVerificationResult result = new MapVerifier("actualResponse", 0).verifyMap(expected, actual);
             assertEquals(0, result.getAllIssues().size());
-            Assert.assertTrue(result.isVerified());
+            assertTrue(result.isVerified());
         }
 
         @Test
@@ -614,7 +566,7 @@ public class MapVerifierTest {
 
             MapVerificationResult result = new MapVerifier("actualResponse", 0).verifyMap(expected, actual);
             assertEquals(0, result.getAllIssues().size());
-            Assert.assertTrue(result.isVerified());
+            assertTrue(result.isVerified());
         }
 
         @Test
@@ -654,7 +606,7 @@ public class MapVerifierTest {
 
             MapVerificationResult result = new MapVerifier("actualResponse.headers", 1, false).verifyMap(expected, actual);
             assertEquals(0, result.getAllIssues().size());
-            Assert.assertTrue(result.isVerified());
+            assertTrue(result.isVerified());
         }
 
         @Test
@@ -769,7 +721,7 @@ public class MapVerifierTest {
 
     @Nested
     @DisplayName("Cascaded tests")
-    class Cascaded{
+    class Cascaded {
         @Test
         public void shouldVerifyCascadedMapsWithSameValuesWithoutWildcards() {
             Map<String, Object> expected = new HashMap<>();
@@ -790,7 +742,7 @@ public class MapVerifierTest {
             subsubmap.put("subsubfield2", "subsubfield2_value");
 
             MapVerificationResult result = new MapVerifier("", 0).verifyMap(expected, actual);
-            Assert.assertTrue(result.isVerified());
+            assertTrue(result.isVerified());
         }
 
         @Test
@@ -875,7 +827,7 @@ public class MapVerifierTest {
             MapVerificationResult result = new MapVerifier("", 5).verifyMap(expected, actual);
 
             assertEquals(0, result.getAllIssues().size());
-            Assert.assertTrue(result.isVerified());
+            assertTrue(result.isVerified());
         }
 
         @Test
@@ -915,131 +867,60 @@ public class MapVerifierTest {
             @Test
             @DisplayName("Should verify response with default options")
             public void shouldVerifyResponseWithDefaultOptions() {
-
-                List<Object> actualArrayInMap = Lists.newArrayList();
-                Map<String, Object> actualElement1 = Maps.newHashMap();
-                actualElement1.put("id", "BEFTA_JURISDICTION_1");
-                Map<String, Object> actualElement2 = Maps.newHashMap();
-                actualElement2.put("id", "BEFTA_JURISDICTION_2");
-                actualArrayInMap.add(actualElement1);
-                actualArrayInMap.add(actualElement2);
-                actual.put("arrayInMap", actualArrayInMap);
-
-                List<Object> expectedArrayInMap = Lists.newArrayList();
-                Map<String, Object> expectedElement1 = Maps.newHashMap();
-                expectedElement1.put("id", "BEFTA_JURISDICTION_1");
-                Map<String, Object> expectedElement2 = Maps.newHashMap();
-                expectedElement2.put("id", "BEFTA_JURISDICTION_2");
-                expectedArrayInMap.add(expectedElement1);
-                expectedArrayInMap.add(expectedElement2);
-                expected.put("arrayInMap", expectedArrayInMap);
-
-                MapVerificationResult result = new MapVerifier("", 0).verifyMap(expected, actual);
-                Assert.assertTrue(result.isVerified());
+                assertVerificationValid("default-config-verify");
             }
 
             @Test
             @DisplayName("Should fail content that does not meet default ordering")
             public void shouldFailContentThatDoesNotMeetDefaultOrdering() {
-                Map<String, Object> expected = Maps.newHashMap();
-                Map<String, Object> actual = new ConcurrentHashMap<>();
 
-                List<Object> actualArrayInMap = Lists.newArrayList();
-                Map<String, Object> actualElement1 = Maps.newHashMap();
-                actualElement1.put("id", "BEFTA_JURISDICTION_1");
-                Map<String, Object> actualElement2 = Maps.newHashMap();
-                actualElement2.put("id", "BEFTA_JURISDICTION_2");
-                actualArrayInMap.add(actualElement1);
-                actualArrayInMap.add(actualElement2);
-                actual.put("arrayInMap", actualArrayInMap);
+                assertVerificationErrors("default-config-not-verify-incorrect-order",
+                                         "response contains a bad value: collection[1] contains a bad value: jurisdiction: expected 'jur_2' but got 'jur_4'",
+                                         "response contains a bad value: collection[2] contains a bad value: jurisdiction: expected 'jur_3' but got 'jur_2'",
+                                         "response contains a bad value: collection[3] contains a bad value: jurisdiction: expected 'jur_4' but got 'jur_3'");
+            }
 
-                List<Object> expectedArrayInMap = Lists.newArrayList();
-                Map<String, Object> expectedElement1 = Maps.newHashMap();
-                expectedElement1.put("id", "BEFTA_JURISDICTION_1");
-                Map<String, Object> expectedElement2 = Maps.newHashMap();
-                expectedElement2.put("id", "BEFTA_JURISDICTION_2");
-                expectedArrayInMap.add(expectedElement2);
-                expectedArrayInMap.add(expectedElement1);
-                expected.put("arrayInMap", expectedArrayInMap);
+            @Test
+            @DisplayName("Should fail content that is missing element")
+            public void shouldFailContentThatIsMissingElement() {
 
-                MapVerificationResult result = new MapVerifier("", 0).verifyMap(expected, actual);
-                assertEquals(1, result.getAllIssues().size());
-                assertFalse(result.isVerified());
+                assertVerificationErrors("default-config-not-verify-missing-element",
+                                         "response contains a bad value: response.collection has unexpected number of elements. Expected: 4, but actual: 3.");
+            }
+
+            @Test
+            @DisplayName("Should fail content that has extra element")
+            public void shouldFailContentDueToExtraElement() {
+                assertVerificationErrors("default-config-not-verify-extra-element",
+                                         "response contains a bad value: response.collection has unexpected number of elements. Expected: 4, but actual: 5.");
+            }
+
+            @Test
+            @DisplayName("Should fail content that has different element")
+            public void shouldFailContentDueToDifferentElement() {
+                assertVerificationErrors("default-config-not-verify-different-element",
+                                         "response contains a bad value: collection[1].versionX is unexpected.",
+                                         "response contains a bad value: collection[1].version is unavailable though it was expected to be there",
+                                         "response contains a bad value: collection[1] contains a bad value: jurisdiction: expected 'AUTOTEST1_x' but got 'AUTOTEST1_z'",
+                                         "response contains a bad value: collection[1] contains a bad value: state: expected 'TODO' but got 'TODOOO'");
             }
 
             @Test
             @DisplayName("Should fail content that does not meet default equivalent-of (all fields build id) operator due to actual being a superset")
             public void shouldFailContentThatDoesNotMeetDefaultEquivalentOfOperatorDueToActualBeingASuperset() {
-                Map<String, Object> expected = Maps.newHashMap();
-                Map<String, Object> actual = new ConcurrentHashMap<>();
-
-                List<Object> actualArrayInMap = Lists.newArrayList();
-                Map<String, Object> actualElement1 = Maps.newHashMap();
-                actualElement1.put("item1", "value1");
-                actualElement1.put("item2", "value2");
-                Map<String, Object> actualElement2 = Maps.newHashMap();
-                actualElement2.put("item3", "value3");
-                actualElement2.put("item4", "value4");
-                Map<String, Object> actualElement3 = Maps.newHashMap();
-                actualElement3.put("item5", "value5");
-                actualElement3.put("item6", "value6");
-                actualArrayInMap.add(actualElement1);
-                actualArrayInMap.add(actualElement2);
-                actualArrayInMap.add(actualElement3);
-                actual.put("arrayInMap", actualArrayInMap);
-
-                List<Object> expectedArrayInMap = Lists.newArrayList();
-                Map<String, Object> expectedElement1 = Maps.newHashMap();
-                expectedElement1.put("item1", "value1");
-                expectedElement1.put("item2", "value2");
-                Map<String, Object> expectedElement2 = Maps.newHashMap();
-                expectedElement2.put("item3", "value3");
-                expectedElement2.put("item4", "value4");
-                expectedArrayInMap.add(expectedElement1);
-                expectedArrayInMap.add(expectedElement2);
-                expected.put("arrayInMap", expectedArrayInMap);
-
-                MapVerificationResult result = new MapVerifier("", 0).verifyMap(expected, actual);
-                assertEquals(1, result.getAllIssues().size());
-                assertFalse(result.isVerified());
+                assertVerificationErrors("default-config-not-verify-actual-superset",
+                                         "response contains a bad value: response.collection has unexpected number of elements. Expected: 3, but actual: 4.",
+                                         "response contains a bad value: collection[2] contains a bad value: jurisdiction: expected 'jur_4' but got 'jur_3'");
             }
 
             @Test
             @DisplayName("Should fail content that does not meet default equivalent-of (all fields build id) operator due to actual being a subset")
             public void shouldFailContentThatDoesNotMeetDefaultEquivalentOfOperatorDueToActualBeingASubset() {
-                Map<String, Object> expected = Maps.newHashMap();
-                Map<String, Object> actual = new ConcurrentHashMap<>();
+                assertVerificationErrors("default-config-not-verify-actual-subset",
+                                         "response contains a bad value: response.collection has unexpected number of elements. Expected: 4, but actual: 3.",
+                                         "response contains a bad value: collection[1] contains a bad value: id: expected 'jur_2' but got 'jur_3'",
+                                         "response contains a bad value: collection[2] contains a bad value: id: expected 'jur_3' but got 'jur_4'");
 
-                List<Object> actualArrayInMap = Lists.newArrayList();
-                Map<String, Object> actualElement1 = Maps.newHashMap();
-                actualElement1.put("item1", "value1");
-                actualElement1.put("item2", "value2");
-                Map<String, Object> actualElement2 = Maps.newHashMap();
-                actualElement2.put("item3", "value3");
-                actualElement2.put("item4", "value4");
-                actualArrayInMap.add(actualElement1);
-                actualArrayInMap.add(actualElement2);
-                actual.put("arrayInMap", actualArrayInMap);
-
-                List<Object> expectedArrayInMap = Lists.newArrayList();
-                Map<String, Object> expectedElement1 = Maps.newHashMap();
-                expectedElement1.put("item1", "value1");
-                expectedElement1.put("item2", "value2");
-                Map<String, Object> expectedElement2 = Maps.newHashMap();
-                expectedElement2.put("item3", "value3");
-                expectedElement2.put("item4", "value4");
-                Map<String, Object> expectedElement3 = Maps.newHashMap();
-                expectedElement3.put("item5", "value5");
-                expectedElement3.put("item6", "value6");
-
-                expectedArrayInMap.add(expectedElement1);
-                expectedArrayInMap.add(expectedElement2);
-                expectedArrayInMap.add(expectedElement3);
-                expected.put("arrayInMap", expectedArrayInMap);
-
-                MapVerificationResult result = new MapVerifier("", 0).verifyMap(expected, actual);
-                assertEquals(1, result.getAllIssues().size());
-                assertFalse(result.isVerified());
             }
         }
 
@@ -1052,7 +933,6 @@ public class MapVerifierTest {
             public void shouldVerifyContentThatMeetsSupersetOperator() {
 
             }
-
 
             @Test
             @DisplayName("Should fail content that does not meet superset operator due to actual being an equivalent-of")
@@ -1328,5 +1208,30 @@ public class MapVerifierTest {
             }
 
         }
+
+
+    }
+
+    private void assertVerificationValid(String testDataId) {
+        assertVerificationErrors(testDataId);
+    }
+    private void assertVerificationErrors(String testDataId, String... issues) {
+        HttpTestData testData = getTestData(testDataId);
+        MapVerificationResult result = verifyBodies(testData);
+        if (issues.length == 0) {
+            assertTrue(result.isVerified());
+        } else {
+            Assert.assertFalse(result.isVerified());
+            Assert.assertArrayEquals(issues, result.getAllIssues().toArray(new String[] {}));
+        }
+    }
+
+    private MapVerificationResult verifyBodies(HttpTestData testData) {
+        return new MapVerifier("response").verifyMap(testData.getExpectedResponse().getBody(),
+                                                     testData.getActualResponse().getBody());
+    }
+
+    private HttpTestData getTestData(String dataId) {
+        return TEST_DATA_RESOURCE.getDataForTestCall(dataId);
     }
 }
