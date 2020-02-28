@@ -1,36 +1,35 @@
 {
-		"_guid_": "custom-config-without-id-field-1",
+		"_guid_": "custom-config-superset-of-unordered-without-id-field-not-verify-actual-superset-0",
 		"expectedResponse": {
 			"body": {
 				"collection": [
 					{
 						"operator": "superset-of",
-						"ordering": "unordered",
-						"element-id": "jurisdiction"
+						"ordering": "unordered"
 					},
 					{
-						"jurisdiction": "jur_1",
+						"id": "jur_1",
 						"state": "TODO",
 						"version": 0,
 						"case_type_id": "AAT",
 						"created_date": "2019-11-13T15:07:10.925"
 					},
 					{
-						"jurisdiction": "jur_2",
+						"id": "jur_2",
 						"state": "TODO",
 						"version": 0,
 						"case_type_id": "AAT",
 						"created_date": "2019-11-13T15:07:10.925"
 					},
 					{
-						"jurisdiction": "jur_3",
+						"id": "jur_3",
 						"state": "TODO",
 						"version": 0,
 						"case_type_id": "AAT",
 						"created_date": "2019-11-13T15:07:10.925"
 					},
 					{
-						"jurisdiction": "jur_4",
+						"id": "jur_4",
 						"state": "TODO",
 						"version": 0,
 						"case_type_id": "AAT",
@@ -43,19 +42,35 @@
 			"body": {
 				"collection": [
 					{
-						"jurisdiction": "jur_2",
-						"case_type_id": "AAT",
-						"created_date": "2019-11-13T15:07:10.925"
-					},
-					{
-						"jurisdiction": "jur_5",
+						"id": "jur_1",
 						"state": "TODO",
 						"version": 0,
 						"case_type_id": "AAT",
 						"created_date": "2019-11-13T15:07:10.925"
 					},
 					{
-						"jurisdiction": "jur_1",
+						"id": "jur_2",
+						"state": "TODO",
+						"version": 0,
+						"case_type_id": "AAT",
+						"created_date": "2019-11-13T15:07:10.925"
+					},
+					{
+						"id": "jur_3",
+						"state": "TODO",
+						"version": 0,
+						"case_type_id": "AAT",
+						"created_date": "2019-11-13T15:07:10.925"
+					},
+					{
+						"id": "jur_4",
+						"state": "TODO",
+						"version": 0,
+						"case_type_id": "AAT",
+						"created_date": "2019-11-13T15:07:10.925"
+					},
+					{
+						"id": "jur_5",
 						"state": "TODO",
 						"version": 0,
 						"case_type_id": "AAT",

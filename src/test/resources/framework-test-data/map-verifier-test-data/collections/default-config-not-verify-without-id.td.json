@@ -1,31 +1,31 @@
 {
-		"_guid_": "default-config-not-verify-incorrect-order",
+		"_guid_": "default-config-not-verify-without-id",
 		"expectedResponse": {
 			"body": {
 				"collection": [
 					{
-						"id": "jur_1",
+						"category": "AUTOTEST1_x",
 						"state": "TODO",
 						"version": 0,
 						"case_type_id": "AAT",
 						"created_date": "2019-11-13T15:07:10.925"
 					},
 					{
-						"id": "jur_2",
+						"category": "AUTOTEST2_x",
 						"state": "TODO",
 						"version": 0,
 						"case_type_id": "AAT",
 						"created_date": "2019-11-13T15:07:10.925"
 					},
 					{
-						"id": "jur_3",
+						"category": "AUTOTEST3_x",
 						"state": "TODO",
 						"version": 0,
 						"case_type_id": "AAT",
 						"created_date": "2019-11-13T15:07:10.925"
 					},
 					{
-						"id": "jur_4",
+						"category": "AUTOTEST4_x",
 						"state": "TODO",
 						"version": 0,
 						"case_type_id": "AAT",
@@ -38,28 +38,28 @@
 			"body": {
 				"collection": [
 					{
-						"id": "jur_1",
+						"category": "AUTOTEST1_x",
 						"state": "TODO",
 						"version": 0,
 						"case_type_id": "AAT",
 						"created_date": "2019-11-13T15:07:10.925"
 					},
 					{
-						"id": "jur_4",
+						"category": "AUTOTEST2_x",
 						"state": "TODO",
 						"version": 0,
 						"case_type_id": "AAT",
 						"created_date": "2019-11-13T15:07:10.925"
 					},
 					{
-						"id": "jur_2",
+						"category": "AUTOTEST3_x",
 						"state": "TODO",
 						"version": 0,
 						"case_type_id": "AAT",
 						"created_date": "2019-11-13T15:07:10.925"
 					},
 					{
-						"id": "jur_3",
+						"category": "AUTOTEST4_x",
 						"state": "TODO",
 						"version": 0,
 						"case_type_id": "AAT",

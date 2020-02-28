@@ -1,10 +1,10 @@
 {
-		"_guid_": "custom-config-without-id-field-verify-0",
+		"_guid_": "custom-config-subset-of-unordered-without-id-field-not-verify-actual-subset-0",
 		"expectedResponse": {
 			"body": {
 				"collection": [
 					{
-						"operator": "superset-of",
+						"operator": "subset-of",
 						"ordering": "unordered"
 					},
 					{
@@ -41,6 +41,27 @@
 		"actualResponse": {
 			"body": {
 				"collection": [
+					{
+						"id": "jur_1",
+						"state": "TODO",
+						"version": 0,
+						"case_type_id": "AAT",
+						"created_date": "2019-11-13T15:07:10.925"
+					},
+					{
+						"id": "jur_2",
+						"state": "TODO",
+						"version": 0,
+						"case_type_id": "AAT",
+						"created_date": "2019-11-13T15:07:10.925"
+					},
+					{
+						"id": "jur_3",
+						"state": "TODO",
+						"version": 0,
+						"case_type_id": "AAT",
+						"created_date": "2019-11-13T15:07:10.925"
+					}
 				]
 			}
 		}

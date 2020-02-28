@@ -871,19 +871,26 @@ public class MapVerifierTest {
             }
 
             @Test
+            @DisplayName("Should fail content that does not have id")
+            public void shouldFailContentThatDoesNotHaveId() {
+                assertVerificationErrors("default-config-not-verify-without-id",
+                                         "response contains a bad value: collection[1] contains a bad value: id: expected 'jur_2' but got 'jur_4'",
+                                         "response contains a bad value: collection[2] contains a bad value: id: expected 'jur_3' but got 'jur_2'",
+                                         "response contains a bad value: collection[3] contains a bad value: id: expected 'jur_4' but got 'jur_3'");
+            }
+
+            @Test
             @DisplayName("Should fail content that does not meet default ordering")
             public void shouldFailContentThatDoesNotMeetDefaultOrdering() {
-
                 assertVerificationErrors("default-config-not-verify-incorrect-order",
-                                         "response contains a bad value: collection[1] contains a bad value: jurisdiction: expected 'jur_2' but got 'jur_4'",
-                                         "response contains a bad value: collection[2] contains a bad value: jurisdiction: expected 'jur_3' but got 'jur_2'",
-                                         "response contains a bad value: collection[3] contains a bad value: jurisdiction: expected 'jur_4' but got 'jur_3'");
+                                         "response contains a bad value: collection[1] contains a bad value: id: expected 'jur_2' but got 'jur_4'",
+                                         "response contains a bad value: collection[2] contains a bad value: id: expected 'jur_3' but got 'jur_2'",
+                                         "response contains a bad value: collection[3] contains a bad value: id: expected 'jur_4' but got 'jur_3'");
             }
 
             @Test
             @DisplayName("Should fail content that is missing element")
             public void shouldFailContentThatIsMissingElement() {
-
                 assertVerificationErrors("default-config-not-verify-missing-element",
                                          "response contains a bad value: response.collection has unexpected number of elements. Expected: 4, but actual: 3.");
             }
@@ -901,7 +908,7 @@ public class MapVerifierTest {
                 assertVerificationErrors("default-config-not-verify-different-element",
                                          "response contains a bad value: collection[1].versionX is unexpected.",
                                          "response contains a bad value: collection[1].version is unavailable though it was expected to be there",
-                                         "response contains a bad value: collection[1] contains a bad value: jurisdiction: expected 'AUTOTEST1_x' but got 'AUTOTEST1_z'",
+                                         "response contains a bad value: collection[1] contains a bad value: id: expected 'AUTOTEST1_x' but got 'AUTOTEST1_z'",
                                          "response contains a bad value: collection[1] contains a bad value: state: expected 'TODO' but got 'TODOOO'");
             }
 
@@ -910,7 +917,7 @@ public class MapVerifierTest {
             public void shouldFailContentThatDoesNotMeetDefaultEquivalentOfOperatorDueToActualBeingASuperset() {
                 assertVerificationErrors("default-config-not-verify-actual-superset",
                                          "response contains a bad value: response.collection has unexpected number of elements. Expected: 3, but actual: 4.",
-                                         "response contains a bad value: collection[2] contains a bad value: jurisdiction: expected 'jur_4' but got 'jur_3'");
+                                         "response contains a bad value: collection[2] contains a bad value: id: expected 'jur_4' but got 'jur_3'");
             }
 
             @Test
@@ -920,7 +927,6 @@ public class MapVerifierTest {
                                          "response contains a bad value: response.collection has unexpected number of elements. Expected: 4, but actual: 3.",
                                          "response contains a bad value: collection[1] contains a bad value: id: expected 'jur_2' but got 'jur_3'",
                                          "response contains a bad value: collection[2] contains a bad value: id: expected 'jur_3' but got 'jur_4'");
-
             }
         }
 
@@ -929,39 +935,41 @@ public class MapVerifierTest {
         class OperatorProvided {
 
             @Test
-            @DisplayName("Should verify content that meets superset operator")
-            public void shouldVerifyContentThatMeetsSupersetOperator() {
-
+            @DisplayName("Should verify content that meets superset operator as actual being a subset")
+            public void shouldVerifyContentThatMeetsSupersetOperatorAsActualBeingASubset() {
+                assertVerificationValid("custom-config-superset-of-unordered-without-id-field-verify-actual-subset-0");
             }
 
             @Test
-            @DisplayName("Should fail content that does not meet superset operator due to actual being an equivalent-of")
-            public void shouldFailContentThatDoesNotMeetSupersetOperatorDueToActualBeingAnEquivalentOf() {
-
+            @DisplayName("Should verify content that meets superset operator as actual being an equivalent-of")
+            public void shouldFailContentThatMeetsSupersetOperatorAsActualBeingEquivalentOf() {
+                assertVerificationValid("custom-config-subset-of-unordered-without-id-field-verify-actual-equivalent-0");
             }
 
             @Test
-            @DisplayName("Should fail content that does not meet superset operator due to actual being a subset")
+            @DisplayName("Should fail content that does not meet superset operator due to actual being a superset")
             public void shouldFailContentThatDoesNotMeetDefaultEquivalentOfOperatorDueToActualBeingASubset() {
-
+                assertVerificationErrors("custom-config-superset-of-unordered-without-id-field-not-verify-actual-superset-0",
+                                         "response contains a bad value: response.collection is not a superset.");
             }
 
             @Test
-            @DisplayName("Should verify content that meets subset operator")
-            public void shouldVerifyContentThatMeetsSubsetOperator() {
-
+            @DisplayName("Should verify content that meets subset operator as actual being a superset")
+            public void shouldVerifyContentThatMeetsSubetOperatorAsActualBeingSuperset() {
+                assertVerificationValid("custom-config-subset-of-unordered-without-id-field-verify-actual-superset-0");
             }
 
             @Test
-            @DisplayName("Should fail content that does not meet subset operator due to actual being an equivalent-of")
-            public void shouldFailContentThatDoesNotMeetSubsetOperatorDueToActualBeingAnEquivalentOf() {
-
+            @DisplayName("Should verify content that meets subset operator as actual being an equivalent-of")
+            public void shouldVerifyContentThaMeetsSubsetOperatorAsActualBeingAnEquivalentOf() {
+                assertVerificationValid("custom-config-subset-of-unordered-without-id-field-verify-actual-equivalent-0");
             }
 
             @Test
-            @DisplayName("Should fail content that does not meet subset operator due to actual being a superset")
+            @DisplayName("Should fail content that does not meet subset operator due to actual being a subset")
             public void shouldFailContentThatDoesNotMeetSubsetOperatorDueToActualBeingASuperset() {
-
+                assertVerificationErrors("custom-config-subset-of-unordered-without-id-field-not-verify-actual-subset-0",
+                                         "response contains a bad value: response.collection is not a subset.");
             }
 
         }
@@ -1219,6 +1227,7 @@ public class MapVerifierTest {
         HttpTestData testData = getTestData(testDataId);
         MapVerificationResult result = verifyBodies(testData);
         if (issues.length == 0) {
+            System.out.println("all issues=" + result.getAllIssues());
             assertTrue(result.isVerified());
         } else {
             Assert.assertFalse(result.isVerified());
