@@ -934,44 +934,60 @@ public class MapVerifierTest {
         @DisplayName("Operator option provided")
         class OperatorProvided {
 
-            @Test
-            @DisplayName("Should verify content that meets superset operator as actual being a subset")
-            public void shouldVerifyContentThatMeetsSupersetOperatorAsActualBeingASubset() {
-                assertVerificationValid("custom-config-superset-of-unordered-without-id-field-verify-actual-subset-0");
+            @Nested
+            @DisplayName("Simple maps")
+            class SimpleMaps {
+
+                @Test
+                @DisplayName("Should verify content that meets superset operator as actual being a subset")
+                public void shouldVerifyContentThatMeetsSupersetOperatorAsActualBeingASubset() {
+                    assertVerificationValid("custom-config-superset-of-unordered-without-id-field-verify-actual-subset-0");
+                }
+
+                @Test
+                @DisplayName("Should verify content that meets superset operator as actual being an equivalent-of")
+                public void shouldFailContentThatMeetsSupersetOperatorAsActualBeingEquivalentOf() {
+                    assertVerificationValid("custom-config-subset-of-unordered-without-id-field-verify-actual-equivalent-0");
+                }
+
+                @Test
+                @DisplayName("Should fail content that does not meet superset operator due to actual being a superset")
+                public void shouldFailContentThatDoesNotMeetDefaultEquivalentOfOperatorDueToActualBeingASubset() {
+                    assertVerificationErrors("custom-config-superset-of-unordered-without-id-field-not-verify-actual-superset-0",
+                                             "response contains a bad value: response.collection is not a superset.");
+                }
+
+                @Test
+                @DisplayName("Should verify content that meets subset operator as actual being a superset")
+                public void shouldVerifyContentThatMeetsSubetOperatorAsActualBeingSuperset() {
+                    assertVerificationValid("custom-config-subset-of-unordered-without-id-field-verify-actual-superset-0");
+                }
+
+                @Test
+                @DisplayName("Should verify content that meets subset operator as actual being an equivalent-of")
+                public void shouldVerifyContentThaMeetsSubsetOperatorAsActualBeingAnEquivalentOf() {
+                    assertVerificationValid("custom-config-subset-of-unordered-without-id-field-verify-actual-equivalent-0");
+                }
+
+                @Test
+                @DisplayName("Should fail content that does not meet subset operator due to actual being a subset")
+                public void shouldFailContentThatDoesNotMeetSubsetOperatorDueToActualBeingASuperset() {
+                    assertVerificationErrors("custom-config-subset-of-unordered-without-id-field-not-verify-actual-subset-0",
+                                             "response contains a bad value: response.collection is not a subset.");
+                }
             }
 
-            @Test
-            @DisplayName("Should verify content that meets superset operator as actual being an equivalent-of")
-            public void shouldFailContentThatMeetsSupersetOperatorAsActualBeingEquivalentOf() {
-                assertVerificationValid("custom-config-subset-of-unordered-without-id-field-verify-actual-equivalent-0");
-            }
+            @Nested
+            @DisplayName("Nested arrays")
+            class NestedArrays {
 
-            @Test
-            @DisplayName("Should fail content that does not meet superset operator due to actual being a superset")
-            public void shouldFailContentThatDoesNotMeetDefaultEquivalentOfOperatorDueToActualBeingASubset() {
-                assertVerificationErrors("custom-config-superset-of-unordered-without-id-field-not-verify-actual-superset-0",
-                                         "response contains a bad value: response.collection is not a superset.");
-            }
+                @Test
+                @DisplayName("Should verify content that meets superset operator as actual being a subset")
+                public void shouldVerifyContentThatMeetsSupersetOperatorAsActualBeingASubset() {
+                    assertVerificationValid("custom-config-superset-of-unordered-without-id-field-verify-actual-subset-1");
+                }
 
-            @Test
-            @DisplayName("Should verify content that meets subset operator as actual being a superset")
-            public void shouldVerifyContentThatMeetsSubetOperatorAsActualBeingSuperset() {
-                assertVerificationValid("custom-config-subset-of-unordered-without-id-field-verify-actual-superset-0");
             }
-
-            @Test
-            @DisplayName("Should verify content that meets subset operator as actual being an equivalent-of")
-            public void shouldVerifyContentThaMeetsSubsetOperatorAsActualBeingAnEquivalentOf() {
-                assertVerificationValid("custom-config-subset-of-unordered-without-id-field-verify-actual-equivalent-0");
-            }
-
-            @Test
-            @DisplayName("Should fail content that does not meet subset operator due to actual being a subset")
-            public void shouldFailContentThatDoesNotMeetSubsetOperatorDueToActualBeingASuperset() {
-                assertVerificationErrors("custom-config-subset-of-unordered-without-id-field-not-verify-actual-subset-0",
-                                         "response contains a bad value: response.collection is not a subset.");
-            }
-
         }
 
         @Nested

@@ -137,20 +137,18 @@ public class MapVerifier {
         List<String> unavailableFields = checkForUnexpectedlyUnavailableFields(expectedMap, actualMap);
         List<MapVerificationResult> badSubmaps = Lists.newArrayList();
         List<String> badValueMessages = Lists.newArrayList();
-        if (matchers == null || matchers.isOrdered()) {
-            badValueMessages = collectBadValueMessagesFromMap(expectedMap,
-                                                                           actualMap,
-                                                                           fieldPrefix,
-                                                                           currentDepth,
-                                                                           maxMessageDepth,
-                                                                           matchers);
-            badSubmaps = collectBadSubMaps(expectedMap, actualMap, fieldPrefix,
-                                                                       currentDepth);
+        badValueMessages = collectBadValueMessagesFromMap(expectedMap,
+                                                                       actualMap,
+                                                                       fieldPrefix,
+                                                                       currentDepth,
+                                                                       maxMessageDepth,
+                                                                       matchers);
+        badSubmaps = collectBadSubMaps(expectedMap, actualMap, fieldPrefix,
+                                                                   currentDepth);
 
-            if (unexpectedFields.size() == 0 && unavailableFields.size() == 0 && badValueMessages.size() == 0
-                    && badSubmaps.size() == 0) {
-                return MapVerificationResult.minimalVerifiedResult(fieldPrefix, currentDepth, maxMessageDepth);
-            }
+        if (unexpectedFields.size() == 0 && unavailableFields.size() == 0 && badValueMessages.size() == 0
+                && badSubmaps.size() == 0) {
+            return MapVerificationResult.minimalVerifiedResult(fieldPrefix, currentDepth, maxMessageDepth);
         }
         return new MapVerificationResult(fieldPrefix, false, null, unexpectedFields,
                     unavailableFields,
@@ -244,6 +242,7 @@ public class MapVerifier {
             if (optionalMatchers.get().isSubsetOf()) {
                 Set expectedSet = new HashSet(expectedCollection);
                 Set actualSet = new HashSet(actualCollection);
+                // this does not take into account nested collections yet
                 if (!actualSet.containsAll(expectedSet)) {
                     badValueMessages.add(fieldPrefix + " is not a subset.");
                 }
@@ -251,6 +250,7 @@ public class MapVerifier {
             if (optionalMatchers.get().isSupersetOf()) {
                 Set expectedSet = new HashSet(expectedCollection);
                 Set actualSet = new HashSet(actualCollection);
+                // this does not take into account nested collections yet
                 if (!expectedSet.containsAll(actualSet)) {
                     badValueMessages.add(fieldPrefix + " is not a superset.");
                 }
