@@ -42,8 +42,7 @@ public class JsonFileStoreWithInheritanceTest {
         final JsonNode rootNode = fileStore.getRootNode();
         assertEquals(2, rootNode.size());
 
-        List<Object> ids = Arrays.asList(rootNode.get(0).get(ID_KEY).toString(),
-                rootNode.get(1).get(ID_KEY).toString());
+        List<Object> ids = Arrays.asList(rootNode.get(0).get(ID_KEY).asText(), rootNode.get(1).get(ID_KEY).asText());
 
         assertTrue(ids.contains(FILE_IN_ROOT_ID));
         assertTrue(ids.contains(FILE_IN_SUBDIRECTORY_ID));
