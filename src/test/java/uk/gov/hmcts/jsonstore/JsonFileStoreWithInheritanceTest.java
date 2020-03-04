@@ -1,14 +1,18 @@
 package uk.gov.hmcts.jsonstore;
 
+import static org.junit.Assert.assertEquals;
+import static uk.gov.hmcts.common.CommonAssertions.applyCommonAssertionsOnBasicData;
+import static uk.gov.hmcts.common.CommonAssertions.applyCommonAssertionsOnExtendedData;
+import static uk.gov.hmcts.common.CommonAssertions.applyCommonAssertionsOnOverriddenData;
+
+import org.junit.jupiter.api.Test;
+
 import com.fasterxml.jackson.databind.JsonNode;
-import org.junit.Test;
-import uk.gov.hmcts.befta.data.HttpTestData;
 
 import java.io.File;
 import java.net.URL;
 
-import static org.junit.Assert.assertEquals;
-import static uk.gov.hmcts.common.CommonAssertions.*;
+import uk.gov.hmcts.befta.data.HttpTestData;
 
 
 public class JsonFileStoreWithInheritanceTest {

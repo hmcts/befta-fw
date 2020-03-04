@@ -1,21 +1,5 @@
 package uk.gov.hmcts.befta.util;
 
-import com.google.common.collect.Maps;
-import org.junit.Assert;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
-import uk.gov.hmcts.befta.data.HttpTestData;
-import uk.gov.hmcts.befta.data.HttpTestDataSource;
-import uk.gov.hmcts.befta.data.JsonStoreHttpTestDataSource;
-
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.TreeMap;
-import java.util.concurrent.ConcurrentHashMap;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -38,6 +22,24 @@ import static uk.gov.hmcts.befta.util.ExpectedValuePlaceholder.ANY_STRING_NULLAB
 import static uk.gov.hmcts.befta.util.ExpectedValuePlaceholder.ANY_TIMESTAMP_NOT_NULLABLE;
 import static uk.gov.hmcts.befta.util.ExpectedValuePlaceholder.ANY_TIMESTAMP_NULLABLE;
 
+import org.junit.Assert;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+
+import com.google.common.collect.Maps;
+
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.concurrent.ConcurrentHashMap;
+
+import uk.gov.hmcts.befta.data.HttpTestData;
+import uk.gov.hmcts.befta.data.HttpTestDataSource;
+import uk.gov.hmcts.befta.data.JsonStoreHttpTestDataSource;
+
 
 public class MapVerifierTest {
 
@@ -47,7 +49,6 @@ public class MapVerifierTest {
             TEST_DATA_RESOURCE_PACKAGES);
     @Nested
     @DisplayName("Basic tests")
-
     class Basic {
 
         @Test
