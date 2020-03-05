@@ -4,28 +4,28 @@
 			"body": {
 				"collection": [
 					{
-						"category": "AUTOTEST1_x",
+						"jurisdiction": "jur_1",
 						"state": "TODO",
 						"version": 0,
 						"case_type_id": "AAT",
 						"created_date": "2019-11-13T15:07:10.925"
 					},
 					{
-						"category": "AUTOTEST2_x",
+						"jurisdiction": "jur_2",
 						"state": "TODO",
 						"version": 0,
 						"case_type_id": "AAT",
 						"created_date": "2019-11-13T15:07:10.925"
 					},
 					{
-						"category": "AUTOTEST3_x",
+						"jurisdiction": "jur_3",
 						"state": "TODO",
 						"version": 0,
 						"case_type_id": "AAT",
 						"created_date": "2019-11-13T15:07:10.925"
 					},
 					{
-						"category": "AUTOTEST4_x",
+						"jurisdiction": "jur_4",
 						"state": "TODO",
 						"version": 0,
 						"case_type_id": "AAT",
@@ -38,28 +38,28 @@
 			"body": {
 				"collection": [
 					{
-						"category": "AUTOTEST1_x",
+						"jurisdiction": "jur_1",
 						"state": "TODO",
 						"version": 0,
 						"case_type_id": "AAT",
 						"created_date": "2019-11-13T15:07:10.925"
 					},
 					{
-						"category": "AUTOTEST2_x",
+						"jurisdiction": "jur_4",
 						"state": "TODO",
 						"version": 0,
 						"case_type_id": "AAT",
 						"created_date": "2019-11-13T15:07:10.925"
 					},
 					{
-						"category": "AUTOTEST3_x",
+						"jurisdiction": "jur_2",
 						"state": "TODO",
 						"version": 0,
 						"case_type_id": "AAT",
 						"created_date": "2019-11-13T15:07:10.925"
 					},
 					{
-						"category": "AUTOTEST4_x",
+						"jurisdiction": "jur_3",
 						"state": "TODO",
 						"version": 0,
 						"case_type_id": "AAT",

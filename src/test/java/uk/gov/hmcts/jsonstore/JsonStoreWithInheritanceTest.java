@@ -58,7 +58,7 @@ public class JsonStoreWithInheritanceTest {
         HttpTestData extension = TEST_DATA_RESOURCE.getDataForTestCall("S-301");
 
         @SuppressWarnings("unchecked")
-        MapVerificationResult result = new MapVerifier("", 5).verifyMap(
+        MapVerificationResult result = new MapVerifier("", 2).verifyMap(
                 (Map<String, Object>) extension.getRequest().getBody().get("data"),
                 (Map<String, Object>) extension.getExpectedResponse().getBody().get("data"));
 

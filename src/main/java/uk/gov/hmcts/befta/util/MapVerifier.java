@@ -1,19 +1,20 @@
 package uk.gov.hmcts.befta.util;
 
-import com.google.common.collect.Lists;
+import static uk.gov.hmcts.befta.data.CollectionVerificationConfig.ELEMENT_ID_FIELD_NAME;
+import static uk.gov.hmcts.befta.data.CollectionVerificationConfig.OPERATOR_FIELD_NAME;
+import static uk.gov.hmcts.befta.data.CollectionVerificationConfig.ORDERING_FIELD_NAME;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static uk.gov.hmcts.befta.util.MapVerifier.Matchers.newMatchers;
+import uk.gov.hmcts.befta.data.CollectionVerificationConfig;
+import uk.gov.hmcts.befta.data.CollectionVerificationConfig.Operator;
+import uk.gov.hmcts.befta.data.CollectionVerificationConfig.Ordering;
 
 public class MapVerifier {
 
@@ -45,80 +46,12 @@ public class MapVerifier {
         this.caseSensitiveForStrings = caseSensitiveForStrings;
     }
 
-    public MapVerificationResult verifyMap(Map<String, Object> expectedMap,
-            Map<String, Object> actualMap) {
-        return verifyMap(fieldPrefix, expectedMap, actualMap, 0, null);
-    }
-
-    private static final String OPERATOR_KEY = "operator";
-    private static final String ORDERING_KEY = "ordering";
-    private static final String ELEMENT_ID_KEY = "elemenet-id";
-    enum Operator {
-        EQUIVALENT_OF("equivalent_of"), SUPERSET_OF("superset_of"), SUBSET_OF("subset_of");
-
-        private String name;
-
-        Operator(final String name) {
-            this.name = name;
-        }
-    }
-
-    enum Ordering {
-        ORDERED, UNORDERED
-    }
-
-    static class Matchers {
-        private Operator operator;
-        private Ordering ordering;
-        private String[] elementId;
-
-        private Matchers () {}
-
-        public static Matchers newMatchers(String operator, String ordering, String elementId) {
-            Matchers matchers = new Matchers();
-            switch (operator) {
-                case "superset-of":
-                    matchers.operator = Operator.SUPERSET_OF;
-                    break;
-                case "subset-of":
-                    matchers.operator = Operator.SUBSET_OF;
-                    break;
-                case "equivalent-of":
-                    matchers.operator = Operator.EQUIVALENT_OF;
-                    break;
-            }
-            matchers.ordering = Ordering.valueOf(ordering.toUpperCase());
-            matchers.elementId = Optional.ofNullable(elementId).map(elements -> elements.split(",")).orElse(new String[0]);
-            return matchers;
-        }
-
-        public boolean isSupersetOf() {
-            return operator == Operator.SUPERSET_OF;
-        }
-
-        public boolean isSubsetOf() {
-            return operator == Operator.SUBSET_OF;
-        }
-
-        public boolean isEquivalentOf() {
-            return operator == Operator.EQUIVALENT_OF;
-        }
-
-        public boolean isOrdered() {
-            return ordering == Ordering.ORDERED;
-        }
-
-        public boolean isUnordered() {
-            return ordering == Ordering.UNORDERED;
-        }
-
-        public static Matchers empty() {
-            return new Matchers();
-        }
+    public MapVerificationResult verifyMap(Map<String, Object> expectedMap, Map<String, Object> actualMap) {
+        return verifyMap(fieldPrefix, expectedMap, actualMap, 0);
     }
 
     private MapVerificationResult verifyMap(String fieldPrefix, Map<String, Object> expectedMap,
-        Map<String, Object> actualMap, int currentDepth, Matchers matchers) {
+            Map<String, Object> actualMap, int currentDepth) {
 
         boolean shouldReportAnyDifference = currentDepth <= maxMessageDepth;
 
@@ -126,7 +59,8 @@ public class MapVerifier {
             return MapVerificationResult.DEFAULT_VERIFIED;
         } else if (expectedMap == null) {
             return new MapVerificationResult(fieldPrefix, false,
-                shouldReportAnyDifference ? "Map is expected to be null, but is actually not." : null, currentDepth,  maxMessageDepth);
+                    shouldReportAnyDifference ? "Map is expected to be null, but is actually not." : null, currentDepth,
+                    maxMessageDepth);
         } else if (actualMap == null) {
             return new MapVerificationResult(fieldPrefix, false,
                     shouldReportAnyDifference ? "Map is expected to be non-null, but is actually null." : null,
@@ -135,42 +69,33 @@ public class MapVerifier {
 
         List<String> unexpectedFields = checkForUnexpectedlyAvailableFields(expectedMap, actualMap);
         List<String> unavailableFields = checkForUnexpectedlyUnavailableFields(expectedMap, actualMap);
-        List<MapVerificationResult> badSubmaps = Lists.newArrayList();
-        List<String> badValueMessages = Lists.newArrayList();
-        badValueMessages = collectBadValueMessagesFromMap(expectedMap,
-                                                                       actualMap,
-                                                                       fieldPrefix,
-                                                                       currentDepth,
-                                                                       maxMessageDepth,
-                                                                       matchers);
-        badSubmaps = collectBadSubMaps(expectedMap, actualMap, fieldPrefix,
-                                                                   currentDepth);
+        List<String> badValueMessages = collectBadValueMessagesFromMap(expectedMap, actualMap, fieldPrefix,
+                currentDepth, maxMessageDepth);
+        List<MapVerificationResult> badSubmaps = collectBadSubmaps(expectedMap, actualMap, fieldPrefix, currentDepth,
+                maxMessageDepth);
 
         if (unexpectedFields.size() == 0 && unavailableFields.size() == 0 && badValueMessages.size() == 0
                 && badSubmaps.size() == 0) {
             return MapVerificationResult.minimalVerifiedResult(fieldPrefix, currentDepth, maxMessageDepth);
         }
-        return new MapVerificationResult(fieldPrefix, false, null, unexpectedFields,
-                    unavailableFields,
-                    badValueMessages, badSubmaps, currentDepth, maxMessageDepth);
+        return new MapVerificationResult(fieldPrefix, false, null, unexpectedFields, unavailableFields,
+                badValueMessages, badSubmaps, currentDepth, maxMessageDepth);
     }
 
     @SuppressWarnings("unchecked")
-    private List<MapVerificationResult> collectBadSubMaps(Map<String, Object> expectedMap,
-                          Map<String, Object> actualMap, String fieldPrefix, int currentDepth) {
+    private List<MapVerificationResult> collectBadSubmaps(Map<String, Object> expectedMap,
+            Map<String, Object> actualMap, String fieldPrefix, int currentDepth, int maxMessageDepth) {
         ArrayList<MapVerificationResult> differences = new ArrayList<>();
-        expectedMap.keySet().stream().filter(actualMap::containsKey)
+        expectedMap.keySet().stream().filter(keyOfExpected -> actualMap.containsKey(keyOfExpected))
                 .forEach(commonKey -> {
                     Object expectedValue = expectedMap.get(commonKey);
                     Object actualValue = actualMap.get(commonKey);
                     if (expectedValue instanceof Map && actualValue instanceof Map) {
-                        MapVerificationResult subResult = verifyMap(fieldPrefix + "." + commonKey,
-                                                                    (Map<String, Object>) expectedValue,
-                                                                    (Map<String, Object>) actualValue,
-                                                                    currentDepth + 1,
-                                                                    Matchers.empty());
-                        if (!subResult.isVerified()) {
-                            differences.add(subResult);
+                        MapVerificationResult subresult = verifyMap(fieldPrefix + "." + commonKey,
+                                (Map<String, Object>) expectedValue, (Map<String, Object>) actualValue,
+                                currentDepth + 1);
+                        if (!subresult.isVerified()) {
+                            differences.add(subresult);
                         }
                     }
                 });
@@ -178,50 +103,45 @@ public class MapVerifier {
     }
 
     private List<String> checkForUnexpectedlyAvailableFields(Map<String, Object> expectedMap,
-                                                                    Map<String, Object> actualMap) {
+            Map<String, Object> actualMap) {
         return actualMap.keySet().stream().filter(keyOfActual -> !expectedMap.containsKey(keyOfActual))
                 .collect(Collectors.toList());
     }
 
     private List<String> checkForUnexpectedlyUnavailableFields(Map<String, Object> expectedMap,
-                                                                      Map<String, Object> actualMap) {
-        return expectedMap.keySet().stream().filter(keyOfExpected -> !actualMap.containsKey(keyOfExpected)
-                && isExpectedToBeAvailableInActual(expectedMap.get(keyOfExpected))).collect(Collectors.toList());
+            Map<String, Object> actualMap) {
+        return expectedMap.keySet().stream()
+                .filter(keyOfExpected -> !actualMap.containsKey(keyOfExpected)
+                        && isExpectedToBeAvailableInActual(expectedMap.get(keyOfExpected)))
+                .collect(Collectors.toList());
     }
 
-    private List<String> collectBadValueMessagesFromMap(Map<String, Object> expectedMap,
-            Map<String, Object> actualMap,
-            String fieldPrefix, int currentDepth, int maxMessageDepth,
-            Matchers matchers) {
+    private List<String> collectBadValueMessagesFromMap(Map<String, Object> expectedMap, Map<String, Object> actualMap,
+            String fieldPrefix, int currentDepth, int maxMessageDepth) {
         List<String> badValueMessages = new ArrayList<>();
-        expectedMap.keySet().stream().filter(actualMap::containsKey)
+        expectedMap.keySet().stream().filter(keyOfExpected -> actualMap.containsKey(keyOfExpected))
                 .forEach(commonKey -> {
                     Object expectedValue = expectedMap.get(commonKey);
                     Object actualValue = actualMap.get(commonKey);
-                    if (expectedValue != actualValue) {
-                        if (expectedValue == null) {
-                            badValueMessages.add("Must be null: " + commonKey);
-                        } else if (actualValue == null && isNonNullablePlaceholder(expectedValue)) {
-                            badValueMessages.add("Must not be null: " + commonKey);
-                        } else if (!(expectedValue instanceof Map && actualValue instanceof Map)) {
-                            if (expectedValue instanceof Collection<?> && actualValue instanceof Collection<?>) {
-                                collectBadValueMessagesFromCollection(fieldPrefix + "." + commonKey,
-                                                                      commonKey,
-                                                                      (Collection<?>) expectedValue,
-                                                                      (Collection<?>) actualValue,
-                                                                      currentDepth,
-                                                                      maxMessageDepth,
-                                                                      badValueMessages,
-                                                                      matchers);
-                            } else {
-                                Object outcome = compareValues(commonKey, expectedValue, actualValue,
-                                    currentDepth, maxMessageDepth);
-                                if (!Boolean.TRUE.equals(outcome)) {
-                                    if (outcome instanceof String) {
-                                        badValueMessages.add((String) outcome);
-                                    } else {
-                                        badValueMessages.add(fieldPrefix + "." + commonKey);
-                                    }
+                    if (expectedValue == actualValue) {
+                        //
+                    } else if (expectedValue == null) {
+                        badValueMessages.add("Must be null: " + commonKey);
+                    } else if (actualValue == null && isNoneNullablePlaceholder(expectedValue)) {
+                        badValueMessages.add("Must not be null: " + commonKey);
+                    } else if (!(expectedValue instanceof Map && actualValue instanceof Map)) {
+                        if (expectedValue instanceof Collection<?> && actualValue instanceof Collection<?>) {
+                            collectBadValueMessagesFromCollection(fieldPrefix + "." + commonKey, commonKey,
+                                    (Collection<?>) expectedValue, (Collection<?>) actualValue, currentDepth,
+                                    maxMessageDepth, badValueMessages);
+                        } else {
+                            Object outcome = compareValues(commonKey, expectedValue, actualValue, currentDepth,
+                                    maxMessageDepth);
+                            if (!Boolean.TRUE.equals(outcome)) {
+                                if (outcome instanceof String) {
+                                    badValueMessages.add((String) outcome);
+                                } else {
+                                    badValueMessages.add(fieldPrefix + "." + commonKey);
                                 }
                             }
                         }
@@ -230,100 +150,141 @@ public class MapVerifier {
         return badValueMessages;
     }
 
-    @SuppressWarnings("unchecked")
     private void collectBadValueMessagesFromCollection(String fieldPrefix, String field,
-                                                       Collection<?> expectedCollection, Collection<?> actualCollection,
-                                                       int currentDepth, int maxMessageDepth,
-                                                       List<String> badValueMessages, Matchers matchers) {
-        Iterator<?> e1 = expectedCollection.iterator();
-        Optional<Matchers> optionalMatchers = returnMatchersIfExist((LinkedHashMap) e1.next());
-        if (optionalMatchers.isPresent() && optionalMatchers.get().isUnordered()) {
-            e1.remove();
-            if (optionalMatchers.get().isSubsetOf()) {
-                Set expectedSet = new HashSet(expectedCollection);
-                Set actualSet = new HashSet(actualCollection);
-                // this does not take into account nested collections yet
-                if (!actualSet.containsAll(expectedSet)) {
-                    badValueMessages.add(fieldPrefix + " is not a subset.");
-                }
-            }
-            if (optionalMatchers.get().isSupersetOf()) {
-                Set expectedSet = new HashSet(expectedCollection);
-                Set actualSet = new HashSet(actualCollection);
-                // this does not take into account nested collections yet
-                if (!expectedSet.containsAll(actualSet)) {
-                    badValueMessages.add(fieldPrefix + " is not a superset.");
-                }
-            }
-        }
-
-        Iterator<?> e2 = actualCollection.iterator();
+            Collection<?> expectedCollection, Collection<?> actualCollection, int currentDepth, int maxMessageDepth,
+            List<String> badValueMessages) {
+        if (expectedCollection == actualCollection)
+            return;
+        CollectionVerificationConfig verificationConfig = getVerificationConfigFrom(expectedCollection);
+        addAnySizeBasedIssue(fieldPrefix, expectedCollection, actualCollection, verificationConfig, badValueMessages);
+        Iterator<?> itrExpected = expectedCollection.iterator();
+        if (!verificationConfig.isDefault())
+            itrExpected.next();
+        Iterator<?> itrActual = actualCollection.iterator();
         int i = 0;
-        if (isEquivalentOf(optionalMatchers) && expectedCollection.size() != actualCollection.size()) {
-            badValueMessages.add(fieldPrefix + " has unexpected number of elements. Expected: "
-                    + expectedCollection.size() + ", but actual: " + actualCollection.size() + ".");
-        }
-        while (e1.hasNext() && e2.hasNext()) {
-            Object o1 = e1.next();
-            Object o2 = e2.next();
-            String subField = field + "[" + i + "]";
-            if (o1 instanceof Map && o2 instanceof Map) {
-                MapVerificationResult subResult = verifyMap(subField, (Map<String, Object>) o1,
-                        (Map<String, Object>) o2,
-                        currentDepth + 1,
-                        optionalMatchers.orElseGet(Matchers::empty));
-                if (!subResult.isVerified()) {
-                    badValueMessages.addAll(subResult.getAllIssues());
-                }
-            } else if (o1 instanceof Collection && o2 instanceof Collection) {
-                collectBadValueMessagesFromCollection(fieldPrefix,
-                                                      subField,
-                                                      (Collection<?>) o1,
-                                                      (Collection<?>) o2,
-                                                      currentDepth + 1,
-                                                      maxMessageDepth,
-                                                      badValueMessages,
-                                                      matchers);
-            } else {
-                Object outcome = compareValues(subField, o1, o2, currentDepth + 1, maxMessageDepth);
-                if (!Boolean.TRUE.equals(outcome)) {
-                    if (outcome instanceof String) {
-                        badValueMessages.add((String) outcome);
-                    } else {
-                        badValueMessages.add(subField);
-                    }
-                }
-
-            }
+        while (itrExpected.hasNext() && itrActual.hasNext()) {
+            Object o1 = itrExpected.next();
+            Object o2 = pickItemToCompareWith(o1, actualCollection, itrActual, verificationConfig);
+            String subfield = getSubfieldFor(field, verificationConfig, i, o1);
+            applyVerificationOnCollectionElements(o1, o2, fieldPrefix, subfield, currentDepth, maxMessageDepth,
+                    badValueMessages);
             i++;
         }
     }
 
-    private boolean isEquivalentOf(final Optional<Matchers> optionalMatchers) {
-        return !optionalMatchers.isPresent() || optionalMatchers.get().isEquivalentOf();
+    private String getSubfieldFor(String field, CollectionVerificationConfig verificationConfig, int index,
+            Object objectWorkedOn) {
+        if (verificationConfig.getOrdering() == Ordering.ORDERED)
+            return field + "[" + index + "]";
+        else
+            return field + "[" + getIdValueIn(objectWorkedOn, verificationConfig.getElementId()) + "]";
     }
 
-    private Optional<Matchers> returnMatchersIfExist(final LinkedHashMap firstElementFromExpected) {
-        Optional<Matchers> optionalMatchers = Optional.empty();
-        if (hasAnyCollectionMatchers( firstElementFromExpected)) {
-            String operator = (String) firstElementFromExpected.get(OPERATOR_KEY);
-            String ordering = (String) firstElementFromExpected.get(ORDERING_KEY);
-            String elementId = (String) firstElementFromExpected.get(ELEMENT_ID_KEY);
-            optionalMatchers = Optional.of(newMatchers(operator, ordering, elementId));
+    private Object getIdValueIn(Object objectWorkedOn, String elementId) {
+        try {
+            return ReflectionUtils.deepGetFieldInObject(objectWorkedOn, elementId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
-        return optionalMatchers;
     }
 
-    private boolean hasAnyCollectionMatchers(final LinkedHashMap firstElementFromExpected) {
-        return firstElementFromExpected.get(OPERATOR_KEY) != null
-        || firstElementFromExpected.get(ORDERING_KEY) != null
-        || firstElementFromExpected.get(ELEMENT_ID_KEY) != null;
+    @SuppressWarnings("unchecked")
+    private void applyVerificationOnCollectionElements(Object o1, Object o2, String fieldPrefix2, String subfield,
+            int currentDepth, int maxMessageDepth, List<String> badValueMessages) {
+        if (o1 instanceof Map && o2 instanceof Map) {
+            MapVerificationResult subresult = verifyMap(subfield, (Map<String, Object>) o1, (Map<String, Object>) o2,
+                    currentDepth + 1);
+            if (!subresult.isVerified()) {
+                badValueMessages.addAll(subresult.getAllIssues());
+            }
+        } else if (o1 instanceof Collection && o2 instanceof Collection) {
+            collectBadValueMessagesFromCollection(fieldPrefix, subfield, (Collection<?>) o1, (Collection<?>) o2,
+                    currentDepth + 1, maxMessageDepth, badValueMessages);
+        } else {
+            Object outcome = compareValues(subfield, o1, o2, currentDepth + 1, maxMessageDepth);
+            if (!Boolean.TRUE.equals(outcome)) {
+                if (outcome instanceof String) {
+                    badValueMessages.add((String) outcome);
+                } else {
+                    badValueMessages.add(subfield);
+                }
+            }
+
+        }
     }
 
-    private Object compareValues(String commonKey, Object expectedValue,
-            Object actualValue, int currentDepth, int maxMessageDepth) {
+    private void addAnySizeBasedIssue(String fieldPrefix, Collection<?> expectedCollection,
+            Collection<?> actualCollection, CollectionVerificationConfig verificationConfig,
+            List<String> badValueMessages) {
+
+        int expectedCount = expectedCollection.size() - (verificationConfig.isDefault() ? 0 : 1);
+        int actualCount = actualCollection.size();
+
+        switch (verificationConfig.getOperator()) {
+        case EQUIVALENT:
+            if (actualCount != expectedCount) {
+                badValueMessages.add(fieldPrefix + " has unexpected number of elements. Expected: "
+                        + expectedCollection.size() + ", but actual: " + actualCollection.size() + ".");
+            }
+            break;
+        case SUBSET:
+            if (actualCount > expectedCount) {
+                badValueMessages.add(fieldPrefix + " has unexpected number of elements. Expected <= "
+                        + expectedCollection.size() + ", but actual: " + actualCollection.size() + ".");
+            }
+            break;
+        case SUPERSET:
+            if (actualCount < expectedCount) {
+                badValueMessages.add(fieldPrefix + " has unexpected number of elements. Expected >= "
+                        + expectedCollection.size() + ", but actual: " + actualCollection.size() + ".");
+            }
+            break;
+        }
+    }
+
+    private Object pickItemToCompareWith(Object o1, Collection<?> collection, Iterator<?> iterator,
+            CollectionVerificationConfig verificationConfig) {
+        if (verificationConfig.getOrdering() == Ordering.ORDERED)
+            return iterator.next();
+        else {
+            return collection.stream()
+                    .filter(element -> Objects.equals(getIdValueIn(element, verificationConfig.getElementId()),
+                            getIdValueIn(o1, verificationConfig.getElementId())))
+                    .findFirst().orElse(null);
+        }
+    }
+
+    private CollectionVerificationConfig getVerificationConfigFrom(Collection<?> collection) {
+        if (collection == null || collection.isEmpty())
+            return CollectionVerificationConfig.DEFAULT;
+        Object firstElement = collection.iterator().next();
+        if (firstElement instanceof CollectionVerificationConfig)
+            return (CollectionVerificationConfig) firstElement;
+        if (firstElement instanceof Map<?, ?>) {
+            Map<?, ?> firstMap = (Map<?, ?>) firstElement;
+            if (firstMap.containsKey(OPERATOR_FIELD_NAME) || firstMap.containsKey(ORDERING_FIELD_NAME)
+                    || firstMap.containsKey(ELEMENT_ID_FIELD_NAME)) {
+                CollectionVerificationConfig config = new CollectionVerificationConfig();
+                Operator operator = Operator.of((String) firstMap.get(OPERATOR_FIELD_NAME));
+                if (operator != null)
+                    config.setOperator(operator);
+                Ordering ordering = Ordering.of((String) firstMap.get(ORDERING_FIELD_NAME));
+                if (ordering != null)
+                    config.setOrdering(ordering);
+                String idString = (String) firstMap.get(ELEMENT_ID_FIELD_NAME);
+                if (idString != null)
+                    config.setElementId(idString);
+                return config;
+            }
+        }
+        return CollectionVerificationConfig.DEFAULT;
+    }
+
+    private Object compareValues(String commonKey, Object expectedValue, Object actualValue, int currentDepth,
+            int maxMessageDepth) {
         boolean justCompare = currentDepth > maxMessageDepth;
-        if(actualAcceptedByPlaceholder(expectedValue, actualValue)) {
+        if (actualAcceptedByPlaceholder(expectedValue, actualValue)) {
             return Boolean.TRUE;
         } else if (expectedValue == actualValue) {
             return Boolean.TRUE;
@@ -351,7 +312,8 @@ public class MapVerifier {
 
     private boolean isExpectedToBeAvailableInActual(Object expectedValue) {
         if (expectedValue instanceof String) {
-            ExpectedValuePlaceholder expectedValuePlaceholder = ExpectedValuePlaceholder.getByValue((String) expectedValue);
+            ExpectedValuePlaceholder expectedValuePlaceholder = ExpectedValuePlaceholder
+                    .getByValue((String) expectedValue);
             if (expectedValuePlaceholder != null) {
                 return !expectedValuePlaceholder.isNullable();
             }
@@ -368,20 +330,21 @@ public class MapVerifier {
 
     private boolean isNullablePlaceholder(String strExpectedValue) {
         ExpectedValuePlaceholder expectedValuePlaceholder = ExpectedValuePlaceholder.getByValue(strExpectedValue);
-        return expectedValuePlaceholder != null && expectedValuePlaceholder.isNullable();
+        return expectedValuePlaceholder == null ? true : expectedValuePlaceholder.isNullable();
     }
 
-    private boolean isNonNullablePlaceholder(Object value) {
+    private boolean isNoneNullablePlaceholder(Object value) {
         if (!(value instanceof String)) {
             return false;
         }
         ExpectedValuePlaceholder expectedValuePlaceholder = ExpectedValuePlaceholder.getByValue((String) value);
-        return expectedValuePlaceholder != null && !expectedValuePlaceholder.isNullable();
+        return expectedValuePlaceholder == null ? true : !expectedValuePlaceholder.isNullable();
     }
 
     private boolean actualAcceptedByPlaceholder(Object expectedValue, Object actualValue) {
         if (expectedValue instanceof String) {
-            ExpectedValuePlaceholder expectedValuePlaceholder = ExpectedValuePlaceholder.getByValue((String) expectedValue);
+            ExpectedValuePlaceholder expectedValuePlaceholder = ExpectedValuePlaceholder
+                    .getByValue((String) expectedValue);
             if (expectedValuePlaceholder != null) {
                 return expectedValuePlaceholder.accepts(actualValue);
             }

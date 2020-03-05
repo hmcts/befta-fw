@@ -40,13 +40,13 @@ import uk.gov.hmcts.befta.data.HttpTestData;
 import uk.gov.hmcts.befta.data.HttpTestDataSource;
 import uk.gov.hmcts.befta.data.JsonStoreHttpTestDataSource;
 
-
 public class MapVerifierTest {
 
     private static final String[] TEST_DATA_RESOURCE_PACKAGES = {
             "framework-test-data/map-verifier-test-data/collections" };
     private static final HttpTestDataSource TEST_DATA_RESOURCE = new JsonStoreHttpTestDataSource(
             TEST_DATA_RESOURCE_PACKAGES);
+
     @Nested
     @DisplayName("Basic tests")
     class Basic {
@@ -71,15 +71,15 @@ public class MapVerifierTest {
         @Test
         void shouldNotVerifyNullVsNonNull() {
             MapVerificationResult result = new MapVerifier("", 999).verifyMap(new HashMap<String, Object>(), null);
-            Assert.assertArrayEquals(new Object[]{"Map is expected to be non-null, but is actually null."},
-                                     result.getAllIssues().toArray());
+            Assert.assertArrayEquals(new Object[] { "Map is expected to be non-null, but is actually null." },
+                    result.getAllIssues().toArray());
         }
 
         @Test
         void shouldNotVerifyNonNullVsNull() {
             MapVerificationResult result = new MapVerifier("", 999).verifyMap(null, new HashMap<String, Object>());
-            Assert.assertArrayEquals(new Object[]{"Map is expected to be null, but is actually not."},
-                                     result.getAllIssues().toArray());
+            Assert.assertArrayEquals(new Object[] { "Map is expected to be null, but is actually not." },
+                    result.getAllIssues().toArray());
         }
 
         @Test
@@ -98,7 +98,6 @@ public class MapVerifierTest {
             assertTrue(result.isVerified());
         }
     }
-
 
     @Nested
     @DisplayName("Wildcard tests")
@@ -327,7 +326,6 @@ public class MapVerifierTest {
             assertFalse(result.isVerified());
         }
 
-
         @Test
         public void shouldVerifyContentWithWildcardAnyTimestamp() {
             Map<String, Object> expected = new HashMap<>();
@@ -363,7 +361,6 @@ public class MapVerifierTest {
             assertEquals(1, result.getAllIssues().size());
             assertFalse(result.isVerified());
         }
-
 
         @Test
         public void shouldVerifyContentWithWildcardAnyString() {
@@ -605,7 +602,8 @@ public class MapVerifierTest {
 
             actual.put("vary", "AccEpt-EncoDing");
 
-            MapVerificationResult result = new MapVerifier("actualResponse.headers", 1, false).verifyMap(expected, actual);
+            MapVerificationResult result = new MapVerifier("actualResponse.headers", 1, false).verifyMap(expected,
+                    actual);
             assertEquals(0, result.getAllIssues().size());
             assertTrue(result.isVerified());
         }
@@ -632,15 +630,13 @@ public class MapVerifierTest {
 
             actual.put("key1", "value1");
             MapVerificationResult result = new MapVerifier("actualResponse.body", 0).verifyMap(expected, actual);
-            Assert.assertArrayEquals(new Object[]{
-                    "actualResponse.body has unexpected field(s): [key1]"
-            }, result.getAllIssues().toArray());
+            Assert.assertArrayEquals(new Object[] { "actualResponse.body has unexpected field(s): [key1]" },
+                    result.getAllIssues().toArray());
 
             actual.put("number", 15);
             result = new MapVerifier("actualResponse.body", 0).verifyMap(expected, actual);
-            Assert.assertArrayEquals(new Object[]{
-                    "actualResponse.body has unexpected field(s): [key1, number]"
-            }, result.getAllIssues().toArray());
+            Assert.assertArrayEquals(new Object[] { "actualResponse.body has unexpected field(s): [key1, number]" },
+                    result.getAllIssues().toArray());
         }
 
         @Test
@@ -650,15 +646,16 @@ public class MapVerifierTest {
 
             expected.put("key1", "value1");
             MapVerificationResult result = new MapVerifier("actualResponse.body", 0).verifyMap(expected, actual);
-            Assert.assertArrayEquals(new Object[]{
-                    "actualResponse.body lacks [key1] field(s) that was/were actually expected to be there."
-            }, result.getAllIssues().toArray());
+            Assert.assertArrayEquals(
+                    new Object[] {
+                            "actualResponse.body lacks [key1] field(s) that was/were actually expected to be there." },
+                    result.getAllIssues().toArray());
 
             expected.put("number", 15);
             result = new MapVerifier("actualResponse.body", 0).verifyMap(expected, actual);
-            Assert.assertArrayEquals(new Object[]{
-                    "actualResponse.body lacks [key1, number] field(s) that was/were actually expected to be there."
-            }, result.getAllIssues().toArray());
+            Assert.assertArrayEquals(new Object[] {
+                    "actualResponse.body lacks [key1, number] field(s) that was/were actually expected to be there." },
+                    result.getAllIssues().toArray());
         }
 
         @Test
@@ -671,18 +668,17 @@ public class MapVerifierTest {
             expected.put("key20", "samevalue");
             actual.put("key21", "samevalue");
             MapVerificationResult result = new MapVerifier("actualResponse.body", 0).verifyMap(expected, actual);
-            Assert.assertArrayEquals(new Object[]{
-                    "actualResponse.body has unexpected field(s): [key21]",
-                    "actualResponse.body lacks [key20] field(s) that was/were actually expected to be there."
-            }, result.getAllIssues().toArray());
+            Assert.assertArrayEquals(
+                    new Object[] { "actualResponse.body has unexpected field(s): [key21]",
+                            "actualResponse.body lacks [key20] field(s) that was/were actually expected to be there." },
+                    result.getAllIssues().toArray());
 
             expected.put("key30", "samevalue");
             actual.put("key31", "samevalue");
             result = new MapVerifier("actualResponse.body", 0).verifyMap(expected, actual);
-            Assert.assertArrayEquals(new Object[]{
-                    "actualResponse.body has unexpected field(s): [key21, key31]",
-                    "actualResponse.body lacks [key20, key30] field(s) that was/were actually expected to be there."
-            }, result.getAllIssues().toArray());
+            Assert.assertArrayEquals(new Object[] { "actualResponse.body has unexpected field(s): [key21, key31]",
+                    "actualResponse.body lacks [key20, key30] field(s) that was/were actually expected to be there." },
+                    result.getAllIssues().toArray());
         }
 
         @Test
@@ -696,27 +692,26 @@ public class MapVerifierTest {
             actual.put("key2", "value2_bad");
             MapVerificationResult result = new MapVerifier("actualResponse.body", 0).verifyMap(expected, actual);
             assertFalse(result.isVerified());
-            Assert.assertArrayEquals(new Object[]{
-                    "actualResponse.body contains 1 bad value(s): [key2: expected 'value2' but got 'value2_bad']"
-            }, result.getAllIssues().toArray());
+            Assert.assertArrayEquals(new Object[] {
+                    "actualResponse.body contains 1 bad value(s): [key2: expected 'value2' but got 'value2_bad']" },
+                    result.getAllIssues().toArray());
 
             expected.put("key3", "value3");
             actual.put("key3", "value3_bad");
             result = new MapVerifier("actualResponse.body", 0).verifyMap(expected, actual);
-            Assert.assertArrayEquals(new Object[]{
+            Assert.assertArrayEquals(new Object[] {
                     "actualResponse.body contains 2 bad value(s): [key2: expected 'value2' but got 'value2_bad', "
-                            + "key3: expected 'value3' but got 'value3_bad']"
-            }, result.getAllIssues().toArray());
+                            + "key3: expected 'value3' but got 'value3_bad']" },
+                    result.getAllIssues().toArray());
 
             expected.put("key30", "samevalue");
             actual.put("key31", "samevalue");
             result = new MapVerifier("actualResponse.body", 0).verifyMap(expected, actual);
-            Assert.assertArrayEquals(new Object[]{
-                    "actualResponse.body has unexpected field(s): [key31]",
+            Assert.assertArrayEquals(new Object[] { "actualResponse.body has unexpected field(s): [key31]",
                     "actualResponse.body lacks [key30] field(s) that was/were actually expected to be there.",
                     "actualResponse.body contains 2 bad value(s): [key2: expected 'value2' but got 'value2_bad', "
-                            + "key3: expected 'value3' but got 'value3_bad']"
-            }, result.getAllIssues().toArray());
+                            + "key3: expected 'value3' but got 'value3_bad']" },
+                    result.getAllIssues().toArray());
         }
     }
 
@@ -774,13 +769,13 @@ public class MapVerifierTest {
             subsubmap2.put("subsubmapfield3b", "subsubmapfield3");
 
             MapVerificationResult result = new MapVerifier("actualResponse.body", 0).verifyMap(expected, actual);
-            Assert.assertArrayEquals(new Object[]{
+            Assert.assertArrayEquals(new Object[] {
                     "actualResponse.body.submap.subsubmap has unexpected field(s): [subsubmapfield3b]",
                     "actualResponse.body.submap.subsubmap lacks [subsubmapfield3a] field(s) that was/were actually "
                             + "expected to be there.",
                     "actualResponse.body.submap.subsubmap contains 2 bad value(s): [actualResponse.body.submap"
-                            + ".subsubmap.subsubmapfield1, actualResponse.body.submap.subsubmap.subsubmapfield2]"
-            }, result.getAllIssues().toArray());
+                            + ".subsubmap.subsubmapfield1, actualResponse.body.submap.subsubmap.subsubmapfield2]" },
+                    result.getAllIssues().toArray());
 
             assertFalse(result.isVerified());
         }
@@ -799,17 +794,17 @@ public class MapVerifierTest {
         public void shouldVerifyABigRealResponseBodyAgainstItselfWithoutWildcards() {
 
             HashMap<String, Object> expected = (HashMap<String, Object>) TEST_DATA_RESOURCE
-                    .getDataForTestCall("HttpTestData-with-a-Big-ExpectedResponseBody_expected")
-                    .getExpectedResponse().getBody();
+                    .getDataForTestCall("HttpTestData-with-a-Big-ExpectedResponseBody_expected").getExpectedResponse()
+                    .getBody();
             HashMap<String, Object> actual = (HashMap<String, Object>) TEST_DATA_RESOURCE
-                    .getDataForTestCall("HttpTestData-with-a-Big-ExpectedResponseBody_actual")
-                    .getExpectedResponse().getBody();
+                    .getDataForTestCall("HttpTestData-with-a-Big-ExpectedResponseBody_actual").getExpectedResponse()
+                    .getBody();
 
             MapVerificationResult result = new MapVerifier("actualResponse.body", 5).verifyMap(expected, actual);
-            Assert.assertArrayEquals(new Object[]{
+            Assert.assertArrayEquals(new Object[] {
                     "actualResponse.body.user contains a bad value: idam[0] contains a bad value: jurisdiction: "
-                            + "expected 'AUTOTEST1' but got 'AUTOTEST1_x'"
-            }, result.getAllIssues().toArray());
+                            + "expected 'AUTOTEST1' but got 'AUTOTEST1_x'" },
+                    result.getAllIssues().toArray());
 
             assertFalse(result.isVerified());
         }
@@ -835,16 +830,15 @@ public class MapVerifierTest {
         @DisplayName("Should fail for collections of different sizes")
         public void shouldFailForCollectionsOfDifferentSizes() {
             Map<String, Object> expected = TEST_DATA_RESOURCE.getDataForTestCall("MapWithArray_expected")
-                    .getExpectedResponse()
-                    .getBody();
-            Map<String, Object> actual = TEST_DATA_RESOURCE.getDataForTestCall("MapWithArray_actual").getExpectedResponse()
-                    .getBody();
+                    .getExpectedResponse().getBody();
+            Map<String, Object> actual = TEST_DATA_RESOURCE.getDataForTestCall("MapWithArray_actual")
+                    .getExpectedResponse().getBody();
 
             MapVerificationResult result = new MapVerifier("actualResponse.body", 5).verifyMap(expected, actual);
 
-            Assert.assertArrayEquals(new Object[]{
-                                             "actualResponse.body.details contains a bad value: actualResponse.body.details.field_errors has unexpected number of elements. Expected: 1, but actual: 2."},
-                                     result.getAllIssues().toArray());
+            Assert.assertArrayEquals(new Object[] {
+                    "actualResponse.body.details contains a bad value: actualResponse.body.details.field_errors has unexpected number of elements. Expected: 1, but actual: 2." },
+                    result.getAllIssues().toArray());
 
         }
     }
@@ -868,66 +862,66 @@ public class MapVerifierTest {
             @Test
             @DisplayName("Should verify response with default options")
             public void shouldVerifyResponseWithDefaultOptions() {
-                assertVerificationValid("default-config-verify");
+                assertVerificationWithoutIssues("default-config-verify");
             }
 
             @Test
             @DisplayName("Should fail content that does not have id")
             public void shouldFailContentThatDoesNotHaveId() {
                 assertVerificationErrors("default-config-not-verify-without-id",
-                                         "response contains a bad value: collection[1] contains a bad value: id: expected 'jur_2' but got 'jur_4'",
-                                         "response contains a bad value: collection[2] contains a bad value: id: expected 'jur_3' but got 'jur_2'",
-                                         "response contains a bad value: collection[3] contains a bad value: id: expected 'jur_4' but got 'jur_3'");
+                        "response.body contains a bad value: collection[1] contains a bad value: jurisdiction: expected 'jur_2' but got 'jur_4'",
+                        "response.body contains a bad value: collection[2] contains a bad value: jurisdiction: expected 'jur_3' but got 'jur_2'",
+                        "response.body contains a bad value: collection[3] contains a bad value: jurisdiction: expected 'jur_4' but got 'jur_3'");
             }
 
             @Test
             @DisplayName("Should fail content that does not meet default ordering")
             public void shouldFailContentThatDoesNotMeetDefaultOrdering() {
                 assertVerificationErrors("default-config-not-verify-incorrect-order",
-                                         "response contains a bad value: collection[1] contains a bad value: id: expected 'jur_2' but got 'jur_4'",
-                                         "response contains a bad value: collection[2] contains a bad value: id: expected 'jur_3' but got 'jur_2'",
-                                         "response contains a bad value: collection[3] contains a bad value: id: expected 'jur_4' but got 'jur_3'");
+                        "response.body contains a bad value: collection[1] contains a bad value: id: expected 'jur_2' but got 'jur_4'",
+                        "response.body contains a bad value: collection[2] contains a bad value: id: expected 'jur_3' but got 'jur_2'",
+                        "response.body contains a bad value: collection[3] contains a bad value: id: expected 'jur_4' but got 'jur_3'");
             }
 
             @Test
             @DisplayName("Should fail content that is missing element")
             public void shouldFailContentThatIsMissingElement() {
                 assertVerificationErrors("default-config-not-verify-missing-element",
-                                         "response contains a bad value: response.collection has unexpected number of elements. Expected: 4, but actual: 3.");
+                        "response.body contains a bad value: response.body.collection has unexpected number of elements. Expected: 4, but actual: 3.");
             }
 
             @Test
             @DisplayName("Should fail content that has extra element")
             public void shouldFailContentDueToExtraElement() {
                 assertVerificationErrors("default-config-not-verify-extra-element",
-                                         "response contains a bad value: response.collection has unexpected number of elements. Expected: 4, but actual: 5.");
+                        "response.body contains a bad value: response.body.collection has unexpected number of elements. Expected: 4, but actual: 5.");
             }
 
             @Test
             @DisplayName("Should fail content that has different element")
             public void shouldFailContentDueToDifferentElement() {
                 assertVerificationErrors("default-config-not-verify-different-element",
-                                         "response contains a bad value: collection[1].versionX is unexpected.",
-                                         "response contains a bad value: collection[1].version is unavailable though it was expected to be there",
-                                         "response contains a bad value: collection[1] contains a bad value: id: expected 'AUTOTEST1_x' but got 'AUTOTEST1_z'",
-                                         "response contains a bad value: collection[1] contains a bad value: state: expected 'TODO' but got 'TODOOO'");
+                        "response.body contains a bad value: collection[1].versionX is unexpected.",
+                        "response.body contains a bad value: collection[1].version is unavailable though it was expected to be there",
+                        "response.body contains a bad value: collection[1] contains a bad value: id: expected 'AUTOTEST1_x' but got 'AUTOTEST1_z'",
+                        "response.body contains a bad value: collection[1] contains a bad value: state: expected 'TODO' but got 'TODOOO'");
             }
 
             @Test
             @DisplayName("Should fail content that does not meet default equivalent-of (all fields build id) operator due to actual being a superset")
             public void shouldFailContentThatDoesNotMeetDefaultEquivalentOfOperatorDueToActualBeingASuperset() {
                 assertVerificationErrors("default-config-not-verify-actual-superset",
-                                         "response contains a bad value: response.collection has unexpected number of elements. Expected: 3, but actual: 4.",
-                                         "response contains a bad value: collection[2] contains a bad value: id: expected 'jur_4' but got 'jur_3'");
+                        "response.body contains a bad value: response.body.collection has unexpected number of elements. Expected: 3, but actual: 4.",
+                        "response.body contains a bad value: collection[2] contains a bad value: id: expected 'jur_4' but got 'jur_3'");
             }
 
             @Test
             @DisplayName("Should fail content that does not meet default equivalent-of (all fields build id) operator due to actual being a subset")
             public void shouldFailContentThatDoesNotMeetDefaultEquivalentOfOperatorDueToActualBeingASubset() {
                 assertVerificationErrors("default-config-not-verify-actual-subset",
-                                         "response contains a bad value: response.collection has unexpected number of elements. Expected: 4, but actual: 3.",
-                                         "response contains a bad value: collection[1] contains a bad value: id: expected 'jur_2' but got 'jur_3'",
-                                         "response contains a bad value: collection[2] contains a bad value: id: expected 'jur_3' but got 'jur_4'");
+                        "response.body contains a bad value: response.body.collection has unexpected number of elements. Expected: 4, but actual: 3.",
+                        "response.body contains a bad value: collection[1] contains a bad value: id: expected 'jur_2' but got 'jur_3'",
+                        "response.body contains a bad value: collection[2] contains a bad value: id: expected 'jur_3' but got 'jur_4'");
             }
         }
 
@@ -942,39 +936,45 @@ public class MapVerifierTest {
                 @Test
                 @DisplayName("Should verify content that meets superset operator as actual being a subset")
                 public void shouldVerifyContentThatMeetsSupersetOperatorAsActualBeingASubset() {
-                    assertVerificationValid("custom-config-superset-of-unordered-without-id-field-verify-actual-subset-0");
+                    assertVerificationWithoutIssues(
+                            "custom-config-superset-of-unordered-without-id-field-verify-actual-subset-0");
                 }
 
                 @Test
                 @DisplayName("Should verify content that meets superset operator as actual being an equivalent-of")
                 public void shouldFailContentThatMeetsSupersetOperatorAsActualBeingEquivalentOf() {
-                    assertVerificationValid("custom-config-subset-of-unordered-without-id-field-verify-actual-equivalent-0");
+                    assertVerificationWithoutIssues(
+                            "custom-config-subset-of-unordered-without-id-field-verify-actual-equivalent-0");
                 }
 
                 @Test
                 @DisplayName("Should fail content that does not meet superset operator due to actual being a superset")
                 public void shouldFailContentThatDoesNotMeetDefaultEquivalentOfOperatorDueToActualBeingASubset() {
-                    assertVerificationErrors("custom-config-superset-of-unordered-without-id-field-not-verify-actual-superset-0",
-                                             "response contains a bad value: response.collection is not a superset.");
+                    assertVerificationErrors(
+                            "custom-config-superset-of-unordered-without-id-field-not-verify-actual-superset-0",
+                            "response.body contains a bad value: response.collection is not a superset.");
                 }
 
                 @Test
                 @DisplayName("Should verify content that meets subset operator as actual being a superset")
                 public void shouldVerifyContentThatMeetsSubetOperatorAsActualBeingSuperset() {
-                    assertVerificationValid("custom-config-subset-of-unordered-without-id-field-verify-actual-superset-0");
+                    assertVerificationWithoutIssues(
+                            "custom-config-subset-of-unordered-without-id-field-verify-actual-superset-0");
                 }
 
                 @Test
                 @DisplayName("Should verify content that meets subset operator as actual being an equivalent-of")
                 public void shouldVerifyContentThaMeetsSubsetOperatorAsActualBeingAnEquivalentOf() {
-                    assertVerificationValid("custom-config-subset-of-unordered-without-id-field-verify-actual-equivalent-0");
+                    assertVerificationWithoutIssues(
+                            "custom-config-subset-of-unordered-without-id-field-verify-actual-equivalent-0");
                 }
 
                 @Test
                 @DisplayName("Should fail content that does not meet subset operator due to actual being a subset")
                 public void shouldFailContentThatDoesNotMeetSubsetOperatorDueToActualBeingASuperset() {
-                    assertVerificationErrors("custom-config-subset-of-unordered-without-id-field-not-verify-actual-subset-0",
-                                             "response contains a bad value: response.collection is not a subset.");
+                    assertVerificationErrors(
+                            "custom-config-subset-of-unordered-without-id-field-not-verify-actual-subset-0",
+                            "response.body contains a bad value: response.collection is not a subset.");
                 }
             }
 
@@ -985,7 +985,8 @@ public class MapVerifierTest {
                 @Test
                 @DisplayName("Should verify content that meets superset operator as actual being a subset")
                 public void shouldVerifyContentThatMeetsSupersetOperatorAsActualBeingASubset() {
-                    assertVerificationValid("custom-config-superset-of-unordered-without-id-field-verify-actual-subset-1");
+                    assertVerificationWithoutIssues(
+                            "custom-config-superset-of-unordered-without-id-field-verify-actual-subset-1");
                 }
 
             }
@@ -1010,7 +1011,7 @@ public class MapVerifierTest {
             @Test
             @DisplayName("Should verify content that meets unordered ordering")
             public void shouldVerifyContentThatMeetsUnorderedOrdering() {
-
+                assertVerificationWithoutIssues("custom-config-equivalent-of-unordered-with-id-field-verify-1");
             }
 
             @Test
@@ -1234,17 +1235,15 @@ public class MapVerifierTest {
 
         }
 
-
     }
-
-    private void assertVerificationValid(String testDataId) {
+    private void assertVerificationWithoutIssues(String testDataId) {
         assertVerificationErrors(testDataId);
     }
+
     private void assertVerificationErrors(String testDataId, String... issues) {
         HttpTestData testData = getTestData(testDataId);
         MapVerificationResult result = verifyBodies(testData);
         if (issues.length == 0) {
-            System.out.println("all issues=" + result.getAllIssues());
             assertTrue(result.isVerified());
         } else {
             Assert.assertFalse(result.isVerified());
@@ -1253,8 +1252,8 @@ public class MapVerifierTest {
     }
 
     private MapVerificationResult verifyBodies(HttpTestData testData) {
-        return new MapVerifier("response").verifyMap(testData.getExpectedResponse().getBody(),
-                                                     testData.getActualResponse().getBody());
+        return new MapVerifier("response.body").verifyMap(testData.getExpectedResponse().getBody(),
+                testData.getActualResponse().getBody());
     }
 
     private HttpTestData getTestData(String dataId) {
