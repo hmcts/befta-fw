@@ -1,0 +1,64 @@
+{
+  "_guid_": "CCD_AUTOTEST1_Questions2_CaseType_Response",
+  "id": "Questions2",
+  "description": "Questions2 and Answers functionality",
+  "version": null,
+  "name": "Q&A functionality",
+  "jurisdiction": null,
+  "events": [
+    {
+      "__operator__": "equivalent",
+      "__ordering__": "unordered"
+    },
+    {
+      "id": "addQandA",
+      "name": "Add Q&A",
+      "description": "Give answers or ask more questions",
+      "order": null,
+      "case_fields": [],
+      "pre_states": [
+        "*"
+      ],
+      "post_state": null,
+      "callback_url_about_to_start_event": null,
+      "retries_timeout_about_to_start_event": null,
+      "callback_url_about_to_submit_event": null,
+      "retries_timeout_url_about_to_submit_event": null,
+      "callback_url_submitted_event": null,
+      "retries_timeout_url_submitted_event": null,
+      "security_classification": null,
+      "show_summary": null,
+      "show_event_notes": null,
+      "end_button_label": null,
+      "can_save_draft": null,
+      "acls": "[[ANYTHING_PRESENT]]"
+    },
+    {
+      "id": "createCase",
+      "name": "Create questions",
+      "description": "For a judge to create questions",
+      "order": null,
+      "case_fields": [],
+      "pre_states": [],
+      "post_state": null,
+      "callback_url_about_to_start_event": null,
+      "retries_timeout_about_to_start_event": null,
+      "callback_url_about_to_submit_event": null,
+      "retries_timeout_url_about_to_submit_event": null,
+      "callback_url_submitted_event": null,
+      "retries_timeout_url_submitted_event": null,
+      "security_classification": null,
+      "show_summary": null,
+      "show_event_notes": null,
+      "end_button_label": null,
+      "can_save_draft": null,
+      "acls": "[[ANYTHING_PRESENT]]"
+    }
+  ],
+  "states": "[[ANYTHING_PRESENT]]",
+  "searchAliasFields": [],
+  "security_classification": null,
+  "case_fields": [],
+  "printable_document_url": null,
+  "acls": "[[ANYTHING_PRESENT]]"
+}

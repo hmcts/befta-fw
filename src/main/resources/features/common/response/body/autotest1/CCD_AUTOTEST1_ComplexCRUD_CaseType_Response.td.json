@@ -1,0 +1,121 @@
+{
+  "_guid_": "CCD_AUTOTEST1_ComplexCRUD_CaseType_Response",
+  "id": "ComplexCRUD",
+  "description": "Case for testing CRUD on Complex",
+  "version": null,
+  "name": "Complex CRUD",
+  "jurisdiction": null,
+  "events": [
+    {
+      "__operator__": "equivalent",
+      "__ordering__": "unordered"
+    },
+    {
+      "id": "closeCase",
+      "name": "Close case",
+      "description": "Close a case",
+      "order": null,
+      "case_fields": [],
+      "pre_states": [
+        "CaseCreated",
+        "CaseModified"
+      ],
+      "post_state": null,
+      "callback_url_about_to_start_event": null,
+      "retries_timeout_about_to_start_event": null,
+      "callback_url_about_to_submit_event": null,
+      "retries_timeout_url_about_to_submit_event": null,
+      "callback_url_submitted_event": null,
+      "retries_timeout_url_submitted_event": null,
+      "security_classification": null,
+      "show_summary": null,
+      "show_event_notes": null,
+      "end_button_label": null,
+      "can_save_draft": null,
+      "acls": [
+        {
+          "role": "caseworker-autotest1",
+          "create": true,
+          "read": true,
+          "update": true,
+          "delete": true
+        }
+      ]
+    },
+    {
+      "id": "modifyCase",
+      "name": "Modify case",
+      "description": "Modify a case",
+      "order": null,
+      "case_fields": [],
+      "pre_states": [
+        "CaseCreated",
+        "CaseModified"
+      ],
+      "post_state": null,
+      "callback_url_about_to_start_event": null,
+      "retries_timeout_about_to_start_event": null,
+      "callback_url_about_to_submit_event": null,
+      "retries_timeout_url_about_to_submit_event": null,
+      "callback_url_submitted_event": null,
+      "retries_timeout_url_submitted_event": null,
+      "security_classification": null,
+      "show_summary": null,
+      "show_event_notes": null,
+      "end_button_label": null,
+      "can_save_draft": null,
+      "acls": [
+        {
+          "role": "caseworker-autotest1",
+          "create": true,
+          "read": true,
+          "update": true,
+          "delete": true
+        }
+      ]
+    },
+    {
+      "id": "createCase",
+      "name": "Create a case",
+      "description": "Create a case",
+      "order": null,
+      "case_fields": [],
+      "pre_states": [],
+      "post_state": null,
+      "callback_url_about_to_start_event": null,
+      "retries_timeout_about_to_start_event": null,
+      "callback_url_about_to_submit_event": null,
+      "retries_timeout_url_about_to_submit_event": null,
+      "callback_url_submitted_event": null,
+      "retries_timeout_url_submitted_event": null,
+      "security_classification": null,
+      "show_summary": null,
+      "show_event_notes": null,
+      "end_button_label": null,
+      "can_save_draft": null,
+      "acls": [
+        {
+          "role": "caseworker-autotest1",
+          "create": true,
+          "read": true,
+          "update": true,
+          "delete": true
+        }
+      ]
+    }
+  ],
+  "states": "[[ANYTHING_PRESENT]]",
+  "searchAliasFields": [],
+  "security_classification": null,
+  "case_fields": [],
+  "printable_document_url": null,
+  "acls": [
+    {
+      "role": "caseworker-autotest1",
+      "create": true,
+      "read": true,
+      "update": true,
+      "delete": true
+    }
+  ]
+}

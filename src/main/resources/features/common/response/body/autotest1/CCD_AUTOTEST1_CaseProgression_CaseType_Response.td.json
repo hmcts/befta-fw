@@ -1,0 +1,181 @@
+{
+  "_guid_": "CCD_AUTOTEST1_CaseProgression_CaseType_Response",
+  "id": "CaseProgression",
+  "description": "Case for testing Case Progression (using events to move a case through states)",
+  "version": null,
+  "name": "Case Progression",
+  "jurisdiction": null,
+  "events": [
+    {
+      "__operator__": "equivalent",
+      "__ordering__": "unordered"
+    },
+    {
+      "id": "update",
+      "name": "update current state",
+      "description": "update current state",
+      "order": null,
+      "case_fields": [],
+      "pre_states": [
+        "*"
+      ],
+      "post_state": null,
+      "callback_url_about_to_start_event": null,
+      "retries_timeout_about_to_start_event": null,
+      "callback_url_about_to_submit_event": null,
+      "retries_timeout_url_about_to_submit_event": null,
+      "callback_url_submitted_event": null,
+      "retries_timeout_url_submitted_event": null,
+      "security_classification": null,
+      "show_summary": null,
+      "show_event_notes": null,
+      "end_button_label": null,
+      "can_save_draft": null,
+      "acls": [
+        {
+          "role": "caseworker-autotest1",
+          "create": true,
+          "read": true,
+          "update": true,
+          "delete": true
+        }
+      ]
+    },
+    {
+      "id": "backToState2",
+      "name": "progress back to state1",
+      "description": "progress back to state1",
+      "order": null,
+      "case_fields": [],
+      "pre_states": [
+        "State2"
+      ],
+      "post_state": null,
+      "callback_url_about_to_start_event": null,
+      "retries_timeout_about_to_start_event": null,
+      "callback_url_about_to_submit_event": null,
+      "retries_timeout_url_about_to_submit_event": null,
+      "callback_url_submitted_event": null,
+      "retries_timeout_url_submitted_event": null,
+      "security_classification": null,
+      "show_summary": null,
+      "show_event_notes": null,
+      "end_button_label": null,
+      "can_save_draft": null,
+      "acls": [
+        {
+          "role": "caseworker-autotest1",
+          "create": true,
+          "read": true,
+          "update": true,
+          "delete": true
+        }
+      ]
+    },
+    {
+      "id": "transitionToState2",
+      "name": "progress to state2",
+      "description": "progress to state2",
+      "order": null,
+      "case_fields": [],
+      "pre_states": [
+        "State1"
+      ],
+      "post_state": null,
+      "callback_url_about_to_start_event": null,
+      "retries_timeout_about_to_start_event": null,
+      "callback_url_about_to_submit_event": null,
+      "retries_timeout_url_about_to_submit_event": null,
+      "callback_url_submitted_event": null,
+      "retries_timeout_url_submitted_event": null,
+      "security_classification": null,
+      "show_summary": null,
+      "show_event_notes": null,
+      "end_button_label": null,
+      "can_save_draft": null,
+      "acls": [
+        {
+          "role": "caseworker-autotest1",
+          "create": true,
+          "read": true,
+          "update": true,
+          "delete": true
+        }
+      ]
+    },
+    {
+      "id": "transitionToState1",
+      "name": "progress to state1",
+      "description": "progress to state1",
+      "order": null,
+      "case_fields": [],
+      "pre_states": [
+        "CaseCreated"
+      ],
+      "post_state": null,
+      "callback_url_about_to_start_event": null,
+      "retries_timeout_about_to_start_event": null,
+      "callback_url_about_to_submit_event": null,
+      "retries_timeout_url_about_to_submit_event": null,
+      "callback_url_submitted_event": null,
+      "retries_timeout_url_submitted_event": null,
+      "security_classification": null,
+      "show_summary": null,
+      "show_event_notes": null,
+      "end_button_label": null,
+      "can_save_draft": null,
+      "acls": [
+        {
+          "role": "caseworker-autotest1",
+          "create": true,
+          "read": true,
+          "update": true,
+          "delete": true
+        }
+      ]
+    },
+    {
+      "id": "createCase",
+      "name": "Create a case",
+      "description": "Create a case",
+      "order": null,
+      "case_fields": [],
+      "pre_states": [],
+      "post_state": null,
+      "callback_url_about_to_start_event": null,
+      "retries_timeout_about_to_start_event": null,
+      "callback_url_about_to_submit_event": null,
+      "retries_timeout_url_about_to_submit_event": null,
+      "callback_url_submitted_event": null,
+      "retries_timeout_url_submitted_event": null,
+      "security_classification": null,
+      "show_summary": null,
+      "show_event_notes": null,
+      "end_button_label": null,
+      "can_save_draft": null,
+      "acls": [
+        {
+          "role": "caseworker-autotest1",
+          "create": true,
+          "read": true,
+          "update": true,
+          "delete": true
+        }
+      ]
+    }
+  ],
+  "states": "[[ANYTHING_PRESENT]]",
+  "searchAliasFields": [],
+  "security_classification": null,
+  "case_fields": [],
+  "printable_document_url": null,
+  "acls": [
+    {
+      "role": "caseworker-autotest1",
+      "create": true,
+      "read": true,
+      "update": true,
+      "delete": true
+    }
+  ]
+}

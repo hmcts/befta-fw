@@ -1,0 +1,40 @@
+{
+  "_guid_": "CCD_AUTOTEST1_NoCases_CaseType_Response",
+  "id": "NoCases",
+  "description": "CaseType with no cases to verify what happens without any cases",
+  "version": null,
+  "name": "CaseType With No Cases",
+  "jurisdiction": null,
+  "events": [],
+  "states": [
+    {
+      "id": "CaseCreated",
+      "name": "Create case",
+      "description": null,
+      "order": 1,
+      "title_display": null,
+      "acls": [
+        {
+          "role": "caseworker-autotest1",
+          "create": true,
+          "read": true,
+          "update": true,
+          "delete": true
+        }
+      ]
+    }
+  ],
+  "searchAliasFields": [],
+  "security_classification": null,
+  "case_fields": [],
+  "printable_document_url": null,
+  "acls": [
+    {
+      "role": "caseworker-autotest1",
+      "create": true,
+      "read": true,
+      "update": true,
+      "delete": true
+    }
+  ]
+}

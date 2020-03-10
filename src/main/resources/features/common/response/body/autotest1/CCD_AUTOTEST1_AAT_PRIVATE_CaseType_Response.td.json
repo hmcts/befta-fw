@@ -1,0 +1,15 @@
+{
+  "_guid_": "CCD_AUTOTEST1_AAT_PRIVATE_CaseType_Response",
+  "id": "AAT_PRIVATE",
+  "description": "Demonstrate AAT_PRIVATE's capability",
+  "version": null,
+  "name": "Case type for AAT_PRIVATE",
+  "jurisdiction": null,
+  "events": [],
+  "states": [],
+  "searchAliasFields": [],
+  "security_classification": null,
+  "case_fields": [],
+  "printable_document_url": null,
+  "acls": "[[ANYTHING_PRESENT]]"
+}
