@@ -1,21 +1,21 @@
 package uk.gov.hmcts.befta.player;
 
-import io.cucumber.java.Scenario;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.when;
+import static org.powermock.api.mockito.PowerMockito.whenNew;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-import uk.gov.hmcts.befta.data.JsonStoreHttpTestDataSource;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.*;
-import static org.powermock.api.mockito.PowerMockito.whenNew;
+import io.cucumber.java.Scenario;
+import uk.gov.hmcts.befta.data.JsonStoreHttpTestDataSource;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({
@@ -33,7 +33,6 @@ public class BackEndFunctionalTestScenarioContextTest {
     @Mock
     private Scenario scenario;
 
-    private static final Collection<String> VALID_TAGS = Collections.singletonList("@S-133");
     private static final String VALID_TAG_ID = "S-133";
 
     @Before
@@ -44,7 +43,10 @@ public class BackEndFunctionalTestScenarioContextTest {
 
     @Test
     public void shouldGetCurrentScenarioTagForCorrectPrefixOnly() {
-        final Collection<String> tags = new ArrayList<String>() {{
+        final Collection<String> tags = new ArrayList<String>() {
+            private static final long serialVersionUID = 1L;
+
+            {
             add("@A-133");
             add("S-987");
             add("@S-133");
@@ -60,7 +62,9 @@ public class BackEndFunctionalTestScenarioContextTest {
 
     @Test
     public void shouldGetCurrentScenarioTagWithMultipleScenarios() {
-        final Collection<String> tags = new ArrayList<String>() {{
+        final Collection<String> tags = new ArrayList<String>() {
+            private static final long serialVersionUID = 1L;
+            {
             add("@S-133");
             add("@S-456");
         }};
