@@ -48,7 +48,11 @@ public class TestDataLoaderToDefinitionStore {
             new CcdRoleConfig("citizen", "PUBLIC"),
 
             new CcdRoleConfig("caseworker-befta_jurisdiction_3", "PUBLIC"),
-            new CcdRoleConfig("caseworker-befta_jurisdiction_3-solicitor", "PUBLIC") };
+            new CcdRoleConfig("caseworker-befta_jurisdiction_3-solicitor", "PUBLIC"),
+
+            new CcdRoleConfig("caseworker-autotest1-manager", "PUBLIC"),
+            new CcdRoleConfig("caseworker-autotest1-junior", "PUBLIC")
+    };
 
     private TestAutomationAdapter adapter;
     private String definitionsPath;

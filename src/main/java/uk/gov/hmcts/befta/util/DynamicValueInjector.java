@@ -35,6 +35,7 @@ public class DynamicValueInjector {
 
     private void injectRequestDetailsFromContext() {
         RequestData requestData = testData.getRequest();
+        testData.setUri(processDynamicValuesIn(testData.getUri()));
         Map<String, Object> requestHeaders = requestData.getHeaders();
         if (requestHeaders != null) {
             requestHeaders.forEach((header, value) -> requestHeaders.put(header,
@@ -81,7 +82,7 @@ public class DynamicValueInjector {
         return processDynamicValuesIn(valueString);
     }
 
-    private Object processDynamicValuesIn(String input) {
+    private String processDynamicValuesIn(String input) {
         if (input == null || input.equals(""))
             return input;
         StringBuffer output = new StringBuffer();
