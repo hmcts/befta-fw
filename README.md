@@ -45,7 +45,7 @@ It provides the following functionalities and conveniences:
 
 #### Run BEFTA Framework With Gradle
 1. Install Gradle 4.1 or higher. You can simply copy a gradle wrapper from `https://github.com/hmcts/befta-fw`.
-2. Add the following dependency to your build.gradle file:
+2. Add the following dependency to your build.gradle file:  \
    `testCompile group: 'uk.gov.hmcts', name: 'befta-fw', version: '1.2.1'`
 3. Add a javaExec section to wherever you want a functional test suit to be executed, 
    like below:
@@ -66,9 +66,12 @@ It provides the following functionalities and conveniences:
    of your test automation project.
 
 #### Observe Cucumber Report
-1. Open in your web browser the local Cucumber report file: ./⁨target⁩/cucumber⁩/⁨cucumber-html-reports⁩/overview-features.html
+
+1. Open in your web browser the local Cucumber report file:  \
+   `./⁨target⁩/cucumber⁩/⁨cucumber-html-reports⁩/overview-features.html`
 
 #### Integrate Functional Test Suite Executions into Pipelines
+
 We assume you will have build pipelines making gradle calls to run your automated 
 functional tests which is the case for HMCTS Reform programme as seen in the open source 
 repositories. However, with the simple means of test suite executions provided above, test 
@@ -84,22 +87,23 @@ be:
 
 #### Sample Repositories
 
-So, below are a few github repositories into which BEFTA Framework 
+Below are a few github repositories into which BEFTA Framework 
 has been successfully integrated:
 Some Spring Boot Applications:
-*
-*
-*
+* https://github.com/hmcts/ccd-data-store-api
+* https://github.com/hmcts/ccd-definition-store-api
+* https://github.com/hmcts/ccd-user-profile-api
 
 Some Node.js Applications:
-*
-*
+* https://github.com/hmcts/ccd-case-print-service
+* https://github.com/hmcts/ccd-case-activity-api
 
 
 ## HOW TO DEVELOP A SIMPLE AUTOMATED SCENARIO
 
 
 
-## Low-level Design
-BEFTA Framework has a low-level design containing components and their interactions as depicted in the below diagram.
+## LOW-LEVEL DESIGN
+BEFTA Framework has been designed at a low level to contain components and their interactions as depicted in the below diagram. 
+  \
 ![Below is LLD](documentation/LLD.jpg)
