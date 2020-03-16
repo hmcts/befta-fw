@@ -7,7 +7,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## WHAT IS BEFTA FRAMEWORK?
 BEFTA Framework is a framework for automation of functional tests for http-based APIs. It uses Cucumber and Rest Assured frameworks and supports a BDD (Behaviour-Driven Development) approach to software development.
 
-
 ## FEATURES AND CONVENIENCES PROVIDED
 It provides the following functionalities and conveniences:
 1.  A Domain Specific Language (DSL), which is specific to the domain of automation of http-based APIs, to describe the functional/behavioural requirements of APIs.
@@ -24,7 +23,7 @@ It provides the following functionalities and conveniences:
 
 ### System Requirements
 * System Resources (Memory, Disk, CPU) - Same for a JDK 8 installation.  \
-  [Click here to see Oracle's reference for this](https://docs.oracle.com/javase/8/docs/technotes/guides/install/windows_system_requirements.html)
+  [Click here to see Oracle's reference for this.](https://docs.oracle.com/javase/8/docs/technotes/guides/install/windows_system_requirements.html)
 
 ### Software Requirements
 * Java SE Development Kit 8 (JDK 8)
@@ -107,3 +106,7 @@ Some Node.js Applications:
 BEFTA Framework has been designed at a low level to contain components and their interactions as depicted in the below diagram. 
   \
 ![](documentation/LLD.jpg)
+
+Typical sequence of activities during the execution of test suite is as shown in the 
+below ![Sequence Diagram](documentation/Sequence Diagram - Draft.jpg):
+
