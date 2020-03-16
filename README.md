@@ -106,4 +106,4 @@ Some Node.js Applications:
 ## LOW-LEVEL DESIGN
 BEFTA Framework has been designed at a low level to contain components and their interactions as depicted in the below diagram. 
   \
-![Below is LLD](documentation/LLD.jpg)
+![](documentation/LLD.jpg)
