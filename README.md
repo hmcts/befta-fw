@@ -109,5 +109,5 @@ BEFTA Framework has been designed at a low level to contain components and their
 
 Typical sequence of activities during the execution of test suite is as shown in the 
 below Sequence Diagram:
-![](documentation/Sequence Diagram - Draft.jpg)
+![](documentation/Sequence_Diagram_Draft.jpg)
 
