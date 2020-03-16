@@ -24,7 +24,7 @@ It provides the following functionalities and conveniences:
 
 ### System Requirements
 * System Resources (Memory, Disk, CPU) - Same for a JDK 8 installation 
-  ![Click here to see Oracle's reference for this](https://docs.oracle.com/javase/8/docs/technotes/guides/install/windows_system_requirements.html)
+  [Click here to see Oracle's reference for this](https://docs.oracle.com/javase/8/docs/technotes/guides/install/windows_system_requirements.html)
 
 ### Software Requirements
 * Java SE Development Kit 8 (JDK 8)
