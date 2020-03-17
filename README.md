@@ -36,7 +36,8 @@ It provides the following functionalities and conveniences:
 
 #### Run BEFTA Framework Without a Build Tool
 1. Download a copy of BEFTA Framework (say, version 1.2.1) in a local folder, say the root directory of an 
-   IDE project in which you (will) have your automated functional tests.
+   IDE project in which you (will) have your automated functional tests. //TODO: fat 
+   jar release of framework
 2. Open your preferred terminal and change current directory to the root directory 
    of your test automation project.
 3. java -cp befta-fw-1.2.1.jar uk.gov.hmcts.befta.BeftaMain 'my-feature-files/are/here, and/here, and-also/there'
