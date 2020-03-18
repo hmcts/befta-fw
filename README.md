@@ -66,7 +66,9 @@ Below are the environment needed specifically for CCD domain.
 2. Open your preferred terminal and change current directory to the root directory 
    of your test automation project.
 3. java -cp befta-fw-1.2.1.jar uk.gov.hmcts.befta.BeftaMain 'my-feature-files/are/here, and/here, and-also/there'
-   This will run the test scenarios under the local folder you specify.
+   This will run the test scenarios under the local folder you specify.  \
+   Test automation teams can write their simple, tiny custom Main classes to customise 
+   the the test suite launching logic.
 
 ### Run BEFTA Framework With Gradle
 1. Install Gradle 4.1 or higher. You can simply copy a gradle wrapper from `https://github.com/hmcts/befta-fw`.
@@ -88,7 +90,9 @@ Below are the environment needed specifically for CCD domain.
       ...
    }
    ```
-   of your test automation project.
+   of your test automation project.  \
+   Test automation teams can write their simple, tiny custom Main classes to customise 
+   the the test suite launching logic.
 
 #### Observe Cucumber Report
 
@@ -125,12 +129,32 @@ Some Node.js Applications:
 
 
 ## HOW TO DEVELOP A SIMPLE AUTOMATED SCENARIO
-
+Development of an automated test scenario takes, at a high level, the below main steps:
+1. Introduce a `.feature` file of any good name, and add a test scenario composed of 
+   the DSL elements available with BEFTA framework.
+2. Annotate the scenario with a tag starting with `S-`. This will identify the scenario 
+   uniquely to the framework. Make sure this is a unique scenario ID across the entire test 
+   suite being executed in a round.
+3. Introduce a test data file with a good name ending with `.td.json`. The test data 
+   file should be a marshalled json content of an object of class `uk.gov.hmcts.befta.data.HttpTestData`. Make 
+   sure that the '_guid_' field in the file contains exactly the same text as the `S-` 
+   taag of the scenario in the `.feature` file.  \
+   The json-based test data can be prepared making use of inheritance mechanism provided 
+   by the framework. The inheritance mechanism will be described under a separate heading. 
+    \
+   The test data can also contain dynamic content to be calculated in the runtime, 
+   in the form of pre-defined placeholders or json-path-like formulaues to refer to 
+   the value of any request or response detais, or any programmatically computed custom 
+   placeholder. The dynamic value features will be described under a separate heading. 
+4. Run your test scenario and correct any issues in the test data configuration until 
+   you are sure the test data is complete and correct to supply the framework with 
+   the full and precise data requirements of the scenario script in the `.feature` 
+   file.
 
 
 ## LOW-LEVEL DESIGN
 BEFTA Framework has been designed at a low level to contain components and their interactions as depicted in the below diagram. 
-  \
+ \
 ![](documentation/LLD.jpg)
 
 Typical sequence of activities during the execution of test suite is as shown in the 
