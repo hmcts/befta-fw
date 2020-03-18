@@ -136,20 +136,27 @@ Development of an automated test scenario takes, at a high level, the below main
    uniquely to the framework. Make sure this is a unique scenario ID across the entire test 
    suite being executed in a round.
 3. Introduce a test data file with a good name ending with `.td.json`. The test data 
-   file should be a marshalled json content of an object of class `uk.gov.hmcts.befta.data.HttpTestData`. Make 
+   file should be a marshaled json content of an object of class `uk.gov.hmcts.befta.data.HttpTestData`. Make 
    sure that the '_guid_' field in the file contains exactly the same text as the `S-` 
-   taag of the scenario in the `.feature` file.  \
+   tag of the scenario in the `.feature` file.  \
    The json-based test data can be prepared making use of inheritance mechanism provided 
    by the framework. The inheritance mechanism will be described under a separate heading. 
     \
    The test data can also contain dynamic content to be calculated in the runtime, 
-   in the form of pre-defined placeholders or json-path-like formulaues to refer to 
-   the value of any request or response detais, or any programmatically computed custom 
+   in the form of pre-defined place-holders or json-path-like formulas to refer to 
+   the value of any request or response details, or any programmatically computed custom 
    placeholder. The dynamic value features will be described under a separate heading. 
 4. Run your test scenario and correct any issues in the test data configuration until 
    you are sure the test data is complete and correct to supply the framework with 
    the full and precise data requirements of the scenario script in the `.feature` 
    file.
+
+### Json Inheritance Mechanism - How it Works & How to Use
+
+
+### Dynamic Value Place-holders and Formulas - How they Work & How to Use
+
+
 
 
 ## LOW-LEVEL DESIGN
