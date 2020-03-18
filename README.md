@@ -147,12 +147,16 @@ Development of an automated test scenario takes, at a high level, the below main
 4. Run your test scenario and correct any issues in the test data configuration until 
    you are sure the test data is complete and correct to supply the framework with 
    the full and precise data requirements of the scenario script in the `.feature` 
-   file.
+   file. You can find more about how to debug your scenarios under the dedicated header 
+   below.
 
 ### Json Inheritance Mechanism - How it Works & How to Use
 
 
 ### Dynamic Value Place-holders and Formulas - How they Work & How to Use
+
+
+### How to Debug Test Scenarios
 
 
 
