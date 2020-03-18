@@ -45,10 +45,8 @@ It provides the following functionalities and conveniences:
      will be delivered.
    * BEFTA_S2S_CLIENT_SECRET: Client Secret of the application on behalf of which the API calls 
      will be delivered.
-   * BEFTA_RESPONSE_HEADER_CHECK_POLICY
-     This env var can be used optionally to switch the policy applied to mismatching 
-     response header values. It can be one of IGNORE, JUST_WARN and FAIL_TEST. Default 
-     behaviour is to assume FAIL_TEST.
+   * BEFTA_RESPONSE_HEADER_CHECK_POLICY: This env var can be used optionally to switch the policy applied to mismatching 
+     response header values. It can be one of IGNORE, JUST_WARN and FAIL_TEST. Default behaviour is to assume FAIL_TEST.
 
 ### Domain Specific Environment Variables
 Below are the environment needed specifically for CCD domain.
