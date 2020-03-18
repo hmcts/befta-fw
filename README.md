@@ -120,6 +120,7 @@ Some Spring Boot Applications:
 * https://github.com/hmcts/ccd-data-store-api
 * https://github.com/hmcts/ccd-definition-store-api
 * https://github.com/hmcts/ccd-user-profile-api
+* https://github.com/hmcts/ccd-case-document-am-api
 
 Some Node.js Applications:
 * https://github.com/hmcts/ccd-case-print-service
