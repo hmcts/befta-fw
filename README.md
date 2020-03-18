@@ -34,7 +34,32 @@ It provides the following functionalities and conveniences:
 1. Install JDK 8 or higher
 2. Install a command line terminal application
 
-#### Run BEFTA Framework Without a Build Tool
+### Common Environment Variables
+   Befta Framework uses the below environment variables:
+   * TEST_URL: This is the base URL of the APIs to be tested.
+   * IDAM_URL: This is the base URL of the API authenticating the users on behalf of which the API calls will 
+     be delivered.
+   * S2S_URL: This is the URL of the API providing Service to Service tokens for API 
+     calls.
+   * BEFTA_S2S_CLIENT_ID: Client ID of the application on behalf of which the API calls 
+     will be delivered.
+   * BEFTA_S2S_CLIENT_SECRET: Client Secret of the application on behalf of which the API calls 
+     will be delivered.
+   * BEFTA_RESPONSE_HEADER_CHECK_POLICY
+     This env var can be used optionally to switch the policy applied to mismatching 
+     response header values. It can be one of IGNORE, JUST_WARN and FAIL_TEST. Default 
+     behaviour is to assume FAIL_TEST.
+
+### Domain Specific Environment Variables
+Below are the environment needed specifically for CCD domain.
+   * DEFINITION_STORE_HOST: Base URL of the Definition Store APIs.
+   * CCD_IMPORT_AUTOTEST_EMAIL: Email id of the user on behalf of which definitions 
+     will be imported to Definition Store, for automated test data preparation.
+   * CCD_IMPORT_AUTOTEST_PASSWORD: Password of the user on behalf of which definitions 
+     will be imported to Definition Store, for automated test data preparation.
+
+
+### Run BEFTA Framework Without a Build Tool
 1. Download a copy of BEFTA Framework (say, version 1.2.1) in a local folder, say the root directory of an 
    IDE project in which you (will) have your automated functional tests. //TODO: fat 
    jar release of framework
@@ -43,7 +68,7 @@ It provides the following functionalities and conveniences:
 3. java -cp befta-fw-1.2.1.jar uk.gov.hmcts.befta.BeftaMain 'my-feature-files/are/here, and/here, and-also/there'
    This will run the test scenarios under the local folder you specify.
 
-#### Run BEFTA Framework With Gradle
+### Run BEFTA Framework With Gradle
 1. Install Gradle 4.1 or higher. You can simply copy a gradle wrapper from `https://github.com/hmcts/befta-fw`.
 2. Add the following dependency to your build.gradle file:  \
    `testCompile group: 'uk.gov.hmcts', name: 'befta-fw', version: '1.2.1'`
