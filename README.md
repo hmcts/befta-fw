@@ -39,8 +39,8 @@ It provides the following functionalities and conveniences:
    * TEST_URL: This is the base URL of the APIs to be tested.
    * IDAM_URL: This is the base URL of the API authenticating the users on behalf of which the API calls will 
      be delivered.
-   * S2S_URL: This is the URL of the API providing Service to Service tokens for API 
-     calls.
+   * S2S_URL: This is the base URL of the API authenticating the client applications on behalf of which the API calls will 
+     be delivered.
    * BEFTA_S2S_CLIENT_ID: Client ID of the application on behalf of which the API calls 
      will be delivered.
    * BEFTA_S2S_CLIENT_SECRET: Client Secret of the application on behalf of which the API calls 
