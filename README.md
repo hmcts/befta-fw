@@ -17,7 +17,8 @@ It provides the following functionalities and conveniences:
 6.  Custom-programmable dynamicity to allow for programmable injections into test logic
 7.  Clearly designed way of adapting and integrating the framework into various API suites for any new functional test suit.
 8.  Reporting, and for-diagnostic outputting
-9.  Custom extensibility of out-of-the box DSL (Cucumber)
+9.  Custom extensibility of out-of-the box DSL (Cucumber feature)
+10. Other features coming with Cucumber Framework wrapped.
 
 ## HOW TO SETUP & INTEGRATE
 
@@ -152,7 +153,9 @@ Development of an automated test scenario takes, at a high level, the below main
    below.
 
 ### Json Inheritance Mechanism - How it Works & How to Use
-
+Attributes in an object represented by a JSON object in BEFTA-way are collated in the 
+order or calculation shown in the below diagram:  \
+![](documentation/Json_Inheritance.jpg)
 
 ### Dynamic Value Place-holders and Formulas - How they Work & How to Use
 
