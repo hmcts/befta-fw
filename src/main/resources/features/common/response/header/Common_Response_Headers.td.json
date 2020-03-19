@@ -8,5 +8,6 @@
 	"Expires": "0",
 	"X-XSS-Protection": "1; mode=block",
 	"Date": "[[ANYTHING_PRESENT]]",
-	"Strict-Transport-Security": "max-age=31536000 ; includeSubDomains"
+	"Strict-Transport-Security": "max-age=31536000 ; includeSubDomains",
+	"Request-Context": "[[ANY_NULLABLE]]"
 }
