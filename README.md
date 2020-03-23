@@ -338,6 +338,14 @@ the above custom values, or introduce new custom values needed in their specific
 data requirements.
 
 
+### Special Conventions for Test Data
+#### Arrays at Top Level in Response Bodies
+#### Files in Request Bodies
+#### Files in Response Bodies
+#### Conventions for Expected Collections
+
+
+
 ### How to Debug Test Scenarios
 
 
