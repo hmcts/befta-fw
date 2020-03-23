@@ -34,7 +34,7 @@ public class BackEndFunctionalTestScenarioContext {
     private ResponseData theResponse;
 
     @Getter
-    private Function<String, Object> customValues = (valueKey -> calculateCustomValue(valueKey));
+    private Function<Object, Object> customValues = (valueKey -> calculateCustomValue(valueKey));
 
     @Getter @Setter
     private BackEndFunctionalTestScenarioContext parentContext;
