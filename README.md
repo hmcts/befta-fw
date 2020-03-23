@@ -187,28 +187,101 @@ order or calculation shown in the below diagram:  \
 ![](documentation/Json_Inheritance.jpg)
 
 
-### Dynamic Value Place-holders and Formulas - How they Work & How to Use
+### Dynamic Value Place-holders
+The below place-holders can be used to configure test data with request details dynamically calculated 
+in runtime, or with response details to specify acceptable values in API responses 
+as per behavioural requirements: 
 
-    ANYTHING_PRESENT(false),
 
-    ANY_NULLABLE(true),
-    ANY_STRING_NULLABLE(true),
-    ANY_NUMBER_NULLABLE(true),
-    ANY_INTEGER_NULLABLE(true),
-    ANY_FLOATING_NULLABLE(true),
-    ANY_DATE_NULLABLE(true),
-    ANY_TIMESTAMP_NULLABLE(true),
-    ANY_OBJECT_NULLABLE(true),
+DEFAULT_AUTO_VALUE: This is used to calculate a default automatic value in runtime for 
+the below specific request fields:  \
+`uid`: When this is the attribute name, the value is dynamically injected as the `id 
+of the user` on behalf of which the test call is being delivered.  \
 
-    ANY_NOT_NULLABLE(false),
-    ANY_STRING_NOT_NULLABLE(false),
-    ANY_NUMBER_NOT_NULLABLE(false),
-    ANY_INTEGER_NOT_NULLABLE(false),
-    ANY_FLOATING_NOT_NULLABLE(false),
-    ANY_DATE_NOT_NULLABLE(false),
-    ANY_TIMESTAMP_NOT_NULLABLE(false),
-    ANY_OBJECT_NOT_NULLABLE(false);
+`Authorization`: When this is the attribute name, the value is dynamically injected as `a 
+'Bearer' token issued to the name of the user` on behalf of which the test call is being delivered.  \
 
+`ServiceAuthorization`: When this is the attribute name, the value is dynamically injected as `a 
+service to service token issued to the name of the client` on behalf of which the test call is being delivered.  \
+
+`cid`: When this is the attribute name, the value is dynamically injected as the `id 
+of a case created just before this test call, through a default case creation call`. 
+This is equivalent to hacing the below formulae in the value for the attribute:  \
+`${[scenarioContext][childContexts][Standard_Full_Case_Creation_Data][testData][actualResponse][body][id]}` 
+ \
+
+ANY_NULLABLE: This is used to `accept any data of any type including null or missing 
+ones` as the value of the attribute it.  \
+
+
+ANY_STRING_NULLABLE: This is used to `accept any text data including null or missing 
+ones` as the value of the attribute it.  \
+
+
+ANY_NUMBER_NULLABLE: This is used to `accept any numeric data including null or missing 
+ones` as the value of the attribute it.  \
+
+
+ANY_INTEGER_NULLABLE: This is used to `accept any integral data including null or missing 
+ones` as the value of the attribute it.  \
+
+
+ANY_FLOATING_NULLABLE: This is used to `accept any floating point data including null or missing 
+ones` as the value of the attribute it.  \
+
+
+ANY_DATE_NULLABLE: This is used to `accept any date data including null or missing 
+ones` as the value of the attribute it.  \
+
+
+ANY_TIMESTAMP_NULLABLE: This is used to `accept any time-stamp data including null or missing 
+ones` as the value of the attribute it.  \
+
+
+ANY_OBJECT_NULLABLE: This is used to `accept any Object data of any type including null or missing 
+ones` as the value of the attribute it.  \
+
+
+ANYTHING_PRESENT: This is used to `accept any data of any type but reject null or missing 
+ones` as the value of the attribute it. It is an alias of `ANY_NOT_NULLABLE`.  \
+
+
+ANY_NOT_NULLABLE: This is used to `accept any data of any type but reject null or missing 
+ones` as the value of the attribute it.  \
+
+
+ANY_STRING_NOT_NULLABLE: This is used to `accept any text data but reject null or missing 
+ones` as the value of the attribute it.  \
+
+
+ANY_NUMBER_NOT_NULLABLE: This is used to `accept any numeric data but reject null or missing 
+ones` as the value of the attribute it.  \
+
+
+ANY_INTEGER_NOT_NULLABLE: This is used to `accept any integer data but reject null or missing 
+ones` as the value of the attribute it.  \
+
+
+ANY_FLOATING_NOT_NULLABLE: This is used to `accept any floating point data but reject null or missing 
+ones` as the value of the attribute it.  \
+
+
+ANY_DATE_NOT_NULLABLE: This is used to `accept any date data but reject null or missing 
+ones` as the value of the attribute it.  \
+
+
+ANY_TIMESTAMP_NOT_NULLABLE: This is used to `accept any time-stamp data but reject null or missing 
+ones` as the value of the attribute it.  \
+
+
+ANY_OBJECT_NOT_NULLABLE: This is used to `accept any Object data of any type but reject null or missing 
+ones` as the value of the attribute it.  \
+
+
+### Dynamic References to Data in Scenario Contexts
+
+
+### Introducing Programmable Custom Dynamic Values
 
 
 ### How to Debug Test Scenarios
