@@ -1,11 +1,14 @@
 # BACK END FUNCTIONAL TEST AUTOMATION FRAMEWORK
 
+
 ## LICENSE
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+
 ## WHAT IS BEFTA FRAMEWORK?
 BEFTA Framework is a framework for automation of functional tests for http-based APIs. It uses Cucumber and Rest Assured frameworks and supports a BDD (Behaviour-Driven Development) approach to software development.
+
 
 ## FEATURES AND CONVENIENCES PROVIDED
 It provides the following functionalities and conveniences:
@@ -20,20 +23,25 @@ It provides the following functionalities and conveniences:
 9.  Custom extensibility of out-of-the box DSL (Cucumber feature)
 10. Other features coming with Cucumber Framework wrapped.
 
+
 ## HOW TO SETUP & INTEGRATE
+
 
 ### System Requirements
 * System Resources (Memory, Disk, CPU) - Same for a JDK 8 installation.  \
   [Click here to see Oracle's reference for this.](https://docs.oracle.com/javase/8/docs/technotes/guides/install/windows_system_requirements.html)
+
 
 ### Software Requirements
 * Java SE Development Kit 8 (JDK 8)
 * Your Favourite IDE
 * Gradle 4.10+
 
+
 ### Setting Up Environment
 1. Install JDK 8 or higher
 2. Install a command line terminal application
+
 
 ### Common Environment Variables
    Befta Framework uses the below environment variables:
@@ -48,6 +56,7 @@ It provides the following functionalities and conveniences:
      will be delivered.
    * BEFTA_RESPONSE_HEADER_CHECK_POLICY: This env var can be used optionally to switch the policy applied to mismatching 
      response header values. It can be one of IGNORE, JUST_WARN and FAIL_TEST. Default behaviour is to assume FAIL_TEST.
+
 
 ### Domain Specific Environment Variables
 Below are the environment needed specifically for CCD domain.
@@ -68,6 +77,7 @@ Below are the environment needed specifically for CCD domain.
    This will run the test scenarios under the local folder you specify.  \
    Test automation teams can write their simple, tiny custom Main classes to customise 
    the the test suite launching logic.
+
 
 ### Run BEFTA Framework With Gradle
 1. Install Gradle 4.1 or higher. You can simply copy a gradle wrapper from `https://github.com/hmcts/befta-fw`.
@@ -93,10 +103,12 @@ Below are the environment needed specifically for CCD domain.
    Test automation teams can write their simple, tiny custom Main classes to customise 
    the the test suite launching logic.
 
+
 #### Observe Cucumber Report
 
 1. Open in your web browser the local Cucumber report file:  \
    `./⁨target⁩/cucumber⁩/⁨cucumber-html-reports⁩/overview-features.html`
+
 
 #### Integrate Functional Test Suite Executions into Pipelines
 
@@ -112,6 +124,20 @@ be:
 ```
 '--plugin', "json:${projectDir}/target/cucumber.json", '--tags', 'not @Ignore', '--glue', 'uk.gov.hmcts.befta.player', 'src/aat/resources/features'
 ```
+
+
+#### Setting up a Local API Application under Test
+The most typical use of BEFTA Framework will include running an application in local 
+machine and executing a functional test suit against it. Running such applications 
+in local will require application-specific setup, and once setup correctly, BEFTA can 
+be used to functionally verify the behavioural requirements of any http-based API in 
+local. Multiple applications from totally diverse domains can be setup in a local machine 
+each having their respective base URLs, and BEFTA Framework can be used simply switching 
+from one configuration to test an API to another.
+
+In the case of HMCTS Reform CCD application suite, the local setup procedure is described 
+here on the []README of the ccd-docker repository](https://github.com/hmcts/ccd-data-store-api).
+
 
 #### Sample Repositories
 
@@ -152,16 +178,18 @@ Development of an automated test scenario takes, at a high level, the below main
    file. You can find more about how to debug your scenarios under the dedicated header 
    below.
 
+
 ### Json Inheritance Mechanism - How it Works & How to Use
 Attributes in an object represented by a JSON object in BEFTA-way are collated in the 
 order or calculation shown in the below diagram:  \
 ![](documentation/Json_Inheritance.jpg)
 
+
 ### Dynamic Value Place-holders and Formulas - How they Work & How to Use
 
 
-### How to Debug Test Scenarios
 
+### How to Debug Test Scenarios
 
 
 
