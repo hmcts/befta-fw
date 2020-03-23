@@ -193,87 +193,87 @@ in runtime, or with response details to specify acceptable values in API respons
 as per behavioural requirements: 
 
 
-`DEFAULT_AUTO_VALUE`: This is used to calculate a default automatic value in runtime for 
+1. `DEFAULT_AUTO_VALUE`: This is used to calculate a default automatic value in runtime for 
 the below specific request fields:  
 `uid`: When this is the attribute name, the value is dynamically injected as the `id 
 of the user` on behalf of which the test call is being delivered.  
 
-`Authorization`: When this is the attribute name, the value is dynamically injected as `a 
+* `Authorization`: When this is the attribute name, the value is dynamically injected as `a 
 'Bearer' token issued to the name of the user` on behalf of which the test call is being delivered.  
 
-`ServiceAuthorization`: When this is the attribute name, the value is dynamically injected as `a 
+* `ServiceAuthorization`: When this is the attribute name, the value is dynamically injected as `a 
 service to service token issued to the name of the client` on behalf of which the test call is being delivered.  
 
-`cid`: When this is the attribute name, the value is dynamically injected as the `id 
+* `cid`: When this is the attribute name, the value is dynamically injected as the `id 
 of a case created just before this test call, through a default case creation call`. 
 This is equivalent to hacing the below formulae in the value for the attribute:  
 `${[scenarioContext][childContexts][Standard_Full_Case_Creation_Data][testData][actualResponse][body][id]}`  \
 
-`ANY_NULLABLE`: This is used to `accept any data of any type including null or missing 
+2. `ANY_NULLABLE`: This is used to `accept any data of any type including null or missing 
 ones` as the value of the response detail specified.  
 
 
-`ANY_STRING_NULLABLE`: This is used to `accept any text data including null or missing 
+3. `ANY_STRING_NULLABLE`: This is used to `accept any text data including null or missing 
 ones` as the value of the response detail specified.  
 
 
-`ANY_NUMBER_NULLABLE`: This is used to `accept any numeric data including null or missing 
+4. `ANY_NUMBER_NULLABLE`: This is used to `accept any numeric data including null or missing 
 ones` as the value of the response detail specified.  
 
 
-`ANY_INTEGER_NULLABLE`: This is used to `accept any integral data including null or missing 
+5. `ANY_INTEGER_NULLABLE`: This is used to `accept any integral data including null or missing 
 ones` as the value of the response detail specified.  
 
 
-`ANY_FLOATING_NULLABLE`: This is used to `accept any floating point data including null or missing 
+6. `ANY_FLOATING_NULLABLE`: This is used to `accept any floating point data including null or missing 
 ones` as the value of the response detail specified.  
 
 
-`ANY_DATE_NULLABLE`: This is used to `accept any date data including null or missing 
+7. `ANY_DATE_NULLABLE`: This is used to `accept any date data including null or missing 
 ones` as the value of the response detail specified.  
 
 
-`ANY_TIMESTAMP_NULLABLE`: This is used to `accept any time-stamp data including null or missing 
+8. `ANY_TIMESTAMP_NULLABLE`: This is used to `accept any time-stamp data including null or missing 
 ones` as the value of the response detail specified.  
 
 
-`ANY_OBJECT_NULLABLE`: This is used to `accept any Object data of any type including null or missing 
+9. `ANY_OBJECT_NULLABLE`: This is used to `accept any Object data of any type including null or missing 
 ones` as the value of the response detail specified.  
 
 
-`ANYTHING_PRESENT`: This is used to `accept any data of any type but reject null or missing 
+10. `ANYTHING_PRESENT`: This is used to `accept any data of any type but reject null or missing 
 ones` as the value of the response detail specified. It is an alias of `ANY_NOT_NULLABLE`.  
 
 
-`ANY_NOT_NULLABLE`: This is used to `accept any data of any type but reject null or missing 
+11. `ANY_NOT_NULLABLE`: This is used to `accept any data of any type but reject null or missing 
 ones` as the value of the response detail specified.  
 
 
-`ANY_STRING_NOT_NULLABLE`: This is used to `accept any text data but reject null or missing 
+12. `ANY_STRING_NOT_NULLABLE`: This is used to `accept any text data but reject null or missing 
 ones` as the value of the response detail specified.  
 
 
-`ANY_NUMBER_NOT_NULLABLE`: This is used to `accept any numeric data but reject null or missing 
+13. `ANY_NUMBER_NOT_NULLABLE`: This is used to `accept any numeric data but reject null or missing 
 ones` as the value of the response detail specified.  
 
 
-`ANY_INTEGER_NOT_NULLABLE`: This is used to `accept any integer data but reject null or missing 
+14. `ANY_INTEGER_NOT_NULLABLE`: This is used to `accept any integer data but reject null or missing 
 ones` as the value of the response detail specified.  
 
 
-`ANY_FLOATING_NOT_NULLABLE`: This is used to `accept any floating point data but reject null or missing 
+15. `ANY_FLOATING_NOT_NULLABLE`: This is used to `accept any floating point data but reject null or missing 
 ones` as the value of the response detail specified.  
 
 
-`ANY_DATE_NOT_NULLABLE`: This is used to `accept any date data but reject null or missing 
+16. `ANY_DATE_NOT_NULLABLE`: This is used to `accept any date data but reject null or missing 
 ones` as the value of the response detail specified.  
 
 
-`ANY_TIMESTAMP_NOT_NULLABLE`: This is used to `accept any time-stamp data but reject null or missing 
+17. `ANY_TIMESTAMP_NOT_NULLABLE`: This is used to `accept any time-stamp data but reject null or missing 
 ones` as the value of the response detail specified.  
 
 
-`ANY_OBJECT_NOT_NULLABLE`: This is used to `accept any Object data of any type but reject null or missing 
+18. `ANY_OBJECT_NOT_NULLABLE`: This is used to `accept any Object data of any type but reject null or missing 
 ones` as the value of the response detail specified.  
 
 
@@ -314,22 +314,22 @@ to the TestAdapter object used by the framework instance executing the test suit
 is done by calling the `calculateCustomValue` method of the adapter. The default implementation 
 of the adapter already introduces the below custom values into the context of a scenario: 
  
-* `request`: shortcut for `[testData][request]`
-* `requestBody`: shortcut for `[testData][request][body]`
-* `requestHeaders`: shortcut for `[testData][request][headers]`
-* `requestPathVars`: shortcut for `[testData][request][pathVariables]`
-* `requestQueryParams`: shortcut for `[testData][request][queryParams]`
-* `expectedResponse`: shortcut for `[testData][expectedResponse]`
-* `expectedResponseHeaders`: shortcut for `[testData][expectedResponse][headers]`
-* `expectedResponseBody`: shortcut for `[testData][expectedResponse][body]`
-* `actualResponse`: shortcut for `[testData][actualResponse]`
-* `actualResponseHeaders`: shortcut for `[testData][actualResponse][headers]`
-* `actualResponseBody`: shortcut for `[testData][actualResponse][body]`
-* `today`: short cut for the value of the current date in `yyyy-MM-dd` format.
-* `today(<any-date-format>)`: short cut for the value of the current date in the specified 
+1. `request`: shortcut for `[testData][request]`
+2. `requestBody`: shortcut for `[testData][request][body]`
+3. `requestHeaders`: shortcut for `[testData][request][headers]`
+4. `requestPathVars`: shortcut for `[testData][request][pathVariables]`
+5. `requestQueryParams`: shortcut for `[testData][request][queryParams]`
+6. `expectedResponse`: shortcut for `[testData][expectedResponse]`
+7. `expectedResponseHeaders`: shortcut for `[testData][expectedResponse][headers]`
+8. `expectedResponseBody`: shortcut for `[testData][expectedResponse][body]`
+9. `actualResponse`: shortcut for `[testData][actualResponse]`
+10. `actualResponseHeaders`: shortcut for `[testData][actualResponse][headers]`
+11. `actualResponseBody`: shortcut for `[testData][actualResponse][body]`
+12. `today`: short cut for the value of the current date in `yyyy-MM-dd` format.
+13. `today(<any-date-format>)`: short cut for the value of the current date in the specified 
 format.
-* `now`: short cut for the value of the current system time in `yyyy-MM-dd'T'HH:mm:ss.SSS` format.
-* `now(<any-time-stamp-format>)`: short cut for the value of the current system time in the 
+14. `now`: short cut for the value of the current system time in `yyyy-MM-dd'T'HH:mm:ss.SSS` format.
+15. `now(<any-time-stamp-format>)`: short cut for the value of the current system time in the 
 specified time-stamp format.
 
 
