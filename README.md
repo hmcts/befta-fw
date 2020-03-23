@@ -143,6 +143,8 @@ here on the [README of the ccd-docker repository](https://github.com/hmcts/ccd-d
 
 Below are a few github repositories into which BEFTA Framework 
 has been successfully integrated:  \
+
+
 Some Spring Boot Applications:
 * https://github.com/hmcts/ccd-data-store-api
 * https://github.com/hmcts/ccd-definition-store-api
