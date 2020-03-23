@@ -189,6 +189,26 @@ order or calculation shown in the below diagram:  \
 
 ### Dynamic Value Place-holders and Formulas - How they Work & How to Use
 
+    ANYTHING_PRESENT(false),
+
+    ANY_NULLABLE(true),
+    ANY_STRING_NULLABLE(true),
+    ANY_NUMBER_NULLABLE(true),
+    ANY_INTEGER_NULLABLE(true),
+    ANY_FLOATING_NULLABLE(true),
+    ANY_DATE_NULLABLE(true),
+    ANY_TIMESTAMP_NULLABLE(true),
+    ANY_OBJECT_NULLABLE(true),
+
+    ANY_NOT_NULLABLE(false),
+    ANY_STRING_NOT_NULLABLE(false),
+    ANY_NUMBER_NOT_NULLABLE(false),
+    ANY_INTEGER_NOT_NULLABLE(false),
+    ANY_FLOATING_NOT_NULLABLE(false),
+    ANY_DATE_NOT_NULLABLE(false),
+    ANY_TIMESTAMP_NOT_NULLABLE(false),
+    ANY_OBJECT_NOT_NULLABLE(false);
+
 
 
 ### How to Debug Test Scenarios

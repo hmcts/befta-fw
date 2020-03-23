@@ -63,7 +63,7 @@ public class DynamicValueInjectorTest {
 
         DynamicValueInjector underTest = new DynamicValueInjector(taAdapter, testData, scenarioContext);
 
-        Assert.assertEquals("[[DYNAMIC]]", testData.getRequest().getPathVariables().get("uid"));
+        Assert.assertEquals("[[DEFAULT_AUTO_VALUE]]", testData.getRequest().getPathVariables().get("uid"));
 
         underTest.injectDataFromContext();
 
@@ -92,7 +92,7 @@ public class DynamicValueInjectorTest {
 
         DynamicValueInjector underTest = new DynamicValueInjector(taAdapter, testData, scenarioContext);
 
-        Assert.assertEquals("[[DYNAMIC]]", testData.getRequest().getPathVariables().get("uid"));
+        Assert.assertEquals("[[DEFAULT_AUTO_VALUE]]", testData.getRequest().getPathVariables().get("uid"));
 
         underTest.injectDataFromContext();
 
