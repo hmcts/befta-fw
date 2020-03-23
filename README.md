@@ -193,7 +193,7 @@ in runtime, or with response details to specify acceptable values in API respons
 as per behavioural requirements: 
 
 
-DEFAULT_AUTO_VALUE: This is used to calculate a default automatic value in runtime for 
+`DEFAULT_AUTO_VALUE`: This is used to calculate a default automatic value in runtime for 
 the below specific request fields:  
 `uid`: When this is the attribute name, the value is dynamically injected as the `id 
 of the user` on behalf of which the test call is being delivered.  
@@ -207,75 +207,74 @@ service to service token issued to the name of the client` on behalf of which th
 `cid`: When this is the attribute name, the value is dynamically injected as the `id 
 of a case created just before this test call, through a default case creation call`. 
 This is equivalent to hacing the below formulae in the value for the attribute:  
-`${[scenarioContext][childContexts][Standard_Full_Case_Creation_Data][testData][actualResponse][body][id]}` 
- \
+`${[scenarioContext][childContexts][Standard_Full_Case_Creation_Data][testData][actualResponse][body][id]}`  \
 
 `ANY_NULLABLE`: This is used to `accept any data of any type including null or missing 
-ones` as the value of the attribute it.  
+ones` as the value of the attribute specified.  
 
 
 `ANY_STRING_NULLABLE`: This is used to `accept any text data including null or missing 
-ones` as the value of the attribute it.  
+ones` as the value of the attribute specified.  
 
 
 `ANY_NUMBER_NULLABLE`: This is used to `accept any numeric data including null or missing 
-ones` as the value of the attribute it.  
+ones` as the value of the attribute specified.  
 
 
 `ANY_INTEGER_NULLABLE`: This is used to `accept any integral data including null or missing 
-ones` as the value of the attribute it.  
+ones` as the value of the attribute specified.  
 
 
 `ANY_FLOATING_NULLABLE`: This is used to `accept any floating point data including null or missing 
-ones` as the value of the attribute it.  
+ones` as the value of the attribute specified.  
 
 
 `ANY_DATE_NULLABLE`: This is used to `accept any date data including null or missing 
-ones` as the value of the attribute it.  
+ones` as the value of the attribute specified.  
 
 
 `ANY_TIMESTAMP_NULLABLE`: This is used to `accept any time-stamp data including null or missing 
-ones` as the value of the attribute it.  
+ones` as the value of the attribute specified.  
 
 
 `ANY_OBJECT_NULLABLE`: This is used to `accept any Object data of any type including null or missing 
-ones` as the value of the attribute it.  
+ones` as the value of the attribute specified.  
 
 
 `ANYTHING_PRESENT`: This is used to `accept any data of any type but reject null or missing 
-ones` as the value of the attribute it. It is an alias of `ANY_NOT_NULLABLE`.  
+ones` as the value of the attribute specified. It is an alias of `ANY_NOT_NULLABLE`.  
 
 
 `ANY_NOT_NULLABLE`: This is used to `accept any data of any type but reject null or missing 
-ones` as the value of the attribute it.  
+ones` as the value of the attribute specified.  
 
 
 `ANY_STRING_NOT_NULLABLE`: This is used to `accept any text data but reject null or missing 
-ones` as the value of the attribute it.  
+ones` as the value of the attribute specified.  
 
 
 `ANY_NUMBER_NOT_NULLABLE`: This is used to `accept any numeric data but reject null or missing 
-ones` as the value of the attribute it.  
+ones` as the value of the attribute specified.  
 
 
 `ANY_INTEGER_NOT_NULLABLE`: This is used to `accept any integer data but reject null or missing 
-ones` as the value of the attribute it.  
+ones` as the value of the attribute specified.  
 
 
 `ANY_FLOATING_NOT_NULLABLE`: This is used to `accept any floating point data but reject null or missing 
-ones` as the value of the attribute it.  
+ones` as the value of the attribute specified.  
 
 
 `ANY_DATE_NOT_NULLABLE`: This is used to `accept any date data but reject null or missing 
-ones` as the value of the attribute it.  
+ones` as the value of the attribute specified.  
 
 
 `ANY_TIMESTAMP_NOT_NULLABLE`: This is used to `accept any time-stamp data but reject null or missing 
-ones` as the value of the attribute it.  
+ones` as the value of the attribute specified.  
 
 
 `ANY_OBJECT_NOT_NULLABLE`: This is used to `accept any Object data of any type but reject null or missing 
-ones` as the value of the attribute it.  
+ones` as the value of the attribute specified.  
 
 
 ### Dynamic References to Data in Scenario Contexts
