@@ -129,11 +129,11 @@ be:
 #### Setting up a Local API Application under Test
 The most typical use of BEFTA Framework will include running an application in local 
 machine and executing a functional test suit against it. Running such applications 
-in local will require application-specific setup, and once setup correctly, BEFTA can 
-be used to functionally verify the behavioural requirements of any http-based API in 
+in local will require application-specific setup instructions. Once such an application 
+is setup correctly, BEFTA can then be used to functionally verify the behavioural requirements of any http-based API in 
 local. Multiple applications from totally diverse domains can be setup in a local machine 
-each having their respective base URLs, and BEFTA Framework can be used simply switching 
-from one configuration to test an API to another.
+each having their respective base URLs, and BEFTA Framework can be used for each of 
+them simply switching from one configuration to test an API to another.
 
 In the case of HMCTS Reform CCD application suite, the local setup procedure is described 
 here on the []README of the ccd-docker repository](https://github.com/hmcts/ccd-data-store-api).
