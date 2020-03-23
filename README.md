@@ -277,7 +277,34 @@ ones` as the value of the response detail specified.
 ones` as the value of the response detail specified.  
 
 
-### Dynamic References to Data in Scenario Contexts
+### Injecting Values of Environment Variables:
+Environment variables can be referenced between double curly braces like in `{{SOME_ENV_VAR}}`.  
+
+
+### Injecting Values from Scenario Context:
+Values in the runtime scenario context can be fetched and injected into designated 
+places by using the `${<field-reference-formal>}` notation. Users of this feature should 
+understand the object structure of a scenario context, which is shown in the below 
+diagram.  
+
+Field reference format is a square bracketed sequence `[like][this][here]` of field 
+names, map keys or array/collection indexes.
+
+Consider the following example:  
+```${[scenarioContext][childContexts][S-212_Get_Case_Data][testData][actualResponse][body][events][0][id]}```
+This reference picks the `id` field of the `0`-indexed element in the `events` collection 
+in the `body` of the `actualResponse` of the `testData` of the `childContext` of the 
+api call `S-212_Get_Case_Data` in the `scenarioContext` of this test scenario being 
+worked on.
+
+Some nice examples of use of this feature are available in the links below:
+
+* https://github.com/hmcts/ccd-data-store-api / [For Example](https://github.com/hmcts/ccd-data-store-api/blob/master/src/aat/resources/features/F-067/F-067_Test_Data_Base.td.json)
+*
+*
+
+
+![](documentation/Scenario_Context_Structure.jpg)
 
 
 ### Introducing Programmable Custom Dynamic Values
