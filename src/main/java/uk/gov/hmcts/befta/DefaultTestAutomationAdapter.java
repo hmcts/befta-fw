@@ -104,9 +104,18 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
             switch (keyString) {
                 case "request":
                     return scenarioContext.getTestData().getRequest();
-    
+
                 case "requestbody":
                     return scenarioContext.getTestData().getRequest().getBody();
+
+            case "requestheaders":
+                return scenarioContext.getTestData().getRequest().getHeaders();
+
+            case "requestpathvars":
+                return scenarioContext.getTestData().getRequest().getPathVariables();
+
+            case "requestqueryparams":
+                return scenarioContext.getTestData().getRequest().getQueryParams();
 
                 case "expectedresponse":
                     return scenarioContext.getTestData().getExpectedResponse();
