@@ -28,7 +28,7 @@ It provides the following functionalities and conveniences:
 
 
 ### System Requirements
-* System Resources (Memory, Disk, CPU) - Same for a JDK 8 installation.  \
+* System Resources (Memory, Disk, CPU) - Same for a JDK 8 installation.  
   [Click here to see Oracle's reference for this.](https://docs.oracle.com/javase/8/docs/technotes/guides/install/windows_system_requirements.html)
 
 
@@ -74,14 +74,14 @@ Below are the environment needed specifically for CCD domain.
 2. Open your preferred terminal and change current directory to the root directory 
    of your test automation project.
 3. java -cp befta-fw-1.2.1.jar uk.gov.hmcts.befta.BeftaMain 'my-feature-files/are/here, and/here, and-also/there'
-   This will run the test scenarios under the local folder you specify.  \
+   This will run the test scenarios under the local folder you specify.  
    Test automation teams can write their simple, tiny custom Main classes to customise 
    the the test suite launching logic.
 
 
 ### Run BEFTA Framework With Gradle
 1. Install Gradle 4.1 or higher. You can simply copy a gradle wrapper from `https://github.com/hmcts/befta-fw`.
-2. Add the following dependency to your build.gradle file:  \
+2. Add the following dependency to your build.gradle file:  
    `testCompile group: 'uk.gov.hmcts', name: 'befta-fw', version: '1.2.1'`
 3. Add a javaExec section to wherever you want a functional test suit to be executed, 
    like below:
@@ -99,14 +99,14 @@ Below are the environment needed specifically for CCD domain.
       ...
    }
    ```
-   of your test automation project.  \
+   of your test automation project.  
    Test automation teams can write their simple, tiny custom Main classes to customise 
    the the test suite launching logic.
 
 
 #### Observe Cucumber Report
 
-1. Open in your web browser the local Cucumber report file:  \
+1. Open in your web browser the local Cucumber report file:  
    `./⁨target⁩/cucumber⁩/⁨cucumber-html-reports⁩/overview-features.html`
 
 
@@ -142,7 +142,7 @@ here on the [README of the ccd-docker repository](https://github.com/hmcts/ccd-d
 #### Sample Repositories
 
 Below are a few github repositories into which BEFTA Framework 
-has been successfully integrated:  \
+has been successfully integrated:  
 
 
 Some Spring Boot Applications:
@@ -166,10 +166,10 @@ Development of an automated test scenario takes, at a high level, the below main
 3. Introduce a test data file with a good name ending with `.td.json`. The test data 
    file should be a marshaled json content of an object of class `uk.gov.hmcts.befta.data.HttpTestData`. Make 
    sure that the '_guid_' field in the file contains exactly the same text as the `S-` 
-   tag of the scenario in the `.feature` file.  \
+   tag of the scenario in the `.feature` file.  
    The json-based test data can be prepared making use of inheritance mechanism provided 
    by the framework. The inheritance mechanism will be described under a separate heading. 
-    \
+    
    The test data can also contain dynamic content to be calculated in the runtime, 
    in the form of pre-defined place-holders or json-path-like formulas to refer to 
    the value of any request or response details, or any programmatically computed custom 
@@ -183,7 +183,7 @@ Development of an automated test scenario takes, at a high level, the below main
 
 ### Json Inheritance Mechanism - How it Works & How to Use
 Attributes in an object represented by a JSON object in BEFTA-way are collated in the 
-order or calculation shown in the below diagram:  \
+order or calculation shown in the below diagram:  
 ![](documentation/Json_Inheritance.jpg)
 
 
@@ -194,88 +194,88 @@ as per behavioural requirements:
 
 
 DEFAULT_AUTO_VALUE: This is used to calculate a default automatic value in runtime for 
-the below specific request fields:  \
+the below specific request fields:  
 `uid`: When this is the attribute name, the value is dynamically injected as the `id 
-of the user` on behalf of which the test call is being delivered.  \
+of the user` on behalf of which the test call is being delivered.  
 
 `Authorization`: When this is the attribute name, the value is dynamically injected as `a 
-'Bearer' token issued to the name of the user` on behalf of which the test call is being delivered.  \
+'Bearer' token issued to the name of the user` on behalf of which the test call is being delivered.  
 
 `ServiceAuthorization`: When this is the attribute name, the value is dynamically injected as `a 
-service to service token issued to the name of the client` on behalf of which the test call is being delivered.  \
+service to service token issued to the name of the client` on behalf of which the test call is being delivered.  
 
 `cid`: When this is the attribute name, the value is dynamically injected as the `id 
 of a case created just before this test call, through a default case creation call`. 
-This is equivalent to hacing the below formulae in the value for the attribute:  \
+This is equivalent to hacing the below formulae in the value for the attribute:  
 `${[scenarioContext][childContexts][Standard_Full_Case_Creation_Data][testData][actualResponse][body][id]}` 
  \
 
 `ANY_NULLABLE`: This is used to `accept any data of any type including null or missing 
-ones` as the value of the attribute it.  \
+ones` as the value of the attribute it.  
 
 
 `ANY_STRING_NULLABLE`: This is used to `accept any text data including null or missing 
-ones` as the value of the attribute it.  \
+ones` as the value of the attribute it.  
 
 
 `ANY_NUMBER_NULLABLE`: This is used to `accept any numeric data including null or missing 
-ones` as the value of the attribute it.  \
+ones` as the value of the attribute it.  
 
 
 `ANY_INTEGER_NULLABLE`: This is used to `accept any integral data including null or missing 
-ones` as the value of the attribute it.  \
+ones` as the value of the attribute it.  
 
 
 `ANY_FLOATING_NULLABLE`: This is used to `accept any floating point data including null or missing 
-ones` as the value of the attribute it.  \
+ones` as the value of the attribute it.  
 
 
 `ANY_DATE_NULLABLE`: This is used to `accept any date data including null or missing 
-ones` as the value of the attribute it.  \
+ones` as the value of the attribute it.  
 
 
 `ANY_TIMESTAMP_NULLABLE`: This is used to `accept any time-stamp data including null or missing 
-ones` as the value of the attribute it.  \
+ones` as the value of the attribute it.  
 
 
 `ANY_OBJECT_NULLABLE`: This is used to `accept any Object data of any type including null or missing 
-ones` as the value of the attribute it.  \
+ones` as the value of the attribute it.  
 
 
 `ANYTHING_PRESENT`: This is used to `accept any data of any type but reject null or missing 
-ones` as the value of the attribute it. It is an alias of `ANY_NOT_NULLABLE`.  \
+ones` as the value of the attribute it. It is an alias of `ANY_NOT_NULLABLE`.  
 
 
 `ANY_NOT_NULLABLE`: This is used to `accept any data of any type but reject null or missing 
-ones` as the value of the attribute it.  \
+ones` as the value of the attribute it.  
 
 
 `ANY_STRING_NOT_NULLABLE`: This is used to `accept any text data but reject null or missing 
-ones` as the value of the attribute it.  \
+ones` as the value of the attribute it.  
 
 
 `ANY_NUMBER_NOT_NULLABLE`: This is used to `accept any numeric data but reject null or missing 
-ones` as the value of the attribute it.  \
+ones` as the value of the attribute it.  
 
 
 `ANY_INTEGER_NOT_NULLABLE`: This is used to `accept any integer data but reject null or missing 
-ones` as the value of the attribute it.  \
+ones` as the value of the attribute it.  
 
 
 `ANY_FLOATING_NOT_NULLABLE`: This is used to `accept any floating point data but reject null or missing 
-ones` as the value of the attribute it.  \
+ones` as the value of the attribute it.  
 
 
 `ANY_DATE_NOT_NULLABLE`: This is used to `accept any date data but reject null or missing 
-ones` as the value of the attribute it.  \
+ones` as the value of the attribute it.  
 
 
 `ANY_TIMESTAMP_NOT_NULLABLE`: This is used to `accept any time-stamp data but reject null or missing 
-ones` as the value of the attribute it.  \
+ones` as the value of the attribute it.  
 
 
 `ANY_OBJECT_NOT_NULLABLE`: This is used to `accept any Object data of any type but reject null or missing 
-ones` as the value of the attribute it.  \
+ones` as the value of the attribute it.  
 
 
 ### Dynamic References to Data in Scenario Contexts
