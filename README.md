@@ -136,7 +136,7 @@ each having their respective base URLs, and BEFTA Framework can be used for each
 them simply switching from one configuration to test an API to another.
 
 In the case of HMCTS Reform CCD application suite, the local setup procedure is described 
-here on the []README of the ccd-docker repository](https://github.com/hmcts/ccd-data-store-api).
+here on the [README of the ccd-docker repository](https://github.com/hmcts/ccd-data-store-api).
 
 
 #### Sample Repositories
