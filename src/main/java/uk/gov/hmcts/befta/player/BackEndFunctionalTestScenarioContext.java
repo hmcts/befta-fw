@@ -85,10 +85,10 @@ public class BackEndFunctionalTestScenarioContext {
         return BeftaMain.getAdapter().calculateCustomValue(this, key);
     }
 
-    public BackEndFunctionalTestScenarioContext getSiblingContext(String siblingId) {
+    public Map<String, BackEndFunctionalTestScenarioContext> getSiblingContext() {
         if (parentContext == null)
             return null;
-        return getParentContext().getChildContexts().get(siblingId);
+        return getParentContext().getChildContexts();
     }
 
 }
