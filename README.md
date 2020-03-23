@@ -308,6 +308,34 @@ Some nice examples of use of this feature are available in the links below:
 
 
 ### Introducing Programmable Custom Dynamic Values
+Each scenario context uses a custom value calculator function to translate certain 
+customised values into programmatically computed values. This function delegates its logic 
+to the TestAdapter object used by the framework instance executing the test suite. This 
+is done by calling the `calculateCustomValue` method of the adapter. The default implementation 
+of the adapter already introduces the below custom values into the context of a scenario: 
+ 
+* `request`: shortcut for `[testData][request]`
+* `requestBody`: shortcut for `[testData][request][body]`
+* `requestHeaders`: shortcut for `[testData][request][headers]`
+* `requestPathVars`: shortcut for `[testData][request][pathVariables]`
+* `requestQueryParams`: shortcut for `[testData][request][queryParams]`
+* `expectedResponse`: shortcut for `[testData][expectedResponse]`
+* `expectedResponseHeaders`: shortcut for `[testData][expectedResponse][headers]`
+* `expectedResponseBody`: shortcut for `[testData][expectedResponse][body]`
+* `actualResponse`: shortcut for `[testData][actualResponse]`
+* `actualResponseHeaders`: shortcut for `[testData][actualResponse][headers]`
+* `actualResponseBody`: shortcut for `[testData][actualResponse][body]`
+* `today`: short cut for the value of the current date in `yyyy-MM-dd` format.
+* `today(<any-date-format>)`: short cut for the value of the current date in the specified 
+format.
+* `now`: short cut for the value of the current system time in `yyyy-MM-dd'T'HH:mm:ss.SSS` format.
+* `now(<any-time-stamp-format>)`: short cut for the value of the current system time in the 
+specified time-stamp format.
+
+
+Users of BEFTA framework can override this specific method to alter the calculation for 
+the above custom values, or introduce new custom values needed in their specific tests 
+data requirements.
 
 
 ### How to Debug Test Scenarios
