@@ -1,0 +1,193 @@
+{
+		"_guid_": "custom-config-superset-of-unordered-without-id-field-verify-actual-subset-1",
+		"expectedResponse": {
+			"body": {
+				"collection": [
+					{
+						"operator": "superset-of",
+						"ordering": "unordered"
+					},
+					{
+						"id": "jur_1",
+						"state": "TODO",
+						"version": 0,
+						"case_type_id": "AAT",
+						"created_date": "2019-11-13T15:07:10.925",
+						"data": {
+							"PersonFirstName": "Judy",
+							"PersonLastName": "Ashby"
+						},
+						"anotherCollection" : [
+							{
+								"operator": "superset-of",
+								"ordering": "unordered"
+							},
+							{
+								"id": "id2",
+								"value": {
+									"someField3": "someValue3",
+									"someField4": "someValue4"
+								}
+							},
+							{
+								"id": "id1",
+								"value": {
+									"someField1": "someValue1",
+									"someField2": "someValue2"
+								}
+							}
+						]
+					},
+					{
+						"id": "jur_2",
+						"state": "TODO",
+						"version": 0,
+						"case_type_id": "AAT",
+						"created_date": "2019-11-13T15:07:10.925",
+						"data": {
+							"PersonFirstName": "John",
+							"PersonLastName": "Smith"
+						},
+						"anotherCollection" : [
+							{
+								"operator": "superset-of",
+								"ordering": "unordered"
+							},
+							{
+								"id": "id4",
+								"value": {
+									"someField7": "someValue7",
+									"someField8": "someValue8"
+								}
+							},
+							{
+								"id": "id3",
+								"value": {
+									"someField5": "someValue5",
+									"someField6": "someValue6"
+								}
+							}
+						]
+					},
+					{
+						"id": "jur_3",
+						"state": "TODO",
+						"version": 0,
+						"case_type_id": "AAT",
+						"created_date": "2019-11-13T15:07:10.925",
+						"data": {
+							"PersonFirstName": "Tom",
+							"PersonLastName": "Robinson"
+						},
+						"anotherCollection" : [
+							{
+								"operator": "superset-of",
+								"ordering": "unordered"
+							},
+							{
+								"id": "id6",
+								"value": {
+									"someField5": "someValue11",
+									"someField6": "someValue12"
+								}
+							},
+							{
+								"id": "id5",
+								"value": {
+									"someField7": "someValue9",
+									"someField8": "someValue10"
+								}
+							}
+						]
+					},
+					{
+						"id": "jur_4",
+						"state": "TODO",
+						"version": 0,
+						"case_type_id": "AAT",
+						"created_date": "2019-11-13T15:07:10.925",
+						"anotherCollection" : [
+							{
+								"operator": "superset-of",
+								"ordering": "unordered"
+							},
+							{
+								"id": "id8",
+								"value": {
+									"someField5": "someValue15",
+									"someField6": "someValue16"
+								}
+							},
+							{
+								"id": "id7",
+								"value": {
+									"someField7": "someValue13",
+									"someField8": "someValue14"
+								}
+							}
+						]
+					}
+				]
+			}
+		},
+		"actualResponse": {
+			"body": {
+				"collection": [
+					{
+						"id": "jur_2",
+						"state": "TODO",
+						"version": 0,
+						"case_type_id": "AAT",
+						"created_date": "2019-11-13T15:07:10.925",
+						"data": {
+							"PersonFirstName": "John",
+							"PersonLastName": "Smith"
+						},
+						"anotherCollection" : [
+							{
+								"id": "id3",
+								"value": {
+									"someField5": "someValue5",
+									"someField6": "someValue6"
+								}
+							},
+							{
+								"id": "id4",
+								"value": {
+									"someField7": "someValue7",
+									"someField8": "someValue8"
+								}
+							}
+						]
+					},
+					{
+						"id": "jur_3",
+						"state": "TODO",
+						"version": 0,
+						"case_type_id": "AAT",
+						"created_date": "2019-11-13T15:07:10.925",
+						"data": {
+							"PersonFirstName": "Tom",
+							"PersonLastName": "Robinson"
+						},
+						"anotherCollection" : [
+							{
+								"id": "id5",
+								"value": {
+									"someField7": "someValue9",
+									"someField8": "someValue10"
+								}
+							},
+							{
+								"id": "id6",
+								"value": {
+									"someField5": "someValue11",
+									"someField6": "someValue12"
+								}
+							}
+						]
+					}
+				]
+			}
+		}
+}

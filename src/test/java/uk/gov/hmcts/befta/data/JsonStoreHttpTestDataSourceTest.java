@@ -1,10 +1,12 @@
 package uk.gov.hmcts.befta.data;
 
-import org.junit.Before;
-import org.junit.Test;
-
 import static org.junit.Assert.assertNull;
-import static uk.gov.hmcts.common.CommonAssertions.*;
+import static uk.gov.hmcts.common.CommonAssertions.applyCommonAssertionsOnBasicData;
+import static uk.gov.hmcts.common.CommonAssertions.applyCommonAssertionsOnExtendedData;
+import static uk.gov.hmcts.common.CommonAssertions.applyCommonAssertionsOnOverriddenData;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class JsonStoreHttpTestDataSourceTest {
 
@@ -12,7 +14,7 @@ public class JsonStoreHttpTestDataSourceTest {
 
     private JsonStoreHttpTestDataSource dataSource;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         dataSource = new JsonStoreHttpTestDataSource(TEST_DATA_RESOURCE_PACKAGES);
     }

@@ -6,7 +6,7 @@ import static uk.gov.hmcts.common.CommonAssertions.applyCommonAssertionsOnBasicD
 import static uk.gov.hmcts.common.CommonAssertions.applyCommonAssertionsOnExtendedData;
 import static uk.gov.hmcts.common.CommonAssertions.applyCommonAssertionsOnOverriddenData;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
