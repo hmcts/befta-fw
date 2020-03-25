@@ -3,6 +3,7 @@ package uk.gov.hmcts.jsonstore;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.MissingNode;
 
 public class JsonResourceStoreWithInheritance extends JsonStoreWithInheritance {
     private String[] resourcePaths;
@@ -29,7 +30,7 @@ public class JsonResourceStoreWithInheritance extends JsonStoreWithInheritance {
             JsonNode substore = null;
             if (resource.toLowerCase().endsWith(".json"))
                 substore = buildObjectStoreInAResource(resource);
-            if (substore != null) {
+            if (substore != null && !substore.equals(MissingNode.getInstance())) {
                 String guid = substore.get(GUID).asText();
                 validateGUID(guid);
                 if (substore.isArray()) {
