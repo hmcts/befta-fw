@@ -250,7 +250,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         } else {
             if (!response.getBody().asString().isEmpty()) {
                 jsonForBody = response.getBody().asString();
-                jsonForBody = wrapInMapIfNecessary(jsonForBody);
+                jsonForBody = wrapInMapIfNecessary(jsonForBody, response.getContentType());
             }
         }
 
@@ -286,9 +286,13 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         }
     }
 
-    private String wrapInMapIfNecessary(String apiResponse) {
-        if (apiResponse.startsWith("[") && apiResponse.endsWith("]")) {
-            apiResponse = "{\"arrayInMap\":" + apiResponse + "}";
+    private String wrapInMapIfNecessary(String apiResponse, String contentType) {
+        if (contentType != null && contentType.toLowerCase().contains("json")) {
+            if (apiResponse.startsWith("[") && apiResponse.endsWith("]")) {
+                apiResponse = "{\"arrayInMap\":" + apiResponse + "}";
+            }
+        } else {
+            apiResponse = "{\"__plainTextValue__\": \"" + apiResponse + "\"}";
         }
         return apiResponse;
     }
