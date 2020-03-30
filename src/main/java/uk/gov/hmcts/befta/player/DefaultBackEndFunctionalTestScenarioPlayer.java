@@ -292,7 +292,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
                 apiResponse = "{\"arrayInMap\":" + apiResponse + "}";
             }
         } else {
-            apiResponse = "{\"__plainTextValue__\": \"" + apiResponse + "\"}";
+            apiResponse = "{\"__plainTextValue__\": \"" + apiResponse.replaceAll("\n", "") + "\"}";
         }
         return apiResponse;
     }

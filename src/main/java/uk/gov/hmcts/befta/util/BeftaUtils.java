@@ -5,8 +5,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URL;
 
 import io.restassured.internal.util.IOUtils;
+import uk.gov.hmcts.befta.exception.FunctionalTestException;
 
 public class BeftaUtils {
 
@@ -14,7 +16,11 @@ public class BeftaUtils {
         try {
             int nameStartsAt = resourcePath.lastIndexOf("/");
             String simpleName = resourcePath.substring(nameStartsAt + 1);
-            InputStream stream = BeftaUtils.class.getClassLoader().getResource(resourcePath).openStream();
+            URL resource = BeftaUtils.class.getClassLoader().getResource(resourcePath);
+            if (resource == null) {
+                throw new FunctionalTestException("Failed to load from filePath: " + resourcePath);
+            }
+            InputStream stream = resource.openStream();
             byte[] buffer = IOUtils.toByteArray(stream);
             File tempFile = new File("_temp_" + System.currentTimeMillis() + "_" + simpleName);
             tempFile.createNewFile();
