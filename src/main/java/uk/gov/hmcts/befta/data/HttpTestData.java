@@ -1,9 +1,10 @@
 package uk.gov.hmcts.befta.data;
 
-import lombok.Data;
-
 import java.util.LinkedHashMap;
 import java.util.List;
+
+import lombok.Data;
+import uk.gov.hmcts.befta.BeftaMain;
 
 @Data
 public class HttpTestData {
@@ -33,6 +34,8 @@ public class HttpTestData {
     private ResponseData actualResponse;
 
     private LinkedHashMap<String, UserData> users = new LinkedHashMap<>();
+
+    private String apiClientId;
 
     private UserData userSet = null;
 
@@ -64,5 +67,12 @@ public class HttpTestData {
         if (userSet != null) {
             setInvokingUser(userSet);
         }
+    }
+
+    public String getApiClientId() {
+        if (apiClientId == null) {
+            return BeftaMain.getConfig().getS2SClientId();
+        }
+        return apiClientId;
     }
 }

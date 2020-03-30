@@ -67,7 +67,7 @@ public class DynamicValueInjector {
             if (key.equalsIgnoreCase("Authorization")) {
                 return "Bearer " + theInvokingUser.getAccessToken();
             } else if (key.equalsIgnoreCase("ServiceAuthorization")) {
-                if ((s2sToken = taAdapter.getNewS2SToken()) != null) {
+                if ((s2sToken = taAdapter.getNewS2SToken(testData.getApiClientId())) != null) {
                     return s2sToken;
                 }
             } else if (key.equalsIgnoreCase("uid") && theInvokingUser.getId() != null) {
