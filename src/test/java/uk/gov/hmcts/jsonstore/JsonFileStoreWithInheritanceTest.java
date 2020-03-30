@@ -1,14 +1,21 @@
 package uk.gov.hmcts.jsonstore;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static uk.gov.hmcts.common.CommonAssertions.applyCommonAssertionsOnBasicData;
+import static uk.gov.hmcts.common.CommonAssertions.applyCommonAssertionsOnExtendedData;
+import static uk.gov.hmcts.common.CommonAssertions.applyCommonAssertionsOnOverriddenData;
+
+import org.junit.jupiter.api.Test;
+
 import com.fasterxml.jackson.databind.JsonNode;
-import org.junit.Test;
-import uk.gov.hmcts.befta.data.HttpTestData;
 
 import java.io.File;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static uk.gov.hmcts.common.CommonAssertions.*;
+import uk.gov.hmcts.befta.data.HttpTestData;
 
 
 public class JsonFileStoreWithInheritanceTest {
@@ -34,8 +41,12 @@ public class JsonFileStoreWithInheritanceTest {
 
         final JsonNode rootNode = fileStore.getRootNode();
         assertEquals(2, rootNode.size());
-        assertEquals(FILE_IN_ROOT_ID, rootNode.get(0).get(ID_KEY).textValue());
-        assertEquals(FILE_IN_SUBDIRECTORY_ID, rootNode.get(1).get(ID_KEY).textValue());
+
+        List<Object> ids = Arrays.asList(rootNode.get(0).get(ID_KEY).asText(), rootNode.get(1).get(ID_KEY).asText());
+
+        assertTrue(ids.contains(FILE_IN_ROOT_ID));
+        assertTrue(ids.contains(FILE_IN_SUBDIRECTORY_ID));
+
     }
 
     @Test

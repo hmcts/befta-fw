@@ -1,14 +1,17 @@
 package uk.gov.hmcts.befta.player;
 
-import io.cucumber.java.Scenario;
-import io.restassured.RestAssured;
-import io.restassured.http.Headers;
-import io.restassured.http.Method;
-import io.restassured.response.Response;
-import io.restassured.response.ResponseBody;
-import io.restassured.specification.QueryableRequestSpecification;
-import io.restassured.specification.RequestSpecification;
-import io.restassured.specification.SpecificationQuerier;
+import static org.hamcrest.core.StringContains.containsString;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
+import static org.powermock.api.mockito.PowerMockito.mockStatic;
+import static org.powermock.api.mockito.PowerMockito.whenNew;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -19,6 +22,24 @@ import org.mockito.Captor;
 import org.mockito.Mock;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import io.cucumber.java.Scenario;
+import io.restassured.RestAssured;
+import io.restassured.http.Header;
+import io.restassured.http.Headers;
+import io.restassured.http.Method;
+import io.restassured.response.Response;
+import io.restassured.response.ResponseBody;
+import io.restassured.specification.QueryableRequestSpecification;
+import io.restassured.specification.RequestSpecification;
+import io.restassured.specification.SpecificationQuerier;
 import uk.gov.hmcts.befta.BeftaMain;
 import uk.gov.hmcts.befta.DefaultTestAutomationAdapter;
 import uk.gov.hmcts.befta.data.HttpTestData;
@@ -28,34 +49,16 @@ import uk.gov.hmcts.befta.data.UserData;
 import uk.gov.hmcts.befta.exception.FunctionalTestException;
 import uk.gov.hmcts.befta.exception.UnconfirmedApiCallException;
 import uk.gov.hmcts.befta.exception.UnconfirmedDataSpecException;
-import uk.gov.hmcts.befta.util.*;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
-import static org.hamcrest.core.StringContains.containsString;
-import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.*;
-import static org.powermock.api.mockito.PowerMockito.mockStatic;
-import static org.powermock.api.mockito.PowerMockito.whenNew;
+import uk.gov.hmcts.befta.util.DynamicValueInjector;
+import uk.gov.hmcts.befta.util.EnvironmentVariableUtils;
+import uk.gov.hmcts.befta.util.JsonUtils;
+import uk.gov.hmcts.befta.util.MapVerificationResult;
+import uk.gov.hmcts.befta.util.MapVerifier;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({
-        DefaultBackEndFunctionalTestScenarioPlayer.class,
-        RestAssured.class,
-        Scenario.class,
-        BeftaMain.class,
-        DynamicValueInjector.class,
-        EnvironmentVariableUtils.class,
-        JsonUtils.class,
-        Method.class,
-        SpecificationQuerier.class
-})
+@PrepareForTest({ DefaultBackEndFunctionalTestScenarioPlayer.class, RestAssured.class, Scenario.class, BeftaMain.class,
+        DynamicValueInjector.class, EnvironmentVariableUtils.class, JsonUtils.class, Method.class,
+        SpecificationQuerier.class })
 public class DefaultBackEndFunctionalTestScenarioPlayerTest {
 
     private DefaultBackEndFunctionalTestScenarioPlayer scenarioPlayer;
@@ -90,7 +93,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
     public ExpectedException exceptionRule = ExpectedException.none();
 
     @Captor
-    private ArgumentCaptor captor;
+    private ArgumentCaptor<?> captor;
 
     @Before
     public void setUp() throws Exception {
@@ -155,22 +158,34 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
     public void shouldPrepareARequestWithAppropriateValuesUsingMaxData() throws IOException {
         HttpTestData testData = new HttpTestData();
         RequestData requestData = new RequestData();
-        requestData.setHeaders(new HashMap<String, Object>() {{
-            put("header1", "header value 1");
-            put("header2", "header value 2");
-        }});
-        requestData.setPathVariables(new HashMap<String, Object>() {{
-            put("pathvar1", "path var value 1");
-            put("pathvar2", "path var value 2");
-        }});
-        requestData.setQueryParams(new HashMap<String, Object>() {{
-            put("param1", "param value 1");
-            put("param2", "param value 2");
-        }});
-        requestData.setBody(new HashMap<String, Object>() {{
-            put("key1", "value 1");
-            put("key2", "value 2");
-        }});
+        requestData.setHeaders(new HashMap<String, Object>() {
+            private static final long serialVersionUID = 1L;
+            {
+                put("header1", "header value 1");
+                put("header2", "header value 2");
+            }
+        });
+        requestData.setPathVariables(new HashMap<String, Object>() {
+            private static final long serialVersionUID = 1L;
+            {
+                put("pathvar1", "path var value 1");
+                put("pathvar2", "path var value 2");
+            }
+        });
+        requestData.setQueryParams(new HashMap<String, Object>() {
+            private static final long serialVersionUID = 1L;
+            {
+                put("param1", "param value 1");
+                put("param2", "param value 2");
+            }
+        });
+        requestData.setBody(new HashMap<String, Object>() {
+            private static final long serialVersionUID = 1L;
+            {
+                put("key1", "value 1");
+                put("key2", "value 2");
+            }
+        });
         testData.setRequest(requestData);
 
         when(RestAssured.given()).thenReturn(requestSpecification);
@@ -204,7 +219,6 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         verifyNoMoreInteractions(requestSpecification);
     }
 
-
     @Test
     public void shouldVerifyThatTheResponseHasAllTheDetailsAsExpectedSuccessfully() throws IOException {
         ResponseData response = createResponseDataWithResponseCode(200);
@@ -236,6 +250,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         scenarioPlayer.verifyThatTheResponseHasAllTheDetailsAsExpected();
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     public void shouldFailToVerifyResponsesWithMapVerifierIssues() throws IOException {
         ResponseData response = new ResponseData();
@@ -249,13 +264,19 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         when(mapVerifier.verifyMap(any(), any())).thenReturn(verificationResult);
         when(verificationResult.isVerified()).thenReturn(false);
 
-        when(verificationResult.getAllIssues()).thenReturn(new ArrayList<String>() {{
-            add("Header issue 1");
-            add("Header issue 2");
-        }}, new ArrayList<String>() {{
-            add("Body issue 1");
-            add("Body issue 2");
-        }});
+        when(verificationResult.getAllIssues()).thenReturn(new ArrayList<String>() {
+            private static final long serialVersionUID = 1L;
+            {
+                add("Header issue 1");
+                add("Header issue 2");
+            }
+        }, new ArrayList<String>() {
+            private static final long serialVersionUID = 1L;
+            {
+                add("Body issue 1");
+                add("Body issue 2");
+            }
+        });
 
         exceptionRule.expect(AssertionError.class);
         exceptionRule.expectMessage(containsString("Header issue 1"));
@@ -271,9 +292,12 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         final String specificationAboutUser = "USER SPEC";
         HttpTestData testData = mock(HttpTestData.class);
         UserData userData = createUserData(USERNAME, PASSWORD);
-        LinkedHashMap<String, UserData> users = new LinkedHashMap<String, UserData>() {{
-            put("invokingUser", userData);
-        }};
+        LinkedHashMap<String, UserData> users = new LinkedHashMap<String, UserData>() {
+            private static final long serialVersionUID = 1L;
+            {
+                put("invokingUser", userData);
+            }
+        };
 
         when(testData.meetsSpec(any())).thenReturn(true);
         when(testData.getInvokingUser()).thenReturn(userData);
@@ -360,6 +384,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         scenarioPlayer.verifyTheResponseInTheContextWithAParticularSpecification(responseSpecification);
     }
 
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     @Test
     public void shouldSubmitTheRequestToCallAnOperationOfAProductWithCorrectOperation() throws IOException {
         final String methodType = "POST";
@@ -374,11 +399,14 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         when(testData.meetsOperationOfProduct(eq(PRODUCT_NAME), eq(OPERATION))).thenReturn(true);
         when(testData.getMethod()).thenReturn(methodType);
         when(testData.getUri()).thenReturn(uri);
+        when(testData.getExpectedResponse()).thenReturn(new ResponseData());
         when(context.getTestData()).thenReturn(testData);
         when(context.getTheRequest()).thenReturn(requestSpecification);
-        when(response.getHeaders()).thenReturn(new Headers());
+        when(response.getHeaders())
+                .thenReturn(new Headers(Arrays.asList(new Header("Content-Type", "application/json;charset=UTF-8"))));
         when(response.getStatusCode()).thenReturn(200);
         when(response.getBody()).thenReturn(responseBody);
+        when(response.contentType()).thenReturn("application/json;charset=UTF-8");
         when(responseBody.asString()).thenReturn(bodyString);
         when(requestSpecification.request(eq(Method.POST), eq(uri))).thenReturn(response);
         when(Method.valueOf(eq(methodType))).thenReturn(Method.POST);
@@ -390,7 +418,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         verify(testData).setActualResponse((ResponseData) captor.capture());
         ResponseData responseData = (ResponseData) captor.getValue();
         assertEquals(200, responseData.getResponseCode());
-        assertEquals(0, responseData.getHeaders().size());
+        assertEquals(1, responseData.getHeaders().size());
         assertEquals(body, responseData.getBody());
         assertEquals("OK", responseData.getResponseMessage());
     }
@@ -418,7 +446,8 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         when(context.getTestData()).thenReturn(testData);
 
         exceptionRule.expect(UnconfirmedApiCallException.class);
-        exceptionRule.expectMessage("Test data does not confirm it is calling the following operation of a product: OPERATION -> PRODUCT NAME");
+        exceptionRule.expectMessage(
+                "Test data does not confirm it is calling the following operation of a product: OPERATION -> PRODUCT NAME");
 
         scenarioPlayer.submitTheRequestToCallAnOperationOfAProduct(OPERATION, PRODUCT_NAME);
     }

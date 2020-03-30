@@ -1,20 +1,21 @@
 package uk.gov.hmcts.jsonstore;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.instanceOf;
+import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import java.util.Map;
+
 import uk.gov.hmcts.befta.data.HttpTestData;
 import uk.gov.hmcts.befta.data.HttpTestDataSource;
 import uk.gov.hmcts.befta.data.JsonStoreHttpTestDataSource;
 import uk.gov.hmcts.befta.exception.InvalidTestDataException;
 import uk.gov.hmcts.befta.util.MapVerificationResult;
 import uk.gov.hmcts.befta.util.MapVerifier;
-
-import java.util.Map;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.instanceOf;
-import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 public class JsonStoreWithInheritanceTest {
@@ -57,7 +58,7 @@ public class JsonStoreWithInheritanceTest {
         HttpTestData extension = TEST_DATA_RESOURCE.getDataForTestCall("S-301");
 
         @SuppressWarnings("unchecked")
-        MapVerificationResult result = new MapVerifier("", 5).verifyMap(
+        MapVerificationResult result = new MapVerifier("", 2).verifyMap(
                 (Map<String, Object>) extension.getRequest().getBody().get("data"),
                 (Map<String, Object>) extension.getExpectedResponse().getBody().get("data"));
 

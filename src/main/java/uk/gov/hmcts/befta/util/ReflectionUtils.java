@@ -1,12 +1,9 @@
 package uk.gov.hmcts.befta.util;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
-import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class ReflectionUtils {
 
@@ -23,51 +20,61 @@ public class ReflectionUtils {
         return fieldValue;
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
     public static Object retrieveFieldInObject(Object object, String fieldName) throws Exception {
         if (object == null)
             return null;
         if (fieldName == null || fieldName.length() == 0)
             throw new IllegalArgumentException("fieldName must be non-empty String.");
 
-        //System.out.println("Will retrieve [" + fieldName + "] from [" + object + "] of type " + object.getClass());
+        int fieldIndex = -1;
+        if (fieldName.contains("[")) {
+            fieldIndex = Integer.parseInt(fieldName.substring(fieldName.indexOf("[") + 1, fieldName.length() - 1));
+            fieldName = fieldName.substring(0, fieldName.indexOf("["));
+        }
 
         String getterName = "get" + StringUtils.firstLetterToUpperCase(fieldName);
 
         Throwable thrown = null;
+        Object valueFound = null;
         try {
             Method method = object.getClass().getMethod(getterName);
-            return method.invoke(object);
+            valueFound = method.invoke(object);
         } catch (Throwable t) {
             thrown = t;
         }
-
         if (object instanceof Map)
-            return ((Map) object).get(fieldName);
-        else if (object instanceof Iterable) {
-            Collection values = null;
-            if (object instanceof Set)
-                values = new LinkedHashSet<>();
-            else
-                values = new ArrayList<>();
+            valueFound = ((Map<?, ?>) object).get(fieldName);
+        else if (thrown != null)
+            throw new NoSuchFieldException(fieldName + " not retrievable from " + object + ".");
 
-            Iterator itr = ((Iterable) object).iterator();
-            while (itr.hasNext()) {
-                Object elementInside = retrieveFieldInObject(itr.next(), fieldName);
-                if (elementInside == null)
-                    elementInside = new DummyPlaceHolder();
-                values.add(elementInside);
+        return getValueToReturnFrom(valueFound, fieldIndex);
+    }
+
+    private static Object getValueToReturnFrom(Object valueFound, int fieldIndex) {
+        if (fieldIndex < 0)
+            return valueFound;
+        else {
+            if (valueFound instanceof List<?>)
+                return ((List<?>) valueFound).get(fieldIndex);
+            else if (valueFound instanceof Object[])
+                return ((Object[]) valueFound)[fieldIndex];
+            else if (valueFound instanceof Iterable<?>) {
+                Iterator<?> itr = ((Iterable<?>) valueFound).iterator();
+                int i = 0;
+                while (itr.hasNext()) {
+                    Object element = itr.next();
+                    if (i == fieldIndex)
+                        return element;
+                    i++;
+                }
+                throw new RuntimeException(
+                        "Element " + fieldIndex + " not available. Size of the containing object is " + i + ".");
             }
-
-            if (values.size() == 0)
-                return null;
-            else if (values.size() == 1)
-                return values.iterator().next();
-            return values;
+            else {
+                throw new RuntimeException(
+                        "Element " + fieldIndex + " not addressable on " + valueFound + ".");
+            }
         }
-        if (thrown != null)
-            thrown.printStackTrace();
-        throw new NoSuchFieldException(fieldName + " not retrievable from " + object + ".");
     }
 
     public static class DummyPlaceHolder {

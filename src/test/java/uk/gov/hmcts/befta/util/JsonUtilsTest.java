@@ -1,18 +1,19 @@
 package uk.gov.hmcts.befta.util;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-import uk.gov.hmcts.befta.data.HttpTestData;
-import uk.gov.hmcts.befta.data.RequestData;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
+import uk.gov.hmcts.befta.data.HttpTestData;
+import uk.gov.hmcts.befta.data.RequestData;
 
 
 @RunWith(PowerMockRunner.class)
@@ -45,7 +46,7 @@ public class JsonUtilsTest {
     public void shouldReadObjectFromJsonText() throws IOException {
         final String testValue = "{\"key1\":\"value1\",\"key2\":\"value2\"}";
 
-        final Map result = JsonUtils.readObjectFromJsonText(testValue, Map.class);
+        final Map<?, ?> result = JsonUtils.readObjectFromJsonText(testValue, Map.class);
 
         assertEquals(2, result.keySet().size());
         assertEquals("value1", result.get("key1"));
@@ -55,13 +56,15 @@ public class JsonUtilsTest {
     @Test
     public void shouldGetJsonFromObject() throws IOException {
         RequestData testObject = new RequestData();
-        testObject.setBody(new HashMap<String, Object>(){{
+        testObject.setBody(new HashMap<String, Object>() {
+            private static final long serialVersionUID = 1L;
+            {
             put("key1", "value1");
             put("key2", "value2");
         }});
 
         final String expectedResult = "{\"headers\":null,\"pathVariables\":null,\"queryParams\":null," +
-                "\"body\":{\"key1\":\"value1\",\"key2\":\"value2\"}}";
+                "\"body\":{\"key1\":\"value1\",\"key2\":\"value2\"},\"multipart\":false}";
 
         final String result = JsonUtils.getJsonFromObject(testObject);
 
@@ -71,7 +74,9 @@ public class JsonUtilsTest {
     @Test
     public void shouldGetPrettyJsonFromObject() throws IOException {
         RequestData testObject = new RequestData();
-        testObject.setBody(new HashMap<String, Object>(){{
+        testObject.setBody(new HashMap<String, Object>() {
+            private static final long serialVersionUID = 1L;
+            {
             put("key1", "value1");
             put("key2", "value2");
         }});
@@ -83,7 +88,8 @@ public class JsonUtilsTest {
                 "  \"body\" : {\n" +
                 "    \"key1\" : \"value1\",\n" +
                 "    \"key2\" : \"value2\"\n" +
-                "  }\n" +
+                "  },\n" +
+                "  \"multipart\" : false\n" +
                 "}";
 
         final String result = JsonUtils.getPrettyJsonFromObject(testObject);

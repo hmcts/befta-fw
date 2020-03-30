@@ -2,6 +2,8 @@ package uk.gov.hmcts.befta;
 
 import org.springframework.cloud.openfeign.support.SpringMvcContract;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,6 +16,7 @@ import uk.gov.hmcts.befta.auth.AuthApi;
 import uk.gov.hmcts.befta.auth.OAuth2;
 import uk.gov.hmcts.befta.data.UserData;
 import uk.gov.hmcts.befta.exception.FunctionalTestException;
+import uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext;
 import uk.gov.hmcts.reform.authorisation.ServiceAuthorisationApi;
 import uk.gov.hmcts.reform.authorisation.generators.ServiceAuthTokenGenerator;
 
@@ -105,5 +108,53 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
                 AUTHORIZATION_CODE, oauth2.getClientId(), oauth2.getClientSecret(), oauth2.getRedirectUri());
 
         return tokenExchangeResponse.getAccessToken();
+    }
+
+    @Override
+    public Object calculateCustomValue(BackEndFunctionalTestScenarioContext scenarioContext, Object key) {
+        if (key == null)
+            return null;
+        if (key instanceof String) {
+            String keyString = ((String) key).toLowerCase().replaceAll(" ", "").replaceAll("-", "").replaceAll("_", "");
+            switch (keyString) {
+                case "request":
+                    return scenarioContext.getTestData().getRequest();
+    
+                case "requestbody":
+                    return scenarioContext.getTestData().getRequest().getBody();
+
+                case "expectedresponse":
+                    return scenarioContext.getTestData().getExpectedResponse();
+    
+                case "expectedresponseheaders":
+                    return scenarioContext.getTestData().getExpectedResponse().getHeaders();
+    
+                case "expectedresponsebody":
+                    return scenarioContext.getTestData().getExpectedResponse().getBody();
+    
+                case "actualresponse":
+                    return scenarioContext.getTestData().getActualResponse();
+    
+                case "actualresponseheaders":
+                    return scenarioContext.getTestData().getActualResponse().getHeaders();
+    
+                case "actualresponsebody":
+                    return scenarioContext.getTestData().getActualResponse().getBody();
+            }
+            String dateTimeFormat = getDateTimeFormatRequested((String) key);
+            if (dateTimeFormat != null)
+                return LocalDate.now().format(DateTimeFormatter.ofPattern(dateTimeFormat));
+        }
+        return null;
+    }
+
+    protected String getDateTimeFormatRequested(String key) {
+        if (key.equals("today"))
+            return "yyyy-MM-dd";
+        else if (key.equals("now"))
+            return "yyyy-MM-dd'T'HH:mm:ss.SSS";
+        else if (key.startsWith("now("))
+            return key.substring(4, key.length() - 1);
+        return null;
     }
 }

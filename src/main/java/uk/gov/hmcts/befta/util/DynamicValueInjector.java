@@ -4,6 +4,7 @@ import com.google.common.collect.FluentIterable;
 
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
 import uk.gov.hmcts.befta.TestAutomationAdapter;
 import uk.gov.hmcts.befta.data.HttpTestData;
@@ -34,6 +35,7 @@ public class DynamicValueInjector {
 
     private void injectRequestDetailsFromContext() {
         RequestData requestData = testData.getRequest();
+        testData.setUri(processDynamicValuesIn(testData.getUri()));
         Map<String, Object> requestHeaders = requestData.getHeaders();
         if (requestHeaders != null) {
             requestHeaders.forEach((header, value) -> requestHeaders.put(header,
@@ -80,7 +82,7 @@ public class DynamicValueInjector {
         return processDynamicValuesIn(valueString);
     }
 
-    private Object processDynamicValuesIn(String input) {
+    private String processDynamicValuesIn(String input) {
         if (input == null || input.equals(""))
             return input;
         StringBuffer output = new StringBuffer();
@@ -175,6 +177,7 @@ public class DynamicValueInjector {
         return calculateInContainer(container, fields, 1);
     }
 
+    @SuppressWarnings("unchecked")
     private Object calculateInContainer(Object container, String[] fields, int fieldIndex) {
         Object value = null;
         if (isArray(container)) {
@@ -183,6 +186,8 @@ public class DynamicValueInjector {
             value = ((List<?>) container).get(Integer.parseInt(fields[fieldIndex]));
         } else if (container instanceof Map<?, ?>) {
             value = ((Map<?, ?>) container).get(fields[fieldIndex]);
+        } else if (container instanceof Function<?, ?>) {
+            value = ((Function<String, Object>) container).apply(fields[fieldIndex]);
         } else {
             try {
                 value = ReflectionUtils.retrieveFieldInObject(container, fields[fieldIndex]);

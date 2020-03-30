@@ -1,11 +1,11 @@
 package uk.gov.hmcts.common;
 
+import static org.junit.Assert.assertEquals;
+
 import uk.gov.hmcts.befta.data.HttpTestData;
 import uk.gov.hmcts.befta.data.RequestData;
 import uk.gov.hmcts.befta.data.ResponseData;
 import uk.gov.hmcts.befta.data.UserData;
-
-import static org.junit.Assert.assertEquals;
 
 public class CommonAssertions {
 
@@ -41,7 +41,6 @@ public class CommonAssertions {
     public static void applyCommonAssertionsOnExtendedData(HttpTestData result) {
         RequestData requestData = result.getRequest();
         ResponseData responseData = result.getExpectedResponse();
-        UserData invokingUser = result.getUsers().get("invokingUser");
         UserData otherUser = result.getUsers().get("otherUser");
 
         assertEquals("Simple-Data-With-Inheritance", result.get_guid_());
