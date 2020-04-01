@@ -7,7 +7,7 @@ plugins {
 
 apply plugin: 'java'
 
-def buildNumber = System.getenv("RELEASE_VERSION")?.replace("refs/tags/", "") ?: "1.2.4-SNAPSHOT"
+def buildNumber = System.getenv("RELEASE_VERSION")?.replace("refs/tags/", "") ?: "1.2.6-SNAPSHOT"
 
 group 'uk.gov.hmcts'
 
@@ -105,7 +105,7 @@ bintray {
 wrapper.gradleVersion = '2.10'
 
 dependencies {
-    compile "com.fasterxml.jackson.core:jackson-databind:2.9.10.1"
+    compile "com.fasterxml.jackson.core:jackson-databind:2.10.0"
 
     compile group: 'io.rest-assured', name: 'rest-assured', version: '3.1.0'
 

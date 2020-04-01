@@ -1,8 +1,7 @@
 package uk.gov.hmcts.befta.util;
 
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
+import org.junit.Assert;
+import org.junit.jupiter.api.Test;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -13,8 +12,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.Assert;
-import org.junit.Test;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 
 public class CucumberStepAnnotationUtilsTest {
 
