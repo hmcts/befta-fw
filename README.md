@@ -6,11 +6,11 @@
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 
-## WHAT IS BEFTA FRAMEWORK?
+## 1) WHAT IS BEFTA FRAMEWORK?
 BEFTA Framework is a framework for automation of functional tests for http-based APIs. It uses Cucumber and Rest Assured frameworks and supports a BDD (Behaviour-Driven Development) approach to software development.
 
 
-## FEATURES AND CONVENIENCES PROVIDED
+## 2) FEATURES AND CONVENIENCES PROVIDED
 It provides the following functionalities and conveniences:
 1.  A Domain Specific Language (DSL), which is specific to the domain of automation of http-based APIs, to describe the functional/behavioural requirements of APIs.
 2.  Underlying programmatic logic to make the DSL an executable script language to execute functional tests.
@@ -24,26 +24,26 @@ It provides the following functionalities and conveniences:
 10. Other features coming with Cucumber Framework wrapped.
 
 
-## HOW TO SETUP & INTEGRATE
+## 3) HOW TO SETUP & INTEGRATE
 
 
-### System Requirements
+### 3.1) System Requirements
 * System Resources (Memory, Disk, CPU) - Same for a JDK 8 installation.  
   [Click here to see Oracle's reference for this.](https://docs.oracle.com/javase/8/docs/technotes/guides/install/windows_system_requirements.html)
 
 
-### Software Requirements
+### 3.2) Software Requirements
 * Java SE Development Kit 8 (JDK 8)
 * Your Favourite IDE
 * Gradle 4.10+
 
 
-### Setting Up Environment
+### 3.3) Setting Up Environment
 1. Install JDK 8 or higher
 2. Install a command line terminal application
 
 
-### Common Environment Variables
+### 3.4) Common Environment Variables
    Befta Framework uses the below environment variables:
    * TEST_URL: This is the base URL of the APIs to be tested.
    * IDAM_URL: This is the base URL of the API authenticating the users on behalf of which the API calls will 
@@ -58,7 +58,7 @@ It provides the following functionalities and conveniences:
      response header values. It can be one of IGNORE, JUST_WARN and FAIL_TEST. Default behaviour is to assume FAIL_TEST.
 
 
-### Domain Specific Environment Variables
+### 3.5) Domain Specific Environment Variables
 Below are the environment needed specifically for CCD domain.
    * DEFINITION_STORE_HOST: Base URL of the Definition Store APIs.
    * CCD_IMPORT_AUTOTEST_EMAIL: Email id of the user on behalf of which definitions 
@@ -67,7 +67,7 @@ Below are the environment needed specifically for CCD domain.
      will be imported to Definition Store, for automated test data preparation.
 
 
-### Run BEFTA Framework Without a Build Tool
+### 3.6) Run BEFTA Framework Without a Build Tool
 1. Download a copy of BEFTA Framework (say, version 1.2.1) in a local folder, say the root directory of an 
    IDE project in which you (will) have your automated functional tests. //TODO: fat 
    jar release of framework
@@ -79,7 +79,7 @@ Below are the environment needed specifically for CCD domain.
    the the test suite launching logic.
 
 
-### Run BEFTA Framework With Gradle
+### 3.7) Run BEFTA Framework With Gradle
 1. Install Gradle 4.1 or higher. You can simply copy a gradle wrapper from `https://github.com/hmcts/befta-fw`.
 2. Add the following dependency to your build.gradle file:  
    `testCompile group: 'uk.gov.hmcts', name: 'befta-fw', version: '1.2.1'`
@@ -104,13 +104,13 @@ Below are the environment needed specifically for CCD domain.
    the the test suite launching logic.
 
 
-#### Observe Cucumber Report
+### 3.8) Observe Cucumber Report
 
 1. Open in your web browser the local Cucumber report file:  
    `./⁨target⁩/cucumber⁩/⁨cucumber-html-reports⁩/overview-features.html`
 
 
-#### Integrate Functional Test Suite Executions into Pipelines
+### 3.9) Integrate Functional Test Suite Executions into Pipelines
 
 We assume you will have build pipelines making gradle calls to run your automated 
 functional tests which is the case for HMCTS Reform programme as seen in the open source 
@@ -126,7 +126,7 @@ be:
 ```
 
 
-#### Setting up a Local API Application under Test
+### 3.10) Setting up a Local API Application under Test
 The most typical use of BEFTA Framework will include running an application in local 
 machine and executing a functional test suit against it. Running such applications 
 in local will require application-specific setup instructions. Once such an application 
@@ -142,7 +142,7 @@ have been completed as a prerequisite. An incomplete setup, like some users not 
 and correctly configured, can cause some or all of the functional tests to fail as false positives.
 
 
-#### Sample Repositories
+## 4) SAMPLE REPOSITORIES USING BEFTA FRAMEWORK
 
 Below are a few github repositories into which BEFTA Framework 
 has been successfully integrated:  
@@ -159,7 +159,7 @@ Some Node.js Applications:
 * https://github.com/hmcts/ccd-case-activity-api
 
 
-## HOW TO DEVELOP A SIMPLE AUTOMATED SCENARIO
+## 5) HOW TO DEVELOP A SIMPLE AUTOMATED SCENARIO
 Development of an automated test scenario takes, at a high level, the below main steps:
 1. Introduce a `.feature` file of any good name, and add a test scenario composed of 
    the DSL elements available with BEFTA framework.
@@ -184,13 +184,13 @@ Development of an automated test scenario takes, at a high level, the below main
    below.
 
 
-### Json Inheritance Mechanism - How it Works & How to Use
+### 5.1) Json Inheritance Mechanism - How it Works & How to Use
 Attributes in an object represented by a JSON object in BEFTA-way are collated in the 
 order or calculation shown in the below diagram:  
 ![](documentation/Json_Inheritance.jpg)
 
 
-### Dynamic Value Place-holders
+### 5.2) Dynamic Value Place-holders
 The below place-holders can be used to configure test data with request details dynamically calculated 
 in runtime, or with response details to specify acceptable values in API responses 
 as per behavioural requirements: 
@@ -280,11 +280,11 @@ ones` as the value of the response detail specified.
 ones` as the value of the response detail specified.  
 
 
-### Injecting Values of Environment Variables:
+### 5.3) Injecting Values of Environment Variables:
 Environment variables can be referenced between double curly braces like in `{{SOME_ENV_VAR}}`.  
 
 
-### Injecting Values from Scenario Context:
+### 5.4) Injecting Values from Scenario Context:
 Values in the runtime scenario context can be fetched and injected into designated 
 places by using the `${<field-reference-formal>}` notation. Users of this feature should 
 understand the object structure of a scenario context, which is shown in the below 
@@ -310,7 +310,7 @@ Some nice examples of use of this feature are available in the links below:
 ![](documentation/Scenario_Context_Structure.jpg)
 
 
-### Introducing Programmable Custom Dynamic Values
+### 5.5) Introducing Programmable Custom Dynamic Values
 Each scenario context uses a custom value calculator function to translate certain 
 customised values into programmatically computed values. This function delegates its logic 
 to the TestAdapter object used by the framework instance executing the test suite. This 
@@ -341,7 +341,7 @@ the above custom values, or introduce new custom values needed in their specific
 data requirements.
 
 
-### Special Conventions for Test Data
+### 5.6) Special Conventions for Test Data
 Test data for a functional test scenario is designed to support various nice features, 
 which rely on use of certain conventions on the way the data is configured.
 
@@ -366,7 +366,7 @@ the overall verification of an API response and functionality.
 Below are some special conventions to make use of flexibilities described above in general 
 terms.
 
-#### Arrays at Top Level in Request and Response Bodies
+#### 5.6.1) Arrays at Top Level in Request and Response Bodies
 If the response body of an API is meant to contain a JSON array at root 
 level, the test data should follow the following convention for the body section of 
 the expected response:
@@ -392,7 +392,7 @@ the expected response:
 In this example, the value of the arrayInMap field is used as the actual expected value 
 of the response body. Same convention is applicable for request bodies, as well.
 
-#### Files in Request Bodies
+#### 5.6.2) Files in Request Bodies
 Files can be specified to be contained in request bodies. This is useful for APIs uploading 
 a file to a destination. Following is the structural convention for such a specification:
 ```
@@ -446,7 +446,7 @@ multiple files to be attached to the same request body.
 ```
 
 
-#### Files in Response Bodies
+#### 5.6.3) Files in Response Bodies
 If a file content is expected in a response body, the framework can be instructed to 
 check if the actual size of the download file is equal to that of the expected one.
 Below is the convention for such instruction:
@@ -462,7 +462,7 @@ Below is the convention for such instruction:
 The fullPath and contentHash fields are intended to be used in the future. So, they 
 can for now be configured to accept any String except for null.
 
-#### Conventions for Expected Collections
+#### 5.6.4) Conventions for Expected Collections
 When a collection of objects are expected in any place in a response, that can be specified 
 as an array of those objects in the test data. When so done in the simplest manner, the 
 framework will compare every element in the array with the corresponding, same-indexed 
@@ -517,7 +517,7 @@ is essential for the framework to be able to decide which object in the actual r
 should be compared to which one in the expected response.
 
 
-### How to Debug Test Scenarios
+## 6) HOW TO DEBUG TEST SUITES
 Test scenarios can be run in debug mode on any modern IDE. All it takes to do so is 
 to have a simple Runner class like the example [here](https://github.com/hmcts/ccd-data-store-api/blob/master/src/aat/java/uk/gov/hmcts/ccd/datastore/befta/DataStoreBeftaRunner.java). 
 and run that runner class in debug mode of the IDE. Doing so, the automation developer 
@@ -527,7 +527,7 @@ and they can either be inherited automatically from the platform by the IDE, or 
 be copy-pasted into Run configurations of IDEs.
 
 
-## LOW-LEVEL DESIGN
+## 7) LOW-LEVEL DESIGN
 BEFTA Framework has been designed at a low level to contain components and their interactions as depicted in the below diagram. 
  \
 ![](documentation/LLD.jpg)
