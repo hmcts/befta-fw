@@ -366,7 +366,7 @@ the overall verification of an API response and functionality.
 Below are some special conventions to make use of flexibilities described above in general 
 terms.
 
-#### Arrays at Top Level in Response Bodies
+#### Arrays at Top Level in Request and Response Bodies
 If the response body of an API is meant to contain a JSON array at root 
 level, the test data should follow the following convention for the body section of 
 the expected response:
@@ -390,7 +390,7 @@ the expected response:
   }
 ```
 In this example, the value of the arrayInMap field is used as the actual expected value 
-of the response body.
+of the response body. Same convention is applicable for request bodies, as well.
 
 #### Files in Request Bodies
 Files can be specified to be contained in request bodies. This is useful for APIs uploading 
