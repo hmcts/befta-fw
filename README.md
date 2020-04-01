@@ -463,11 +463,68 @@ The fullPath and contentHash fields are intended to be used in the future. So, t
 can for now be configured to accept any String except for null.
 
 #### Conventions for Expected Collections
+When a collection of objects are expected in any place in a response, that can be specified 
+as an array of those objects in the test data. When so done in the simplest manner, the 
+framework will compare every element in the array with the corresponding, same-indexed 
+element in the actual response. Any extra element or missing element will be clearly 
+identified. Any unacceptable value in any field in any element will fail the test clearly 
+being reported. However, if the expected collection does not have to be returned in 
+a particular order, the framework should be instructed of that with a simple object 
+as the first element in the expected data array. That first element will be recognised 
+by the framework as an instructive configuration and the array's second element will 
+be treated as the first data object intended to be listed. The instructive configuration 
+element should be as below:
 
+```
+"some-collection-field": [
+   {
+      "__operator__": "equivalent",
+      "__ordering__": "unordered",
+      "__elementId__": "id"
+   },
+   {
+      "id": "first object",
+      "field": "First"
+   },
+   {
+      "id": "second object",
+      "field": "Second"
+   },
+   {
+      "id": "third object",
+      "field": "First tab"
+   }
+]
+```
+Here are the 3 fields in this convention:
+* "__operator__" field:
+This one represents the mode of comparison of expected and actual content of the collection. It can be one of `equivalent`, `subset` and `superset`. 
+Default is `equivalent` and the field can be omitted if that's the preferred one. Subset 
+and superset comparisons have not yet been implemented.
+
+* "__ordering__" field:
+This one represents whether the elements in the array are has to be compared in the 
+order provided in the test data. It can be one of `ordered`, and `unordered`.
+Default is `ordered` and the field can be omitted if that's the preferred one.
+
+* "__elementId__" field:
+This one represents the field names in the data objects which form up a unique key. 
+Default is `id` and the field can be omitted if there is a field "id" in data objects as 
+a unique key.
+In the case of unordered equivalence check, this field is of no effect.
+In all other cases, the default or specified value of this instructive configuration 
+is essential for the framework to be able to decide which object in the actual response 
+should be compared to which one in the expected response.
 
 
 ### How to Debug Test Scenarios
-
+Test scenarios can be run in debug mode on any modern IDE. All it takes to do so is 
+to have a simple Runner class like the example [<here>].(https://github.com/hmcts/ccd-data-store-api/blob/master/src/aat/java/uk/gov/hmcts/ccd/datastore/befta/DataStoreBeftaRunner.java). 
+and run that runner class in debug mode of the IDE. Doing so, the automation developer 
+can trace the execution of scenarios, which may many times be very convenient to quickly 
+resolve any test issue. Runner classes will need environment variables set for them, 
+and they can either be inherited automatically from the platform by the IDE, or can 
+be copy-pasted into Run configurations of IDEs.
 
 
 ## LOW-LEVEL DESIGN
