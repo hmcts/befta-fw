@@ -517,7 +517,31 @@ is essential for the framework to be able to decide which object in the actual r
 should be compared to which one in the expected response.
 
 
-## 6) HOW TO DEBUG TEST SUITES
+## 6) INTRODUCING PROGRAMMATIC LOGIC INTO TEST SUITES
+Befta framework allows programmatic extensibility in various ways.
+* Custom main classes or runners:
+Automation developer can write their own main classes or runners to introduce customised 
+logic to be executed before and after the execution of test suites.
+* Custom automation adapter:
+A custom implementation of [TestAutomationAdapter interface](https://github.com/hmcts/befta-fw/blob/master/src/main/java/uk/gov/hmcts/befta/TestAutomationAdapter.java) or 
+an extension of [DefaultTestAutomationAdapter class](https://github.com/hmcts/befta-fw/blob/master/src/main/java/uk/gov/hmcts/befta/DefaultTestAutomationAdapter.java) can be implemented and injected into the framework from 
+a main class or runner. An example is [here](https://github.com/hmcts/ccd-data-store-api/blob/master/src/aat/java/uk/gov/hmcts/ccd/datastore/befta/DataStoreTestAutomationAdapter.java).
+ 
+A custom implementation of `Object calculateCustomValue(BackEndFunctionalTestScenarioContext scenarioContext, Object key)` 
+in an adapter implementation can be particularly useful in introducing fully flexible verification 
+logic in any level of detail in responses. A good example is available [here](https://github.com/hmcts/ccd-case-document-am-api/blob/development/src/functionalTest/java/uk/gov/hmcts/ccd/documentam/befta/CaseDocumentAmTestAutomationAdapter.java).
+
+* Adding customised step implementations:
+Automation developers can write their own step implementation classes and glue them 
+to the feature files, just as a typical feature of Cucumber framework.
+
+* Other methods:
+Thanks to the broad range of features of Java language and platform, various other ways 
+of introducing custom logic into test suites can be improvised. The framework doesn't 
+bring any limitations to such flexibilities.
+
+
+## 7) HOW TO DEBUG TEST SUITES
 Test scenarios can be run in debug mode on any modern IDE. All it takes to do so is 
 to have a simple Runner class like the example [here](https://github.com/hmcts/ccd-data-store-api/blob/master/src/aat/java/uk/gov/hmcts/ccd/datastore/befta/DataStoreBeftaRunner.java). 
 and run that runner class in debug mode of the IDE. Doing so, the automation developer 
@@ -527,7 +551,7 @@ and they can either be inherited automatically from the platform by the IDE, or 
 be copy-pasted into Run configurations of IDEs.
 
 
-## 7) LOW-LEVEL DESIGN
+## 8) LOW-LEVEL DESIGN
 BEFTA Framework has been designed at a low level to contain components and their interactions as depicted in the below diagram. 
  \
 ![](documentation/LLD.jpg)
