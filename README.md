@@ -130,13 +130,16 @@ be:
 The most typical use of BEFTA Framework will include running an application in local 
 machine and executing a functional test suit against it. Running such applications 
 in local will require application-specific setup instructions. Once such an application 
-is setup correctly, BEFTA can then be used to functionally verify the behavioural requirements of any http-based API in 
+is setup correctly, BEFTA framework can then be used to functionally verify the behavioural requirements of any http-based API in 
 local. Multiple applications from totally diverse domains can be setup in a local machine 
 each having their respective base URLs, and BEFTA Framework can be used for each of 
-them simply switching from one configuration to test an API to another.
+them simply switching from one configuration to another to test a set of APIs.
 
 In the case of HMCTS Reform CCD application suite, the local setup procedure is described 
 here on the [README of the ccd-docker repository](https://github.com/hmcts/ccd-data-store-api).
+Obviously, to test a CCD application, for example, the proper setup procedure should 
+have been completed as a prerequisite. An incomplete setup, like some users not fully 
+and correctly configured, can cause some or all of the functional tests to fail as false positives.
 
 
 #### Sample Repositories
@@ -339,9 +342,126 @@ data requirements.
 
 
 ### Special Conventions for Test Data
+Test data for a functional test scenario is designed to support various nice features, 
+which rely on use of certain conventions on the way the data is configured.
+
+Ideally, BEFTA framework identifies the expected value of a response body with a JSON payload in 
+the form of a field-value or key-value structure. However, not all APIs will have a 
+JSON-based response payload. APIs can return files, or plain text, or encoded binary 
+content representing files being downloaded. What is a better payload format for an 
+API response is obviously a matter of what kind of API it is and the general design 
+guidelines adopted by API providers. However, the framework is designed to allow a 
+variety of such response formats. This applies to request payload formats, as well.
+
+Moreover, when the test data is edited by automation developers for an API, the logic 
+of comparison of actual and expected response details may require certain switches specified 
+per local elements of test data. For example, a test data can be configured to expect 
+a collection of objects in a specific field of a response, but then the ordering of 
+the response may or may not be predictable if such ordering is not part of the API 
+contract. Or, in the same case, the automation developer may want to expect a subset of the objects 
+she/he listed in the test data artefacts, or a superset of them. There has to be a 
+way to provide such verification parameters to the framework per each of such points in 
+the overall verification of an API response and functionality.
+
+Below are some special conventions to make use of flexibilities described above in general 
+terms.
+
 #### Arrays at Top Level in Response Bodies
+If the response body of an API is meant to contain a JSON array at root 
+level, the test data should follow the following convention for the body section of 
+the expected response:
+```
+  "expectedResponse": {
+    "body": {
+      "arrayInMap": [
+        {
+          "attribute1": "value1",
+          "attribute2": "value2",
+          "attribute3": "value3"
+        },
+        {
+          "attribute1": "...",
+          "attribute2": "...",
+          "attribute3": "..."
+        },
+        ...
+      ]
+    }
+  }
+```
+In this example, the value of the arrayInMap field is used as the actual expected value 
+of the response body.
+
 #### Files in Request Bodies
+Files can be specified to be contained in request bodies. This is useful for APIs uploading 
+a file to a destination. Following is the structural convention for such a specification:
+```
+{
+   ...
+   "request": {
+      "headers": {
+         "Content-Type": "multipart/form-data"
+      },
+      "body": {
+         "key": "file",
+         "filePath": "some/path/to/a/resource/in/classpath/of/the/test/suite/being/executed/name.extension"
+      }
+   }
+   ...
+}
+```
+
+The request content type should be multipart, and the body should contain the 2 fields 
+as shown. While placing the actual API call, the framework will stream the file designated 
+by the resource path, to the request body.
+
+To specify a more detailed 'form-data' in a request payload, fields (controls) in the 
+form along with their values can be specified as below. Note that this example specifies 
+multiple files to be attached to the same request body.
+```
+   "body": {
+       "arrayInMap": [
+          {
+            "key": "some-form-field",
+            "value": "some-value"
+          },
+          {
+             "key": "some-other-form-field",
+             "value": "some other value"
+          },
+          {
+             "key": "files",
+             "filePath": "SampleImage1.png"
+          },
+          {
+             "key": "files",
+             "filePath": "some/path/SampleImage2.png"
+          },
+          {
+             "key": "files",
+             "filePath": "some/path/SampleImage3.png"
+          }
+      ]
+   }
+```
+
+
 #### Files in Response Bodies
+If a file content is expected in a response body, the framework can be instructed to 
+check if the actual size of the download file is equal to that of the expected one.
+Below is the convention for such instruction:
+
+```
+   "__fileInBody__" : {
+      "fullPath" : "[[ANY_STRING_NOT_NULLABLE]]",
+      "size" : "679361",
+      "contentHash" : "[[ANY_STRING_NOT_NULLABLE]]"
+   }
+```
+
+The fullPath and contentHash fields are intended to be used in the future. So, they 
+can for now be configured to accept any String except for null.
+
 #### Conventions for Expected Collections
 
 
