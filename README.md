@@ -519,7 +519,7 @@ should be compared to which one in the expected response.
 
 ### How to Debug Test Scenarios
 Test scenarios can be run in debug mode on any modern IDE. All it takes to do so is 
-to have a simple Runner class like the example [<here>](https://github.com/hmcts/ccd-data-store-api/blob/master/src/aat/java/uk/gov/hmcts/ccd/datastore/befta/DataStoreBeftaRunner.java). 
+to have a simple Runner class like the example [here](https://github.com/hmcts/ccd-data-store-api/blob/master/src/aat/java/uk/gov/hmcts/ccd/datastore/befta/DataStoreBeftaRunner.java). 
 and run that runner class in debug mode of the IDE. Doing so, the automation developer 
 can trace the execution of scenarios, which may many times be very convenient to quickly 
 resolve any test issue. Runner classes will need environment variables set for them, 
