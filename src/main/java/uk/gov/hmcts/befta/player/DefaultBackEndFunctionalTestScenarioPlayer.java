@@ -224,7 +224,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         }
 
         QueryableRequestSpecification queryableRequest = SpecificationQuerier.query(theRequest);
-        scenario.write("Calling " + methodAsString.toUpperCase() + queryableRequest.getURI());
+        scenario.write("Calling " + methodAsString.toUpperCase() + " " + queryableRequest.getURI());
         Response response = theRequest.request(method, uri);
 
         ResponseData responseData = convertRestAssuredResponseToBeftaResponse(scenarioContext, response);
