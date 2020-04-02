@@ -198,7 +198,7 @@ as per behavioural requirements:
 
 1. `DEFAULT_AUTO_VALUE`: This is used to calculate a default automatic value in runtime for 
 the below specific request fields:  
-`uid`: When this is the attribute name, the value is dynamically injected as the `id 
+* `uid`: When this is the attribute name, the value is dynamically injected as the `id 
 of the user` on behalf of which the test call is being delivered.  
 
 * `Authorization`: When this is the attribute name, the value is dynamically injected as `a 
