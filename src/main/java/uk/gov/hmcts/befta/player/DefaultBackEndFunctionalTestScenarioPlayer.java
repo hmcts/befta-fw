@@ -443,13 +443,12 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     }
 
     private void authenticateUser(String prefix, UserData user) {
-        String logPrefix = scenarioContext.getCurrentScenarioTag() + ": " + prefix + " [" + user.getUsername() + "]["
-                + user.getPassword() + "] ";
+        String logPrefix = scenarioContext.getCurrentScenarioTag() + ": " + prefix + " [" + user.getUsername() + "] ";
         try {
             BeftaMain.getAdapter().authenticate(user);
             logger.info(logPrefix + "authenticated.");
         } catch (Exception ex) {
-            logger.info(logPrefix + "could not authenticate.");
+            throw new FunctionalTestException(logPrefix + "could not authenticate.", ex);
         }
     }
 }
