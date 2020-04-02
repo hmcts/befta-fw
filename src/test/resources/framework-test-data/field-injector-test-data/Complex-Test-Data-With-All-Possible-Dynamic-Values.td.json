@@ -17,12 +17,12 @@
 	},
 	"request": {
 		"headers": {
-			"Authorization": "--[[DYNAMIC]]",
-			"ServiceAuthorization": "--[[DYNAMIC]]",
+			"Authorization": "--[[DEFAULT_AUTO_VALUE]]",
+			"ServiceAuthorization": "--[[DEFAULT_AUTO_VALUE]]",
 			"Content-Type": "application/json"
 		},
 		"pathVariables": {
-			"uid": "[[DYNAMIC]]",
+			"uid": "[[DEFAULT_AUTO_VALUE]]",
 			"dummyComplexPathVariable": "a.user@{{IDAM_URL}}/${[scenarioContext][childContexts][Token_Creation_Call_For_Complex_Data][testData][actualResponse][body][tokens][2][value]}#{{IDAM_USER_URL}}/documents/binary",
 			"binanyUrlOverIdam": "{{IDAM_URL}}/documents/binary",
 			"justIdamUrl": "{{IDAM_URL}}"
@@ -39,7 +39,7 @@
 				"onlyStaticNumber": 4.6,
 				"onlyStaticString": "string without any dynamic part",
 				"onlyPredefinedAny": "Any Random string",
-				"onlyPredefinedDynamic": "[[DYNAMIC]]",
+				"onlyPredefinedDynamic": "[[DEFAULT_AUTO_VALUE]]",
 				"onlyFormulaOnly": "${[scenarioContext][childContexts][Token_Creation_Call_For_Complex_Data][testData][actualResponse][body][tokens][2][value]}",
 
 				"oneEnvironmentVariableOnly": "{{IDAM_USER_URL}}",
@@ -75,7 +75,7 @@
 			"onlyStaticNumber": 4.6,
 			"onlyStaticString": "string without any dynamic part",
 			"onlyPredefinedAny": "[[ANYTHING_PRESENT]]",
-			"onlyPredefinedDynamic": "[[DYNAMIC]]",
+			"onlyPredefinedDynamic": "[[DEFAULT_AUTO_VALUE]]",
 			"onlyFormulaOnly": "token value at index 2",
 
 			"oneEnvironmentVariableOnly": "{{DEFINITION_STORE_HOST}}",

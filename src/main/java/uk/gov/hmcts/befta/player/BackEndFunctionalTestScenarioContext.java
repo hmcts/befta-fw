@@ -21,6 +21,7 @@ public class BackEndFunctionalTestScenarioContext {
     private static final String[] TEST_DATA_RESOURCE_PACKAGES = { "features" };
     private static final HttpTestDataSource DATA_SOURCE = new JsonStoreHttpTestDataSource(TEST_DATA_RESOURCE_PACKAGES);
 
+    @Getter
     private Scenario scenario;
 
     @Getter
@@ -33,7 +34,7 @@ public class BackEndFunctionalTestScenarioContext {
     private ResponseData theResponse;
 
     @Getter
-    private Function<String, Object> customValues = (valueKey -> calculateCustomValue(valueKey));
+    private Function<Object, Object> customValues = (valueKey -> calculateCustomValue(valueKey));
 
     @Getter @Setter
     private BackEndFunctionalTestScenarioContext parentContext;
@@ -83,6 +84,12 @@ public class BackEndFunctionalTestScenarioContext {
 
     protected Object calculateCustomValue(Object key) {
         return BeftaMain.getAdapter().calculateCustomValue(this, key);
+    }
+
+    public Map<String, BackEndFunctionalTestScenarioContext> getSiblingContexts() {
+        if (parentContext == null)
+            return null;
+        return getParentContext().getChildContexts();
     }
 
 }

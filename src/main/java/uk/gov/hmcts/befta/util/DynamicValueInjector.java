@@ -15,7 +15,7 @@ import uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext;
 
 public class DynamicValueInjector {
 
-    private static final String DYNAMIC_CONTENT_PLACEHOLDER = "[[DYNAMIC]]";
+    private static final String DEFAULT_AUTO_VALUE = "[[DEFAULT_AUTO_VALUE]]";
 
     private final TestAutomationAdapter taAdapter;
 
@@ -61,7 +61,7 @@ public class DynamicValueInjector {
         if (value == null || !(value instanceof String))
             return value;
         String valueString = (String) value;
-        if (valueString.equalsIgnoreCase(DYNAMIC_CONTENT_PLACEHOLDER)) {
+        if (valueString.equalsIgnoreCase(DEFAULT_AUTO_VALUE)) {
             UserData theInvokingUser = scenarioContext.getTheInvokingUser();
             String s2sToken = null;
             if (key.equalsIgnoreCase("Authorization")) {

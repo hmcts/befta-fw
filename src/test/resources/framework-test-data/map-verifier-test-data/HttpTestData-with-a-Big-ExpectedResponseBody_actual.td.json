@@ -9,7 +9,7 @@
   "uri": "/caseworkers/{uid}/profile",
   "request": {
     "pathVariables": {
-      "uid": "[[DYNAMIC]]"
+      "uid": "[[DEFAULT_AUTO_VALUE]]"
     }
   },
   "expectedResponse": {
