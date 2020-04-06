@@ -31,7 +31,6 @@ import uk.gov.hmcts.befta.BeftaMain;
 import uk.gov.hmcts.befta.TestAutomationConfig;
 import uk.gov.hmcts.befta.TestAutomationConfig.ResponseHeaderCheckPolicy;
 import uk.gov.hmcts.befta.data.FileInBody;
-import uk.gov.hmcts.befta.data.HttpTestData;
 import uk.gov.hmcts.befta.data.RequestData;
 import uk.gov.hmcts.befta.data.ResponseData;
 import uk.gov.hmcts.befta.data.UserData;
@@ -39,7 +38,6 @@ import uk.gov.hmcts.befta.exception.FunctionalTestException;
 import uk.gov.hmcts.befta.exception.UnconfirmedApiCallException;
 import uk.gov.hmcts.befta.exception.UnconfirmedDataSpecException;
 import uk.gov.hmcts.befta.util.BeftaUtils;
-import uk.gov.hmcts.befta.util.DynamicValueInjector;
 import uk.gov.hmcts.befta.util.EnvironmentVariableUtils;
 import uk.gov.hmcts.befta.util.JsonUtils;
 import uk.gov.hmcts.befta.util.MapVerificationResult;
@@ -112,11 +110,8 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
 
     private void prepareARequestWithAppropriateValues(BackEndFunctionalTestScenarioContext scenarioContext)
             throws IOException {
-        HttpTestData testData = scenarioContext.getTestData();
-
-        new DynamicValueInjector(BeftaMain.getAdapter(), testData, scenarioContext).injectDataFromContext();
-
-        RequestSpecification raRequest = buildRestAssuredRequestWith(testData.getRequest());
+        scenarioContext.injectDataFromContextBeforeApiCall();
+        RequestSpecification raRequest = buildRestAssuredRequestWith(scenarioContext.getTestData().getRequest());
 
         scenarioContext.setTheRequest(raRequest);
         scenario.write("Request prepared with the following variables: "
@@ -224,13 +219,15 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         }
 
         QueryableRequestSpecification queryableRequest = SpecificationQuerier.query(theRequest);
-        scenario.write("Calling " + queryableRequest.getMethod() + " " + queryableRequest.getURI());
+        scenario.write("Calling " + methodAsString.toUpperCase() + " " + queryableRequest.getURI());
         Response response = theRequest.request(method, uri);
 
         ResponseData responseData = convertRestAssuredResponseToBeftaResponse(scenarioContext, response);
         scenarioContext.getTestData().setActualResponse(responseData);
         scenarioContext.setTheResponse(responseData);
         scenario.write("Response:\n" + JsonUtils.getPrettyJsonFromObject(scenarioContext.getTheResponse()));
+        scenarioContext.injectDataFromContextAfterApiCall();
+
     }
 
     @SuppressWarnings("unchecked")
@@ -443,13 +440,12 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     }
 
     private void authenticateUser(String prefix, UserData user) {
-        String logPrefix = scenarioContext.getCurrentScenarioTag() + ": " + prefix + " [" + user.getUsername() + "]["
-                + user.getPassword() + "] ";
+        String logPrefix = scenarioContext.getCurrentScenarioTag() + ": " + prefix + " [" + user.getUsername() + "] ";
         try {
             BeftaMain.getAdapter().authenticate(user);
             logger.info(logPrefix + "authenticated.");
         } catch (Exception ex) {
-            logger.info(logPrefix + "could not authenticate.");
+            throw new FunctionalTestException(logPrefix + "could not authenticate.", ex);
         }
     }
 }

@@ -99,6 +99,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
     public void setUp() throws Exception {
         mockStatic(RestAssured.class);
         mockStatic(EnvironmentVariableUtils.class);
+        mockStatic(EnvironmentVariableUtils.class);
         mockStatic(Method.class);
         mockStatic(SpecificationQuerier.class);
         mockStatic(JsonUtils.class);
@@ -305,7 +306,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         when(context.getTestData()).thenReturn(testData);
         when(EnvironmentVariableUtils.resolvePossibleVariable(USERNAME)).thenReturn(USERNAME);
         when(EnvironmentVariableUtils.resolvePossibleVariable(PASSWORD)).thenReturn(PASSWORD);
-
+        BeftaMain.setTaAdapter(adapter);
         scenarioPlayer.verifyThatThereIsAUserInTheContextWithAParticularSpecification(specificationAboutUser);
 
         verify(context).setTheInvokingUser(userData);

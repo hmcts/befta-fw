@@ -17,12 +17,12 @@
 	},
 	"request": {
 		"headers": {
-			"Authorization": "--[[DYNAMIC]]",
-			"ServiceAuthorization": "--[[DYNAMIC]]",
+			"Authorization": "--[[DEFAULT_AUTO_VALUE]]",
+			"ServiceAuthorization": "--[[DEFAULT_AUTO_VALUE]]",
 			"Content-Type": "application/json"
 		},
 		"pathVariables": {
-			"uid": "[[DYNAMIC]]",
+			"uid": "[[DEFAULT_AUTO_VALUE]]",
 			"email": "${[scenarioContext][theInvokingUser][username]}",
 			"token": "${[scenarioContext][childContexts][Token_Creation_Call][testData][actualResponse][body][token]}",
 			"token_2": "${[scenarioContext][childContexts][Token_Creation_Call][testData][actualResponse][body][tokens][2][value]}"

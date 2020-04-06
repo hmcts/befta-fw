@@ -15,12 +15,14 @@ import uk.gov.hmcts.befta.data.HttpTestDataSource;
 import uk.gov.hmcts.befta.data.JsonStoreHttpTestDataSource;
 import uk.gov.hmcts.befta.data.ResponseData;
 import uk.gov.hmcts.befta.data.UserData;
+import uk.gov.hmcts.befta.util.DynamicValueInjector;
 
 public class BackEndFunctionalTestScenarioContext {
 
     private static final String[] TEST_DATA_RESOURCE_PACKAGES = { "features" };
     private static final HttpTestDataSource DATA_SOURCE = new JsonStoreHttpTestDataSource(TEST_DATA_RESOURCE_PACKAGES);
 
+    @Getter
     private Scenario scenario;
 
     @Getter
@@ -33,7 +35,7 @@ public class BackEndFunctionalTestScenarioContext {
     private ResponseData theResponse;
 
     @Getter
-    private Function<String, Object> customValues = (valueKey -> calculateCustomValue(valueKey));
+    private Function<Object, Object> customValues = (valueKey -> calculateCustomValue(valueKey));
 
     @Getter @Setter
     private BackEndFunctionalTestScenarioContext parentContext;
@@ -42,6 +44,8 @@ public class BackEndFunctionalTestScenarioContext {
     private Map<String, BackEndFunctionalTestScenarioContext> childContexts = new HashMap<>();
 
     private int userCountSpecifiedSoFar = 0;
+
+    private DynamicValueInjector dynamicValueInjector;
 
     public void addChildContext(BackEndFunctionalTestScenarioContext childContext) {
         childContext.setParentContext(this);
@@ -56,6 +60,15 @@ public class BackEndFunctionalTestScenarioContext {
 
     public void initializeTestDataFor(String testDataId) {
         testData = DATA_SOURCE.getDataForTestCall(testDataId);
+        dynamicValueInjector = new DynamicValueInjector(BeftaMain.getAdapter(), testData, this);
+    }
+
+    void injectDataFromContextBeforeApiCall() {
+        dynamicValueInjector.injectDataFromContextBeforeApiCall();
+    }
+
+    void injectDataFromContextAfterApiCall() {
+        dynamicValueInjector.injectDataFromContextAfterApiCall();
     }
 
     public String getCurrentScenarioTag() {
@@ -83,6 +96,12 @@ public class BackEndFunctionalTestScenarioContext {
 
     protected Object calculateCustomValue(Object key) {
         return BeftaMain.getAdapter().calculateCustomValue(this, key);
+    }
+
+    public Map<String, BackEndFunctionalTestScenarioContext> getSiblingContexts() {
+        if (parentContext == null)
+            return null;
+        return getParentContext().getChildContexts();
     }
 
 }
