@@ -398,6 +398,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     public void performAndVerifyTheExpectedResponseForAnApiCall(String testDataSpec, String testDataId)
             throws IOException {
         BackEndFunctionalTestScenarioContext subcontext = new BackEndFunctionalTestScenarioContext();
+        prepare(null);
         subcontext.initializeTestDataFor(testDataId);
         this.scenarioContext.addChildContext(subcontext);
         verifyAllUsersInTheContext(subcontext);
