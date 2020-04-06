@@ -431,6 +431,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         when(testData.meetsOperationOfProduct(eq(PRODUCT_NAME), eq(OPERATION))).thenReturn(true);
         when(context.getTestData()).thenReturn(testData);
         when(testData.getMethod()).thenReturn("X");
+        when(testData.getUri()).thenReturn("http://localhost");
         when(Method.valueOf(any())).thenThrow(IllegalArgumentException.class);
 
         exceptionRule.expect(FunctionalTestException.class);

@@ -31,6 +31,7 @@ import uk.gov.hmcts.befta.BeftaMain;
 import uk.gov.hmcts.befta.TestAutomationConfig;
 import uk.gov.hmcts.befta.TestAutomationConfig.ResponseHeaderCheckPolicy;
 import uk.gov.hmcts.befta.data.FileInBody;
+import uk.gov.hmcts.befta.data.HttpTestData;
 import uk.gov.hmcts.befta.data.RequestData;
 import uk.gov.hmcts.befta.data.ResponseData;
 import uk.gov.hmcts.befta.data.UserData;
@@ -52,7 +53,6 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     private ObjectMapper mapper = new ObjectMapper();
 
     public DefaultBackEndFunctionalTestScenarioPlayer() {
-        RestAssured.baseURI = TestAutomationConfig.INSTANCE.getTestUrl();
         RestAssured.useRelaxedHTTPSValidation();
         scenarioContext = new BackEndFunctionalTestScenarioContext();
     }
@@ -208,23 +208,21 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         }
 
         RequestSpecification theRequest = scenarioContext.getTheRequest();
-        String uri = scenarioContext.getTestData().getUri();
-        String methodAsString = scenarioContext.getTestData().getMethod();
-        Method method;
-        try {
-            method = Method.valueOf(methodAsString.toUpperCase());
-        } catch (IllegalArgumentException ex) {
-            String errorMessage = "Method '" + methodAsString + "' in test data file not recognised";
-            throw new FunctionalTestException(errorMessage);
+        QueryableRequestSpecification queryableRequest = SpecificationQuerier.query(theRequest);
+        
+        HttpTestData testData = scenarioContext.getTestData();
+        String uri = testData.getUri();
+        
+        if (!uri.trim().toLowerCase().startsWith("http:")) {
+            theRequest.baseUri(TestAutomationConfig.INSTANCE.getTestUrl());
         }
 
-        QueryableRequestSpecification queryableRequest = SpecificationQuerier.query(theRequest);
-        scenario.write("Calling " + methodAsString.toUpperCase() + " " + queryableRequest.getURI());
-        Response response = theRequest.request(method, uri);
+        Response response = theRequest.request(Method.valueOf(testData.getMethod().toUpperCase()), uri);
 
         ResponseData responseData = convertRestAssuredResponseToBeftaResponse(scenarioContext, response);
         scenarioContext.getTestData().setActualResponse(responseData);
         scenarioContext.setTheResponse(responseData);
+        scenario.write("Called: " + queryableRequest.getMethod() + " " + queryableRequest.getURI());
         scenario.write("Response:\n" + JsonUtils.getPrettyJsonFromObject(scenarioContext.getTheResponse()));
         scenarioContext.injectDataFromContextAfterApiCall();
 
