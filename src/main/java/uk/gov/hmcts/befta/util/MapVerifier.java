@@ -259,10 +259,14 @@ public class MapVerifier {
         if (verificationConfig.getOrdering() == Ordering.ORDERED)
             return iterator.next();
         else {
-            return collection.stream()
+            if (isPrimitive(o1)) {
+                return collection.stream().filter(element -> Objects.equals(element, o1)).findFirst().orElse(null);
+            } else {
+                return collection.stream()
                     .filter(element -> Objects.equals(getIdValueIn(element, verificationConfig.getElementId()),
                             getIdValueIn(o1, verificationConfig.getElementId())))
                     .findFirst().orElse(null);
+            }
         }
     }
 
