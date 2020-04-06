@@ -65,7 +65,6 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         this.scenario = scenario;
         HttpTestData testData = scenarioContext.getTestData();
         dynamicValueInjector = new DynamicValueInjector(BeftaMain.getAdapter(), testData, scenarioContext);
-        dynamicValueInjector.injectDataFromContextBeforeApiCall();
     }
 
     @Override
@@ -116,6 +115,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
 
     private void prepareARequestWithAppropriateValues(BackEndFunctionalTestScenarioContext scenarioContext)
             throws IOException {
+        dynamicValueInjector.injectDataFromContextBeforeApiCall();
         RequestSpecification raRequest = buildRestAssuredRequestWith(scenarioContext.getTestData().getRequest());
 
         scenarioContext.setTheRequest(raRequest);
