@@ -111,16 +111,23 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     private void prepareARequestWithAppropriateValues(BackEndFunctionalTestScenarioContext scenarioContext)
             throws IOException {
         scenarioContext.injectDataFromContextBeforeApiCall();
-        RequestSpecification raRequest = buildRestAssuredRequestWith(scenarioContext.getTestData().getRequest());
+        RequestSpecification raRequest = buildRestAssuredRequestWith(scenarioContext.getTestData());
 
         scenarioContext.setTheRequest(raRequest);
         scenario.write("Request prepared with the following variables: "
                 + JsonUtils.getPrettyJsonFromObject(scenarioContext.getTestData().getRequest()));
     }
 
-    private RequestSpecification buildRestAssuredRequestWith(RequestData requestData) throws IOException {
+    private RequestSpecification buildRestAssuredRequestWith(HttpTestData testData) throws IOException {
         RequestSpecification aRequest = RestAssured.given();
 
+        try {
+            Method.valueOf(testData.getMethod().toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new FunctionalTestException("Method '" + testData.getMethod() + "' in test data file not recognised");
+        }
+
+        RequestData requestData = testData.getRequest();
         if (requestData.getHeaders() != null) {
             requestData.getHeaders().forEach((header, value) -> aRequest.header(header, value));
         }
@@ -217,7 +224,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
             theRequest.baseUri(TestAutomationConfig.INSTANCE.getTestUrl());
         }
 
-        Response response = theRequest.request(Method.valueOf(testData.getMethod().toUpperCase()), uri);
+        Response response = theRequest.request(testData.getMethod(), uri);
 
         ResponseData responseData = convertRestAssuredResponseToBeftaResponse(scenarioContext, response);
         scenarioContext.getTestData().setActualResponse(responseData);
