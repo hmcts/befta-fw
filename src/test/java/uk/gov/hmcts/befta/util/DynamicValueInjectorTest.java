@@ -65,7 +65,7 @@ public class DynamicValueInjectorTest {
 
         Assert.assertEquals("[[DEFAULT_AUTO_VALUE]]", testData.getRequest().getPathVariables().get("uid"));
 
-        underTest.injectDataFromContext();
+        underTest.injectDataFromContextBeforeApiCall();
 
         Assert.assertEquals("mutlu.sancaktutar@hmcts.net", testData.getRequest().getPathVariables().get("email"));
 
@@ -94,7 +94,7 @@ public class DynamicValueInjectorTest {
 
         Assert.assertEquals("[[DEFAULT_AUTO_VALUE]]", testData.getRequest().getPathVariables().get("uid"));
 
-        underTest.injectDataFromContext();
+        underTest.injectDataFromContextBeforeApiCall();
 
         Assert.assertEquals(
                 "a.user@http://idam.hmcts.bla.bla/token value at index 2#http://idamuser.hmcts.bla.bla/documents/binary",
@@ -112,18 +112,27 @@ public class DynamicValueInjectorTest {
         Assert.assertEquals("string without any dynamic part",
                 testData.getExpectedResponse().getBody().get("onlyStaticString"));
         Assert.assertEquals("token value at index 2", testData.getExpectedResponse().getBody().get("onlyFormulaOnly"));
-        Assert.assertEquals("http://defstore.hmcts.bla.bla",
+        Assert.assertEquals("{{DEFINITION_STORE_HOST}}",
                 testData.getExpectedResponse().getBody().get("oneEnvironmentVariableOnly"));
-        Assert.assertEquals("http://defstore.hmcts.bla.blaPa55word11http://defstore.hmcts.bla.bla",
+        Assert.assertEquals("{{DEFINITION_STORE_HOST}}Pa55word11{{DEFINITION_STORE_HOST}}",
                 testData.getExpectedResponse().getBody().get("threeEnvironmentVariablesOnly"));
         Assert.assertEquals("token value at index 2token value at index 2",
                 testData.getExpectedResponse().getBody().get("twoFormulasOnly"));
+        Assert.assertEquals("token value at index 2{{DEFINITION_STORE_HOST}}abc123{{DEFINITION_STORE_HOST}}",
+                testData.getExpectedResponse().getBody().get("complicatedNestedValue_1"));
+        Assert.assertEquals(
+                "abctoken value at index 2.=.{{DEFINITION_STORE_HOST}}token value at index 2abc123{{DEFINITION_STORE_HOST}}",
+                testData.getExpectedResponse().getBody().get("complicatedNestedValue_2"));
+
+        underTest.injectDataFromContextAfterApiCall();
+
+        Assert.assertEquals("http://defstore.hmcts.bla.blaPa55word11http://defstore.hmcts.bla.bla",
+                testData.getExpectedResponse().getBody().get("threeEnvironmentVariablesOnly"));
         Assert.assertEquals("token value at index 2http://defstore.hmcts.bla.blaabc123http://defstore.hmcts.bla.bla",
                 testData.getExpectedResponse().getBody().get("complicatedNestedValue_1"));
         Assert.assertEquals(
                 "abctoken value at index 2.=.http://defstore.hmcts.bla.blatoken value at index 2abc123http://defstore.hmcts.bla.bla",
                 testData.getExpectedResponse().getBody().get("complicatedNestedValue_2"));
-
     }
 
     class BackEndFunctionalTestScenarioContextForTest extends BackEndFunctionalTestScenarioContext {

@@ -29,11 +29,15 @@ public class DynamicValueInjector {
         this.taAdapter = taAdapter;
     }
 
-    public void injectDataFromContext() {
-        injectRequestDetailsFromContext();
+    public void injectDataFromContextBeforeApiCall() {
+        injectValuesDetailsFromContextBeforeApiCall();
     }
 
-    private void injectRequestDetailsFromContext() {
+    public void injectDataFromContextAfterApiCall() {
+        injectValuesDetailsFromContextAfterApiCall();
+    }
+
+    private void injectValuesDetailsFromContextBeforeApiCall() {
         RequestData requestData = testData.getRequest();
         testData.setUri(processDynamicValuesIn(testData.getUri()));
         Map<String, Object> requestHeaders = requestData.getHeaders();
@@ -54,6 +58,9 @@ public class DynamicValueInjector {
                     (key, value) -> queryParams.put(key, getDynamicValueFor("request.queryParams", key, value)));
         }
         injectDynamicValuesInto("request.body", requestData.getBody());
+    }
+
+    private void injectValuesDetailsFromContextAfterApiCall() {
         injectDynamicValuesInto("expectedResponse.body", testData.getExpectedResponse().getBody());
     }
 

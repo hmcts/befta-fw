@@ -52,6 +52,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     private final BackEndFunctionalTestScenarioContext scenarioContext;
     private Scenario scenario;
     private ObjectMapper mapper = new ObjectMapper();
+    private DynamicValueInjector dynamicValueInjector;
 
     public DefaultBackEndFunctionalTestScenarioPlayer() {
         RestAssured.baseURI = TestAutomationConfig.INSTANCE.getTestUrl();
@@ -62,6 +63,9 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     @Before()
     public void prepare(Scenario scenario) {
         this.scenario = scenario;
+        HttpTestData testData = scenarioContext.getTestData();
+        dynamicValueInjector = new DynamicValueInjector(BeftaMain.getAdapter(), testData, scenarioContext);
+        dynamicValueInjector.injectDataFromContextBeforeApiCall();
     }
 
     @Override
@@ -112,11 +116,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
 
     private void prepareARequestWithAppropriateValues(BackEndFunctionalTestScenarioContext scenarioContext)
             throws IOException {
-        HttpTestData testData = scenarioContext.getTestData();
-
-        new DynamicValueInjector(BeftaMain.getAdapter(), testData, scenarioContext).injectDataFromContext();
-
-        RequestSpecification raRequest = buildRestAssuredRequestWith(testData.getRequest());
+        RequestSpecification raRequest = buildRestAssuredRequestWith(scenarioContext.getTestData().getRequest());
 
         scenarioContext.setTheRequest(raRequest);
         scenario.write("Request prepared with the following variables: "
@@ -231,6 +231,8 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         scenarioContext.getTestData().setActualResponse(responseData);
         scenarioContext.setTheResponse(responseData);
         scenario.write("Response:\n" + JsonUtils.getPrettyJsonFromObject(scenarioContext.getTheResponse()));
+        dynamicValueInjector.injectDataFromContextAfterApiCall();
+
     }
 
     @SuppressWarnings("unchecked")
