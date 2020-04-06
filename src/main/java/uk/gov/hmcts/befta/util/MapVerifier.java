@@ -164,20 +164,31 @@ public class MapVerifier {
         int i = 0;
         while (itrExpected.hasNext() && itrActual.hasNext()) {
             Object o1 = itrExpected.next();
-            Object o2 = pickItemToCompareWith(o1, actualCollection, itrActual, verificationConfig);
             String subfield = getSubfieldFor(field, verificationConfig, i, o1);
-            applyVerificationOnCollectionElements(o1, o2, fieldPrefix, subfield, currentDepth, maxMessageDepth,
-                    badValueMessages);
+            if (isPrimitive(o1)) {
+                if (!actualCollection.contains(o1)) {
+                    badValueMessages
+                            .add(fieldPrefix + "." + subfield + " is expected to be " + o1 + ", but is not available.");
+                }
+            } else {
+                Object o2 = pickItemToCompareWith(o1, actualCollection, itrActual, verificationConfig);
+                applyVerificationOnCollectionElements(o1, o2, fieldPrefix, subfield, currentDepth, maxMessageDepth,
+                        badValueMessages);
+            }
             i++;
         }
     }
 
     private String getSubfieldFor(String field, CollectionVerificationConfig verificationConfig, int index,
             Object objectWorkedOn) {
-        if (verificationConfig.getOrdering() == Ordering.ORDERED)
+        if (verificationConfig.getOrdering() == Ordering.ORDERED || isPrimitive(objectWorkedOn))
             return field + "[" + index + "]";
         else
             return field + "[" + getIdValueIn(objectWorkedOn, verificationConfig.getElementId()) + "]";
+    }
+
+    private boolean isPrimitive(Object o) {
+        return o == null || (o instanceof String) || (o instanceof Number);
     }
 
     private Object getIdValueIn(Object objectWorkedOn, String elementId) {
