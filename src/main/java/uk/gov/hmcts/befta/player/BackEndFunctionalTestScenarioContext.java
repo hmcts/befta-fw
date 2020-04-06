@@ -15,6 +15,7 @@ import uk.gov.hmcts.befta.data.HttpTestDataSource;
 import uk.gov.hmcts.befta.data.JsonStoreHttpTestDataSource;
 import uk.gov.hmcts.befta.data.ResponseData;
 import uk.gov.hmcts.befta.data.UserData;
+import uk.gov.hmcts.befta.util.DynamicValueInjector;
 
 public class BackEndFunctionalTestScenarioContext {
 
@@ -44,6 +45,8 @@ public class BackEndFunctionalTestScenarioContext {
 
     private int userCountSpecifiedSoFar = 0;
 
+    private DynamicValueInjector dynamicValueInjector;
+
     public void addChildContext(BackEndFunctionalTestScenarioContext childContext) {
         childContext.setParentContext(this);
         childContexts.put(childContext.getTestData().get_guid_(), childContext);
@@ -57,6 +60,15 @@ public class BackEndFunctionalTestScenarioContext {
 
     public void initializeTestDataFor(String testDataId) {
         testData = DATA_SOURCE.getDataForTestCall(testDataId);
+        dynamicValueInjector = new DynamicValueInjector(BeftaMain.getAdapter(), testData, this);
+    }
+
+    void injectDataFromContextBeforeApiCall() {
+        dynamicValueInjector.injectDataFromContextBeforeApiCall();
+    }
+
+    void injectDataFromContextAfterApiCall() {
+        dynamicValueInjector.injectDataFromContextAfterApiCall();
     }
 
     public String getCurrentScenarioTag() {

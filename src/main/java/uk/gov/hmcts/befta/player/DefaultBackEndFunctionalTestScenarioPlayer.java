@@ -31,7 +31,6 @@ import uk.gov.hmcts.befta.BeftaMain;
 import uk.gov.hmcts.befta.TestAutomationConfig;
 import uk.gov.hmcts.befta.TestAutomationConfig.ResponseHeaderCheckPolicy;
 import uk.gov.hmcts.befta.data.FileInBody;
-import uk.gov.hmcts.befta.data.HttpTestData;
 import uk.gov.hmcts.befta.data.RequestData;
 import uk.gov.hmcts.befta.data.ResponseData;
 import uk.gov.hmcts.befta.data.UserData;
@@ -39,7 +38,6 @@ import uk.gov.hmcts.befta.exception.FunctionalTestException;
 import uk.gov.hmcts.befta.exception.UnconfirmedApiCallException;
 import uk.gov.hmcts.befta.exception.UnconfirmedDataSpecException;
 import uk.gov.hmcts.befta.util.BeftaUtils;
-import uk.gov.hmcts.befta.util.DynamicValueInjector;
 import uk.gov.hmcts.befta.util.EnvironmentVariableUtils;
 import uk.gov.hmcts.befta.util.JsonUtils;
 import uk.gov.hmcts.befta.util.MapVerificationResult;
@@ -112,11 +110,8 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
 
     private void prepareARequestWithAppropriateValues(BackEndFunctionalTestScenarioContext scenarioContext)
             throws IOException {
-        HttpTestData testData = scenarioContext.getTestData();
-
-        new DynamicValueInjector(BeftaMain.getAdapter(), testData, scenarioContext).injectDataFromContext();
-
-        RequestSpecification raRequest = buildRestAssuredRequestWith(testData.getRequest());
+        scenarioContext.injectDataFromContextBeforeApiCall();
+        RequestSpecification raRequest = buildRestAssuredRequestWith(scenarioContext.getTestData().getRequest());
 
         scenarioContext.setTheRequest(raRequest);
         scenario.write("Request prepared with the following variables: "
@@ -231,6 +226,8 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         scenarioContext.getTestData().setActualResponse(responseData);
         scenarioContext.setTheResponse(responseData);
         scenario.write("Response:\n" + JsonUtils.getPrettyJsonFromObject(scenarioContext.getTheResponse()));
+        scenarioContext.injectDataFromContextAfterApiCall();
+
     }
 
     @SuppressWarnings("unchecked")
