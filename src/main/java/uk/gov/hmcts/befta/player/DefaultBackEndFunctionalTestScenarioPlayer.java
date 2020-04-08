@@ -256,7 +256,12 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
             }
         }
 
-        responseData.setBody(jsonForBody == null ? null : JsonUtils.readObjectFromJsonText(jsonForBody, Map.class));
+        try {
+            responseData.setBody(jsonForBody == null ? null : JsonUtils.readObjectFromJsonText(jsonForBody, Map.class));
+        } catch (Exception e) {
+            scenario.write("Can't convert the body to JSON: \n" + jsonForBody);
+            throw new FunctionalTestException("Can't convert the body to JSON.", e);
+        }
 
         return responseData;
     }
@@ -294,7 +299,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
                 apiResponse = "{\"arrayInMap\":" + apiResponse + "}";
             }
         } else {
-            apiResponse = "{\"__plainTextValue__\": \"" + apiResponse + "\"}";
+            apiResponse = "{\"__plainTextValue__\": \"" + apiResponse.replaceAll("\n", "") + "\"}";
         }
         return apiResponse;
     }

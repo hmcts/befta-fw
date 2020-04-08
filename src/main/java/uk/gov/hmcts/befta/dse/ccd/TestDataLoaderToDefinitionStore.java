@@ -26,7 +26,7 @@ public class TestDataLoaderToDefinitionStore {
 
     private static final Logger logger = LoggerFactory.getLogger(TestDataLoaderToDefinitionStore.class);
 
-    public static final String DEFAULT_DEFINITIONS_PATH = "uk/gov/hmcts/befta/dse/ccd/definitions/";
+    public static final String DEFAULT_DEFINITIONS_PATH = "uk/gov/hmcts/befta/dse/ccd/definitions/valid";
 
     private static final CcdRoleConfig[] CCD_ROLES_NEEDED_FOR_TA = {
             new CcdRoleConfig("caseworker-autotest1", "PUBLIC"),
@@ -117,7 +117,8 @@ public class TestDataLoaderToDefinitionStore {
             ClassPath cp = ClassPath.from(Thread.currentThread().getContextClassLoader());
             for (ClassPath.ResourceInfo info : cp.getResources()) {
                 if (info.getResourceName().startsWith(definitionsPath)
-                        && info.getResourceName().toLowerCase().endsWith(".xlsx")) {
+                        && info.getResourceName().toLowerCase().endsWith(".xlsx")
+                        && !info.getResourceName().startsWith("~$")) {
                     definitionFileResources.add(info.getResourceName());
                 }
             }
