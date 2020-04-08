@@ -27,7 +27,7 @@ public class JsonUtilsTest {
         final HttpTestData result = JsonUtils.readObjectFromJsonResource(TEST_RESOURCE, HttpTestData.class);
 
         assertEquals("S-000", result.get_guid_());
-        assertEquals("[[DYNAMIC]]", result.getRequest().getPathVariables().get("uid"));
+        assertEquals("[[DEFAULT_AUTO_VALUE]]", result.getRequest().getPathVariables().get("uid"));
         assertEquals(200, result.getExpectedResponse().getResponseCode());
     }
 
@@ -38,7 +38,7 @@ public class JsonUtilsTest {
         final HttpTestData result = JsonUtils.readObjectFromJsonFile(url.getPath(), HttpTestData.class);
 
         assertEquals("S-000", result.get_guid_());
-        assertEquals("[[DYNAMIC]]", result.getRequest().getPathVariables().get("uid"));
+        assertEquals("[[DEFAULT_AUTO_VALUE]]", result.getRequest().getPathVariables().get("uid"));
         assertEquals(200, result.getExpectedResponse().getResponseCode());
     }
 

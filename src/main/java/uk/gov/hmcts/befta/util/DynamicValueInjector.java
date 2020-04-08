@@ -15,7 +15,7 @@ import uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext;
 
 public class DynamicValueInjector {
 
-    private static final String DYNAMIC_CONTENT_PLACEHOLDER = "[[DYNAMIC]]";
+    private static final String DEFAULT_AUTO_VALUE = "[[DEFAULT_AUTO_VALUE]]";
 
     private final TestAutomationAdapter taAdapter;
 
@@ -29,11 +29,15 @@ public class DynamicValueInjector {
         this.taAdapter = taAdapter;
     }
 
-    public void injectDataFromContext() {
-        injectRequestDetailsFromContext();
+    public void injectDataFromContextBeforeApiCall() {
+        injectValuesDetailsFromContextBeforeApiCall();
     }
 
-    private void injectRequestDetailsFromContext() {
+    public void injectDataFromContextAfterApiCall() {
+        injectValuesDetailsFromContextAfterApiCall();
+    }
+
+    private void injectValuesDetailsFromContextBeforeApiCall() {
         RequestData requestData = testData.getRequest();
         testData.setUri(processDynamicValuesIn(testData.getUri()));
         Map<String, Object> requestHeaders = requestData.getHeaders();
@@ -54,6 +58,9 @@ public class DynamicValueInjector {
                     (key, value) -> queryParams.put(key, getDynamicValueFor("request.queryParams", key, value)));
         }
         injectDynamicValuesInto("request.body", requestData.getBody());
+    }
+
+    private void injectValuesDetailsFromContextAfterApiCall() {
         injectDynamicValuesInto("expectedResponse.body", testData.getExpectedResponse().getBody());
     }
 
@@ -61,13 +68,13 @@ public class DynamicValueInjector {
         if (value == null || !(value instanceof String))
             return value;
         String valueString = (String) value;
-        if (valueString.equalsIgnoreCase(DYNAMIC_CONTENT_PLACEHOLDER)) {
+        if (valueString.equalsIgnoreCase(DEFAULT_AUTO_VALUE)) {
             UserData theInvokingUser = scenarioContext.getTheInvokingUser();
             String s2sToken = null;
             if (key.equalsIgnoreCase("Authorization")) {
                 return "Bearer " + theInvokingUser.getAccessToken();
             } else if (key.equalsIgnoreCase("ServiceAuthorization")) {
-                if ((s2sToken = taAdapter.getNewS2SToken()) != null) {
+                if ((s2sToken = taAdapter.getNewS2SToken(testData.getApiClientId())) != null) {
                     return s2sToken;
                 }
             } else if (key.equalsIgnoreCase("uid") && theInvokingUser.getId() != null) {

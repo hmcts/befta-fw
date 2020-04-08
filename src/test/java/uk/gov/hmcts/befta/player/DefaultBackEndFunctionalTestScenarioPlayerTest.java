@@ -99,7 +99,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
     public void setUp() throws Exception {
         mockStatic(RestAssured.class);
         mockStatic(EnvironmentVariableUtils.class);
-        mockStatic(Method.class);
+        mockStatic(EnvironmentVariableUtils.class);
         mockStatic(SpecificationQuerier.class);
         mockStatic(JsonUtils.class);
         whenNew(DynamicValueInjector.class).withAnyArguments().thenReturn(dynamicInjector);
@@ -187,6 +187,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
             }
         });
         testData.setRequest(requestData);
+        testData.setMethod("GET");
 
         when(RestAssured.given()).thenReturn(requestSpecification);
         when(context.getTheInvokingUser()).thenReturn(new UserData());
@@ -213,6 +214,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
 
         when(RestAssured.given()).thenReturn(requestSpecification);
         when(context.getTestData()).thenReturn(testData);
+        testData.setMethod("GET");
 
         scenarioPlayer.prepareARequestWithAppropriateValues();
 
@@ -305,7 +307,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         when(context.getTestData()).thenReturn(testData);
         when(EnvironmentVariableUtils.resolvePossibleVariable(USERNAME)).thenReturn(USERNAME);
         when(EnvironmentVariableUtils.resolvePossibleVariable(PASSWORD)).thenReturn(PASSWORD);
-
+        BeftaMain.setTaAdapter(adapter);
         scenarioPlayer.verifyThatThereIsAUserInTheContextWithAParticularSpecification(specificationAboutUser);
 
         verify(context).setTheInvokingUser(userData);
@@ -401,6 +403,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         when(testData.getUri()).thenReturn(uri);
         when(testData.getExpectedResponse()).thenReturn(new ResponseData());
         when(context.getTestData()).thenReturn(testData);
+        testData.setMethod("POST");
         when(context.getTheRequest()).thenReturn(requestSpecification);
         when(response.getHeaders())
                 .thenReturn(new Headers(Arrays.asList(new Header("Content-Type", "application/json;charset=UTF-8"))));
@@ -408,8 +411,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         when(response.getBody()).thenReturn(responseBody);
         when(response.contentType()).thenReturn("application/json;charset=UTF-8");
         when(responseBody.asString()).thenReturn(bodyString);
-        when(requestSpecification.request(eq(Method.POST), eq(uri))).thenReturn(response);
-        when(Method.valueOf(eq(methodType))).thenReturn(Method.POST);
+        when(requestSpecification.request(eq("POST"), eq(uri))).thenReturn(response);
         when(SpecificationQuerier.query(eq(requestSpecification))).thenReturn(queryableRequest);
         when(JsonUtils.readObjectFromJsonText(any(), any())).thenReturn(body);
 
@@ -429,13 +431,13 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
 
         when(testData.meetsOperationOfProduct(eq(PRODUCT_NAME), eq(OPERATION))).thenReturn(true);
         when(context.getTestData()).thenReturn(testData);
-        when(testData.getMethod()).thenReturn("X");
-        when(Method.valueOf(any())).thenThrow(IllegalArgumentException.class);
+        when(testData.getUri()).thenReturn("http://localhost");
+        when(testData.getMethod()).thenReturn("GETT");
 
         exceptionRule.expect(FunctionalTestException.class);
-        exceptionRule.expectMessage("Method 'X' in test data file not recognised");
+        exceptionRule.expectMessage("Method 'GETT' in test data file not recognised");
 
-        scenarioPlayer.submitTheRequestToCallAnOperationOfAProduct(OPERATION, PRODUCT_NAME);
+        scenarioPlayer.prepareARequestWithAppropriateValues();
     }
 
     @Test
