@@ -20,8 +20,8 @@ import uk.gov.hmcts.befta.BeftaMain;
 import uk.gov.hmcts.befta.TestAutomationAdapter;
 import uk.gov.hmcts.befta.data.UserData;
 import uk.gov.hmcts.befta.exception.FunctionalTestException;
-import uk.gov.hmcts.befta.util.BeftaUtils;
 
+//AC-2
 public class TestDataLoaderToDefinitionStore {
 
     private static final Logger logger = LoggerFactory.getLogger(TestDataLoaderToDefinitionStore.class);
@@ -128,8 +128,8 @@ public class TestDataLoaderToDefinitionStore {
         }
     }
 
-    protected void importDefinition(String fileResourcePath) throws IOException {
-        File file = BeftaUtils.getClassPathResourceIntoTemporaryFile(fileResourcePath);
+    protected void importDefinition(String jurisdictionId) throws IOException {
+        File file = CcdBeftaUtils.getExcelFileForDefinition(jurisdictionId);
         try {
             Response response = asAutoTestImporter().given().multiPart(file).when().post("/import");
             if (response.getStatusCode() != 201) {
