@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import feign.Feign;
 import feign.jackson.JacksonDecoder;
@@ -14,7 +15,9 @@ import feign.jackson.JacksonEncoder;
 import uk.gov.hmcts.befta.auth.AuthApi;
 import uk.gov.hmcts.befta.auth.OAuth2;
 import uk.gov.hmcts.befta.data.UserData;
+import uk.gov.hmcts.befta.exception.FunctionalTestException;
 import uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext;
+import uk.gov.hmcts.befta.util.EnvironmentVariableUtils;
 import uk.gov.hmcts.reform.authorisation.ServiceAuthorisationApi;
 import uk.gov.hmcts.reform.authorisation.generators.ServiceAuthTokenGenerator;
 
@@ -26,19 +29,15 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
 
     private final AuthApi idamApi;
 
-    private final ServiceAuthTokenGenerator tokenGenerator;
+    private final Map<String, ServiceAuthTokenGenerator> tokenGenerators = new ConcurrentHashMap<>();
 
     private final Map<String, UserData> users = new HashMap<>();
 
     private static boolean isTestDataLoaded = false;
 
     public DefaultTestAutomationAdapter() {
-        final ServiceAuthorisationApi serviceAuthorisationApi = Feign.builder().encoder(new JacksonEncoder())
-                .contract(new SpringMvcContract())
-                .target(ServiceAuthorisationApi.class, BeftaMain.getConfig().getS2SURL());
-
-        this.tokenGenerator = new ServiceAuthTokenGenerator(BeftaMain.getConfig().getS2SClientSecret(),
-                BeftaMain.getConfig().getS2SClientId(), serviceAuthorisationApi);
+        registerApiClientWithCredentials(BeftaMain.getConfig().getS2SClientId(),
+                BeftaMain.getConfig().getS2SClientSecret());
 
         idamApi = Feign.builder().encoder(new JacksonEncoder()).decoder(new JacksonDecoder()).target(AuthApi.class,
                 BeftaMain.getConfig().getIdamURL());
@@ -46,7 +45,14 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
 
     @Override
     public String getNewS2SToken() {
-        return tokenGenerator.generate();
+        return getNewS2SToken(BeftaMain.getConfig().getS2SClientId());
+    }
+
+    @Override
+    public String getNewS2SToken(String clientId) {
+        return tokenGenerators.computeIfAbsent(clientId, key -> {
+            throw new FunctionalTestException("No S2S token generator registered for " + key + ".");
+        }).generate();
     }
 
     @Override
@@ -81,6 +87,23 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
     protected void doLoadTestData() {
     }
 
+    protected void registerApiClientWithEnvVariable(String envVarPrefix) {
+        String clientId = EnvironmentVariableUtils.getRequiredVariable(envVarPrefix + "_ID");
+        String clientSecret = EnvironmentVariableUtils.getRequiredVariable(envVarPrefix + "_SECRET");
+        registerApiClientWithCredentials(clientId, clientSecret);
+    }
+
+    protected void registerApiClientWithCredentials(String clientId, String clientSecret) {
+        final ServiceAuthorisationApi serviceAuthorisationApi = Feign.builder().encoder(new JacksonEncoder())
+                .contract(new SpringMvcContract())
+                .target(ServiceAuthorisationApi.class, BeftaMain.getConfig().getS2SURL());
+
+        ServiceAuthTokenGenerator tokenGenerator = new ServiceAuthTokenGenerator(
+                clientSecret, clientId, serviceAuthorisationApi);
+
+        tokenGenerators.put(clientId, tokenGenerator);
+    }
+
     private String getIdamOauth2Token(String username, String password) {
         String authorisation = username + ":" + password;
         String base64Authorisation = Base64.getEncoder().encodeToString(authorisation.getBytes());
@@ -104,9 +127,18 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
             switch (keyString) {
                 case "request":
                     return scenarioContext.getTestData().getRequest();
-    
+
                 case "requestbody":
                     return scenarioContext.getTestData().getRequest().getBody();
+
+            case "requestheaders":
+                return scenarioContext.getTestData().getRequest().getHeaders();
+
+            case "requestpathvars":
+                return scenarioContext.getTestData().getRequest().getPathVariables();
+
+            case "requestqueryparams":
+                return scenarioContext.getTestData().getRequest().getQueryParams();
 
                 case "expectedresponse":
                     return scenarioContext.getTestData().getExpectedResponse();

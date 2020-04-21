@@ -107,6 +107,7 @@ public class ReflectionUtilsTest {
     @Test
     public void shouldErrorWhenTryingToRetrieveNonExistingField() throws Exception {
         HttpTestData testData = new HttpTestData();
+        testData.setApiClientId("ccd_gw");
 
         exceptionRule.expect(NoSuchFieldException.class);
         exceptionRule.expectMessage(startsWith("nonExistingField not retrievable"));

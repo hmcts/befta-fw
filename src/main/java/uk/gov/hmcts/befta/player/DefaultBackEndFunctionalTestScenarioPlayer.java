@@ -39,7 +39,6 @@ import uk.gov.hmcts.befta.exception.FunctionalTestException;
 import uk.gov.hmcts.befta.exception.UnconfirmedApiCallException;
 import uk.gov.hmcts.befta.exception.UnconfirmedDataSpecException;
 import uk.gov.hmcts.befta.util.BeftaUtils;
-import uk.gov.hmcts.befta.util.DynamicValueInjector;
 import uk.gov.hmcts.befta.util.EnvironmentVariableUtils;
 import uk.gov.hmcts.befta.util.JsonUtils;
 import uk.gov.hmcts.befta.util.MapVerificationResult;
@@ -54,7 +53,6 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     private ObjectMapper mapper = new ObjectMapper();
 
     public DefaultBackEndFunctionalTestScenarioPlayer() {
-        RestAssured.baseURI = TestAutomationConfig.INSTANCE.getTestUrl();
         RestAssured.useRelaxedHTTPSValidation();
         scenarioContext = new BackEndFunctionalTestScenarioContext();
     }
@@ -112,20 +110,24 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
 
     private void prepareARequestWithAppropriateValues(BackEndFunctionalTestScenarioContext scenarioContext)
             throws IOException {
-        HttpTestData testData = scenarioContext.getTestData();
-
-        new DynamicValueInjector(BeftaMain.getAdapter(), testData, scenarioContext).injectDataFromContext();
-
-        RequestSpecification raRequest = buildRestAssuredRequestWith(testData.getRequest());
+        scenarioContext.injectDataFromContextBeforeApiCall();
+        RequestSpecification raRequest = buildRestAssuredRequestWith(scenarioContext.getTestData());
 
         scenarioContext.setTheRequest(raRequest);
         scenario.write("Request prepared with the following variables: "
                 + JsonUtils.getPrettyJsonFromObject(scenarioContext.getTestData().getRequest()));
     }
 
-    private RequestSpecification buildRestAssuredRequestWith(RequestData requestData) throws IOException {
+    private RequestSpecification buildRestAssuredRequestWith(HttpTestData testData) throws IOException {
         RequestSpecification aRequest = RestAssured.given();
 
+        try {
+            Method.valueOf(testData.getMethod().toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new FunctionalTestException("Method '" + testData.getMethod() + "' in test data file not recognised");
+        }
+
+        RequestData requestData = testData.getRequest();
         if (requestData.getHeaders() != null) {
             requestData.getHeaders().forEach((header, value) -> aRequest.header(header, value));
         }
@@ -213,24 +215,24 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         }
 
         RequestSpecification theRequest = scenarioContext.getTheRequest();
-        String uri = scenarioContext.getTestData().getUri();
-        String methodAsString = scenarioContext.getTestData().getMethod();
-        Method method;
-        try {
-            method = Method.valueOf(methodAsString.toUpperCase());
-        } catch (IllegalArgumentException ex) {
-            String errorMessage = "Method '" + methodAsString + "' in test data file not recognised";
-            throw new FunctionalTestException(errorMessage);
+        QueryableRequestSpecification queryableRequest = SpecificationQuerier.query(theRequest);
+        
+        HttpTestData testData = scenarioContext.getTestData();
+        String uri = testData.getUri();
+        
+        if (!uri.trim().toLowerCase().startsWith("http:")) {
+            theRequest.baseUri(TestAutomationConfig.INSTANCE.getTestUrl());
         }
 
-        QueryableRequestSpecification queryableRequest = SpecificationQuerier.query(theRequest);
-        scenario.write("Calling " + queryableRequest.getMethod() + " " + queryableRequest.getURI());
-        Response response = theRequest.request(method, uri);
+        Response response = theRequest.request(testData.getMethod(), uri);
 
         ResponseData responseData = convertRestAssuredResponseToBeftaResponse(scenarioContext, response);
         scenarioContext.getTestData().setActualResponse(responseData);
         scenarioContext.setTheResponse(responseData);
+        scenario.write("Called: " + queryableRequest.getMethod() + " " + queryableRequest.getURI());
         scenario.write("Response:\n" + JsonUtils.getPrettyJsonFromObject(scenarioContext.getTheResponse()));
+        scenarioContext.injectDataFromContextAfterApiCall();
+
     }
 
     @SuppressWarnings("unchecked")
@@ -250,11 +252,16 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         } else {
             if (!response.getBody().asString().isEmpty()) {
                 jsonForBody = response.getBody().asString();
-                jsonForBody = wrapInMapIfNecessary(jsonForBody);
+                jsonForBody = wrapInMapIfNecessary(jsonForBody, response.getContentType());
             }
         }
 
-        responseData.setBody(jsonForBody == null ? null : JsonUtils.readObjectFromJsonText(jsonForBody, Map.class));
+        try {
+            responseData.setBody(jsonForBody == null ? null : JsonUtils.readObjectFromJsonText(jsonForBody, Map.class));
+        } catch (Exception e) {
+            scenario.write("Can't convert the body to JSON: \n" + jsonForBody);
+            throw new FunctionalTestException("Can't convert the body to JSON.", e);
+        }
 
         return responseData;
     }
@@ -286,9 +293,13 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         }
     }
 
-    private String wrapInMapIfNecessary(String apiResponse) {
-        if (apiResponse.startsWith("[") && apiResponse.endsWith("]")) {
-            apiResponse = "{\"arrayInMap\":" + apiResponse + "}";
+    private String wrapInMapIfNecessary(String apiResponse, String contentType) {
+        if (contentType != null && contentType.toLowerCase().contains("json")) {
+            if (apiResponse.startsWith("[") && apiResponse.endsWith("]")) {
+                apiResponse = "{\"arrayInMap\":" + apiResponse + "}";
+            }
+        } else {
+            apiResponse = "{\"__plainTextValue__\": \"" + apiResponse.replaceAll("\n", "") + "\"}";
         }
         return apiResponse;
     }
@@ -443,13 +454,12 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     }
 
     private void authenticateUser(String prefix, UserData user) {
-        String logPrefix = scenarioContext.getCurrentScenarioTag() + ": " + prefix + " [" + user.getUsername() + "]["
-                + user.getPassword() + "] ";
+        String logPrefix = scenarioContext.getCurrentScenarioTag() + ": " + prefix + " [" + user.getUsername() + "] ";
         try {
             BeftaMain.getAdapter().authenticate(user);
             logger.info(logPrefix + "authenticated.");
         } catch (Exception ex) {
-            logger.info(logPrefix + "could not authenticate.");
+            throw new FunctionalTestException(logPrefix + "could not authenticate.", ex);
         }
     }
 }
