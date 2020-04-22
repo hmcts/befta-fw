@@ -16,28 +16,37 @@ import java.util.HashMap;
 public class ExcelTransformer {
 
 //    private static final String INPUT_FILE_PATH = "/Users/dev/code/ccd/befta-fw/src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/valid/CCD_BEFTA_JURISDICTION1.xlsx";
-//    private static final String INPUT_FILE_PATH = "/Users/dev/code/ccd/ccd-testing-support/src/main/resources/CCD_CaseRoleDemo_v38.xlsx";
-    private static final String INPUT_FILE_PATH = "/Users/dev/code/ccd/befta-fw/src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/valid/fe-automation-definition-v31_no_callbacks_or_dynamiclist.xlsx";
+    private static final String INPUT_FILE_PATH = "/Users/dev/code/ccd/ccd-testing-support/src/main/resources/CCD_CaseRoleDemo_v38.xlsx";
+//    private static final String INPUT_FILE_PATH = "/Users/dev/code/ccd/befta-fw/src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/valid/fe-automation-definition-v31_no_callbacks_or_dynamiclist.xlsx";
     private static final String OUTPUT_FOLDER = "definition_json";
 
     private ObjectWriter writer = new ObjectMapper().writer(new DefaultPrettyPrinter());
     private SheetReader sheetTransformer = new SheetReader();
     private HashMap<String,ArrayNode> defFileMap = new HashMap<>();
     private ObjectMapper objectMapper = new ObjectMapper();
+    private String inputExcelFilePath;
+    private String outputFolderPath;
 
     public static void main(String[] args) {
-        ExcelTransformer excelTransformer = new ExcelTransformer();
+        ExcelTransformer excelTransformer = new ExcelTransformer(INPUT_FILE_PATH,OUTPUT_FOLDER);
+        excelTransformer.transformToJson();
+    }
 
-        //        excelTransformer.xlxsToJson(INPUT_FILE_PATH, OUTPUT_FOLDER);
+    public void transformToJson(){
+        parseExcelFile();
+        writeToJson();
+    }
 
-        excelTransformer.parseXlxs(INPUT_FILE_PATH);
-        excelTransformer.writeToJson(OUTPUT_FOLDER);
+    public ExcelTransformer(String inputExcelFilePath, String outputFolderPath) {
+
+        this.inputExcelFilePath = inputExcelFilePath;
+        this.outputFolderPath = outputFolderPath;
     }
 
     /**
      * Read Excel file and return a Workbook object
      */
-    private Workbook parseXLXS(String filePath){
+    private Workbook getExcelFile(String filePath){
         FileInputStream fInputStream = null;
         Workbook excelWookBook = null;
 
@@ -58,38 +67,7 @@ public class ExcelTransformer {
 
     }
 
-    /**
-     * Convert xlsx to json in a single function
-     * @param xlxsFilePath
-     * @param outputFolderPath
-     */
-    private void xlxsToJson(String xlxsFilePath, String outputFolderPath) {
-        String jurisdiction = null;
-        Workbook workbook = parseXLXS(xlxsFilePath);
-        SheetReader sheetReader = new SheetReader();
-        int numberOfSheets = workbook.getNumberOfSheets();
-        for (int i = 0; i < numberOfSheets; i++) {
-            Sheet sheet = workbook.getSheetAt(i);
-            ArrayNode sheetObject = sheetReader.transformToJson(sheet);
 
-            String sheetName = workbook.getSheetAt(i).getSheetName();
-            if (sheetName.equals("Jurisdiction")) {
-                jurisdiction = sheetObject.get(i).get("ID").asText();
-            }
-
-            try {
-                if (i == 0){
-                    outputFolderPath = outputFolderPath + File.separator + jurisdiction;
-                    createDirectoryHierarchy(outputFolderPath);
-                }
-
-                writer.writeValue(new File(outputFolderPath + File.separator + sheetName + ".json"), sheetObject);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-    }
 
     /**
      * Parse an xlxs document into a map of excel sheets k=sheet name v=object representation of that sheet.
@@ -97,8 +75,8 @@ public class ExcelTransformer {
      * @param xlxsPath
      * @return HashMap<String,ArrayNode>
      */
-    private HashMap parseXlxs(String xlxsPath) {
-        Workbook workbook = parseXLXS(xlxsPath);
+    private HashMap parseExcelFile(String xlxsPath) {
+        Workbook workbook = getExcelFile(xlxsPath);
 
         int numberOfSheets = workbook.getNumberOfSheets();
         for (int i = 0; i < numberOfSheets; i++) {
@@ -112,11 +90,16 @@ public class ExcelTransformer {
         return defFileMap;
     }
 
-    /**
-     * use HashMap<String,ArrayNode> defFileMap to write out json files, a file for each def file sheet.
-     * List output folder, jurisdiction subfolder is automatically created
-     * @param outputFilePath
-     */
+    private HashMap parseExcelFile() {
+        return parseExcelFile(this.inputExcelFilePath);
+    }
+
+
+        /**
+         * use HashMap<String,ArrayNode> defFileMap to write out json files, a file for each def file sheet.
+         * List output folder, jurisdiction subfolder is automatically created
+         * @param outputFilePath
+         */
     private void writeToJson(String outputFilePath) {
         String jurisdiction = defFileMap.get("Jurisdiction").get(0).get("ID").asText();
         String outputFolder = outputFilePath + File.separator + jurisdiction;
@@ -129,6 +112,10 @@ public class ExcelTransformer {
                 ex.printStackTrace();
             }
         });
+    }
+
+    private void writeToJson() {
+        writeToJson(this.outputFolderPath);
     }
 
     private void createDirectoryHierarchy(String path){

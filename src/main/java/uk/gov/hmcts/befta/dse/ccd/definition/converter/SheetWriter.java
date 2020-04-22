@@ -19,12 +19,10 @@ public class SheetWriter {
 
     public XSSFWorkbook addSheetToXlxs(XSSFWorkbook workbook, String sheetName, ArrayNode sheetArrayNode) {
         cellDateStyle = ExcelDateUtils.getExcelDateCellStyle(workbook);
-        //todo check for empty sheet and insert - does it need headers? would it fail without headers on import?
         if (sheetArrayNode.size() > 0){
             Sheet sheet = workbook.createSheet(sheetName);
             sheet.createRow(0).createCell(0).setCellValue(sheetName);
             sheet.createRow(1); //blank row required - normally contains description
-            createTeplatedRows(sheet, sheetName);
             createHeaderRow(sheet, sheetArrayNode);
 
             Iterator iterator = sheetArrayNode.iterator();
@@ -39,6 +37,11 @@ public class SheetWriter {
 
     }
 
+    /**
+     * Create a row consisting of the column headers for the particular ccd definition sheet/tab
+     * @param sheet
+     * @param sheetArrayNode
+     */
     private void createHeaderRow(Sheet sheet, ArrayNode sheetArrayNode) {
         Iterator<String> headers = sheetArrayNode.get(0).fieldNames();
         ArrayList<String> keys = new ArrayList<>();
@@ -58,6 +61,11 @@ public class SheetWriter {
 
     }
 
+    /**
+     * Generate a row on the excel sheet/tab from the json node
+     * @param sheet
+     * @param jsonNodeRow
+     */
     private void writeRowToSheet(Sheet sheet, JsonNode jsonNodeRow){
         int nextRow = sheet.getPhysicalNumberOfRows();
         Row row = sheet.createRow(nextRow);
@@ -68,9 +76,6 @@ public class SheetWriter {
             Cell cell = row.createCell(columnIndex);
             JsonNode jsonCellObject = (JsonNode) jsonNodeCellIterator.next();
 
-//            System.out.println(jsonCellObject.toPrettyString());
-//            System.out.println(jsonCellObject.getNodeType());
-
             switch (jsonCellObject.getNodeType()){
                 //todo if we change the read operations to read blank cells as null we will need to handle the corresponding write filtering here
                 case STRING:
@@ -79,11 +84,6 @@ public class SheetWriter {
                         Date dt = new Date(value);
                         cell.setCellValue(dt);
                         cell.setCellStyle(cellDateStyle);
-
-//                        System.out.println("Cell: " + cell);
-//                        System.out.println("date format?: " + DateUtil.isCellDateFormatted(cell));
-//                        System.exit(1);
-
                     } else if (value.length() > 0){
                         cell.setCellValue(jsonCellObject.asText());
                     }
@@ -95,15 +95,5 @@ public class SheetWriter {
             columnIndex++;
         }
     }
-
-    /**
-     * Create row 2 with descriptions
-     * @param sheet
-     * @param sheetName
-     */
-    private void createTeplatedRows(Sheet sheet, String sheetName) {
-        //todo add row 2 descriptions? - would involve saving and storing these rows as separate meta data file in read operation
-    }
-
 
 }

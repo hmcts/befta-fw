@@ -40,9 +40,26 @@ public class SheetReader {
             }
         }
 
+        if (sheetJsonArray.size() ==0){
+            sheetJsonArray.add(generateEmptyRow());
+        }
+
         return sheetJsonArray;
     }
 
+
+    /**
+     * If a sheet has no valid rows we insert a single empty row equivalent in the json structure so we can keep
+     * a record of the headers for purposes of a json -> xlsx transformation
+     * @return
+     */
+    private JsonNode generateEmptyRow(){
+        ObjectNode rowJsonObject = objectMapper.createObjectNode();
+        for(String column : keys){
+            rowJsonObject.put(column,"");
+        }
+        return convertToJsonNode(rowJsonObject);
+    }
 
     /**
      * Get the CCD Header values on the sheet
