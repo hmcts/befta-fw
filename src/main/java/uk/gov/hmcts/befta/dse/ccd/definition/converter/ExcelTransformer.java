@@ -1,28 +1,27 @@
 package uk.gov.hmcts.befta.dse.ccd.definition.converter;
 
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.google.common.collect.Streams;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.stream.Collectors;
 
 public class ExcelTransformer {
 
-    private static final String INPUT_FILE_PATH = "/Users/dev/code/ccd/ccd-testing-support/src/main/resources/CCD_CaseRoleDemo_v38.xlsx";
+//    private static final String INPUT_FILE_PATH = "/Users/dev/code/ccd/befta-fw/src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/valid/CCD_BEFTA_JURISDICTION1.xlsx";
+//    private static final String INPUT_FILE_PATH = "/Users/dev/code/ccd/ccd-testing-support/src/main/resources/CCD_CaseRoleDemo_v38.xlsx";
+    private static final String INPUT_FILE_PATH = "/Users/dev/code/ccd/befta-fw/src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/valid/fe-automation-definition-v31_no_callbacks_or_dynamiclist.xlsx";
     private static final String OUTPUT_FOLDER = "definition_json";
 
     private ObjectWriter writer = new ObjectMapper().writer(new DefaultPrettyPrinter());
-    private SheetTransformer sheetTransformer = new SheetTransformer();
+    private SheetReader sheetTransformer = new SheetReader();
     private HashMap<String,ArrayNode> defFileMap = new HashMap<>();
     private ObjectMapper objectMapper = new ObjectMapper();
 
@@ -35,6 +34,29 @@ public class ExcelTransformer {
         excelTransformer.writeToJson(OUTPUT_FOLDER);
     }
 
+    /**
+     * Read Excel file and return a Workbook object
+     */
+    private Workbook parseXLXS(String filePath){
+        FileInputStream fInputStream = null;
+        Workbook excelWookBook = null;
+
+        try {
+            fInputStream = new FileInputStream(filePath.trim());
+
+            /* Create the workbook object. */
+            excelWookBook = WorkbookFactory.create(fInputStream);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (IllegalStateException ignored){
+
+        }
+
+
+        return excelWookBook;
+
+    }
 
     /**
      * Convert xlsx to json in a single function
@@ -43,12 +65,12 @@ public class ExcelTransformer {
      */
     private void xlxsToJson(String xlxsFilePath, String outputFolderPath) {
         String jurisdiction = null;
-        Workbook workbook = new ExcelReader(xlxsFilePath).parseXLXS();
-        SheetTransformer sheetTransformer = new SheetTransformer();
+        Workbook workbook = parseXLXS(xlxsFilePath);
+        SheetReader sheetReader = new SheetReader();
         int numberOfSheets = workbook.getNumberOfSheets();
         for (int i = 0; i < numberOfSheets; i++) {
             Sheet sheet = workbook.getSheetAt(i);
-            ArrayNode sheetObject = sheetTransformer.transformToJson(sheet);
+            ArrayNode sheetObject = sheetReader.transformToJson(sheet);
 
             String sheetName = workbook.getSheetAt(i).getSheetName();
             if (sheetName.equals("Jurisdiction")) {
@@ -76,7 +98,7 @@ public class ExcelTransformer {
      * @return HashMap<String,ArrayNode>
      */
     private HashMap parseXlxs(String xlxsPath) {
-        Workbook workbook = new ExcelReader(xlxsPath).parseXLXS();
+        Workbook workbook = parseXLXS(xlxsPath);
 
         int numberOfSheets = workbook.getNumberOfSheets();
         for (int i = 0; i < numberOfSheets; i++) {
@@ -112,8 +134,10 @@ public class ExcelTransformer {
     private void createDirectoryHierarchy(String path){
         File dir = new File(path);
 
-        if (!dir.mkdirs()){
-            System.out.println("Could not create directory for " + path);
+        if (!dir.exists()){
+            if (!dir.mkdirs()){
+                throw new RuntimeException("Could not create directory for " + path);
+            }
         }
     }
 

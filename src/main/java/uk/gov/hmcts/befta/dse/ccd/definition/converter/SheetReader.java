@@ -5,22 +5,25 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.apache.poi.ss.usermodel.*;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Objects;
 
 import static org.apache.poi.ss.usermodel.CellType.*;
 
-public class SheetTransformer {
+public class SheetReader {
 
     private static final int HEADER_ROW = 2;
     private static final int DATA_START_ROW = 3;
-    private ArrayList keys;
+    private ArrayList<String> keys;
     private ObjectMapper objectMapper = new ObjectMapper();
 
+
     /**
-     * Populate complete json for a ccd definition sheet/tab
+     * Populate complete JSON Object for a ccd definition sheet/tab
+     * @param sheet - single definition sheet(tab) object
+     * @return ArrayNode object containing array of json objects, each item in array is a row from the definition sheet
      */
     public ArrayNode transformToJson(Sheet sheet){
         keys = getHeaders(sheet);
@@ -42,9 +45,9 @@ public class SheetTransformer {
 
 
     /**
-     * Get the Header values on the sheet
+     * Get the CCD Header values on the sheet
      * @param sheet
-     * @return
+     * @return Array of the headers the columns from a ccd definition sheet/tab
      */
     private ArrayList getHeaders(Sheet sheet){
         ArrayList<String> header = new ArrayList<String>();
@@ -73,44 +76,77 @@ public class SheetTransformer {
 
 
     /**
-     * for each row generate a json node with keys=header values=rowValues and add to main json
+     * for a spreadsheet Row, generate a json node with keys=header values=rowValues
+     * @param row - Row object from a Sheet
+     * @return ObjectNode representation for single excel row in definition file,
+     * if empty row is detected as all cells are empty, return null instead
      */
     private ObjectNode generateJsonNodeForRow(Row row) {
         ObjectNode rowJsonObject = objectMapper.createObjectNode();
+
+        if (Objects.isNull(row)){
+            return null;
+        }
 
         int emptyCells = 0;
 
         int columns = keys.size();
         int first = row.getFirstCellNum();
         for (int j = first; j <columns ; j++) {
-            String key = keys.get(j).toString();
+            String key = keys.get(j);
             Cell cell = row.getCell(j);
-            CellType type =  cell.getCellTypeEnum();
+            CellType type =  getCellType(cell);
 
             //Check cell type and get value using appropriate method
-            if (type == NUMERIC){
-                //need to handle date field as it's stored as floating point number
-                if (key.equals("LiveFrom") || key.equals("LiveTo")){
-                    String stringDateValue = new DataFormatter().formatCellValue(cell);
-                    rowJsonObject.put(keys.get(j).toString(), stringDateValue);
+            if (key.equals("LiveFrom") || key.equals("LiveTo")){
+                if (type != BLANK){
+                    rowJsonObject.put(key, ExcelDateUtils.getStringDateFromCell(cell));
                 } else {
-                    rowJsonObject.put(key, cell.getNumericCellValue());
+                    rowJsonObject.put(key,"");
+                    emptyCells++;
                 }
+
+            } else if (type == NUMERIC) {
+                rowJsonObject.put(key, (int) cell.getNumericCellValue());
             } else if (type == STRING){
                 String val = cell.getStringCellValue();
+                if (val.length() == 0) {
+                    emptyCells++;
+                }
                 rowJsonObject.put(key, val);
             } else if (type == BLANK) {
+                rowJsonObject.put(key,""); //todo should this be null?
                 emptyCells++;
             } else {
-                System.out.print("unsupported cell type value found: ");
-                System.out.println(type);
+                throw new RuntimeException("unsupported cell type value found:" + type);
             }
 
         }
 
         //Some rows have no values in, we want to return null so they can later be easily ignored rather than returning a json with empty values
-        return emptyCells == columns ? null : rowJsonObject;
+        return emptyCells >= columns ? null : rowJsonObject;
     }
+
+    /**
+     * Get celltype, ccd Custom date field throws a null pointer exception as poi library cannot detect 'Custom' cell type
+     * so we catch and model as blank and handle later by column/header name
+     * @param cell
+     * @return CellType
+     */
+    private CellType getCellType(Cell cell) {
+        CellType cellType;
+        try {
+            cellType = cell.getCellType();
+        } catch (NullPointerException e) {
+            cellType = BLANK;
+        }
+
+        return cellType;
+
+    }
+
+
+
 
 
 }
