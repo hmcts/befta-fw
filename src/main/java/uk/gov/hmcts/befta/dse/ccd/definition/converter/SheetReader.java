@@ -31,7 +31,7 @@ public class SheetReader {
 
         //iterate over all rows after the header
         int totalRows = sheet.getPhysicalNumberOfRows();
-        for (int i = DATA_START_ROW; i <  totalRows ; i++) {
+        for (int i = DATA_START_ROW; i <  totalRows + 1; i++) {
             Row row = sheet.getRow(i);
             ObjectNode objectNodeForRow = generateJsonNodeForRow(row);
             if (objectNodeForRow != null){
