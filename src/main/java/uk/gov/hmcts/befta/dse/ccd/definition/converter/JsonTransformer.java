@@ -28,9 +28,9 @@ public class JsonTransformer {
 
     private Map<String, ArrayNode> defFileMap;
 
-    public void transformToExcel(){
+    public String transformToExcel(){
         parseDefinitionJson();
-        createWorkbook();
+        return createWorkbook();
     }
 
     public JsonTransformer(String inputFolderPath, String outputPath) {
@@ -58,12 +58,10 @@ public class JsonTransformer {
 
 
     public Map<String, ArrayNode> parseDefinitionJson(String path){
+
         File jurisdictionDir = new File(path);
         defFileMap = SHEET_NAMES.stream().collect(Collectors.toMap(Function.identity(), sheetName -> objectMapper.createArrayNode()));
-
         for (final File subFolder : Objects.requireNonNull(jurisdictionDir.listFiles())) {
-
-            //within case type subfolder
             for (final File jsonFile : Objects.requireNonNull(subFolder.listFiles())){
                 try {
                     JsonNode rootSheetArray = objectMapper.readTree(jsonFile);
@@ -84,25 +82,26 @@ public class JsonTransformer {
         parseDefinitionJson(this.inputFolderPath);
     }
 
-    private void createWorkbook() {
-        createWorkbook(this.outputPath);
+    private String createWorkbook() {
+        return createWorkbook(this.outputPath);
     }
 
-    public void createWorkbook(String outputPath){
+    public String createWorkbook(String outputPath){
         FileUtils.createDirectoryHierarchy(outputPath);
-
         final XSSFWorkbook workbook = new XSSFWorkbook();
         defFileMap.forEach((key, value) -> {
             sheetReader.addSheetToXlxs(workbook,key,value);
         });
 
         try {
-            FileOutputStream outputStream = new FileOutputStream(outputPath + File.separator + jurisdiction + ".xlsx");
+            outputPath = outputPath + File.separator + jurisdiction + ".xlsx";
+            FileOutputStream outputStream = new FileOutputStream(outputPath);
             workbook.write(outputStream);
             workbook.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return outputPath;
     }
 
 }

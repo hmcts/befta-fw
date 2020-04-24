@@ -27,9 +27,9 @@ public class ExcelTransformer {
     private String inputExcelFilePath;
     private String outputFolderPath;
 
-    public void transformToJson(){
+    public String transformToJson(){
         parseExcelFile();
-        writeToJson();
+        return writeToJson();
     }
 
     public ExcelTransformer(String inputExcelFilePath, String outputFolderPath) {
@@ -90,7 +90,7 @@ public class ExcelTransformer {
      * List output folder, jurisdiction subfolder is automatically created
      * @param outputFilePath
      */
-    private void writeToJson(String outputFilePath) {
+    private String writeToJson(String outputFilePath) {
         String jurisdiction = defFileMap.get("Jurisdiction").get(0).get("ID").asText();
         String outputFolder = outputFilePath + File.separator + jurisdiction;
         FileUtils.deleteDirectory(outputFolder);
@@ -103,14 +103,15 @@ public class ExcelTransformer {
                         writeNodeToFile(caseTypeArrayNodes.get(caseTypeId),
                                 new File(outputFolder + File.separator + caseTypeId + File.separator + key + ".json"));
                     }
-                }
-                else
+                } else {
                     writeNodeToFile(value,
                             new File(outputFolder + File.separator + "common" + File.separator + key + ".json"));
+                }
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
         });
+        return outputFolder;
     }
 
     private void writeNodeToFile(ArrayNode value, File file) throws Exception {
@@ -122,10 +123,18 @@ public class ExcelTransformer {
         Map<String, ArrayNode> caseTypeArrayNodes = getInitialEmptyMapContainingAnArrayNodeForEachCaseType();
         for (JsonNode node : combinedArrayNode) {
             String caseTypeId = node.get("CaseTypeID").asText();
-            caseTypeArrayNodes.get(caseTypeId).add(node);
+
+            //This means empty tab
+            if (caseTypeId.isEmpty()){
+                caseTypeArrayNodes.keySet().forEach(key -> caseTypeArrayNodes.get(key).add(node));
+            } else {
+                caseTypeArrayNodes.get(caseTypeId).add(node);
+            }
         }
+
         return caseTypeArrayNodes;
     }
+
 
     private Map<String, ArrayNode> getInitialEmptyMapContainingAnArrayNodeForEachCaseType() {
         Map<String, ArrayNode> emptyNodes = new HashMap();
@@ -139,8 +148,8 @@ public class ExcelTransformer {
         return PER_CASE_TYPE_SHEET_NAMES.contains(key);
     }
 
-    private void writeToJson() {
-        writeToJson(this.outputFolderPath);
+    private String writeToJson() {
+        return writeToJson(this.outputFolderPath);
     }
 
 }

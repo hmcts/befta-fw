@@ -34,7 +34,7 @@ public class SheetReader {
         for (int i = DATA_START_ROW; i <  totalRows + 1; i++) {
             Row row = sheet.getRow(i);
             ObjectNode objectNodeForRow = generateJsonNodeForRow(row);
-            if (objectNodeForRow != null){
+            if (!rowEmpty(objectNodeForRow)){
                 JsonNode jsonNode = convertToJsonNode(objectNodeForRow);
                 sheetJsonArray.add(jsonNode);
             }
@@ -45,6 +45,25 @@ public class SheetReader {
         }
 
         return sheetJsonArray;
+    }
+
+    private boolean rowEmpty(ObjectNode objectNodeForRow) {
+        boolean empty = true;
+
+        if (objectNodeForRow == null){
+            return true;
+        }
+
+        Iterator it = objectNodeForRow.fieldNames();
+        while (it.hasNext()){
+            String key = (String) it.next();
+            if (!objectNodeForRow.get(key).asText().isEmpty()){
+                empty = false;
+                break;
+            }
+        }
+
+        return empty;
     }
 
 
@@ -105,8 +124,6 @@ public class SheetReader {
             return null;
         }
 
-        int emptyCells = 0;
-
         int columns = keys.size();
         int first = row.getFirstCellNum();
         for (int j = first; j <columns ; j++) {
@@ -120,28 +137,21 @@ public class SheetReader {
                     rowJsonObject.put(key, ExcelDateUtils.getStringDateFromCell(cell));
                 } else {
                     rowJsonObject.put(key,"");
-                    emptyCells++;
                 }
-
             } else if (type == NUMERIC) {
                 rowJsonObject.put(key, (int) cell.getNumericCellValue());
             } else if (type == STRING){
                 String val = cell.getStringCellValue();
-                if (val.length() == 0) {
-                    emptyCells++;
-                }
                 rowJsonObject.put(key, val);
             } else if (type == BLANK) {
                 rowJsonObject.put(key,""); //todo should this be null?
-                emptyCells++;
             } else {
                 throw new RuntimeException("unsupported cell type value found:" + type);
             }
 
         }
 
-        //Some rows have no values in, we want to return null so they can later be easily ignored rather than returning a json with empty values
-        return emptyCells >= columns ? null : rowJsonObject;
+        return rowJsonObject;
     }
 
     /**

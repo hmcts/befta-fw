@@ -1,16 +1,15 @@
 package uk.gov.hmcts.befta.dse.ccd;
 
+import io.restassured.internal.util.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.reflect.ClassPath;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.*;
+import java.net.URL;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
@@ -19,7 +18,10 @@ import io.restassured.specification.RequestSpecification;
 import uk.gov.hmcts.befta.BeftaMain;
 import uk.gov.hmcts.befta.TestAutomationAdapter;
 import uk.gov.hmcts.befta.data.UserData;
+import uk.gov.hmcts.befta.dse.ccd.definition.converter.FileUtils;
+import uk.gov.hmcts.befta.dse.ccd.definition.converter.JsonTransformer;
 import uk.gov.hmcts.befta.exception.FunctionalTestException;
+import uk.gov.hmcts.befta.util.BeftaUtils;
 
 //AC-2
 public class TestDataLoaderToDefinitionStore {
@@ -83,6 +85,7 @@ public class TestDataLoaderToDefinitionStore {
         }
     }
 
+    //todo refactor import definition file method
     public void importDefinitions() {
         List<String> definitionFileResources = getAllDefinitionFilesToLoad();
         logger.info("{} definition files will be uploaded to '{}'.", definitionFileResources.size(),
@@ -111,8 +114,11 @@ public class TestDataLoaderToDefinitionStore {
         }
     }
 
+    //todo refactor import definition file method
     protected List<String> getAllDefinitionFilesToLoad() {
         try {
+            boolean convertJsonFilesToExcel = false;
+            Set<String> definitionJsonResourcesToTransform = new HashSet<>();
             List<String> definitionFileResources = new ArrayList<String>();
             ClassPath cp = ClassPath.from(Thread.currentThread().getContextClassLoader());
             for (ClassPath.ResourceInfo info : cp.getResources()) {
@@ -120,16 +126,35 @@ public class TestDataLoaderToDefinitionStore {
                         && info.getResourceName().toLowerCase().endsWith(".xlsx")
                         && !info.getResourceName().startsWith("~$")) {
                     definitionFileResources.add(info.getResourceName());
+                } else if (info.getResourceName().startsWith(definitionsPath)
+                        && info.getResourceName().toLowerCase().endsWith(".json")){
+                    convertJsonFilesToExcel = true;
+                    File jsonFile = BeftaUtils.createJsonDefinitionFileFromClasspath(info.getResourceName());
+                    String jsonDefinitionParentFolder = jsonFile.getParentFile().getParentFile().getPath();
+                    definitionJsonResourcesToTransform.add(jsonDefinitionParentFolder);
                 }
             }
+
+            if (convertJsonFilesToExcel) {
+                definitionFileResources.addAll(
+                        definitionJsonResourcesToTransform.stream()
+                        .map(folderPath -> new JsonTransformer(folderPath,"_temp_").transformToExcel())
+                        .collect(Collectors.toList()));
+            }
+
             return definitionFileResources;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    protected void importDefinition(String jurisdictionId) throws IOException {
-        File file = CcdBeftaUtils.getExcelFileForDefinition(jurisdictionId);
+    protected void importDefinition(String fileResourcePath) throws IOException {
+        File file =  new File(fileResourcePath).exists()
+                ?
+                new File(fileResourcePath)
+                :
+                BeftaUtils.getClassPathResourceIntoTemporaryFile(fileResourcePath);
+
         try {
             Response response = asAutoTestImporter().given().multiPart(file).when().post("/import");
             if (response.getStatusCode() != 201) {
@@ -139,6 +164,8 @@ public class TestDataLoaderToDefinitionStore {
             }
 
         } finally {
+
+            //todo delete parent directory for json structure
             file.delete();
         }
     }
@@ -152,6 +179,16 @@ public class TestDataLoaderToDefinitionStore {
         return RestAssured.given(new RequestSpecBuilder().setBaseUri(definitionStoreUrl).build())
                 .header("Authorization", "Bearer " + caseworker.getAccessToken())
                 .header("ServiceAuthorization", s2sToken);
+    }
+
+    public static void main(String[] args) {
+        File test = new File("parentfolder/test.txt");
+        try {
+            FileUtils.createDirectoryHierarchy("parentfolder/subfolder/subfolder");
+            test.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
