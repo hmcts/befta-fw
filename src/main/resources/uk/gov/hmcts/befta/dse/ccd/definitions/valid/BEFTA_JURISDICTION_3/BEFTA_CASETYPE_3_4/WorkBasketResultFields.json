@@ -1,0 +1,33 @@
+[ {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_3_4",
+  "CaseFieldID" : "[LAST_STATE_MODIFIED_DATE]",
+  "Label" : "Last State Modified Date",
+  "DisplayOrder" : 1,
+  "ResultsOrdering" : "1:ASC"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_3_4",
+  "CaseFieldID" : "TextField",
+  "Label" : "`Text` field",
+  "DisplayOrder" : 2,
+  "ResultsOrdering" : ""
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_3_4",
+  "CaseFieldID" : "NumberField",
+  "Label" : "`Number` field",
+  "DisplayOrder" : 3,
+  "ResultsOrdering" : ""
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_3_4",
+  "CaseFieldID" : "YesOrNoField",
+  "Label" : "`YesOrNo` field",
+  "DisplayOrder" : 4,
+  "ResultsOrdering" : ""
+} ]

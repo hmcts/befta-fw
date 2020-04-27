@@ -1,0 +1,43 @@
+[ {
+  "LiveFrom" : "1/1/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "CASE_TYPE_WITH_NO_CASES",
+  "CaseFieldID" : "TextField",
+  "UserRole" : "caseworker-befta_jurisdiction_1",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "CASE_TYPE_WITH_NO_CASES",
+  "CaseFieldID" : "NumberField",
+  "UserRole" : "caseworker-befta_jurisdiction_1",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "CASE_TYPE_WITH_NO_CASES",
+  "CaseFieldID" : "YesOrNoField",
+  "UserRole" : "caseworker-befta_jurisdiction_1",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "CASE_TYPE_WITH_NO_CASES",
+  "CaseFieldID" : "PhoneUKField",
+  "UserRole" : "caseworker-befta_jurisdiction_1",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "CASE_TYPE_WITH_NO_CASES",
+  "CaseFieldID" : "EmailField",
+  "UserRole" : "caseworker-befta_jurisdiction_1",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "CASE_TYPE_WITH_NO_CASES",
+  "CaseFieldID" : "MoneyGBPField",
+  "UserRole" : "caseworker-befta_jurisdiction_1",
+  "CRUD" : "CRU"
+} ]

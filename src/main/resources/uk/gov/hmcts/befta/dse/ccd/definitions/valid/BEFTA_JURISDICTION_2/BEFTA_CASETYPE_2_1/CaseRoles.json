@@ -1,0 +1,6 @@
+[ {
+  "CaseTypeID" : "BEFTA_CASETYPE_2_1",
+  "ID" : "[DEFENDANT]",
+  "Name" : "Defendant",
+  "Description" : "The defending party"
+} ]

@@ -1,0 +1,25 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_3_1",
+  "ID" : "TODO",
+  "Name" : "To do",
+  "Description" : "",
+  "DisplayOrder" : 1
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_3_1",
+  "ID" : "IN_PROGRESS",
+  "Name" : "In progress",
+  "Description" : "",
+  "DisplayOrder" : 2
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_3_1",
+  "ID" : "DONE",
+  "Name" : "Done",
+  "Description" : "",
+  "DisplayOrder" : 3
+} ]

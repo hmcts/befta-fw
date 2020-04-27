@@ -1,0 +1,113 @@
+[ {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_3_3",
+  "CaseFieldID" : "TextField",
+  "UserRole" : "caseworker-befta_jurisdiction_3-solicitor",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_3_3",
+  "CaseFieldID" : "NumberField",
+  "UserRole" : "caseworker-befta_jurisdiction_3-solicitor",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_3_3",
+  "CaseFieldID" : "YesOrNoField",
+  "UserRole" : "caseworker-befta_jurisdiction_3-solicitor",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_3_3",
+  "CaseFieldID" : "PhoneUKField",
+  "UserRole" : "caseworker-befta_jurisdiction_3-solicitor",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_3_3",
+  "CaseFieldID" : "EmailField",
+  "UserRole" : "caseworker-befta_jurisdiction_3-solicitor",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_3_3",
+  "CaseFieldID" : "MoneyGBPField",
+  "UserRole" : "caseworker-befta_jurisdiction_3-solicitor",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_3_3",
+  "CaseFieldID" : "DateField",
+  "UserRole" : "caseworker-befta_jurisdiction_3-solicitor",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_3_3",
+  "CaseFieldID" : "DateTimeField",
+  "UserRole" : "caseworker-befta_jurisdiction_3-solicitor",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_3_3",
+  "CaseFieldID" : "TextAreaField",
+  "UserRole" : "caseworker-befta_jurisdiction_3-solicitor",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_3_3",
+  "CaseFieldID" : "FixedListField",
+  "UserRole" : "caseworker-befta_jurisdiction_3-solicitor",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_3_3",
+  "CaseFieldID" : "MultiSelectListField",
+  "UserRole" : "caseworker-befta_jurisdiction_3-solicitor",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_3_3",
+  "CaseFieldID" : "AddressUKField",
+  "UserRole" : "caseworker-befta_jurisdiction_3-solicitor",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_3_3",
+  "CaseFieldID" : "CollectionField",
+  "UserRole" : "caseworker-befta_jurisdiction_3-solicitor",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_3_3",
+  "CaseFieldID" : "ComplexField",
+  "UserRole" : "caseworker-befta_jurisdiction_3-solicitor",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_3_3",
+  "CaseFieldID" : "DocumentField",
+  "UserRole" : "caseworker-befta_jurisdiction_3-solicitor",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_3_3",
+  "CaseFieldID" : "FixedRadioListField",
+  "UserRole" : "caseworker-befta_jurisdiction_3-solicitor",
+  "CRUD" : "CRU"
+} ]
