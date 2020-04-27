@@ -14,6 +14,17 @@ import uk.gov.hmcts.befta.exception.FunctionalTestException;
 public class BeftaUtils {
 
     public static File getClassPathResourceIntoTemporaryFile(String resourcePath) {
+        return createTempFile(resourcePath,"");
+    }
+
+    public static File createJsonDefinitionFileFromClasspath(String resourcePath) {
+        String[] path = resourcePath.split("/");
+        String directoryStructure = path[path.length-3] + File.separator + path[path.length-2];
+        FileUtils.createDirectoryHierarchy(directoryStructure);
+       return createTempFile(resourcePath,directoryStructure);
+    }
+
+    private static File createTempFile(String resourcePath, String directoryPath){
         try {
             int nameStartsAt = resourcePath.lastIndexOf("/");
             String simpleName = resourcePath.substring(nameStartsAt + 1);
@@ -23,33 +34,13 @@ public class BeftaUtils {
             }
             InputStream stream = resource.openStream();
             byte[] buffer = IOUtils.toByteArray(stream);
-            File tempFile = new File("_temp_" + System.currentTimeMillis() + "_" + simpleName);
-            tempFile.createNewFile();
-            OutputStream outStream = new FileOutputStream(tempFile);
-            outStream.write(buffer);
-            outStream.close();
-            return tempFile;
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    //TODO DRY
-    public static File createJsonDefinitionFileFromClasspath(String resourceName) {
-        String[] path = resourceName.split("/");
-        String directoryStructure = path[path.length-3] + File.separator + path[path.length-2];
-        FileUtils.createDirectoryHierarchy(directoryStructure);
-
-        try {
-            int nameStartsAt = resourceName.lastIndexOf("/");
-            String simpleName = resourceName.substring(nameStartsAt + 1);
-            URL resource = BeftaUtils.class.getClassLoader().getResource(resourceName);
-            if (resource == null) {
-                throw new FunctionalTestException("Failed to load from filePath: " + resourceName);
+            String pathName;
+            if (directoryPath.isEmpty()){
+                pathName =  "_temp_" + System.currentTimeMillis() + "_" + simpleName;
+            } else {
+                pathName = directoryPath + File.separator + simpleName;
             }
-            InputStream stream = resource.openStream();
-            byte[] buffer = IOUtils.toByteArray(stream);
-            File tempFile = new File(directoryStructure + File.separator + simpleName);
+            File tempFile = new File(pathName);
             tempFile.createNewFile();
             OutputStream outStream = new FileOutputStream(tempFile);
             outStream.write(buffer);

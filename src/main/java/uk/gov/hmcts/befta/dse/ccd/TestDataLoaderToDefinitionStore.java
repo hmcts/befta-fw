@@ -16,6 +16,7 @@ import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import uk.gov.hmcts.befta.BeftaMain;
+import uk.gov.hmcts.befta.DefaultTestAutomationAdapter;
 import uk.gov.hmcts.befta.TestAutomationAdapter;
 import uk.gov.hmcts.befta.data.UserData;
 import uk.gov.hmcts.befta.dse.ccd.definition.converter.FileUtils;
@@ -138,7 +139,7 @@ public class TestDataLoaderToDefinitionStore {
             if (convertJsonFilesToExcel) {
                 definitionFileResources.addAll(
                         definitionJsonResourcesToTransform.stream()
-                        .map(folderPath -> new JsonTransformer(folderPath,"_temp_").transformToExcel())
+                        .map(folderPath -> new JsonTransformer(folderPath,"build/tmp").transformToExcel())
                         .collect(Collectors.toList()));
             }
 
@@ -181,14 +182,9 @@ public class TestDataLoaderToDefinitionStore {
                 .header("ServiceAuthorization", s2sToken);
     }
 
+    //for testing
     public static void main(String[] args) {
-        File test = new File("parentfolder/test.txt");
-        try {
-            FileUtils.createDirectoryHierarchy("parentfolder/subfolder/subfolder");
-            test.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        new TestDataLoaderToDefinitionStore(new DefaultTestAutomationAdapter()).importDefinitions();
     }
 
 }

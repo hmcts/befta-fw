@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public class JsonTransformer {
 
     private ObjectMapper objectMapper = new ObjectMapper();
-    private SheetWriter sheetReader = new SheetWriter();
+    private SheetWriter sheetWriter = new SheetWriter();
     private String jurisdiction;
     private String inputFolderPath;
     private String outputPath;
@@ -90,7 +90,7 @@ public class JsonTransformer {
         FileUtils.createDirectoryHierarchy(outputPath);
         final XSSFWorkbook workbook = new XSSFWorkbook();
         defFileMap.forEach((key, value) -> {
-            sheetReader.addSheetToXlxs(workbook,key,value);
+            sheetWriter.addSheetToXlxs(workbook,key,value);
         });
 
         try {
