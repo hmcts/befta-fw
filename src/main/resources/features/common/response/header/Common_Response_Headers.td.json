@@ -9,5 +9,6 @@
 	"X-XSS-Protection": "1; mode=block",
 	"Date": "[[ANYTHING_PRESENT]]",
 	"Strict-Transport-Security": "max-age=31536000 ; includeSubDomains",
-	"Request-Context": "[[ANY_STRING_NULLABLE]]"
+	"Request-Context": "[[ANY_STRING_NULLABLE]]",
+	"Content-Type": "application/json"
 }

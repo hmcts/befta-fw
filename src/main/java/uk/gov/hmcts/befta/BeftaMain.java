@@ -13,12 +13,22 @@ public class BeftaMain {
         main(args, new DefaultTestAutomationAdapter());
     }
 
-    public static void main(String[] args, TestAutomationAdapter taAdapter) {
-        setUp(taAdapter);
-        runCucumberMain(args);
-        tearDown();
+    public static void main(String[] args, TestAutomationConfig config) {
+        main(args, config, new DefaultTestAutomationAdapter());
     }
 
+    public static void main(String[] args, TestAutomationAdapter taAdapter) {
+        main(args, TestAutomationConfig.INSTANCE, taAdapter);
+    }
+
+    public static void main(String[] args, TestAutomationConfig config, TestAutomationAdapter taAdapter) {
+        setUp(config, taAdapter);
+        try {
+            runCucumberMain(args);
+        } finally {
+            tearDown();
+        }
+    }
 
     public static void runCucumberMain(String[] args) {
         Main.main(args);
@@ -43,7 +53,8 @@ public class BeftaMain {
     public static void setUp(TestAutomationConfig config, TestAutomationAdapter taAdapter) {
         setConfig(config);
         setTaAdapter(taAdapter);
-        CucumberStepAnnotationUtils.injectCommonSyntacticFlexibilitiesIntoStepDefinitions(DefaultBackEndFunctionalTestScenarioPlayer.class);
+        CucumberStepAnnotationUtils.injectCommonSyntacticFlexibilitiesIntoStepDefinitions(
+                DefaultBackEndFunctionalTestScenarioPlayer.class);
         getAdapter().loadTestDataIfNecessary();
     }
 
