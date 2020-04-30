@@ -19,7 +19,7 @@ public class BeftaUtils {
 
     public static File createJsonDefinitionFileFromClasspath(String resourcePath) {
         String[] path = resourcePath.split("/");
-        String directoryStructure = path[path.length-3] + File.separator + path[path.length-2];
+        String directoryStructure = "build" + File.separator + "tmp" + File.separator + path[path.length-3] + File.separator + path[path.length-2];
         FileUtils.createDirectoryHierarchy(directoryStructure);
        return createTempFile(resourcePath,directoryStructure);
     }
