@@ -1,0 +1,22 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "NoCases",
+  "ID" : "createCase",
+  "Name" : "Create a case",
+  "Description" : "Create a case",
+  "DisplayOrder" : 1,
+  "PreConditionState(s)" : "",
+  "PostConditionState" : "CaseCreated",
+  "CallBackURLAboutToStartEvent" : "",
+  "RetriesTimeoutAboutToStartEvent" : "",
+  "CallBackURLAboutToSubmitEvent" : "",
+  "RetriesTimeoutURLAboutToSubmitEvent" : "",
+  "CallBackURLSubmittedEvent" : "",
+  "RetriesTimeoutURLSubmittedEvent" : "",
+  "SecurityClassification" : "Public",
+  "ShowSummary" : "Y",
+  "ShowEventNotes" : "",
+  "CanSaveDraft" : "N",
+  "EndButtonLabel" : ""
+} ]

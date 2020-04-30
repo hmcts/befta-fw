@@ -1,0 +1,21 @@
+[ {
+  "CaseTypeID" : "AllDataTypes2",
+  "ID" : "[Claimant]",
+  "Name" : "Claimant",
+  "Description" : "The person created the case"
+}, {
+  "CaseTypeID" : "AllDataTypes2",
+  "ID" : "[Defendant]",
+  "Name" : "Defendant",
+  "Description" : "The defending party"
+}, {
+  "CaseTypeID" : "AllDataTypes2",
+  "ID" : "[ClaimantSolicitor]",
+  "Name" : "Claimant solicitor",
+  "Description" : "The claiming solicitor"
+}, {
+  "CaseTypeID" : "AllDataTypes2",
+  "ID" : "[DefendantSolicitor]",
+  "Name" : "Defendant solicitor",
+  "Description" : "The defending solicitor"
+} ]

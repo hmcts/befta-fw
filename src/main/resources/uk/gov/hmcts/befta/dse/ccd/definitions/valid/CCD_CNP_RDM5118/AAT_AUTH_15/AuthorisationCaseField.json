@@ -1,0 +1,239 @@
+[ {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_AUTH_15",
+  "CaseFieldID" : "TextField",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_AUTH_15",
+  "CaseFieldID" : "NumberField",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_AUTH_15",
+  "CaseFieldID" : "YesOrNoField",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_AUTH_15",
+  "CaseFieldID" : "PhoneUKField",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_AUTH_15",
+  "CaseFieldID" : "EmailField",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_AUTH_15",
+  "CaseFieldID" : "MoneyGBPField",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_AUTH_15",
+  "CaseFieldID" : "DateField",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_AUTH_15",
+  "CaseFieldID" : "DateTimeField",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_AUTH_15",
+  "CaseFieldID" : "TextAreaField",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_AUTH_15",
+  "CaseFieldID" : "FixedListField",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_AUTH_15",
+  "CaseFieldID" : "MultiSelectListField",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_AUTH_15",
+  "CaseFieldID" : "AddressUKField",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_AUTH_15",
+  "CaseFieldID" : "CollectionField",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_AUTH_15",
+  "CaseFieldID" : "ComplexField",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_AUTH_15",
+  "CaseFieldID" : "DocumentField",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_AUTH_15",
+  "CaseFieldID" : "FixedRadioListField",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_AUTH_15",
+  "CaseFieldID" : "HistoryComponentField",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_AUTH_15",
+  "CaseFieldID" : "TextField",
+  "UserRole" : "caseworker-autotest1-private",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_AUTH_15",
+  "CaseFieldID" : "NumberField",
+  "UserRole" : "caseworker-autotest1-private",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_AUTH_15",
+  "CaseFieldID" : "YesOrNoField",
+  "UserRole" : "caseworker-autotest1-private",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_AUTH_15",
+  "CaseFieldID" : "PhoneUKField",
+  "UserRole" : "caseworker-autotest1-private",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_AUTH_15",
+  "CaseFieldID" : "EmailField",
+  "UserRole" : "caseworker-autotest1-private",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_AUTH_15",
+  "CaseFieldID" : "MoneyGBPField",
+  "UserRole" : "caseworker-autotest1-private",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_AUTH_15",
+  "CaseFieldID" : "DateField",
+  "UserRole" : "caseworker-autotest1-private",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_AUTH_15",
+  "CaseFieldID" : "DateTimeField",
+  "UserRole" : "caseworker-autotest1-private",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_AUTH_15",
+  "CaseFieldID" : "TextAreaField",
+  "UserRole" : "caseworker-autotest1-private",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_AUTH_15",
+  "CaseFieldID" : "FixedListField",
+  "UserRole" : "caseworker-autotest1-private",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_AUTH_15",
+  "CaseFieldID" : "MultiSelectListField",
+  "UserRole" : "caseworker-autotest1-private",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_AUTH_15",
+  "CaseFieldID" : "AddressUKField",
+  "UserRole" : "caseworker-autotest1-private",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_AUTH_15",
+  "CaseFieldID" : "CollectionField",
+  "UserRole" : "caseworker-autotest1-private",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_AUTH_15",
+  "CaseFieldID" : "ComplexField",
+  "UserRole" : "caseworker-autotest1-private",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_AUTH_15",
+  "CaseFieldID" : "DocumentField",
+  "UserRole" : "caseworker-autotest1-private",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_AUTH_15",
+  "CaseFieldID" : "FixedRadioListField",
+  "UserRole" : "caseworker-autotest1-private",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_AUTH_15",
+  "CaseFieldID" : "HistoryComponentField",
+  "UserRole" : "caseworker-autotest1-private",
+  "CRUD" : "CRUD"
+} ]

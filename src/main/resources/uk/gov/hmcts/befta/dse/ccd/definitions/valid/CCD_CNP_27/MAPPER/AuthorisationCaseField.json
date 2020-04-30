@@ -1,0 +1,113 @@
+[ {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "MAPPER",
+  "CaseFieldID" : "TextField",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "MAPPER",
+  "CaseFieldID" : "NumberField",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "MAPPER",
+  "CaseFieldID" : "YesOrNoField",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "MAPPER",
+  "CaseFieldID" : "PhoneUKField",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "MAPPER",
+  "CaseFieldID" : "EmailField",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "MAPPER",
+  "CaseFieldID" : "MoneyGBPField",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "MAPPER",
+  "CaseFieldID" : "DateField",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "MAPPER",
+  "CaseFieldID" : "DateTimeField",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "MAPPER",
+  "CaseFieldID" : "TextAreaField",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "MAPPER",
+  "CaseFieldID" : "FixedListField",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "MAPPER",
+  "CaseFieldID" : "MultiSelectListField",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "MAPPER",
+  "CaseFieldID" : "AddressUKField",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "MAPPER",
+  "CaseFieldID" : "CollectionField",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "MAPPER",
+  "CaseFieldID" : "ComplexField",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "MAPPER",
+  "CaseFieldID" : "FixedRadioListField",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "MAPPER",
+  "CaseFieldID" : "HistoryComponentField",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRU"
+} ]

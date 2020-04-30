@@ -1,0 +1,127 @@
+[ {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_PRIVATE",
+  "CaseEventID" : "CREATE",
+  "UserRole" : "caseworker-autotest1-private",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_PRIVATE",
+  "CaseEventID" : "START_PROGRESS",
+  "UserRole" : "caseworker-autotest1-private",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_PRIVATE",
+  "CaseEventID" : "STOP_PROGRESS",
+  "UserRole" : "caseworker-autotest1-private",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_PRIVATE",
+  "CaseEventID" : "COMPLETE",
+  "UserRole" : "caseworker-autotest1-private",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_PRIVATE",
+  "CaseEventID" : "UPDATE",
+  "UserRole" : "caseworker-autotest1-private",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_PRIVATE",
+  "CaseEventID" : "REVIEW",
+  "UserRole" : "caseworker-autotest1-private",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_PRIVATE",
+  "CaseEventID" : "CREATE",
+  "UserRole" : "caseworker-autotest1-senior",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_PRIVATE",
+  "CaseEventID" : "START_PROGRESS",
+  "UserRole" : "caseworker-autotest1-senior",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_PRIVATE",
+  "CaseEventID" : "STOP_PROGRESS",
+  "UserRole" : "caseworker-autotest1-senior",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_PRIVATE",
+  "CaseEventID" : "COMPLETE",
+  "UserRole" : "caseworker-autotest1-senior",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_PRIVATE",
+  "CaseEventID" : "UPDATE",
+  "UserRole" : "caseworker-autotest1-senior",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_PRIVATE",
+  "CaseEventID" : "REVIEW",
+  "UserRole" : "caseworker-autotest1-senior",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_PRIVATE",
+  "CaseEventID" : "CREATE",
+  "UserRole" : "caseworker-autotest1-solicitor",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_PRIVATE",
+  "CaseEventID" : "START_PROGRESS",
+  "UserRole" : "caseworker-autotest1-solicitor",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_PRIVATE",
+  "CaseEventID" : "STOP_PROGRESS",
+  "UserRole" : "caseworker-autotest1-solicitor",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_PRIVATE",
+  "CaseEventID" : "COMPLETE",
+  "UserRole" : "caseworker-autotest1-solicitor",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_PRIVATE",
+  "CaseEventID" : "UPDATE",
+  "UserRole" : "caseworker-autotest1-solicitor",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_PRIVATE",
+  "CaseEventID" : "REVIEW",
+  "UserRole" : "caseworker-autotest1-solicitor",
+  "CRUD" : "CRU"
+} ]

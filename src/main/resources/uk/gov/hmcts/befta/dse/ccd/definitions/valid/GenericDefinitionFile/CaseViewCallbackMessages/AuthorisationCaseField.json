@@ -1,0 +1,22 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "CaseViewCallbackMessages",
+  "CaseFieldID" : "TextField0",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "CaseViewCallbackMessages",
+  "CaseFieldID" : "TextField1",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "CaseViewCallbackMessages",
+  "CaseFieldID" : "CaseHistory",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRUD"
+} ]

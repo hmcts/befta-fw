@@ -1,0 +1,36 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "ComplexCollectionComplex",
+  "CaseEventID" : "createCase",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "ComplexCollectionComplex",
+  "CaseEventID" : "updateSchool",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "ComplexCollectionComplex",
+  "CaseEventID" : "createSchool",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "ComplexCollectionComplex",
+  "CaseEventID" : "createCompany",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "ComplexCollectionComplex",
+  "CaseEventID" : "createCollectionOfComplex",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRUD"
+} ]

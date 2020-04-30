@@ -1,0 +1,29 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "Regex",
+  "ID" : "TextField",
+  "Label" : "Text Field",
+  "HintText" : "",
+  "FieldType" : "Text",
+  "CategoryID" : "",
+  "FieldTypeParameter" : "",
+  "RegularExpression" : "^[A-Z]+$",
+  "SecurityClassification" : "Public",
+  "Min" : "",
+  "Max" : ""
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "Regex",
+  "ID" : "CaseHistory",
+  "Label" : "History",
+  "HintText" : "",
+  "FieldType" : "CaseHistoryViewer",
+  "CategoryID" : "",
+  "FieldTypeParameter" : "",
+  "RegularExpression" : "",
+  "SecurityClassification" : "Public",
+  "Min" : "",
+  "Max" : ""
+} ]

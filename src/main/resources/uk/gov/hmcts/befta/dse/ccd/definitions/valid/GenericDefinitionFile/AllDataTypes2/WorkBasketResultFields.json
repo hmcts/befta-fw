@@ -1,0 +1,120 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "AllDataTypes2",
+  "CaseFieldID" : "[CASE_REFERENCE]",
+  "Label" : "Case Reference",
+  "DisplayOrder" : 1
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "AllDataTypes2",
+  "CaseFieldID" : "TextField",
+  "Label" : "Text Field",
+  "DisplayOrder" : 2
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "AllDataTypes2",
+  "CaseFieldID" : "TextAreaField",
+  "Label" : "TextAreaField",
+  "DisplayOrder" : 3
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "AllDataTypes2",
+  "CaseFieldID" : "DateField",
+  "Label" : "DateField",
+  "DisplayOrder" : 4
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "AllDataTypes2",
+  "CaseFieldID" : "AddressField",
+  "Label" : "AddressField",
+  "DisplayOrder" : 5
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "AllDataTypes2",
+  "CaseFieldID" : "PhoneField",
+  "Label" : "PhoneField",
+  "DisplayOrder" : 6
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "AllDataTypes2",
+  "CaseFieldID" : "NumberField",
+  "Label" : "NumberField",
+  "DisplayOrder" : 7
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "AllDataTypes2",
+  "CaseFieldID" : "YesNoField",
+  "Label" : "YesNoField",
+  "DisplayOrder" : 8
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "AllDataTypes2",
+  "CaseFieldID" : "CollectionField",
+  "Label" : "CollectionField",
+  "DisplayOrder" : 9
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "AllDataTypes2",
+  "CaseFieldID" : "AddressUKField",
+  "Label" : "AddressUKField",
+  "DisplayOrder" : 10
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "AllDataTypes2",
+  "CaseFieldID" : "MarritalStatus",
+  "Label" : "MarritalStatus",
+  "DisplayOrder" : 11
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "AllDataTypes2",
+  "CaseFieldID" : "MoneyField",
+  "Label" : "MoneyField",
+  "DisplayOrder" : 12
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "AllDataTypes2",
+  "CaseFieldID" : "DocumentField",
+  "Label" : "DocumentField",
+  "DisplayOrder" : 13
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "AllDataTypes2",
+  "CaseFieldID" : "EmailField",
+  "Label" : "EmailField",
+  "DisplayOrder" : 14
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "AllDataTypes2",
+  "CaseFieldID" : "MultiSelectField",
+  "Label" : "MultiSelectField",
+  "DisplayOrder" : 15
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "AllDataTypes2",
+  "CaseFieldID" : "LabelField",
+  "Label" : "LabelData",
+  "DisplayOrder" : 16
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "AllDataTypes2",
+  "CaseFieldID" : "[STATE]",
+  "Label" : "State",
+  "DisplayOrder" : 17
+} ]

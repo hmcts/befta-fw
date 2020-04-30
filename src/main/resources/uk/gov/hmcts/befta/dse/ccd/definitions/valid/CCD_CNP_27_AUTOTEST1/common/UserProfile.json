@@ -1,0 +1,57 @@
+[ {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "UserIDAMId" : "auto.test.cnp@gmail.com",
+  "WorkBasketDefaultJurisdiction" : "AUTOTEST1",
+  "WorkBasketDefaultCaseType" : "AAT_PRIVATE",
+  "WorkBasketDefaultState" : "TODO"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "UserIDAMId" : "auto.test.cnp+private@gmail.com",
+  "WorkBasketDefaultJurisdiction" : "AUTOTEST1",
+  "WorkBasketDefaultCaseType" : "AAT_PRIVATE",
+  "WorkBasketDefaultState" : "TODO"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "UserIDAMId" : "auto.test.cnp+public@gmail.com",
+  "WorkBasketDefaultJurisdiction" : "AUTOTEST1",
+  "WorkBasketDefaultCaseType" : "AAT_PRIVATE",
+  "WorkBasketDefaultState" : "TODO"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "UserIDAMId" : "auto.test.cnp+senior@gmail.com",
+  "WorkBasketDefaultJurisdiction" : "AUTOTEST1",
+  "WorkBasketDefaultCaseType" : "AAT_PRIVATE",
+  "WorkBasketDefaultState" : "TODO"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "UserIDAMId" : "auto.test.cnp+solc@gmail.com",
+  "WorkBasketDefaultJurisdiction" : "AUTOTEST1",
+  "WorkBasketDefaultCaseType" : "AAT_PRIVATE",
+  "WorkBasketDefaultState" : "TODO"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "UserIDAMId" : "auto.test12.cnp+private@gmail.com",
+  "WorkBasketDefaultJurisdiction" : "AUTOTEST1",
+  "WorkBasketDefaultCaseType" : "AAT_PRIVATE",
+  "WorkBasketDefaultState" : "TODO"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "UserIDAMId" : "auto.test12.cnp+solc@gmail.com",
+  "WorkBasketDefaultJurisdiction" : "AUTOTEST1",
+  "WorkBasketDefaultCaseType" : "AAT_PRIVATE",
+  "WorkBasketDefaultState" : "TODO"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "UserIDAMId" : "auto.test12.cnp+senior@gmail.com",
+  "WorkBasketDefaultJurisdiction" : "AUTOTEST1",
+  "WorkBasketDefaultCaseType" : "AAT_PRIVATE",
+  "WorkBasketDefaultState" : "TODO"
+} ]

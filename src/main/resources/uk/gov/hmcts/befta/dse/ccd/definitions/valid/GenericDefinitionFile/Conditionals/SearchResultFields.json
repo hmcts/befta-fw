@@ -1,0 +1,9 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "Conditionals",
+  "CaseFieldID" : "TextField",
+  "Label" : "Text Field",
+  "ListElementCode" : "",
+  "DisplayOrder" : 1
+} ]

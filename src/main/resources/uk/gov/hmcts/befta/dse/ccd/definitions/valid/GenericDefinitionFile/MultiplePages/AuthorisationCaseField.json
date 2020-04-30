@@ -1,0 +1,43 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "MultiplePages",
+  "CaseFieldID" : "TextFieldFName",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "MultiplePages",
+  "CaseFieldID" : "TextFieldMName",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "MultiplePages",
+  "CaseFieldID" : "TextFieldLName",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "MultiplePages",
+  "CaseFieldID" : "Age",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "MultiplePages",
+  "CaseFieldID" : "CaseHistory",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "MultiplePages",
+  "CaseFieldID" : "DynamicList",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRUD"
+} ]

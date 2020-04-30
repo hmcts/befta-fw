@@ -1,0 +1,81 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "AAT_AUTH_15",
+  "Name" : "Demo case AAT_AUTH_15",
+  "Description" : "Demonstrate everything CCD can do!",
+  "JurisdictionID" : "AUTOTEST1",
+  "PrintableDocumentsUrl" : "",
+  "RetriesTimeoutURLPrintEvent" : "",
+  "SecurityClassification" : "PUBLIC"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "AAT_AUTH_3",
+  "Name" : "Demo case AAT_AUTH_3",
+  "Description" : "Demonstrate AAT_AUTH_3's capability",
+  "JurisdictionID" : "AUTOTEST1",
+  "PrintableDocumentsUrl" : "",
+  "RetriesTimeoutURLPrintEvent" : "",
+  "SecurityClassification" : "PUBLIC"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "AAT_AUTH_4",
+  "Name" : "Demo case AAT_AUTH_4",
+  "Description" : "Demonstrate everything CCD can do!",
+  "JurisdictionID" : "AUTOTEST1",
+  "PrintableDocumentsUrl" : "",
+  "RetriesTimeoutURLPrintEvent" : "",
+  "SecurityClassification" : "PUBLIC"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "AAT_AUTH_5",
+  "Name" : "Demo case AAT_AUTH_5",
+  "Description" : "Demonstrate AAT_AUTH_3's capability",
+  "JurisdictionID" : "AUTOTEST1",
+  "PrintableDocumentsUrl" : "",
+  "RetriesTimeoutURLPrintEvent" : "",
+  "SecurityClassification" : "PUBLIC"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "AAT_AUTH_6",
+  "Name" : "Demo case AAT_AUTH_6",
+  "Description" : "Demonstrate everything CCD can do!",
+  "JurisdictionID" : "AUTOTEST1",
+  "PrintableDocumentsUrl" : "",
+  "RetriesTimeoutURLPrintEvent" : "",
+  "SecurityClassification" : "PUBLIC"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "AAT_AUTH_8",
+  "Name" : "Demo case AAT_AUTH_8",
+  "Description" : "Demonstrate AAT_AUTH_3's capability",
+  "JurisdictionID" : "AUTOTEST1",
+  "PrintableDocumentsUrl" : "",
+  "RetriesTimeoutURLPrintEvent" : "",
+  "SecurityClassification" : "PUBLIC"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "AAT_AUTH_1",
+  "Name" : "Demo case AAT_AUTH_1",
+  "Description" : "Demonstrate everything CCD can do!",
+  "JurisdictionID" : "AUTOTEST1",
+  "PrintableDocumentsUrl" : "",
+  "RetriesTimeoutURLPrintEvent" : "",
+  "SecurityClassification" : "PUBLIC"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "AAT_AUTH_2",
+  "Name" : "Demo case AAT_AUTH_2",
+  "Description" : "Demonstrate AAT_AUTH_3's capability",
+  "JurisdictionID" : "AUTOTEST1",
+  "PrintableDocumentsUrl" : "",
+  "RetriesTimeoutURLPrintEvent" : "",
+  "SecurityClassification" : "PUBLIC"
+} ]

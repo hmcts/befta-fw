@@ -1,0 +1,13 @@
+[ {
+  "CaseTypeID" : "AAT_PRIVATE2",
+  "SearchAliasID" : "TextFieldAlias",
+  "CaseFieldID" : "TextField"
+}, {
+  "CaseTypeID" : "AAT_PRIVATE2",
+  "SearchAliasID" : "NumberFieldAlias",
+  "CaseFieldID" : "NumberField"
+}, {
+  "CaseTypeID" : "AAT_PRIVATE2",
+  "SearchAliasID" : "EmailFieldAlias",
+  "CaseFieldID" : "EmailField"
+} ]

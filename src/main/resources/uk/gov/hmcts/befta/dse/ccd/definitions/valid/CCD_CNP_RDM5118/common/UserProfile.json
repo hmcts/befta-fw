@@ -1,0 +1,15 @@
+[ {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "UserIDAMId" : "auto.test.cnp@gmail.com",
+  "WorkBasketDefaultJurisdiction" : "AUTOTEST1",
+  "WorkBasketDefaultCaseType" : "AAT_AUTH_15",
+  "WorkBasketDefaultState" : "TODO"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "UserIDAMId" : "auto.test.cnp+private@gmail.com",
+  "WorkBasketDefaultJurisdiction" : "AUTOTEST1",
+  "WorkBasketDefaultCaseType" : "AAT_AUTH_15",
+  "WorkBasketDefaultState" : "TODO"
+} ]

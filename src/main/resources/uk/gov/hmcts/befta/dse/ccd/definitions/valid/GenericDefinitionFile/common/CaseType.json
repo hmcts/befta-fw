@@ -1,0 +1,121 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "AllDataTypes2",
+  "Name" : "All Field Data Types",
+  "Description" : "Test case containing all data types ",
+  "JurisdictionID" : "AUTOTEST1",
+  "PrintableDocumentsUrl" : "http://localhost:4452/callback/jurisdictions/AUTOTEST1/case-types/AllDataTypes2/documents",
+  "RetriesTimeoutURLPrintEvent" : "",
+  "SecurityClassification" : "Public"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "MultiplePages",
+  "Name" : "Multiple Pages",
+  "Description" : "Test case creation with multiple pages",
+  "JurisdictionID" : "AUTOTEST1",
+  "PrintableDocumentsUrl" : "",
+  "RetriesTimeoutURLPrintEvent" : "",
+  "SecurityClassification" : "Public"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "ComplexCollectionComplex",
+  "Name" : "Complex in Coll in Complex",
+  "Description" : "Test complex type containing a collection of complex types",
+  "JurisdictionID" : "AUTOTEST1",
+  "PrintableDocumentsUrl" : "",
+  "RetriesTimeoutURLPrintEvent" : "",
+  "SecurityClassification" : "Public"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "Tabs",
+  "Name" : "Tabs functionality",
+  "Description" : "Case for testing functionality of the tabs on the case details page",
+  "JurisdictionID" : "AUTOTEST1",
+  "PrintableDocumentsUrl" : "",
+  "RetriesTimeoutURLPrintEvent" : "",
+  "SecurityClassification" : "Public"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "CaseProgression",
+  "Name" : "Case Progression",
+  "Description" : "Case for testing Case Progression (using events to move a case through states)",
+  "JurisdictionID" : "AUTOTEST1",
+  "PrintableDocumentsUrl" : "",
+  "RetriesTimeoutURLPrintEvent" : "",
+  "SecurityClassification" : "Public"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "Regex",
+  "Name" : "Regex",
+  "Description" : "Case for testing Regex",
+  "JurisdictionID" : "AUTOTEST1",
+  "PrintableDocumentsUrl" : "",
+  "RetriesTimeoutURLPrintEvent" : "",
+  "SecurityClassification" : "Public"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "Conditionals",
+  "Name" : "Conditionals",
+  "Description" : "Case for testing Conditionals and show/hide",
+  "JurisdictionID" : "AUTOTEST1",
+  "PrintableDocumentsUrl" : "",
+  "RetriesTimeoutURLPrintEvent" : "",
+  "SecurityClassification" : "Public"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "ComplexCRUD",
+  "Name" : "Complex CRUD",
+  "Description" : "Case for testing CRUD on Complex",
+  "JurisdictionID" : "AUTOTEST1",
+  "PrintableDocumentsUrl" : "",
+  "RetriesTimeoutURLPrintEvent" : "",
+  "SecurityClassification" : "Public"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "NoCases",
+  "Name" : "CaseType With No Cases",
+  "Description" : "CaseType with no cases to verify what happens without any cases",
+  "JurisdictionID" : "AUTOTEST1",
+  "PrintableDocumentsUrl" : "",
+  "RetriesTimeoutURLPrintEvent" : "",
+  "SecurityClassification" : "Public"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "WBSortOrder",
+  "Name" : "CaseType With WB Sort orders",
+  "Description" : "CaseType for testing WB / Search Results sort order",
+  "JurisdictionID" : "AUTOTEST1",
+  "PrintableDocumentsUrl" : "",
+  "RetriesTimeoutURLPrintEvent" : "",
+  "SecurityClassification" : "Public"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "Questions2",
+  "Name" : "Q&A functionality",
+  "Description" : "Questions2 and Answers functionality ",
+  "JurisdictionID" : "AUTOTEST1",
+  "PrintableDocumentsUrl" : "",
+  "RetriesTimeoutURLPrintEvent" : "",
+  "SecurityClassification" : "Public"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "CaseViewCallbackMessages",
+  "Name" : "CaseView Callback Messages",
+  "Description" : "CaseType for testing callback warnings or errors triggered on CaseView screen",
+  "JurisdictionID" : "AUTOTEST1",
+  "PrintableDocumentsUrl" : "",
+  "RetriesTimeoutURLPrintEvent" : "",
+  "SecurityClassification" : "Public"
+} ]

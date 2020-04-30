@@ -1,0 +1,15 @@
+[ {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_AUTH_2",
+  "CaseFieldID" : "TextField",
+  "Label" : "`Text` field",
+  "DisplayOrder" : 1
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_AUTH_2",
+  "CaseFieldID" : "EmailField",
+  "Label" : "`Email` field",
+  "DisplayOrder" : 2
+} ]

@@ -1,0 +1,25 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_PRIVATE2",
+  "UserRole" : "caseworker-autotest2",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_PRIVATE2",
+  "UserRole" : "caseworker-autotest2-private",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_PRIVATE2",
+  "UserRole" : "caseworker-autotest2-senior",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_PRIVATE2",
+  "UserRole" : "caseworker-autotest2-solicitor",
+  "CRUD" : "CRUD"
+} ]

@@ -1,0 +1,49 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "ComplexCRUD",
+  "CaseFieldID" : "Homeless",
+  "ListElementCode" : "",
+  "Label" : "Homeless?",
+  "DisplayOrder" : 1
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "ComplexCRUD",
+  "CaseFieldID" : "FamilyDetails",
+  "ListElementCode" : "MotherFullName",
+  "Label" : "Mother full name",
+  "DisplayOrder" : 2
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "ComplexCRUD",
+  "CaseFieldID" : "FamilyDetails",
+  "ListElementCode" : "MotherAge",
+  "Label" : "Mother age",
+  "DisplayOrder" : 3
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "ComplexCRUD",
+  "CaseFieldID" : "FamilyDetails",
+  "ListElementCode" : "FatherFullName",
+  "Label" : "Father full name",
+  "DisplayOrder" : 4
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "ComplexCRUD",
+  "CaseFieldID" : "FamilyDetails",
+  "ListElementCode" : "FatherAge",
+  "Label" : "Father age",
+  "DisplayOrder" : 5
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "ComplexCRUD",
+  "CaseFieldID" : "FamilyDetails",
+  "ListElementCode" : "FamilyAddress.Country",
+  "Label" : "Country",
+  "DisplayOrder" : 6
+} ]
