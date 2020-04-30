@@ -26,20 +26,24 @@ public class ExcelTransformer {
     private ObjectMapper objectMapper = new ObjectMapper();
     private String inputExcelFilePath;
     private String outputFolderPath;
+    private String fileName;
+    private boolean useJurisdictionAsFolderName;
 
     public String transformToJson(){
         parseExcelFile();
         return writeToJson();
     }
 
-    public ExcelTransformer(String inputExcelFilePath, String outputFolderPath) {
+    public ExcelTransformer(String inputExcelFilePath, String outputFolderPath, boolean useJurisdictionAsFolderName) {
         this.inputExcelFilePath = inputExcelFilePath;
+        this.useJurisdictionAsFolderName = useJurisdictionAsFolderName;
         this.outputFolderPath = outputFolderPath !=null ? outputFolderPath : setOutputPath(inputExcelFilePath);
     }
 
     public ExcelTransformer(String inputExcelFilePath) {
         this.inputExcelFilePath = inputExcelFilePath;
         this.outputFolderPath = setOutputPath(inputExcelFilePath);
+        this.useJurisdictionAsFolderName = true;
     }
 
     private String setOutputPath(String inputExcelFile){
@@ -54,6 +58,7 @@ public class ExcelTransformer {
         Workbook excelWookBook = null;
         try {
             fInputStream = new FileInputStream(filePath.trim());
+            fileName = new File(filePath.trim()).getName().replace(".xlsx","");
             /* Create the workbook object. */
             excelWookBook = WorkbookFactory.create(fInputStream);
         } catch (IOException e) {
@@ -92,8 +97,9 @@ public class ExcelTransformer {
      */
     private String writeToJson(String outputFilePath) {
         String jurisdiction = defFileMap.get("Jurisdiction").get(0).get("ID").asText();
-        String outputFolder = outputFilePath + File.separator + jurisdiction;
-        FileUtils.deleteDirectory(outputFolder);
+        String folderName = useJurisdictionAsFolderName ? jurisdiction : fileName;
+        String outputFolderPath = outputFilePath + File.separator + folderName;
+        FileUtils.deleteDirectory(outputFolderPath);
 
         defFileMap.forEach((key, value) -> {
             try {
@@ -101,17 +107,17 @@ public class ExcelTransformer {
                     Map<String, ArrayNode> caseTypeArrayNodes = splitIntoCaseTypes(value);
                     for (String caseTypeId : caseTypeArrayNodes.keySet()) {
                         writeNodeToFile(caseTypeArrayNodes.get(caseTypeId),
-                                new File(outputFolder + File.separator + caseTypeId + File.separator + key + ".json"));
+                                new File(outputFolderPath + File.separator + caseTypeId + File.separator + key + ".json"));
                     }
                 } else {
                     writeNodeToFile(value,
-                            new File(outputFolder + File.separator + "common" + File.separator + key + ".json"));
+                            new File(outputFolderPath + File.separator + "common" + File.separator + key + ".json"));
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
         });
-        return outputFolder;
+        return outputFolderPath;
     }
 
     private void writeNodeToFile(ArrayNode value, File file) throws Exception {

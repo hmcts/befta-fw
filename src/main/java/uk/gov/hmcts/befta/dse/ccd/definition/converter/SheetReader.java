@@ -120,7 +120,7 @@ public class SheetReader {
     private ObjectNode generateJsonNodeForRow(Row row) {
         ObjectNode rowJsonObject = objectMapper.createObjectNode();
 
-        if (Objects.isNull(row)){
+        if (Objects.isNull(row) || row.getPhysicalNumberOfCells() == 0){
             return null;
         }
 
