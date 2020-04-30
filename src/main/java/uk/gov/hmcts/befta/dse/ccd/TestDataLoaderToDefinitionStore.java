@@ -1,13 +1,11 @@
 package uk.gov.hmcts.befta.dse.ccd;
 
-import io.restassured.internal.util.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.reflect.ClassPath;
 
 import java.io.*;
-import java.net.URL;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -19,7 +17,6 @@ import uk.gov.hmcts.befta.BeftaMain;
 import uk.gov.hmcts.befta.DefaultTestAutomationAdapter;
 import uk.gov.hmcts.befta.TestAutomationAdapter;
 import uk.gov.hmcts.befta.data.UserData;
-import uk.gov.hmcts.befta.dse.ccd.definition.converter.FileUtils;
 import uk.gov.hmcts.befta.dse.ccd.definition.converter.JsonTransformer;
 import uk.gov.hmcts.befta.exception.FunctionalTestException;
 import uk.gov.hmcts.befta.util.BeftaUtils;
@@ -86,7 +83,6 @@ public class TestDataLoaderToDefinitionStore {
         }
     }
 
-    //todo refactor import definition file method
     public void importDefinitions() {
         List<String> definitionFileResources = getAllDefinitionFilesToLoad();
         logger.info("{} definition files will be uploaded to '{}'.", definitionFileResources.size(),
@@ -115,7 +111,6 @@ public class TestDataLoaderToDefinitionStore {
         }
     }
 
-    //todo refactor import definition file method
     protected List<String> getAllDefinitionFilesToLoad() {
         try {
             boolean convertJsonFilesToExcel = false;
@@ -165,8 +160,6 @@ public class TestDataLoaderToDefinitionStore {
             }
 
         } finally {
-
-            //todo delete parent directory for json structure
             file.delete();
         }
     }

@@ -5,8 +5,6 @@ import uk.gov.hmcts.befta.dse.ccd.definition.converter.JsonTransformer;
 
 //AC-1
 public class DefinitionConverter {
-    // java DefinitionConverter to-json xyz.xls
-    // java DefinitionConverter to-excel xyz.json
 
     /**
      * Main method to convert between json and excel versions of a definition file
