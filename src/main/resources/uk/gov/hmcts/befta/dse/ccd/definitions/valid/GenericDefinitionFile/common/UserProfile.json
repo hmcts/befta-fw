@@ -1,0 +1,43 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "01/01/2017",
+  "UserIDAMId" : "auto.test.cnp@gmail.com",
+  "WorkBasketDefaultJurisdiction" : "AUTOTEST1",
+  "WorkBasketDefaultCaseType" : "AllDataTypes2",
+  "WorkBasketDefaultState" : "CaseCreated"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "01/01/2017",
+  "UserIDAMId" : "auto.test.cnp+fe@gmail.com",
+  "WorkBasketDefaultJurisdiction" : "AUTOTEST1",
+  "WorkBasketDefaultCaseType" : "AllDataTypes2",
+  "WorkBasketDefaultState" : "CaseCreated"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "01/01/2017",
+  "UserIDAMId" : "auto.ccd.fe@gmail.com",
+  "WorkBasketDefaultJurisdiction" : "AUTOTEST1",
+  "WorkBasketDefaultCaseType" : "AllDataTypes2",
+  "WorkBasketDefaultState" : "CaseCreated"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "01/01/2017",
+  "UserIDAMId" : "auto.test.cnp+fe.judge@gmail.com",
+  "WorkBasketDefaultJurisdiction" : "AUTOTEST1",
+  "WorkBasketDefaultCaseType" : "Questions2",
+  "WorkBasketDefaultState" : "CaseCreated"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "01/01/2017",
+  "UserIDAMId" : "auto.test.cnp+fejunior@gmail.com",
+  "WorkBasketDefaultJurisdiction" : "AUTOTEST1",
+  "WorkBasketDefaultCaseType" : "Questions2",
+  "WorkBasketDefaultState" : "CaseCreated"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "01/01/2017",
+  "UserIDAMId" : "test@gmail.com",
+  "WorkBasketDefaultJurisdiction" : "AUTOTEST1",
+  "WorkBasketDefaultCaseType" : "AllDataTypes2",
+  "WorkBasketDefaultState" : "CaseCreated"
+} ]

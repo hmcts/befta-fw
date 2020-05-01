@@ -7,7 +7,7 @@ plugins {
 
 apply plugin: 'java'
 
-def buildNumber = System.getenv("RELEASE_VERSION")?.replace("refs/tags/", "") ?: "2.8.0" //AC-5
+def buildNumber = System.getenv("RELEASE_VERSION")?.replace("refs/tags/", "") ?: "2.7.0"
 
 group 'uk.gov.hmcts'
 

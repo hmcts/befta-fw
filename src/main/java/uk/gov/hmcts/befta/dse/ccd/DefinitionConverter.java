@@ -1,10 +1,13 @@
 package uk.gov.hmcts.befta.dse.ccd;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import uk.gov.hmcts.befta.dse.ccd.definition.converter.ExcelTransformer;
 import uk.gov.hmcts.befta.dse.ccd.definition.converter.JsonTransformer;
 
-//AC-1
 public class DefinitionConverter {
+
+    private static Logger logger = LoggerFactory.getLogger(DefinitionConverter.class);
 
     /**
      * Main method to convert between json and excel versions of a definition file
@@ -16,22 +19,57 @@ public class DefinitionConverter {
      *      false - use file name as the folder name
      */
     public static void main(String[] args) {
-        if (args.length < 2){
-            throw new RuntimeException("At least 2 arguments expected: <to-json|to-excel> <input folder/file path> <Optional: output path>");
-        }
+        validateArgs(args);
 
+        String transformationKeyword  = args[0];
         String inputPath = args[1];
-        String outPutPath = args.length > 2 ? args[2] : null;
-        boolean userJurisdictionAsFolder = args.length <= 3 || Boolean.parseBoolean(args[3]);
+        String outputPath = args.length > 2 ? args[2] : null;
+        boolean useJurisdictionAsFolder = args.length <= 3 || Boolean.parseBoolean(args[3]);
 
-        switch (args[0]){
-            case "to-json" : new ExcelTransformer(inputPath,outPutPath, userJurisdictionAsFolder).transformToJson();
+        switch (transformationKeyword){
+            case "to-json" : new ExcelTransformer(inputPath,outputPath, useJurisdictionAsFolder).transformToJson();
                 break;
-            case "to-excel" : new JsonTransformer(inputPath,outPutPath).transformToExcel();
+            case "to-excel" : new JsonTransformer(inputPath,outputPath).transformToExcel();
                 break;
-            default: throw new RuntimeException("Invalid arg, first arg should be either 'to-json' or 'to-excel' but got " +args[0]);
         }
 
+
+    }
+
+    private static void validateArgs(String[] args) throws IllegalArgumentException {
+        String instructions = "Arguments expected as follows: <to-json|to-excel> <input folder/file path> <Optional: output path> " +
+                "<Optional boolean: use jurisdiction as as folder name for json to excel transformation>";
+
+
+        if (args.length < 2){
+            logger.info(instructions);
+            throw new IllegalArgumentException("At least 2 arguments expected: <to-json|to-excel> <input folder/file path> " +
+                    "<Optional: output path> <Optional boolean: use jurisdiction as as folder name for json to excel transformation>");
+        }
+
+        String transformerKeyword = args[0];
+        if (!transformerKeyword.equals("to-json") && !transformerKeyword.equals("to-excel")){
+            logger.info(instructions);
+            throw new IllegalArgumentException("First arg should be either 'to-json' or 'to-excel' but got "+ transformerKeyword);
+        }
+
+
+        if (args.length > 2){
+            String outputPath = args[2];
+            if (outputPath.equals("true") || outputPath.equals("false")){
+                logger.info(instructions);
+                throw new IllegalArgumentException("Third arg should be a path not a boolean, if you wish to set Jurisdiction " +
+                        "name boolean and want the output path to be the same as the input path you can put null for this arg");
+            }
+        }
+
+        if (args.length > 3){
+            String jurisdictionAsFolderBool = args[3];
+            logger.info(instructions);
+            if (!jurisdictionAsFolderBool.equals("true") && !jurisdictionAsFolderBool.equals("false")){
+                throw new IllegalArgumentException("Forth arg should be a boolean but got: " + jurisdictionAsFolderBool);
+            }
+        }
 
     }
 

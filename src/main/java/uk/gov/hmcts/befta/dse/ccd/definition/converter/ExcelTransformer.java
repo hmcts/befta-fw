@@ -7,9 +7,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+
+import java.io.*;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -31,7 +30,7 @@ public class ExcelTransformer {
 
     public String transformToJson(){
         parseExcelFile();
-        return writeToJson();
+        return writeToJson(this.outputFolderPath);
     }
 
     public ExcelTransformer(String inputExcelFilePath, String outputFolderPath, boolean useJurisdictionAsFolderName) {
@@ -41,9 +40,7 @@ public class ExcelTransformer {
     }
 
     public ExcelTransformer(String inputExcelFilePath) {
-        this.inputExcelFilePath = inputExcelFilePath;
-        this.outputFolderPath = setOutputPath(inputExcelFilePath);
-        this.useJurisdictionAsFolderName = true;
+        this(inputExcelFilePath, null, true);
     }
 
     private String setOutputPath(String inputExcelFile){
@@ -55,17 +52,18 @@ public class ExcelTransformer {
      */
     private Workbook getExcelFile(String filePath){
         FileInputStream fInputStream = null;
-        Workbook excelWookBook = null;
+        Workbook excelWorkBook = null;
         try {
             fInputStream = new FileInputStream(filePath.trim());
-            fileName = new File(filePath.trim()).getName().replace(".xlsx","");
+            String fileName = new File(filePath.trim()).getName().replace(".xlsx","");
+            setFileName(fileName);
             /* Create the workbook object. */
-            excelWookBook = WorkbookFactory.create(fInputStream);
+            excelWorkBook = WorkbookFactory.create(fInputStream);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (IllegalStateException ignored){
         }
-        return excelWookBook;
+        return excelWorkBook;
     }
 
     /**
@@ -97,7 +95,7 @@ public class ExcelTransformer {
      */
     private String writeToJson(String outputFilePath) {
         String jurisdiction = defFileMap.get("Jurisdiction").get(0).get("ID").asText();
-        String folderName = useJurisdictionAsFolderName ? jurisdiction : fileName;
+        String folderName = useJurisdictionAsFolderName ? jurisdiction : getFileName();
         String outputFolderPath = outputFilePath + File.separator + folderName;
         FileUtils.deleteDirectory(outputFolderPath);
 
@@ -123,6 +121,7 @@ public class ExcelTransformer {
     private void writeNodeToFile(ArrayNode value, File file) throws Exception {
         FileUtils.createDirectoryHierarchy(file.getParentFile());
         writer.writeValue(file, value);
+        new BufferedWriter(new FileWriter(file,true)).append("\n").close();
     }
 
     private Map<String, ArrayNode> splitIntoCaseTypes(ArrayNode combinedArrayNode) {
@@ -154,8 +153,12 @@ public class ExcelTransformer {
         return PER_CASE_TYPE_SHEET_NAMES.contains(key);
     }
 
-    private String writeToJson() {
-        return writeToJson(this.outputFolderPath);
+    private void setFileName(String fileName){
+        this.fileName = fileName;
+    }
+
+    private String getFileName(){
+        return this.fileName;
     }
 
 }

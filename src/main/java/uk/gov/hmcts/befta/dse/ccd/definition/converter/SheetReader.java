@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.apache.poi.ss.usermodel.*;
+import uk.gov.hmcts.befta.exception.DefinitionTransformerException;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -48,13 +50,13 @@ public class SheetReader {
     }
 
     private boolean rowEmpty(ObjectNode objectNodeForRow) {
-        boolean empty = true;
 
         if (objectNodeForRow == null){
             return true;
         }
 
         Iterator it = objectNodeForRow.fieldNames();
+        boolean empty = true;
         while (it.hasNext()){
             String key = (String) it.next();
             if (!objectNodeForRow.get(key).asText().isEmpty()){
@@ -118,12 +120,12 @@ public class SheetReader {
      * if empty row is detected as all cells are empty, return null instead
      */
     private ObjectNode generateJsonNodeForRow(Row row) {
-        ObjectNode rowJsonObject = objectMapper.createObjectNode();
 
         if (Objects.isNull(row) || row.getPhysicalNumberOfCells() == 0){
             return null;
         }
 
+        ObjectNode rowJsonObject = objectMapper.createObjectNode();
         int columns = keys.size();
         int first = row.getFirstCellNum();
         for (int j = first; j <columns ; j++) {
@@ -134,7 +136,7 @@ public class SheetReader {
             //Check cell type and get value using appropriate method
             if (key.equals("LiveFrom") || key.equals("LiveTo")){
                 if (type != BLANK){
-                    rowJsonObject.put(key, ExcelDateUtils.getStringDateFromCell(cell));
+                    rowJsonObject.put(key, ExcelProcessingUtils.getStringDateFromCell(cell));
                 } else {
                     rowJsonObject.put(key,"");
                 }
@@ -146,7 +148,7 @@ public class SheetReader {
             } else if (type == BLANK) {
                 rowJsonObject.put(key,""); //todo should this be null?
             } else {
-                throw new RuntimeException("unsupported cell type value found:" + type);
+                throw new DefinitionTransformerException("unsupported excel cell type value found:" + type);
             }
 
         }
@@ -171,9 +173,5 @@ public class SheetReader {
         return cellType;
 
     }
-
-
-
-
 
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import uk.gov.hmcts.befta.exception.DefinitionTransformerException;
 
 import java.io.*;
 import java.util.*;
@@ -41,9 +42,7 @@ public class JsonTransformer {
     }
 
     public JsonTransformer(String inputFolderPath) {
-        this.inputFolderPath = inputFolderPath;
-        this.outputPath = setOutputPath(inputFolderPath);
-        this.jurisdiction = getFolderName(inputFolderPath);
+        this(inputFolderPath, null);
     }
 
     private String setOutputPath(String inputPath){
@@ -58,10 +57,10 @@ public class JsonTransformer {
     }
 
 
-    public Map<String, ArrayNode> parseDefinitionJson(String path){
+    public void parseDefinitionJson(String path) {
 
         File jurisdictionDir = new File(path);
-        defFileMap = SHEET_NAMES.stream().collect(Collectors.toMap(Function.identity(), sheetName -> objectMapper.createArrayNode()));
+        Map<String, ArrayNode> defFileMap = SHEET_NAMES.stream().collect(Collectors.toMap(Function.identity(), sheetName -> objectMapper.createArrayNode()));
         for (final File subFolder : Objects.requireNonNull(jurisdictionDir.listFiles())) {
             for (final File jsonFile : Objects.requireNonNull(subFolder.listFiles())){
                 try {
@@ -71,12 +70,12 @@ public class JsonTransformer {
                         defFileMap.get(sheet).add(sheetRow);
                     }
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    throw new DefinitionTransformerException("Unable to read json file:" + jsonFile.getPath(), e);
                 }
             }
 
         }
-        return defFileMap;
+        setDefFileMap(defFileMap);
     }
 
     private void parseDefinitionJson() {
@@ -90,19 +89,25 @@ public class JsonTransformer {
     public String createWorkbook(String outputPath){
         FileUtils.createDirectoryHierarchy(outputPath);
         final XSSFWorkbook workbook = new XSSFWorkbook();
-        defFileMap.forEach((key, value) -> {
-            sheetWriter.addSheetToXlxs(workbook,key,value);
-        });
+        getDefFileMap().forEach((key, value) -> sheetWriter.addSheetToXlxs(workbook,key,value));
 
+        String path = outputPath + File.separator + jurisdiction + ".xlsx";;
         try {
-            outputPath = outputPath + File.separator + jurisdiction + ".xlsx";
-            FileOutputStream outputStream = new FileOutputStream(outputPath);
+            FileOutputStream outputStream = new FileOutputStream(path);
             workbook.write(outputStream);
             workbook.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return outputPath;
+        return path;
+    }
+
+    public Map<String, ArrayNode> getDefFileMap() {
+        return defFileMap;
+    }
+
+    public void setDefFileMap(Map<String, ArrayNode> defFileMap) {
+        this.defFileMap = defFileMap;
     }
 
 }

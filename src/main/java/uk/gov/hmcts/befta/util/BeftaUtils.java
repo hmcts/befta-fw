@@ -13,13 +13,15 @@ import uk.gov.hmcts.befta.exception.FunctionalTestException;
 
 public class BeftaUtils {
 
+    private static final String TEMPORARY_DEFINITION_FOLDER = "definition_files";
+
     public static File getClassPathResourceIntoTemporaryFile(String resourcePath) {
         return createTempFile(resourcePath,"");
     }
 
     public static File createJsonDefinitionFileFromClasspath(String resourcePath) {
         String[] path = resourcePath.split("/");
-        String directoryStructure = "build" + File.separator + "tmp" + File.separator + path[path.length-3] + File.separator + path[path.length-2];
+        String directoryStructure = TEMPORARY_DEFINITION_FOLDER + File.separator + path[path.length-3] + File.separator + path[path.length-2];
         FileUtils.createDirectoryHierarchy(directoryStructure);
        return createTempFile(resourcePath,directoryStructure);
     }

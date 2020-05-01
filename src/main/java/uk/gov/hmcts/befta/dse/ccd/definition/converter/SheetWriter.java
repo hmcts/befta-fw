@@ -15,10 +15,10 @@ import java.util.Iterator;
 public class SheetWriter {
 
     private ArrayList<String> keys;
-    private static CellStyle cellDateStyle;
+    private CellStyle cellDateStyle;
 
     public XSSFWorkbook addSheetToXlxs(XSSFWorkbook workbook, String sheetName, ArrayNode sheetArrayNode) {
-        cellDateStyle = ExcelDateUtils.getExcelDateCellStyle(workbook);
+        setCellDateStyle(ExcelProcessingUtils.getExcelDateCellStyle(workbook));
         if (sheetArrayNode.size() > 0){
             Sheet sheet = workbook.createSheet(sheetName);
             sheet.createRow(0).createCell(0).setCellValue(sheetName);
@@ -57,8 +57,7 @@ public class SheetWriter {
             columnIndex++;
         }
 
-        this.keys = keys;
-
+        setKeys(keys);
     }
 
     /**
@@ -72,7 +71,7 @@ public class SheetWriter {
         Iterator jsonNodeCellIterator = jsonNodeRow.elements();
         int columnIndex = 0;
         while (jsonNodeCellIterator.hasNext()){
-            String column = keys.get(columnIndex);
+            String column = getKeys().get(columnIndex);
             Cell cell = row.createCell(columnIndex);
             JsonNode jsonCellObject = (JsonNode) jsonNodeCellIterator.next();
 
@@ -83,7 +82,7 @@ public class SheetWriter {
                     if ( (column.equals("LiveFrom") || column.equals("LiveTo")) && value.length() > 0) {
                         Date dt = new Date(value);
                         cell.setCellValue(dt);
-                        cell.setCellStyle(cellDateStyle);
+                        cell.setCellStyle(getCellDateStyle());
                     } else if (value.length() > 0){
                         cell.setCellValue(jsonCellObject.asText());
                     }
@@ -94,6 +93,22 @@ public class SheetWriter {
             }
             columnIndex++;
         }
+    }
+
+    private ArrayList<String> getKeys() {
+        return keys;
+    }
+
+    private void setKeys(ArrayList<String> keys) {
+        this.keys = keys;
+    }
+
+    public CellStyle getCellDateStyle() {
+        return cellDateStyle;
+    }
+
+    public void setCellDateStyle(CellStyle cellDateStyle) {
+        this.cellDateStyle = cellDateStyle;
     }
 
 }

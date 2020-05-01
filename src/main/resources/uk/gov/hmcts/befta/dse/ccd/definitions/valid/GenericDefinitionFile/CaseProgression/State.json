@@ -1,0 +1,28 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "CaseProgression",
+  "ID" : "CaseCreated",
+  "Name" : "Case created",
+  "Description" : "",
+  "DisplayOrder" : 1,
+  "TitleDisplay" : ""
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "CaseProgression",
+  "ID" : "State1",
+  "Name" : "State1",
+  "Description" : "",
+  "DisplayOrder" : 1,
+  "TitleDisplay" : ""
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "CaseProgression",
+  "ID" : "State2",
+  "Name" : "State2",
+  "Description" : "",
+  "DisplayOrder" : 1,
+  "TitleDisplay" : ""
+} ]
