@@ -7,7 +7,7 @@ plugins {
 
 apply plugin: 'java'
 
-def buildNumber = System.getenv("RELEASE_VERSION")?.replace("refs/tags/", "") ?: "2.7.0-SNAPSHOT"
+def buildNumber = System.getenv("RELEASE_VERSION")?.replace("refs/tags/", "") ?: "2.7.0"
 
 group 'uk.gov.hmcts'
 
@@ -119,6 +119,9 @@ dependencies {
     compile group: 'org.apache.httpcomponents', name: 'httpcore', version: '4.4.12'
     
     compile group: 'com.google.guava', name: 'guava', version: '28.1-jre'
+
+    compile group: 'org.apache.poi', name: 'poi', version: '4.0.0'
+    compile group: 'org.apache.poi', name: 'poi-ooxml', version: '4.0.0'
 
     testCompile 'io.github.openfeign:feign-jackson:9.7.0'
     testCompile group: 'org.mockito', name: 'mockito-core', version: '2.24.0'

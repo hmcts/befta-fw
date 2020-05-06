@@ -1,0 +1,21 @@
+[ {
+  "LiveFrom" : "01/01/2019",
+  "LiveTo" : "",
+  "ID" : "BEFTA_CASETYPE_1_1",
+  "Name" : "BEFTA Case Type 1 1",
+  "Description" : "Create a case of type BEFTA_CASETYPE_1_1",
+  "JurisdictionID" : "BEFTA_JURISDICTION_1",
+  "PrintableDocumentsUrl" : "",
+  "RetriesTimeoutURLPrintEvent" : "",
+  "SecurityClassification" : "PUBLIC"
+}, {
+  "LiveFrom" : "01/01/2019",
+  "LiveTo" : "",
+  "ID" : "CASE_TYPE_WITH_NO_CASES",
+  "Name" : "CT With No Cases -Don't Create",
+  "Description" : "Create a case of type CASE_TYPE_WITH_NO_CASES",
+  "JurisdictionID" : "BEFTA_JURISDICTION_1",
+  "PrintableDocumentsUrl" : "",
+  "RetriesTimeoutURLPrintEvent" : "",
+  "SecurityClassification" : "PUBLIC"
+} ]

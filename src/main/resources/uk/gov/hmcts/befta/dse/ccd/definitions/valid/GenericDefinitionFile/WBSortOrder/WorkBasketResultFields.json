@@ -1,0 +1,22 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "WBSortOrder",
+  "CaseFieldID" : "[CASE_REFERENCE]",
+  "Label" : "Case Reference",
+  "DisplayOrder" : 1
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "WBSortOrder",
+  "CaseFieldID" : "TextField",
+  "Label" : "Text Field",
+  "DisplayOrder" : 2
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "WBSortOrder",
+  "CaseFieldID" : "DateField",
+  "Label" : "DateField",
+  "DisplayOrder" : 3
+} ]
