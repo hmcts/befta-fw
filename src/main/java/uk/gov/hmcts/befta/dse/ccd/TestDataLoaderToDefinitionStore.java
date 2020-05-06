@@ -5,8 +5,14 @@ import org.slf4j.LoggerFactory;
 
 import com.google.common.reflect.ClassPath;
 
-import java.io.*;
-import java.util.*;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import io.restassured.RestAssured;
@@ -78,7 +84,7 @@ public class TestDataLoaderToDefinitionStore {
                 addCcdRole(roleConfig);
                 logger.info("\n\nAdded CCD Role {}.", roleConfig);
             } catch (Exception e) {
-                logger.error("\n\nCouldn't adding CCD Role {} - Exception: {}.\\n\\n", roleConfig, e);
+                logger.error("\n\nCouldn't add CCD Role {} - Exception: {}.\n\n", roleConfig, e);
             }
         }
     }
