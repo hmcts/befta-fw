@@ -1,0 +1,25 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "CaseViewCallbackMessages",
+  "CaseFieldID" : "[CASE_REFERENCE]",
+  "Label" : "Case Reference",
+  "ListElementCode" : "",
+  "DisplayOrder" : 1
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "CaseViewCallbackMessages",
+  "CaseFieldID" : "TextField0",
+  "Label" : "Text Field 0",
+  "ListElementCode" : "",
+  "DisplayOrder" : 2
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "CaseViewCallbackMessages",
+  "CaseFieldID" : "TextField1",
+  "Label" : "Text Field 1",
+  "ListElementCode" : "",
+  "DisplayOrder" : 3
+} ]

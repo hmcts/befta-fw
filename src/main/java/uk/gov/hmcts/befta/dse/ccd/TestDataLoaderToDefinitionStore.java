@@ -9,8 +9,11 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
@@ -19,6 +22,8 @@ import io.restassured.specification.RequestSpecification;
 import uk.gov.hmcts.befta.BeftaMain;
 import uk.gov.hmcts.befta.TestAutomationAdapter;
 import uk.gov.hmcts.befta.data.UserData;
+import uk.gov.hmcts.befta.dse.ccd.definition.converter.FileUtils;
+import uk.gov.hmcts.befta.dse.ccd.definition.converter.JsonTransformer;
 import uk.gov.hmcts.befta.exception.FunctionalTestException;
 import uk.gov.hmcts.befta.util.BeftaUtils;
 
@@ -27,6 +32,7 @@ public class TestDataLoaderToDefinitionStore {
     private static final Logger logger = LoggerFactory.getLogger(TestDataLoaderToDefinitionStore.class);
 
     public static final String DEFAULT_DEFINITIONS_PATH = "uk/gov/hmcts/befta/dse/ccd/definitions/valid";
+    private static final String TEMPORARY_DEFINITION_FOLDER = "definition_files";
 
     private static final CcdRoleConfig[] CCD_ROLES_NEEDED_FOR_TA = {
             new CcdRoleConfig("caseworker-autotest1", "PUBLIC"),
@@ -85,7 +91,7 @@ public class TestDataLoaderToDefinitionStore {
                 addCcdRole(roleConfig);
                 logger.info("\n\nAdded CCD Role {}.", roleConfig);
             } catch (Exception e) {
-                logger.error("\n\nCouldn't adding CCD Role {} - Exception: {}.\\n\\n", roleConfig, e);
+                logger.error("\n\nCouldn't add CCD Role {} - Exception: {}.\n\n", roleConfig, e);
             }
         }
     }
@@ -94,15 +100,21 @@ public class TestDataLoaderToDefinitionStore {
         List<String> definitionFileResources = getAllDefinitionFilesToLoad();
         logger.info("{} definition files will be uploaded to '{}'.", definitionFileResources.size(),
                 definitionStoreUrl);
-        for (String fileName : definitionFileResources) {
-            try {
-                logger.info("\n\nImporting {}...", fileName);
-                importDefinition(fileName);
-                logger.info("\nImported {}.\n\n", fileName);
-            } catch (Exception e) {
-                logger.error("Couldn't import {} - Exception: {}.\n\n", fileName, e);
+
+        try {
+            for (String fileName : definitionFileResources) {
+                try {
+                    logger.info("\n\nImporting {}...", fileName);
+                    importDefinition(fileName);
+                    logger.info("\nImported {}.\n\n", fileName);
+                } catch (Exception e) {
+                    logger.error("Couldn't import {} - Exception: {}.\n\n", fileName, e);
+                }
             }
+        } finally {
+            FileUtils.deleteDirectory(TEMPORARY_DEFINITION_FOLDER);
         }
+
     }
 
     protected void addCcdRole(CcdRoleConfig roleConfig) {
@@ -120,15 +132,28 @@ public class TestDataLoaderToDefinitionStore {
 
     protected List<String> getAllDefinitionFilesToLoad() {
         try {
+            boolean convertJsonFilesToExcel = false;
+            Set<String> definitionJsonResourcesToTransform = new HashSet<>();
             List<String> definitionFileResources = new ArrayList<String>();
             ClassPath cp = ClassPath.from(Thread.currentThread().getContextClassLoader());
             for (ClassPath.ResourceInfo info : cp.getResources()) {
-                if (info.getResourceName().startsWith(definitionsPath)
-                        && info.getResourceName().toLowerCase().endsWith(".xlsx")
-                        && !info.getResourceName().startsWith("~$")) {
+                if (isAnExcelFileToImport(info.getResourceName())) {
                     definitionFileResources.add(info.getResourceName());
+                } else if (isUnderAJsonDefinitionPackage(info.getResourceName())){
+                    convertJsonFilesToExcel = true;
+                    File jsonFile = BeftaUtils.createJsonDefinitionFileFromClasspath(info.getResourceName());
+                    String jsonDefinitionParentFolder = jsonFile.getParentFile().getParentFile().getPath();
+                    definitionJsonResourcesToTransform.add(jsonDefinitionParentFolder);
                 }
             }
+
+            if (convertJsonFilesToExcel) {
+                definitionFileResources.addAll(
+                        definitionJsonResourcesToTransform.stream()
+                        .map(folderPath -> new JsonTransformer(folderPath,TEMPORARY_DEFINITION_FOLDER).transformToExcel())
+                        .collect(Collectors.toList()));
+            }
+
             return definitionFileResources;
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -136,7 +161,12 @@ public class TestDataLoaderToDefinitionStore {
     }
 
     protected void importDefinition(String fileResourcePath) throws IOException {
-        File file = BeftaUtils.getClassPathResourceIntoTemporaryFile(fileResourcePath);
+        File file =  new File(fileResourcePath).exists()
+                ?
+                new File(fileResourcePath)
+                :
+                BeftaUtils.getClassPathResourceIntoTemporaryFile(fileResourcePath);
+
         try {
             Response response = asAutoTestImporter().given().multiPart(file).when().post("/import");
             if (response.getStatusCode() != 201) {
@@ -159,6 +189,17 @@ public class TestDataLoaderToDefinitionStore {
         return RestAssured.given(new RequestSpecBuilder().setBaseUri(definitionStoreUrl).build())
                 .header("Authorization", "Bearer " + caseworker.getAccessToken())
                 .header("ServiceAuthorization", s2sToken);
+    }
+
+    private boolean isAnExcelFileToImport(String resourceName) {
+        return resourceName.startsWith(definitionsPath)
+                && resourceName.toLowerCase().endsWith(".xlsx")
+                && !resourceName.startsWith("~$");
+    }
+
+    private boolean isUnderAJsonDefinitionPackage(String resourceName) {
+            return resourceName.startsWith(definitionsPath)
+                && resourceName.toLowerCase().endsWith(".json");
     }
 
 }

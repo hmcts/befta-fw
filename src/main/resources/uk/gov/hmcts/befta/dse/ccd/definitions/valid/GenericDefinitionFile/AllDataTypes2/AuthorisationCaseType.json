@@ -1,0 +1,13 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "AllDataTypes2",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "AllDataTypes2",
+  "UserRole" : "[Claimant]",
+  "CRUD" : "CRUD"
+} ]

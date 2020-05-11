@@ -1,0 +1,13 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_AUTH_1",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "C"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_AUTH_1",
+  "UserRole" : "caseworker-autotest1-private",
+  "CRUD" : "CRUD"
+} ]

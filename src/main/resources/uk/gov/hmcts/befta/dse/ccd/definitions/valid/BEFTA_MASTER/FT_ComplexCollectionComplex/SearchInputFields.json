@@ -1,0 +1,55 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexCollectionComplex",
+  "CaseFieldID" : "FamilyDetails",
+  "ListElementCode" : "MotherFullName",
+  "Label" : "Mother full name",
+  "DisplayOrder" : 6,
+  "DisplayContextParameter" : ""
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexCollectionComplex",
+  "CaseFieldID" : "FamilyDetails",
+  "ListElementCode" : "MotherAge",
+  "Label" : "Mother age",
+  "DisplayOrder" : 5,
+  "DisplayContextParameter" : ""
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexCollectionComplex",
+  "CaseFieldID" : "FamilyDetails",
+  "ListElementCode" : "FatherFullName",
+  "Label" : "Father full name",
+  "DisplayOrder" : 4,
+  "DisplayContextParameter" : ""
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexCollectionComplex",
+  "CaseFieldID" : "FamilyDetails",
+  "ListElementCode" : "FatherAge",
+  "Label" : "Father age",
+  "DisplayOrder" : 3,
+  "DisplayContextParameter" : ""
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexCollectionComplex",
+  "CaseFieldID" : "FamilyDetails",
+  "ListElementCode" : "FamilyAddress.Country",
+  "Label" : "Country",
+  "DisplayOrder" : 2,
+  "DisplayContextParameter" : ""
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexCollectionComplex",
+  "CaseFieldID" : "Homeless",
+  "ListElementCode" : "",
+  "Label" : "Is Your Family Homeless?",
+  "DisplayOrder" : 1,
+  "DisplayContextParameter" : ""
+} ]

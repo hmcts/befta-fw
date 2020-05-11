@@ -1,0 +1,8 @@
+[ {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_2_1",
+  "CaseFieldID" : "TextField",
+  "Label" : "`Text` field",
+  "DisplayOrder" : 1
+} ]

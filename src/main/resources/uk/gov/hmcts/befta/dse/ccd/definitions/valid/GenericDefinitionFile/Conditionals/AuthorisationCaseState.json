@@ -1,0 +1,15 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "Conditionals",
+  "CaseStateID" : "CaseCreated",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "Conditionals",
+  "CaseStateID" : "CaseApproved",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRUD"
+} ]
