@@ -391,9 +391,6 @@ the expected response:
 ```
 In this example, the value of the arrayInMap field is used as the actual expected value 
 of the response body. Same convention is applicable for request bodies, as well.
-An example test data file is [here](https://github.com/hmcts/ccd-data-store-api/blob/develop/src/aat/resources/features/F-051/S-109.td.json) showing a 
-nested use of this feature.
-
 
 #### 5.6.2) Files in Request Bodies
 Files can be specified to be contained in request bodies. This is useful for APIs uploading 
@@ -518,6 +515,10 @@ In the case of unordered equivalence check, this field is of no effect.
 In all other cases, the default or specified value of this instructive configuration 
 is essential for the framework to be able to decide which object in the actual response 
 should be compared to which one in the expected response.
+
+
+An example test data file is [here](https://github.com/hmcts/ccd-data-store-api/blob/develop/src/aat/resources/features/F-051/S-109.td.json) showing a 
+nested use of this feature.
 
 
 ## 6) INTRODUCING PROGRAMMATIC LOGIC INTO TEST SUITES
