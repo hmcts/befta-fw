@@ -26,9 +26,5 @@ public class CcdBeftaUtils {
         String path = new ExcelTransformer(excelFile.getPath()).transformToJson();
         return new File(path);
     }
-
-    public static void main(String[] args) {
-        System.out.println("hello world");
-    }
-
+    
 }
