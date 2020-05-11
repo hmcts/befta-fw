@@ -517,6 +517,10 @@ is essential for the framework to be able to decide which object in the actual r
 should be compared to which one in the expected response.
 
 
+An example test data file is [here](https://github.com/hmcts/ccd-data-store-api/blob/develop/src/aat/resources/features/F-051/S-109.td.json) showing a 
+nested use of this feature.
+
+
 ## 6) INTRODUCING PROGRAMMATIC LOGIC INTO TEST SUITES
 Befta framework allows programmatic extensibility in various ways.
 * Custom main classes or runners:
