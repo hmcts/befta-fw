@@ -1,0 +1,40 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_MultiplePages",
+  "Channel" : "notApplicable",
+  "TabID" : "Details",
+  "TabLabel" : "Details",
+  "TabDisplayOrder" : 2,
+  "CaseFieldID" : "Age",
+  "TabFieldDisplayOrder" : 2,
+  "FieldShowCondition" : "",
+  "TabShowCondition" : "",
+  "DisplayContextParameter" : ""
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_MultiplePages",
+  "Channel" : "notApplicable",
+  "TabID" : "Details",
+  "TabLabel" : "Details",
+  "TabDisplayOrder" : 2,
+  "CaseFieldID" : "TextFieldFName",
+  "TabFieldDisplayOrder" : 1,
+  "FieldShowCondition" : "",
+  "TabShowCondition" : "",
+  "DisplayContextParameter" : ""
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_MultiplePages",
+  "Channel" : "notApplicable",
+  "TabID" : "History",
+  "TabLabel" : "History",
+  "TabDisplayOrder" : 1,
+  "CaseFieldID" : "CaseHistory",
+  "TabFieldDisplayOrder" : 1,
+  "FieldShowCondition" : "",
+  "TabShowCondition" : "",
+  "DisplayContextParameter" : ""
+} ]
