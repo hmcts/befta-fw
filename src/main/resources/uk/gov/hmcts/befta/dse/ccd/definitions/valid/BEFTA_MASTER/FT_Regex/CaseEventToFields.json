@@ -1,0 +1,19 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_Regex",
+  "CaseEventID" : "createCase",
+  "CaseFieldID" : "TextField",
+  "PageFieldDisplayOrder" : 1,
+  "DisplayContext" : "Mandatory",
+  "PageID" : "SingleFormPage",
+  "PageLabel" : "Regex Validation Fields Page",
+  "PageDisplayOrder" : 1,
+  "PageColumnNumber" : "",
+  "FieldShowCondition" : "",
+  "PageShowCondition" : "",
+  "DisplayContextParameter" : "",
+  "ShowSummaryChangeOption" : "Y",
+  "ShowSummaryContentOption" : "",
+  "CallBackURLMidEvent" : ""
+} ]

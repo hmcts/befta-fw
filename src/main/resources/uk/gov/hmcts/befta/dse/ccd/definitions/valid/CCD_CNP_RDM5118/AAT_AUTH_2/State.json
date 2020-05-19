@@ -1,0 +1,25 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_AUTH_2",
+  "ID" : "TODO",
+  "Name" : "To do",
+  "Description" : "",
+  "DisplayOrder" : 1
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_AUTH_2",
+  "ID" : "IN_PROGRESS",
+  "Name" : "In progress",
+  "Description" : "",
+  "DisplayOrder" : 2
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_AUTH_2",
+  "ID" : "DONE",
+  "Name" : "Done",
+  "Description" : "",
+  "DisplayOrder" : 3
+} ]

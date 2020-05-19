@@ -1,0 +1,41 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "BEFTA_CASETYPE_3_1",
+  "Name" : "Demo Case BEFTA CASETYPE 3 1",
+  "Description" : "Demo Case BEFTA CASETYPE 3 1",
+  "JurisdictionID" : "BEFTA_JURISDICTION_3",
+  "PrintableDocumentsUrl" : "",
+  "RetriesTimeoutURLPrintEvent" : "",
+  "SecurityClassification" : "PUBLIC"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "BEFTA_CASETYPE_3_2",
+  "Name" : "Demo Case BEFTA CASETYPE 3 2",
+  "Description" : "Demo Case BEFTA CASETYPE 3 2",
+  "JurisdictionID" : "BEFTA_JURISDICTION_3",
+  "PrintableDocumentsUrl" : "",
+  "RetriesTimeoutURLPrintEvent" : "",
+  "SecurityClassification" : "PUBLIC"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "BEFTA_CASETYPE_3_3",
+  "Name" : "Demo Case BEFTA CASETYPE 3 3",
+  "Description" : "Demo Case BEFTA CASETYPE 3 3",
+  "JurisdictionID" : "BEFTA_JURISDICTION_3",
+  "PrintableDocumentsUrl" : "",
+  "RetriesTimeoutURLPrintEvent" : "",
+  "SecurityClassification" : "PUBLIC"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "BEFTA_CASETYPE_3_4",
+  "Name" : "Demo Case BEFTA CASETYPE 3 4",
+  "Description" : "Demo Case BEFTA CASETYPE 3 4",
+  "JurisdictionID" : "BEFTA_JURISDICTION_3",
+  "PrintableDocumentsUrl" : "",
+  "RetriesTimeoutURLPrintEvent" : "",
+  "SecurityClassification" : "PUBLIC"
+} ]

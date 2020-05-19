@@ -1,0 +1,31 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_CaseProgression",
+  "CaseFieldID" : "TextField1",
+  "ListElementCode" : "",
+  "Label" : "Text Field 1",
+  "DisplayOrder" : 1,
+  "ResultsOrdering" : "",
+  "DisplayContextParameter" : ""
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_CaseProgression",
+  "CaseFieldID" : "TextField2",
+  "ListElementCode" : "",
+  "Label" : "Text Field 2",
+  "DisplayOrder" : 2,
+  "ResultsOrdering" : "",
+  "DisplayContextParameter" : ""
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_CaseProgression",
+  "CaseFieldID" : "TextField0",
+  "ListElementCode" : "",
+  "Label" : "Text Field 0",
+  "DisplayOrder" : 3,
+  "ResultsOrdering" : "",
+  "DisplayContextParameter" : ""
+} ]

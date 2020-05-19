@@ -1,0 +1,11 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "AAT_PRIVATE",
+  "Name" : "Case type for AAT_PRIVATE",
+  "Description" : "Demonstrate AAT_PRIVATE's capability",
+  "JurisdictionID" : "AUTOTEST1",
+  "PrintableDocumentsUrl" : "",
+  "RetriesTimeoutURLPrintEvent" : "",
+  "SecurityClassification" : "PRIVATE"
+} ]
