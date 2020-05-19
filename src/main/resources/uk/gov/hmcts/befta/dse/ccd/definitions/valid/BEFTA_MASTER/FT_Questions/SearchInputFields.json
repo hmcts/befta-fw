@@ -6,5 +6,6 @@
   "ListElementCode" : "",
   "Label" : "Text Field",
   "DisplayOrder" : 1,
-  "DisplayContextParameter" : ""
+  "DisplayContextParameter" : "",
+  "UserRole" : ""
 } ]

@@ -1,0 +1,71 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_SearchInputByRole",
+  "CaseFieldID" : "TextFieldFName",
+  "UserRole" : "caseworker-befta_master-junior",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_SearchInputByRole",
+  "CaseFieldID" : "TextFieldMName",
+  "UserRole" : "caseworker-befta_master-junior",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_SearchInputByRole",
+  "CaseFieldID" : "TextFieldLName",
+  "UserRole" : "caseworker-befta_master-junior",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_SearchInputByRole",
+  "CaseFieldID" : "Age",
+  "UserRole" : "caseworker-befta_master-junior",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_SearchInputByRole",
+  "CaseFieldID" : "CaseHistory",
+  "UserRole" : "caseworker-befta_master-junior",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_SearchInputByRole",
+  "CaseFieldID" : "TextFieldFName",
+  "UserRole" : "caseworker-befta_master-manager",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_SearchInputByRole",
+  "CaseFieldID" : "TextFieldMName",
+  "UserRole" : "caseworker-befta_master-manager",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_SearchInputByRole",
+  "CaseFieldID" : "TextFieldLName",
+  "UserRole" : "caseworker-befta_master-manager",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_SearchInputByRole",
+  "CaseFieldID" : "Age",
+  "UserRole" : "caseworker-befta_master-manager",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_SearchInputByRole",
+  "CaseFieldID" : "CaseHistory",
+  "UserRole" : "caseworker-befta_master-manager",
+  "CRUD" : "CRUD"
+} ]

@@ -6,5 +6,6 @@
   "ListElementCode" : "",
   "Label" : "First Name",
   "DisplayOrder" : 1,
-  "DisplayContextParameter" : ""
+  "DisplayContextParameter" : "",
+  "UserRole" : ""
 } ]

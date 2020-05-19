@@ -6,7 +6,8 @@
   "ListElementCode" : "",
   "Label" : "Homeless?",
   "DisplayOrder" : 1,
-  "DisplayContextParameter" : ""
+  "DisplayContextParameter" : "",
+  "UserRole" : ""
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
@@ -15,7 +16,8 @@
   "ListElementCode" : "MotherFullName",
   "Label" : "Mother full name",
   "DisplayOrder" : 2,
-  "DisplayContextParameter" : ""
+  "DisplayContextParameter" : "",
+  "UserRole" : ""
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
@@ -24,7 +26,8 @@
   "ListElementCode" : "MotherAge",
   "Label" : "Mother age",
   "DisplayOrder" : 3,
-  "DisplayContextParameter" : ""
+  "DisplayContextParameter" : "",
+  "UserRole" : ""
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
@@ -33,7 +36,8 @@
   "ListElementCode" : "FatherFullName",
   "Label" : "Father full name",
   "DisplayOrder" : 4,
-  "DisplayContextParameter" : ""
+  "DisplayContextParameter" : "",
+  "UserRole" : ""
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
@@ -42,7 +46,8 @@
   "ListElementCode" : "FatherAge",
   "Label" : "Father age",
   "DisplayOrder" : 5,
-  "DisplayContextParameter" : ""
+  "DisplayContextParameter" : "",
+  "UserRole" : ""
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
@@ -51,5 +56,6 @@
   "ListElementCode" : "FamilyAddress.Country",
   "Label" : "Country",
   "DisplayOrder" : 6,
-  "DisplayContextParameter" : ""
+  "DisplayContextParameter" : "",
+  "UserRole" : ""
 } ]

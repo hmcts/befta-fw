@@ -7,5 +7,6 @@
   "Label" : "First Name",
   "DisplayOrder" : 1,
   "ResultsOrdering" : "",
-  "DisplayContextParameter" : ""
+  "DisplayContextParameter" : "",
+  "UserRole" : ""
 } ]

@@ -7,7 +7,8 @@
   "Label" : "Case Reference",
   "DisplayOrder" : 1,
   "ResultsOrdering" : "",
-  "DisplayContextParameter" : ""
+  "DisplayContextParameter" : "",
+  "UserRole" : ""
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
@@ -17,7 +18,8 @@
   "Label" : "Text Field",
   "DisplayOrder" : 2,
   "ResultsOrdering" : "",
-  "DisplayContextParameter" : ""
+  "DisplayContextParameter" : "",
+  "UserRole" : ""
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
@@ -27,7 +29,8 @@
   "Label" : "TextAreaField",
   "DisplayOrder" : 3,
   "ResultsOrdering" : "",
-  "DisplayContextParameter" : ""
+  "DisplayContextParameter" : "",
+  "UserRole" : ""
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
@@ -37,7 +40,8 @@
   "Label" : "DateField",
   "DisplayOrder" : 4,
   "ResultsOrdering" : "",
-  "DisplayContextParameter" : ""
+  "DisplayContextParameter" : "",
+  "UserRole" : ""
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
@@ -47,7 +51,8 @@
   "Label" : "AddressField",
   "DisplayOrder" : 5,
   "ResultsOrdering" : "",
-  "DisplayContextParameter" : ""
+  "DisplayContextParameter" : "",
+  "UserRole" : ""
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
@@ -57,7 +62,8 @@
   "Label" : "PhoneField",
   "DisplayOrder" : 6,
   "ResultsOrdering" : "",
-  "DisplayContextParameter" : ""
+  "DisplayContextParameter" : "",
+  "UserRole" : ""
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
@@ -67,7 +73,8 @@
   "Label" : "NumberField",
   "DisplayOrder" : 7,
   "ResultsOrdering" : "",
-  "DisplayContextParameter" : ""
+  "DisplayContextParameter" : "",
+  "UserRole" : ""
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
@@ -77,7 +84,8 @@
   "Label" : "YesNoField",
   "DisplayOrder" : 8,
   "ResultsOrdering" : "",
-  "DisplayContextParameter" : ""
+  "DisplayContextParameter" : "",
+  "UserRole" : ""
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
@@ -87,7 +95,8 @@
   "Label" : "CollectionField",
   "DisplayOrder" : 9,
   "ResultsOrdering" : "",
-  "DisplayContextParameter" : ""
+  "DisplayContextParameter" : "",
+  "UserRole" : ""
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
@@ -97,7 +106,8 @@
   "Label" : "AddressUKField",
   "DisplayOrder" : 10,
   "ResultsOrdering" : "",
-  "DisplayContextParameter" : ""
+  "DisplayContextParameter" : "",
+  "UserRole" : ""
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
@@ -107,7 +117,8 @@
   "Label" : "MarritalStatus",
   "DisplayOrder" : 11,
   "ResultsOrdering" : "",
-  "DisplayContextParameter" : ""
+  "DisplayContextParameter" : "",
+  "UserRole" : ""
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
@@ -117,7 +128,8 @@
   "Label" : "MoneyField",
   "DisplayOrder" : 12,
   "ResultsOrdering" : "",
-  "DisplayContextParameter" : ""
+  "DisplayContextParameter" : "",
+  "UserRole" : ""
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
@@ -127,7 +139,8 @@
   "Label" : "DocumentField",
   "DisplayOrder" : 13,
   "ResultsOrdering" : "",
-  "DisplayContextParameter" : ""
+  "DisplayContextParameter" : "",
+  "UserRole" : ""
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
@@ -137,7 +150,8 @@
   "Label" : "EmailField",
   "DisplayOrder" : 14,
   "ResultsOrdering" : "",
-  "DisplayContextParameter" : ""
+  "DisplayContextParameter" : "",
+  "UserRole" : ""
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
@@ -147,7 +161,8 @@
   "Label" : "MultiSelectField",
   "DisplayOrder" : 15,
   "ResultsOrdering" : "",
-  "DisplayContextParameter" : ""
+  "DisplayContextParameter" : "",
+  "UserRole" : ""
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
@@ -157,7 +172,8 @@
   "Label" : "LabelData",
   "DisplayOrder" : 16,
   "ResultsOrdering" : "",
-  "DisplayContextParameter" : ""
+  "DisplayContextParameter" : "",
+  "UserRole" : ""
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
@@ -167,5 +183,6 @@
   "Label" : "State",
   "DisplayOrder" : 17,
   "ResultsOrdering" : "",
-  "DisplayContextParameter" : ""
+  "DisplayContextParameter" : "",
+  "UserRole" : ""
 } ]
