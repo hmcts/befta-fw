@@ -58,6 +58,20 @@
   "LiveFrom" : "1/1/17",
   "LiveTo" : "",
   "CaseTypeID" : "BEFTA_CASETYPE_3_2",
+  "CaseFieldID" : "FormattedDateField",
+  "UserRole" : "citizen",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_3_2",
+  "CaseFieldID" : "FormattedDateTimeField",
+  "UserRole" : "citizen",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_3_2",
   "CaseFieldID" : "TextAreaField",
   "UserRole" : "citizen",
   "CRUD" : "CRU"

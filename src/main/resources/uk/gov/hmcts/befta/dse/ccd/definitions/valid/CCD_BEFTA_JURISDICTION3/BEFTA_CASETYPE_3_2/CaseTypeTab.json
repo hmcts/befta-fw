@@ -86,7 +86,7 @@
   "TabID" : "SecondTab",
   "TabLabel" : "Second tab",
   "TabDisplayOrder" : 2,
-  "CaseFieldID" : "TextAreaField",
+  "CaseFieldID" : "FormattedDateField",
   "TabFieldDisplayOrder" : 4
 }, {
   "LiveFrom" : "01/01/2017",
@@ -96,7 +96,7 @@
   "TabID" : "SecondTab",
   "TabLabel" : "Second tab",
   "TabDisplayOrder" : 2,
-  "CaseFieldID" : "FixedListField",
+  "CaseFieldID" : "FormattedDateTimeField",
   "TabFieldDisplayOrder" : 5
 }, {
   "LiveFrom" : "01/01/2017",
@@ -106,7 +106,7 @@
   "TabID" : "SecondTab",
   "TabLabel" : "Second tab",
   "TabDisplayOrder" : 2,
-  "CaseFieldID" : "FixedRadioListField",
+  "CaseFieldID" : "TextAreaField",
   "TabFieldDisplayOrder" : 6
 }, {
   "LiveFrom" : "01/01/2017",
@@ -116,8 +116,28 @@
   "TabID" : "SecondTab",
   "TabLabel" : "Second tab",
   "TabDisplayOrder" : 2,
-  "CaseFieldID" : "MultiSelectListField",
+  "CaseFieldID" : "FixedListField",
   "TabFieldDisplayOrder" : 7
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_3_2",
+  "Channel" : "CaseWorker",
+  "TabID" : "SecondTab",
+  "TabLabel" : "Second tab",
+  "TabDisplayOrder" : 2,
+  "CaseFieldID" : "FixedRadioListField",
+  "TabFieldDisplayOrder" : 8
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_3_2",
+  "Channel" : "CaseWorker",
+  "TabID" : "SecondTab",
+  "TabLabel" : "Second tab",
+  "TabDisplayOrder" : 2,
+  "CaseFieldID" : "MultiSelectListField",
+  "TabFieldDisplayOrder" : 9
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
