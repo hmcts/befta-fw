@@ -18,6 +18,7 @@ import uk.gov.hmcts.befta.data.UserData;
 import uk.gov.hmcts.befta.exception.FunctionalTestException;
 import uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext;
 import uk.gov.hmcts.befta.util.EnvironmentVariableUtils;
+import uk.gov.hmcts.befta.util.ReflectionUtils;
 import uk.gov.hmcts.reform.authorisation.ServiceAuthorisationApi;
 import uk.gov.hmcts.reform.authorisation.generators.ServiceAuthTokenGenerator;
 
@@ -157,6 +158,18 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
     
                 case "actualresponsebody":
                     return scenarioContext.getTestData().getActualResponse().getBody();
+                case "tokenvaluefromaccompanyingtokencall":
+                    try {
+                    String accompanyingTokenCreationDataId = scenarioContext.getTestData().get_guid_()
+                            + "_Token_Creation";
+                        return ReflectionUtils
+                                .deepGetFieldInObject(scenarioContext,
+                                    "scenarioContext.siblingContexts." + accompanyingTokenCreationDataId
+                                            + ".testData.actualResponse.body.token");
+                        
+                } catch (Exception e) {
+                    throw new FunctionalTestException("Failed to get custom value", e);
+                }
             }
             String dateTimeFormat = getDateTimeFormatRequested((String) key);
             if (dateTimeFormat != null)
