@@ -92,6 +92,7 @@ public class SheetWriter {
                         cell.setCellValue(dt);
                         cell.setCellStyle(getCellDateStyle());
                     } catch (ParseException e) {
+                        throw new RuntimeException(e);
                     }
                 } else if (value.length() > 0) {
                     cell.setCellValue(jsonCellObject.asText());
