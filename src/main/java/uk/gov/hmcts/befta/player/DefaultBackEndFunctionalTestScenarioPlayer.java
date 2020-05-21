@@ -75,11 +75,16 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     }
 
     @Override
-    @Given("a case that has just been created for AAT_AUTH_15 casetype in the AUTOTEST1 jurisdiction as in [{}]")
+    @Given("a case that has just been created as in [{}]")
     public void createCaseWithTheDataProvidedInATestDataObject(String caseCreationDataId) throws IOException {
-
+        String accompanyingTokenCreationDataId = "Token_Creation_For_" + caseCreationDataId;
+        HttpTestData tokenCreationData = BackEndFunctionalTestScenarioContext.DATA_SOURCE
+                .getDataForTestCall(accompanyingTokenCreationDataId);
+        if (tokenCreationData == null) {
+            accompanyingTokenCreationDataId = "Standard_Token_Creation_Data_For_Case_Creation";
+        }
         performAndVerifyTheExpectedResponseForAnApiCall("to create a token for case creation",
-                "Standard_Token_Creation_Data_For_Case_Creation");
+                accompanyingTokenCreationDataId);
         performAndVerifyTheExpectedResponseForAnApiCall("to create a full case", caseCreationDataId);
     }
 
