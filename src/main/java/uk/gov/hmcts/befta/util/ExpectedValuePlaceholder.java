@@ -1,6 +1,7 @@
 package uk.gov.hmcts.befta.util;
 
 import java.text.NumberFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 public enum ExpectedValuePlaceholder {
@@ -73,8 +74,7 @@ public enum ExpectedValuePlaceholder {
 
                 case ANY_TIMESTAMP_NOT_NULLABLE:
                 case ANY_TIMESTAMP_NULLABLE:
-                    SimpleDateFormat timestampFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
-                    timestampFormat.parse(actualObject.toString());
+                parseTimestamp(actualObject);
                     break;
 
                 case ANY_NULLABLE:
@@ -89,6 +89,21 @@ public enum ExpectedValuePlaceholder {
         }
 
         return valid;
+    }
+
+    private void parseTimestamp(Object actualObject) throws ParseException {
+        try {
+            SimpleDateFormat timestampFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+            timestampFormat.parse(actualObject.toString());
+        } catch (ParseException e) {
+            try {
+                SimpleDateFormat timestampFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+                timestampFormat.parse(actualObject.toString());
+            } catch (ParseException ex) {
+                    SimpleDateFormat timestampFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+                    timestampFormat.parse(actualObject.toString());
+            }
+        }
     }
 
     public String getValue() {
