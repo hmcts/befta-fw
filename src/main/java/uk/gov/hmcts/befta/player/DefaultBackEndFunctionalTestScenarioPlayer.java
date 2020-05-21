@@ -75,7 +75,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     }
 
     @Override
-    @Given("a case that has just been created as in [{}]")
+    @Given("a case that has just been created as in Standard_Token_Creation_Data_For_Case_Creation and another case has also been created as in [{}]")
     public void createCaseWithTheDataProvidedInATestDataObject(String caseCreationDataId) throws IOException {
 
         performAndVerifyTheExpectedResponseForAnApiCall("to create a token for case creation",
