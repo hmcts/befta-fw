@@ -1,14 +1,20 @@
 package uk.gov.hmcts.befta.dse.ccd.definition.converter;
+
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
+
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -17,18 +23,18 @@ import java.util.Map;
 public class ExcelTransformer {
     private static final List<String> PER_CASE_TYPE_SHEET_NAMES = Arrays.asList("CaseEvent", "AuthorisationCaseEvent",
             "AuthorisationCaseField", "AuthorisationCaseState", "AuthorisationCaseType", "AuthorisationComplexType",
-            "CaseEventToFields", "CaseField", "CaseRoles", "CaseTypeTab" ,"SearchInputFields", "SearchResultFields", "State",
-            "WorkBasketInputFields", "WorkBasketResultFields", "Category");
+            "CaseEventToFields", "CaseField", "CaseRoles", "CaseTypeTab", "SearchInputFields", "SearchResultFields",
+            "State", "WorkBasketInputFields", "WorkBasketResultFields", "Category");
     private ObjectWriter writer = new ObjectMapper().writer(new DefaultPrettyPrinter());
     private SheetReader sheetTransformer = new SheetReader();
-    private HashMap<String,ArrayNode> defFileMap = new HashMap<>();
+    private HashMap<String, ArrayNode> defFileMap = new HashMap<>();
     private ObjectMapper objectMapper = new ObjectMapper();
     private String inputExcelFilePath;
     private String outputFolderPath;
     private String fileName;
     private boolean useJurisdictionAsFolderName;
 
-    public String transformToJson(){
+    public String transformToJson() {
         parseExcelFile();
         return writeToJson(this.outputFolderPath);
     }
@@ -36,43 +42,45 @@ public class ExcelTransformer {
     public ExcelTransformer(String inputExcelFilePath, String outputFolderPath, boolean useJurisdictionAsFolderName) {
         this.inputExcelFilePath = inputExcelFilePath;
         this.useJurisdictionAsFolderName = useJurisdictionAsFolderName;
-        this.outputFolderPath = outputFolderPath !=null ? outputFolderPath : setOutputPath(inputExcelFilePath);
+        this.outputFolderPath = outputFolderPath != null ? outputFolderPath : setOutputPath(inputExcelFilePath);
     }
 
     public ExcelTransformer(String inputExcelFilePath) {
         this(inputExcelFilePath, null, true);
     }
 
-    private String setOutputPath(String inputExcelFile){
+    private String setOutputPath(String inputExcelFile) {
         return new File(inputExcelFile).getParentFile().getPath();
     }
 
     /**
      * Read Excel file and return a Workbook object
      */
-    private Workbook getExcelFile(String filePath){
+    private Workbook getExcelFile(String filePath) {
         FileInputStream fInputStream = null;
         Workbook excelWorkBook = null;
         try {
             fInputStream = new FileInputStream(filePath.trim());
-            String fileName = new File(filePath.trim()).getName().replace(".xlsx","");
+            String fileName = new File(filePath.trim()).getName().replace(".xlsx", "");
             setFileName(fileName);
             /* Create the workbook object. */
             excelWorkBook = WorkbookFactory.create(fInputStream);
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (IllegalStateException ignored){
+        } catch (IllegalStateException ignored) {
         }
         return excelWorkBook;
     }
 
     /**
-     * Parse an xlxs document into a map of excel sheets k=sheet name v=object representation of that sheet.
-     * Saving into a Map object will allow reuse of this object in the future
+     * Parse an xlxs document into a map of excel sheets k=sheet name v=object
+     * representation of that sheet. Saving into a Map object will allow reuse of
+     * this object in the future
+     * 
      * @param xlxsPath
      * @return HashMap<String,ArrayNode>
      */
-    private HashMap parseExcelFile(String xlxsPath) {
+    private HashMap<String, ArrayNode> parseExcelFile(String xlxsPath) {
         Workbook workbook = getExcelFile(xlxsPath);
         int numberOfSheets = workbook.getNumberOfSheets();
         for (int i = 0; i < numberOfSheets; i++) {
@@ -84,13 +92,15 @@ public class ExcelTransformer {
         return defFileMap;
     }
 
-    private HashMap parseExcelFile() {
+    private HashMap<String, ArrayNode> parseExcelFile() {
         return parseExcelFile(this.inputExcelFilePath);
     }
 
     /**
-     * use HashMap<String,ArrayNode> defFileMap to write out json files, a file for each def file sheet.
-     * List output folder, jurisdiction subfolder is automatically created
+     * use HashMap<String,ArrayNode> defFileMap to write out json files, a file for
+     * each def file sheet. List output folder, jurisdiction subfolder is
+     * automatically created
+     * 
      * @param outputFilePath
      */
     private String writeToJson(String outputFilePath) {
@@ -101,11 +111,11 @@ public class ExcelTransformer {
 
         defFileMap.forEach((key, value) -> {
             try {
-                if(isSheetPerCaseType(key)) {
+                if (isSheetPerCaseType(key)) {
                     Map<String, ArrayNode> caseTypeArrayNodes = splitIntoCaseTypes(value);
                     for (String caseTypeId : caseTypeArrayNodes.keySet()) {
-                        writeNodeToFile(caseTypeArrayNodes.get(caseTypeId),
-                                new File(outputFolderPath + File.separator + caseTypeId + File.separator + key + ".json"));
+                        writeNodeToFile(caseTypeArrayNodes.get(caseTypeId), new File(
+                                outputFolderPath + File.separator + caseTypeId + File.separator + key + ".json"));
                     }
                 } else {
                     writeNodeToFile(value,
@@ -121,7 +131,9 @@ public class ExcelTransformer {
     private void writeNodeToFile(ArrayNode value, File file) throws Exception {
         FileUtils.createDirectoryHierarchy(file.getParentFile());
         writer.writeValue(file, value);
-        new BufferedWriter(new FileWriter(file,true)).append("\n").close();
+        BufferedWriter bf = new BufferedWriter(new FileWriter(file, true));
+        bf.append("\n");
+        bf.close();
     }
 
     private Map<String, ArrayNode> splitIntoCaseTypes(ArrayNode combinedArrayNode) {
@@ -129,8 +141,8 @@ public class ExcelTransformer {
         for (JsonNode node : combinedArrayNode) {
             String caseTypeId = node.get("CaseTypeID").asText();
 
-            //This means empty tab
-            if (caseTypeId.isEmpty()){
+            // This means empty tab
+            if (caseTypeId.isEmpty()) {
                 caseTypeArrayNodes.keySet().forEach(key -> caseTypeArrayNodes.get(key).add(node));
             } else {
                 caseTypeArrayNodes.get(caseTypeId).add(node);
@@ -140,11 +152,10 @@ public class ExcelTransformer {
         return caseTypeArrayNodes;
     }
 
-
     private Map<String, ArrayNode> getInitialEmptyMapContainingAnArrayNodeForEachCaseType() {
-        Map<String, ArrayNode> emptyNodes = new HashMap();
-        for (JsonNode caseTypeNode : defFileMap.get("CaseType")){
-            emptyNodes.put(caseTypeNode.get("ID").asText(),objectMapper.createArrayNode());
+        Map<String, ArrayNode> emptyNodes = new HashMap<>();
+        for (JsonNode caseTypeNode : defFileMap.get("CaseType")) {
+            emptyNodes.put(caseTypeNode.get("ID").asText(), objectMapper.createArrayNode());
         }
         return emptyNodes;
     }
@@ -153,11 +164,11 @@ public class ExcelTransformer {
         return PER_CASE_TYPE_SHEET_NAMES.contains(key);
     }
 
-    private void setFileName(String fileName){
+    private void setFileName(String fileName) {
         this.fileName = fileName;
     }
 
-    private String getFileName(){
+    private String getFileName() {
         return this.fileName;
     }
 
