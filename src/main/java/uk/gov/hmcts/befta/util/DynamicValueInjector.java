@@ -94,6 +94,7 @@ public class DynamicValueInjector {
             return input;
         StringBuffer output = new StringBuffer();
         Object outputAsNumber = null;
+        boolean outputIsString = false;
         int pos = 0, jumpTo;
         Object partValue = null;
         while (pos < input.length()) {
@@ -121,15 +122,18 @@ public class DynamicValueInjector {
             }
             if (jumpTo > 0) {
                 pos = jumpTo;
-                if (partValue instanceof Long || partValue instanceof Integer){
+                if (partValue instanceof Number){
                     outputAsNumber = partValue;
+                } else {
+                    outputIsString = true;
                 }
                 output.append(partValue);
             } else {
+                outputIsString = true;
                 output.append(input.charAt(pos++));
             }
         }
-        return outputAsNumber == null ? output.toString() : outputAsNumber;
+        return outputIsString ? output.toString() : outputAsNumber;
     }
 
     private boolean aFormulaIsStartingAt(String input, int pos) {
