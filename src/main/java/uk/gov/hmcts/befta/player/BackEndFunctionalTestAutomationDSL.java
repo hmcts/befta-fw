@@ -19,7 +19,7 @@ public interface BackEndFunctionalTestAutomationDSL {
     // DSL Elements:
     // "[<some spec about the scenario context>] in the context of the scenario"
     // "[<some spec about the scenario context>] in the context"
-    void verifyThatThereIsASpecificationAboutScenarioContext(String specificationAboutScenarioContext);
+    void verifyThatASpecificationAboutScenarioContextIsConfirmed(String specificationAboutScenarioContext);
 
     // DSL Element:
     // "a request is prepared with appropriate values"

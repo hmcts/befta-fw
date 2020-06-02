@@ -333,30 +333,30 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
     }
 
     @Test
-    public void shouldVerifyThatThereIsASpecificationAboutScenarioContext() {
+    public void shouldVerifyThatASpecificationAboutScenarioContextIsConfirmed() {
         final String specificationAboutScenarioContext = "CONTEXT SPEC";
         HttpTestData testData = mock(HttpTestData.class);
 
-        when(testData.meetsSpec(any())).thenReturn(true);
+        when(testData.meetsSpec(specificationAboutScenarioContext)).thenReturn(true);
         when(context.getTestData()).thenReturn(testData);
 
-        scenarioPlayer.verifyThatThereIsASpecificationAboutScenarioContext(specificationAboutScenarioContext);
+        scenarioPlayer.verifyThatASpecificationAboutScenarioContextIsConfirmed(specificationAboutScenarioContext);
 
         verify(testData).meetsSpec(specificationAboutScenarioContext);
     }
 
     @Test
-    public void shouldFailToVerifyThatThereIsASpecificationAboutScenarioContex() {
+    public void shouldFailToVerifyThatASpecificationAboutScenarioContextIsConfirmed() {
         final String specificationAboutScenarioContext = "CONTEXT SPEC";
         HttpTestData testData = mock(HttpTestData.class);
 
-        when(testData.meetsSpec(any())).thenReturn(false);
+        when(testData.meetsSpec(specificationAboutScenarioContext)).thenReturn(false);
         when(context.getTestData()).thenReturn(testData);
 
         exceptionRule.expect(UnconfirmedDataSpecException.class);
         exceptionRule.expectMessage("Test data does not confirm it meets the specification: 'CONTEXT SPEC'");
 
-        scenarioPlayer.verifyThatThereIsASpecificationAboutScenarioContext(specificationAboutScenarioContext);
+        scenarioPlayer.verifyThatASpecificationAboutScenarioContextIsConfirmed(specificationAboutScenarioContext);
     }
 
     @Test

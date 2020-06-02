@@ -110,7 +110,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     @Override
     @Given("[{}] in the context of the scenario")
     @Given("[{}] in the context")
-    public void verifyThatThereIsASpecificationAboutScenarioContext(String specificationAboutScenarioContext) {
+    public void verifyThatASpecificationAboutScenarioContextIsConfirmed(String specificationAboutScenarioContext) {
         boolean doesTestDataMeetSpec = scenarioContext.getTestData().meetsSpec(specificationAboutScenarioContext);
         if (!doesTestDataMeetSpec) {
             throw new UnconfirmedDataSpecException(specificationAboutScenarioContext);
