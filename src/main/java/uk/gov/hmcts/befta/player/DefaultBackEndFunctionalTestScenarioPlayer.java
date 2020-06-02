@@ -111,9 +111,13 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     @Given("[{}] in the context of the scenario")
     @Given("[{}] in the context")
     public void verifyThatASpecificationAboutScenarioContextIsConfirmed(String specificationAboutScenarioContext) {
-        boolean doesTestDataMeetSpec = scenarioContext.getTestData().meetsSpec(specificationAboutScenarioContext);
-        if (!doesTestDataMeetSpec) {
-            throw new UnconfirmedDataSpecException(specificationAboutScenarioContext);
+        if (specificationAboutScenarioContext.toLowerCase().startsWith("a user ")) {
+            verifyThatThereIsAUserInTheContextWithAParticularSpecification(specificationAboutScenarioContext);
+        } else {
+            boolean doesTestDataMeetSpec = scenarioContext.getTestData().meetsSpec(specificationAboutScenarioContext);
+            if (!doesTestDataMeetSpec) {
+                throw new UnconfirmedDataSpecException(specificationAboutScenarioContext);
+            }
         }
     }
 
@@ -231,10 +235,10 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
 
         RequestSpecification theRequest = scenarioContext.getTheRequest();
         QueryableRequestSpecification queryableRequest = SpecificationQuerier.query(theRequest);
-        
+
         HttpTestData testData = scenarioContext.getTestData();
         String uri = testData.getUri();
-        
+
         if (!uri.trim().toLowerCase().startsWith("http:")) {
             theRequest.baseUri(TestAutomationConfig.INSTANCE.getTestUrl());
         }
