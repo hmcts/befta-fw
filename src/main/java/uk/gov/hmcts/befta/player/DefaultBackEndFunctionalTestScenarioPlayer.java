@@ -108,6 +108,16 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     }
 
     @Override
+    @Given("[{}] in the context of the scenario")
+    @Given("[{}] in the context")
+    public void verifyThatASpecificationAboutScenarioContextIsConfirmed(String specificationAboutScenarioContext) {
+        boolean doesTestDataMeetSpec = scenarioContext.getTestData().meetsSpec(specificationAboutScenarioContext);
+        if (!doesTestDataMeetSpec) {
+            throw new UnconfirmedDataSpecException(specificationAboutScenarioContext);
+        }
+    }
+
+    @Override
     @When("a request is prepared with appropriate values")
     public void prepareARequestWithAppropriateValues() throws IOException {
         prepareARequestWithAppropriateValues(this.scenarioContext);
