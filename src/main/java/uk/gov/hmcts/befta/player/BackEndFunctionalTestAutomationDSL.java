@@ -16,6 +16,11 @@ public interface BackEndFunctionalTestAutomationDSL {
     // "a user with [<some specification about user data>]"
     void verifyThatThereIsAUserInTheContextWithAParticularSpecification(String specificationAboutAUser);
 
+    // DSL Elements:
+    // "[<some spec about the scenario context>] in the context of the scenario"
+    // "[<some spec about the scenario context>] in the context"
+    void verifyThatThereIsASpecificationAboutScenarioContext(String specificationAboutScenarioContext);
+
     // DSL Element:
     // "a request is prepared with appropriate values"
     void prepareARequestWithAppropriateValues() throws IOException;

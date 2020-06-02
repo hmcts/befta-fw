@@ -333,6 +333,33 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
     }
 
     @Test
+    public void shouldVerifyThatThereIsASpecificationAboutScenarioContext() {
+        final String specificationAboutScenarioContext = "CONTEXT SPEC";
+        HttpTestData testData = mock(HttpTestData.class);
+
+        when(testData.meetsSpec(any())).thenReturn(true);
+        when(context.getTestData()).thenReturn(testData);
+
+        scenarioPlayer.verifyThatThereIsASpecificationAboutScenarioContext(specificationAboutScenarioContext);
+
+        verify(testData).meetsSpec(specificationAboutScenarioContext);
+    }
+
+    @Test
+    public void shouldFailToVerifyThatThereIsASpecificationAboutScenarioContex() {
+        final String specificationAboutScenarioContext = "CONTEXT SPEC";
+        HttpTestData testData = mock(HttpTestData.class);
+
+        when(testData.meetsSpec(any())).thenReturn(false);
+        when(context.getTestData()).thenReturn(testData);
+
+        exceptionRule.expect(UnconfirmedDataSpecException.class);
+        exceptionRule.expectMessage("Test data does not confirm it meets the specification: 'CONTEXT SPEC'");
+
+        scenarioPlayer.verifyThatThereIsASpecificationAboutScenarioContext(specificationAboutScenarioContext);
+    }
+
+    @Test
     public void shouldVerifyTheRequestInTheContextWithAParticularSpecificationSuccessfully() {
         final String requestSpecification = "REQUEST SPEC";
         HttpTestData testData = mock(HttpTestData.class);
