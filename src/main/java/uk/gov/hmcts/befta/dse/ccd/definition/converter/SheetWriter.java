@@ -88,7 +88,7 @@ public class SheetWriter {
                 String value = jsonCellObject.asText();
                 if ((column.equals("LiveFrom") || column.equals("LiveTo")) && value.length() > 0) {
                     try {
-                        Date dt = new SimpleDateFormat().parse(value);
+                        Date dt = new SimpleDateFormat("dd/MM/yy").parse(value);
                         cell.setCellValue(dt);
                         cell.setCellStyle(getCellDateStyle());
                     } catch (ParseException e) {
