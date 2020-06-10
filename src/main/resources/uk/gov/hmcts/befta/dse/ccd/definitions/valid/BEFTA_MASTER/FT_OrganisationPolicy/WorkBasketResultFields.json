@@ -1,0 +1,41 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_OrganisationPolicy",
+  "CaseFieldID" : "TextField",
+  "ListElementCode" : "",
+  "Label" : "Text Field",
+  "DisplayOrder" : 1,
+  "ResultsOrdering" : "",
+  "DisplayContextParameter" : ""
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_OrganisationPolicy",
+  "CaseFieldID" : "OrganisationPolicyField1",
+  "ListElementCode" : "",
+  "Label" : "Organisation Policy Field 1",
+  "DisplayOrder" : 2,
+  "ResultsOrdering" : "",
+  "DisplayContextParameter" : ""
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_OrganisationPolicy",
+  "CaseFieldID" : "OrganisationPolicyField2",
+  "ListElementCode" : "",
+  "Label" : "Organisation Policy Field 2",
+  "DisplayOrder" : 3,
+  "ResultsOrdering" : "",
+  "DisplayContextParameter" : ""
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_OrganisationPolicy",
+  "CaseFieldID" : "OrganisationPolicyField3",
+  "ListElementCode" : "",
+  "Label" : "Organisation Policy Field 3",
+  "DisplayOrder" : 4,
+  "ResultsOrdering" : "",
+  "DisplayContextParameter" : ""
+} ]

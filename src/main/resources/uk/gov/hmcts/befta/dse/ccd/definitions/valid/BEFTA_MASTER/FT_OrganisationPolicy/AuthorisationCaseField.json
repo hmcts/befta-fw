@@ -1,0 +1,85 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_OrganisationPolicy",
+  "CaseFieldID" : "TextField",
+  "UserRole" : "caseworker-caa",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_OrganisationPolicy",
+  "CaseFieldID" : "TextAreaField",
+  "UserRole" : "caseworker-caa",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_OrganisationPolicy",
+  "CaseFieldID" : "AddressField",
+  "UserRole" : "caseworker-caa",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_OrganisationPolicy",
+  "CaseFieldID" : "OrganisationPolicyField1",
+  "UserRole" : "caseworker-caa",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_OrganisationPolicy",
+  "CaseFieldID" : "OrganisationPolicyField2",
+  "UserRole" : "caseworker-caa",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_OrganisationPolicy",
+  "CaseFieldID" : "OrganisationPolicyField3",
+  "UserRole" : "caseworker-caa",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_OrganisationPolicy",
+  "CaseFieldID" : "TextField",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_OrganisationPolicy",
+  "CaseFieldID" : "TextAreaField",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_OrganisationPolicy",
+  "CaseFieldID" : "AddressField",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_OrganisationPolicy",
+  "CaseFieldID" : "OrganisationPolicyField1",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_OrganisationPolicy",
+  "CaseFieldID" : "OrganisationPolicyField2",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_OrganisationPolicy",
+  "CaseFieldID" : "OrganisationPolicyField3",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "CRUD"
+} ]
