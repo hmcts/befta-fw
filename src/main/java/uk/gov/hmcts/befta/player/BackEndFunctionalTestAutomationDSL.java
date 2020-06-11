@@ -13,6 +13,7 @@ public interface BackEndFunctionalTestAutomationDSL {
     void createCaseWithTheDataProvidedInATestDataObject(String caseDataId) throws IOException;
 
     // DSL Element:
+    // "a user [<some specification about user data>]"
     // "a user with [<some specification about user data>]"
     void verifyThatThereIsAUserInTheContextWithAParticularSpecification(String specificationAboutAUser);
 
