@@ -89,6 +89,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     }
 
     @Override
+    @Given("a user [{}]")
     @Given("a user with [{}]")
     public void verifyThatThereIsAUserInTheContextWithAParticularSpecification(String specificationAboutAUser) {
         final int userIndex = scenarioContext.getAndIncrementUserCountSpecifiedSoFar();
