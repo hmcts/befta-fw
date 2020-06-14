@@ -8,6 +8,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
+import uk.gov.hmcts.befta.exception.FunctionalTestException;
+
 public class JsonUtils {
 
     private static final ObjectMapper mapper = new ObjectMapper();
@@ -34,5 +36,14 @@ public class JsonUtils {
 
     public static String getPrettyJsonFromObject(Object object) throws JsonParseException, JsonMappingException, IOException {
         return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(object);
+    }
+
+    public static Object deepCopy(Object original) {
+        try {
+            String jsonString = mapper.writeValueAsString(original);
+            return mapper.readValue(jsonString, original.getClass());
+        } catch (Exception e) {
+            throw new FunctionalTestException("Unable to deep copy object.", e);
+        }
     }
 }

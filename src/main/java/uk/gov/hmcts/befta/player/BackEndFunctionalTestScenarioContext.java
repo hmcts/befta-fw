@@ -59,7 +59,8 @@ public class BackEndFunctionalTestScenarioContext {
     }
 
     public void initializeTestDataFor(String testDataId) {
-        testData = DATA_SOURCE.getDataForTestCall(testDataId);
+        HttpTestData original = DATA_SOURCE.getDataForTestCall(testDataId);
+        testData = original == null ? null : new HttpTestData(original);
         dynamicValueInjector = new DynamicValueInjector(BeftaMain.getAdapter(), testData, this);
     }
 
