@@ -40,6 +40,8 @@ public class JsonUtils {
 
     public static Object deepCopy(Object original) {
         try {
+            if (original == null)
+                return null;
             String jsonString = mapper.writeValueAsString(original);
             return mapper.readValue(jsonString, original.getClass());
         } catch (Exception e) {
