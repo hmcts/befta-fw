@@ -53,15 +53,18 @@ public class HttpTestData {
         this.setOperationName(other.getOperationName());
         this.setMethod(other.getMethod());
         this.setUri(other.getUri());
-        
-        this.setRequest(new RequestData(other.getRequest()));
-        this.setExpectedResponse(new ResponseData(other.getExpectedResponse()));
-        this.setActualResponse(new ResponseData(other.getActualResponse()));
+
+        this.setRequest(other.getRequest() == null ? null : new RequestData(other.getRequest()));
+        this.setExpectedResponse(
+                other.getExpectedResponse() == null ? null : new ResponseData(other.getExpectedResponse()));
+        this.setActualResponse(other.getActualResponse() == null ? null : new ResponseData(other.getActualResponse()));
 
         this.setUsers(new LinkedHashMap<>());
+
         for (Entry<String, UserData> entry : other.getUsers().entrySet()) {
             this.users.put(entry.getKey(), new UserData(entry.getValue()));
         }
+
         this.setApiClientId(other.getApiClientId());
 
         this.userSet = other.userSet;
