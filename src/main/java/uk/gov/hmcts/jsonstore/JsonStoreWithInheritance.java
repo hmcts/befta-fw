@@ -21,7 +21,9 @@ import uk.gov.hmcts.befta.util.ReflectionUtils;
 public abstract class JsonStoreWithInheritance {
 
     private static final String INHERITANCE_APPLIED = "inheritanceApplied";
+    private static final String REPLACE_ARRAY_CONTENT = "__befta_replace__";
     protected static final String GUID = "_guid_";
+
     protected JsonNode rootNode;
     protected Map<String, JsonNode> nodeLibrary = new HashMap<>();
     protected Map<Class<?>, Map<String, ?>> objectLibraryPerTypes = new HashMap<>();
@@ -133,13 +135,15 @@ public abstract class JsonStoreWithInheritance {
             }
         }
 
-        for (final JsonNode jsonNode : object) inheritAndOverlayValuesFor(jsonNode);
+        for (final JsonNode jsonNode : object)
+            inheritAndOverlayValuesFor(jsonNode);
 
         if (object instanceof ObjectNode)
             ((ObjectNode) object).set(INHERITANCE_APPLIED, BooleanNode.TRUE);
     }
 
-    private void inheritAndOverlayChildValuesFromParent(final JsonNode object, final String fieldNameInParent, final JsonNode parentFieldCopy) {
+    private void inheritAndOverlayChildValuesFromParent(final JsonNode object, final String fieldNameInParent,
+            final JsonNode parentFieldCopy) {
         if (object.has(fieldNameInParent)) {
             JsonNode thisField = object.get(fieldNameInParent);
             if (thisField.isArray()) {
@@ -178,7 +182,13 @@ public abstract class JsonStoreWithInheritance {
 
     private void overlayFieldWith(JsonNode overlaidField, JsonNode overlayingField) {
         if (overlayingField.isArray()) {
-            ((ArrayNode) overlaidField).addAll((ArrayNode) overlayingField);
+            if (overlayingField.size() > 0 && REPLACE_ARRAY_CONTENT.equalsIgnoreCase(overlayingField.get(0).asText())) {
+                ((ArrayNode) overlaidField).removeAll();
+                for (int e = 1; e < overlayingField.size(); e++) {
+                    ((ArrayNode) overlaidField).add(overlayingField.get(e));
+                }
+            } else
+                ((ArrayNode) overlaidField).addAll((ArrayNode) overlayingField);
         } else {
             Iterator<String> overlayingSubfields = overlayingField.fieldNames();
             while (overlayingSubfields.hasNext()) {
