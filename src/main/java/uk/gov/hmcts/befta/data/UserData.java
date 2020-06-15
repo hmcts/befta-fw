@@ -20,4 +20,12 @@ public class UserData {
         this.username = username;
         this.password = password;
     }
+
+    public UserData(UserData other) {
+        this.setId(other.getId());
+        this.setUsername(other.getUsername());
+        this.setPassword(other.getPassword());
+        this.setAccessToken(other.getAccessToken());
+    }
+
 }
