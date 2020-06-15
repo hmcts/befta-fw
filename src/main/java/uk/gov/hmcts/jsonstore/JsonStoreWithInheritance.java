@@ -156,7 +156,7 @@ public abstract class JsonStoreWithInheritance {
                         ((ArrayNode) parentFieldCopy).add(thisField.get(e));
                     }
                 } else {
-                ((ArrayNode) parentFieldCopy).addAll((ArrayNode) thisField);
+                    ((ArrayNode) parentFieldCopy).addAll((ArrayNode) thisField);
                 }
                 ((ObjectNode) object).set(fieldNameInParent, parentFieldCopy);
             } else if (thisField.isContainerNode()) {
