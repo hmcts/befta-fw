@@ -152,7 +152,7 @@ public abstract class JsonStoreWithInheritance {
                 });
                 if (thisField.size() > 0 && REPLACE_ARRAY_CONTENT.equalsIgnoreCase(thisField.get(0).asText())) {
                     ((ArrayNode) parentFieldCopy).removeAll();
-                    for (int e = 1; e < thisField.size(); e++) {
+                    for (int e = 0; e < thisField.size(); e++) {
                         ((ArrayNode) parentFieldCopy).add(thisField.get(e));
                     }
                 } else {
