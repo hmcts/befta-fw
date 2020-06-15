@@ -77,6 +77,17 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     @Override
     @Given("a case that has just been created as in [{}]")
     public void createCaseWithTheDataProvidedInATestDataObject(String caseCreationDataId) throws IOException {
+        createCase("to create a full case", caseCreationDataId);
+    }
+
+    @Override
+    @Given("a case [{}] created as in [{}]")
+    public void createCaseWithTheDataProvidedInATestDataObject(String specAboutCase, String caseCreationDataId)
+            throws IOException {
+        createCase(specAboutCase, caseCreationDataId);
+    }
+
+    private void createCase(String specAboutCase, String caseCreationDataId) throws IOException {
         String accompanyingTokenCreationDataId = caseCreationDataId + "_Token_Creation";
         HttpTestData tokenCreationData = BackEndFunctionalTestScenarioContext.DATA_SOURCE
                 .getDataForTestCall(accompanyingTokenCreationDataId);
@@ -85,7 +96,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         }
         performAndVerifyTheExpectedResponseForAnApiCall("to create a token for case creation",
                 accompanyingTokenCreationDataId);
-        performAndVerifyTheExpectedResponseForAnApiCall("to create a full case", caseCreationDataId);
+        performAndVerifyTheExpectedResponseForAnApiCall(specAboutCase, caseCreationDataId);
     }
 
     @Override
