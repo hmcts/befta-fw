@@ -150,7 +150,14 @@ public abstract class JsonStoreWithInheritance {
                 ((ArrayNode) thisField).forEach(element -> {
                     inheritAndOverlayValuesFor(element);
                 });
+                if (thisField.size() > 0 && REPLACE_ARRAY_CONTENT.equalsIgnoreCase(thisField.get(0).asText())) {
+                    ((ArrayNode) parentFieldCopy).removeAll();
+                    for (int e = 1; e < thisField.size(); e++) {
+                        ((ArrayNode) parentFieldCopy).add(thisField.get(e));
+                    }
+                } else {
                 ((ArrayNode) parentFieldCopy).addAll((ArrayNode) thisField);
+                }
                 ((ObjectNode) object).set(fieldNameInParent, parentFieldCopy);
             } else if (thisField.isContainerNode()) {
                 inheritAndOverlayValuesFor(thisField);
