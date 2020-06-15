@@ -7,7 +7,6 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.BooleanNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.google.common.collect.Sets;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -15,6 +14,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
+import com.google.common.collect.Sets;
 import uk.gov.hmcts.befta.exception.InvalidTestDataException;
 import uk.gov.hmcts.befta.util.ReflectionUtils;
 
@@ -177,12 +177,10 @@ public abstract class JsonStoreWithInheritance {
     }
 
     private void overlayFieldWith(JsonNode overlaidField, JsonNode overlayingField) {
-        if (overlayingField.isArray()) {
-                ((ArrayNode) overlaidField).addAll((ArrayNode) overlayingField);
-        } else {
-            Iterator<String> overlayingSubfields = overlayingField.fieldNames();
-            while (overlayingSubfields.hasNext()) {
-                String overlayingSubFieldName = overlayingSubfields.next();
+        if (!overlayingField.isArray()) {
+            Iterator<String> overlayingFields = overlayingField.fieldNames();
+            while (overlayingFields.hasNext()) {
+                String overlayingSubFieldName = overlayingFields.next();
                 if (!isInheritanceMechanismField(overlayingSubFieldName)) {
                     JsonNode overlayingSubField = overlayingField.get(overlayingSubFieldName);
                     JsonNode overlaidSubField = overlaidField.get(overlayingSubFieldName);
