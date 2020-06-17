@@ -460,7 +460,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         resolveUserData(prefix, userBeingSpecified);
         scenario.write("Attempting to authenticate [" + userBeingSpecified.getUsername() + "]...");
         authenticateUser(prefix, userBeingSpecified);
-        scenario.write("Authenticated user with Id [" + userBeingSpecified.getId() + "]...");
+        scenario.write("Authenticated user with Id [" + userBeingSpecified.getId() + "].");
         if (userIndex == 0) {
             scenarioContext.setTheInvokingUser(userBeingSpecified);
         }
