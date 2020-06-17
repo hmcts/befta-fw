@@ -13,7 +13,7 @@ import feign.Feign;
 import feign.jackson.JacksonDecoder;
 import feign.jackson.JacksonEncoder;
 import uk.gov.hmcts.befta.auth.AuthApi;
-import uk.gov.hmcts.befta.auth.OAuth2;
+import uk.gov.hmcts.befta.auth.OAuth2Config;
 import uk.gov.hmcts.befta.data.UserData;
 import uk.gov.hmcts.befta.exception.FunctionalTestException;
 import uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext;
@@ -57,9 +57,10 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
     }
 
     @Override
-    public void authenticate(UserData user) {
+    public void authenticate(UserData user, String oauth2ConfigId) {
         UserData cached = users.computeIfAbsent(user.getUsername(), e -> {
-            final String accessToken = getIdamOauth2Token(user.getUsername(), user.getPassword());
+            final String accessToken = getIdamOauth2Token(user.getUsername(), user.getPassword(),
+                    OAuth2Config.of(oauth2ConfigId));
             final AuthApi.User idamUser = idamApi.getUser(accessToken);
             user.setId(idamUser.getId());
             user.setAccessToken(accessToken);
@@ -105,16 +106,17 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
         tokenGenerators.put(clientId, tokenGenerator);
     }
 
-    private String getIdamOauth2Token(String username, String password) {
+    private String getIdamOauth2Token(String username, String password, OAuth2Config oauth2Config) {
         String authorisation = username + ":" + password;
         String base64Authorisation = Base64.getEncoder().encodeToString(authorisation.getBytes());
 
-        OAuth2 oauth2 = BeftaMain.getConfig().getOauth2Config();
         AuthApi.AuthenticateUserResponse authenticateUserResponse = idamApi
-                .authenticateUser(BASIC + base64Authorisation, CODE, oauth2.getClientId(), oauth2.getRedirectUri());
+                .authenticateUser(BASIC + base64Authorisation, CODE, oauth2Config.getClientId(),
+                        oauth2Config.getRedirectUri());
 
         AuthApi.TokenExchangeResponse tokenExchangeResponse = idamApi.exchangeCode(authenticateUserResponse.getCode(),
-                AUTHORIZATION_CODE, oauth2.getClientId(), oauth2.getClientSecret(), oauth2.getRedirectUri());
+                AUTHORIZATION_CODE, oauth2Config.getClientId(), oauth2Config.getClientSecret(),
+                oauth2Config.getRedirectUri());
 
         return tokenExchangeResponse.getAccessToken();
     }
