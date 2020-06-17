@@ -458,8 +458,9 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
             final UserData userBeingSpecified, int userIndex) {
         String prefix = userIndex == 0 ? "users.invokingUser" : "users[" + userIndex + "]";
         resolveUserData(prefix, userBeingSpecified);
-        scenario.write("User being specified: " + userBeingSpecified.getUsername());
+        scenario.write("Attempting to authenticate [" + userBeingSpecified.getUsername() + "]...");
         authenticateUser(prefix, userBeingSpecified);
+        scenario.write("Authenticated user with Id [" + userBeingSpecified.getId() + "]...");
         if (userIndex == 0) {
             scenarioContext.setTheInvokingUser(userBeingSpecified);
         }
