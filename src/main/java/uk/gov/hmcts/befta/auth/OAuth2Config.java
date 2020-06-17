@@ -21,9 +21,9 @@ public class OAuth2Config {
     private OAuth2Config(String oauthClientId) {
         clientId = oauthClientId;
         clientSecret = EnvironmentVariableUtils
-                .getRequiredVariable("OAUTH2_CLIENT_SECRET_OF_" + oauthClientId.toUpperCase());
+                .getRequiredVariable("BEFTA_OAUTH2_CLIENT_SECRET_OF_" + oauthClientId.toUpperCase());
         redirectUri = EnvironmentVariableUtils
-                .getRequiredVariable("OAUTH2_REDIRECT_URI_OF_" + oauthClientId.toUpperCase());
+                .getRequiredVariable("BEFTA_OAUTH2_REDIRECT_URI_OF_" + oauthClientId.toUpperCase());
     }
 
     public static OAuth2Config of(String oauth2ConfigId) {

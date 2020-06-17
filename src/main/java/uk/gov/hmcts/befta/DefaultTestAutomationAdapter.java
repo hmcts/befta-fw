@@ -37,7 +37,7 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
     private static boolean isTestDataLoaded = false;
 
     public DefaultTestAutomationAdapter() {
-        registerApiClientWithCredentials(BeftaMain.getConfig().getS2SClientId(),
+        registerS2sClientWithCredentials(BeftaMain.getConfig().getS2SClientId(),
                 BeftaMain.getConfig().getS2SClientSecret());
 
         idamApi = Feign.builder().encoder(new JacksonEncoder()).decoder(new JacksonDecoder()).target(AuthApi.class,
@@ -52,7 +52,7 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
     @Override
     public String getNewS2SToken(String clientId) {
         return tokenGenerators.computeIfAbsent(clientId, key -> {
-            throw new FunctionalTestException("No S2S token generator registered for " + key + ".");
+            return registerS2sClient(clientId);
         }).generate();
     }
 
@@ -89,13 +89,13 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
     protected void doLoadTestData() {
     }
 
-    protected void registerApiClientWithEnvVariable(String envVarPrefix) {
-        String clientId = EnvironmentVariableUtils.getRequiredVariable(envVarPrefix + "_ID");
-        String clientSecret = EnvironmentVariableUtils.getRequiredVariable(envVarPrefix + "_SECRET");
-        registerApiClientWithCredentials(clientId, clientSecret);
+    protected ServiceAuthTokenGenerator registerS2sClient(String s2sClientId) {
+        String clientSecret = EnvironmentVariableUtils
+                .getRequiredVariable("BEFTA_S2S_CLIENT_SECRET_OF_" + s2sClientId.toUpperCase());
+        return registerS2sClientWithCredentials(s2sClientId, clientSecret);
     }
 
-    protected void registerApiClientWithCredentials(String clientId, String clientSecret) {
+    protected ServiceAuthTokenGenerator registerS2sClientWithCredentials(String clientId, String clientSecret) {
         final ServiceAuthorisationApi serviceAuthorisationApi = Feign.builder().encoder(new JacksonEncoder())
                 .contract(new SpringMvcContract())
                 .target(ServiceAuthorisationApi.class, BeftaMain.getConfig().getS2SURL());
@@ -104,6 +104,8 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
                 clientSecret, clientId, serviceAuthorisationApi);
 
         tokenGenerators.put(clientId, tokenGenerator);
+
+        return tokenGenerator;
     }
 
     private String getIdamOauth2Token(String username, String password, OAuth2Config oauth2Config) {
