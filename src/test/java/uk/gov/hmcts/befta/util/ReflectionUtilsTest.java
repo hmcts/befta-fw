@@ -6,14 +6,11 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
-import org.powermock.api.mockito.PowerMockito;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.util.ArrayList;
@@ -30,12 +27,6 @@ public class ReflectionUtilsTest {
 
     @Rule
     public ExpectedException exceptionRule = ExpectedException.none();
-
-    @Before
-    public void prepareTest() {
-        PowerMockito.mockStatic(System.class);
-        when(System.getenv("OAUTH2_CLIENT_ID")).thenReturn("ccd_gw");
-    }
 
     @Test
     public void shouldDeepGetFieldInObject() throws Exception {
@@ -117,6 +108,7 @@ public class ReflectionUtilsTest {
     public void shouldErrorWhenTryingToRetrieveNonExistingField() throws Exception {
         HttpTestData testData = new HttpTestData();
         testData.setS2sClientId("ccd_gw");
+        testData.setOauth2ClientId("ccd_gw");
 
         exceptionRule.expect(NoSuchFieldException.class);
         exceptionRule.expectMessage(startsWith("nonExistingField not retrievable"));
