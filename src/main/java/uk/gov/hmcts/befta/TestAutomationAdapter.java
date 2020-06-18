@@ -9,7 +9,7 @@ public interface TestAutomationAdapter {
 
     String getNewS2SToken(String clientId);
 
-    void authenticate(UserData user);
+    void authenticate(UserData user, String preferredOauth2ClientId);
 
     void loadTestDataIfNecessary();
 

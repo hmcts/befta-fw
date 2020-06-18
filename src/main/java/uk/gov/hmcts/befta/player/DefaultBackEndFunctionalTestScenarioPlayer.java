@@ -458,8 +458,9 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
             final UserData userBeingSpecified, int userIndex) {
         String prefix = userIndex == 0 ? "users.invokingUser" : "users[" + userIndex + "]";
         resolveUserData(prefix, userBeingSpecified);
-        scenario.write("User being specified: " + userBeingSpecified.getUsername());
+        scenario.write("Attempting to authenticate [" + userBeingSpecified.getUsername() + "]...");
         authenticateUser(prefix, userBeingSpecified);
+        scenario.write("Authenticated user with Id [" + userBeingSpecified.getId() + "].");
         if (userIndex == 0) {
             scenarioContext.setTheInvokingUser(userBeingSpecified);
         }
@@ -486,8 +487,9 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
 
     private void authenticateUser(String prefix, UserData user) {
         String logPrefix = scenarioContext.getCurrentScenarioTag() + ": " + prefix + " [" + user.getUsername() + "] ";
+        String preferredOauth2ClientId = scenarioContext.getTestData().getOauth2ClientId();
         try {
-            BeftaMain.getAdapter().authenticate(user);
+            BeftaMain.getAdapter().authenticate(user, preferredOauth2ClientId);
             logger.info(logPrefix + "authenticated.");
         } catch (Exception ex) {
             throw new FunctionalTestException(logPrefix + "could not authenticate.", ex);
