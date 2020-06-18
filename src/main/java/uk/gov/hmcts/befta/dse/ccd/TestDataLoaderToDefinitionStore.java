@@ -21,6 +21,7 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import uk.gov.hmcts.befta.BeftaMain;
 import uk.gov.hmcts.befta.TestAutomationAdapter;
+import uk.gov.hmcts.befta.auth.OAuth2Config;
 import uk.gov.hmcts.befta.data.UserData;
 import uk.gov.hmcts.befta.dse.ccd.definition.converter.FileUtils;
 import uk.gov.hmcts.befta.dse.ccd.definition.converter.JsonTransformer;
@@ -181,13 +182,13 @@ public class TestDataLoaderToDefinitionStore {
     }
 
     protected RequestSpecification asAutoTestImporter() {
-        UserData caseworker = new UserData(BeftaMain.getConfig().getImporterAutoTestEmail(),
+        UserData importingUser = new UserData(BeftaMain.getConfig().getImporterAutoTestEmail(),
                 BeftaMain.getConfig().getImporterAutoTestPassword());
-        adapter.authenticate(caseworker);
+        adapter.authenticate(importingUser, OAuth2Config.DEFAULT_INSTANCE.getClientId());
 
         String s2sToken = adapter.getNewS2SToken();
         return RestAssured.given(new RequestSpecBuilder().setBaseUri(definitionStoreUrl).build())
-                .header("Authorization", "Bearer " + caseworker.getAccessToken())
+                .header("Authorization", "Bearer " + importingUser.getAccessToken())
                 .header("ServiceAuthorization", s2sToken);
     }
 
