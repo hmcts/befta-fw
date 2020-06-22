@@ -18,8 +18,12 @@ public class ResponseData {
     private Map<String, Object> body;
 
     public void setHeaders(Map<String, Object> headers) {
-        this.headers = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
-        this.headers.putAll(headers);
+        if (headers == null) {
+            this.headers = null;
+        } else {
+            this.headers = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+            this.headers.putAll(headers);
+        }
     }
 
     public ResponseData() {
