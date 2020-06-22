@@ -10,11 +10,21 @@ public interface BackEndFunctionalTestAutomationDSL {
 
     // DSL Element:
     // "a case that has just been created as in [<some test data unique id>]"
-    void createCaseWithTheDataProvidedInATestDataObject(String caseDataId) throws IOException;
+    void createCaseWithTheDataProvidedInATestDataObject(String caseCreationDataId) throws IOException;
 
     // DSL Element:
+    // "a case [<some spec about the case>] created as in [<some test data unique id>]"
+    void createCaseWithTheDataProvidedInATestDataObject(String specAboutCase, String caseCreationDataId) throws IOException;
+
+    // DSL Element:
+    // "a user [<some specification about user data>]"
     // "a user with [<some specification about user data>]"
     void verifyThatThereIsAUserInTheContextWithAParticularSpecification(String specificationAboutAUser);
+
+    // DSL Elements:
+    // "[<some spec about the scenario context>] in the context of the scenario"
+    // "[<some spec about the scenario context>] in the context"
+    void verifyThatASpecificationAboutScenarioContextIsConfirmed(String specificationAboutScenarioContext);
 
     // DSL Element:
     // "a request is prepared with appropriate values"

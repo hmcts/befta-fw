@@ -193,7 +193,13 @@ public class MapVerifier {
 
     private Object getIdValueIn(Object objectWorkedOn, String elementId) {
         try {
-            return ReflectionUtils.deepGetFieldInObject(objectWorkedOn, elementId);
+            String[] idElements = elementId.split(",");
+            Object idElementValue = ReflectionUtils.deepGetFieldInObject(objectWorkedOn, idElements[0]);
+            StringBuffer compositeIdValue = new StringBuffer(idElementValue.toString());
+            for (int i = 1; i < idElements.length; i++)
+                compositeIdValue.append("__X__")
+                        .append(ReflectionUtils.deepGetFieldInObject(objectWorkedOn, idElements[i]));
+            return compositeIdValue.toString();
         } catch (Exception e) {
             e.printStackTrace();
             return null;

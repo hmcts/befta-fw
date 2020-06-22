@@ -77,6 +77,17 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     @Override
     @Given("a case that has just been created as in [{}]")
     public void createCaseWithTheDataProvidedInATestDataObject(String caseCreationDataId) throws IOException {
+        createCase("to create a full case", caseCreationDataId);
+    }
+
+    @Override
+    @Given("a case [{}] created as in [{}]")
+    public void createCaseWithTheDataProvidedInATestDataObject(String specAboutCase, String caseCreationDataId)
+            throws IOException {
+        createCase(specAboutCase, caseCreationDataId);
+    }
+
+    private void createCase(String specAboutCase, String caseCreationDataId) throws IOException {
         String accompanyingTokenCreationDataId = caseCreationDataId + "_Token_Creation";
         HttpTestData tokenCreationData = BackEndFunctionalTestScenarioContext.DATA_SOURCE
                 .getDataForTestCall(accompanyingTokenCreationDataId);
@@ -85,10 +96,11 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         }
         performAndVerifyTheExpectedResponseForAnApiCall("to create a token for case creation",
                 accompanyingTokenCreationDataId);
-        performAndVerifyTheExpectedResponseForAnApiCall("to create a full case", caseCreationDataId);
+        performAndVerifyTheExpectedResponseForAnApiCall(specAboutCase, caseCreationDataId);
     }
 
     @Override
+    @Given("a user [{}]")
     @Given("a user with [{}]")
     public void verifyThatThereIsAUserInTheContextWithAParticularSpecification(String specificationAboutAUser) {
         final int userIndex = scenarioContext.getAndIncrementUserCountSpecifiedSoFar();
@@ -104,6 +116,20 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         } else {
             logger.info("The user [{}] will not be verified with authentication as it is not listed in test data.",
                     specificationAboutAUser);
+        }
+    }
+
+    @Override
+    @Given("[{}] in the context of the scenario")
+    @Given("[{}] in the context")
+    public void verifyThatASpecificationAboutScenarioContextIsConfirmed(String specificationAboutScenarioContext) {
+        if (specificationAboutScenarioContext.toLowerCase().startsWith("a user ")) {
+            verifyThatThereIsAUserInTheContextWithAParticularSpecification(specificationAboutScenarioContext);
+        } else {
+            boolean doesTestDataMeetSpec = scenarioContext.getTestData().meetsSpec(specificationAboutScenarioContext);
+            if (!doesTestDataMeetSpec) {
+                throw new UnconfirmedDataSpecException(specificationAboutScenarioContext);
+            }
         }
     }
 
@@ -221,10 +247,10 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
 
         RequestSpecification theRequest = scenarioContext.getTheRequest();
         QueryableRequestSpecification queryableRequest = SpecificationQuerier.query(theRequest);
-        
+
         HttpTestData testData = scenarioContext.getTestData();
         String uri = testData.getUri();
-        
+
         if (!uri.trim().toLowerCase().startsWith("http:")) {
             theRequest.baseUri(TestAutomationConfig.INSTANCE.getTestUrl());
         }
@@ -432,8 +458,9 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
             final UserData userBeingSpecified, int userIndex) {
         String prefix = userIndex == 0 ? "users.invokingUser" : "users[" + userIndex + "]";
         resolveUserData(prefix, userBeingSpecified);
-        scenario.write("User being specified: " + userBeingSpecified.getUsername());
+        scenario.write("Attempting to authenticate [" + userBeingSpecified.getUsername() + "]...");
         authenticateUser(prefix, userBeingSpecified);
+        scenario.write("Authenticated user with Id [" + userBeingSpecified.getId() + "].");
         if (userIndex == 0) {
             scenarioContext.setTheInvokingUser(userBeingSpecified);
         }
@@ -460,8 +487,9 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
 
     private void authenticateUser(String prefix, UserData user) {
         String logPrefix = scenarioContext.getCurrentScenarioTag() + ": " + prefix + " [" + user.getUsername() + "] ";
+        String preferredOauth2ClientId = scenarioContext.getTestData().getOauth2ClientId();
         try {
-            BeftaMain.getAdapter().authenticate(user);
+            BeftaMain.getAdapter().authenticate(user, preferredOauth2ClientId);
             logger.info(logPrefix + "authenticated.");
         } catch (Exception ex) {
             throw new FunctionalTestException(logPrefix + "could not authenticate.", ex);
