@@ -37,9 +37,6 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
     private static boolean isTestDataLoaded = false;
 
     public DefaultTestAutomationAdapter() {
-        registerS2sClientWithCredentials(BeftaMain.getConfig().getS2SClientId(),
-                BeftaMain.getConfig().getS2SClientSecret());
-
         idamApi = Feign.builder().encoder(new JacksonEncoder()).decoder(new JacksonDecoder()).target(AuthApi.class,
                 BeftaMain.getConfig().getIdamURL());
     }
@@ -52,7 +49,7 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
     @Override
     public String getNewS2SToken(String clientId) {
         return tokenGenerators.computeIfAbsent(clientId, key -> {
-            return registerS2sClient(clientId);
+            return getNewS2sClient(clientId);
         }).generate();
     }
 
