@@ -1242,7 +1242,7 @@ public class MapVerifierTest {
 
     private void assertVerificationErrors(String testDataId, String... issues) {
         HttpTestData testData = getTestData(testDataId);
-        testData.setApiClientId("ccd_gw");
+        testData.setS2sClientId("ccd_gw");
         MapVerificationResult result = verifyBodies(testData);
         if (issues.length == 0) {
             assertTrue(result.isVerified());

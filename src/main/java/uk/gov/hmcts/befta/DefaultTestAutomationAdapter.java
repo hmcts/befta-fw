@@ -13,7 +13,7 @@ import feign.Feign;
 import feign.jackson.JacksonDecoder;
 import feign.jackson.JacksonEncoder;
 import uk.gov.hmcts.befta.auth.AuthApi;
-import uk.gov.hmcts.befta.auth.OAuth2;
+import uk.gov.hmcts.befta.auth.OAuth2Config;
 import uk.gov.hmcts.befta.data.UserData;
 import uk.gov.hmcts.befta.exception.FunctionalTestException;
 import uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext;
@@ -37,7 +37,7 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
     private static boolean isTestDataLoaded = false;
 
     public DefaultTestAutomationAdapter() {
-        registerApiClientWithCredentials(BeftaMain.getConfig().getS2SClientId(),
+        registerS2sClientWithCredentials(BeftaMain.getConfig().getS2SClientId(),
                 BeftaMain.getConfig().getS2SClientSecret());
 
         idamApi = Feign.builder().encoder(new JacksonEncoder()).decoder(new JacksonDecoder()).target(AuthApi.class,
@@ -52,14 +52,15 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
     @Override
     public String getNewS2SToken(String clientId) {
         return tokenGenerators.computeIfAbsent(clientId, key -> {
-            throw new FunctionalTestException("No S2S token generator registered for " + key + ".");
+            return registerS2sClient(clientId);
         }).generate();
     }
 
     @Override
-    public void authenticate(UserData user) {
+    public void authenticate(UserData user, String oauth2ConfigId) {
         UserData cached = users.computeIfAbsent(user.getUsername(), e -> {
-            final String accessToken = getIdamOauth2Token(user.getUsername(), user.getPassword());
+            final String accessToken = getIdamOauth2Token(user.getUsername(), user.getPassword(),
+                    OAuth2Config.of(oauth2ConfigId));
             final AuthApi.User idamUser = idamApi.getUser(accessToken);
             user.setId(idamUser.getId());
             user.setAccessToken(accessToken);
@@ -88,13 +89,13 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
     protected void doLoadTestData() {
     }
 
-    protected void registerApiClientWithEnvVariable(String envVarPrefix) {
-        String clientId = EnvironmentVariableUtils.getRequiredVariable(envVarPrefix + "_ID");
-        String clientSecret = EnvironmentVariableUtils.getRequiredVariable(envVarPrefix + "_SECRET");
-        registerApiClientWithCredentials(clientId, clientSecret);
+    protected ServiceAuthTokenGenerator registerS2sClient(String s2sClientId) {
+        String clientSecret = EnvironmentVariableUtils
+                .getRequiredVariable("BEFTA_S2S_CLIENT_SECRET_OF_" + s2sClientId.toUpperCase());
+        return registerS2sClientWithCredentials(s2sClientId, clientSecret);
     }
 
-    protected void registerApiClientWithCredentials(String clientId, String clientSecret) {
+    protected ServiceAuthTokenGenerator registerS2sClientWithCredentials(String clientId, String clientSecret) {
         final ServiceAuthorisationApi serviceAuthorisationApi = Feign.builder().encoder(new JacksonEncoder())
                 .contract(new SpringMvcContract())
                 .target(ServiceAuthorisationApi.class, BeftaMain.getConfig().getS2SURL());
@@ -103,18 +104,21 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
                 clientSecret, clientId, serviceAuthorisationApi);
 
         tokenGenerators.put(clientId, tokenGenerator);
+
+        return tokenGenerator;
     }
 
-    private String getIdamOauth2Token(String username, String password) {
+    private String getIdamOauth2Token(String username, String password, OAuth2Config oauth2Config) {
         String authorisation = username + ":" + password;
         String base64Authorisation = Base64.getEncoder().encodeToString(authorisation.getBytes());
 
-        OAuth2 oauth2 = BeftaMain.getConfig().getOauth2Config();
         AuthApi.AuthenticateUserResponse authenticateUserResponse = idamApi
-                .authenticateUser(BASIC + base64Authorisation, CODE, oauth2.getClientId(), oauth2.getRedirectUri());
+                .authenticateUser(BASIC + base64Authorisation, CODE, oauth2Config.getClientId(),
+                        oauth2Config.getRedirectUri());
 
         AuthApi.TokenExchangeResponse tokenExchangeResponse = idamApi.exchangeCode(authenticateUserResponse.getCode(),
-                AUTHORIZATION_CODE, oauth2.getClientId(), oauth2.getClientSecret(), oauth2.getRedirectUri());
+                AUTHORIZATION_CODE, oauth2Config.getClientId(), oauth2Config.getClientSecret(),
+                oauth2Config.getRedirectUri());
 
         return tokenExchangeResponse.getAccessToken();
     }
