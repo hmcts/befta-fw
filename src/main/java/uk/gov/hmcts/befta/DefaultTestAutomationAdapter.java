@@ -37,6 +37,9 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
     private static boolean isTestDataLoaded = false;
 
     public DefaultTestAutomationAdapter() {
+        ServiceAuthTokenGenerator defaultGenerator = getNewS2sClientWithCredentials(
+                BeftaMain.getConfig().getS2SClientId(), BeftaMain.getConfig().getS2SClientSecret());
+        tokenGenerators.put(BeftaMain.getConfig().getS2SClientId(), defaultGenerator);
         idamApi = Feign.builder().encoder(new JacksonEncoder()).decoder(new JacksonDecoder()).target(AuthApi.class,
                 BeftaMain.getConfig().getIdamURL());
     }
