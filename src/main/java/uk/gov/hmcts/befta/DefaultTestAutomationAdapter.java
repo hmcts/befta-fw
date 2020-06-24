@@ -37,9 +37,9 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
     private static boolean isTestDataLoaded = false;
 
     public DefaultTestAutomationAdapter() {
-        registerS2sClientWithCredentials(BeftaMain.getConfig().getS2SClientId(),
-                BeftaMain.getConfig().getS2SClientSecret());
-
+        ServiceAuthTokenGenerator defaultGenerator = getNewS2sClientWithCredentials(
+                BeftaMain.getConfig().getS2SClientId(), BeftaMain.getConfig().getS2SClientSecret());
+        tokenGenerators.put(BeftaMain.getConfig().getS2SClientId(), defaultGenerator);
         idamApi = Feign.builder().encoder(new JacksonEncoder()).decoder(new JacksonDecoder()).target(AuthApi.class,
                 BeftaMain.getConfig().getIdamURL());
     }
@@ -52,7 +52,7 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
     @Override
     public String getNewS2SToken(String clientId) {
         return tokenGenerators.computeIfAbsent(clientId, key -> {
-            return registerS2sClient(clientId);
+            return getNewS2sClient(clientId);
         }).generate();
     }
 
@@ -89,32 +89,26 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
     protected void doLoadTestData() {
     }
 
-    protected ServiceAuthTokenGenerator registerS2sClient(String s2sClientId) {
+    protected ServiceAuthTokenGenerator getNewS2sClient(String s2sClientId) {
         String clientSecret = EnvironmentVariableUtils
                 .getRequiredVariable("BEFTA_S2S_CLIENT_SECRET_OF_" + s2sClientId.toUpperCase());
-        return registerS2sClientWithCredentials(s2sClientId, clientSecret);
+        return getNewS2sClientWithCredentials(s2sClientId, clientSecret);
     }
 
-    protected ServiceAuthTokenGenerator registerS2sClientWithCredentials(String clientId, String clientSecret) {
+    protected ServiceAuthTokenGenerator getNewS2sClientWithCredentials(String clientId, String clientSecret) {
         final ServiceAuthorisationApi serviceAuthorisationApi = Feign.builder().encoder(new JacksonEncoder())
                 .contract(new SpringMvcContract())
                 .target(ServiceAuthorisationApi.class, BeftaMain.getConfig().getS2SURL());
 
-        ServiceAuthTokenGenerator tokenGenerator = new ServiceAuthTokenGenerator(
-                clientSecret, clientId, serviceAuthorisationApi);
-
-        tokenGenerators.put(clientId, tokenGenerator);
-
-        return tokenGenerator;
+        return new ServiceAuthTokenGenerator(clientSecret, clientId, serviceAuthorisationApi);
     }
 
     private String getIdamOauth2Token(String username, String password, OAuth2Config oauth2Config) {
         String authorisation = username + ":" + password;
         String base64Authorisation = Base64.getEncoder().encodeToString(authorisation.getBytes());
 
-        AuthApi.AuthenticateUserResponse authenticateUserResponse = idamApi
-                .authenticateUser(BASIC + base64Authorisation, CODE, oauth2Config.getClientId(),
-                        oauth2Config.getRedirectUri());
+        AuthApi.AuthenticateUserResponse authenticateUserResponse = idamApi.authenticateUser(
+                BASIC + base64Authorisation, CODE, oauth2Config.getClientId(), oauth2Config.getRedirectUri());
 
         AuthApi.TokenExchangeResponse tokenExchangeResponse = idamApi.exchangeCode(authenticateUserResponse.getCode(),
                 AUTHORIZATION_CODE, oauth2Config.getClientId(), oauth2Config.getClientSecret(),
@@ -130,11 +124,11 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
         if (key instanceof String) {
             String keyString = ((String) key).toLowerCase().replaceAll(" ", "").replaceAll("-", "").replaceAll("_", "");
             switch (keyString) {
-                case "request":
-                    return scenarioContext.getTestData().getRequest();
+            case "request":
+                return scenarioContext.getTestData().getRequest();
 
-                case "requestbody":
-                    return scenarioContext.getTestData().getRequest().getBody();
+            case "requestbody":
+                return scenarioContext.getTestData().getRequest().getBody();
 
             case "requestheaders":
                 return scenarioContext.getTestData().getRequest().getHeaders();
@@ -145,32 +139,30 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
             case "requestqueryparams":
                 return scenarioContext.getTestData().getRequest().getQueryParams();
 
-                case "expectedresponse":
-                    return scenarioContext.getTestData().getExpectedResponse();
-    
-                case "expectedresponseheaders":
-                    return scenarioContext.getTestData().getExpectedResponse().getHeaders();
-    
-                case "expectedresponsebody":
-                    return scenarioContext.getTestData().getExpectedResponse().getBody();
-    
-                case "actualresponse":
-                    return scenarioContext.getTestData().getActualResponse();
-    
-                case "actualresponseheaders":
-                    return scenarioContext.getTestData().getActualResponse().getHeaders();
-    
-                case "actualresponsebody":
-                    return scenarioContext.getTestData().getActualResponse().getBody();
-                case "tokenvaluefromaccompanyingtokencall":
-                    try {
+            case "expectedresponse":
+                return scenarioContext.getTestData().getExpectedResponse();
+
+            case "expectedresponseheaders":
+                return scenarioContext.getTestData().getExpectedResponse().getHeaders();
+
+            case "expectedresponsebody":
+                return scenarioContext.getTestData().getExpectedResponse().getBody();
+
+            case "actualresponse":
+                return scenarioContext.getTestData().getActualResponse();
+
+            case "actualresponseheaders":
+                return scenarioContext.getTestData().getActualResponse().getHeaders();
+
+            case "actualresponsebody":
+                return scenarioContext.getTestData().getActualResponse().getBody();
+            case "tokenvaluefromaccompanyingtokencall":
+                try {
                     String accompanyingTokenCreationDataId = scenarioContext.getTestData().get_guid_()
                             + "_Token_Creation";
-                        return ReflectionUtils
-                                .deepGetFieldInObject(scenarioContext,
-                                    "scenarioContext.siblingContexts." + accompanyingTokenCreationDataId
-                                            + ".testData.actualResponse.body.token");
-                        
+                    return ReflectionUtils.deepGetFieldInObject(scenarioContext, "scenarioContext.siblingContexts."
+                            + accompanyingTokenCreationDataId + ".testData.actualResponse.body.token");
+
                 } catch (Exception e) {
                     throw new FunctionalTestException("Failed to get custom value", e);
                 }
