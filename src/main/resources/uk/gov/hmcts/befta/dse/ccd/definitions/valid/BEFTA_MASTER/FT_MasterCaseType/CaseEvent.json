@@ -8,7 +8,7 @@
   "DisplayOrder" : 1,
   "PreConditionState(s)" : "",
   "PostConditionState" : "CaseCreated",
-  "CallBackURLAboutToStartEvent" : "http://localhost:5555/.*/mid_event_dynamic_list",
+  "CallBackURLAboutToStartEvent" : "http://docker.for.mac.local:5555/.*/mid_event_dynamic_list",
   "RetriesTimeoutAboutToStartEvent" : "",
   "CallBackURLAboutToSubmitEvent" : "",
   "RetriesTimeoutURLAboutToSubmitEvent" : "",
