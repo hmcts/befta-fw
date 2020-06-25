@@ -8,7 +8,7 @@
   "DisplayOrder" : 1,
   "PreConditionState(s)" : "",
   "PostConditionState" : "CaseCreated",
-  "CallBackURLAboutToStartEvent" : "http://docker.for.mac.local:5555/.*/mid_event_dynamic_list",
+  "CallBackURLAboutToStartEvent" : "https://run.mocky.io/v3/8f97e310-a289-487c-b2cf-be9616d8780a",
   "RetriesTimeoutAboutToStartEvent" : "",
   "CallBackURLAboutToSubmitEvent" : "",
   "RetriesTimeoutURLAboutToSubmitEvent" : "",
