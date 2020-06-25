@@ -39,7 +39,7 @@ public class DynamicValueInjector {
 
     private void injectValuesDetailsFromContextBeforeApiCall() {
         RequestData requestData = testData.getRequest();
-        testData.setUri(processDynamicValuesIn(testData.getUri()));
+        testData.setUri((String) processDynamicValuesIn(testData.getUri()));
         Map<String, Object> requestHeaders = requestData.getHeaders();
         if (requestHeaders != null) {
             requestHeaders.forEach((header, value) -> requestHeaders.put(header,
@@ -89,10 +89,12 @@ public class DynamicValueInjector {
         return processDynamicValuesIn(valueString);
     }
 
-    private String processDynamicValuesIn(String input) {
+    private Object processDynamicValuesIn(String input) {
         if (input == null || input.equals(""))
             return input;
         StringBuffer output = new StringBuffer();
+        Object outputAsNumber = null;
+        boolean outputIsString = false;
         int pos = 0, jumpTo;
         Object partValue = null;
         while (pos < input.length()) {
@@ -120,12 +122,18 @@ public class DynamicValueInjector {
             }
             if (jumpTo > 0) {
                 pos = jumpTo;
+                if (partValue instanceof Number){
+                    outputAsNumber = partValue;
+                } else {
+                    outputIsString = true;
+                }
                 output.append(partValue);
             } else {
+                outputIsString = true;
                 output.append(input.charAt(pos++));
             }
         }
-        return output.toString();
+        return outputIsString ? output.toString() : outputAsNumber;
     }
 
     private boolean aFormulaIsStartingAt(String input, int pos) {
