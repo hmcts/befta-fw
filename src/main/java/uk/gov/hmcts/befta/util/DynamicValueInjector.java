@@ -17,6 +17,8 @@ public class DynamicValueInjector {
 
     private static final String DEFAULT_AUTO_VALUE = "[[DEFAULT_AUTO_VALUE]]";
 
+    private static final String EMPTY_STRING_MARKER = "EMPTY_STRING";
+
     private final TestAutomationAdapter taAdapter;
 
     private BackEndFunctionalTestScenarioContext scenarioContext;
@@ -116,7 +118,7 @@ public class DynamicValueInjector {
                             "'{{' is not matched with a '}}' for " + input + " at position: " + pos + ".");
                 }
                 String envVarName = input.substring(pos + 2, closingAt);
-                if (envVarName.trim().length() == 0) {
+                if (envVarName.trim().length() == 0 || envVarName.equalsIgnoreCase(EMPTY_STRING_MARKER)) {
                     partValue = "";
                 } else {
                     partValue = EnvironmentVariableUtils.getRequiredVariable(input.substring(pos + 2, closingAt));
