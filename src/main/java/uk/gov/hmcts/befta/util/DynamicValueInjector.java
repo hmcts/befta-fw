@@ -111,18 +111,14 @@ public class DynamicValueInjector {
                 String formulaPart = input.substring(pos, closingAt + 1);
                 partValue = calculateFormulaFromContext(scenarioContext, formulaPart);
                 jumpTo = closingAt + 1;
-            } else if (anEnvVarMayBeStartingAt(input, pos)) {
+            } else if (anEnvVarIsStartingAt(input, pos)) {
                 int closingAt = input.indexOf("}}", pos + 2);
                 if (closingAt < 0) {
                     throw new FunctionalTestException(
                             "'{{' is not matched with a '}}' for " + input + " at position: " + pos + ".");
                 }
                 String envVarName = input.substring(pos + 2, closingAt);
-                if (envVarName.trim().length() == 0 || envVarName.equalsIgnoreCase(EMPTY_STRING_MARKER)) {
-                    partValue = "";
-                } else {
-                    partValue = EnvironmentVariableUtils.getRequiredVariable(input.substring(pos + 2, closingAt));
-                }
+                partValue = EnvironmentVariableUtils.getRequiredVariable(envVarName);
                 jumpTo = closingAt + 2;
             }
             if (jumpTo > 0) {
@@ -147,7 +143,7 @@ public class DynamicValueInjector {
         return input.substring(pos, pos + 2).equals("${");
     }
 
-    private boolean anEnvVarMayBeStartingAt(String input, int pos) {
+    private boolean anEnvVarIsStartingAt(String input, int pos) {
         if (pos >= input.length() - 1)
             return false;
         return input.substring(pos, pos + 2).equals("{{");
@@ -190,6 +186,9 @@ public class DynamicValueInjector {
     }
 
     private Object calculateFormulaFromContext(Object container, String formula) {
+        if (formula.trim().equals("") || formula.trim().equalsIgnoreCase(EMPTY_STRING_MARKER)) {
+            return "";
+        }
         String[] fields = formula.substring(3).split("\\]\\[|\\]\\}");
         if (fields.length <= 1) {
             throw new FunctionalTestException("No processible field found in " + formula);
