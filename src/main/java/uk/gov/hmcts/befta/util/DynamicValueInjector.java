@@ -23,7 +23,7 @@ public class DynamicValueInjector {
     private HttpTestData testData;
 
     public DynamicValueInjector(TestAutomationAdapter taAdapter, HttpTestData testData,
-                                BackEndFunctionalTestScenarioContext scenarioContext) {
+            BackEndFunctionalTestScenarioContext scenarioContext) {
         this.scenarioContext = scenarioContext;
         this.testData = testData;
         this.taAdapter = taAdapter;
@@ -109,20 +109,23 @@ public class DynamicValueInjector {
                 String formulaPart = input.substring(pos, closingAt + 1);
                 partValue = calculateFormulaFromContext(scenarioContext, formulaPart);
                 jumpTo = closingAt + 1;
-            }
-            else if (anEnvVarIsStartingAt(input, pos)) {
+            } else if (anEnvVarMayBeStartingAt(input, pos)) {
                 int closingAt = input.indexOf("}}", pos + 2);
                 if (closingAt < 0) {
-                    throw new RuntimeException(
+                    throw new FunctionalTestException(
                             "'{{' is not matched with a '}}' for " + input + " at position: " + pos + ".");
                 }
-                partValue = EnvironmentVariableUtils
-                        .getRequiredVariable(input.substring(pos + 2, closingAt));
+                String envVarName = input.substring(pos + 2, closingAt);
+                if (envVarName.trim().length() == 0) {
+                    partValue = "";
+                } else {
+                    partValue = EnvironmentVariableUtils.getRequiredVariable(input.substring(pos + 2, closingAt));
+                }
                 jumpTo = closingAt + 2;
             }
             if (jumpTo > 0) {
                 pos = jumpTo;
-                if (partValue instanceof Number){
+                if (partValue instanceof Number) {
                     outputAsNumber = partValue;
                 } else {
                     outputIsString = true;
@@ -142,7 +145,7 @@ public class DynamicValueInjector {
         return input.substring(pos, pos + 2).equals("${");
     }
 
-    private boolean anEnvVarIsStartingAt(String input, int pos) {
+    private boolean anEnvVarMayBeStartingAt(String input, int pos) {
         if (pos >= input.length() - 1)
             return false;
         return input.substring(pos, pos + 2).equals("{{");
