@@ -186,7 +186,7 @@ public class DynamicValueInjector {
     }
 
     private Object calculateFormulaFromContext(Object container, String formula) {
-        if (formula.trim().equals("") || formula.trim().equalsIgnoreCase(EMPTY_STRING_MARKER)) {
+        if (formula.trim().equals("${}") || formula.trim().equalsIgnoreCase("${" + EMPTY_STRING_MARKER + "}")) {
             return "";
         }
         String[] fields = formula.substring(3).split("\\]\\[|\\]\\}");
