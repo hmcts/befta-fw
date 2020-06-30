@@ -51,7 +51,7 @@ public class HttpTestData {
         this.set_guid_(other.get_guid_());
         this.set_extends_(other.get_extends_());
         this.setTitle(other.getTitle());
-        this.setSpecs(new ArrayList<>(other.getSpecs()));
+        this.setSpecs(other.getSpecs() == null ? null : new ArrayList<>(other.getSpecs()));
         this.setProductName(other.getProductName());
         this.setOperationName(other.getOperationName());
         this.setMethod(other.getMethod());
