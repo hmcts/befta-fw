@@ -15,6 +15,7 @@ import uk.gov.hmcts.befta.data.HttpTestDataSource;
 import uk.gov.hmcts.befta.data.JsonStoreHttpTestDataSource;
 import uk.gov.hmcts.befta.data.ResponseData;
 import uk.gov.hmcts.befta.data.UserData;
+import uk.gov.hmcts.befta.exception.FunctionalTestException;
 import uk.gov.hmcts.befta.util.DynamicValueInjector;
 
 public class BackEndFunctionalTestScenarioContext {
@@ -60,6 +61,9 @@ public class BackEndFunctionalTestScenarioContext {
 
     public void initializeTestDataFor(String testDataId) {
         HttpTestData original = DATA_SOURCE.getDataForTestCall(testDataId);
+        if (original == null) {
+            throw new FunctionalTestException("No test data found with ID [" + testDataId + "].");
+        }
         testData = original == null ? null : new HttpTestData(original);
         dynamicValueInjector = new DynamicValueInjector(BeftaMain.getAdapter(), testData, this);
     }
