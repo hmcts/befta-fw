@@ -10,4 +10,10 @@
   "CaseTypeID" : "FT_MasterCaseType",
   "UserRole" : "[Claimant]",
   "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_MasterCaseType",
+  "UserRole" : "caseworker-caa",
+  "CRUD" : "CRUD"
 } ]

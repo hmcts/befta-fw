@@ -6,8 +6,7 @@
   "ListElementCode" : "",
   "Label" : "Text Field",
   "DisplayOrder" : 1,
-  "DisplayContextParameter" : "",
-  "UserRole" : ""
+  "DisplayContextParameter" : ""
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
@@ -16,6 +15,5 @@
   "ListElementCode" : "",
   "Label" : "Case Reference",
   "DisplayOrder" : 2,
-  "DisplayContextParameter" : "",
-  "UserRole" : ""
+  "DisplayContextParameter" : ""
 } ]

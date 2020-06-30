@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.BooleanNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.google.common.collect.Sets;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -14,14 +15,15 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
-import com.google.common.collect.Sets;
 import uk.gov.hmcts.befta.exception.InvalidTestDataException;
 import uk.gov.hmcts.befta.util.ReflectionUtils;
 
 public abstract class JsonStoreWithInheritance {
 
     private static final String INHERITANCE_APPLIED = "inheritanceApplied";
+    private static final String REPLACE_ARRAY_CONTENT = "__befta_replace__";
     protected static final String GUID = "_guid_";
+
     protected JsonNode rootNode;
     protected Map<String, JsonNode> nodeLibrary = new HashMap<>();
     protected Map<Class<?>, Map<String, ?>> objectLibraryPerTypes = new HashMap<>();
@@ -133,20 +135,29 @@ public abstract class JsonStoreWithInheritance {
             }
         }
 
-        for (final JsonNode jsonNode : object) inheritAndOverlayValuesFor(jsonNode);
+        for (final JsonNode jsonNode : object)
+            inheritAndOverlayValuesFor(jsonNode);
 
         if (object instanceof ObjectNode)
             ((ObjectNode) object).set(INHERITANCE_APPLIED, BooleanNode.TRUE);
     }
 
-    private void inheritAndOverlayChildValuesFromParent(final JsonNode object, final String fieldNameInParent, final JsonNode parentFieldCopy) {
+    private void inheritAndOverlayChildValuesFromParent(final JsonNode object, final String fieldNameInParent,
+            final JsonNode parentFieldCopy) {
         if (object.has(fieldNameInParent)) {
             JsonNode thisField = object.get(fieldNameInParent);
             if (thisField.isArray()) {
                 ((ArrayNode) thisField).forEach(element -> {
                     inheritAndOverlayValuesFor(element);
                 });
-                ((ArrayNode) parentFieldCopy).addAll((ArrayNode) thisField);
+                if (thisField.size() > 0 && REPLACE_ARRAY_CONTENT.equalsIgnoreCase(thisField.get(0).asText())) {
+                    ((ArrayNode) parentFieldCopy).removeAll();
+                    for (int e = 0; e < thisField.size(); e++) {
+                        ((ArrayNode) parentFieldCopy).add(thisField.get(e));
+                    }
+                } else {
+                    ((ArrayNode) parentFieldCopy).addAll((ArrayNode) thisField);
+                }
                 ((ObjectNode) object).set(fieldNameInParent, parentFieldCopy);
             } else if (thisField.isContainerNode()) {
                 inheritAndOverlayValuesFor(thisField);
@@ -177,10 +188,18 @@ public abstract class JsonStoreWithInheritance {
     }
 
     private void overlayFieldWith(JsonNode overlaidField, JsonNode overlayingField) {
-        if (!overlayingField.isArray()) {
-            Iterator<String> overlayingFields = overlayingField.fieldNames();
-            while (overlayingFields.hasNext()) {
-                String overlayingSubFieldName = overlayingFields.next();
+        if (overlayingField.isArray()) {
+            if (overlayingField.size() > 0 && REPLACE_ARRAY_CONTENT.equalsIgnoreCase(overlayingField.get(0).asText())) {
+                ((ArrayNode) overlaidField).removeAll();
+                for (int e = 1; e < overlayingField.size(); e++) {
+                    ((ArrayNode) overlaidField).add(overlayingField.get(e));
+                }
+            } else
+                ((ArrayNode) overlaidField).addAll((ArrayNode) overlayingField);
+        } else {
+            Iterator<String> overlayingSubfields = overlayingField.fieldNames();
+            while (overlayingSubfields.hasNext()) {
+                String overlayingSubFieldName = overlayingSubfields.next();
                 if (!isInheritanceMechanismField(overlayingSubFieldName)) {
                     JsonNode overlayingSubField = overlayingField.get(overlayingSubFieldName);
                     JsonNode overlaidSubField = overlaidField.get(overlayingSubFieldName);

@@ -7,8 +7,7 @@
   "Label" : "Text Field 1",
   "DisplayOrder" : 1,
   "ResultsOrdering" : "",
-  "DisplayContextParameter" : "",
-  "UserRole" : ""
+  "DisplayContextParameter" : ""
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
@@ -18,8 +17,7 @@
   "Label" : "Text Field 2",
   "DisplayOrder" : 2,
   "ResultsOrdering" : "",
-  "DisplayContextParameter" : "",
-  "UserRole" : ""
+  "DisplayContextParameter" : ""
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
@@ -29,6 +27,5 @@
   "Label" : "Text Field 0",
   "DisplayOrder" : 3,
   "ResultsOrdering" : "",
-  "DisplayContextParameter" : "",
-  "UserRole" : ""
+  "DisplayContextParameter" : ""
 } ]

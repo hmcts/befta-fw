@@ -6,8 +6,7 @@
   "ListElementCode" : "",
   "Label" : "Last State Modified Date",
   "DisplayOrder" : 1,
-  "DisplayContextParameter" : "#DATETIMEENTRY(yyyy)",
-  "UserRole" : ""
+  "DisplayContextParameter" : "#DATETIMEENTRY(yyyy)"
 }, {
   "LiveFrom" : "03/01/2017",
   "LiveTo" : "",
@@ -16,8 +15,7 @@
   "ListElementCode" : "",
   "Label" : "Formatted Date",
   "DisplayOrder" : 2,
-  "DisplayContextParameter" : "#DATETIMEENTRY(yyyy)",
-  "UserRole" : ""
+  "DisplayContextParameter" : "#DATETIMEENTRY(yyyy)"
 }, {
   "LiveFrom" : "04/01/2017",
   "LiveTo" : "",
@@ -26,8 +24,7 @@
   "ListElementCode" : "",
   "Label" : "Formatted DateTime",
   "DisplayOrder" : 3,
-  "DisplayContextParameter" : "#DATETIMEENTRY(yyyy-MM-dd'T'HH:mm:ss)",
-  "UserRole" : ""
+  "DisplayContextParameter" : "#DATETIMEENTRY(yyyy-MM-dd'T'HH:mm:ss)"
 }, {
   "LiveFrom" : "05/01/2017",
   "LiveTo" : "",
@@ -36,8 +33,7 @@
   "ListElementCode" : "",
   "Label" : "Standard Date",
   "DisplayOrder" : 4,
-  "DisplayContextParameter" : "",
-  "UserRole" : ""
+  "DisplayContextParameter" : ""
 }, {
   "LiveFrom" : "06/01/2017",
   "LiveTo" : "",
@@ -46,8 +42,7 @@
   "ListElementCode" : "",
   "Label" : "Standard DateTime",
   "DisplayOrder" : 5,
-  "DisplayContextParameter" : "",
-  "UserRole" : ""
+  "DisplayContextParameter" : ""
 }, {
   "LiveFrom" : "07/01/2017",
   "LiveTo" : "",
@@ -56,8 +51,7 @@
   "ListElementCode" : "",
   "Label" : "Date Collection",
   "DisplayOrder" : 6,
-  "DisplayContextParameter" : "#DATETIMEENTRY(yy-MM-dd)",
-  "UserRole" : ""
+  "DisplayContextParameter" : "#DATETIMEENTRY(yy-MM-dd)"
 }, {
   "LiveFrom" : "08/01/2017",
   "LiveTo" : "",
@@ -66,8 +60,7 @@
   "ListElementCode" : "",
   "Label" : "DateTime Collection",
   "DisplayOrder" : 7,
-  "DisplayContextParameter" : "#DATETIMEENTRY(yyyy-MM-dd)",
-  "UserRole" : ""
+  "DisplayContextParameter" : "#DATETIMEENTRY(yyyy-MM-dd)"
 }, {
   "LiveFrom" : "10/01/2017",
   "LiveTo" : "",
@@ -76,8 +69,7 @@
   "ListElementCode" : "",
   "Label" : "Collection Complex DateTime",
   "DisplayOrder" : 8,
-  "DisplayContextParameter" : "",
-  "UserRole" : ""
+  "DisplayContextParameter" : ""
 }, {
   "LiveFrom" : "11/01/2017",
   "LiveTo" : "",
@@ -86,8 +78,7 @@
   "ListElementCode" : "DateField",
   "Label" : "Complex Date",
   "DisplayOrder" : 9,
-  "DisplayContextParameter" : "",
-  "UserRole" : ""
+  "DisplayContextParameter" : ""
 }, {
   "LiveFrom" : "11/01/2017",
   "LiveTo" : "",
@@ -96,6 +87,5 @@
   "ListElementCode" : "DateTimeField",
   "Label" : "Complex DateTime",
   "DisplayOrder" : 10,
-  "DisplayContextParameter" : "",
-  "UserRole" : ""
+  "DisplayContextParameter" : ""
 } ]

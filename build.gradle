@@ -7,7 +7,7 @@ plugins {
 
 apply plugin: 'java'
 
-def buildNumber = System.getenv("RELEASE_VERSION")?.replace("refs/tags/", "") ?: "2.9.0-SNAPSHOT"
+def buildNumber = System.getenv("RELEASE_VERSION")?.replace("refs/tags/", "") ?: "3.4.0-SNAPSHOT"
 
 group 'uk.gov.hmcts'
 
@@ -129,6 +129,8 @@ dependencies {
     testCompile group: 'org.powermock', name: 'powermock-module-junit4', version: '2.0.0-beta.5'
     testCompile "org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}"
     testRuntime "org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}"
+    testRuntime "org.junit.platform:junit-platform-commons:1.5.2"
+    testRuntime "org.junit.platform:junit-platform-engine:1.6.2"
 }
 // end::dependencies[]
 

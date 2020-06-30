@@ -7,8 +7,7 @@
   "ListElementCode" : "",
   "DisplayOrder" : 1,
   "ResultsOrdering" : "",
-  "DisplayContextParameter" : "",
-  "UserRole" : ""
+  "DisplayContextParameter" : ""
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
@@ -18,6 +17,5 @@
   "ListElementCode" : "Name",
   "DisplayOrder" : 2,
   "ResultsOrdering" : "",
-  "DisplayContextParameter" : "",
-  "UserRole" : ""
+  "DisplayContextParameter" : ""
 } ]
