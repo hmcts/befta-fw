@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import io.cucumber.java.Scenario;
+import uk.gov.hmcts.befta.data.HttpTestData;
 import uk.gov.hmcts.befta.data.JsonStoreHttpTestDataSource;
 
 @RunWith(PowerMockRunner.class)
@@ -31,6 +32,12 @@ public class BackEndFunctionalTestScenarioContextTest {
     private JsonStoreHttpTestDataSource dataSource;
 
     @Mock
+    private HttpTestData s103TestData;
+
+    @Mock
+    private HttpTestData s456TestData;
+
+    @Mock
     private Scenario scenario;
 
     private static final String VALID_TAG_ID = "S-133";
@@ -39,6 +46,8 @@ public class BackEndFunctionalTestScenarioContextTest {
     public void setUp() throws Exception {
         whenNew(JsonStoreHttpTestDataSource.class).withAnyArguments().thenReturn(dataSource);
         context = new BackEndFunctionalTestScenarioContext();
+        when(dataSource.getDataForTestCall(VALID_TAG_ID)).thenReturn(s103TestData);
+        when(dataSource.getDataForTestCall("S-133,S-456")).thenReturn(s103TestData);
     }
 
     @Test
