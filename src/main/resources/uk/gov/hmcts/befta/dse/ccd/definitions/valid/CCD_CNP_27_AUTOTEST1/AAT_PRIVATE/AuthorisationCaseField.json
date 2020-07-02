@@ -2,6 +2,13 @@
   "LiveFrom" : "1/1/17",
   "LiveTo" : "",
   "CaseTypeID" : "AAT_PRIVATE",
+  "CaseFieldID" : "FixedListField",
+  "UserRole" : "caseworker-autotest1-private",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_PRIVATE",
   "CaseFieldID" : "TextField",
   "UserRole" : "caseworker-autotest1-private",
   "CRUD" : "CRU"
@@ -59,13 +66,6 @@
   "LiveTo" : "",
   "CaseTypeID" : "AAT_PRIVATE",
   "CaseFieldID" : "TextAreaField",
-  "UserRole" : "caseworker-autotest1-private",
-  "CRUD" : "CRU"
-}, {
-  "LiveFrom" : "1/1/17",
-  "LiveTo" : "",
-  "CaseTypeID" : "AAT_PRIVATE",
-  "CaseFieldID" : "FixedListField",
   "UserRole" : "caseworker-autotest1-private",
   "CRUD" : "CRU"
 }, {
@@ -107,13 +107,6 @@
   "LiveFrom" : "1/1/17",
   "LiveTo" : "",
   "CaseTypeID" : "AAT_PRIVATE",
-  "CaseFieldID" : "NumberField",
-  "UserRole" : "caseworker-autotest1-senior",
-  "CRUD" : "CRU"
-}, {
-  "LiveFrom" : "1/1/17",
-  "LiveTo" : "",
-  "CaseTypeID" : "AAT_PRIVATE",
   "CaseFieldID" : "YesOrNoField",
   "UserRole" : "caseworker-autotest1-senior",
   "CRUD" : "CRU"
@@ -122,6 +115,13 @@
   "LiveTo" : "",
   "CaseTypeID" : "AAT_PRIVATE",
   "CaseFieldID" : "PhoneUKField",
+  "UserRole" : "caseworker-autotest1-senior",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_PRIVATE",
+  "CaseFieldID" : "NumberField",
   "UserRole" : "caseworker-autotest1-senior",
   "CRUD" : "CRU"
 }, {
@@ -150,13 +150,6 @@
   "LiveTo" : "",
   "CaseTypeID" : "AAT_PRIVATE",
   "CaseFieldID" : "DateTimeField",
-  "UserRole" : "caseworker-autotest1-senior",
-  "CRUD" : "CRU"
-}, {
-  "LiveFrom" : "1/1/17",
-  "LiveTo" : "",
-  "CaseTypeID" : "AAT_PRIVATE",
-  "CaseFieldID" : "TextAreaField",
   "UserRole" : "caseworker-autotest1-senior",
   "CRUD" : "CRU"
 }, {

@@ -15,7 +15,8 @@
   "CallBackURLSubmittedEvent" : "",
   "RetriesTimeoutURLSubmittedEvent" : "",
   "SecurityClassification" : "PRIVATE",
-  "ShowSummary" : "Yes"
+  "ShowSummary" : "Yes",
+  "EndButtonLabel" : ""
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
@@ -33,7 +34,8 @@
   "CallBackURLSubmittedEvent" : "",
   "RetriesTimeoutURLSubmittedEvent" : "",
   "SecurityClassification" : "PRIVATE",
-  "ShowSummary" : "Yes"
+  "ShowSummary" : "Yes",
+  "EndButtonLabel" : ""
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
@@ -51,7 +53,8 @@
   "CallBackURLSubmittedEvent" : "",
   "RetriesTimeoutURLSubmittedEvent" : "",
   "SecurityClassification" : "PRIVATE",
-  "ShowSummary" : "Yes"
+  "ShowSummary" : "Yes",
+  "EndButtonLabel" : ""
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
@@ -69,7 +72,8 @@
   "CallBackURLSubmittedEvent" : "",
   "RetriesTimeoutURLSubmittedEvent" : "",
   "SecurityClassification" : "PRIVATE",
-  "ShowSummary" : "Yes"
+  "ShowSummary" : "Yes",
+  "EndButtonLabel" : ""
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
@@ -87,7 +91,8 @@
   "CallBackURLSubmittedEvent" : "",
   "RetriesTimeoutURLSubmittedEvent" : "",
   "SecurityClassification" : "PRIVATE",
-  "ShowSummary" : "Yes"
+  "ShowSummary" : "Yes",
+  "EndButtonLabel" : ""
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
@@ -105,5 +110,6 @@
   "CallBackURLSubmittedEvent" : "",
   "RetriesTimeoutURLSubmittedEvent" : "",
   "SecurityClassification" : "PRIVATE",
-  "ShowSummary" : "No"
+  "ShowSummary" : "No",
+  "EndButtonLabel" : ""
 } ]
