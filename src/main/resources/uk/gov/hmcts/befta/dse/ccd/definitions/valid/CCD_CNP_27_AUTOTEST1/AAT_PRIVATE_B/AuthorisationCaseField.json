@@ -1,0 +1,22 @@
+[ {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_PRIVATE_B",
+  "CaseFieldID" : "TextField",
+  "UserRole" : "caseworker-autotest1-private",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_PRIVATE_B",
+  "CaseFieldID" : "TextField",
+  "UserRole" : "caseworker-autotest1-solicitor",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_PRIVATE_B",
+  "CaseFieldID" : "TextField",
+  "UserRole" : "caseworker-autotest1-senior",
+  "CRUD" : "CRU"
+} ]

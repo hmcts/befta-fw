@@ -22,4 +22,10 @@
   "CaseTypeID" : "AAT_PRIVATE",
   "UserRole" : "caseworker-autotest1-solicitor",
   "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_PRIVATE",
+  "UserRole" : "[DEFENDANT]",
+  "CRUD" : "CRUD"
 } ]

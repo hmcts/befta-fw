@@ -8,4 +8,14 @@
   "PrintableDocumentsUrl" : "",
   "RetriesTimeoutURLPrintEvent" : "",
   "SecurityClassification" : "PRIVATE"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "AAT_PRIVATE_B",
+  "Name" : "Case type for AAT_PRIVATE_B",
+  "Description" : "CaseType with restricted crud access",
+  "JurisdictionID" : "AUTOTEST1",
+  "PrintableDocumentsUrl" : "",
+  "RetriesTimeoutURLPrintEvent" : "",
+  "SecurityClassification" : "PRIVATE"
 } ]
