@@ -3,6 +3,7 @@ package uk.gov.hmcts.befta.dse.ccd.definition.converter;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import uk.gov.hmcts.befta.exception.DefinitionTransformerException;
 
@@ -26,7 +27,7 @@ public class JsonTransformer {
             "AuthorisationCaseField", "AuthorisationCaseState", "AuthorisationCaseType", "AuthorisationComplexType",
             "CaseEventToFields", "CaseField", "CaseRoles", "CaseTypeTab" ,"SearchInputFields", "SearchResultFields", "State",
             "WorkBasketInputFields", "WorkBasketResultFields", "Category", "Banner", "CaseType", "ComplexTypes", "EventToComplexTypes",
-            "FixedLists", "Jurisdiction", "UserProfile","SearchAlias");
+            "FixedLists", "Jurisdiction", "UserProfile","SearchAlias", "SearchCasesResultFields");
 
     private Map<String, ArrayNode> defFileMap;
 
@@ -63,14 +64,17 @@ public class JsonTransformer {
         Map<String, ArrayNode> defFileMap = SHEET_NAMES.stream().collect(Collectors.toMap(Function.identity(), sheetName -> objectMapper.createArrayNode()));
         for (final File subFolder : Objects.requireNonNull(jurisdictionDir.listFiles())) {
             for (final File jsonFile : Objects.requireNonNull(subFolder.listFiles())){
+                String sheet = null;
                 try {
                     JsonNode rootSheetArray = objectMapper.readTree(jsonFile);
                     for (JsonNode sheetRow : rootSheetArray){
-                        String sheet = jsonFile.getName().replace(".json","");
+                        sheet = jsonFile.getName().replace(".json","");
                         defFileMap.get(sheet).add(sheetRow);
                     }
                 } catch (IOException e) {
                     throw new DefinitionTransformerException("Unable to read json file:" + jsonFile.getPath(), e);
+                } catch (NullPointerException e){
+                    throw new DefinitionTransformerException("May be a problem generating sheet: " + sheet, e);
                 }
             }
 
