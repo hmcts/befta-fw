@@ -46,6 +46,8 @@ import uk.gov.hmcts.befta.util.MapVerifier;
 
 public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFunctionalTestAutomationDSL {
 
+    static final String PREREQUISITE_SPEC = "As a prerequisite";
+
     private Logger logger = LoggerFactory.getLogger(DefaultBackEndFunctionalTestScenarioPlayer.class);
 
     private final BackEndFunctionalTestScenarioContext scenarioContext;
@@ -141,12 +143,57 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
 
     private void prepareARequestWithAppropriateValues(BackEndFunctionalTestScenarioContext scenarioContext)
             throws IOException {
+        runPrerequisitesSpecifiedInTheContext(scenarioContext);
         scenarioContext.injectDataFromContextBeforeApiCall();
         RequestSpecification raRequest = buildRestAssuredRequestWith(scenarioContext.getTestData());
 
         scenarioContext.setTheRequest(raRequest);
         scenario.write("Request prepared with the following variables: "
                 + JsonUtils.getPrettyJsonFromObject(scenarioContext.getTestData().getRequest()));
+    }
+
+    private void runPrerequisitesSpecifiedInTheContext(final BackEndFunctionalTestScenarioContext scenarioContext)
+            throws IOException {
+
+        List<Object> prerequisites = scenarioContext.getTestData().getPrerequisites();
+
+        if (prerequisites != null && !prerequisites.isEmpty()) {
+            scenario.write("Prerequisite processing started: [" + scenarioContext.getReference() + "]");
+
+            // prerequisites as list of objects
+            for (Object prerequisite: prerequisites) {
+                // if prerequisite is just a string
+                if (prerequisite instanceof String) {
+                    String prerequisiteAsString = (String)prerequisite;
+                    runSinglePrerequisite(scenarioContext, prerequisiteAsString, prerequisiteAsString);
+
+                    // if prerequisites is a map of pairs: "reference": "guid"
+                } else if (prerequisite instanceof Map) {
+                    @SuppressWarnings("unchecked")
+                    Map<String, String> prerequisiteAsMap = (Map<String, String>) prerequisite;
+                    for (Map.Entry<String,String> prerequisiteAsEntry : prerequisiteAsMap.entrySet()) {
+                        runSinglePrerequisite(scenarioContext, prerequisiteAsEntry.getKey(), prerequisiteAsEntry.getValue());
+                    }
+
+                } else {
+                    throw new FunctionalTestException("Unrecognised prerequisite data type");
+                }
+            }
+
+            scenario.write("Prerequisite processing complete: [" + scenarioContext.getReference() + "]");
+        }
+    }
+
+    private void runSinglePrerequisite(final BackEndFunctionalTestScenarioContext scenarioContext, String testDataReference, String testDataId)
+            throws IOException {
+
+        // avoid loops by skipping references that have already been loaded
+        if (!this.scenarioContext.getChildContexts().containsKey(testDataReference)) {
+            scenario.write("Prerequisite: [" + scenarioContext.getReference() + "].[" + testDataReference + "] from [" + testDataId + "]");
+            performAndVerifyTheExpectedResponseForAnApiCall(PREREQUISITE_SPEC, testDataId, testDataReference);
+        } else {
+            scenario.write("Skipping existing prerequisite: [" + scenarioContext.getReference() + "].[" + testDataReference + "]");
+        }
     }
 
     private RequestSpecification buildRestAssuredRequestWith(HttpTestData testData) throws IOException {
@@ -437,9 +484,18 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     @Then("another call [{}] will get the expected response as in [{}]")
     public void performAndVerifyTheExpectedResponseForAnApiCall(String testDataSpec, String testDataId)
             throws IOException {
+        performAndVerifyTheExpectedResponseForAnApiCall(testDataSpec, testDataId, null);
+    }
+
+    private void performAndVerifyTheExpectedResponseForAnApiCall(String testDataSpec, String testDataId, String testDataReference)
+            throws IOException {
         BackEndFunctionalTestScenarioContext subcontext = new BackEndFunctionalTestScenarioContext();
         subcontext.initializeTestDataFor(testDataId);
-        this.scenarioContext.addChildContext(subcontext);
+        if (testDataReference == null) {
+            this.scenarioContext.addChildContext(subcontext);
+        } else {
+            this.scenarioContext.addChildContextByReference(testDataReference, subcontext);
+        }
         verifyAllUsersInTheContext(subcontext);
         prepareARequestWithAppropriateValues(subcontext);
         verifyTheRequestInTheContextWithAParticularSpecification(subcontext, testDataSpec);

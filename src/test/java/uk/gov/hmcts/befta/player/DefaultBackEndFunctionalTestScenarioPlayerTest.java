@@ -20,12 +20,14 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -156,7 +158,6 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
 
     @Test
     public void shouldPrepareARequestWithAppropriateValuesUsingMaxData() throws IOException {
-        HttpTestData testData = new HttpTestData();
         RequestData requestData = new RequestData();
         requestData.setHeaders(new HashMap<String, Object>() {
             private static final long serialVersionUID = 1L;
@@ -186,6 +187,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
                 put("key2", "value 2");
             }
         });
+        HttpTestData testData = new HttpTestData();
         testData.setRequest(requestData);
         testData.setMethod("GET");
 
@@ -219,6 +221,206 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         scenarioPlayer.prepareARequestWithAppropriateValues();
 
         verifyNoMoreInteractions(requestSpecification);
+    }
+
+    @Test
+    public void shouldPrepareARequestWithAppropriateValuesAndRunPrerequisiteSpecifiedByString() throws Exception {
+        // ARRANGE
+        HttpTestData testData = new HttpTestData();
+        RequestData requestData = new RequestData();
+        testData.setRequest(requestData);
+
+        when(RestAssured.given()).thenReturn(requestSpecification);
+        when(context.getTestData()).thenReturn(testData);
+        testData.setMethod("GET");
+
+        String prerequisiteGuid = "PR1";
+        BackEndFunctionalTestScenarioContext prerequisiteContext = createAndPrepareMockPrerequisiteContext(prerequisiteGuid);
+        whenNew(BackEndFunctionalTestScenarioContext.class).withNoArguments().thenReturn(prerequisiteContext);
+        testData.setPrerequisites(Collections.singletonList(prerequisiteGuid));
+
+        // ACT
+        scenarioPlayer.prepareARequestWithAppropriateValues();
+
+        // ASSERT
+        verify(this.context, times(1)).addChildContextByReference(eq(prerequisiteGuid), eq(prerequisiteContext));
+        verify(prerequisiteContext, times(1)).setTheResponse(any());
+    }
+
+    @Test
+    public void shouldPrepareARequestWithAppropriateValuesAndRunPrerequisiteSpecifiedByMap() throws Exception {
+        // ARRANGE
+        HttpTestData testData = new HttpTestData();
+        RequestData requestData = new RequestData();
+        testData.setRequest(requestData);
+
+        when(RestAssured.given()).thenReturn(requestSpecification);
+        when(context.getTestData()).thenReturn(testData);
+        testData.setMethod("GET");
+
+        // i.e. call same prerequisite 3 time but using unique references
+        String prerequisiteGuid = "PR1";
+        String prerequisiteReference1 = "PR1_Call1";
+        String prerequisiteReference2 = "PR1_Call2";
+        String prerequisiteReference3 = "PR1_Call3";
+        BackEndFunctionalTestScenarioContext prerequisiteContext1 = createAndPrepareMockPrerequisiteContext(prerequisiteGuid);
+        BackEndFunctionalTestScenarioContext prerequisiteContext2 = createAndPrepareMockPrerequisiteContext(prerequisiteGuid);
+        BackEndFunctionalTestScenarioContext prerequisiteContext3 = createAndPrepareMockPrerequisiteContext(prerequisiteGuid);
+        whenNew(BackEndFunctionalTestScenarioContext.class).withNoArguments()
+                .thenReturn(prerequisiteContext1, prerequisiteContext2, prerequisiteContext3);
+
+        testData.setPrerequisites(Arrays.asList(new LinkedHashMap<String, String>() {
+            {
+                put(prerequisiteReference1, prerequisiteGuid);
+                put(prerequisiteReference2, prerequisiteGuid);
+            }
+        }, new HashMap<String, String>() {
+            {
+                put(prerequisiteReference3, prerequisiteGuid);
+            }
+        }));
+
+        // ACT
+        scenarioPlayer.prepareARequestWithAppropriateValues();
+
+        // ASSERT
+        verify(this.context, times(1)).addChildContextByReference(eq(prerequisiteReference1), eq(prerequisiteContext1));
+        verify(this.context, times(1)).addChildContextByReference(eq(prerequisiteReference2), eq(prerequisiteContext2));
+        verify(this.context, times(1)).addChildContextByReference(eq(prerequisiteReference3), eq(prerequisiteContext3));
+        verify(prerequisiteContext1, times(1)).setTheResponse(any());
+        verify(prerequisiteContext2, times(1)).setTheResponse(any());
+        verify(prerequisiteContext3, times(1)).setTheResponse(any());
+    }
+
+    @Test
+    public void shouldFailToPrepareARequestWithAppropriateValuesIfPrerequisiteSpecifiedInWrongFormat() throws Exception {
+        // ARRANGE
+        HttpTestData testData = new HttpTestData();
+        RequestData requestData = new RequestData();
+        testData.setRequest(requestData);
+
+        when(RestAssured.given()).thenReturn(requestSpecification);
+        when(context.getTestData()).thenReturn(testData);
+        testData.setMethod("GET");
+
+        testData.setPrerequisites(Collections.singletonList(new Object()));
+
+        exceptionRule.expect(FunctionalTestException.class);
+        exceptionRule.expectMessage(containsString("Unrecognised prerequisite data type"));
+
+        // ACT
+        scenarioPlayer.prepareARequestWithAppropriateValues();
+
+        // ASSERT
+        // see exceptionRule above
+    }
+
+    @Test
+    public void shouldFailToPrepareARequestWithAppropriateValuesIfPrerequisiteCallFailsToVerify() throws Exception {
+        // ARRANGE
+        HttpTestData testData = new HttpTestData();
+        RequestData requestData = new RequestData();
+        testData.setRequest(requestData);
+
+        when(RestAssured.given()).thenReturn(requestSpecification);
+        when(context.getTestData()).thenReturn(testData);
+        testData.setMethod("GET");
+
+        String prerequisiteGuid = "PR1";
+        BackEndFunctionalTestScenarioContext prerequisiteContext = createAndPrepareMockPrerequisiteContext(prerequisiteGuid);
+        whenNew(BackEndFunctionalTestScenarioContext.class).withNoArguments().thenReturn(prerequisiteContext);
+        testData.setPrerequisites(Collections.singletonList(prerequisiteGuid));
+
+        when(verificationResult.isVerified()).thenReturn(false);
+
+        when(verificationResult.getAllIssues()).thenReturn(new ArrayList<String>() {
+            private static final long serialVersionUID = 1L;
+            {
+                add("Test issue 1");
+                add("Test issue 2");
+            }
+        });
+
+        exceptionRule.expect(AssertionError.class);
+        exceptionRule.expectMessage(containsString("Test issue 1"));
+        exceptionRule.expectMessage(containsString("Test issue 2"));
+
+        // ACT
+        scenarioPlayer.prepareARequestWithAppropriateValues();
+
+        // ASSERT
+        // see exceptionRule above
+    }
+
+    @Test
+    public void shouldPrepareARequestWithAppropriateValuesAndSkipRepeatedPrerequisites() throws Exception {
+        // ARRANGE
+        HttpTestData testData = new HttpTestData();
+        RequestData requestData = new RequestData();
+        testData.setRequest(requestData);
+
+        when(RestAssured.given()).thenReturn(requestSpecification);
+        when(context.getTestData()).thenReturn(testData);
+        testData.setMethod("GET");
+
+        String prerequisiteGuid1 = "PR1";
+        String prerequisiteGuid2 = "PR2";
+        BackEndFunctionalTestScenarioContext prerequisiteContext1 = createAndPrepareMockPrerequisiteContext(prerequisiteGuid1);
+        BackEndFunctionalTestScenarioContext prerequisiteContext2 = createAndPrepareMockPrerequisiteContext(prerequisiteGuid2);
+        whenNew(BackEndFunctionalTestScenarioContext.class).withNoArguments().thenReturn(prerequisiteContext1, prerequisiteContext2, prerequisiteContext1);
+
+        // test -> PR1 -> PR2 -> PR1
+        testData.setPrerequisites(Collections.singletonList(prerequisiteGuid1));
+        prerequisiteContext1.getTestData().setPrerequisites(Collections.singletonList(prerequisiteGuid2));
+        prerequisiteContext2.getTestData().setPrerequisites(Collections.singletonList(prerequisiteGuid1));
+
+        when(context.getChildContexts())
+            .thenReturn(
+                // first call: none,
+                new LinkedHashMap<String, BackEndFunctionalTestScenarioContext>() {}
+            ).thenReturn(
+                // second call: PR1
+                new LinkedHashMap<String, BackEndFunctionalTestScenarioContext>() {
+                    {
+                        put(prerequisiteGuid1, prerequisiteContext1);
+                    }
+                }
+            ).thenReturn(
+                // third call: PR1 and PR2
+                new LinkedHashMap<String, BackEndFunctionalTestScenarioContext>() {
+                    {
+                        put(prerequisiteGuid1, prerequisiteContext1);
+                        put(prerequisiteGuid2, prerequisiteContext2);
+                    }
+                }
+            );
+
+        // ACT
+        scenarioPlayer.prepareARequestWithAppropriateValues();
+
+        // ASSERT
+        verify(this.context, times(1)).addChildContextByReference(eq(prerequisiteGuid1), eq(prerequisiteContext1));
+        verify(this.context, times(1)).addChildContextByReference(eq(prerequisiteGuid2), eq(prerequisiteContext2));
+        verify(prerequisiteContext1, times(1)).setTheResponse(any());
+        verify(prerequisiteContext2, times(1)).setTheResponse(any());
+        verify(this.scenario).write(eq("Skipping existing prerequisite: [PR2].[PR1]")); // i.e. PR1 has been repeated in PR2
+    }
+
+    @Test
+    public void shouldPerformAndVerifyTheExpectedResponseForAnApiCallAndAddAsChildContext() throws Exception {
+        // ARRANGE
+        String testDataId = "TD1";
+        String testDataSpec = "Spec1";
+        BackEndFunctionalTestScenarioContext testDataContext = createAndPrepareTestScenarioContext(testDataSpec, testDataId);
+        whenNew(BackEndFunctionalTestScenarioContext.class).withNoArguments().thenReturn(testDataContext);
+
+        // ACT
+        scenarioPlayer.performAndVerifyTheExpectedResponseForAnApiCall(testDataSpec, testDataId);
+
+        // ASSERT
+        verify(this.context, times(1)).addChildContext(eq(testDataContext));
+        verify(testDataContext, times(1)).initializeTestDataFor(eq(testDataId));
+        verify(testDataContext, times(1)).setTheResponse(any());
     }
 
     @Test
@@ -419,11 +621,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         final String methodType = "POST";
         final String uri = "URI";
         final String bodyString = "{}";
-        Map<String, Object> body = mock(Map.class);
         HttpTestData testData = mock(HttpTestData.class);
-        Response response = mock(Response.class);
-        ResponseBody responseBody = mock(ResponseBody.class);
-        QueryableRequestSpecification queryableRequest = mock(QueryableRequestSpecification.class);
 
         when(testData.meetsOperationOfProduct(eq(PRODUCT_NAME), eq(OPERATION))).thenReturn(true);
         when(testData.getMethod()).thenReturn(methodType);
@@ -432,14 +630,21 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         when(context.getTestData()).thenReturn(testData);
         testData.setMethod("POST");
         when(context.getTheRequest()).thenReturn(requestSpecification);
+
+        Response response = mock(Response.class);
         when(response.getHeaders())
-                .thenReturn(new Headers(Arrays.asList(new Header("Content-Type", "application/json;charset=UTF-8"))));
+                .thenReturn(new Headers(Collections.singletonList(new Header("Content-Type", "application/json;charset=UTF-8"))));
         when(response.getStatusCode()).thenReturn(200);
-        when(response.getBody()).thenReturn(responseBody);
         when(response.contentType()).thenReturn("application/json;charset=UTF-8");
-        when(responseBody.asString()).thenReturn(bodyString);
         when(requestSpecification.request(eq("POST"), eq(uri))).thenReturn(response);
+        QueryableRequestSpecification queryableRequest = mock(QueryableRequestSpecification.class);
         when(SpecificationQuerier.query(eq(requestSpecification))).thenReturn(queryableRequest);
+
+        ResponseBody responseBody = mock(ResponseBody.class);
+        when(response.getBody()).thenReturn(responseBody);
+        when(responseBody.asString()).thenReturn(bodyString);
+
+        Map<String, Object> body = mock(Map.class);
         when(JsonUtils.readObjectFromJsonText(any(), any())).thenReturn(body);
 
         scenarioPlayer.submitTheRequestToCallAnOperationOfAProduct(OPERATION, PRODUCT_NAME);
@@ -488,10 +693,67 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         return responseData;
     }
 
+    @SuppressWarnings("SameParameterValue")
     private UserData createUserData(String username, String password) {
         UserData userData = mock(UserData.class);
         when(userData.getUsername()).thenReturn(username);
         when(userData.getPassword()).thenReturn(password);
         return userData;
     }
+
+    private BackEndFunctionalTestScenarioContext createAndPrepareMockPrerequisiteContext(String guid) {
+        return createAndPrepareTestScenarioContext(DefaultBackEndFunctionalTestScenarioPlayer.PREREQUISITE_SPEC, guid);
+    }
+
+    private BackEndFunctionalTestScenarioContext createAndPrepareTestScenarioContext(String testDataSpec, String testDataId) {
+
+        RequestData requestData = new RequestData();
+        ResponseData expectedResponseData = new ResponseData();
+        expectedResponseData.setHeaders(new HashMap<>());
+
+        // test data
+        HttpTestData testData = new HttpTestData();
+        testData.setRequest(requestData);
+        testData.setExpectedResponse(expectedResponseData);
+        testData.set_guid_(testDataId);
+        testData.setSpecs(Collections.singletonList(testDataSpec));
+        testData.setOperationName("GET " + testDataId);
+        testData.setProductName("Test Product Name");
+
+        String uri = "http://localhost/" + testDataId;
+        testData.setUri(uri);
+        testData.setMethod("GET");
+
+        // response
+        Response response = Mockito.mock(Response.class);
+        when(response.getHeaders())
+                .thenReturn(new Headers(Collections.singletonList(new Header("Content-Type", "application/json;charset=UTF-8"))));
+        when(response.getStatusCode()).thenReturn(200);
+        when(response.contentType()).thenReturn("application/json;charset=UTF-8");
+
+        ResponseBody<?> responseBody = mock(ResponseBody.class);
+        when(responseBody.asString()).thenReturn("{}");
+        when(response.getBody()).thenReturn(responseBody);
+
+        // request
+        RequestSpecification requestSpecification = Mockito.mock(RequestSpecification.class);
+        QueryableRequestSpecification queryableRequest = mock(QueryableRequestSpecification.class);
+
+        when(requestSpecification.request(eq("GET"), eq(uri))).thenReturn(response);
+        when(SpecificationQuerier.query(eq(requestSpecification))).thenReturn(queryableRequest);
+
+        when(mapVerifier.verifyMap(any(), any())).thenReturn(verificationResult);
+        when(verificationResult.isVerified()).thenReturn(true);
+
+        // context
+        BackEndFunctionalTestScenarioContext context = Mockito.mock(BackEndFunctionalTestScenarioContext.class);
+
+        when(context.getTestData()).thenReturn(testData);
+        when(context.getTheRequest()).thenReturn(requestSpecification);
+        when(context.getTheResponse()).thenReturn(expectedResponseData);
+        when(context.getReference()).thenReturn(testDataId);
+
+        return context;
+    }
+
 }
