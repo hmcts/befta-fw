@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
@@ -49,6 +50,7 @@ import uk.gov.hmcts.befta.data.RequestData;
 import uk.gov.hmcts.befta.data.ResponseData;
 import uk.gov.hmcts.befta.data.UserData;
 import uk.gov.hmcts.befta.exception.FunctionalTestException;
+import uk.gov.hmcts.befta.exception.InvalidTestDataException;
 import uk.gov.hmcts.befta.exception.UnconfirmedApiCallException;
 import uk.gov.hmcts.befta.exception.UnconfirmedDataSpecException;
 import uk.gov.hmcts.befta.util.DynamicValueInjector;
@@ -234,16 +236,16 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         when(context.getTestData()).thenReturn(testData);
         testData.setMethod("GET");
 
-        String prerequisiteGuid = "PR1";
-        BackEndFunctionalTestScenarioContext prerequisiteContext = createAndPrepareMockPrerequisiteContext(prerequisiteGuid);
+        String prerequisiteTestDataId = "PR1";
+        BackEndFunctionalTestScenarioContext prerequisiteContext = createAndPrepareMockPrerequisiteContext(prerequisiteTestDataId, context);
         whenNew(BackEndFunctionalTestScenarioContext.class).withNoArguments().thenReturn(prerequisiteContext);
-        testData.setPrerequisites(Collections.singletonList(prerequisiteGuid));
+        testData.setPrerequisites(Collections.singletonList(prerequisiteTestDataId));
 
         // ACT
         scenarioPlayer.prepareARequestWithAppropriateValues();
 
         // ASSERT
-        verify(this.context, times(1)).addChildContextByReference(eq(prerequisiteGuid), eq(prerequisiteContext));
+        verify(this.context, times(1)).addChildContext(eq(prerequisiteTestDataId), eq(prerequisiteContext));
         verify(prerequisiteContext, times(1)).setTheResponse(any());
     }
 
@@ -258,25 +260,25 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         when(context.getTestData()).thenReturn(testData);
         testData.setMethod("GET");
 
-        // i.e. call same prerequisite 3 time but using unique references
-        String prerequisiteGuid = "PR1";
-        String prerequisiteReference1 = "PR1_Call1";
-        String prerequisiteReference2 = "PR1_Call2";
-        String prerequisiteReference3 = "PR1_Call3";
-        BackEndFunctionalTestScenarioContext prerequisiteContext1 = createAndPrepareMockPrerequisiteContext(prerequisiteGuid);
-        BackEndFunctionalTestScenarioContext prerequisiteContext2 = createAndPrepareMockPrerequisiteContext(prerequisiteGuid);
-        BackEndFunctionalTestScenarioContext prerequisiteContext3 = createAndPrepareMockPrerequisiteContext(prerequisiteGuid);
+        // i.e. call same prerequisite 3 time but using unique context_ids
+        String prerequisiteTestDataId = "PR1";
+        String prerequisiteContextId1 = "PR1_Call1";
+        String prerequisiteContextId2 = "PR1_Call2";
+        String prerequisiteContextId3 = "PR1_Call3";
+        BackEndFunctionalTestScenarioContext prerequisiteContext1 = createAndPrepareMockPrerequisiteContext(prerequisiteTestDataId, context);
+        BackEndFunctionalTestScenarioContext prerequisiteContext2 = createAndPrepareMockPrerequisiteContext(prerequisiteTestDataId, context);
+        BackEndFunctionalTestScenarioContext prerequisiteContext3 = createAndPrepareMockPrerequisiteContext(prerequisiteTestDataId, context);
         whenNew(BackEndFunctionalTestScenarioContext.class).withNoArguments()
                 .thenReturn(prerequisiteContext1, prerequisiteContext2, prerequisiteContext3);
 
         testData.setPrerequisites(Arrays.asList(new LinkedHashMap<String, String>() {
             {
-                put(prerequisiteReference1, prerequisiteGuid);
-                put(prerequisiteReference2, prerequisiteGuid);
+                put(prerequisiteContextId1, prerequisiteTestDataId);
+                put(prerequisiteContextId2, prerequisiteTestDataId);
             }
         }, new HashMap<String, String>() {
             {
-                put(prerequisiteReference3, prerequisiteGuid);
+                put(prerequisiteContextId3, prerequisiteTestDataId);
             }
         }));
 
@@ -284,12 +286,63 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         scenarioPlayer.prepareARequestWithAppropriateValues();
 
         // ASSERT
-        verify(this.context, times(1)).addChildContextByReference(eq(prerequisiteReference1), eq(prerequisiteContext1));
-        verify(this.context, times(1)).addChildContextByReference(eq(prerequisiteReference2), eq(prerequisiteContext2));
-        verify(this.context, times(1)).addChildContextByReference(eq(prerequisiteReference3), eq(prerequisiteContext3));
+        verify(this.context, times(1)).addChildContext(eq(prerequisiteContextId1), eq(prerequisiteContext1));
+        verify(this.context, times(1)).addChildContext(eq(prerequisiteContextId2), eq(prerequisiteContext2));
+        verify(this.context, times(1)).addChildContext(eq(prerequisiteContextId3), eq(prerequisiteContext3));
         verify(prerequisiteContext1, times(1)).setTheResponse(any());
         verify(prerequisiteContext2, times(1)).setTheResponse(any());
         verify(prerequisiteContext3, times(1)).setTheResponse(any());
+    }
+
+    @Test
+    public void shouldPrepareARequestWithAppropriateValuesAndSkipAlreadyExecutedPrerequisites() throws Exception {
+        // ARRANGE
+        String testContextId = "TEST_CONTEXT_ID";
+        when(context.getContextId()).thenReturn(testContextId);
+
+        HttpTestData testData = new HttpTestData();
+        RequestData requestData = new RequestData();
+        testData.setRequest(requestData);
+
+        when(RestAssured.given()).thenReturn(requestSpecification);
+        when(context.getTestData()).thenReturn(testData);
+        testData.setMethod("GET");
+
+        String testDataId1 = "TEST1";
+        String testDataId2 = "TEST2";
+        BackEndFunctionalTestScenarioContext prerequisiteContext1 = createAndPrepareMockPrerequisiteContext(testDataId1, context);
+        BackEndFunctionalTestScenarioContext prerequisiteContext2 = createAndPrepareMockPrerequisiteContext(testDataId2, context);
+        whenNew(BackEndFunctionalTestScenarioContext.class).withNoArguments().thenReturn(prerequisiteContext1, prerequisiteContext2);
+
+        // for simplicity add prerequisites just using strings of test data ids
+        testData.setPrerequisites(Arrays.asList(testDataId1, testDataId2));
+
+        // add child contexts (to mimic other steps) using matching IDs
+        BackEndFunctionalTestScenarioContext childContext1 = createAndPrepareTestScenarioContext("SPEC1", testDataId1);
+        BackEndFunctionalTestScenarioContext childContext2 = createAndPrepareTestScenarioContext("SPEC2", testDataId2);
+
+        // configure child context 2 as though it is already executed
+        childContext2.getTestData().setActualResponse(new ResponseData());
+
+        when(context.getChildContexts()).thenReturn(
+            new LinkedHashMap<String, BackEndFunctionalTestScenarioContext>() {
+                {
+                    // NB: steps use IDs as contextId
+                    put(testDataId1, childContext1);
+                    put(testDataId2, childContext2);
+                }
+            }
+        );
+
+        // ACT
+        scenarioPlayer.prepareARequestWithAppropriateValues();
+
+        // ASSERT
+        verify(this.context, times(1)).addChildContext(any(), eq(prerequisiteContext1));
+        verify(this.context, never()).addChildContext(any(), eq(prerequisiteContext2));
+        verify(prerequisiteContext1, times(1)).setTheResponse(any());
+        verify(prerequisiteContext2, never()).setTheResponse(any());
+        verify(this.scenario).write(eq("Skipping prerequisite: [TEST_CONTEXT_ID].[TEST2]")); // i.e. TEST2 already executed
     }
 
     @Test
@@ -326,10 +379,10 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         when(context.getTestData()).thenReturn(testData);
         testData.setMethod("GET");
 
-        String prerequisiteGuid = "PR1";
-        BackEndFunctionalTestScenarioContext prerequisiteContext = createAndPrepareMockPrerequisiteContext(prerequisiteGuid);
+        String prerequisiteTestDataId = "PR1";
+        BackEndFunctionalTestScenarioContext prerequisiteContext = createAndPrepareMockPrerequisiteContext(prerequisiteTestDataId, context);
         whenNew(BackEndFunctionalTestScenarioContext.class).withNoArguments().thenReturn(prerequisiteContext);
-        testData.setPrerequisites(Collections.singletonList(prerequisiteGuid));
+        testData.setPrerequisites(Collections.singletonList(prerequisiteTestDataId));
 
         when(verificationResult.isVerified()).thenReturn(false);
 
@@ -353,7 +406,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
     }
 
     @Test
-    public void shouldPrepareARequestWithAppropriateValuesAndSkipRepeatedPrerequisites() throws Exception {
+    public void shouldFailToPrepareARequestWithAppropriateValuesIfCyclicPrerequisiteDependencyDetected() throws Exception {
         // ARRANGE
         HttpTestData testData = new HttpTestData();
         RequestData requestData = new RequestData();
@@ -363,47 +416,27 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         when(context.getTestData()).thenReturn(testData);
         testData.setMethod("GET");
 
-        String prerequisiteGuid1 = "PR1";
-        String prerequisiteGuid2 = "PR2";
-        BackEndFunctionalTestScenarioContext prerequisiteContext1 = createAndPrepareMockPrerequisiteContext(prerequisiteGuid1);
-        BackEndFunctionalTestScenarioContext prerequisiteContext2 = createAndPrepareMockPrerequisiteContext(prerequisiteGuid2);
+        // test -> PR1 -> PR2 -> PR1
+        String prerequisiteTestDataId1 = "PR1";
+        String prerequisiteTestDataId2 = "PR2";
+        BackEndFunctionalTestScenarioContext prerequisiteContext1 = createAndPrepareMockPrerequisiteContext(prerequisiteTestDataId1, context);
+        BackEndFunctionalTestScenarioContext prerequisiteContext2 = createAndPrepareMockPrerequisiteContext(prerequisiteTestDataId2, prerequisiteContext1);
         whenNew(BackEndFunctionalTestScenarioContext.class).withNoArguments().thenReturn(prerequisiteContext1, prerequisiteContext2, prerequisiteContext1);
 
         // test -> PR1 -> PR2 -> PR1
-        testData.setPrerequisites(Collections.singletonList(prerequisiteGuid1));
-        prerequisiteContext1.getTestData().setPrerequisites(Collections.singletonList(prerequisiteGuid2));
-        prerequisiteContext2.getTestData().setPrerequisites(Collections.singletonList(prerequisiteGuid1));
+        testData.setPrerequisites(Collections.singletonList(prerequisiteTestDataId1));
+        prerequisiteContext1.getTestData().setPrerequisites(Collections.singletonList(prerequisiteTestDataId2));
+        prerequisiteContext2.getTestData().setPrerequisites(Collections.singletonList(prerequisiteTestDataId1));
 
-        when(context.getChildContexts())
-            .thenReturn(
-                // first call: none,
-                new LinkedHashMap<String, BackEndFunctionalTestScenarioContext>() {}
-            ).thenReturn(
-                // second call: PR1
-                new LinkedHashMap<String, BackEndFunctionalTestScenarioContext>() {
-                    {
-                        put(prerequisiteGuid1, prerequisiteContext1);
-                    }
-                }
-            ).thenReturn(
-                // third call: PR1 and PR2
-                new LinkedHashMap<String, BackEndFunctionalTestScenarioContext>() {
-                    {
-                        put(prerequisiteGuid1, prerequisiteContext1);
-                        put(prerequisiteGuid2, prerequisiteContext2);
-                    }
-                }
-            );
+        exceptionRule.expect(InvalidTestDataException.class);
+        exceptionRule.expectMessage(
+                containsString("Cyclic dependency discovered for prerequisite with contextId: " + prerequisiteTestDataId1));
 
         // ACT
         scenarioPlayer.prepareARequestWithAppropriateValues();
 
         // ASSERT
-        verify(this.context, times(1)).addChildContextByReference(eq(prerequisiteGuid1), eq(prerequisiteContext1));
-        verify(this.context, times(1)).addChildContextByReference(eq(prerequisiteGuid2), eq(prerequisiteContext2));
-        verify(prerequisiteContext1, times(1)).setTheResponse(any());
-        verify(prerequisiteContext2, times(1)).setTheResponse(any());
-        verify(this.scenario).write(eq("Skipping existing prerequisite: [PR2].[PR1]")); // i.e. PR1 has been repeated in PR2
+        // see exceptionRule above
     }
 
     @Test
@@ -701,8 +734,12 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         return userData;
     }
 
-    private BackEndFunctionalTestScenarioContext createAndPrepareMockPrerequisiteContext(String guid) {
-        return createAndPrepareTestScenarioContext(DefaultBackEndFunctionalTestScenarioPlayer.PREREQUISITE_SPEC, guid);
+    private BackEndFunctionalTestScenarioContext createAndPrepareMockPrerequisiteContext(String testDataId,
+                                                                                         BackEndFunctionalTestScenarioContext parentContext) {
+        BackEndFunctionalTestScenarioContext subcontext
+                = createAndPrepareTestScenarioContext(DefaultBackEndFunctionalTestScenarioPlayer.PREREQUISITE_SPEC, testDataId);
+        when(subcontext.getParentContext()).thenReturn(parentContext);
+        return subcontext;
     }
 
     private BackEndFunctionalTestScenarioContext createAndPrepareTestScenarioContext(String testDataSpec, String testDataId) {
@@ -751,7 +788,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         when(context.getTestData()).thenReturn(testData);
         when(context.getTheRequest()).thenReturn(requestSpecification);
         when(context.getTheResponse()).thenReturn(expectedResponseData);
-        when(context.getReference()).thenReturn(testDataId);
+        when(context.getContextId()).thenReturn(testDataId);
 
         return context;
     }

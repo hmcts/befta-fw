@@ -2,8 +2,6 @@ package uk.gov.hmcts.befta.player;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.whenNew;
 
@@ -12,7 +10,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
@@ -89,90 +86,75 @@ public class BackEndFunctionalTestScenarioContextTest {
     }
 
     @Test
-    public void shouldAddChildContextUsingGuidAsReference() {
+    public void shouldAddChildContextUsingTestDataIdAsContextId() throws Exception {
         // ARRANGE
-        final String childGuid = "CHILD_GUID";
-        BackEndFunctionalTestScenarioContext testChildContext
-                = Mockito.spy(BackEndFunctionalTestScenarioContext.class);
-        when(testChildContext.getGuid()).thenReturn(childGuid);
+        final String testDataId = "TD_GUID";
+        when(s103TestData.get_guid_()).thenReturn(testDataId);
+        whenNew(HttpTestData.class).withArguments(ArgumentMatchers.any(HttpTestData.class)).thenReturn(s103TestData);
 
         // ACT
+        BackEndFunctionalTestScenarioContext testChildContext = new BackEndFunctionalTestScenarioContext();
+        testChildContext.initializeTestDataFor(VALID_TAG_ID);
         context.addChildContext(testChildContext);
 
         // ASSERT
-        assertTrue(context.getChildContexts().containsKey(childGuid));
-        assertEquals(testChildContext, context.getChildContexts().get(childGuid));
-        verify(testChildContext, times(1)).setReference(childGuid);
+        assertTrue(context.getChildContexts().containsKey(testDataId));
+        assertEquals(testChildContext, context.getChildContexts().get(testDataId));
+        assertEquals(testDataId, testChildContext.getContextId());
     }
 
     @Test
-    public void shouldAddChildContextByReference() {
+    public void shouldAddChildContextWithContextId() {
         // ARRANGE
-        final String testReference = "TEST_REFERENCE";
-        BackEndFunctionalTestScenarioContext testChildContext
-                = Mockito.spy(BackEndFunctionalTestScenarioContext.class);
+        final String testContextId = "TEST_CONTEXT_ID";
 
         // ACT
-        context.addChildContextByReference(testReference, testChildContext);
+        BackEndFunctionalTestScenarioContext testChildContext = new BackEndFunctionalTestScenarioContext();
+        context.addChildContext(testContextId, testChildContext);
 
         // ASSERT
-        assertTrue(context.getChildContexts().containsKey(testReference));
-        assertEquals(testChildContext, context.getChildContexts().get(testReference));
-        verify(testChildContext, times(1)).setReference(testReference);
+        assertTrue(context.getChildContexts().containsKey(testContextId));
+        assertEquals(testChildContext, context.getChildContexts().get(testContextId));
+        assertEquals(testContextId, testChildContext.getContextId());
     }
 
     @Test
-    public void shouldReturnBlankGuidIfNoTestData() {
+    public void shouldGetBlankContextIdIfContextIdAndTestDataNotSet() {
         // ARRANGE
         context = new BackEndFunctionalTestScenarioContext();
 
         // ACT
-        String result = context.getGuid();
+        String result = context.getContextId();
 
         // ASSERT
         assertEquals("", result);
     }
 
     @Test
-    public void shouldGetGuidFromTestData() throws Exception {
+    public void shouldGetContextIdFromTestDataIdIfContextIdNotSet() throws Exception {
         // ARRANGE
-        final String testGuid = "TEST_GUID";
-        when(s103TestData.get_guid_()).thenReturn(testGuid);
+        final String testDataId = "TD_GUID";
+        when(s103TestData.get_guid_()).thenReturn(testDataId);
         whenNew(HttpTestData.class).withArguments(ArgumentMatchers.any(HttpTestData.class)).thenReturn(s103TestData);
         context.initializeTestDataFor(VALID_TAG_ID);
 
         // ACT
-        String result = context.getGuid();
+        String result = context.getContextId();
 
         // ASSERT
-        assertEquals(testGuid, result);
+        assertEquals(testDataId, result);
     }
 
     @Test
-    public void shouldGetReferenceFromGuidIfReferenceNotSet() throws Exception {
+    public void shouldGetContextIdIfContextIdIsSet() {
         // ARRANGE
-        final String testGuid = "TEST_GUID";
-        when(s103TestData.get_guid_()).thenReturn(testGuid);
-        whenNew(HttpTestData.class).withArguments(ArgumentMatchers.any(HttpTestData.class)).thenReturn(s103TestData);
-        context.initializeTestDataFor(VALID_TAG_ID);
+        final String testContextId = "TEST_CONTEXT_ID";
+        context.setContextId(testContextId);
 
         // ACT
-        String result = context.getReference();
+        String result = context.getContextId();
 
         // ASSERT
-        assertEquals(testGuid, result);
-    }
-
-    @Test
-    public void shouldGetReferenceIfReferenceIsSet() {
-        // ARRANGE
-        final String testReference = "TEST_REFERENCE";
-        context.setReference(testReference);
-
-        // ACT
-        String result = context.getReference();
-
-        // ASSERT
-        assertEquals(testReference, result);
+        assertEquals(testContextId, result);
     }
 }
