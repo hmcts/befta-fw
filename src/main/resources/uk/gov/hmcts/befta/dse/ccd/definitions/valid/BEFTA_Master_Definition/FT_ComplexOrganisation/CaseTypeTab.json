@@ -1,0 +1,27 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexOrganisation",
+  "Channel" : "notApplicable",
+  "TabID" : "Organisation",
+  "TabLabel" : "Organisation",
+  "TabDisplayOrder" : 3,
+  "CaseFieldID" : "OrganisationField",
+  "TabFieldDisplayOrder" : 1,
+  "FieldShowCondition" : "",
+  "TabShowCondition" : "",
+  "DisplayContextParameter" : ""
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexOrganisation",
+  "Channel" : "notApplicable",
+  "TabID" : "OrganisationPolicy",
+  "TabLabel" : "Organisation Policy",
+  "TabDisplayOrder" : 4,
+  "CaseFieldID" : "OrganisationPolicyField",
+  "TabFieldDisplayOrder" : 2,
+  "FieldShowCondition" : "",
+  "TabShowCondition" : "",
+  "DisplayContextParameter" : ""
+} ]

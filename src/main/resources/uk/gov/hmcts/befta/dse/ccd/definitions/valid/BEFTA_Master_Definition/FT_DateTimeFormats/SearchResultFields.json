@@ -1,0 +1,111 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_DateTimeFormats",
+  "CaseFieldID" : "[CASE_REFERENCE]",
+  "Label" : "Case Reference",
+  "ListElementCode" : "",
+  "DisplayOrder" : 1,
+  "ResultsOrdering" : "",
+  "DisplayContextParameter" : ""
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_DateTimeFormats",
+  "CaseFieldID" : "[LAST_STATE_MODIFIED_DATE]",
+  "Label" : "Last State Modified Date",
+  "ListElementCode" : "",
+  "DisplayOrder" : 2,
+  "ResultsOrdering" : "1:DESC",
+  "DisplayContextParameter" : "#DATETIMEDISPLAY(yyyyMMdd)"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_DateTimeFormats",
+  "CaseFieldID" : "DateField",
+  "Label" : "Formatted Date",
+  "ListElementCode" : "",
+  "DisplayOrder" : 3,
+  "ResultsOrdering" : "",
+  "DisplayContextParameter" : "#DATETIMEDISPLAY(dd-MM-yy)"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_DateTimeFormats",
+  "CaseFieldID" : "DateTimeField",
+  "Label" : "Formatted DateTime",
+  "ListElementCode" : "",
+  "DisplayOrder" : 4,
+  "ResultsOrdering" : "",
+  "DisplayContextParameter" : "#DATETIMEDISPLAY(yyyy-MM-dd'T'HH:mm:ss.SSS)"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_DateTimeFormats",
+  "CaseFieldID" : "StandardDate",
+  "Label" : "Standard Date",
+  "ListElementCode" : "",
+  "DisplayOrder" : 5,
+  "ResultsOrdering" : "",
+  "DisplayContextParameter" : ""
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_DateTimeFormats",
+  "CaseFieldID" : "StandardDateTime",
+  "Label" : "Standard DateTime",
+  "ListElementCode" : "",
+  "DisplayOrder" : 6,
+  "ResultsOrdering" : "",
+  "DisplayContextParameter" : ""
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_DateTimeFormats",
+  "CaseFieldID" : "CollectionDate",
+  "Label" : "Date Collection",
+  "ListElementCode" : "",
+  "DisplayOrder" : 7,
+  "ResultsOrdering" : "",
+  "DisplayContextParameter" : "#DATETIMEDISPLAY(yy-MM-dd)"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_DateTimeFormats",
+  "CaseFieldID" : "CollectionDateTime",
+  "Label" : "DateTime Collection",
+  "ListElementCode" : "",
+  "DisplayOrder" : 8,
+  "ResultsOrdering" : "",
+  "DisplayContextParameter" : "#DATETIMEDISPLAY(yyyy-MM-dd)"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_DateTimeFormats",
+  "CaseFieldID" : "ComplexDateTime",
+  "Label" : "Complex DateTime",
+  "ListElementCode" : "DateTimeField",
+  "DisplayOrder" : 9,
+  "ResultsOrdering" : "",
+  "DisplayContextParameter" : ""
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_DateTimeFormats",
+  "CaseFieldID" : "CollectionComplexDateTime",
+  "Label" : "Collection Complex DateTime",
+  "ListElementCode" : "",
+  "DisplayOrder" : 10,
+  "ResultsOrdering" : "",
+  "DisplayContextParameter" : ""
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_DateTimeFormats",
+  "CaseFieldID" : "ComplexDateTime",
+  "Label" : "Complex DateTime",
+  "ListElementCode" : "DateField",
+  "DisplayOrder" : 11,
+  "ResultsOrdering" : "",
+  "DisplayContextParameter" : ""
+} ]

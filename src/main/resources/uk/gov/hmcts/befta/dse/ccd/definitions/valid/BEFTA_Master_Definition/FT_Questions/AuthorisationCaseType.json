@@ -1,0 +1,13 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_Questions",
+  "UserRole" : "caseworker-befta_master-junior",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_Questions",
+  "UserRole" : "caseworker-befta_master-manager",
+  "CRUD" : "CRUD"
+} ]

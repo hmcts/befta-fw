@@ -1,0 +1,21 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexOrganisation",
+  "CaseFieldID" : "OrganisationField",
+  "Label" : "OrganisationField",
+  "ListElementCode" : "",
+  "DisplayOrder" : 1,
+  "ResultsOrdering" : "",
+  "DisplayContextParameter" : ""
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexOrganisation",
+  "CaseFieldID" : "OrganisationPolicyField",
+  "Label" : "OrganisationPolicyField",
+  "ListElementCode" : "",
+  "DisplayOrder" : 2,
+  "ResultsOrdering" : "",
+  "DisplayContextParameter" : ""
+} ]
