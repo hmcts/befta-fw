@@ -17,7 +17,7 @@ public class OAuth2Config {
         clientId = EnvironmentVariableUtils.getRequiredVariable("OAUTH2_CLIENT_ID");
         clientSecret = EnvironmentVariableUtils.getRequiredVariable("OAUTH2_CLIENT_SECRET");
         redirectUri = EnvironmentVariableUtils.getRequiredVariable("OAUTH2_REDIRECT_URI");
-        accessTokenType = EnvironmentVariableUtils.getRequiredVariable("OAUTH2_ACCESS_TOKEN_TYPE");
+        accessTokenType = EnvironmentVariableUtils.getOptionalVariable("OAUTH2_ACCESS_TOKEN_TYPE");
     }
 
     private OAuth2Config(String oauthClientId) {

@@ -29,6 +29,9 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
     private static final String BASIC = "Basic ";
     private static final String OAUTH2 = "OAUTH2";
     private static final String OIDC = "OIDC";
+    private static final String PASSWORD = "password";
+    private static final String SCOPE = "openid%20profile%20roles%20authorities%20email";
+
 
     private final AuthApi idamApi;
 
@@ -63,7 +66,7 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
         UserData cached = users.computeIfAbsent(user.getUsername(), e -> {
             final String accessToken = getIdamOauth2Token(user.getUsername(), user.getPassword(),
                     OAuth2Config.of(oauth2ConfigId));
-            AuthApi.User idamUser = idamApi.getUser(accessToken);
+            final AuthApi.User idamUser = idamApi.getUser(accessToken);
             user.setId(idamUser.getId());
             user.setAccessToken(accessToken);
             return user;
@@ -106,7 +109,9 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
     }
 
     private String getIdamOauth2Token(String username, String password, OAuth2Config oauth2Config) {
-        if (oauth2Config.getAccessTokenType().equalsIgnoreCase(OAUTH2)) {
+        String accessTokenType = oauth2Config.getAccessTokenType() == null ? OAUTH2 : oauth2Config.getAccessTokenType();
+        String generatedToken = null;
+        if (accessTokenType.equalsIgnoreCase(OAUTH2)) {
             String authorisation = username + ":" + password;
             String base64Authorisation = Base64.getEncoder().encodeToString(authorisation.getBytes());
 
@@ -117,18 +122,19 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
                     AUTHORIZATION_CODE, oauth2Config.getClientId(), oauth2Config.getClientSecret(),
                     oauth2Config.getRedirectUri());
 
-            return tokenExchangeResponse.getAccessToken();
-        } else {
-            return getIdamOIDCToken(username, password, oauth2Config);
+            generatedToken = tokenExchangeResponse.getAccessToken();
+        } else if (accessTokenType.equalsIgnoreCase(OIDC)) {
+            generatedToken = getIdamOIDCToken(username, password, oauth2Config);
         }
+        return generatedToken;
     }
 
     private String getIdamOIDCToken(String username, String password, OAuth2Config oauth2Config) {
 
         AuthApi.TokenExchangeResponse generateOIDCToken = idamApi.generateOIDCToken(oauth2Config.getClientId(),
                 oauth2Config.getClientSecret(),
-                "password",
-                "openid%20profile%20roles%20authorities%20email",
+                PASSWORD,
+                SCOPE,
                 username,
                 password);
 
