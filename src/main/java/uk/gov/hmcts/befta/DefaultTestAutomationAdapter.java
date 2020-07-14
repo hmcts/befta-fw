@@ -63,15 +63,8 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
         UserData cached = users.computeIfAbsent(user.getUsername(), e -> {
             final String accessToken = getIdamOauth2Token(user.getUsername(), user.getPassword(),
                     OAuth2Config.of(oauth2ConfigId));
-            if (OAuth2Config.of(oauth2ConfigId).getAccessTokenType().equals(OAUTH2)){
-                final AuthApi.User idamOAuthUser = idamApi.getUser(accessToken);
-                user.setId(idamOAuthUser.getId());
-
-            } else {
-                final AuthApi.UserInfo idamOIDCUser = idamApi.getUserInfo(accessToken);
-                user.setId(idamOIDCUser.getUid());
-            }
-
+            AuthApi.User idamUser = idamApi.getUser(accessToken);
+            user.setId(idamUser.getId());
             user.setAccessToken(accessToken);
             return user;
         });
@@ -126,7 +119,7 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
 
             return tokenExchangeResponse.getAccessToken();
         } else {
-            return getIdamOIDCToken(username,password,oauth2Config);
+            return getIdamOIDCToken(username, password, oauth2Config);
         }
     }
 
@@ -149,48 +142,48 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
         if (key instanceof String) {
             String keyString = ((String) key).toLowerCase().replaceAll(" ", "").replaceAll("-", "").replaceAll("_", "");
             switch (keyString) {
-            case "request":
-                return scenarioContext.getTestData().getRequest();
+                case "request":
+                    return scenarioContext.getTestData().getRequest();
 
-            case "requestbody":
-                return scenarioContext.getTestData().getRequest().getBody();
+                case "requestbody":
+                    return scenarioContext.getTestData().getRequest().getBody();
 
-            case "requestheaders":
-                return scenarioContext.getTestData().getRequest().getHeaders();
+                case "requestheaders":
+                    return scenarioContext.getTestData().getRequest().getHeaders();
 
-            case "requestpathvars":
-                return scenarioContext.getTestData().getRequest().getPathVariables();
+                case "requestpathvars":
+                    return scenarioContext.getTestData().getRequest().getPathVariables();
 
-            case "requestqueryparams":
-                return scenarioContext.getTestData().getRequest().getQueryParams();
+                case "requestqueryparams":
+                    return scenarioContext.getTestData().getRequest().getQueryParams();
 
-            case "expectedresponse":
-                return scenarioContext.getTestData().getExpectedResponse();
+                case "expectedresponse":
+                    return scenarioContext.getTestData().getExpectedResponse();
 
-            case "expectedresponseheaders":
-                return scenarioContext.getTestData().getExpectedResponse().getHeaders();
+                case "expectedresponseheaders":
+                    return scenarioContext.getTestData().getExpectedResponse().getHeaders();
 
-            case "expectedresponsebody":
-                return scenarioContext.getTestData().getExpectedResponse().getBody();
+                case "expectedresponsebody":
+                    return scenarioContext.getTestData().getExpectedResponse().getBody();
 
-            case "actualresponse":
-                return scenarioContext.getTestData().getActualResponse();
+                case "actualresponse":
+                    return scenarioContext.getTestData().getActualResponse();
 
-            case "actualresponseheaders":
-                return scenarioContext.getTestData().getActualResponse().getHeaders();
+                case "actualresponseheaders":
+                    return scenarioContext.getTestData().getActualResponse().getHeaders();
 
-            case "actualresponsebody":
-                return scenarioContext.getTestData().getActualResponse().getBody();
-            case "tokenvaluefromaccompanyingtokencall":
-                try {
-                    String accompanyingTokenCreationDataId = scenarioContext.getTestData().get_guid_()
-                            + "_Token_Creation";
-                    return ReflectionUtils.deepGetFieldInObject(scenarioContext, "scenarioContext.siblingContexts."
-                            + accompanyingTokenCreationDataId + ".testData.actualResponse.body.token");
+                case "actualresponsebody":
+                    return scenarioContext.getTestData().getActualResponse().getBody();
+                case "tokenvaluefromaccompanyingtokencall":
+                    try {
+                        String accompanyingTokenCreationDataId = scenarioContext.getTestData().get_guid_()
+                                + "_Token_Creation";
+                        return ReflectionUtils.deepGetFieldInObject(scenarioContext, "scenarioContext.siblingContexts."
+                                + accompanyingTokenCreationDataId + ".testData.actualResponse.body.token");
 
-                } catch (Exception e) {
-                    throw new FunctionalTestException("Failed to get custom value", e);
-                }
+                    } catch (Exception e) {
+                        throw new FunctionalTestException("Failed to get custom value", e);
+                    }
             }
             String dateTimeFormat = getDateTimeFormatRequested((String) key);
             if (dateTimeFormat != null)

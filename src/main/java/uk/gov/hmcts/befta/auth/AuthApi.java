@@ -1,17 +1,13 @@
 package uk.gov.hmcts.befta.auth;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import java.util.List;
-
 import feign.Body;
 import feign.Headers;
 import feign.Param;
 import feign.RequestLine;
 import lombok.Getter;
-import org.springframework.http.HttpHeaders;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
+
+import java.util.List;
 
 public interface AuthApi {
 
@@ -46,9 +42,6 @@ public interface AuthApi {
     @Headers("Authorization: Bearer {access_token}")
     User getUser(@Param("access_token") String accessToken);
 
-    @RequestLine("GET /o/userinfo")
-    @Headers("Authorization: Bearer {access_token}")
-    UserInfo getUserInfo(@Param("access_token") String accessToken);
 
     @Getter
     class AuthenticateUserResponse {
@@ -71,13 +64,6 @@ public interface AuthApi {
         private List<String> roles;
     }
 
-    @Getter
-    class UserInfo {
-        @JsonProperty("uid")
-        private String uid;
 
-        @JsonProperty("roles")
-        private List<String> roles;
-    }
 }
 
