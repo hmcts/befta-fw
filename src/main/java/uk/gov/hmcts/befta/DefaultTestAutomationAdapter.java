@@ -60,21 +60,18 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
 
     @Override
     public void authenticate(UserData user, String oauth2ConfigId) {
-        if (OAuth2Config.DEFAULT_INSTANCE.getAccessTokenType().equalsIgnoreCase(OIDC)){
-            UserData cached = users.computeIfAbsent(user.getUsername(), e -> {
-                final String accessToken = getIdamOIDCToken(user.getUsername(), user.getPassword(),
-                        OAuth2Config.of(oauth2ConfigId,OIDC));
-                final AuthApi.User idamUser = idamApi.getUser(accessToken);
-                user.setId(idamUser.getId());
-                user.setAccessToken(accessToken);
-                return user;
-            });
-        }
         UserData cached = users.computeIfAbsent(user.getUsername(), e -> {
             final String accessToken = getIdamOauth2Token(user.getUsername(), user.getPassword(),
-                    OAuth2Config.of(oauth2ConfigId,OAUTH2));
-            final AuthApi.User idamUser = idamApi.getUser(accessToken);
-            user.setId(idamUser.getId());
+                    OAuth2Config.of(oauth2ConfigId));
+            if (OAuth2Config.of(oauth2ConfigId).getAccessTokenType().equals(OAUTH2)){
+                final AuthApi.User idamOAuthUser = idamApi.getUser(accessToken);
+                user.setId(idamOAuthUser.getId());
+
+            } else {
+                final AuthApi.UserInfo idamOIDCUser = idamApi.getUserInfo(accessToken);
+                user.setId(idamOIDCUser.getUid());
+            }
+
             user.setAccessToken(accessToken);
             return user;
         });
@@ -116,17 +113,21 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
     }
 
     private String getIdamOauth2Token(String username, String password, OAuth2Config oauth2Config) {
-        String authorisation = username + ":" + password;
-        String base64Authorisation = Base64.getEncoder().encodeToString(authorisation.getBytes());
+        if (oauth2Config.getAccessTokenType().equalsIgnoreCase(OAUTH2)) {
+            String authorisation = username + ":" + password;
+            String base64Authorisation = Base64.getEncoder().encodeToString(authorisation.getBytes());
 
-        AuthApi.AuthenticateUserResponse authenticateUserResponse = idamApi.authenticateUser(
-                BASIC + base64Authorisation, CODE, oauth2Config.getClientId(), oauth2Config.getRedirectUri());
+            AuthApi.AuthenticateUserResponse authenticateUserResponse = idamApi.authenticateUser(
+                    BASIC + base64Authorisation, CODE, oauth2Config.getClientId(), oauth2Config.getRedirectUri());
 
-        AuthApi.TokenExchangeResponse tokenExchangeResponse = idamApi.exchangeCode(authenticateUserResponse.getCode(),
-                AUTHORIZATION_CODE, oauth2Config.getClientId(), oauth2Config.getClientSecret(),
-                oauth2Config.getRedirectUri());
+            AuthApi.TokenExchangeResponse tokenExchangeResponse = idamApi.exchangeCode(authenticateUserResponse.getCode(),
+                    AUTHORIZATION_CODE, oauth2Config.getClientId(), oauth2Config.getClientSecret(),
+                    oauth2Config.getRedirectUri());
 
-        return tokenExchangeResponse.getAccessToken();
+            return tokenExchangeResponse.getAccessToken();
+        } else {
+            return getIdamOIDCToken(username,password,oauth2Config);
+        }
     }
 
     private String getIdamOIDCToken(String username, String password, OAuth2Config oauth2Config) {

@@ -20,18 +20,19 @@ public class OAuth2Config {
         accessTokenType = EnvironmentVariableUtils.getRequiredVariable("OAUTH2_ACCESS_TOKEN_TYPE");
     }
 
-    private OAuth2Config(String oauthClientId, String accessTokenType) {
+    private OAuth2Config(String oauthClientId) {
         clientId = oauthClientId;
         clientSecret = EnvironmentVariableUtils
                 .getRequiredVariable("BEFTA_OAUTH2_CLIENT_SECRET_OF_" + oauthClientId.toUpperCase());
         redirectUri = EnvironmentVariableUtils
                 .getRequiredVariable("BEFTA_OAUTH2_REDIRECT_URI_OF_" + oauthClientId.toUpperCase());
-        this.accessTokenType = accessTokenType;
+        accessTokenType = EnvironmentVariableUtils
+                .getRequiredVariable("BEFTA_OAUTH2_ACCESS_TOKEN_TYPE_OF_" + oauthClientId.toUpperCase());
     }
 
-    public static OAuth2Config of(String oauth2ConfigId, String accessTokenType) {
+    public static OAuth2Config of(String oauth2ConfigId) {
         if (DEFAULT_INSTANCE.getClientId().equals(oauth2ConfigId))
             return DEFAULT_INSTANCE;
-        return new OAuth2Config(oauth2ConfigId, accessTokenType);
+        return new OAuth2Config(oauth2ConfigId);
     }
 }

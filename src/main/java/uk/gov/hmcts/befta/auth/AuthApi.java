@@ -9,6 +9,9 @@ import feign.Headers;
 import feign.Param;
 import feign.RequestLine;
 import lombok.Getter;
+import org.springframework.http.HttpHeaders;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 public interface AuthApi {
 
@@ -43,6 +46,10 @@ public interface AuthApi {
     @Headers("Authorization: Bearer {access_token}")
     User getUser(@Param("access_token") String accessToken);
 
+    @RequestLine("GET /o/userinfo")
+    @Headers("Authorization: Bearer {access_token}")
+    UserInfo getUserInfo(@Param("access_token") String accessToken);
+
     @Getter
     class AuthenticateUserResponse {
         @JsonProperty("code")
@@ -59,6 +66,15 @@ public interface AuthApi {
     class User {
         @JsonProperty("id")
         private String id;
+
+        @JsonProperty("roles")
+        private List<String> roles;
+    }
+
+    @Getter
+    class UserInfo {
+        @JsonProperty("uid")
+        private String uid;
 
         @JsonProperty("roles")
         private List<String> roles;
