@@ -108,7 +108,7 @@ public class ReflectionUtilsTest {
     public void shouldErrorWhenTryingToRetrieveNonExistingField() throws Exception {
         HttpTestData testData = new HttpTestData();
         testData.setS2sClientId("ccd_gw");
-        testData.setOauth2ClientId("ccd_gw");
+        testData.setUserTokenClientId("ccd_gw");
 
         exceptionRule.expect(NoSuchFieldException.class);
         exceptionRule.expectMessage(startsWith("nonExistingField not retrievable"));
