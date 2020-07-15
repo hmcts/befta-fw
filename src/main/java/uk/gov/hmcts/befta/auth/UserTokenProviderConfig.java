@@ -21,20 +21,20 @@ public class UserTokenProviderConfig {
         accessTokenType = EnvironmentVariableUtils.getOptionalVariable("OAUTH2_ACCESS_TOKEN_TYPE");
     }
 
-    private UserTokenProviderConfig(String oauthClientId) {
-        clientId = oauthClientId;
+    private UserTokenProviderConfig(String tokenProviderClientId) {
+        clientId = tokenProviderClientId;
         clientSecret = EnvironmentVariableUtils
-                .getRequiredVariable("BEFTA_OAUTH2_CLIENT_SECRET_OF_" + oauthClientId.toUpperCase());
+                .getRequiredVariable("BEFTA_OAUTH2_CLIENT_SECRET_OF_" + tokenProviderClientId.toUpperCase());
         redirectUri = EnvironmentVariableUtils
-                .getRequiredVariable("BEFTA_OAUTH2_REDIRECT_URI_OF_" + oauthClientId.toUpperCase());
+                .getRequiredVariable("BEFTA_OAUTH2_REDIRECT_URI_OF_" + tokenProviderClientId.toUpperCase());
         accessTokenType = EnvironmentVariableUtils
-                .getRequiredVariable("BEFTA_OAUTH2_ACCESS_TOKEN_TYPE_OF_" + oauthClientId.toUpperCase());
+                .getRequiredVariable("BEFTA_OAUTH2_ACCESS_TOKEN_TYPE_OF_" + tokenProviderClientId.toUpperCase());
     }
 
-    public static UserTokenProviderConfig of(String oauth2ConfigId) {
-        if (DEFAULT_INSTANCE.getClientId().equals(oauth2ConfigId))
+    public static UserTokenProviderConfig of(String tokenProviderClientId) {
+        if (DEFAULT_INSTANCE.getClientId().equals(tokenProviderClientId))
             return DEFAULT_INSTANCE;
-        return new UserTokenProviderConfig(oauth2ConfigId);
+        return new UserTokenProviderConfig(tokenProviderClientId);
     }
 
     public boolean isForOidc() {

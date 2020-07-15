@@ -62,7 +62,7 @@ public class HttpTestData {
 
     private String s2sClientId;
 
-    private String oauth2ClientId;
+    private String userTokenClientId;
 
     private UserData userSet = null;
 
@@ -92,7 +92,7 @@ public class HttpTestData {
             this.users.put(entry.getKey(), new UserData(entry.getValue()));
         }
 
-        this.setOauth2ClientId(other.getOauth2ClientId());
+        this.setUserTokenClientId(other.getUserTokenClientId());
         this.setS2sClientId(other.getS2sClientId());
 
         this.userSet = other.userSet;
@@ -136,10 +136,10 @@ public class HttpTestData {
         return s2sClientId;
     }
 
-    public String getOauth2ClientId() {
-        if (this.oauth2ClientId == null) {
+    public String getUserTokenClientId() {
+        if (this.userTokenClientId == null) {
             return UserTokenProviderConfig.DEFAULT_INSTANCE.getClientId();
         }
-        return oauth2ClientId;
+        return userTokenClientId;
     }
 }

@@ -59,11 +59,11 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
     }
 
     @Override
-    public void authenticate(UserData user, String oauth2ConfigId) {
+    public void authenticate(UserData user, String userTokenClientId) {
         UserData cached = users.computeIfAbsent(user.getUsername(), e -> {
             final String accessToken = getUserAccessToken(user.getUsername(),
                     user.getPassword(),
-                    UserTokenProviderConfig.of(oauth2ConfigId));
+                    UserTokenProviderConfig.of(userTokenClientId));
             final AuthApi.User idamUser = idamApi.getUser(accessToken);
             user.setId(idamUser.getId());
             user.setAccessToken(accessToken);
@@ -106,32 +106,33 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
         return new ServiceAuthTokenGenerator(clientSecret, clientId, serviceAuthorisationApi);
     }
 
-    private String getUserAccessToken(String username, String password, UserTokenProviderConfig oauth2Config) {
-        if (oauth2Config.isForOidc()) {
-            return getIdamOidcToken(username, password, oauth2Config);
+    private String getUserAccessToken(String username, String password, UserTokenProviderConfig tokenProviderConfig) {
+        if (tokenProviderConfig.isForOidc()) {
+            return getIdamOidcToken(username, password, tokenProviderConfig);
         } else {
-            return getIdamOauth2Token(username, password, oauth2Config);
+            return getIdamOauth2Token(username, password, tokenProviderConfig);
         }
     }
 
-    private String getIdamOauth2Token(String username, String password, UserTokenProviderConfig oauth2Config) {
+    private String getIdamOauth2Token(String username, String password, UserTokenProviderConfig tokenProviderConfig) {
         String authorisation = username + ":" + password;
         String base64Authorisation = Base64.getEncoder().encodeToString(authorisation.getBytes());
 
         AuthApi.AuthenticateUserResponse authenticateUserResponse = idamApi.authenticateUser(
-                BASIC + base64Authorisation, CODE, oauth2Config.getClientId(), oauth2Config.getRedirectUri());
+                BASIC + base64Authorisation, CODE, tokenProviderConfig.getClientId(),
+                tokenProviderConfig.getRedirectUri());
 
         AuthApi.TokenExchangeResponse tokenExchangeResponse = idamApi.exchangeCode(authenticateUserResponse.getCode(),
-                AUTHORIZATION_CODE, oauth2Config.getClientId(), oauth2Config.getClientSecret(),
-                oauth2Config.getRedirectUri());
+                AUTHORIZATION_CODE, tokenProviderConfig.getClientId(), tokenProviderConfig.getClientSecret(),
+                tokenProviderConfig.getRedirectUri());
 
         return tokenExchangeResponse.getAccessToken();
     }
 
-    private String getIdamOidcToken(String username, String password, UserTokenProviderConfig oauth2Config) {
+    private String getIdamOidcToken(String username, String password, UserTokenProviderConfig tokenProviderConfig) {
 
-        AuthApi.TokenExchangeResponse generateOIDCToken = idamApi.generateOIDCToken(oauth2Config.getClientId(),
-                oauth2Config.getClientSecret(),
+        AuthApi.TokenExchangeResponse generateOIDCToken = idamApi.generateOIDCToken(tokenProviderConfig.getClientId(),
+                tokenProviderConfig.getClientSecret(),
                 PASSWORD,
                 SCOPE,
                 username,
