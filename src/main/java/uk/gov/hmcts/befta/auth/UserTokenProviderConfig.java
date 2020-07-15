@@ -21,7 +21,7 @@ public class UserTokenProviderConfig {
         redirectUri = EnvironmentVariableUtils.getRequiredVariable("OAUTH2_REDIRECT_URI");
         accessTokenType = EnvironmentVariableUtils.getOptionalVariable("OAUTH2_ACCESS_TOKEN_TYPE");
         if (accessTokenType == null) {
-            accessTokenType = OAUTH2;
+            accessTokenType = OIDC;
         }
     }
 
