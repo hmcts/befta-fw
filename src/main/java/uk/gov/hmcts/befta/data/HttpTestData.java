@@ -8,7 +8,7 @@ import java.util.Map.Entry;
 
 import lombok.Data;
 import uk.gov.hmcts.befta.BeftaMain;
-import uk.gov.hmcts.befta.auth.OAuth2Config;
+import uk.gov.hmcts.befta.auth.UserTokenProviderConfig;
 
 @Data
 public class HttpTestData {
@@ -138,7 +138,7 @@ public class HttpTestData {
 
     public String getOauth2ClientId() {
         if (this.oauth2ClientId == null) {
-            return OAuth2Config.DEFAULT_INSTANCE.getClientId();
+            return UserTokenProviderConfig.DEFAULT_INSTANCE.getClientId();
         }
         return oauth2ClientId;
     }
