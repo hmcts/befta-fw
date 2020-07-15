@@ -8,17 +8,21 @@ public class UserTokenProviderConfig {
 
     public static final UserTokenProviderConfig DEFAULT_INSTANCE = new UserTokenProviderConfig();
     private static final String OIDC = "OIDC";
+    private static final String OAUTH2 = "OAUTH2";
 
     private final String clientId;
     private final String clientSecret;
     private final String redirectUri;
-    private final String accessTokenType;
+    private String accessTokenType;
 
     private UserTokenProviderConfig() {
         clientId = EnvironmentVariableUtils.getRequiredVariable("OAUTH2_CLIENT_ID");
         clientSecret = EnvironmentVariableUtils.getRequiredVariable("OAUTH2_CLIENT_SECRET");
         redirectUri = EnvironmentVariableUtils.getRequiredVariable("OAUTH2_REDIRECT_URI");
         accessTokenType = EnvironmentVariableUtils.getOptionalVariable("OAUTH2_ACCESS_TOKEN_TYPE");
+        if (accessTokenType == null) {
+            accessTokenType = OAUTH2;
+        }
     }
 
     private UserTokenProviderConfig(String tokenProviderClientId) {
