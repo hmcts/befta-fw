@@ -44,4 +44,8 @@ public class UserTokenProviderConfig {
     public boolean isForOidc() {
         return accessTokenType.equalsIgnoreCase(OIDC);
     }
+
+    public boolean isForOauth2() {
+        return accessTokenType.equalsIgnoreCase(OAUTH2);
+    }
 }
