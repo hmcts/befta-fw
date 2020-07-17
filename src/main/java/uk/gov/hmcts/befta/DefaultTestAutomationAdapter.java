@@ -28,7 +28,6 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
     private static final String CODE = "code";
     private static final String BASIC = "Basic ";
     private static final String PASSWORD = "password";
-    private static final String SCOPE = "openid%20profile%20roles%20authorities%20email";
 
     private final AuthApi idamApi;
 
