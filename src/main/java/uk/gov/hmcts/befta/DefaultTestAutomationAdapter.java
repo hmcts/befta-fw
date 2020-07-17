@@ -132,7 +132,7 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
     private String getIdamOidcToken(String username, String password, UserTokenProviderConfig tokenProviderConfig) {
 
         AuthApi.TokenExchangeResponse generateOIDCToken = idamApi.generateOIDCToken(tokenProviderConfig.getClientId(),
-                tokenProviderConfig.getClientSecret(), PASSWORD, SCOPE, username, password);
+                tokenProviderConfig.getClientSecret(), PASSWORD, tokenProviderConfig.getScopeVariables(), username, password);
 
         return generateOIDCToken.getAccessToken();
     }
