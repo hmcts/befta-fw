@@ -14,12 +14,14 @@ public class UserTokenProviderConfig {
     private final String clientSecret;
     private final String redirectUri;
     private String accessTokenType;
+    private String scopeVariables;
 
     private UserTokenProviderConfig() {
         clientId = EnvironmentVariableUtils.getRequiredVariable("OAUTH2_CLIENT_ID");
         clientSecret = EnvironmentVariableUtils.getRequiredVariable("OAUTH2_CLIENT_SECRET");
         redirectUri = EnvironmentVariableUtils.getRequiredVariable("OAUTH2_REDIRECT_URI");
         accessTokenType = EnvironmentVariableUtils.getOptionalVariable("OAUTH2_ACCESS_TOKEN_TYPE");
+        scopeVariables = EnvironmentVariableUtils.getOptionalVariable("OAUTH2_SCOPE_VARIABLES");
         if (accessTokenType == null) {
             accessTokenType = OAUTH2;
         }
@@ -32,7 +34,9 @@ public class UserTokenProviderConfig {
         redirectUri = EnvironmentVariableUtils
                 .getRequiredVariable("BEFTA_OAUTH2_REDIRECT_URI_OF_" + tokenProviderClientId.toUpperCase());
         accessTokenType = EnvironmentVariableUtils
-                .getRequiredVariable("BEFTA_OAUTH2_ACCESS_TOKEN_TYPE_OF_" + tokenProviderClientId.toUpperCase());
+                .getOptionalVariable("BEFTA_OAUTH2_ACCESS_TOKEN_TYPE_OF_" + tokenProviderClientId.toUpperCase());
+        scopeVariables = EnvironmentVariableUtils
+                .getOptionalVariable("BEFTA_OAUTH2_SCOPE_VARIABLES_OF_" + tokenProviderClientId.toUpperCase());
     }
 
     public static UserTokenProviderConfig of(String tokenProviderClientId) {
