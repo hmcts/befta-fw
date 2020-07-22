@@ -15,6 +15,7 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.concurrent.TimeUnit;
 
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
@@ -572,6 +573,17 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
             logger.info(logPrefix + "authenticated.");
         } catch (Exception ex) {
             throw new FunctionalTestException(logPrefix + "could not authenticate.", ex);
+        }
+    }
+
+    @Override
+    @When("a wait time of [{}] seconds [{}]")
+    @When("a wait is allowed for [{}] seconds [{}]")
+    public void performWaitTimeToAllowOperationToComplete(String waitTime, String scenarioContext) throws InterruptedException {
+        try {
+            TimeUnit.SECONDS.sleep(Integer.parseInt(waitTime));
+        } catch (NumberFormatException ex) {
+            throw new FunctionalTestException("Wait time provided is not a valid number: " + waitTime, ex);
         }
     }
 }
