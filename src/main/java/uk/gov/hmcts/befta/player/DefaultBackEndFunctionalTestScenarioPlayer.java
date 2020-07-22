@@ -12,9 +12,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.concurrent.TimeUnit;
 
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
@@ -572,6 +574,18 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
             logger.info(logPrefix + "authenticated.");
         } catch (Exception ex) {
             throw new FunctionalTestException(logPrefix + "could not authenticate.", ex);
+        }
+    }
+
+    @Override
+    @When("a wait time of [{}] seconds [{}]")
+    @When("a wait time is allowed for [{}] seconds [{}]")
+    public void suspendExecutionOnPurposeForAGivenNumberOfSeconds(String waitTime, String specAboutWaitTime) throws InterruptedException {
+        try {
+            DecimalFormat df = new DecimalFormat("#.##");
+            TimeUnit.MILLISECONDS.sleep((long) (Double.valueOf(df.format(Double.parseDouble(waitTime))) * 1000));
+        } catch (NumberFormatException ex) {
+            throw new FunctionalTestException("Wait time provided is not a valid number: " + waitTime, ex);
         }
     }
 }

@@ -32,6 +32,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import io.cucumber.java.Scenario;
 import io.restassured.RestAssured;
@@ -717,6 +718,38 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
                 "Test data does not confirm it is calling the following operation of a product: OPERATION -> PRODUCT NAME");
 
         scenarioPlayer.submitTheRequestToCallAnOperationOfAProduct(OPERATION, PRODUCT_NAME);
+    }
+
+    @Test
+    public void shouldPerformWaitTimeOfFiveSecondsToAllowOperationToComplete() throws InterruptedException {
+        long before = System.currentTimeMillis();
+        scenarioPlayer.suspendExecutionOnPurposeForAGivenNumberOfSeconds("5", "to allow Logstash to catch up");
+
+        assertEquals(5, TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - before));
+    }
+
+    @Test
+    public void shouldPerformWaitTimeOfTwoSecondsToAllowOperationToComplete() throws InterruptedException {
+        long before = System.currentTimeMillis();
+        scenarioPlayer.suspendExecutionOnPurposeForAGivenNumberOfSeconds("2.0", "to allow Logstash to catch up");
+
+        assertEquals(2, TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - before));
+    }
+
+    @Test
+    public void shouldFailPerformWaitTimeToAllowOperationToCompleteWhenInvalidEntry() throws InterruptedException {
+        exceptionRule.expect(FunctionalTestException.class);
+        exceptionRule.expectMessage("Wait time provided is not a valid number: five");
+
+        scenarioPlayer.suspendExecutionOnPurposeForAGivenNumberOfSeconds("five", "to allow Logstash to catch up");
+    }
+
+    @Test
+    public void shouldFailPerformWaitTimeToAllowOperationToCompleteWhenNothingIsPassed() throws InterruptedException {
+        exceptionRule.expect(FunctionalTestException.class);
+        exceptionRule.expectMessage("Wait time provided is not a valid number: ");
+
+        scenarioPlayer.suspendExecutionOnPurposeForAGivenNumberOfSeconds("", "to allow Logstash to catch up");
     }
 
     private ResponseData createResponseDataWithResponseCode(int responseCode) {
