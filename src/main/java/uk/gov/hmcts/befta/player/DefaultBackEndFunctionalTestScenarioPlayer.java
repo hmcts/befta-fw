@@ -579,7 +579,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
 
     @Override
     @When("a wait time of [{}] seconds [{}]")
-    @When("a wait is allowed for [{}] seconds [{}]")
+    @When("a wait time is allowed for [{}] seconds [{}]")
     public void suspendExecutionOnPurposeForAGivenNumberOfSeconds(String waitTime, String specAboutWaitTime) throws InterruptedException {
         try {
             DecimalFormat df = new DecimalFormat("#.##");

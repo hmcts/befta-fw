@@ -63,6 +63,6 @@ public interface BackEndFunctionalTestAutomationDSL {
 
     // DSL Element:
     // "a wait time of [<wait time in seconds>] seconds [<some spec to describe the purpose of waiting>]"
-    // "a wait is allowed for [<wait time in seconds>] seconds [<some spec to describe the purpose of waiting>]"
+    // "a wait time is allowed for [<wait time in seconds>] seconds [<some spec to describe the purpose of waiting>]"
     void suspendExecutionOnPurposeForAGivenNumberOfSeconds(String waitTime, String specAboutWaitTime) throws InterruptedException;
 }
