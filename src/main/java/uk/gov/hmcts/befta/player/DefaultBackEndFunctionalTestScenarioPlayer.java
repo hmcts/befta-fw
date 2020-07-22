@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -579,9 +580,10 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     @Override
     @When("a wait time of [{}] seconds [{}]")
     @When("a wait is allowed for [{}] seconds [{}]")
-    public void performWaitTimeToAllowOperationToComplete(String waitTime, String scenarioContext) throws InterruptedException {
+    public void suspendExecutionOnPurposeForAGivenNumberOfSeconds(String waitTime, String specAboutWaitTime) throws InterruptedException {
         try {
-            TimeUnit.SECONDS.sleep(Integer.parseInt(waitTime));
+            DecimalFormat df = new DecimalFormat("#.##");
+            TimeUnit.MILLISECONDS.sleep((long) (Double.valueOf(df.format(Double.parseDouble(waitTime))) * 1000));
         } catch (NumberFormatException ex) {
             throw new FunctionalTestException("Wait time provided is not a valid number: " + waitTime, ex);
         }

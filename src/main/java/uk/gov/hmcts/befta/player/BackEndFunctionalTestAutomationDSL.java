@@ -62,7 +62,7 @@ public interface BackEndFunctionalTestAutomationDSL {
     void performAndVerifyTheExpectedResponseForAnApiCall(String testDataSpec, String testDataId) throws IOException;
 
     // DSL Element:
-    // "a wait time of [<wait time in seconds>] seconds to allow [<some spec about the scenario context>]"
-    // "a wait is allowed for [<wait time in seconds>] seconds [<some spec about the scenario context>]"
-    void performWaitTimeToAllowOperationToComplete(String waitTime, String scenarioContext) throws InterruptedException;
+    // "a wait time of [<wait time in seconds>] seconds [<some spec to describe the purpose of waiting>]"
+    // "a wait is allowed for [<wait time in seconds>] seconds [<some spec to describe the purpose of waiting>]"
+    void suspendExecutionOnPurposeForAGivenNumberOfSeconds(String waitTime, String specAboutWaitTime) throws InterruptedException;
 }

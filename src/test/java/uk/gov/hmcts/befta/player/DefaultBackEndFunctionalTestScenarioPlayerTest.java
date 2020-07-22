@@ -723,7 +723,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
     @Test
     public void shouldPerformWaitTimeOfFiveSecondsToAllowOperationToComplete() throws InterruptedException {
         long before = System.currentTimeMillis();
-        scenarioPlayer.performWaitTimeToAllowOperationToComplete("5", "to allow Logstash to catch up");
+        scenarioPlayer.suspendExecutionOnPurposeForAGivenNumberOfSeconds("5", "to allow Logstash to catch up");
 
         assertEquals(5, TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - before));
     }
@@ -731,7 +731,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
     @Test
     public void shouldPerformWaitTimeOfTwoSecondsToAllowOperationToComplete() throws InterruptedException {
         long before = System.currentTimeMillis();
-        scenarioPlayer.performWaitTimeToAllowOperationToComplete("2", "to allow Logstash to catch up");
+        scenarioPlayer.suspendExecutionOnPurposeForAGivenNumberOfSeconds("2.0", "to allow Logstash to catch up");
 
         assertEquals(2, TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - before));
     }
@@ -741,7 +741,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         exceptionRule.expect(FunctionalTestException.class);
         exceptionRule.expectMessage("Wait time provided is not a valid number: five");
 
-        scenarioPlayer.performWaitTimeToAllowOperationToComplete("five", "to allow Logstash to catch up");
+        scenarioPlayer.suspendExecutionOnPurposeForAGivenNumberOfSeconds("five", "to allow Logstash to catch up");
     }
 
     @Test
@@ -749,7 +749,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         exceptionRule.expect(FunctionalTestException.class);
         exceptionRule.expectMessage("Wait time provided is not a valid number: ");
 
-        scenarioPlayer.performWaitTimeToAllowOperationToComplete("", "to allow Logstash to catch up");
+        scenarioPlayer.suspendExecutionOnPurposeForAGivenNumberOfSeconds("", "to allow Logstash to catch up");
     }
 
     private ResponseData createResponseDataWithResponseCode(int responseCode) {
