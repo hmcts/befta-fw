@@ -538,16 +538,16 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     private void verifyTheUserBeingSpecifiedInTheContext(final BackEndFunctionalTestScenarioContext scenarioContext,
                                                          final UserData userBeingSpecified, int userIndex) {
         String prefix = userIndex == 0 ? "users.invokingUser" : "users[" + userIndex + "]";
-        resolveUserData(prefix, userBeingSpecified);
+        resolveUserData(scenarioContext, prefix, userBeingSpecified);
         scenario.write("Attempting to authenticate [" + userBeingSpecified.getUsername() + "]...");
-        authenticateUser(prefix, userBeingSpecified);
+        authenticateUser(scenarioContext, prefix, userBeingSpecified);
         scenario.write("Authenticated user with Id [" + userBeingSpecified.getId() + "].");
         if (userIndex == 0) {
             scenarioContext.setTheInvokingUser(userBeingSpecified);
         }
     }
 
-    private void resolveUserData(String prefix, UserData aUser) {
+    private void resolveUserData(final BackEndFunctionalTestScenarioContext scenarioContext,String prefix, UserData aUser) {
         String resolvedUsername = EnvironmentVariableUtils.resolvePossibleVariable(aUser.getUsername());
         if (resolvedUsername.equals(aUser.getUsername())) {
             logger.info(scenarioContext.getCurrentScenarioTag() + ": Expected environment variable declaration "
@@ -566,7 +566,8 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         aUser.setPassword(resolvedPassword);
     }
 
-    private void authenticateUser(String prefix, UserData user) {
+    private void authenticateUser(final BackEndFunctionalTestScenarioContext scenarioContext, String prefix,
+            UserData user) {
         String logPrefix = scenarioContext.getCurrentScenarioTag() + ": " + prefix + " [" + user.getUsername() + "] ";
         String preferredTokenProviderClientId = scenarioContext.getTestData().getUserTokenClientId();
         try {
