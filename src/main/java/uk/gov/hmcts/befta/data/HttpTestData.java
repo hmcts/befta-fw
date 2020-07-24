@@ -3,19 +3,22 @@ package uk.gov.hmcts.befta.data;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import lombok.Data;
 import uk.gov.hmcts.befta.BeftaMain;
-import uk.gov.hmcts.befta.auth.OAuth2Config;
+import uk.gov.hmcts.befta.auth.UserTokenProviderConfig;
 
 @Data
 public class HttpTestData {
 
     private static final String KEY_INVOKING_USER = "invokingUser";
 
+    @SuppressWarnings({"checkstyle:MemberName", "java:S116"})
     private String _guid_;
 
+    @SuppressWarnings({"checkstyle:MemberName", "java:S116"})
     private String _extends_;
 
     private String title;
@@ -30,6 +33,25 @@ public class HttpTestData {
 
     private String uri;
 
+    /** Prerequisites can be specified as a List of objects.
+     * <ul>
+     *  <li>if an element is a String, it will be treated as a guid</li>
+     *  <li>if an element is a Map, it will be treated as a unique context ID to a guid entry</li>
+     * </ul>
+     * So the following will define 6 prerequisites: 4 of them referring the same test data guid:
+     * <pre>{@code 
+     * "prerequisites": {
+     *   "call_data_id_1",
+     *   { "call_data_id_2": "generic_data_1" },
+     *   { "call_data_id_3": "generic_data_1" },
+     *   { "call_data_id_4": "generic_data_1" },
+     *   "call_data_id_5",
+     *   { "call_data_id_6": "generic_data_1" },
+     * }
+     * }</pre>
+     */
+    private List<Object> prerequisites = new ArrayList<>();
+
     private RequestData request;
 
     private ResponseData expectedResponse;
@@ -40,7 +62,7 @@ public class HttpTestData {
 
     private String s2sClientId;
 
-    private String oauth2ClientId;
+    private String userTokenClientId;
 
     private UserData userSet = null;
 
@@ -51,11 +73,13 @@ public class HttpTestData {
         this.set_guid_(other.get_guid_());
         this.set_extends_(other.get_extends_());
         this.setTitle(other.getTitle());
-        this.setSpecs(new ArrayList<>(other.getSpecs()));
+        this.setSpecs(other.getSpecs() == null ? null : new ArrayList<>(other.getSpecs()));
         this.setProductName(other.getProductName());
         this.setOperationName(other.getOperationName());
         this.setMethod(other.getMethod());
         this.setUri(other.getUri());
+
+        this.setPrerequisites(other.getPrerequisites());
 
         this.setRequest(other.getRequest() == null ? null : new RequestData(other.getRequest()));
         this.setExpectedResponse(
@@ -68,6 +92,7 @@ public class HttpTestData {
             this.users.put(entry.getKey(), new UserData(entry.getValue()));
         }
 
+        this.setUserTokenClientId(other.getUserTokenClientId());
         this.setS2sClientId(other.getS2sClientId());
 
         this.userSet = other.userSet;
@@ -94,10 +119,11 @@ public class HttpTestData {
         userSet = user;
     }
 
-    public void setUsers(LinkedHashMap<String, UserData> users) {
-        if (users == null)
+    public void setUsers(Map<String, UserData> users) {
+        if (users == null) {
             throw new IllegalArgumentException("User map cannot be null.");
-        this.users = users;
+        }
+        this.users = (LinkedHashMap<String, UserData>)users;
         if (userSet != null) {
             setInvokingUser(userSet);
         }
@@ -110,10 +136,10 @@ public class HttpTestData {
         return s2sClientId;
     }
 
-    public String getOauth2ClientId() {
-        if (this.oauth2ClientId == null) {
-            return OAuth2Config.DEFAULT_INSTANCE.getClientId();
+    public String getUserTokenClientId() {
+        if (this.userTokenClientId == null) {
+            return UserTokenProviderConfig.DEFAULT_INSTANCE.getClientId();
         }
-        return oauth2ClientId;
+        return userTokenClientId;
     }
 }

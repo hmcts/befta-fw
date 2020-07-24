@@ -1,0 +1,11 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_PRIVATE_B",
+  "Channel" : "CaseWorker",
+  "TabID" : "FirstTab",
+  "TabLabel" : "First tab",
+  "TabDisplayOrder" : 1,
+  "CaseFieldID" : "TextField",
+  "TabFieldDisplayOrder" : 1
+} ]

@@ -60,4 +60,9 @@ public interface BackEndFunctionalTestAutomationDSL {
     // a call [<some spec about the overall call data>] will get the expected response as in [<some test data unique id>]
     // another call [<some spec about the overall call data>] will get the expected response as in [<some test data unique id>]
     void performAndVerifyTheExpectedResponseForAnApiCall(String testDataSpec, String testDataId) throws IOException;
+
+    // DSL Element:
+    // "a wait time of [<wait time in seconds>] seconds [<some spec to describe the purpose of waiting>]"
+    // "a wait time is allowed for [<wait time in seconds>] seconds [<some spec to describe the purpose of waiting>]"
+    void suspendExecutionOnPurposeForAGivenNumberOfSeconds(String waitTime, String specAboutWaitTime) throws InterruptedException;
 }

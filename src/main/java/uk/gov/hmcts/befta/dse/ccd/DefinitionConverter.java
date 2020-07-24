@@ -2,6 +2,7 @@ package uk.gov.hmcts.befta.dse.ccd;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import uk.gov.hmcts.befta.dse.ccd.definition.converter.ExcelTransformer;
 import uk.gov.hmcts.befta.dse.ccd.definition.converter.JsonTransformer;
 
@@ -33,7 +34,7 @@ public class DefinitionConverter {
                 break;
         }
 
-
+        System.out.println("Definition conversion completed successfully.");
     }
 
     private static void validateArgs(String[] args) throws IllegalArgumentException {

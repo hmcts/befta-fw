@@ -15,6 +15,7 @@ import uk.gov.hmcts.befta.data.HttpTestDataSource;
 import uk.gov.hmcts.befta.data.JsonStoreHttpTestDataSource;
 import uk.gov.hmcts.befta.data.ResponseData;
 import uk.gov.hmcts.befta.data.UserData;
+import uk.gov.hmcts.befta.exception.FunctionalTestException;
 import uk.gov.hmcts.befta.util.DynamicValueInjector;
 
 public class BackEndFunctionalTestScenarioContext {
@@ -43,13 +44,21 @@ public class BackEndFunctionalTestScenarioContext {
     @Getter
     private Map<String, BackEndFunctionalTestScenarioContext> childContexts = new HashMap<>();
 
+    @Setter
+    protected String contextId = null;
+
     private int userCountSpecifiedSoFar = 0;
 
     private DynamicValueInjector dynamicValueInjector;
 
     public void addChildContext(BackEndFunctionalTestScenarioContext childContext) {
+        addChildContext(childContext.getTestDataId(), childContext);
+    }
+
+    public void addChildContext(String contextId, BackEndFunctionalTestScenarioContext childContext) {
         childContext.setParentContext(this);
-        childContexts.put(childContext.getTestData().get_guid_(), childContext);
+        childContext.setContextId(contextId);
+        this.childContexts.put(contextId, childContext);
     }
 
     public void initializeTestDataFor(Scenario scenario) {
@@ -60,6 +69,9 @@ public class BackEndFunctionalTestScenarioContext {
 
     public void initializeTestDataFor(String testDataId) {
         HttpTestData original = DATA_SOURCE.getDataForTestCall(testDataId);
+        if (original == null) {
+            throw new FunctionalTestException("No test data found with ID [" + testDataId + "].");
+        }
         testData = original == null ? null : new HttpTestData(original);
         dynamicValueInjector = new DynamicValueInjector(BeftaMain.getAdapter(), testData, this);
     }
@@ -77,6 +89,10 @@ public class BackEndFunctionalTestScenarioContext {
             .filter(tag -> tag.startsWith("@S-"))
             .map(tag -> tag.substring(1))
             .collect(Collectors.joining(","));
+    }
+
+    public String getContextId() {
+        return contextId == null ? getTestDataId() : contextId;
     }
 
     public UserData getTheInvokingUser() {
@@ -103,6 +119,10 @@ public class BackEndFunctionalTestScenarioContext {
         if (parentContext == null)
             return null;
         return getParentContext().getChildContexts();
+    }
+
+    private String getTestDataId() {
+        return testData == null ? "" : testData.get_guid_();
     }
 
 }
