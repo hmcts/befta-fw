@@ -28,7 +28,6 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
     private static final String CODE = "code";
     private static final String BASIC = "Basic ";
     private static final String PASSWORD = "password";
-    private static final String SCOPE = "openid%20profile%20roles%20authorities%20email";
 
     private final AuthApi idamApi;
 
@@ -132,7 +131,7 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
     private String getIdamOidcToken(String username, String password, UserTokenProviderConfig tokenProviderConfig) {
 
         AuthApi.TokenExchangeResponse generateOIDCToken = idamApi.generateOIDCToken(tokenProviderConfig.getClientId(),
-                tokenProviderConfig.getClientSecret(), PASSWORD, SCOPE, username, password);
+                tokenProviderConfig.getClientSecret(), PASSWORD, tokenProviderConfig.getScopeVariables(), username, password);
 
         return generateOIDCToken.getAccessToken();
     }

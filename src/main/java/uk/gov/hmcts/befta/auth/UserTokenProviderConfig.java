@@ -1,7 +1,9 @@
 package uk.gov.hmcts.befta.auth;
 
+import static uk.gov.hmcts.befta.util.EnvironmentVariableUtils.getOptionalVariable;
+import static uk.gov.hmcts.befta.util.EnvironmentVariableUtils.getRequiredVariable;
+
 import lombok.Getter;
-import uk.gov.hmcts.befta.util.EnvironmentVariableUtils;
 
 @Getter
 public class UserTokenProviderConfig {
@@ -14,12 +16,14 @@ public class UserTokenProviderConfig {
     private final String clientSecret;
     private final String redirectUri;
     private String accessTokenType;
+    private String scopeVariables;
 
     private UserTokenProviderConfig() {
-        clientId = EnvironmentVariableUtils.getRequiredVariable("OAUTH2_CLIENT_ID");
-        clientSecret = EnvironmentVariableUtils.getRequiredVariable("OAUTH2_CLIENT_SECRET");
-        redirectUri = EnvironmentVariableUtils.getRequiredVariable("OAUTH2_REDIRECT_URI");
-        accessTokenType = EnvironmentVariableUtils.getOptionalVariable("OAUTH2_ACCESS_TOKEN_TYPE");
+        clientId = getRequiredVariable("OAUTH2_CLIENT_ID");
+        clientSecret = getRequiredVariable("OAUTH2_CLIENT_SECRET");
+        redirectUri = getRequiredVariable("OAUTH2_REDIRECT_URI");
+        scopeVariables = getOptionalVariable("OAUTH2_SCOPE_VARIABLES");
+        accessTokenType = getOptionalVariable("OAUTH2_ACCESS_TOKEN_TYPE");
         if (accessTokenType == null) {
             accessTokenType = OAUTH2;
         }
@@ -27,12 +31,11 @@ public class UserTokenProviderConfig {
 
     private UserTokenProviderConfig(String tokenProviderClientId) {
         clientId = tokenProviderClientId;
-        clientSecret = EnvironmentVariableUtils
-                .getRequiredVariable("BEFTA_OAUTH2_CLIENT_SECRET_OF_" + tokenProviderClientId.toUpperCase());
-        redirectUri = EnvironmentVariableUtils
-                .getRequiredVariable("BEFTA_OAUTH2_REDIRECT_URI_OF_" + tokenProviderClientId.toUpperCase());
-        accessTokenType = EnvironmentVariableUtils
-                .getRequiredVariable("BEFTA_OAUTH2_ACCESS_TOKEN_TYPE_OF_" + tokenProviderClientId.toUpperCase());
+        clientSecret = getRequiredVariable("BEFTA_OAUTH2_CLIENT_SECRET_OF_" + tokenProviderClientId.toUpperCase());
+        redirectUri = getRequiredVariable("BEFTA_OAUTH2_REDIRECT_URI_OF_" + tokenProviderClientId.toUpperCase());
+        scopeVariables = getOptionalVariable("BEFTA_OAUTH2_SCOPE_VARIABLES_OF_" + tokenProviderClientId.toUpperCase());
+        accessTokenType = getOptionalVariable(
+                "BEFTA_OAUTH2_ACCESS_TOKEN_TYPE_OF_" + tokenProviderClientId.toUpperCase());
         if (accessTokenType == null) {
             accessTokenType = OAUTH2;
         }
