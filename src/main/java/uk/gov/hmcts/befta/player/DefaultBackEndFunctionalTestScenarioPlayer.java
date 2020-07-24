@@ -566,7 +566,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
 
     private void authenticateUser(final BackEndFunctionalTestScenarioContext scenarioContext, String prefix,
             UserData user) {
-        String logPrefix = scenarioContext.getCurrentScenarioTag() + ": " + prefix + " [" + user.getUsername() + "] ";
+        String logPrefix = scenarioContext.getTestData().get_guid_() + ": " + prefix + " [" + user.getUsername() + "] ";
         String preferredTokenProviderClientId = scenarioContext.getTestData().getUserTokenClientId();
         scenario.write("Authentication attempt from: " + preferredTokenProviderClientId + ".");
         try {
