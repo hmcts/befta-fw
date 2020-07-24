@@ -547,17 +547,14 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         }
     }
 
-    private void resolveUserData(final BackEndFunctionalTestScenarioContext scenarioContext,String prefix, UserData aUser) {
+    private void resolveUserData(final BackEndFunctionalTestScenarioContext scenarioContext, String prefix,
+            UserData aUser) {
         String resolvedUsername = EnvironmentVariableUtils.resolvePossibleVariable(aUser.getUsername());
-        if (resolvedUsername.equals(aUser.getUsername())) {
-            logger.info(scenarioContext.getCurrentScenarioTag() + ": Expected environment variable declaration "
-                    + "for " + prefix + ".username but found '" + resolvedUsername + "', which may cause issues "
-                    + "in higher environments");
-        }
 
         String resolvedPassword = EnvironmentVariableUtils.resolvePossibleVariable(aUser.getPassword());
         if (resolvedPassword.equals(aUser.getPassword())) {
-            logger.info(scenarioContext.getCurrentScenarioTag() + ": Expected environment variable declaration "
+            logger.info(scenarioContext.getTestData().get_guid_()
+                    + ": Expected environment variable declaration "
                     + "for " + prefix + ".password but found '" + resolvedPassword + "', which may cause issues "
                     + "in higher environments");
         }
