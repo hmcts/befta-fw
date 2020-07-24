@@ -33,6 +33,9 @@ public class UserTokenProviderConfig {
                 .getRequiredVariable("BEFTA_OAUTH2_REDIRECT_URI_OF_" + tokenProviderClientId.toUpperCase());
         accessTokenType = EnvironmentVariableUtils
                 .getRequiredVariable("BEFTA_OAUTH2_ACCESS_TOKEN_TYPE_OF_" + tokenProviderClientId.toUpperCase());
+        if (accessTokenType == null) {
+            accessTokenType = OAUTH2;
+        }
     }
 
     public static UserTokenProviderConfig of(String tokenProviderClientId) {
