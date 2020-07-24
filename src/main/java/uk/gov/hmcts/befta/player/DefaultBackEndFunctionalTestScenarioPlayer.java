@@ -570,6 +570,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
             UserData user) {
         String logPrefix = scenarioContext.getCurrentScenarioTag() + ": " + prefix + " [" + user.getUsername() + "] ";
         String preferredTokenProviderClientId = scenarioContext.getTestData().getUserTokenClientId();
+        scenario.write("Authentication attempt from: " + preferredTokenProviderClientId + ".");
         try {
             BeftaMain.getAdapter().authenticate(user, preferredTokenProviderClientId);
             logger.info(logPrefix + "authenticated.");
