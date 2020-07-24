@@ -44,13 +44,21 @@ public class BackEndFunctionalTestScenarioContext {
     @Getter
     private Map<String, BackEndFunctionalTestScenarioContext> childContexts = new HashMap<>();
 
+    @Setter
+    protected String contextId = null;
+
     private int userCountSpecifiedSoFar = 0;
 
     private DynamicValueInjector dynamicValueInjector;
 
     public void addChildContext(BackEndFunctionalTestScenarioContext childContext) {
+        addChildContext(childContext.getTestDataId(), childContext);
+    }
+
+    public void addChildContext(String contextId, BackEndFunctionalTestScenarioContext childContext) {
         childContext.setParentContext(this);
-        childContexts.put(childContext.getTestData().get_guid_(), childContext);
+        childContext.setContextId(contextId);
+        this.childContexts.put(contextId, childContext);
     }
 
     public void initializeTestDataFor(Scenario scenario) {
@@ -83,6 +91,10 @@ public class BackEndFunctionalTestScenarioContext {
             .collect(Collectors.joining(","));
     }
 
+    public String getContextId() {
+        return contextId == null ? getTestDataId() : contextId;
+    }
+
     public UserData getTheInvokingUser() {
         return testData.getInvokingUser();
     }
@@ -107,6 +119,10 @@ public class BackEndFunctionalTestScenarioContext {
         if (parentContext == null)
             return null;
         return getParentContext().getChildContexts();
+    }
+
+    private String getTestDataId() {
+        return testData == null ? "" : testData.get_guid_();
     }
 
 }

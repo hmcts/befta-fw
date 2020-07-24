@@ -12,9 +12,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.concurrent.TimeUnit;
 
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
@@ -36,6 +38,7 @@ import uk.gov.hmcts.befta.data.RequestData;
 import uk.gov.hmcts.befta.data.ResponseData;
 import uk.gov.hmcts.befta.data.UserData;
 import uk.gov.hmcts.befta.exception.FunctionalTestException;
+import uk.gov.hmcts.befta.exception.InvalidTestDataException;
 import uk.gov.hmcts.befta.exception.UnconfirmedApiCallException;
 import uk.gov.hmcts.befta.exception.UnconfirmedDataSpecException;
 import uk.gov.hmcts.befta.util.BeftaUtils;
@@ -45,6 +48,8 @@ import uk.gov.hmcts.befta.util.MapVerificationResult;
 import uk.gov.hmcts.befta.util.MapVerifier;
 
 public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFunctionalTestAutomationDSL {
+
+    static final String PREREQUISITE_SPEC = "As a prerequisite";
 
     private Logger logger = LoggerFactory.getLogger(DefaultBackEndFunctionalTestScenarioPlayer.class);
 
@@ -136,6 +141,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     @Override
     @When("a request is prepared with appropriate values")
     public void prepareARequestWithAppropriateValues() throws IOException {
+        runPrerequisitesSpecifiedInTheContext(this.scenarioContext);
         prepareARequestWithAppropriateValues(this.scenarioContext);
     }
 
@@ -147,6 +153,69 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         scenarioContext.setTheRequest(raRequest);
         scenario.write("Request prepared with the following variables: "
                 + JsonUtils.getPrettyJsonFromObject(scenarioContext.getTestData().getRequest()));
+    }
+
+    private void runPrerequisitesSpecifiedInTheContext(final BackEndFunctionalTestScenarioContext scenarioContext)
+            throws IOException {
+
+        List<Object> prerequisites = scenarioContext.getTestData().getPrerequisites();
+
+        if (prerequisites != null && !prerequisites.isEmpty()) {
+            scenario.write("Prerequisite processing started: [" + scenarioContext.getContextId() + "]");
+
+            // prerequisites as list of objects
+            for (Object prerequisite: prerequisites) {
+                // if prerequisite is just a string
+                if (prerequisite instanceof String) {
+                    String prerequisiteAsString = (String)prerequisite;
+                    runSinglePrerequisite(scenarioContext, prerequisiteAsString, prerequisiteAsString);
+
+                    // if prerequisites is a map of pairs: "context_id": "test_data_id"
+                } else if (prerequisite instanceof Map) {
+                    @SuppressWarnings("unchecked")
+                    Map<String, String> prerequisiteAsMap = (Map<String, String>) prerequisite;
+                    for (Map.Entry<String,String> prerequisiteAsEntry : prerequisiteAsMap.entrySet()) {
+                        runSinglePrerequisite(scenarioContext, prerequisiteAsEntry.getKey(), prerequisiteAsEntry.getValue());
+                    }
+
+                } else {
+                    throw new FunctionalTestException("Unrecognised prerequisite data type");
+                }
+            }
+
+            scenario.write("Prerequisite processing complete: [" + scenarioContext.getContextId() + "]");
+        }
+    }
+
+    private void runSinglePrerequisite(final BackEndFunctionalTestScenarioContext parentContext, String subcontextId, String testDataId)
+            throws IOException {
+
+        checkCyclicPrerequisiteDependency(parentContext, subcontextId);
+
+        // avoid undesirable re-execution
+        if (shouldExecutePrerequisite(parentContext, subcontextId)) {
+            scenario.write("Prerequisite: [" + parentContext.getContextId() + "].[" + subcontextId + "] from [" + testDataId + "]");
+            performAndVerifyTheExpectedResponseForAnApiCall(parentContext, PREREQUISITE_SPEC, testDataId, subcontextId);
+        } else {
+            scenario.write("Skipping prerequisite: [" + parentContext.getContextId() + "].[" + subcontextId + "]");
+        }
+    }
+
+    private boolean shouldExecutePrerequisite(BackEndFunctionalTestScenarioContext parentContext, String subcontextId) {
+        boolean prerequisiteAlreadyDefined = parentContext.getChildContexts().containsKey(subcontextId);
+        boolean prerequisiteAlreadyExecuted = prerequisiteAlreadyDefined
+                && parentContext.getChildContexts().get(subcontextId).getTestData().getActualResponse() != null;
+        return !prerequisiteAlreadyExecuted;
+    }
+
+    private void checkCyclicPrerequisiteDependency(BackEndFunctionalTestScenarioContext parentContext,
+                                                   String subcontextId) {
+
+        if (subcontextId.equals(parentContext.getContextId())) {
+            throw new InvalidTestDataException("Cyclic dependency discovered for prerequisite with contextId: " + subcontextId);
+        } else if (parentContext.getParentContext() != null) {
+            checkCyclicPrerequisiteDependency(parentContext.getParentContext(), subcontextId);
+        }
     }
 
     private RequestSpecification buildRestAssuredRequestWith(HttpTestData testData) throws IOException {
@@ -239,7 +308,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     }
 
     private void submitTheRequestToCallAnOperationOfAProduct(BackEndFunctionalTestScenarioContext scenarioContext,
-            String operationName, String productName) throws IOException {
+                                                             String operationName, String productName) throws IOException {
         boolean isCorrectOperation = scenarioContext.getTestData().meetsOperationOfProduct(productName, operationName);
         if (!isCorrectOperation) {
             throw new UnconfirmedApiCallException(productName, operationName);
@@ -268,7 +337,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
 
     @SuppressWarnings("unchecked")
     private ResponseData convertRestAssuredResponseToBeftaResponse(BackEndFunctionalTestScenarioContext scenarioContext,
-            Response response) throws IOException {
+                                                                   Response response) throws IOException {
         Map<String, Object> responseHeaders = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
         response.getHeaders().forEach(header -> responseHeaders.put(header.getName(), header.getValue()));
         ResponseData responseData = new ResponseData();
@@ -390,7 +459,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     }
 
     private void processAnyIssuesInResponse(String issueWithResponseCode, List<String> issuesInResponseHeaders,
-            List<String> issuesInResponseBody) {
+                                            List<String> issuesInResponseBody) {
         StringBuffer allVerificationIssues = new StringBuffer(
                 "Could not verify the actual response against expected one. Below are the issues.").append('\n');
 
@@ -437,10 +506,22 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     @Then("another call [{}] will get the expected response as in [{}]")
     public void performAndVerifyTheExpectedResponseForAnApiCall(String testDataSpec, String testDataId)
             throws IOException {
+        performAndVerifyTheExpectedResponseForAnApiCall(this.scenarioContext, testDataSpec, testDataId, null);
+    }
+
+    private void performAndVerifyTheExpectedResponseForAnApiCall(BackEndFunctionalTestScenarioContext parentContext,
+                                                                 String testDataSpec,
+                                                                 String testDataId,
+                                                                 String contextId) throws IOException {
         BackEndFunctionalTestScenarioContext subcontext = new BackEndFunctionalTestScenarioContext();
         subcontext.initializeTestDataFor(testDataId);
-        this.scenarioContext.addChildContext(subcontext);
+        if (contextId == null) {
+            parentContext.addChildContext(subcontext);
+        } else {
+            parentContext.addChildContext(contextId, subcontext);
+        }
         verifyAllUsersInTheContext(subcontext);
+        runPrerequisitesSpecifiedInTheContext(subcontext);
         prepareARequestWithAppropriateValues(subcontext);
         verifyTheRequestInTheContextWithAParticularSpecification(subcontext, testDataSpec);
         submitTheRequestToCallAnOperationOfAProduct(subcontext, subcontext.getTestData().getOperationName(),
@@ -455,7 +536,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     }
 
     private void verifyTheUserBeingSpecifiedInTheContext(final BackEndFunctionalTestScenarioContext scenarioContext,
-            final UserData userBeingSpecified, int userIndex) {
+                                                         final UserData userBeingSpecified, int userIndex) {
         String prefix = userIndex == 0 ? "users.invokingUser" : "users[" + userIndex + "]";
         resolveUserData(prefix, userBeingSpecified);
         scenario.write("Attempting to authenticate [" + userBeingSpecified.getUsername() + "]...");
@@ -487,12 +568,24 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
 
     private void authenticateUser(String prefix, UserData user) {
         String logPrefix = scenarioContext.getCurrentScenarioTag() + ": " + prefix + " [" + user.getUsername() + "] ";
-        String preferredOauth2ClientId = scenarioContext.getTestData().getOauth2ClientId();
+        String preferredTokenProviderClientId = scenarioContext.getTestData().getUserTokenClientId();
         try {
-            BeftaMain.getAdapter().authenticate(user, preferredOauth2ClientId);
+            BeftaMain.getAdapter().authenticate(user, preferredTokenProviderClientId);
             logger.info(logPrefix + "authenticated.");
         } catch (Exception ex) {
             throw new FunctionalTestException(logPrefix + "could not authenticate.", ex);
+        }
+    }
+
+    @Override
+    @When("a wait time of [{}] seconds [{}]")
+    @When("a wait time is allowed for [{}] seconds [{}]")
+    public void suspendExecutionOnPurposeForAGivenNumberOfSeconds(String waitTime, String specAboutWaitTime) throws InterruptedException {
+        try {
+            DecimalFormat df = new DecimalFormat("#.##");
+            TimeUnit.MILLISECONDS.sleep((long) (Double.valueOf(df.format(Double.parseDouble(waitTime))) * 1000));
+        } catch (NumberFormatException ex) {
+            throw new FunctionalTestException("Wait time provided is not a valid number: " + waitTime, ex);
         }
     }
 }

@@ -1,6 +1,6 @@
 package uk.gov.hmcts.befta;
 
-import uk.gov.hmcts.befta.auth.OAuth2Config;
+import uk.gov.hmcts.befta.auth.UserTokenProviderConfig;
 import uk.gov.hmcts.befta.util.EnvironmentVariableUtils;
 
 public class TestAutomationConfig {
@@ -42,8 +42,8 @@ public class TestAutomationConfig {
         return EnvironmentVariableUtils.getRequiredVariable("CCD_IMPORT_AUTOTEST_PASSWORD");
     }
 
-    public OAuth2Config getDefaultOauth2Config() {
-        return OAuth2Config.DEFAULT_INSTANCE;
+    public UserTokenProviderConfig getUserTokenProviderConfig() {
+        return UserTokenProviderConfig.DEFAULT_INSTANCE;
     }
 
     public static enum ResponseHeaderCheckPolicy {

@@ -1,14 +1,13 @@
 package uk.gov.hmcts.befta.auth;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import java.util.List;
-
 import feign.Body;
 import feign.Headers;
 import feign.Param;
 import feign.RequestLine;
 import lombok.Getter;
+
+import java.util.List;
 
 public interface AuthApi {
 
@@ -29,9 +28,20 @@ public interface AuthApi {
                                        @Param("client_secret") String clientSecret,
                                        @Param("redirect_uri") String redirectUri);
 
+    @RequestLine("POST /o/token")
+    @Headers("Content-Type: application/x-www-form-urlencoded")
+    @Body("client_id={client_id}&client_secret={client_secret}&grant_type={grant_type}&scope={scope}&username={username}&password={password}")
+    TokenExchangeResponse generateOIDCToken(@Param("client_id") String clientId,
+                                            @Param("client_secret") String clientSecret,
+                                            @Param("grant_type") String grantType,
+                                            @Param("scope") String scope,
+                                            @Param("username") String userName,
+                                            @Param("password") String password);
+
     @RequestLine("GET /details")
     @Headers("Authorization: Bearer {access_token}")
     User getUser(@Param("access_token") String accessToken);
+
 
     @Getter
     class AuthenticateUserResponse {
@@ -53,5 +63,7 @@ public interface AuthApi {
         @JsonProperty("roles")
         private List<String> roles;
     }
+
+
 }
 

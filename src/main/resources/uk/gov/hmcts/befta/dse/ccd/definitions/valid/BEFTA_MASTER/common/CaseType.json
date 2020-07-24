@@ -138,14 +138,4 @@
   "PrintableDocumentsUrl" : "",
   "RetriesTimeoutURLPrintEvent" : "",
   "SecurityClassification" : "Public"
-}, {
-  "LiveFrom" : "01/01/2017",
-  "LiveTo" : "",
-  "ID" : "FT_SearchInputByRole",
-  "Name" : "FT_Search Input By Role",
-  "Description" : "CaseType for testing Search and Workbasket Input Filters by role",
-  "JurisdictionID" : "BEFTA_MASTER",
-  "PrintableDocumentsUrl" : "",
-  "RetriesTimeoutURLPrintEvent" : "",
-  "SecurityClassification" : "Public"
 } ]
