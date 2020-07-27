@@ -164,18 +164,19 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
             scenario.write("Prerequisite processing started: [" + scenarioContext.getContextId() + "]");
 
             // prerequisites as list of objects
-            for (Object prerequisite: prerequisites) {
+            for (Object prerequisite : prerequisites) {
                 // if prerequisite is just a string
                 if (prerequisite instanceof String) {
-                    String prerequisiteAsString = (String)prerequisite;
+                    String prerequisiteAsString = (String) prerequisite;
                     runSinglePrerequisite(scenarioContext, prerequisiteAsString, prerequisiteAsString);
 
                     // if prerequisites is a map of pairs: "context_id": "test_data_id"
                 } else if (prerequisite instanceof Map) {
                     @SuppressWarnings("unchecked")
                     Map<String, String> prerequisiteAsMap = (Map<String, String>) prerequisite;
-                    for (Map.Entry<String,String> prerequisiteAsEntry : prerequisiteAsMap.entrySet()) {
-                        runSinglePrerequisite(scenarioContext, prerequisiteAsEntry.getKey(), prerequisiteAsEntry.getValue());
+                    for (Map.Entry<String, String> prerequisiteAsEntry : prerequisiteAsMap.entrySet()) {
+                        runSinglePrerequisite(scenarioContext, prerequisiteAsEntry.getKey(),
+                                prerequisiteAsEntry.getValue());
                     }
 
                 } else {
@@ -187,14 +188,15 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         }
     }
 
-    private void runSinglePrerequisite(final BackEndFunctionalTestScenarioContext parentContext, String subcontextId, String testDataId)
-            throws IOException {
+    private void runSinglePrerequisite(final BackEndFunctionalTestScenarioContext parentContext, String subcontextId,
+            String testDataId) throws IOException {
 
         checkCyclicPrerequisiteDependency(parentContext, subcontextId);
 
         // avoid undesirable re-execution
         if (shouldExecutePrerequisite(parentContext, subcontextId)) {
-            scenario.write("Prerequisite: [" + parentContext.getContextId() + "].[" + subcontextId + "] from [" + testDataId + "]");
+            scenario.write("Prerequisite: [" + parentContext.getContextId() + "].[" + subcontextId + "] from ["
+                    + testDataId + "]");
             performAndVerifyTheExpectedResponseForAnApiCall(parentContext, PREREQUISITE_SPEC, testDataId, subcontextId);
         } else {
             scenario.write("Skipping prerequisite: [" + parentContext.getContextId() + "].[" + subcontextId + "]");
@@ -209,10 +211,11 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     }
 
     private void checkCyclicPrerequisiteDependency(BackEndFunctionalTestScenarioContext parentContext,
-                                                   String subcontextId) {
+            String subcontextId) {
 
         if (subcontextId.equals(parentContext.getContextId())) {
-            throw new InvalidTestDataException("Cyclic dependency discovered for prerequisite with contextId: " + subcontextId);
+            throw new InvalidTestDataException(
+                    "Cyclic dependency discovered for prerequisite with contextId: " + subcontextId);
         } else if (parentContext.getParentContext() != null) {
             checkCyclicPrerequisiteDependency(parentContext.getParentContext(), subcontextId);
         }
@@ -308,7 +311,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     }
 
     private void submitTheRequestToCallAnOperationOfAProduct(BackEndFunctionalTestScenarioContext scenarioContext,
-                                                             String operationName, String productName) throws IOException {
+            String operationName, String productName) throws IOException {
         boolean isCorrectOperation = scenarioContext.getTestData().meetsOperationOfProduct(productName, operationName);
         if (!isCorrectOperation) {
             throw new UnconfirmedApiCallException(productName, operationName);
@@ -337,7 +340,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
 
     @SuppressWarnings("unchecked")
     private ResponseData convertRestAssuredResponseToBeftaResponse(BackEndFunctionalTestScenarioContext scenarioContext,
-                                                                   Response response) throws IOException {
+            Response response) throws IOException {
         Map<String, Object> responseHeaders = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
         response.getHeaders().forEach(header -> responseHeaders.put(header.getName(), header.getValue()));
         ResponseData responseData = new ResponseData();
@@ -459,7 +462,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     }
 
     private void processAnyIssuesInResponse(String issueWithResponseCode, List<String> issuesInResponseHeaders,
-                                            List<String> issuesInResponseBody) {
+            List<String> issuesInResponseBody) {
         StringBuffer allVerificationIssues = new StringBuffer(
                 "Could not verify the actual response against expected one. Below are the issues.").append('\n');
 
@@ -510,9 +513,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     }
 
     private void performAndVerifyTheExpectedResponseForAnApiCall(BackEndFunctionalTestScenarioContext parentContext,
-                                                                 String testDataSpec,
-                                                                 String testDataId,
-                                                                 String contextId) throws IOException {
+            String testDataSpec, String testDataId, String contextId) throws IOException {
         BackEndFunctionalTestScenarioContext subcontext = new BackEndFunctionalTestScenarioContext();
         subcontext.initializeTestDataFor(testDataId);
         if (contextId == null) {
@@ -536,28 +537,25 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     }
 
     private void verifyTheUserBeingSpecifiedInTheContext(final BackEndFunctionalTestScenarioContext scenarioContext,
-                                                         final UserData userBeingSpecified, int userIndex) {
+            final UserData userBeingSpecified, int userIndex) {
         String prefix = userIndex == 0 ? "users.invokingUser" : "users[" + userIndex + "]";
-        resolveUserData(prefix, userBeingSpecified);
+        resolveUserData(scenarioContext, prefix, userBeingSpecified);
         scenario.write("Attempting to authenticate [" + userBeingSpecified.getUsername() + "]...");
-        authenticateUser(prefix, userBeingSpecified);
+        authenticateUser(scenarioContext, prefix, userBeingSpecified);
         scenario.write("Authenticated user with Id [" + userBeingSpecified.getId() + "].");
         if (userIndex == 0) {
             scenarioContext.setTheInvokingUser(userBeingSpecified);
         }
     }
 
-    private void resolveUserData(String prefix, UserData aUser) {
+    private void resolveUserData(final BackEndFunctionalTestScenarioContext scenarioContext, String prefix,
+            UserData aUser) {
         String resolvedUsername = EnvironmentVariableUtils.resolvePossibleVariable(aUser.getUsername());
-        if (resolvedUsername.equals(aUser.getUsername())) {
-            logger.info(scenarioContext.getCurrentScenarioTag() + ": Expected environment variable declaration "
-                    + "for " + prefix + ".username but found '" + resolvedUsername + "', which may cause issues "
-                    + "in higher environments");
-        }
 
         String resolvedPassword = EnvironmentVariableUtils.resolvePossibleVariable(aUser.getPassword());
         if (resolvedPassword.equals(aUser.getPassword())) {
-            logger.info(scenarioContext.getCurrentScenarioTag() + ": Expected environment variable declaration "
+            logger.info(scenarioContext.getTestData().get_guid_()
+                    + ": Expected environment variable declaration "
                     + "for " + prefix + ".password but found '" + resolvedPassword + "', which may cause issues "
                     + "in higher environments");
         }
@@ -566,9 +564,11 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         aUser.setPassword(resolvedPassword);
     }
 
-    private void authenticateUser(String prefix, UserData user) {
-        String logPrefix = scenarioContext.getCurrentScenarioTag() + ": " + prefix + " [" + user.getUsername() + "] ";
+    private void authenticateUser(final BackEndFunctionalTestScenarioContext scenarioContext, String prefix,
+            UserData user) {
+        String logPrefix = scenarioContext.getTestData().get_guid_() + ": " + prefix + " [" + user.getUsername() + "] ";
         String preferredTokenProviderClientId = scenarioContext.getTestData().getUserTokenClientId();
+        scenario.write("Authentication attempt from: " + preferredTokenProviderClientId + ".");
         try {
             BeftaMain.getAdapter().authenticate(user, preferredTokenProviderClientId);
             logger.info(logPrefix + "authenticated.");
@@ -580,7 +580,8 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     @Override
     @When("a wait time of [{}] seconds [{}]")
     @When("a wait time is allowed for [{}] seconds [{}]")
-    public void suspendExecutionOnPurposeForAGivenNumberOfSeconds(String waitTime, String specAboutWaitTime) throws InterruptedException {
+    public void suspendExecutionOnPurposeForAGivenNumberOfSeconds(String waitTime, String specAboutWaitTime)
+            throws InterruptedException {
         try {
             DecimalFormat df = new DecimalFormat("#.##");
             TimeUnit.MILLISECONDS.sleep((long) (Double.valueOf(df.format(Double.parseDouble(waitTime))) * 1000));
