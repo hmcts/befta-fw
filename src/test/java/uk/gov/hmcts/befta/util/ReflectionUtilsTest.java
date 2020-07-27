@@ -34,7 +34,7 @@ public class ReflectionUtilsTest {
         UserData user = new UserData("USERNAME", "PASSWORD");
         testData.setInvokingUser(user);
 
-        final Object result = ReflectionUtils.deepGetFieldInObject(testData, "userSet.username");
+        final Object result = ReflectionUtils.deepGetFieldInObject(testData, "invokingUser.username");
 
         assertEquals("USERNAME", result);
     }
@@ -55,7 +55,7 @@ public class ReflectionUtilsTest {
         UserData user = new UserData();
         testData.setInvokingUser(user);
 
-        final Object result = ReflectionUtils.retrieveFieldInObject(testData, "userSet");
+        final Object result = ReflectionUtils.retrieveFieldInObject(testData, "invokingUser");
 
         assertEquals(user, result);
     }
@@ -101,7 +101,7 @@ public class ReflectionUtilsTest {
         UserData user = new UserData();
         testData.setInvokingUser(user);
 
-        assertEquals(user, ReflectionUtils.retrieveFieldInObject(testData, "userSet"));
+        assertEquals(user, ReflectionUtils.retrieveFieldInObject(testData, "invokingUser"));
     }
 
     @Test
