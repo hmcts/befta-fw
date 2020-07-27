@@ -16,6 +16,12 @@
   "ID" : "FixedListType",
   "ListElementCode" : "VALUE3",
   "ListElement" : "Value 3"
+},{
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "FixedListType",
+  "ListElementCode" : "VALUE4",
+  "ListElement" : "Value 4"
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
