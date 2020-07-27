@@ -546,7 +546,6 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         BeftaMain.setTaAdapter(adapter);
         scenarioPlayer.verifyThatThereIsAUserInTheContextWithAParticularSpecification(specificationAboutUser);
 
-        verify(context).setTheInvokingUser(userData);
         verify(testData).meetsSpec(specificationAboutUser);
     }
 
