@@ -32,7 +32,7 @@ public class ReflectionUtilsTest {
     public void shouldDeepGetFieldInObject() throws Exception {
         HttpTestData testData = new HttpTestData();
         UserData user = new UserData("USERNAME", "PASSWORD");
-        testData.setUserSet(user);
+        testData.setInvokingUser(user);
 
         final Object result = ReflectionUtils.deepGetFieldInObject(testData, "userSet.username");
 
@@ -53,7 +53,7 @@ public class ReflectionUtilsTest {
     public void shouldRetrieveFieldInSimpleObject() throws Exception {
         HttpTestData testData = new HttpTestData();
         UserData user = new UserData();
-        testData.setUserSet(user);
+        testData.setInvokingUser(user);
 
         final Object result = ReflectionUtils.retrieveFieldInObject(testData, "userSet");
 
@@ -99,7 +99,7 @@ public class ReflectionUtilsTest {
     public void shouldRetrieveFieldFromAnObject() throws Exception {
         HttpTestData testData = new HttpTestData();
         UserData user = new UserData();
-        testData.setUserSet(user);
+        testData.setInvokingUser(user);
 
         assertEquals(user, ReflectionUtils.retrieveFieldInObject(testData, "userSet"));
     }
