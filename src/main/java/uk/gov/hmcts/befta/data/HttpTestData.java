@@ -9,7 +9,6 @@ import java.util.Map.Entry;
 import lombok.Data;
 import uk.gov.hmcts.befta.BeftaMain;
 import uk.gov.hmcts.befta.auth.UserTokenProviderConfig;
-import uk.gov.hmcts.befta.exception.FunctionalTestException;
 
 @Data
 public class HttpTestData {
@@ -153,6 +152,6 @@ public class HttpTestData {
             }
             i++;
         }
-        throw new FunctionalTestException("No user entry with index " + userIndex);
+        return null;
     }
 }

@@ -124,8 +124,10 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         if (userDataEntry != null) {
             verifyTheUserBeingSpecifiedInTheContext(scenarioContext, userDataEntry.getKey(), userDataEntry.getValue());
         } else {
-            logger.info("The user [{}] will not be verified with authentication as it is not listed in test data.",
-                    specificationAboutAUser);
+            String message = "The user [" + specificationAboutAUser
+                    + "] will not be verified with authentication as it is not listed in test data.";
+            scenario.write(message);
+            logger.warn(message);
         }
     }
 
