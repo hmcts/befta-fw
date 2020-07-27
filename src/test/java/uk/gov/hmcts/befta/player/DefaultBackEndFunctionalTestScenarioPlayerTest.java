@@ -26,6 +26,7 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.io.IOException;
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -540,6 +541,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         when(testData.meetsSpec(any())).thenReturn(true);
         when(testData.getInvokingUser()).thenReturn(userData);
         when(testData.getUsers()).thenReturn(users);
+        when(testData.getUserEntryAt(0)).thenReturn(new AbstractMap.SimpleEntry<>("invokingUser", userData));
         when(context.getTestData()).thenReturn(testData);
         when(EnvironmentVariableUtils.resolvePossibleVariable(USERNAME)).thenReturn(USERNAME);
         when(EnvironmentVariableUtils.resolvePossibleVariable(PASSWORD)).thenReturn(PASSWORD);

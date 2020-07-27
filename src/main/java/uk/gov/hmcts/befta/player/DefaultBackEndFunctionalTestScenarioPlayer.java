@@ -15,6 +15,7 @@ import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.TreeMap;
 import java.util.concurrent.TimeUnit;
 
@@ -116,8 +117,8 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         }
 
         if (userIndex < scenarioContext.getTestData().getUsers().size()) {
-            UserData userData = (UserData) scenarioContext.getTestData().getUsers().values().toArray()[userIndex];
-            verifyTheUserBeingSpecifiedInTheContext(scenarioContext, userData, userIndex);
+            Entry<String, UserData> userDataEntry = scenarioContext.getTestData().getUserEntryAt(userIndex);
+            verifyTheUserBeingSpecifiedInTheContext(scenarioContext, userDataEntry.getKey(), userDataEntry.getValue());
         } else {
             logger.info("The user [{}] will not be verified with authentication as it is not listed in test data.",
                     specificationAboutAUser);
@@ -532,13 +533,13 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
 
     private void verifyAllUsersInTheContext(BackEndFunctionalTestScenarioContext scenarioContext) {
         scenarioContext.getTestData().getUsers()
-                .forEach((key, userData) -> verifyTheUserBeingSpecifiedInTheContext(scenarioContext, userData,
-                        scenarioContext.getAndIncrementUserCountSpecifiedSoFar()));
+                .forEach((key, userData) -> verifyTheUserBeingSpecifiedInTheContext(scenarioContext, key, userData));
     }
 
     private void verifyTheUserBeingSpecifiedInTheContext(final BackEndFunctionalTestScenarioContext scenarioContext,
-            final UserData userBeingSpecified, int userIndex) {
-        String prefix = userIndex == 0 ? "users.invokingUser" : "users[" + userIndex + "]";
+            final String userKey,
+            final UserData userBeingSpecified) {
+        String prefix = "users[" + userKey + "]";
         resolveUserData(scenarioContext, prefix, userBeingSpecified);
         scenario.write("Attempting to authenticate [" + userBeingSpecified.getUsername() + "]...");
         authenticateUser(scenarioContext, prefix, userBeingSpecified);
@@ -551,10 +552,10 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
 
         String resolvedPassword = EnvironmentVariableUtils.resolvePossibleVariable(aUser.getPassword());
         if (resolvedPassword.equals(aUser.getPassword())) {
-            logger.info(scenarioContext.getTestData().get_guid_()
+            logger.warn(scenarioContext.getTestData()
+                    .get_guid_()
                     + ": Expected environment variable declaration "
-                    + "for " + prefix + ".password but found '" + resolvedPassword + "', which may cause issues "
-                    + "in higher environments");
+                    + "for " + prefix + ".password but found a hard coded value!'");
         }
 
         aUser.setUsername(resolvedUsername);
