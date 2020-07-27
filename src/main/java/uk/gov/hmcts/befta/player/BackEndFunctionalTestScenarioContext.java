@@ -103,6 +103,7 @@ public class BackEndFunctionalTestScenarioContext {
         testData.setInvokingUser(theInvokingUser);
     }
 
+
     public int getUserCountSpecifiedSoFar() {
         return userCountSpecifiedSoFar;
     }
