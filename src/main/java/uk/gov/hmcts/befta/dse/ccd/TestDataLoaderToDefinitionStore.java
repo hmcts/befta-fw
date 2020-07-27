@@ -61,6 +61,8 @@ public class TestDataLoaderToDefinitionStore {
             new CcdRoleConfig("caseworker-autotest1-junior", "PUBLIC"),
 
             new CcdRoleConfig("caseworker-befta_master", "PUBLIC"),
+            new CcdRoleConfig("caseworker-befta_master-solicitor",
+                    "PUBLIC"),
             new CcdRoleConfig("caseworker-befta_master-solicitor_1", "PUBLIC"),
             new CcdRoleConfig("caseworker-befta_master-solicitor_2", "PUBLIC"),
             new CcdRoleConfig("caseworker-befta_master-solicitor_3", "PUBLIC"),
