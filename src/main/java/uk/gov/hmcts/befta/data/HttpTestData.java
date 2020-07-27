@@ -64,7 +64,7 @@ public class HttpTestData {
 
     private String userTokenClientId;
 
-    private UserData userSet = null;
+    private UserData invokingUser = null;
 
     public HttpTestData() {
     }
@@ -95,7 +95,7 @@ public class HttpTestData {
         this.setUserTokenClientId(other.getUserTokenClientId());
         this.setS2sClientId(other.getS2sClientId());
 
-        this.userSet = other.userSet;
+        this.invokingUser = other.invokingUser;
     }
 
     public boolean meetsSpec(String specification) {
@@ -111,12 +111,12 @@ public class HttpTestData {
     }
 
     public void setInvokingUser(UserData invokingUser) {
+        this.invokingUser = invokingUser;
         getUsers().put(KEY_INVOKING_USER, invokingUser);
     }
 
     public void setUser(UserData user) {
         setInvokingUser(user);
-        userSet = user;
     }
 
     public void setUsers(Map<String, UserData> users) {
@@ -124,8 +124,8 @@ public class HttpTestData {
             throw new IllegalArgumentException("User map cannot be null.");
         }
         this.users = (LinkedHashMap<String, UserData>)users;
-        if (userSet != null) {
-            setInvokingUser(userSet);
+        if (invokingUser != null) {
+            setInvokingUser(invokingUser);
         }
     }
 
