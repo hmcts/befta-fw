@@ -3,6 +3,118 @@
   "LiveTo" : "",
   "CaseTypeID" : "BEFTA_CASETYPE_2_1",
   "CaseFieldID" : "TextField",
+  "UserRole" : "caseworker-caa",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_2_1",
+  "CaseFieldID" : "NumberField",
+  "UserRole" : "caseworker-caa",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_2_1",
+  "CaseFieldID" : "YesOrNoField",
+  "UserRole" : "caseworker-caa",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_2_1",
+  "CaseFieldID" : "PhoneUKField",
+  "UserRole" : "caseworker-caa",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_2_1",
+  "CaseFieldID" : "EmailField",
+  "UserRole" : "caseworker-caa",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_2_1",
+  "CaseFieldID" : "MoneyGBPField",
+  "UserRole" : "caseworker-caa",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_2_1",
+  "CaseFieldID" : "DateField",
+  "UserRole" : "caseworker-caa",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_2_1",
+  "CaseFieldID" : "DateTimeField",
+  "UserRole" : "caseworker-caa",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_2_1",
+  "CaseFieldID" : "TextAreaField",
+  "UserRole" : "caseworker-caa",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_2_1",
+  "CaseFieldID" : "FixedListField",
+  "UserRole" : "caseworker-caa",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_2_1",
+  "CaseFieldID" : "MultiSelectListField",
+  "UserRole" : "caseworker-caa",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_2_1",
+  "CaseFieldID" : "AddressUKField",
+  "UserRole" : "caseworker-caa",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_2_1",
+  "CaseFieldID" : "CollectionField",
+  "UserRole" : "caseworker-caa",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_2_1",
+  "CaseFieldID" : "ComplexField",
+  "UserRole" : "caseworker-caa",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_2_1",
+  "CaseFieldID" : "FixedRadioListField",
+  "UserRole" : "caseworker-caa",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_2_1",
+  "CaseFieldID" : "HistoryComponentField",
+  "UserRole" : "caseworker-caa",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_2_1",
+  "CaseFieldID" : "TextField",
   "UserRole" : "caseworker-befta_jurisdiction_2",
   "CRUD" : "CRU"
 }, {

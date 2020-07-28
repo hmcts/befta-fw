@@ -2,6 +2,12 @@
   "LiveFrom" : "1/1/17",
   "LiveTo" : "",
   "CaseTypeID" : "BEFTA_CASETYPE_2_1",
+  "UserRole" : "caseworker-caa",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_2_1",
   "UserRole" : "caseworker-befta_jurisdiction_2",
   "CRUD" : "CRUD"
 }, {

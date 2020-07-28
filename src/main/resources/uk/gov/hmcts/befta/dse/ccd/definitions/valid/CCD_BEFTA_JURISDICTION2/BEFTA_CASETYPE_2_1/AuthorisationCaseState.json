@@ -3,6 +3,27 @@
   "LiveTo" : "",
   "CaseTypeID" : "BEFTA_CASETYPE_2_1",
   "CaseStateID" : "TODO",
+  "UserRole" : "caseworker-caa",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_2_1",
+  "CaseStateID" : "IN_PROGRESS",
+  "UserRole" : "caseworker-caa",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_2_1",
+  "CaseStateID" : "DONE",
+  "UserRole" : "caseworker-caa",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_2_1",
+  "CaseStateID" : "TODO",
   "UserRole" : "caseworker-befta_jurisdiction_2",
   "CRUD" : "CRU"
 }, {
