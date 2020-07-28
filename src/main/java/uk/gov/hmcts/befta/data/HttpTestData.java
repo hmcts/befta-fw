@@ -15,10 +15,10 @@ public class HttpTestData {
 
     private static final String KEY_INVOKING_USER = "invokingUser";
 
-    @SuppressWarnings({"checkstyle:MemberName", "java:S116"})
+    @SuppressWarnings({ "checkstyle:MemberName", "java:S116" })
     private String _guid_;
 
-    @SuppressWarnings({"checkstyle:MemberName", "java:S116"})
+    @SuppressWarnings({ "checkstyle:MemberName", "java:S116" })
     private String _extends_;
 
     private String title;
@@ -33,13 +33,18 @@ public class HttpTestData {
 
     private String uri;
 
-    /** Prerequisites can be specified as a List of objects.
+    /**
+     * Prerequisites can be specified as a List of objects.
      * <ul>
-     *  <li>if an element is a String, it will be treated as a guid</li>
-     *  <li>if an element is a Map, it will be treated as a unique context ID to a guid entry</li>
+     * <li>if an element is a String, it will be treated as a guid</li>
+     * <li>if an element is a Map, it will be treated as a unique context ID to a
+     * guid entry</li>
      * </ul>
-     * So the following will define 6 prerequisites: 4 of them referring the same test data guid:
-     * <pre>{@code 
+     * So the following will define 6 prerequisites: 4 of them referring the same
+     * test data guid:
+     * 
+     * <pre>
+     * {@code 
      * "prerequisites": {
      *   "call_data_id_1",
      *   { "call_data_id_2": "generic_data_1" },
@@ -48,7 +53,8 @@ public class HttpTestData {
      *   "call_data_id_5",
      *   { "call_data_id_6": "generic_data_1" },
      * }
-     * }</pre>
+     * }
+     * </pre>
      */
     private List<Object> prerequisites = new ArrayList<>();
 
@@ -63,8 +69,6 @@ public class HttpTestData {
     private String s2sClientId;
 
     private String userTokenClientId;
-
-    private UserData userSet = null;
 
     public HttpTestData() {
     }
@@ -94,8 +98,6 @@ public class HttpTestData {
 
         this.setUserTokenClientId(other.getUserTokenClientId());
         this.setS2sClientId(other.getS2sClientId());
-
-        this.userSet = other.userSet;
     }
 
     public boolean meetsSpec(String specification) {
@@ -107,7 +109,10 @@ public class HttpTestData {
     }
 
     public UserData getInvokingUser() {
-        return getUsers().get(KEY_INVOKING_USER);
+        UserData userInMap = getUsers().get(KEY_INVOKING_USER);
+        if (userInMap != null)
+            return userInMap;
+        return getUsers().values().iterator().next();
     }
 
     public void setInvokingUser(UserData invokingUser) {
@@ -116,17 +121,13 @@ public class HttpTestData {
 
     public void setUser(UserData user) {
         setInvokingUser(user);
-        userSet = user;
     }
 
     public void setUsers(Map<String, UserData> users) {
         if (users == null) {
             throw new IllegalArgumentException("User map cannot be null.");
         }
-        this.users = (LinkedHashMap<String, UserData>)users;
-        if (userSet != null) {
-            setInvokingUser(userSet);
-        }
+        this.users = (LinkedHashMap<String, UserData>) users;
     }
 
     public String getS2sClientId() {
@@ -141,5 +142,16 @@ public class HttpTestData {
             return UserTokenProviderConfig.DEFAULT_INSTANCE.getClientId();
         }
         return userTokenClientId;
+    }
+
+    public Entry<String, UserData> getUserEntryAt(int userIndex) {
+        int i = 0;
+        for (Entry<String, UserData> e : users.entrySet()) {
+            if (i == userIndex) {
+                return e;
+            }
+            i++;
+        }
+        return null;
     }
 }

@@ -33,4 +33,18 @@
   "CaseEventID" : "updateCase",
   "UserRole" : "caseworker-caa",
   "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_MasterCaseType",
+  "CaseEventID" : "createCase",
+  "UserRole" : "caseworker-befta_master-solicitor",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_MasterCaseType",
+  "CaseEventID" : "updateCase",
+  "UserRole" : "caseworker-befta_master-solicitor",
+  "CRUD" : "CRUD"
 } ]

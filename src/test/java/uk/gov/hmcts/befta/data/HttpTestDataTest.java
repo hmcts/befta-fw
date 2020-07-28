@@ -82,7 +82,7 @@ public class HttpTestDataTest {
         LinkedHashMap<String, UserData> users = new LinkedHashMap<>();
         final UserData user = new UserData("USERNAME", "PASSWORD");
         users.put("someUser", user);
-        testData.setUserSet(user);
+        testData.setInvokingUser(user);
 
         testData.setUsers(users);
 

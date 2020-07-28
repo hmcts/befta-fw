@@ -2,6 +2,7 @@ package uk.gov.hmcts.befta.player;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -47,7 +48,7 @@ public class BackEndFunctionalTestScenarioContext {
     @Setter
     protected String contextId = null;
 
-    private int userCountSpecifiedSoFar = 0;
+    private int userCountAuthenticatedSoFar = 0;
 
     private DynamicValueInjector dynamicValueInjector;
 
@@ -103,14 +104,6 @@ public class BackEndFunctionalTestScenarioContext {
         testData.setInvokingUser(theInvokingUser);
     }
 
-    public int getUserCountSpecifiedSoFar() {
-        return userCountSpecifiedSoFar;
-    }
-
-    public int getAndIncrementUserCountSpecifiedSoFar() {
-        return userCountSpecifiedSoFar++;
-    }
-
     protected Object calculateCustomValue(Object key) {
         return BeftaMain.getAdapter().calculateCustomValue(this, key);
     }
@@ -125,4 +118,7 @@ public class BackEndFunctionalTestScenarioContext {
         return testData == null ? "" : testData.get_guid_();
     }
 
+    public Entry<String, UserData> getNextUserToAuthenticate() {
+        return testData.getUserEntryAt(userCountAuthenticatedSoFar++);
+    }
 }
