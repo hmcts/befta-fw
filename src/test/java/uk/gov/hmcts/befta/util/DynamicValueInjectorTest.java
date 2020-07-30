@@ -11,9 +11,7 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import uk.gov.hmcts.befta.BeftaMain;
 import uk.gov.hmcts.befta.DefaultTestAutomationAdapter;
-import uk.gov.hmcts.befta.TestAutomationConfig;
 import uk.gov.hmcts.befta.data.HttpTestData;
 import uk.gov.hmcts.befta.data.HttpTestDataSource;
 import uk.gov.hmcts.befta.data.JsonStoreHttpTestDataSource;
@@ -26,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({EnvironmentVariableUtils.class, BeftaMain.class})
+@PrepareForTest(EnvironmentVariableUtils.class)
 public class DynamicValueInjectorTest {
 
     private static final String[] TEST_DATA_RESOURCE_PACKAGES = { "framework-test-data" };
@@ -40,10 +38,6 @@ public class DynamicValueInjectorTest {
 
     @Before
     public void prepareScenarioContext() {
-        PowerMockito.mockStatic(BeftaMain.class);
-        Mockito.when(BeftaMain.getAdapter()).thenReturn(taAdapter);
-        Mockito.when(BeftaMain.getConfig()).thenReturn(TestAutomationConfig.INSTANCE);
-
         scenarioContext = new BackEndFunctionalTestScenarioContextForTest();
 
         scenarioContext.initializeTestDataFor("Simple-Test-Data-With-All-Possible-Dynamic-Values");
@@ -244,6 +238,11 @@ public class DynamicValueInjectorTest {
         @Override
         public void initializeTestDataFor(String testDataId) {
             testData = new HttpTestData(TEST_DATA_RESOURCE.getDataForTestCall(testDataId));
+        }
+
+        @Override
+        protected Object calculateCustomValue(Object key) {
+            return taAdapter.calculateCustomValue(this, key);
         }
     }
 }
