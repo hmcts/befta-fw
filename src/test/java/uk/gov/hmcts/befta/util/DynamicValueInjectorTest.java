@@ -239,7 +239,7 @@ public class DynamicValueInjectorTest {
                 ((ArrayList<?>)((ArrayList<?>)testData.getRequest().getBody().get("array")).get(3)).get(0));
     }
 
-    static class BackEndFunctionalTestScenarioContextForTest extends BackEndFunctionalTestScenarioContext {
+    class BackEndFunctionalTestScenarioContextForTest extends BackEndFunctionalTestScenarioContext {
 
         @Override
         public void initializeTestDataFor(String testDataId) {
