@@ -22,6 +22,11 @@ jobs:
         java-version: 1.8
     - name: Build
       run: ./gradlew check
+    - name: Archive test report
+      uses: actions/upload-artifact@v2
+      with:
+        name: test-report
+        path: build/reports/tests/test
     - name: Release
       env:
         BINTRAY_USER: jenkins-reform-hmcts
