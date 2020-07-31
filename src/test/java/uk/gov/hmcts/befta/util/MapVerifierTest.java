@@ -24,7 +24,6 @@ import static uk.gov.hmcts.befta.util.ExpectedValuePlaceholder.ANY_TIMESTAMP_NUL
 
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -926,7 +925,6 @@ public class MapVerifierTest {
             }
         }
 
-        @Disabled
         @Nested
         @DisplayName("Operator option provided")
         class OperatorProvided {
