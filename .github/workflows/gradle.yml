@@ -23,7 +23,7 @@ jobs:
     - name: Build
       run: ./gradlew check
     - name: Archive test reports
-      if: always()
+      if: failure()
       uses: actions/upload-artifact@v2
       with:
         name: test-reports

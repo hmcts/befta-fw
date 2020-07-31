@@ -38,17 +38,6 @@ public class DynamicValueInjectorTest {
 
     @Before
     public void prepareScenarioContext() {
-        scenarioContext = new BackEndFunctionalTestScenarioContextForTest();
-
-        scenarioContext.initializeTestDataFor("Simple-Test-Data-With-All-Possible-Dynamic-Values");
-        
-        BackEndFunctionalTestScenarioContext subcontext = new BackEndFunctionalTestScenarioContextForTest();
-        subcontext.initializeTestDataFor("Token_Creation_Call");
-        subcontext.getTestData().setActualResponse(subcontext.getTestData().getExpectedResponse());
-
-        scenarioContext.setTheInvokingUser(scenarioContext.getTestData().getInvokingUser());
-        scenarioContext.addChildContext(subcontext);
-
         PowerMockito.mockStatic(EnvironmentVariableUtils.class);
 
         Mockito.when(EnvironmentVariableUtils.getRequiredVariable("S2S_URL")).thenReturn("http://s2s.hmcts.bla.bla");
@@ -60,6 +49,16 @@ public class DynamicValueInjectorTest {
         Mockito.when(EnvironmentVariableUtils.getRequiredVariable("CCD_CASEWORKER_AUTOTEST_PASSWORD"))
                 .thenReturn("PassQ@rT");
 
+        scenarioContext = new BackEndFunctionalTestScenarioContextForTest();
+
+        scenarioContext.initializeTestDataFor("Simple-Test-Data-With-All-Possible-Dynamic-Values");
+        
+        BackEndFunctionalTestScenarioContext subcontext = new BackEndFunctionalTestScenarioContextForTest();
+        subcontext.initializeTestDataFor("Token_Creation_Call");
+        subcontext.getTestData().setActualResponse(subcontext.getTestData().getExpectedResponse());
+
+        scenarioContext.setTheInvokingUser(scenarioContext.getTestData().getInvokingUser());
+        scenarioContext.addChildContext(subcontext);
     }
     
     @Test
