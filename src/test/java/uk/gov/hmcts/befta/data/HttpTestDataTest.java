@@ -4,16 +4,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-@RunWith(PowerMockRunner.class)
 public class HttpTestDataTest {
 
     private HttpTestData testData;
@@ -21,7 +18,7 @@ public class HttpTestDataTest {
     private static final String OPERATION = "OPERATION";
     private static final String PRODUCT = "PRODUCT";
 
-    @Before
+    @BeforeEach
     public void setUp() {
         testData = new HttpTestData();
     }
