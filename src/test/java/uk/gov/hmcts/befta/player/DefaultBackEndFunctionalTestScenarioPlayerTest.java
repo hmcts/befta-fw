@@ -274,11 +274,14 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
                 .thenReturn(prerequisiteContext1, prerequisiteContext2, prerequisiteContext3);
 
         testData.setPrerequisites(Arrays.asList(new LinkedHashMap<String, String>() {
+            private static final long serialVersionUID = 1L;
+
             {
                 put(prerequisiteContextId1, prerequisiteTestDataId);
                 put(prerequisiteContextId2, prerequisiteTestDataId);
             }
         }, new HashMap<String, String>() {
+            private static final long serialVersionUID = 1L;
             {
                 put(prerequisiteContextId3, prerequisiteTestDataId);
             }
@@ -328,6 +331,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
 
         when(context.getChildContexts()).thenReturn(
             new LinkedHashMap<String, BackEndFunctionalTestScenarioContext>() {
+                    private static final long serialVersionUID = 1L;
                 {
                     // NB: steps use IDs as contextId
                     put(testDataId1, childContext1);
@@ -760,7 +764,6 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         return responseData;
     }
 
-    @SuppressWarnings("SameParameterValue")
     private UserData createUserData(String username, String password) {
         UserData userData = mock(UserData.class);
         when(userData.getUsername()).thenReturn(username);
