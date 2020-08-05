@@ -273,7 +273,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         whenNew(BackEndFunctionalTestScenarioContext.class).withNoArguments()
                 .thenReturn(prerequisiteContext1, prerequisiteContext2, prerequisiteContext3);
 
-        testData.setPrerequisites(Arrays.asList(new LinkedHashMap<>() {
+        testData.setPrerequisites(Arrays.asList(new LinkedHashMap<String, String>() {
             private static final long serialVersionUID = 1L;
 
             {
