@@ -1,10 +1,12 @@
 package uk.gov.hmcts.befta.util;
 
-import com.google.common.collect.FluentIterable;
-
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import uk.gov.hmcts.befta.TestAutomationAdapter;
 import uk.gov.hmcts.befta.data.HttpTestData;
@@ -111,6 +113,12 @@ public class DynamicValueInjector {
                 String formulaPart = input.substring(pos, closingAt + 1);
                 partValue = calculateFormulaFromContext(scenarioContext, formulaPart);
                 jumpTo = closingAt + 1;
+
+                // special case when complete input is a dynamic formula
+                // : so check if it returned a complex object to return
+                if (pos == 0 && jumpTo >= input.length()) {
+                    return partValue;
+                }
             } else if (anEnvVarIsStartingAt(input, pos)) {
                 int closingAt = input.indexOf("}}", pos + 2);
                 if (closingAt < 0) {
@@ -157,30 +165,41 @@ public class DynamicValueInjector {
         map.forEach((key, value) -> {
             if (value instanceof String) {
                 map.put(key, processDynamicValuesIn((String) value));
-            } else if (isArray(value)) {
-                injectDynamicValuesInto(path + "." + key, (Object[]) value);
             } else if (value instanceof Map<?, ?>) {
                 injectDynamicValuesInto(path + "." + key, (Map<String, Object>) value);
+            } else if (isArray(value)) {
+                ArrayList<Object> values = new ArrayList<>(Arrays.asList((Object[]) value));
+                injectDynamicValuesInto(path + "." + key, values);
+                map.put(key, values);
             } else if (value instanceof Iterable) {
-                injectDynamicValuesInto(path + "." + key,
-                        FluentIterable.from((Iterable<Object>) value).toArray(Object.class));
+                ArrayList<Object> values = StreamSupport.stream(((Iterable<Object>) value).spliterator(), false)
+                        .collect(Collectors.toCollection(ArrayList::new));
+                injectDynamicValuesInto(path + "." + key, values);
+                map.put(key, values);
             }
         });
-
     }
 
     @SuppressWarnings("unchecked")
-    private void injectDynamicValuesInto(String path, Object[] objects) {
+    private void injectDynamicValuesInto(String path, List<Object> objects) {
         if (objects == null) {
             return;
         }
-        for (int i = 0; i < objects.length; i++) {
-            if (objects[i] instanceof String) {
-                objects[i] = processDynamicValuesIn((String) objects[i]);
-            } else if (objects[i] instanceof Map<?, ?>) {
-                injectDynamicValuesInto(path + "[" + i + "]", (Map<String, Object>) objects[i]);
-            } else if (isArray(objects[i])) {
-                injectDynamicValuesInto(path + "[" + i + "]", (Object[]) objects[i]);
+        for (int i = 0; i < objects.size(); i++) {
+            Object value = objects.get(i);
+            if (value instanceof String) {
+                objects.set(i, processDynamicValuesIn((String) value));
+            } else if (value instanceof Map<?, ?>) {
+                injectDynamicValuesInto(path + "[" + i + "]", (Map<String, Object>) value);
+            } else if (isArray(value)) {
+                ArrayList<Object> values = new ArrayList<>(Arrays.asList((Object[]) value));
+                injectDynamicValuesInto(path + "[" + i + "]", values);
+                objects.set(i, values);
+            } else if (value instanceof Iterable) {
+                ArrayList<Object> values = StreamSupport.stream(((Iterable<Object>) value).spliterator(), false)
+                        .collect(Collectors.toCollection(ArrayList::new));
+                injectDynamicValuesInto(path + "[" + i + "]", values);
+                objects.set(i, values);
             }
         }
     }

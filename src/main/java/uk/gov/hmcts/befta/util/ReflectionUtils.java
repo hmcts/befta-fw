@@ -1,21 +1,31 @@
 package uk.gov.hmcts.befta.util;
 
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ReflectionUtils {
 
     public static Object deepGetFieldInObject(Object object, String fieldPath) throws Exception {
-        if (object == null)
+        if (object == null) {
             return null;
-        if (fieldPath == null || fieldPath.length() == 0)
+        }
+        if (fieldPath == null || fieldPath.length() == 0) {
             throw new IllegalArgumentException("Field path must be non-empty String.");
-        String[] fields = fieldPath.split("\\.");
-        Object fieldValue = retrieveFieldInObject(object, fields[0]);
-        for (int i = 1; i < fields.length; i++) {
-            fieldValue = retrieveFieldInObject(fieldValue, fields[i]);
+        }
+        final String regex = "(?<!\\\\)(?:\\\\\\\\)*\\."; // i.e. look for '.' but not the escaped version '\.'
+        String[] rawFields = fieldPath.split(regex);
+        // unescape fields
+        List<String> fields = Arrays.stream(rawFields)
+                .map(field -> field.replace("\\.", "."))
+                .collect(Collectors.toList());
+
+        Object fieldValue = retrieveFieldInObject(object, fields.get(0));
+        for (int i = 1; i < fields.size(); i++) {
+            fieldValue = retrieveFieldInObject(fieldValue, fields.get(i));
         }
         return fieldValue;
     }

@@ -1,0 +1,27 @@
+{
+	"_guid_": "Custom-Value-Test-Data",
+	"title": "Custom Value Test Data",
+	"request": {
+		"body": {
+			"inline-value": "BEFORE-${[scenarioContext][customValues][test-custom-value-string]}-AFTER",
+			"null-check": null,
+			"test-custom-value": "${[scenarioContext][customValues][test-custom-value-key]}",
+			"map": {
+				"null-check": null,
+				"test-custom-value": "${[scenarioContext][customValues][test-custom-value-key]}",
+				"map": { "test-custom-value": "${[scenarioContext][customValues][test-custom-value-key]}" },
+				"array": [
+					"${[scenarioContext][customValues][test-custom-value-key]}"
+				]
+			},
+			"array": [
+				null,
+				"${[scenarioContext][customValues][test-custom-value-key]}",
+				{ "test-custom-value": "${[scenarioContext][customValues][test-custom-value-key]}" },
+				[
+					"${[scenarioContext][customValues][test-custom-value-key]}"
+				]
+			]
+		}
+	}
+}
