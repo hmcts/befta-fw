@@ -116,15 +116,9 @@ public class DynamicValueInjector {
 
                 // special case when complete input is a dynamic formula
                 // : so check if it returned a complex object to return
-                if ((pos == 0 && jumpTo >= input.length())
-                        && (partValue == null
-                        || partValue instanceof Map<?, ?>
-                        || partValue instanceof Object[]
-                        || partValue instanceof Iterable)
-                ) {
+                if (pos == 0 && jumpTo >= input.length()) {
                     return partValue;
                 }
-
             } else if (anEnvVarIsStartingAt(input, pos)) {
                 int closingAt = input.indexOf("}}", pos + 2);
                 if (closingAt < 0) {
