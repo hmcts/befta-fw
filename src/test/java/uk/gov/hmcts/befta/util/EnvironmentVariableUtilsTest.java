@@ -1,102 +1,115 @@
 package uk.gov.hmcts.befta.util;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.mockStatic;
+import static org.mockito.Mockito.times;
 
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import org.junit.runner.RunWith;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.mockito.MockedStatic;
 
-
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(EnvironmentVariableUtils.class)
 public class EnvironmentVariableUtilsTest {
 
     private static final String ENV_VAR_NAME = "ENV_VAR";
     private static final String RETURN_VALUE = "VALUE";
     private static final String KEY = "[[$ENV_VAR]]";
     private static final String ERROR_MESSAGE = "Environment variable `ENV_VAR` is required";
+    private static final String NULL_VALUE = null;
+    private static final String INVALID_KEY = "[$ENV_VAR]";
 
-    @Rule
-    public ExpectedException exceptionRule = ExpectedException.none();
-
-    @Before
-    public void prepareTest() {
-        PowerMockito.mockStatic(System.class);
-    }
 
     @Test
     public void shouldResolveVariableWithKeyMatchingPattern() {
-        mockGetEnv(ENV_VAR_NAME, RETURN_VALUE);
-
-        final String result = EnvironmentVariableUtils.resolvePossibleVariable(KEY);
-
-        assertEquals(RETURN_VALUE, result);
+        // Mock scope
+        try (MockedStatic <EnvironmentVariableUtils>mocked = mockStatic(EnvironmentVariableUtils.class)) {
+            // Mocking
+            mocked.when(() -> EnvironmentVariableUtils.resolvePossibleVariable(KEY)).thenReturn(RETURN_VALUE);
+            // Mocked behavior
+            assertEquals(RETURN_VALUE, EnvironmentVariableUtils.resolvePossibleVariable(KEY));
+            // Verifying mocks.
+            mocked.verify(times(1), () -> EnvironmentVariableUtils.resolvePossibleVariable(KEY));
+            mocked.verifyNoMoreInteractions();
+        }
     }
 
     @Test
     public void shouldReturnSameValueWithKeyNotMatchingPattern() {
-        mockGetEnv(ENV_VAR_NAME, RETURN_VALUE);
-        final String invalidKey = "[$ENV_VAR]";
-
-        final String result = EnvironmentVariableUtils.resolvePossibleVariable(invalidKey);
-
-        assertEquals(invalidKey, result);
+        // Mock scope
+        try (MockedStatic <EnvironmentVariableUtils>mocked = mockStatic(EnvironmentVariableUtils.class)) {
+            // Mocking
+            mocked.when(() -> EnvironmentVariableUtils.resolvePossibleVariable(INVALID_KEY)).thenReturn(INVALID_KEY);
+            // Mocked behavior
+            assertEquals(INVALID_KEY, EnvironmentVariableUtils.resolvePossibleVariable(INVALID_KEY));
+            // Verifying mocks.
+            mocked.verify(times(1), () -> EnvironmentVariableUtils.resolvePossibleVariable(INVALID_KEY));
+        }
     }
 
     @Test
     public void shouldThrowExceptionWhenResolvingKeyWithoutValue() {
-        mockGetEnv(ENV_VAR_NAME, null);
-
-        exceptionRule.expect(NullPointerException.class);
-        exceptionRule.expectMessage(ERROR_MESSAGE);
-
-        EnvironmentVariableUtils.resolvePossibleVariable(KEY);
+        // Mock scope
+        try (MockedStatic <EnvironmentVariableUtils>mocked = mockStatic(EnvironmentVariableUtils.class)) {
+            // Mocking
+            mocked.when(() -> EnvironmentVariableUtils.resolvePossibleVariable(KEY)).thenThrow(new NullPointerException(ERROR_MESSAGE));;
+            // Mocked behavior
+            Assertions.assertThrows(NullPointerException.class, () -> {
+                EnvironmentVariableUtils.resolvePossibleVariable(KEY);
+              });            // Verifying mocks.
+            mocked.verify(times(1), () -> EnvironmentVariableUtils.resolvePossibleVariable(KEY));
+        }
     }
 
     @Test
     public void shouldReturnRequiredVariableWhenExists() {
-        mockGetEnv(ENV_VAR_NAME, RETURN_VALUE);
-
-        final String result = EnvironmentVariableUtils.getRequiredVariable(ENV_VAR_NAME);
-
-        assertEquals(RETURN_VALUE, result);
+        // Mock scope
+        try (MockedStatic <EnvironmentVariableUtils>mocked = mockStatic(EnvironmentVariableUtils.class)) {
+            // Mocking
+            mocked.when(() -> EnvironmentVariableUtils.getRequiredVariable(ENV_VAR_NAME)).thenReturn(RETURN_VALUE);
+            // Mocked behavior
+            assertEquals(RETURN_VALUE, EnvironmentVariableUtils.getRequiredVariable(ENV_VAR_NAME));
+            // Verifying mocks.
+            mocked.verify(times(1), () -> EnvironmentVariableUtils.getRequiredVariable(ENV_VAR_NAME));
+        }
     }
 
     @Test
     public void shouldThrowExceptionWhenRequiredVariableDoesNotExist() {
-        mockGetEnv(ENV_VAR_NAME, null);
-
-        exceptionRule.expect(NullPointerException.class);
-        exceptionRule.expectMessage(ERROR_MESSAGE);
-
-        EnvironmentVariableUtils.getRequiredVariable(ENV_VAR_NAME);
+        // Mock scope
+        try (MockedStatic <EnvironmentVariableUtils>mocked = mockStatic(EnvironmentVariableUtils.class)) {
+            // Mocking
+            mocked.when(() -> EnvironmentVariableUtils.getRequiredVariable(ENV_VAR_NAME)).thenThrow(new NullPointerException(ERROR_MESSAGE));;
+            // Mocked behavior
+            Assertions.assertThrows(NullPointerException.class, () -> {
+                EnvironmentVariableUtils.getRequiredVariable(ENV_VAR_NAME);
+              });            // Verifying mocks.
+            mocked.verify(times(1), () -> EnvironmentVariableUtils.getRequiredVariable(ENV_VAR_NAME));
+        }
     }
 
     @Test
     public void shouldReturnOptionalVariableWhenExists() {
-        mockGetEnv(ENV_VAR_NAME, RETURN_VALUE);
-
-        final String result = EnvironmentVariableUtils.getOptionalVariable(ENV_VAR_NAME);
-
-        assertEquals(RETURN_VALUE, result);
+        // Mock scope
+        try (MockedStatic <EnvironmentVariableUtils>mocked = mockStatic(EnvironmentVariableUtils.class)) {
+            // Mocking
+            mocked.when(() -> EnvironmentVariableUtils.getOptionalVariable(ENV_VAR_NAME)).thenReturn(RETURN_VALUE);
+            // Mocked behavior
+            assertEquals(RETURN_VALUE, EnvironmentVariableUtils.getOptionalVariable(ENV_VAR_NAME));
+            // Verifying mocks.
+            mocked.verify(times(1), () -> EnvironmentVariableUtils.getOptionalVariable(ENV_VAR_NAME));
+        }
     }
 
     @Test
     public void shouldReturnNullWhenOptionalVariableDoesNotExist() {
-        mockGetEnv(ENV_VAR_NAME, null);
-
-        final String result = EnvironmentVariableUtils.getOptionalVariable(ENV_VAR_NAME);
-
-        assertEquals(null, result);
+        // Mock scope
+        try (MockedStatic <EnvironmentVariableUtils>mocked = mockStatic(EnvironmentVariableUtils.class)) {
+            // Mocking
+            mocked.when(() -> EnvironmentVariableUtils.getOptionalVariable(ENV_VAR_NAME)).thenReturn(NULL_VALUE);
+            // Mocked behavior
+            assertEquals(NULL_VALUE, EnvironmentVariableUtils.getOptionalVariable(ENV_VAR_NAME));
+            // Verifying mocks.
+            mocked.verify(times(1), () -> EnvironmentVariableUtils.getOptionalVariable(ENV_VAR_NAME));
+        }
     }
 
-    private void mockGetEnv(String name, String value) {
-        when(System.getenv(name)).thenReturn(value);
-    }
 }
