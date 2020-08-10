@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.times;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,13 +19,21 @@ public class EnvironmentVariableUtilsAlternativeTest {
     private static final String NULL_VALUE = null;
     private static final String INVALID_KEY = "[$ENV_VAR]";
 
-    private static MockedStatic<EnvironmentVariableUtils> underTest = null;
+    private MockedStatic<EnvironmentVariableUtils> underTest = null;
 
     @BeforeEach
     public void prepareMockedObjectUnderTest() {
         try {
-            if (underTest == null)
-                underTest = mockStatic(EnvironmentVariableUtils.class);
+            underTest = mockStatic(EnvironmentVariableUtils.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @AfterEach
+    public void closeMockedObjectUnderTest() {
+        try {
+            underTest.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
