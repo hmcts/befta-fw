@@ -3,11 +3,9 @@ package uk.gov.hmcts.befta.player;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
-import static org.powermock.api.mockito.PowerMockito.whenNew;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -41,7 +39,7 @@ public class BackEndFunctionalTestScenarioContextTest {
         when(dataSource.getDataForTestCall(VALID_TAG_ID)).thenReturn(s103TestData);
         when(dataSource.getDataForTestCall("S-133,S-456")).thenReturn(s103TestData);
 
-        TestUtils.setFinalStatic(BackEndFunctionalTestScenarioContext.class.getDeclaredField("DATA_SOURCE"),
+        TestUtils.setFieldWithReflection(BackEndFunctionalTestScenarioContext.class.getDeclaredField("DATA_SOURCE"),
                 dataSource);
 
     }
@@ -87,7 +85,7 @@ public class BackEndFunctionalTestScenarioContextTest {
         // ARRANGE
         final String testDataId = "TD_GUID";
         when(s103TestData.get_guid_()).thenReturn(testDataId);
-        whenNew(HttpTestData.class).withArguments(ArgumentMatchers.any(HttpTestData.class)).thenReturn(s103TestData);
+        // whenNew(HttpTestData.class).withArguments(ArgumentMatchers.any(HttpTestData.class)).thenReturn(s103TestData);
 
         // ACT
         BackEndFunctionalTestScenarioContext testChildContext = new BackEndFunctionalTestScenarioContext();
@@ -132,7 +130,7 @@ public class BackEndFunctionalTestScenarioContextTest {
         // ARRANGE
         final String testDataId = "TD_GUID";
         when(s103TestData.get_guid_()).thenReturn(testDataId);
-        whenNew(HttpTestData.class).withArguments(ArgumentMatchers.any(HttpTestData.class)).thenReturn(s103TestData);
+        // whenNew(HttpTestData.class).withArguments(ArgumentMatchers.any(HttpTestData.class)).thenReturn(s103TestData);
         contextUnderTest.initializeTestDataFor(VALID_TAG_ID);
 
         // ACT
