@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import uk.gov.hmcts.befta.data.HttpTestData;
+import uk.gov.hmcts.befta.data.RequestData;
 import uk.gov.hmcts.befta.data.ResponseData;
 import uk.gov.hmcts.befta.data.UserData;
 
@@ -31,6 +33,19 @@ public class ReflectionUtilsTest {
         final Object result = ReflectionUtils.deepGetFieldInObject(testData, "invokingUser.username");
 
         assertEquals("USERNAME", result);
+    }
+
+    @Test
+    public void shouldDeepGetFieldInObject_withEscapedCharacters() throws Exception {
+        HttpTestData testData = new HttpTestData();
+        Map<String, Object> body = Collections.singletonMap("TEST.KEY", "EXPECTED_RESULT");
+        RequestData request = new RequestData();
+        request.setBody(body);
+        testData.setRequest(request);
+
+        final Object result = ReflectionUtils.deepGetFieldInObject(testData, "request.body.TEST\\.KEY");
+
+        assertEquals("EXPECTED_RESULT", result);
     }
 
     @Test

@@ -60,7 +60,6 @@ public class DynamicValueInjectorTest {
 
         scenarioContext.setTheInvokingUser(scenarioContext.getTestData().getInvokingUser());
         scenarioContext.addChildContext(subcontext);
-
     }
     
     @Test
@@ -134,7 +133,7 @@ public class DynamicValueInjectorTest {
         Assert.assertEquals("http://idamuser.hmcts.bla.bla/documents/binary",
                 testData.getRequest().getBody().get("event_token"));
 
-        Assert.assertEquals(null, testData.getRequest().getBody().get("nullValueField"));
+        Assert.assertNull(testData.getRequest().getBody().get("nullValueField"));
         Assert.assertEquals(Strings.EMPTY, testData.getExpectedResponse().getBody().get("emptyString"));
         Assert.assertEquals(4.6, testData.getExpectedResponse().getBody().get("onlyStaticNumber"));
         Assert.assertEquals("string without any dynamic part",
@@ -164,11 +163,108 @@ public class DynamicValueInjectorTest {
 
     }
 
+    @Test
+    public void shouldInjectCustomValuesWithReturnNull() {
+        testAndVerifyInjectionOfCustomValues(null);
+    }
+
+    @Test
+    public void shouldInjectCustomValuesWithReturnTypeString() {
+        String expectedResponse = "EXPECTED_RESPONSE";
+        testAndVerifyInjectionOfCustomValues(expectedResponse);
+    }
+
+    @Test
+    public void shouldInjectCustomValuesWithReturnTypeInteger() {
+        int expectedResponse = 1234;
+        testAndVerifyInjectionOfCustomValues(expectedResponse);
+    }
+
+    @Test
+    public void shouldInjectCustomValuesWithReturnTypeArray() {
+        Object[] expectedResponse = new Object[]{"one", "two", "three"};
+        testAndVerifyInjectionOfCustomValues(expectedResponse);
+    }
+
+    @Test
+    public void shouldInjectCustomValuesWithReturnTypeList() {
+        List<Object> expectedResponse = Arrays.asList("one", "two");
+        testAndVerifyInjectionOfCustomValues(expectedResponse);
+    }
+
+    @Test
+    public void shouldInjectCustomValuesWithReturnTypeMap() {
+        Map<String, Object> expectedResponse = Collections.singletonMap("key", "value");
+        testAndVerifyInjectionOfCustomValues(expectedResponse);
+    }
+
+    private void testAndVerifyInjectionOfCustomValues(Object expectedResponse) {
+        // ARRANGE
+        scenarioContext = new BackEndFunctionalTestScenarioContextForTest();
+        scenarioContext.initializeTestDataFor("Custom-Value-Test-Data");
+        HttpTestData testData = scenarioContext.getTestData();
+
+        Mockito.when(taAdapter.calculateCustomValue(scenarioContext, "test-custom-value-key")).thenReturn(expectedResponse);
+        Mockito.when(taAdapter.calculateCustomValue(scenarioContext, "test-custom-value-string")).thenReturn("INLINE");
+
+        DynamicValueInjector underTest = new DynamicValueInjector(taAdapter, testData, scenarioContext);
+
+        // verify custom-value TD file looks OK prior to execution of test
+        assertCustomValuesTestData(testData, "${[scenarioContext][customValues][test-custom-value-key]}");
+
+        // ACT
+        underTest.injectDataFromContextBeforeApiCall();
+
+        // ASSERT
+        assertCustomValuesTestData(testData, expectedResponse);
+        Assert.assertEquals("BEFORE-INLINE-AFTER", testData.getRequest().getBody().get("inline-value"));
+    }
+
+    private void assertCustomValuesTestData(HttpTestData testData, Object expectedResponse) {
+        // check string test data
+        Assert.assertNull(testData.getRequest().getBody().get("null-check"));
+
+        // check string test data
+        Assert.assertEquals(expectedResponse,
+                testData.getRequest().getBody().get("test-custom-value"));
+
+        // check map test data
+        // : map > null
+        Assert.assertNull(((Map<?,?>)testData.getRequest().getBody().get("map")).get("null-check"));
+        // : map > string
+        Assert.assertEquals(expectedResponse,
+                ((Map<?,?>)testData.getRequest().getBody().get("map")).get("test-custom-value"));
+        // : map > map
+        Assert.assertEquals(expectedResponse,
+                ((Map<?,?>)((Map<?,?>)testData.getRequest().getBody().get("map")).get("map")).get("test-custom-value"));
+        // : map > array
+        Assert.assertEquals(expectedResponse,
+                ((ArrayList<?>)((Map<?,?>)testData.getRequest().getBody().get("map")).get("array")).get(0));
+
+        // check array test data
+        // : array > null
+        Assert.assertNull(((ArrayList<?>)testData.getRequest().getBody().get("array")).get(0));
+        // : array > string
+        Assert.assertEquals(expectedResponse,
+                ((ArrayList<?>)testData.getRequest().getBody().get("array")).get(1));
+        // : array > map
+        Assert.assertEquals(expectedResponse,
+                ((Map<?,?>)((ArrayList<?>)testData.getRequest().getBody().get("array")).get(2)).get("test-custom-value"));
+        // : array > array
+        Assert.assertEquals(expectedResponse,
+                ((ArrayList<?>)((ArrayList<?>)testData.getRequest().getBody().get("array")).get(3)).get(0));
+    }
+
     class BackEndFunctionalTestScenarioContextForTest extends BackEndFunctionalTestScenarioContext {
 
         @Override
         public void initializeTestDataFor(String testDataId) {
-            testData = TEST_DATA_RESOURCE.getDataForTestCall(testDataId);
+            testData = new HttpTestData(TEST_DATA_RESOURCE.getDataForTestCall(testDataId));
+        }
+
+        @Override
+        protected Object calculateCustomValue(Object key) {
+            return taAdapter.calculateCustomValue(this, key);
         }
     }
 }
