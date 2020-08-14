@@ -81,11 +81,10 @@ public class BackEndFunctionalTestScenarioContextTest {
     }
 
     @Test
-    public void shouldAddChildContextUsingTestDataIdAsContextId() throws Exception {
+    public void shouldAddChildContextUsingTestDataIdAsContextId() {
         // ARRANGE
         final String testDataId = "TD_GUID";
         when(s103TestData.get_guid_()).thenReturn(testDataId);
-        // whenNew(HttpTestData.class).withArguments(ArgumentMatchers.any(HttpTestData.class)).thenReturn(s103TestData);
 
         // ACT
         BackEndFunctionalTestScenarioContext testChildContext = new BackEndFunctionalTestScenarioContext();
@@ -126,11 +125,10 @@ public class BackEndFunctionalTestScenarioContextTest {
     }
 
     @Test
-    public void shouldGetContextIdFromTestDataIdIfContextIdNotSet() throws Exception {
+    public void shouldGetContextIdFromTestDataIdIfContextIdNotSet() {
         // ARRANGE
         final String testDataId = "TD_GUID";
         when(s103TestData.get_guid_()).thenReturn(testDataId);
-        // whenNew(HttpTestData.class).withArguments(ArgumentMatchers.any(HttpTestData.class)).thenReturn(s103TestData);
         contextUnderTest.initializeTestDataFor(VALID_TAG_ID);
 
         // ACT
