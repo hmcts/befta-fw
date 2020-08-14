@@ -57,10 +57,10 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     private final BackEndFunctionalTestScenarioContext scenarioContext;
     private Scenario scenario;
     private ObjectMapper mapper = new ObjectMapper();
-
+    
     public DefaultBackEndFunctionalTestScenarioPlayer() {
         RestAssured.useRelaxedHTTPSValidation();
-        scenarioContext = new BackEndFunctionalTestScenarioContext();
+        scenarioContext = BackEndFunctionalTestScenarioContext.createBackEndFunctionalTestScenarioContext();
     }
 
     @Before()
@@ -453,13 +453,13 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
                     + ", actual: " + actualResponse.getResponseCode();
         }
 
-        MapVerificationResult headerVerification = new MapVerifier("actualResponse.headers", 1, false)
+        MapVerificationResult headerVerification = MapVerifier.createMapVerifier("actualResponse.headers", 1, false)
                 .verifyMap(expectedResponse.getHeaders(), actualResponse.getHeaders());
         if (!headerVerification.isVerified()) {
             issuesInResponseHeaders = headerVerification.getAllIssues();
         }
 
-        MapVerificationResult bodyVerification = new MapVerifier("actualResponse.body", 20)
+        MapVerificationResult bodyVerification = MapVerifier.createMapVerifier("actualResponse.body", 20)
                 .verifyMap(expectedResponse.getBody(), actualResponse.getBody());
         if (!bodyVerification.isVerified()) {
             issuesInResponseBody = bodyVerification.getAllIssues();
@@ -521,7 +521,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
 
     private void performAndVerifyTheExpectedResponseForAnApiCall(BackEndFunctionalTestScenarioContext parentContext,
             String testDataSpec, String testDataId, String contextId) throws IOException {
-        BackEndFunctionalTestScenarioContext subcontext = new BackEndFunctionalTestScenarioContext();
+        BackEndFunctionalTestScenarioContext subcontext = BackEndFunctionalTestScenarioContext.createBackEndFunctionalTestScenarioContext();
         subcontext.initializeTestDataFor(testDataId);
         if (contextId == null) {
             parentContext.addChildContext(subcontext);

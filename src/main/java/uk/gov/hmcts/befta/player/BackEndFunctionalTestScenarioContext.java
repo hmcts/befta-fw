@@ -121,4 +121,8 @@ public class BackEndFunctionalTestScenarioContext {
     public Entry<String, UserData> getNextUserToAuthenticate() {
         return testData.getUserEntryAt(userCountAuthenticatedSoFar++);
     }
+	public static BackEndFunctionalTestScenarioContext createBackEndFunctionalTestScenarioContext() {
+		return new BackEndFunctionalTestScenarioContext();
+	}
+
 }

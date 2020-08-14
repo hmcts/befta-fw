@@ -1,25 +1,16 @@
 package uk.gov.hmcts.befta.player;
 
-import static org.hamcrest.core.StringContains.containsString;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
-
-import org.junit.Rule;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.rules.ExpectedException;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 
 import java.io.IOException;
 import java.util.AbstractMap;
@@ -30,6 +21,17 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
+import org.mockito.Mock;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 
 import io.cucumber.java.Scenario;
 import io.restassured.RestAssured;
@@ -62,7 +64,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
     private DefaultBackEndFunctionalTestScenarioPlayer scenarioPlayer;
 
     @Mock
-    private BackEndFunctionalTestScenarioContext context = new BackEndFunctionalTestScenarioContext();
+    private BackEndFunctionalTestScenarioContext context;
 
     @Mock
     private DynamicValueInjector dynamicInjector;
@@ -82,28 +84,53 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
     @Mock
     private MapVerificationResult verificationResult;
 
+    private MockedStatic<RestAssured> restAssuredMock = null;
+    private MockedStatic<EnvironmentVariableUtils> environmentVariableUtilsMock = null;
+    private MockedStatic<SpecificationQuerier> specificationQuerierMock = null;
+    private MockedStatic<JsonUtils> jsonUtilsMock = null;
+    private MockedStatic<BackEndFunctionalTestScenarioContext> backEndFunctionalTestScenarioContextMock = null;
+    private MockedStatic<MapVerifier> mapVerifierMock = null;
+
     private static final String USERNAME = "USERNAME";
     private static final String PASSWORD = "PASSWORD";
     private static final String OPERATION = "OPERATION";
     private static final String PRODUCT_NAME = "PRODUCT NAME";
 
-    @Rule
-    public ExpectedException exceptionRule = ExpectedException.none();
 
     @Captor
     private ArgumentCaptor<?> captor;
 
     @BeforeEach
+    public void prepareMockedObjectUnderTest() {
+        try {
+        	restAssuredMock = mockStatic(RestAssured.class);
+        	environmentVariableUtilsMock = mockStatic(EnvironmentVariableUtils.class);
+        	specificationQuerierMock = mockStatic(SpecificationQuerier.class);
+        	jsonUtilsMock = mockStatic(JsonUtils.class);
+        	backEndFunctionalTestScenarioContextMock = mockStatic(BackEndFunctionalTestScenarioContext.class);
+        	mapVerifierMock = mockStatic(MapVerifier.class);
+        	setUp();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @AfterEach
+    public void closeMockedObjectUnderTest() {
+        try {
+        	scenarioPlayer = null;
+        	restAssuredMock.close();
+        	environmentVariableUtilsMock.close();
+        	specificationQuerierMock.close();
+        	jsonUtilsMock.close();
+        	backEndFunctionalTestScenarioContextMock.close();
+        	mapVerifierMock.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void setUp() throws Exception {
-        // mockStatic(RestAssured.class);
-        // mockStatic(EnvironmentVariableUtils.class);
-        // mockStatic(EnvironmentVariableUtils.class);
-        // mockStatic(SpecificationQuerier.class);
-        // mockStatic(JsonUtils.class);
-        // whenNew(DynamicValueInjector.class).withAnyArguments().thenReturn(dynamicInjector);
-        // whenNew(DefaultTestAutomationAdapter.class).withNoArguments().thenReturn(adapter);
-        // whenNew(BackEndFunctionalTestScenarioContext.class).withNoArguments().thenReturn(context);
-        // whenNew(MapVerifier.class).withAnyArguments().thenReturn(mapVerifier);
         MockitoAnnotations.initMocks(this);
         scenarioPlayer = new DefaultBackEndFunctionalTestScenarioPlayer();
         TestUtils.setFieldWithReflection(scenarioPlayer,
@@ -129,16 +156,16 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         verify(scenario).write("Response code: 204");
     }
 
-    // @Test
+    @Test
     public void shouldErrorWhenVerifyingThatAPositiveResponseWasReceivedForCode50x() {
         createResponseDataWithResponseCode(500);
-        exceptionRule.expect(AssertionError.class);
-        exceptionRule.expectMessage("Response code '500' is not a success code.");
-
-        scenarioPlayer.verifyThatAPositiveResponseWasReceived();
+        AssertionError aeThrown =Assertions.assertThrows(AssertionError.class, () -> 
+            scenarioPlayer.verifyThatAPositiveResponseWasReceived(),"AssertionError is not thrown"
+        );            
+        assertTrue(aeThrown.getMessage().contains("Response code '500' is not a success code."));
     }
 
-    // @Test
+    @Test
     public void shouldVerifyThatANegativeResponseWasReceivedForCode40x() {
         createResponseDataWithResponseCode(400);
 
@@ -147,16 +174,17 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         verify(scenario).write("Response code: 400");
     }
 
-    // @Test
+    @Test
     public void shouldErrorWhenVerifyingThatANegativeResponseWasReceivedForCode20x() {
         createResponseDataWithResponseCode(201);
-        exceptionRule.expect(AssertionError.class);
-        exceptionRule.expectMessage("Response code '201' is unexpectedly a success code.");
-
-        scenarioPlayer.verifyThatANegativeResponseWasReceived();
+        AssertionError aeThrown =Assertions.assertThrows(AssertionError.class, () -> 
+        scenarioPlayer.verifyThatANegativeResponseWasReceived(),
+        "AssertionError is not thrown"
+        );            
+        assertTrue(aeThrown.getMessage().contains("Response code '201' is unexpectedly a success code."));
     }
 
-    // @Test
+    @Test
     public void shouldPrepareARequestWithAppropriateValuesUsingMaxData() throws IOException {
         RequestData requestData = new RequestData();
         requestData.setHeaders(new HashMap<String, Object>() {
@@ -208,7 +236,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         verifyNoMoreInteractions(requestSpecification);
     }
 
-    // @Test
+    @Test
     public void shouldPrepareARequestWithAppropriateValuesUsingMinData() throws IOException {
         HttpTestData testData = new HttpTestData();
         RequestData requestData = new RequestData();
@@ -223,7 +251,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         verifyNoMoreInteractions(requestSpecification);
     }
 
-    // @Test
+    @Test
     public void shouldPrepareARequestWithAppropriateValuesAndRunPrerequisiteSpecifiedByString() throws Exception {
         // ARRANGE
         HttpTestData testData = new HttpTestData();
@@ -233,10 +261,12 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         when(RestAssured.given()).thenReturn(requestSpecification);
         when(context.getTestData()).thenReturn(testData);
         testData.setMethod("GET");
+        mapVerifierMock.when(() -> MapVerifier.createMapVerifier("actualResponse.headers", 1, false)).thenReturn(mapVerifier);
+        mapVerifierMock.when(() -> MapVerifier.createMapVerifier("actualResponse.body", 20)).thenReturn(mapVerifier);
 
         String prerequisiteTestDataId = "PR1";
         BackEndFunctionalTestScenarioContext prerequisiteContext = createAndPrepareMockPrerequisiteContext(prerequisiteTestDataId, context);
-        // whenNew(BackEndFunctionalTestScenarioContext.class).withNoArguments().thenReturn(prerequisiteContext);
+        Mockito.when(BackEndFunctionalTestScenarioContext.createBackEndFunctionalTestScenarioContext()).thenReturn(prerequisiteContext);
         testData.setPrerequisites(Collections.singletonList(prerequisiteTestDataId));
 
         // ACT
@@ -247,7 +277,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         verify(prerequisiteContext, times(1)).setTheResponse(any());
     }
 
-    // @Test
+    @Test
     public void shouldPrepareARequestWithAppropriateValuesAndRunPrerequisiteSpecifiedByMap() throws Exception {
         // ARRANGE
         HttpTestData testData = new HttpTestData();
@@ -266,9 +296,12 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         BackEndFunctionalTestScenarioContext prerequisiteContext1 = createAndPrepareMockPrerequisiteContext(prerequisiteTestDataId, context);
         BackEndFunctionalTestScenarioContext prerequisiteContext2 = createAndPrepareMockPrerequisiteContext(prerequisiteTestDataId, context);
         BackEndFunctionalTestScenarioContext prerequisiteContext3 = createAndPrepareMockPrerequisiteContext(prerequisiteTestDataId, context);
+        mapVerifierMock.when(() -> MapVerifier.createMapVerifier("actualResponse.headers", 1, false)).thenReturn(mapVerifier);
+        mapVerifierMock.when(() -> MapVerifier.createMapVerifier("actualResponse.body", 20)).thenReturn(mapVerifier);
         // whenNew(BackEndFunctionalTestScenarioContext.class).withNoArguments()
         // .thenReturn(prerequisiteContext1, prerequisiteContext2,
         // prerequisiteContext3);
+        Mockito.when(BackEndFunctionalTestScenarioContext.createBackEndFunctionalTestScenarioContext()).thenReturn(prerequisiteContext1,prerequisiteContext2,prerequisiteContext3);
 
         testData.setPrerequisites(Arrays.asList(new LinkedHashMap<String, String>() {
             private static final long serialVersionUID = 1L;
@@ -296,7 +329,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         verify(prerequisiteContext3, times(1)).setTheResponse(any());
     }
 
-    // @Test
+    @Test
     public void shouldPrepareARequestWithAppropriateValuesAndSkipAlreadyExecutedPrerequisites() throws Exception {
         // ARRANGE
         String testContextId = "TEST_CONTEXT_ID";
@@ -309,6 +342,8 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         when(RestAssured.given()).thenReturn(requestSpecification);
         when(context.getTestData()).thenReturn(testData);
         testData.setMethod("GET");
+        mapVerifierMock.when(() -> MapVerifier.createMapVerifier("actualResponse.headers", 1, false)).thenReturn(mapVerifier);
+        mapVerifierMock.when(() -> MapVerifier.createMapVerifier("actualResponse.body", 20)).thenReturn(mapVerifier);
 
         String testDataId1 = "TEST1";
         String testDataId2 = "TEST2";
@@ -316,6 +351,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         BackEndFunctionalTestScenarioContext prerequisiteContext2 = createAndPrepareMockPrerequisiteContext(testDataId2, context);
         // whenNew(BackEndFunctionalTestScenarioContext.class).withNoArguments().thenReturn(prerequisiteContext1,
         // prerequisiteContext2);
+        Mockito.when(BackEndFunctionalTestScenarioContext.createBackEndFunctionalTestScenarioContext()).thenReturn(prerequisiteContext1,prerequisiteContext2);
 
         // for simplicity add prerequisites just using strings of test data ids
         testData.setPrerequisites(Arrays.asList(testDataId1, testDataId2));
@@ -349,7 +385,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         verify(this.scenario).write(eq("Skipping prerequisite: [TEST_CONTEXT_ID].[TEST2]")); // i.e. TEST2 already executed
     }
 
-    // @Test
+    @Test
     public void shouldFailToPrepareARequestWithAppropriateValuesIfPrerequisiteSpecifiedInWrongFormat() throws Exception {
         // ARRANGE
         HttpTestData testData = new HttpTestData();
@@ -362,17 +398,19 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
 
         testData.setPrerequisites(Collections.singletonList(new Object()));
 
-        exceptionRule.expect(FunctionalTestException.class);
-        exceptionRule.expectMessage(containsString("Unrecognised prerequisite data type"));
+        FunctionalTestException feThrown =Assertions.assertThrows(FunctionalTestException.class, () -> 
+        scenarioPlayer.prepareARequestWithAppropriateValues(),
+        "FunctionalTestException is not thrown"
+        );            
+        assertTrue(feThrown.getMessage().contains("Unrecognised prerequisite data type"));
 
         // ACT
-        scenarioPlayer.prepareARequestWithAppropriateValues();
 
         // ASSERT
         // see exceptionRule above
     }
 
-    // @Test
+    @Test
     public void shouldFailToPrepareARequestWithAppropriateValuesIfPrerequisiteCallFailsToVerify() throws Exception {
         // ARRANGE
         HttpTestData testData = new HttpTestData();
@@ -382,11 +420,14 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         when(RestAssured.given()).thenReturn(requestSpecification);
         when(context.getTestData()).thenReturn(testData);
         testData.setMethod("GET");
+        mapVerifierMock.when(() -> MapVerifier.createMapVerifier("actualResponse.headers", 1, false)).thenReturn(mapVerifier);
+        mapVerifierMock.when(() -> MapVerifier.createMapVerifier("actualResponse.body", 20)).thenReturn(mapVerifier);
 
         String prerequisiteTestDataId = "PR1";
         BackEndFunctionalTestScenarioContext prerequisiteContext = createAndPrepareMockPrerequisiteContext(prerequisiteTestDataId, context);
         // whenNew(BackEndFunctionalTestScenarioContext.class).withNoArguments().thenReturn(prerequisiteContext);
         testData.setPrerequisites(Collections.singletonList(prerequisiteTestDataId));
+        Mockito.when(BackEndFunctionalTestScenarioContext.createBackEndFunctionalTestScenarioContext()).thenReturn(prerequisiteContext);
 
         when(verificationResult.isVerified()).thenReturn(false);
 
@@ -398,18 +439,20 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
             }
         });
 
-        exceptionRule.expect(AssertionError.class);
-        exceptionRule.expectMessage(containsString("Test issue 1"));
-        exceptionRule.expectMessage(containsString("Test issue 2"));
+        AssertionError aeThrown =Assertions.assertThrows(AssertionError.class, () -> 
+        scenarioPlayer.prepareARequestWithAppropriateValues(),
+        "AssertionError is not thrown"
+        );            
+        assertTrue(aeThrown.getMessage().contains("Test issue 1"));
+        assertTrue(aeThrown.getMessage().contains("Test issue 2"));
 
         // ACT
-        scenarioPlayer.prepareARequestWithAppropriateValues();
 
         // ASSERT
         // see exceptionRule above
     }
 
-    // @Test
+    @Test
     public void shouldFailToPrepareARequestWithAppropriateValuesIfCyclicPrerequisiteDependencyDetected() throws Exception {
         // ARRANGE
         HttpTestData testData = new HttpTestData();
@@ -432,25 +475,30 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         testData.setPrerequisites(Collections.singletonList(prerequisiteTestDataId1));
         prerequisiteContext1.getTestData().setPrerequisites(Collections.singletonList(prerequisiteTestDataId2));
         prerequisiteContext2.getTestData().setPrerequisites(Collections.singletonList(prerequisiteTestDataId1));
+        Mockito.when(BackEndFunctionalTestScenarioContext.createBackEndFunctionalTestScenarioContext()).thenReturn(prerequisiteContext1);
+        Mockito.when(BackEndFunctionalTestScenarioContext.createBackEndFunctionalTestScenarioContext()).thenReturn(prerequisiteContext2);
 
-        exceptionRule.expect(InvalidTestDataException.class);
-        exceptionRule.expectMessage(
-                containsString("Cyclic dependency discovered for prerequisite with contextId: " + prerequisiteTestDataId1));
-
+        InvalidTestDataException itdeThrown =Assertions.assertThrows(InvalidTestDataException.class, () -> 
+        scenarioPlayer.prepareARequestWithAppropriateValues(),
+        "AssertionError is not thrown"
+        );            
+        assertTrue(itdeThrown.getMessage().contains("Cyclic dependency discovered for prerequisite with contextId: " + prerequisiteTestDataId1));
         // ACT
-        scenarioPlayer.prepareARequestWithAppropriateValues();
 
         // ASSERT
         // see exceptionRule above
     }
 
-    // @Test
+    @Test
     public void shouldPerformAndVerifyTheExpectedResponseForAnApiCallAndAddAsChildContext() throws Exception {
         // ARRANGE
         String testDataId = "TD1";
         String testDataSpec = "Spec1";
         BackEndFunctionalTestScenarioContext testDataContext = createAndPrepareTestScenarioContext(testDataSpec, testDataId);
         // whenNew(BackEndFunctionalTestScenarioContext.class).withNoArguments().thenReturn(testDataContext);
+        Mockito.when(BackEndFunctionalTestScenarioContext.createBackEndFunctionalTestScenarioContext()).thenReturn(testDataContext);
+        mapVerifierMock.when(() -> MapVerifier.createMapVerifier("actualResponse.headers", 1, false)).thenReturn(mapVerifier);
+        mapVerifierMock.when(() -> MapVerifier.createMapVerifier("actualResponse.body", 20)).thenReturn(mapVerifier);
 
         // ACT
         scenarioPlayer.performAndVerifyTheExpectedResponseForAnApiCall(testDataSpec, testDataId);
@@ -468,13 +516,15 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
 
         when(testData.getExpectedResponse()).thenReturn(response);
         when(context.getTestData()).thenReturn(testData);
+        mapVerifierMock.when(() -> MapVerifier.createMapVerifier("actualResponse.headers", 1, false)).thenReturn(mapVerifier);
+        mapVerifierMock.when(() -> MapVerifier.createMapVerifier("actualResponse.body", 20)).thenReturn(mapVerifier);
         when(mapVerifier.verifyMap(any(), any())).thenReturn(verificationResult);
         when(verificationResult.isVerified()).thenReturn(true);
 
         scenarioPlayer.verifyThatTheResponseHasAllTheDetailsAsExpected();
     }
 
-    // @Test
+    @Test
     public void shouldFailToVerifyResponsesWithDifferentResponseCodes() throws IOException {
         createResponseDataWithResponseCode(500);
         ResponseData expectedResponse = new ResponseData();
@@ -483,13 +533,16 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         testData.setExpectedResponse(expectedResponse);
 
         when(context.getTestData()).thenReturn(testData);
+        mapVerifierMock.when(() -> MapVerifier.createMapVerifier("actualResponse.headers", 1, false)).thenReturn(mapVerifier);
+        mapVerifierMock.when(() -> MapVerifier.createMapVerifier("actualResponse.body", 20)).thenReturn(mapVerifier);
         when(mapVerifier.verifyMap(any(), any())).thenReturn(verificationResult);
         when(verificationResult.isVerified()).thenReturn(true);
 
-        exceptionRule.expect(AssertionError.class);
-        exceptionRule.expectMessage(containsString("Response code mismatch, expected: 200, actual: 500"));
-
-        scenarioPlayer.verifyThatTheResponseHasAllTheDetailsAsExpected();
+        AssertionError aeThrown =Assertions.assertThrows(AssertionError.class, () -> 
+        scenarioPlayer.verifyThatTheResponseHasAllTheDetailsAsExpected(),
+        "AssertionError is not thrown"
+        );            
+        assertTrue(aeThrown.getMessage().contains("Response code mismatch, expected: 200, actual: 500"));
     }
 
     @SuppressWarnings("unchecked")
@@ -501,12 +554,17 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         HttpTestData testData = new HttpTestData();
         testData.setExpectedResponse(response);
 
-        when(context.getTestData()).thenReturn(testData);
-        when(context.getTheResponse()).thenReturn(response);
-        when(mapVerifier.verifyMap(any(), any())).thenReturn(verificationResult);
-        when(verificationResult.isVerified()).thenReturn(false);
+        Mockito.when(context.getTestData()).thenReturn(testData);
+        Mockito.when(context.getTheResponse()).thenReturn(response);
+        mapVerifierMock.when(() -> MapVerifier.createMapVerifier("actualResponse.headers", 1, false)).thenReturn(mapVerifier);
+        mapVerifierMock.when(() -> MapVerifier.createMapVerifier("actualResponse.body", 20)).thenReturn(mapVerifier);
+//        mapVerifierMock.when(() -> MapVerifier.createMapVerifier(any(),any())).thenReturn(mapVerifier);
+//        Mockito.when(MapVerifier.createMapVerifier(any(),any(),any())).thenReturn(mapVerifier);
+//        Mockito.when(MapVerifier.createMapVerifier(any(),any())).thenReturn(mapVerifier);
+        Mockito.when(mapVerifier.verifyMap(any(), any())).thenReturn(verificationResult);
+        Mockito.when(verificationResult.isVerified()).thenReturn(false);
 
-        when(verificationResult.getAllIssues()).thenReturn(new ArrayList<String>() {
+        Mockito.when(verificationResult.getAllIssues()).thenReturn(new ArrayList<String>() {
             private static final long serialVersionUID = 1L;
             {
                 add("Header issue 1");
@@ -520,16 +578,17 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
             }
         });
 
-        exceptionRule.expect(AssertionError.class);
-        exceptionRule.expectMessage(containsString("Header issue 1"));
-        exceptionRule.expectMessage(containsString("Header issue 2"));
-        exceptionRule.expectMessage(containsString("Body issue 1"));
-        exceptionRule.expectMessage(containsString("Body issue 2"));
-
-        scenarioPlayer.verifyThatTheResponseHasAllTheDetailsAsExpected();
+        AssertionError aeThrown =Assertions.assertThrows(AssertionError.class, () -> 
+        scenarioPlayer.verifyThatTheResponseHasAllTheDetailsAsExpected(),
+        "AssertionError is not thrown"
+        );            
+        assertTrue(aeThrown.getMessage().contains("Header issue 1"));
+        assertTrue(aeThrown.getMessage().contains("Header issue 2"));
+        assertTrue(aeThrown.getMessage().contains("Body issue 1"));
+        assertTrue(aeThrown.getMessage().contains("Body issue 2"));
     }
 
-    // @Test
+    @Test
     public void shouldVerifyThatThereIsAUserInTheContextWithAParticularSpecificationSuccessfully() {
         final String specificationAboutUser = "USER SPEC";
         HttpTestData testData = mock(HttpTestData.class);
@@ -554,7 +613,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         verify(testData).meetsSpec(specificationAboutUser);
     }
 
-    // @Test
+    @Test
     public void shouldFailToVerifyThatThereIsAUserInTheContextWithAParticularSpecification() {
         final String specificationAboutUser = "USER SPEC";
         HttpTestData testData = mock(HttpTestData.class);
@@ -566,10 +625,12 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         when(EnvironmentVariableUtils.resolvePossibleVariable(USERNAME)).thenReturn(USERNAME);
         when(EnvironmentVariableUtils.resolvePossibleVariable(PASSWORD)).thenReturn(PASSWORD);
 
-        exceptionRule.expect(UnconfirmedDataSpecException.class);
-        exceptionRule.expectMessage("Test data does not confirm it meets the specification: 'USER SPEC'");
+        UnconfirmedDataSpecException udseThrown =Assertions.assertThrows(UnconfirmedDataSpecException.class, () -> 
+        scenarioPlayer.verifyThatThereIsAUserInTheContextWithAParticularSpecification(specificationAboutUser),
+        "UnconfirmedDataSpecException is not thrown"
+        );            
+        assertTrue(udseThrown.getMessage().contains("Test data does not confirm it meets the specification: 'USER SPEC'"));
 
-        scenarioPlayer.verifyThatThereIsAUserInTheContextWithAParticularSpecification(specificationAboutUser);
     }
 
     @Test
@@ -585,7 +646,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         verify(testData).meetsSpec(specificationAboutScenarioContext);
     }
 
-    // @Test
+    @Test
     public void shouldFailToVerifyThatASpecificationAboutScenarioContextIsConfirmed() {
         final String specificationAboutScenarioContext = "CONTEXT SPEC";
         HttpTestData testData = mock(HttpTestData.class);
@@ -593,10 +654,12 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         when(testData.meetsSpec(specificationAboutScenarioContext)).thenReturn(false);
         when(context.getTestData()).thenReturn(testData);
 
-        exceptionRule.expect(UnconfirmedDataSpecException.class);
-        exceptionRule.expectMessage("Test data does not confirm it meets the specification: 'CONTEXT SPEC'");
+        UnconfirmedDataSpecException udseThrown =Assertions.assertThrows(UnconfirmedDataSpecException.class, () -> 
+        scenarioPlayer.verifyThatASpecificationAboutScenarioContextIsConfirmed(specificationAboutScenarioContext),
+        "UnconfirmedDataSpecException is not thrown"
+        );            
+        assertTrue(udseThrown.getMessage().contains("Test data does not confirm it meets the specification: 'CONTEXT SPEC'"));
 
-        scenarioPlayer.verifyThatASpecificationAboutScenarioContextIsConfirmed(specificationAboutScenarioContext);
     }
 
     @Test
@@ -612,7 +675,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         verify(testData).meetsSpec(requestSpecification);
     }
 
-    // @Test
+    @Test
     public void shouldFailToVerifyTheRequestInTheContextWithAParticularSpecification() {
         final String requestSpecification = "REQUEST SPEC";
         HttpTestData testData = mock(HttpTestData.class);
@@ -620,10 +683,12 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         when(testData.meetsSpec(any())).thenReturn(false);
         when(context.getTestData()).thenReturn(testData);
 
-        exceptionRule.expect(UnconfirmedDataSpecException.class);
-        exceptionRule.expectMessage("Test data does not confirm it meets the specification: 'REQUEST SPEC'");
+        UnconfirmedDataSpecException udseThrown =Assertions.assertThrows(UnconfirmedDataSpecException.class, () -> 
+        scenarioPlayer.verifyTheRequestInTheContextWithAParticularSpecification(requestSpecification),
+        "UnconfirmedDataSpecException is not thrown"
+        );            
+        assertTrue(udseThrown.getMessage().contains("Test data does not confirm it meets the specification: 'REQUEST SPEC'"));
 
-        scenarioPlayer.verifyTheRequestInTheContextWithAParticularSpecification(requestSpecification);
     }
 
     @Test
@@ -639,7 +704,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         verify(testData).meetsSpec(responseSpecification);
     }
 
-    // @Test
+    @Test
     public void shouldFailToVerifyTheResponseInTheContextWithAParticularSpecification() {
         final String responseSpecification = "RESPONSE SPEC";
         HttpTestData testData = mock(HttpTestData.class);
@@ -647,14 +712,16 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         when(testData.meetsSpec(any())).thenReturn(false);
         when(context.getTestData()).thenReturn(testData);
 
-        exceptionRule.expect(UnconfirmedDataSpecException.class);
-        exceptionRule.expectMessage("Test data does not confirm it meets the specification: 'RESPONSE SPEC'");
+        UnconfirmedDataSpecException udseThrown =Assertions.assertThrows(UnconfirmedDataSpecException.class, () -> 
+        scenarioPlayer.verifyTheResponseInTheContextWithAParticularSpecification(responseSpecification),
+        "UnconfirmedDataSpecException is not thrown"
+        );            
+        assertTrue(udseThrown.getMessage().contains("Test data does not confirm it meets the specification: 'RESPONSE SPEC'"));
 
-        scenarioPlayer.verifyTheResponseInTheContextWithAParticularSpecification(responseSpecification);
     }
 
-    // @SuppressWarnings({ "unchecked", "rawtypes" })
-    // @Test
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @Test
     public void shouldSubmitTheRequestToCallAnOperationOfAProductWithCorrectOperation() throws IOException {
         final String methodType = "POST";
         final String uri = "URI";
@@ -695,7 +762,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         assertEquals("OK", responseData.getResponseMessage());
     }
 
-    // @Test
+    @Test
     public void shouldFailToSubmitTheRequestToCallAnOperationOfAProductWithInvalidMethodType() throws IOException {
         HttpTestData testData = mock(HttpTestData.class);
 
@@ -704,24 +771,27 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         when(testData.getUri()).thenReturn("http://localhost");
         when(testData.getMethod()).thenReturn("GETT");
 
-        exceptionRule.expect(FunctionalTestException.class);
-        exceptionRule.expectMessage("Method 'GETT' in test data file not recognised");
+    	FunctionalTestException feThrown =Assertions.assertThrows(FunctionalTestException.class, () -> 
+        scenarioPlayer.prepareARequestWithAppropriateValues(),
+        "FunctionalTestException is not thrown"
+        );            
+        assertTrue(feThrown.getMessage().contains("Method 'GETT' in test data file not recognised"));
 
-        scenarioPlayer.prepareARequestWithAppropriateValues();
     }
 
-    // @Test
+    @Test
     public void shouldFailToSubmitTheRequestToCallAnOperationOfAProductWithIncorrectOperation() throws IOException {
         HttpTestData testData = mock(HttpTestData.class);
 
         when(testData.meetsOperationOfProduct(eq(PRODUCT_NAME), eq(OPERATION))).thenReturn(false);
         when(context.getTestData()).thenReturn(testData);
 
-        exceptionRule.expect(UnconfirmedApiCallException.class);
-        exceptionRule.expectMessage(
-                "Test data does not confirm it is calling the following operation of a product: OPERATION -> PRODUCT NAME");
+        UnconfirmedApiCallException uceThrown =Assertions.assertThrows(UnconfirmedApiCallException.class, () -> 
+        scenarioPlayer.submitTheRequestToCallAnOperationOfAProduct(OPERATION, PRODUCT_NAME),
+        "UnconfirmedApiCallException is not thrown"
+        );            
+        assertTrue(uceThrown.getMessage().contains("Test data does not confirm it is calling the following operation of a product: OPERATION -> PRODUCT NAME"));
 
-        scenarioPlayer.submitTheRequestToCallAnOperationOfAProduct(OPERATION, PRODUCT_NAME);
     }
 
     @Test
@@ -740,20 +810,22 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         assertEquals(2, TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - before));
     }
 
-    // @Test
+    @Test
     public void shouldFailPerformWaitTimeToAllowOperationToCompleteWhenInvalidEntry() throws InterruptedException {
-        exceptionRule.expect(FunctionalTestException.class);
-        exceptionRule.expectMessage("Wait time provided is not a valid number: five");
-
-        scenarioPlayer.suspendExecutionOnPurposeForAGivenNumberOfSeconds("five", "to allow Logstash to catch up");
+    	FunctionalTestException feThrown =Assertions.assertThrows(FunctionalTestException.class, () -> 
+        scenarioPlayer.suspendExecutionOnPurposeForAGivenNumberOfSeconds("five", "to allow Logstash to catch up"),
+        "FunctionalTestException is not thrown"
+        );            
+        assertTrue(feThrown.getMessage().contains("Wait time provided is not a valid number: five"));
     }
 
-    // @Test
+    @Test
     public void shouldFailPerformWaitTimeToAllowOperationToCompleteWhenNothingIsPassed() throws InterruptedException {
-        exceptionRule.expect(FunctionalTestException.class);
-        exceptionRule.expectMessage("Wait time provided is not a valid number: ");
-
-        scenarioPlayer.suspendExecutionOnPurposeForAGivenNumberOfSeconds("", "to allow Logstash to catch up");
+    	FunctionalTestException feThrown =Assertions.assertThrows(FunctionalTestException.class, () -> 
+        scenarioPlayer.suspendExecutionOnPurposeForAGivenNumberOfSeconds("", "to allow Logstash to catch up"),
+        "FunctionalTestException is not thrown"
+        );            
+        assertTrue(feThrown.getMessage().contains("Wait time provided is not a valid number: "));
     }
 
     private ResponseData createResponseDataWithResponseCode(int responseCode) {
