@@ -60,7 +60,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     
     public DefaultBackEndFunctionalTestScenarioPlayer() {
         RestAssured.useRelaxedHTTPSValidation();
-        scenarioContext = BackEndFunctionalTestScenarioContext.createBackEndFunctionalTestScenarioContext();
+        scenarioContext = BeftaScenarioContextFactory.createBeftaScenarioContext();
     }
 
     @Before()
@@ -521,7 +521,8 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
 
     private void performAndVerifyTheExpectedResponseForAnApiCall(BackEndFunctionalTestScenarioContext parentContext,
             String testDataSpec, String testDataId, String contextId) throws IOException {
-        BackEndFunctionalTestScenarioContext subcontext = BackEndFunctionalTestScenarioContext.createBackEndFunctionalTestScenarioContext();
+        BackEndFunctionalTestScenarioContext subcontext = BeftaScenarioContextFactory
+                .createBeftaScenarioContext();
         subcontext.initializeTestDataFor(testDataId);
         if (contextId == null) {
             parentContext.addChildContext(subcontext);

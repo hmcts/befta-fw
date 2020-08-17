@@ -12,16 +12,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
-import java.io.IOException;
-import java.util.AbstractMap;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,6 +22,16 @@ import org.mockito.Mock;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+
+import java.io.IOException;
+import java.util.AbstractMap;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import io.cucumber.java.Scenario;
 import io.restassured.RestAssured;
@@ -89,6 +89,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
     private MockedStatic<SpecificationQuerier> specificationQuerierMock = null;
     private MockedStatic<JsonUtils> jsonUtilsMock = null;
     private MockedStatic<BackEndFunctionalTestScenarioContext> backEndFunctionalTestScenarioContextMock = null;
+    private MockedStatic<BeftaScenarioContextFactory> beftaScenarioContextFactoryMock = null;
     private MockedStatic<MapVerifier> mapVerifierMock = null;
 
     private static final String USERNAME = "USERNAME";
@@ -107,7 +108,9 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         	environmentVariableUtilsMock = mockStatic(EnvironmentVariableUtils.class);
         	specificationQuerierMock = mockStatic(SpecificationQuerier.class);
         	jsonUtilsMock = mockStatic(JsonUtils.class);
-        	backEndFunctionalTestScenarioContextMock = mockStatic(BackEndFunctionalTestScenarioContext.class);
+            backEndFunctionalTestScenarioContextMock = mockStatic(BackEndFunctionalTestScenarioContext.class);
+            beftaScenarioContextFactoryMock = mockStatic(BeftaScenarioContextFactory.class);
+
         	mapVerifierMock = mockStatic(MapVerifier.class);
         	setUp();
         } catch (Exception e) {
@@ -123,13 +126,15 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         	environmentVariableUtilsMock.close();
         	specificationQuerierMock.close();
         	jsonUtilsMock.close();
-        	backEndFunctionalTestScenarioContextMock.close();
+            backEndFunctionalTestScenarioContextMock.close();
+            beftaScenarioContextFactoryMock.close();
         	mapVerifierMock.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    @SuppressWarnings("deprecation")
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
         scenarioPlayer = new DefaultBackEndFunctionalTestScenarioPlayer();
@@ -266,7 +271,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
 
         String prerequisiteTestDataId = "PR1";
         BackEndFunctionalTestScenarioContext prerequisiteContext = createAndPrepareMockPrerequisiteContext(prerequisiteTestDataId, context);
-        Mockito.when(BackEndFunctionalTestScenarioContext.createBackEndFunctionalTestScenarioContext()).thenReturn(prerequisiteContext);
+        Mockito.when(BeftaScenarioContextFactory.createBeftaScenarioContext()).thenReturn(prerequisiteContext);
         testData.setPrerequisites(Collections.singletonList(prerequisiteTestDataId));
 
         // ACT
@@ -301,7 +306,9 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         // whenNew(BackEndFunctionalTestScenarioContext.class).withNoArguments()
         // .thenReturn(prerequisiteContext1, prerequisiteContext2,
         // prerequisiteContext3);
-        Mockito.when(BackEndFunctionalTestScenarioContext.createBackEndFunctionalTestScenarioContext()).thenReturn(prerequisiteContext1,prerequisiteContext2,prerequisiteContext3);
+        Mockito.when(BeftaScenarioContextFactory.createBeftaScenarioContext()).thenReturn(
+                prerequisiteContext1,
+                prerequisiteContext2, prerequisiteContext3);
 
         testData.setPrerequisites(Arrays.asList(new LinkedHashMap<String, String>() {
             private static final long serialVersionUID = 1L;
@@ -351,7 +358,9 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         BackEndFunctionalTestScenarioContext prerequisiteContext2 = createAndPrepareMockPrerequisiteContext(testDataId2, context);
         // whenNew(BackEndFunctionalTestScenarioContext.class).withNoArguments().thenReturn(prerequisiteContext1,
         // prerequisiteContext2);
-        Mockito.when(BackEndFunctionalTestScenarioContext.createBackEndFunctionalTestScenarioContext()).thenReturn(prerequisiteContext1,prerequisiteContext2);
+        Mockito.when(BeftaScenarioContextFactory.createBeftaScenarioContext()).thenReturn(
+                prerequisiteContext1,
+                prerequisiteContext2);
 
         // for simplicity add prerequisites just using strings of test data ids
         testData.setPrerequisites(Arrays.asList(testDataId1, testDataId2));
@@ -427,7 +436,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         BackEndFunctionalTestScenarioContext prerequisiteContext = createAndPrepareMockPrerequisiteContext(prerequisiteTestDataId, context);
         // whenNew(BackEndFunctionalTestScenarioContext.class).withNoArguments().thenReturn(prerequisiteContext);
         testData.setPrerequisites(Collections.singletonList(prerequisiteTestDataId));
-        Mockito.when(BackEndFunctionalTestScenarioContext.createBackEndFunctionalTestScenarioContext()).thenReturn(prerequisiteContext);
+        Mockito.when(BeftaScenarioContextFactory.createBeftaScenarioContext()).thenReturn(prerequisiteContext);
 
         when(verificationResult.isVerified()).thenReturn(false);
 
@@ -475,8 +484,12 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         testData.setPrerequisites(Collections.singletonList(prerequisiteTestDataId1));
         prerequisiteContext1.getTestData().setPrerequisites(Collections.singletonList(prerequisiteTestDataId2));
         prerequisiteContext2.getTestData().setPrerequisites(Collections.singletonList(prerequisiteTestDataId1));
-        Mockito.when(BackEndFunctionalTestScenarioContext.createBackEndFunctionalTestScenarioContext()).thenReturn(prerequisiteContext1);
-        Mockito.when(BackEndFunctionalTestScenarioContext.createBackEndFunctionalTestScenarioContext()).thenReturn(prerequisiteContext2);
+        Mockito.when(BeftaScenarioContextFactory
+                .createBeftaScenarioContext())
+                .thenReturn(prerequisiteContext1);
+        Mockito.when(BeftaScenarioContextFactory
+                .createBeftaScenarioContext())
+                .thenReturn(prerequisiteContext2);
 
         InvalidTestDataException itdeThrown =Assertions.assertThrows(InvalidTestDataException.class, () -> 
         scenarioPlayer.prepareARequestWithAppropriateValues(),
@@ -496,7 +509,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         String testDataSpec = "Spec1";
         BackEndFunctionalTestScenarioContext testDataContext = createAndPrepareTestScenarioContext(testDataSpec, testDataId);
         // whenNew(BackEndFunctionalTestScenarioContext.class).withNoArguments().thenReturn(testDataContext);
-        Mockito.when(BackEndFunctionalTestScenarioContext.createBackEndFunctionalTestScenarioContext()).thenReturn(testDataContext);
+        Mockito.when(BeftaScenarioContextFactory.createBeftaScenarioContext()).thenReturn(testDataContext);
         mapVerifierMock.when(() -> MapVerifier.createMapVerifier("actualResponse.headers", 1, false)).thenReturn(mapVerifier);
         mapVerifierMock.when(() -> MapVerifier.createMapVerifier("actualResponse.body", 20)).thenReturn(mapVerifier);
 
