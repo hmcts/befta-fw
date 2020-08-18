@@ -843,7 +843,6 @@ public class MapVerifierTest {
 
         }
     }
-    @Disabled
     @Nested
     @DisplayName("Array tests")
     class ArrayInMap {
@@ -934,6 +933,7 @@ public class MapVerifierTest {
             @DisplayName("Simple maps")
             class SimpleMaps {
 
+                @Disabled
                 @Test
                 @DisplayName("Should verify content that meets superset operator as actual being a subset")
                 public void shouldVerifyContentThatMeetsSupersetOperatorAsActualBeingASubset() {
@@ -941,6 +941,7 @@ public class MapVerifierTest {
                             "custom-config-superset-of-unordered-without-id-field-verify-actual-subset-0");
                 }
 
+                @Disabled
                 @Test
                 @DisplayName("Should verify content that meets superset operator as actual being an equivalent-of")
                 public void shouldFailContentThatMeetsSupersetOperatorAsActualBeingEquivalentOf() {
@@ -948,6 +949,7 @@ public class MapVerifierTest {
                             "custom-config-subset-of-unordered-without-id-field-verify-actual-equivalent-0");
                 }
 
+                @Disabled
                 @Test
                 @DisplayName("Should fail content that does not meet superset operator due to actual being a superset")
                 public void shouldFailContentThatDoesNotMeetDefaultEquivalentOfOperatorDueToActualBeingASubset() {
@@ -956,6 +958,7 @@ public class MapVerifierTest {
                             "response.body contains a bad value: response.collection is not a superset.");
                 }
 
+                @Disabled
                 @Test
                 @DisplayName("Should verify content that meets subset operator as actual being a superset")
                 public void shouldVerifyContentThatMeetsSubetOperatorAsActualBeingSuperset() {
@@ -963,6 +966,7 @@ public class MapVerifierTest {
                             "custom-config-subset-of-unordered-without-id-field-verify-actual-superset-0");
                 }
 
+                @Disabled
                 @Test
                 @DisplayName("Should verify content that meets subset operator as actual being an equivalent-of")
                 public void shouldVerifyContentThaMeetsSubsetOperatorAsActualBeingAnEquivalentOf() {
@@ -970,6 +974,7 @@ public class MapVerifierTest {
                             "custom-config-subset-of-unordered-without-id-field-verify-actual-equivalent-0");
                 }
 
+                @Disabled
                 @Test
                 @DisplayName("Should fail content that does not meet subset operator due to actual being a subset")
                 public void shouldFailContentThatDoesNotMeetSubsetOperatorDueToActualBeingASuperset() {
@@ -983,6 +988,7 @@ public class MapVerifierTest {
             @DisplayName("Nested arrays")
             class NestedArrays {
 
+                @Disabled
                 @Test
                 @DisplayName("Should verify content that meets superset operator as actual being a subset")
                 public void shouldVerifyContentThatMeetsSupersetOperatorAsActualBeingASubset() {
