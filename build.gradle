@@ -58,6 +58,17 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
     classifier = 'javadoc'
     from javadoc.destinationDir
 }
+tasks.withType(Test) {
+  useJUnitPlatform()
+
+  testLogging {
+    exceptionFormat = 'full'
+  }
+}
+
+test {
+  failFast = true
+}
 
 artifacts {
     archives sourcesJar
