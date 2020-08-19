@@ -3,6 +3,7 @@ package uk.gov.hmcts.befta.player;
 import org.apache.http.impl.EnglishReasonPhraseCatalog;
 import org.aspectj.util.FileUtil;
 import org.junit.Assert;
+import org.junit.AssumptionViolatedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,6 +43,7 @@ import uk.gov.hmcts.befta.exception.FunctionalTestException;
 import uk.gov.hmcts.befta.exception.InvalidTestDataException;
 import uk.gov.hmcts.befta.exception.UnconfirmedApiCallException;
 import uk.gov.hmcts.befta.exception.UnconfirmedDataSpecException;
+import uk.gov.hmcts.befta.launchdarkly.FeatureToggleService;
 import uk.gov.hmcts.befta.util.BeftaUtils;
 import uk.gov.hmcts.befta.util.EnvironmentVariableUtils;
 import uk.gov.hmcts.befta.util.JsonUtils;
@@ -52,11 +54,12 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
 
     static final String PREREQUISITE_SPEC = "As a prerequisite";
 
-    private Logger logger = LoggerFactory.getLogger(DefaultBackEndFunctionalTestScenarioPlayer.class);
+    private final Logger logger = LoggerFactory.getLogger(DefaultBackEndFunctionalTestScenarioPlayer.class);
 
     private final BackEndFunctionalTestScenarioContext scenarioContext;
     private Scenario scenario;
-    private ObjectMapper mapper = new ObjectMapper();
+    private final ObjectMapper mapper = new ObjectMapper();
+    private final FeatureToggleService featureToggleService = new FeatureToggleService();
 
     public DefaultBackEndFunctionalTestScenarioPlayer() {
         RestAssured.useRelaxedHTTPSValidation();
@@ -66,6 +69,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     @Before()
     public void prepare(Scenario scenario) {
         this.scenario = scenario;
+        featureToggleService.isFlagEnabled(scenario);
     }
 
     @Override

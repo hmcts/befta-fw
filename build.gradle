@@ -123,6 +123,8 @@ dependencies {
     compile group: 'org.apache.poi', name: 'poi', version: '4.0.0'
     compile group: 'org.apache.poi', name: 'poi-ooxml', version: '4.0.0'
 
+    implementation group: 'com.launchdarkly', name: 'launchdarkly-java-server-sdk', version: '5.+'
+
     testCompile 'io.github.openfeign:feign-jackson:9.7.0'
     testCompile group: 'org.mockito', name: 'mockito-core', version: '2.24.0'
     testCompile group: 'org.powermock', name: 'powermock-api-mockito2', version: '2.0.0-beta.5'
