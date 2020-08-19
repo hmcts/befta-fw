@@ -16,6 +16,7 @@ import java.util.Set;
 import java.util.UUID;
 
 import uk.gov.hmcts.befta.exception.InvalidTestDataException;
+import uk.gov.hmcts.befta.exception.ParentNotFoundException;
 import uk.gov.hmcts.befta.util.ReflectionUtils;
 
 public abstract class JsonStoreWithInheritance {
@@ -23,6 +24,7 @@ public abstract class JsonStoreWithInheritance {
     private static final String INHERITANCE_APPLIED = "inheritanceApplied";
     private static final String REPLACE_ARRAY_CONTENT = "__befta_replace__";
     protected static final String GUID = "_guid_";
+    protected static final String EXTENDS = "_extends_";
 
     protected JsonNode rootNode;
     protected Map<String, JsonNode> nodeLibrary = new HashMap<>();
@@ -32,7 +34,7 @@ public abstract class JsonStoreWithInheritance {
     protected Set<String> processedGUIDs = Sets.newHashSet();
 
     public JsonStoreWithInheritance() {
-        this("_guid_", "_extends_");
+        this(GUID, EXTENDS);
     }
 
     public JsonStoreWithInheritance(String idFieldName, String inheritanceFieldName) {
@@ -183,7 +185,7 @@ public abstract class JsonStoreWithInheritance {
             if (object.has(idFieldName)) {
                 idPart = object.get(idFieldName).asText();
             }
-            throw new RuntimeException("Parent object with key " + parentId + " not found for " + idPart + ".");
+            throw new ParentNotFoundException("Parent object with key " + parentId + " not found for " + idPart + ".");
         }
     }
 

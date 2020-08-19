@@ -10,11 +10,24 @@ import java.net.URL;
 import io.restassured.internal.util.IOUtils;
 import uk.gov.hmcts.befta.dse.ccd.definition.converter.FileUtils;
 import uk.gov.hmcts.befta.exception.FunctionalTestException;
+import uk.gov.hmcts.befta.exception.JsonStoreCreationException;
 
 public class BeftaUtils {
 
     private static final String TEMPORARY_DEFINITION_FOLDER = "definition_files";
 
+    public static File getSingleFileFromResource(String[] location) {
+    	if(location!=null&&location.length==1) {
+    		return getFileFromResource(location[0]);
+    	}
+    	else {
+    		throw new JsonStoreCreationException("Invalid parameters should be Signle directory or a file location.");
+    	}
+    }
+    public static File getFileFromResource(String location) {
+        URL url = ClassLoader.getSystemResource(location);
+        return new File(url.getFile());
+    }
     public static File getClassPathResourceIntoTemporaryFile(String resourcePath) {
         return createTempFile(resourcePath,"");
     }
