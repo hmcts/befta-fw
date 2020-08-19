@@ -22,6 +22,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
@@ -62,6 +63,7 @@ import uk.gov.hmcts.befta.util.MapVerificationResult;
 import uk.gov.hmcts.befta.util.MapVerifier;
 
 @RunWith(PowerMockRunner.class)
+@PowerMockIgnore("javax.net.ssl.*")
 @PrepareForTest({ DefaultBackEndFunctionalTestScenarioPlayer.class, RestAssured.class, Scenario.class, BeftaMain.class,
         DynamicValueInjector.class, EnvironmentVariableUtils.class, JsonUtils.class, Method.class,
         SpecificationQuerier.class })

@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
@@ -21,6 +22,7 @@ import uk.gov.hmcts.befta.data.HttpTestData;
 import uk.gov.hmcts.befta.data.JsonStoreHttpTestDataSource;
 
 @RunWith(PowerMockRunner.class)
+@PowerMockIgnore("javax.net.ssl.*")
 @PrepareForTest({
         BackEndFunctionalTestScenarioContext.class,
         JsonStoreHttpTestDataSource.class,
