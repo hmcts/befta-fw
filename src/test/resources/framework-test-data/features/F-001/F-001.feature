@@ -1,12 +1,12 @@
-@F-000
+@F-001
 Feature: [SAMPLE] Get default settings for user
 
   Background:
     Given an appropriate test context as detailed in the test data source
 
-  @S-000
+  @S-001 @FeatureToggle(get-ld-flag)
   Scenario: [SAMPLE] must return default user setting successfully for a user having a profile in CCD
-    Given a successful call [to retrieve a user profile] as in [S-000-Prerequisite]
+    Given a successful call [to retrieve a user profile] as in [S-001-Prerequisite]
     And a user with [a detailed profile in CCD]
     And a case that has just been created as in [Standard_Full_Case_Creation_Data]
     When a request is prepared with appropriate values

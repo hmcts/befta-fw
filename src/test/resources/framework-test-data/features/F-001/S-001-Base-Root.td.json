@@ -1,0 +1,14 @@
+{
+  "_guid_": "S-001-Base-Root",
+  "user": {
+    "username": "auto.test.cnp@gmail.com",
+    "password": "Pa55word11"
+  },
+  "request": {
+    "headers": {
+      "Authorization": "[[DEFAULT_AUTO_VALUE]]",
+      "ServiceAuthorization": "[[DEFAULT_AUTO_VALUE]]",
+      "Content-Type": "application/json"
+    }
+  }
+}
