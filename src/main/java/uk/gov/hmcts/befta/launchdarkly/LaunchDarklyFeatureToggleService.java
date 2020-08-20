@@ -5,14 +5,19 @@ import com.launchdarkly.sdk.server.LDClient;
 import io.cucumber.java.Scenario;
 import org.apache.commons.lang.StringUtils;
 import org.junit.AssumptionViolatedException;
+import uk.gov.hmcts.befta.featureToggle.FeatureToggle;
 
 import java.util.Optional;
 
-public class FeatureToggleService {
-    private final LDClient ldClient = LaunchDarklyConfig.getLdInstance();
-    private static final String LAUNCH_DARKLY_FLAG = "LaunchDarklyFlag";
+public class LaunchDarklyFeatureToggleService implements FeatureToggle {
+    public static LaunchDarklyFeatureToggleService INSTANCE =
+            new LaunchDarklyFeatureToggleService();
 
-    public void isFlagEnabled(Scenario scenario) {
+    private final LDClient ldClient = LaunchDarklyConfig.getLdInstance();
+    private static final String LAUNCH_DARKLY_FLAG = "FeatureToggle";
+
+    @Override
+    public void evaluateFlag(Scenario scenario) {
 
         Optional<String> flagName = scenario.getSourceTagNames().stream()
                 .filter(tag -> tag.contains(LAUNCH_DARKLY_FLAG))

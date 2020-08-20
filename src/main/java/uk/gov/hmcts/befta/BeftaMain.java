@@ -1,6 +1,8 @@
 package uk.gov.hmcts.befta;
 
 import io.cucumber.core.cli.Main;
+import uk.gov.hmcts.befta.featureToggle.FeatureToggle;
+import uk.gov.hmcts.befta.launchdarkly.LaunchDarklyFeatureToggleService;
 import uk.gov.hmcts.befta.player.DefaultBackEndFunctionalTestScenarioPlayer;
 import uk.gov.hmcts.befta.util.CucumberStepAnnotationUtils;
 
@@ -8,6 +10,7 @@ public class BeftaMain {
 
     private static TestAutomationConfig config = TestAutomationConfig.INSTANCE;
     private static TestAutomationAdapter taAdapter = null;
+    private static FeatureToggle featureToggle = LaunchDarklyFeatureToggleService.INSTANCE;
 
     public static void main(String[] args) {
         main(args, new DefaultTestAutomationAdapter());
@@ -46,6 +49,9 @@ public class BeftaMain {
         setUp(TestAutomationConfig.INSTANCE, taAdapter);
     }
 
+    public static void setup(FeatureToggle featureToggle) {
+        BeftaMain.featureToggle = featureToggle;
+    }
     public static void tearDown() {
 
     }
