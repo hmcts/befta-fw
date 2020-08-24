@@ -12,15 +12,6 @@
   "LiveTo" : "",
   "CaseTypeID" : "FT_ComplexCRUD",
   "CaseFieldID" : "FamilyDetails",
-  "ListElementCode" : "MotherFullName",
-  "Label" : "Mother full name",
-  "DisplayOrder" : 2,
-  "DisplayContextParameter" : ""
-}, {
-  "LiveFrom" : "01/01/2017",
-  "LiveTo" : "",
-  "CaseTypeID" : "FT_ComplexCRUD",
-  "CaseFieldID" : "FamilyDetails",
   "ListElementCode" : "MotherAge",
   "Label" : "Mother age",
   "DisplayOrder" : 3,
