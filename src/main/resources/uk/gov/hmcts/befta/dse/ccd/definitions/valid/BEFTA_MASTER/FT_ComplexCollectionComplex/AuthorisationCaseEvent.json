@@ -33,4 +33,11 @@
   "CaseEventID" : "createCollectionOfComplex",
   "UserRole" : "caseworker-befta_master",
   "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexCollectionComplex",
+  "CaseEventID" : "createCaseLink",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "CRUD"
 } ]
