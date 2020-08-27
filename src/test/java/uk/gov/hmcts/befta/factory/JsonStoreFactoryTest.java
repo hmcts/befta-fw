@@ -40,7 +40,7 @@ public class JsonStoreFactoryTest {
 		JsonStoreCreationException aeThrown = Assertions.assertThrows(JsonStoreCreationException.class,
 				() -> JsonStoreFactory.createJsonStore(jsonStoreOption, resourcePaths),
 				"JsonStoreCreationException is not thrown");
-		assertTrue(aeThrown.getMessage().contains("Invalid parameters should be Signle directory or a file location."));
+		assertTrue(aeThrown.getMessage().contains("Invalid parameter, for array with single entry a Signle directory or a file location."));
 	}
 
 	@Test
@@ -59,7 +59,7 @@ public class JsonStoreFactoryTest {
 		JsonStoreCreationException aeThrown = Assertions.assertThrows(JsonStoreCreationException.class,
 				() -> JsonStoreFactory.createJsonStore(jsonStoreOption, resourcePaths),
 				"JsonStoreCreationException is not thrown");
-		assertTrue(aeThrown.getMessage().contains("Invalid parameters should be Signle directory or a file location."));
+		assertTrue(aeThrown.getMessage().contains("Invalid parameter, for array with single entry a Signle directory or a file location."));
 	}
 
 	@Test

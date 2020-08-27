@@ -25,6 +25,12 @@ public class ReflectionUtilsTest {
 
 
     @Test
+    public void shouldDeepGetFieldInObjectNull() throws Exception {
+        final Object result = ReflectionUtils.deepGetFieldInObject(null, "invokingUser.username");
+
+        assertNull(result);
+    }
+    @Test
     public void shouldDeepGetFieldInObject() throws Exception {
         HttpTestData testData = new HttpTestData();
         UserData user = new UserData("USERNAME", "PASSWORD");
@@ -58,6 +64,20 @@ public class ReflectionUtilsTest {
     }
 
     @Test
+    public void shouldRetrieveFieldInSimpleObjectNull() throws Exception {
+        final Object result = ReflectionUtils.retrieveFieldInObject(null, "invokingUser");
+
+        assertNull(result);
+    }
+    @Test
+    public void shouldErrorWithEmptyFieldPathForRetrieveFieldInObject() throws Exception {
+        HttpTestData testData = new HttpTestData();
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            ReflectionUtils.retrieveFieldInObject(testData, "");
+          });
+    }
+    @Test
     public void shouldRetrieveFieldInSimpleObject() throws Exception {
         HttpTestData testData = new HttpTestData();
         UserData user = new UserData();
@@ -82,7 +102,23 @@ public class ReflectionUtilsTest {
 
         assertEquals(responseData, result);
     }
-
+    @Test
+    public void shouldRetrieveFieldInObjectArraYByIndex() throws Exception {
+        ResponseData responseData = new ResponseData();
+        responseData.setResponseCode(200);
+        ResponseData[] testArray = {responseData};
+        Assertions.assertThrows(NoSuchFieldException.class, () -> {
+        	ReflectionUtils.retrieveFieldInObject(testArray, "ResponseCode[1]");
+          });
+    }
+    @Test
+    public void shouldRetrieveFieldInObjectByIndex() throws Exception {
+        ResponseData responseData = new ResponseData();
+        responseData.setResponseCode(200);
+        Assertions.assertThrows(RuntimeException.class, () -> {
+        	ReflectionUtils.retrieveFieldInObject(responseData, "ResponseCode[1]");
+          });
+    }
     @Test
     public void shouldRetrieveFieldFromMultiValueListAsList() throws Exception {
         List<UserData> testList = new ArrayList<UserData>() {
