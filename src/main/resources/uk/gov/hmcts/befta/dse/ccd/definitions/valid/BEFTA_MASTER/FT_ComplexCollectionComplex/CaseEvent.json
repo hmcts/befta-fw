@@ -103,4 +103,25 @@
   "ShowEventNotes" : "",
   "CanSaveDraft" : "",
   "EndButtonLabel" : ""
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexCollectionComplex",
+  "ID" : "createCaseLink",
+  "Name" : "Create Case Links",
+  "Description" : "Create Collection of Complex Case Links",
+  "DisplayOrder" : 4,
+  "PreConditionState(s)" : "",
+  "PostConditionState" : "CaseCreated",
+  "CallBackURLAboutToStartEvent" : "",
+  "RetriesTimeoutAboutToStartEvent" : "",
+  "CallBackURLAboutToSubmitEvent" : "",
+  "RetriesTimeoutURLAboutToSubmitEvent" : "",
+  "CallBackURLSubmittedEvent" : "",
+  "RetriesTimeoutURLSubmittedEvent" : "",
+  "SecurityClassification" : "Public",
+  "ShowSummary" : "Y",
+  "ShowEventNotes" : "",
+  "CanSaveDraft" : "",
+  "EndButtonLabel" : ""
 } ]

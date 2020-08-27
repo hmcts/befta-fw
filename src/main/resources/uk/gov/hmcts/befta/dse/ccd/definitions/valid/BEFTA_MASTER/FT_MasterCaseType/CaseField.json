@@ -328,4 +328,19 @@
   "Min" : "",
   "Max" : "",
   "DefaultHidden" : "No"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_MasterCaseType",
+  "ID" : "CaseLinkField",
+  "Label" : "Case Link Field",
+  "HintText" : "",
+  "FieldType" : "CaseLink",
+  "CategoryID" : "",
+  "FieldTypeParameter" : "",
+  "RegularExpression" : "",
+  "SecurityClassification" : "Public",
+  "Min" : "",
+  "Max" : "",
+  "DefaultHidden" : "No"
 } ]

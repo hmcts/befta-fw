@@ -118,4 +118,34 @@
   "Min" : "",
   "Max" : "",
   "DefaultHidden" : "No"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexCollectionComplex",
+  "ID" : "CaseLinkCollection",
+  "Label" : "Collection of CaseLink",
+  "HintText" : "",
+  "FieldType" : "Collection",
+  "CategoryID" : "",
+  "FieldTypeParameter" : "CaseLink",
+  "RegularExpression" : "",
+  "SecurityClassification" : "Public",
+  "Min" : "",
+  "Max" : "",
+  "DefaultHidden" : "No"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexCollectionComplex",
+  "ID" : "CaseLinkComplex",
+  "Label" : "CaseLink complex",
+  "HintText" : "",
+  "FieldType" : "CaseLinkComplex",
+  "CategoryID" : "",
+  "FieldTypeParameter" : "",
+  "RegularExpression" : "",
+  "SecurityClassification" : "Public",
+  "Min" : "",
+  "Max" : "",
+  "DefaultHidden" : "No"
 } ]
