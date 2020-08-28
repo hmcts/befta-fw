@@ -12,7 +12,8 @@
   "SecurityClassification" : "Public",
   "Min" : "",
   "Max" : "",
-  "DefaultHidden" : "No"
+  "DefaultHidden" : "No",
+  "Searchable" : ""
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
@@ -27,5 +28,6 @@
   "SecurityClassification" : "Public",
   "Min" : "",
   "Max" : "",
-  "DefaultHidden" : "No"
+  "DefaultHidden" : "No",
+  "Searchable" : ""
 } ]
