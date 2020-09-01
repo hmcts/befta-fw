@@ -3,8 +3,8 @@ package uk.gov.hmcts.befta.dse.ccd.definition.converter;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import org.apache.commons.lang.ObjectUtils;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import uk.gov.hmcts.befta.BeftaMain;
 import uk.gov.hmcts.befta.exception.DefinitionTransformerException;
 
 import java.io.*;
@@ -67,6 +67,12 @@ public class JsonTransformer {
                 String sheet = null;
                 try {
                     JsonNode rootSheetArray = objectMapper.readTree(jsonFile);
+
+                    if (BeftaMain.getConfig().getTestUrl().contains("localhost")) {
+                        String rootSheetArrayString = rootSheetArray.toString().replaceAll("ccd-test-stubs-service-aat.service.core-compute-aat.internal", "ccd-test-stubs-service:5555");
+                        rootSheetArray = objectMapper.readTree(rootSheetArrayString);
+                    }
+
                     for (JsonNode sheetRow : rootSheetArray){
                         sheet = jsonFile.getName().replace(".json","");
                         defFileMap.get(sheet).add(sheetRow);
