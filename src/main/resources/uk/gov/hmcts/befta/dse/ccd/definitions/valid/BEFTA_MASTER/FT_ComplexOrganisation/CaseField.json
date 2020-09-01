@@ -12,7 +12,8 @@
   "SecurityClassification" : "Public",
   "Min" : "",
   "Max" : "",
-  "DefaultHidden" : "No"
+  "DefaultHidden" : "No",
+  "Searchable" : ""
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
@@ -21,21 +22,6 @@
   "Label" : "Organisation Policy Field 1",
   "HintText" : "",
   "FieldType" : "OrganisationPolicy",
-  "CategoryID" : "",
-  "FieldTypeParameter" : "",
-  "RegularExpression" : "",
-  "SecurityClassification" : "Public",
-  "Min" : "",
-  "Max" : "",
-  "DefaultHidden" : "No"
-}, {
-  "LiveFrom" : "01/01/2017",
-  "LiveTo" : "",
-  "CaseTypeID" : "FT_ComplexOrganisation",
-  "ID" : "ChangeOrganisationRequestField",
-  "Label" : "Change Organisation Request",
-  "HintText" : "",
-  "FieldType" : "ChangeOrganisationRequest",
   "CategoryID" : "",
   "FieldTypeParameter" : "",
   "RegularExpression" : "",
