@@ -28,5 +28,6 @@
   "SecurityClassification" : "Public",
   "Min" : "",
   "Max" : "",
-  "DefaultHidden" : "No"
+  "DefaultHidden" : "No",
+  "Searchable" : ""
 } ]
