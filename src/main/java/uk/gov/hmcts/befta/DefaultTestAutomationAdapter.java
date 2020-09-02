@@ -16,6 +16,8 @@ import uk.gov.hmcts.befta.auth.AuthApi;
 import uk.gov.hmcts.befta.auth.UserTokenProviderConfig;
 import uk.gov.hmcts.befta.data.UserData;
 import uk.gov.hmcts.befta.exception.FunctionalTestException;
+import uk.gov.hmcts.befta.factory.BeftaIdamApiClientFactory;
+import uk.gov.hmcts.befta.factory.BeftaServiceAuthorisationApiClientFactory;
 import uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext;
 import uk.gov.hmcts.befta.util.EnvironmentVariableUtils;
 import uk.gov.hmcts.befta.util.ReflectionUtils;
@@ -30,6 +32,7 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
     private static final String PASSWORD = "password";
 
     private final AuthApi idamApi;
+    private final ServiceAuthorisationApi serviceAuthorisationApi;
 
     private final Map<String, ServiceAuthTokenGenerator> tokenGenerators = new ConcurrentHashMap<>();
 
@@ -38,11 +41,11 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
     private static boolean isTestDataLoaded = false;
 
     public DefaultTestAutomationAdapter() {
+        serviceAuthorisationApi = BeftaServiceAuthorisationApiClientFactory.createServiceAuthorisationApiClient(); 
+        idamApi = BeftaIdamApiClientFactory.createAuthorizationClient();
         ServiceAuthTokenGenerator defaultGenerator = getNewS2sClientWithCredentials(
                 BeftaMain.getConfig().getS2SClientId(), BeftaMain.getConfig().getS2SClientSecret());
         tokenGenerators.put(BeftaMain.getConfig().getS2SClientId(), defaultGenerator);
-        idamApi = Feign.builder().encoder(new JacksonEncoder()).decoder(new JacksonDecoder()).target(AuthApi.class,
-                BeftaMain.getConfig().getIdamURL());
     }
 
     @Override
@@ -98,10 +101,6 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
     }
 
     protected ServiceAuthTokenGenerator getNewS2sClientWithCredentials(String clientId, String clientSecret) {
-        final ServiceAuthorisationApi serviceAuthorisationApi = Feign.builder().encoder(new JacksonEncoder())
-                .contract(new SpringMvcContract())
-                .target(ServiceAuthorisationApi.class, BeftaMain.getConfig().getS2SURL());
-
         return new ServiceAuthTokenGenerator(clientSecret, clientId, serviceAuthorisationApi);
     }
 

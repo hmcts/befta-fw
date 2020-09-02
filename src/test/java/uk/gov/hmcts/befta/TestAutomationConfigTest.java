@@ -25,7 +25,7 @@ import uk.gov.hmcts.befta.util.EnvironmentVariableUtils;
  * @author korneleehenry
  *
  */
-class TestTestAutomationConfig {
+class TestAutomationConfigTest {
 	public static final String TEST_URL_KEY = "TEST_URL";
 	public static final String TEST_URL_VALUE = "TEST_URL_VALUE";
 	public static final String IDAM_URL_KEY = "IDAM_URL";
@@ -51,14 +51,7 @@ class TestTestAutomationConfig {
     @AfterEach
     void cleanup() {
     }
-    @Test
-    @ClearEnvironmentVariable(key = "SOME_VARIABLE")
-    @SetEnvironmentVariable(key = "TEST_URL", value = "TEST_URL_VALUE")
-    void test() {
-        assertNull(System.getenv("SOME_VARIABLE"));
-        assertEquals(TEST_URL_VALUE, TestAutomationConfig.INSTANCE.getTestUrl());
-//        assertEquals("TEST_URL_VALUE", EnvironmentVariableUtils.getRequiredVariable("TEST_URL"));
-    }
+
     /**
 	 * Test method for {@link uk.gov.hmcts.befta.TestAutomationConfig#getTestUrl()}.
 	 */

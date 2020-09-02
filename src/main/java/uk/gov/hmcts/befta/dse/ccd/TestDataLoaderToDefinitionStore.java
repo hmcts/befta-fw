@@ -125,7 +125,8 @@ public class TestDataLoaderToDefinitionStore {
         Map<String, String> ccdRoleInfo = new HashMap<>();
         ccdRoleInfo.put("role", roleConfig.getRole());
         ccdRoleInfo.put("security_classification", roleConfig.getSecurityClassification());
-        Response response = asAutoTestImporter().given().header("Content-type", "application/json").body(ccdRoleInfo)
+        Response response = asAutoTestImporter().given().header("Content-type", "application/json")
+        		.body(ccdRoleInfo)
                 .when().put("/api/user-role");
         if (response.getStatusCode() / 100 != 2) {
             String message = "Import failed with response body: " + response.body().prettyPrint();

@@ -3,10 +3,14 @@ package uk.gov.hmcts.befta.data;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import uk.gov.hmcts.befta.data.CollectionVerificationConfig.Operator;
+import uk.gov.hmcts.befta.data.CollectionVerificationConfig.Ordering;
 
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -91,5 +95,25 @@ public class HttpTestDataTest {
 
         assertEquals(user, testData.getInvokingUser());
     }
+	@Test
+	void testToString() {
+		String s2sClientId = "s2sClientId";
+		String userTokenClientId = "userTokenClientId";
+        testData = new HttpTestData();
+        testData.setS2sClientId(s2sClientId);
+        testData.setUserTokenClientId(userTokenClientId);
+        HttpTestData actual = new HttpTestData(); 
+        actual.setS2sClientId(s2sClientId);
+        actual.setUserTokenClientId(userTokenClientId);
+        assertEquals(testData.hashCode(),actual.hashCode());
+        assertEquals(testData,actual);
+        assertNotNull(actual.toString());
+	}
+	@Test
+	void testgetUserEntryAt() {
+        testData = new HttpTestData();
+        assertEquals(null,testData.getUserEntryAt(0));
+	}
+
 }
 
