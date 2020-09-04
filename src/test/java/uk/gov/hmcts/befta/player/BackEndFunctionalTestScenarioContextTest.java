@@ -19,7 +19,7 @@ import uk.gov.hmcts.common.TestUtils;
 
 public class BackEndFunctionalTestScenarioContextTest {
 
-    private final String VALID_TAG_ID = "S-133";
+    private static final String VALID_TAG_ID = "S-133";
 
     private BackEndFunctionalTestScenarioContext contextUnderTest = new BackEndFunctionalTestScenarioContext();
 

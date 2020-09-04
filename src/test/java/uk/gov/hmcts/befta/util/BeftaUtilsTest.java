@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test;
 
 import uk.gov.hmcts.befta.exception.FunctionalTestException;
 import uk.gov.hmcts.befta.exception.JsonStoreCreationException;
-import uk.gov.hmcts.befta.factory.JsonStoreFactory;
 
 /**
  * @author korneleehenry
@@ -21,10 +20,10 @@ import uk.gov.hmcts.befta.factory.JsonStoreFactory;
  */
 class BeftaUtilsTest {
 	private static final String[] MULT_STRS = {"tempdirectory","tempfilepath"};
-	private static final String[] SINGLE_STR = {"framework-test-data/json-store-test-data"};
     private static final String TEMPORARY_DEFINITION_FOLDER = "definition_files";
     private static final String TEMPORARY_FILE_NAME = "framework-test-data/json-store-test-data";
     private static final String TEMPORARY_SIMPLE_FOLDER = "framework-test-data/json-store-test-data/test-directory";
+	private static final String[] SINGLE_STR = {TEMPORARY_FILE_NAME};
 	/**
 	 * Test method for {@link uk.gov.hmcts.befta.util.BeftaUtils#getSingleFileFromResource(java.lang.String[])}.
 	 */

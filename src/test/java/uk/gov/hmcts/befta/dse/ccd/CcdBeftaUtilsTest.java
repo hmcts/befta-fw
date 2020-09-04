@@ -7,14 +7,12 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.File;
-import java.io.IOException;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import uk.gov.hmcts.befta.dse.ccd.definition.converter.FileUtils;
-import uk.gov.hmcts.befta.dse.ccd.definition.converter.JsonTransformer;
 
 /**
  * @author korneleehenry

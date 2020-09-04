@@ -23,8 +23,8 @@ class CollectionVerificationConfigTest {
 	void testEqualsObject() {
 		CollectionVerificationConfig actual = new CollectionVerificationConfig();
 		CollectionVerificationConfig other = new CollectionVerificationConfig(Operator.EQUIVALENT, Ordering.ORDERED, "Id2");
-		assertEquals(actual.DEFAULT,actual);
-		assertEquals(actual.DEFAULT.hashCode(),actual.hashCode());
+		assertEquals(CollectionVerificationConfig.DEFAULT,actual);
+		assertEquals(CollectionVerificationConfig.DEFAULT.hashCode(),actual.hashCode());
 		assertNotEquals(actual.hashCode(),other.hashCode());
 		assertNotEquals(actual,other);
 	}
@@ -37,6 +37,7 @@ class CollectionVerificationConfigTest {
 		CollectionVerificationConfig actual = new CollectionVerificationConfig();
 		CollectionVerificationConfig other = new CollectionVerificationConfig(Operator.EQUIVALENT, Ordering.ORDERED, "Id2");
 		assertNotNull(actual.toString());
+		assertNotNull(other.toString());
 	}
 
 }

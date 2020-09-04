@@ -3,23 +3,16 @@
  */
 package uk.gov.hmcts.befta;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static uk.gov.hmcts.befta.util.EnvironmentVariableUtils.getOptionalVariable;
-import static uk.gov.hmcts.befta.util.EnvironmentVariableUtils.getRequiredVariable;
-
-import java.io.File;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junitpioneer.jupiter.ClearEnvironmentVariable;
-import org.junitpioneer.jupiter.ClearSystemProperty;
 import org.junitpioneer.jupiter.SetEnvironmentVariable;
-import org.junitpioneer.jupiter.SetSystemProperty;
 
 import uk.gov.hmcts.befta.TestAutomationConfig.ResponseHeaderCheckPolicy;
 import uk.gov.hmcts.befta.auth.UserTokenProviderConfig;
-import uk.gov.hmcts.befta.util.EnvironmentVariableUtils;
 
 /**
  * @author korneleehenry

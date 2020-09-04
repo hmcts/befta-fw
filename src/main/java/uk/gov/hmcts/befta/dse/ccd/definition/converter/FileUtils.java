@@ -4,6 +4,7 @@ import java.io.File;
 
 public class FileUtils {
 
+	private FileUtils() {};
     public static void createDirectoryHierarchy(File dir) {
         if (!dir.exists()){
             if (!dir.mkdirs()){

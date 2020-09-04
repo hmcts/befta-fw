@@ -3,6 +3,7 @@ package uk.gov.hmcts.befta.dse.ccd.definition.converter;
 import org.apache.poi.ss.usermodel.*;
 
 public class ExcelProcessingUtils {
+	private ExcelProcessingUtils() {};
 
     public static CellStyle getExcelDateCellStyle(Workbook wb){
         CreationHelper createHelper = wb.getCreationHelper();

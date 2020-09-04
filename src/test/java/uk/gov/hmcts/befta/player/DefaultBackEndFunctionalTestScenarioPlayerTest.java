@@ -304,9 +304,6 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         BackEndFunctionalTestScenarioContext prerequisiteContext3 = createAndPrepareMockPrerequisiteContext(prerequisiteTestDataId, context);
         mapVerifierMock.when(() -> MapVerifier.createMapVerifier("actualResponse.headers", 1, false)).thenReturn(mapVerifier);
         mapVerifierMock.when(() -> MapVerifier.createMapVerifier("actualResponse.body", 20)).thenReturn(mapVerifier);
-        // whenNew(BackEndFunctionalTestScenarioContext.class).withNoArguments()
-        // .thenReturn(prerequisiteContext1, prerequisiteContext2,
-        // prerequisiteContext3);
         Mockito.when(BeftaScenarioContextFactory.createBeftaScenarioContext()).thenReturn(
                 prerequisiteContext1,
                 prerequisiteContext2, prerequisiteContext3);
@@ -357,8 +354,6 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         String testDataId2 = "TEST2";
         BackEndFunctionalTestScenarioContext prerequisiteContext1 = createAndPrepareMockPrerequisiteContext(testDataId1, context);
         BackEndFunctionalTestScenarioContext prerequisiteContext2 = createAndPrepareMockPrerequisiteContext(testDataId2, context);
-        // whenNew(BackEndFunctionalTestScenarioContext.class).withNoArguments().thenReturn(prerequisiteContext1,
-        // prerequisiteContext2);
         Mockito.when(BeftaScenarioContextFactory.createBeftaScenarioContext()).thenReturn(
                 prerequisiteContext1,
                 prerequisiteContext2);
@@ -435,7 +430,6 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
 
         String prerequisiteTestDataId = "PR1";
         BackEndFunctionalTestScenarioContext prerequisiteContext = createAndPrepareMockPrerequisiteContext(prerequisiteTestDataId, context);
-        // whenNew(BackEndFunctionalTestScenarioContext.class).withNoArguments().thenReturn(prerequisiteContext);
         testData.setPrerequisites(Collections.singletonList(prerequisiteTestDataId));
         Mockito.when(BeftaScenarioContextFactory.createBeftaScenarioContext()).thenReturn(prerequisiteContext);
 
@@ -478,9 +472,6 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         String prerequisiteTestDataId2 = "PR2";
         BackEndFunctionalTestScenarioContext prerequisiteContext1 = createAndPrepareMockPrerequisiteContext(prerequisiteTestDataId1, context);
         BackEndFunctionalTestScenarioContext prerequisiteContext2 = createAndPrepareMockPrerequisiteContext(prerequisiteTestDataId2, prerequisiteContext1);
-        // whenNew(BackEndFunctionalTestScenarioContext.class).withNoArguments().thenReturn(prerequisiteContext1,
-        // prerequisiteContext2, prerequisiteContext1);
-
         // test -> PR1 -> PR2 -> PR1
         testData.setPrerequisites(Collections.singletonList(prerequisiteTestDataId1));
         prerequisiteContext1.getTestData().setPrerequisites(Collections.singletonList(prerequisiteTestDataId2));
@@ -509,7 +500,6 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         String testDataId = "TD1";
         String testDataSpec = "Spec1";
         BackEndFunctionalTestScenarioContext testDataContext = createAndPrepareTestScenarioContext(testDataSpec, testDataId);
-        // whenNew(BackEndFunctionalTestScenarioContext.class).withNoArguments().thenReturn(testDataContext);
         Mockito.when(BeftaScenarioContextFactory.createBeftaScenarioContext()).thenReturn(testDataContext);
         mapVerifierMock.when(() -> MapVerifier.createMapVerifier("actualResponse.headers", 1, false)).thenReturn(mapVerifier);
         mapVerifierMock.when(() -> MapVerifier.createMapVerifier("actualResponse.body", 20)).thenReturn(mapVerifier);
@@ -572,9 +562,6 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         Mockito.when(context.getTheResponse()).thenReturn(response);
         mapVerifierMock.when(() -> MapVerifier.createMapVerifier("actualResponse.headers", 1, false)).thenReturn(mapVerifier);
         mapVerifierMock.when(() -> MapVerifier.createMapVerifier("actualResponse.body", 20)).thenReturn(mapVerifier);
-//        mapVerifierMock.when(() -> MapVerifier.createMapVerifier(any(),any())).thenReturn(mapVerifier);
-//        Mockito.when(MapVerifier.createMapVerifier(any(),any(),any())).thenReturn(mapVerifier);
-//        Mockito.when(MapVerifier.createMapVerifier(any(),any())).thenReturn(mapVerifier);
         Mockito.when(mapVerifier.verifyMap(any(), any())).thenReturn(verificationResult);
         Mockito.when(verificationResult.isVerified()).thenReturn(false);
 
@@ -905,14 +892,14 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         when(verificationResult.isVerified()).thenReturn(true);
 
         // context
-        BackEndFunctionalTestScenarioContext context = Mockito.mock(BackEndFunctionalTestScenarioContext.class);
+        BackEndFunctionalTestScenarioContext context1 = Mockito.mock(BackEndFunctionalTestScenarioContext.class);
 
-        when(context.getTestData()).thenReturn(testData);
-        when(context.getTheRequest()).thenReturn(requestSpecification);
-        when(context.getTheResponse()).thenReturn(expectedResponseData);
-        when(context.getContextId()).thenReturn(testDataId);
+        when(context1.getTestData()).thenReturn(testData);
+        when(context1.getTheRequest()).thenReturn(requestSpecification);
+        when(context1.getTheResponse()).thenReturn(expectedResponseData);
+        when(context1.getContextId()).thenReturn(testDataId);
 
-        return context;
+        return context1;
     }
 
 }

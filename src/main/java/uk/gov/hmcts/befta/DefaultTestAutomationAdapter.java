@@ -1,7 +1,5 @@
 package uk.gov.hmcts.befta;
 
-import org.springframework.cloud.openfeign.support.SpringMvcContract;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Base64;
@@ -9,9 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import feign.Feign;
-import feign.jackson.JacksonDecoder;
-import feign.jackson.JacksonEncoder;
+import lombok.Getter;
 import uk.gov.hmcts.befta.auth.AuthApi;
 import uk.gov.hmcts.befta.auth.UserTokenProviderConfig;
 import uk.gov.hmcts.befta.data.UserData;
@@ -37,8 +33,8 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
     private final Map<String, ServiceAuthTokenGenerator> tokenGenerators = new ConcurrentHashMap<>();
 
     private final Map<String, UserData> users = new HashMap<>();
-
-    private static boolean isTestDataLoaded = false;
+    @Getter
+    private boolean isTestDataLoaded = false;
 
     public DefaultTestAutomationAdapter() {
         serviceAuthorisationApi = BeftaServiceAuthorisationApiClientFactory.createServiceAuthorisationApiClient(); 

@@ -16,7 +16,7 @@ import io.cucumber.junit.CucumberOptions;
         tags = { "not @Ignore" }
 )
 public class DefaultBeftaRunner {
-
+	private DefaultBeftaRunner() {};
     @BeforeClass
     public static void setUp() {
         BeftaMain.setUp();
