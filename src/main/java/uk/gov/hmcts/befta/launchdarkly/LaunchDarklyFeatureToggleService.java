@@ -3,14 +3,16 @@ package uk.gov.hmcts.befta.launchdarkly;
 import com.launchdarkly.sdk.LDUser;
 import com.launchdarkly.sdk.server.LDClient;
 import io.cucumber.java.Scenario;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.junit.AssumptionViolatedException;
 import uk.gov.hmcts.befta.featureToggle.FeatureToggle;
 
 import java.util.Optional;
 
+@Slf4j
 public class LaunchDarklyFeatureToggleService implements FeatureToggle {
-    public static LaunchDarklyFeatureToggleService INSTANCE =
+    public static final LaunchDarklyFeatureToggleService INSTANCE =
             new LaunchDarklyFeatureToggleService();
 
     private final LDClient ldClient = LaunchDarklyConfig.getLdInstance();
@@ -28,7 +30,7 @@ public class LaunchDarklyFeatureToggleService implements FeatureToggle {
             LDUser user = new LDUser.Builder(LaunchDarklyConfig.getEnvironmentName())
                     .firstName("befta")
                     .lastName("user")
-                    .custom("servicename", "am_role_assignment_service")
+                    .custom("servicename", LaunchDarklyConfig.getLDMicroserviceName())
                     .build();
 
             boolean isFlagTrue = ldClient.boolVariation(flagName.get(), user, false);

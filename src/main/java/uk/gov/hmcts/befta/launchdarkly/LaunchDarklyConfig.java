@@ -12,7 +12,6 @@ public class LaunchDarklyConfig {
     private static LDClient ldClient;
 
     public static LDClient getLdInstance() {
-
         if (ldClient == null) {
             //synchronized block to remove overhead
             synchronized (LaunchDarklyConfig.class) {
@@ -26,5 +25,9 @@ public class LaunchDarklyConfig {
 
     public static String getEnvironmentName() {
        return EnvironmentVariableUtils.getRequiredVariable("LAUNCH_DARKLY_ENV");
+    }
+
+    public static String getLDMicroserviceName() {
+        return EnvironmentVariableUtils.getRequiredVariable("MICROSERVICE_NAME");
     }
 }

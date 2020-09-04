@@ -1,8 +1,11 @@
 package uk.gov.hmcts.befta.player;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.http.impl.EnglishReasonPhraseCatalog;
 import org.aspectj.util.FileUtil;
 import org.junit.Assert;
+import org.junit.Assume;
+import org.junit.AssumptionViolatedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -66,10 +69,17 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         scenarioContext = new BackEndFunctionalTestScenarioContext();
     }
 
-    @Before()
+/*    @Before()
     public void prepare(Scenario scenario) {
+
+    }*/
+
+    @Before
+    public void cucumberPrepare(Scenario scenario) {
+
+        //featureToggle.evaluateFlag(scenario);
         this.scenario = scenario;
-        featureToggle.evaluateFlag(scenario);
+        //throw new AssumptionViolatedException("The scenario is not enabled");
     }
 
     @Override

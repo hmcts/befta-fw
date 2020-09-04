@@ -115,7 +115,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         whenNew(BackEndFunctionalTestScenarioContext.class).withNoArguments().thenReturn(context);
         whenNew(MapVerifier.class).withAnyArguments().thenReturn(mapVerifier);
         scenarioPlayer = new DefaultBackEndFunctionalTestScenarioPlayer();
-        scenarioPlayer.prepare(scenario);
+        scenarioPlayer.cucumberPrepare(scenario);
     }
 
     @Test
