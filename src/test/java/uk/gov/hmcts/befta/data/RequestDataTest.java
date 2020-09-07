@@ -3,15 +3,14 @@
  */
 package uk.gov.hmcts.befta.data;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.Collections;
-import java.util.HashMap;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import io.restassured.http.Header;
-import io.restassured.http.Headers;
+import java.util.HashMap;
+
 
 /**
  * @author korneleehenry

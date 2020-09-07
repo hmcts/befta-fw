@@ -1,0 +1,233 @@
+[ {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexCRUD",
+  "CaseFieldID" : "Children",
+  "ListElementCode" : "ChildFullName",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexCRUD",
+  "CaseFieldID" : "Children",
+  "ListElementCode" : "ChildGender",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "RUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexCRUD",
+  "CaseFieldID" : "Children",
+  "ListElementCode" : "ChildDOB",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "RUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexCRUD",
+  "CaseFieldID" : "Children",
+  "ListElementCode" : "ChildAddress",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexCRUD",
+  "CaseFieldID" : "Children",
+  "ListElementCode" : "IsAutistic",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "RUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexCRUD",
+  "CaseFieldID" : "Children",
+  "ListElementCode" : "NeedsSupport",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "RUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexCRUD",
+  "CaseFieldID" : "Children",
+  "ListElementCode" : "AutisticChildCaseNumber",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexCRUD",
+  "CaseFieldID" : "MySchool",
+  "ListElementCode" : "Number",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "RUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexCRUD",
+  "CaseFieldID" : "MySchool",
+  "ListElementCode" : "Name",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexCRUD",
+  "CaseFieldID" : "MySchool",
+  "ListElementCode" : "ProvidesAutisticChildrenSupport",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "RUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexCRUD",
+  "CaseFieldID" : "MySchool",
+  "ListElementCode" : "SchoolRegionalCentre",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexCRUD",
+  "CaseFieldID" : "MySchool",
+  "ListElementCode" : "Class",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexCRUD",
+  "CaseFieldID" : "MySchool",
+  "ListElementCode" : "Class.ClassName",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "RUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexCRUD",
+  "CaseFieldID" : "MySchool",
+  "ListElementCode" : "Class.ClassNumber",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "RUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexCRUD",
+  "CaseFieldID" : "MySchool",
+  "ListElementCode" : "Class.ClassMembers",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "RUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexCRUD",
+  "CaseFieldID" : "MySchool",
+  "ListElementCode" : "Class.ClassMandatoryFor",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "RUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexCRUD",
+  "CaseFieldID" : "MySchool",
+  "ListElementCode" : "Class.ClassDetails.ClassRanking",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "RUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexCRUD",
+  "CaseFieldID" : "MySchool",
+  "ListElementCode" : "Class.ClassDetails.ClassTeacher",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "RUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexCRUD",
+  "CaseFieldID" : "MySchool",
+  "ListElementCode" : "Class.ClassDetails.ClassLocation",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexCRUD",
+  "CaseFieldID" : "MySchool",
+  "ListElementCode" : "Class.ClassDetails.ClassLocation.Building",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexCRUD",
+  "CaseFieldID" : "MySchool",
+  "ListElementCode" : "Class.ClassDetails.ClassLocation.Building.Floor",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexCRUD",
+  "CaseFieldID" : "MySchool",
+  "ListElementCode" : "Class.ClassDetails.ClassLocation.Building.Name",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexCRUD",
+  "CaseFieldID" : "MySchool",
+  "ListElementCode" : "Class.ClassDetails",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexCRUD",
+  "CaseFieldID" : "FamilyDetails",
+  "ListElementCode" : "MotherFullName",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "RUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexCRUD",
+  "CaseFieldID" : "FamilyDetails",
+  "ListElementCode" : "MotherAge",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "RUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexCRUD",
+  "CaseFieldID" : "FamilyDetails",
+  "ListElementCode" : "FatherFullName",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexCRUD",
+  "CaseFieldID" : "FamilyDetails",
+  "ListElementCode" : "FatherAge",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "CRD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexCRUD",
+  "CaseFieldID" : "FamilyDetails",
+  "ListElementCode" : "Children",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexCRUD",
+  "CaseFieldID" : "FamilyDetails",
+  "ListElementCode" : "FamilyAddress",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "RUD"
+} ]

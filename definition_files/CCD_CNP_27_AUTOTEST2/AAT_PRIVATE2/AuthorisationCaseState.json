@@ -1,0 +1,57 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_PRIVATE2",
+  "CaseStateID" : "TODO",
+  "UserRole" : "caseworker-autotest2-private",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_PRIVATE2",
+  "CaseStateID" : "IN_PROGRESS",
+  "UserRole" : "caseworker-autotest2-private",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_PRIVATE2",
+  "CaseStateID" : "DONE",
+  "UserRole" : "caseworker-autotest2-private",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_PRIVATE2",
+  "CaseStateID" : "TODO",
+  "UserRole" : "caseworker-autotest2-senior",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_PRIVATE2",
+  "CaseStateID" : "IN_PROGRESS",
+  "UserRole" : "caseworker-autotest2-senior",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_PRIVATE2",
+  "CaseStateID" : "DONE",
+  "UserRole" : "caseworker-autotest2-senior",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_PRIVATE2",
+  "CaseStateID" : "IN_PROGRESS",
+  "UserRole" : "caseworker-autotest2-solicitor",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_PRIVATE2",
+  "CaseStateID" : "DONE",
+  "UserRole" : "caseworker-autotest2-solicitor",
+  "CRUD" : "CRU"
+} ]

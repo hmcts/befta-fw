@@ -6,7 +6,9 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.MissingNode;
 
 public class JsonResourceStoreWithInheritance extends JsonStoreWithInheritance {
+
     private String[] resourcePaths;
+
     private ObjectMapper mapper = new ObjectMapper();
 
     public JsonResourceStoreWithInheritance(String[] resourcePaths) {

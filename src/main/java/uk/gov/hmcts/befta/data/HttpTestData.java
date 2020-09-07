@@ -13,12 +13,16 @@ import uk.gov.hmcts.befta.auth.UserTokenProviderConfig;
 @Data
 public class HttpTestData {
 
+    private static final String CHECKSTYLE_MEMBER_NAME = "checkstyle:MemberName";
+
+    private static final String JAVA_S116 = "java:S116";
+
     private static final String KEY_INVOKING_USER = "invokingUser";
 
-    @SuppressWarnings({ "checkstyle:MemberName", "java:S116" })
+    @SuppressWarnings({ CHECKSTYLE_MEMBER_NAME, JAVA_S116 })
     private String _guid_;
 
-    @SuppressWarnings({ "checkstyle:MemberName", "java:S116" })
+    @SuppressWarnings({ CHECKSTYLE_MEMBER_NAME, JAVA_S116 })
     private String _extends_;
 
     private String title;

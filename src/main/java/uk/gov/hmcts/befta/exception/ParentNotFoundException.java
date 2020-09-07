@@ -11,4 +11,5 @@ public class ParentNotFoundException extends FunctionalTestException {
     public ParentNotFoundException(final String message, final Throwable cause) {
         super(message, cause);
     }
+
 }

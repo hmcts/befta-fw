@@ -1243,6 +1243,7 @@ public class MapVerifierTest {
         }
 
     }
+
     private void assertVerificationWithoutIssues(String testDataId) {
         assertVerificationErrors(testDataId);
     }
@@ -1267,4 +1268,5 @@ public class MapVerifierTest {
     private HttpTestData getTestData(String dataId) {
         return TEST_DATA_RESOURCE.getDataForTestCall(dataId);
     }
+
 }

@@ -1,0 +1,91 @@
+[ {
+  "LiveFrom" : "02/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_DateTimeFormats",
+  "CaseFieldID" : "[LAST_STATE_MODIFIED_DATE]",
+  "ListElementCode" : "",
+  "Label" : "Last State Modified Date",
+  "DisplayOrder" : 1,
+  "DisplayContextParameter" : "#DATETIMEENTRY(yyyy)"
+}, {
+  "LiveFrom" : "03/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_DateTimeFormats",
+  "CaseFieldID" : "DateField",
+  "ListElementCode" : "",
+  "Label" : "Formatted Date",
+  "DisplayOrder" : 2,
+  "DisplayContextParameter" : "#DATETIMEENTRY(yyyy)"
+}, {
+  "LiveFrom" : "04/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_DateTimeFormats",
+  "CaseFieldID" : "DateTimeField",
+  "ListElementCode" : "",
+  "Label" : "Formatted DateTime",
+  "DisplayOrder" : 3,
+  "DisplayContextParameter" : "#DATETIMEENTRY(yyyy-MM-dd'T'HH:mm:ss)"
+}, {
+  "LiveFrom" : "05/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_DateTimeFormats",
+  "CaseFieldID" : "StandardDate",
+  "ListElementCode" : "",
+  "Label" : "Standard Date",
+  "DisplayOrder" : 4,
+  "DisplayContextParameter" : ""
+}, {
+  "LiveFrom" : "06/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_DateTimeFormats",
+  "CaseFieldID" : "StandardDateTime",
+  "ListElementCode" : "",
+  "Label" : "Standard DateTime",
+  "DisplayOrder" : 5,
+  "DisplayContextParameter" : ""
+}, {
+  "LiveFrom" : "07/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_DateTimeFormats",
+  "CaseFieldID" : "CollectionDate",
+  "ListElementCode" : "",
+  "Label" : "Date Collection",
+  "DisplayOrder" : 6,
+  "DisplayContextParameter" : "#DATETIMEENTRY(yy-MM-dd)"
+}, {
+  "LiveFrom" : "08/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_DateTimeFormats",
+  "CaseFieldID" : "CollectionDateTime",
+  "ListElementCode" : "",
+  "Label" : "DateTime Collection",
+  "DisplayOrder" : 7,
+  "DisplayContextParameter" : "#DATETIMEENTRY(yyyy-MM-dd)"
+}, {
+  "LiveFrom" : "10/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_DateTimeFormats",
+  "CaseFieldID" : "CollectionComplexDateTime",
+  "ListElementCode" : "",
+  "Label" : "Collection Complex DateTime",
+  "DisplayOrder" : 8,
+  "DisplayContextParameter" : ""
+}, {
+  "LiveFrom" : "11/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_DateTimeFormats",
+  "CaseFieldID" : "ComplexDateTime",
+  "ListElementCode" : "DateField",
+  "Label" : "Complex Date",
+  "DisplayOrder" : 9,
+  "DisplayContextParameter" : ""
+}, {
+  "LiveFrom" : "11/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_DateTimeFormats",
+  "CaseFieldID" : "ComplexDateTime",
+  "ListElementCode" : "DateTimeField",
+  "Label" : "Complex DateTime",
+  "DisplayOrder" : 10,
+  "DisplayContextParameter" : ""
+} ]

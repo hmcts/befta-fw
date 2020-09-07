@@ -15,7 +15,8 @@ import uk.gov.hmcts.befta.data.JsonStoreHttpTestDataSource;
  *
  */
 class HttpTestDataSourceFactoryTest {
-	private static final String RESOURCE_INHERITANCE = "framework-test-data/json-store-test-data";
+
+    private static final String RESOURCE_INHERITANCE = "framework-test-data/json-store-test-data";
 
 	/**
 	 * Test method for {@link uk.gov.hmcts.befta.factory.HttpTestDataSourceFactory#createHttpTestDataSource(java.lang.String[])}.

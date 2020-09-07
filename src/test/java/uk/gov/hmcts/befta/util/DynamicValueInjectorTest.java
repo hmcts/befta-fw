@@ -12,16 +12,17 @@ import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import uk.gov.hmcts.befta.DefaultTestAutomationAdapter;
-import uk.gov.hmcts.befta.data.HttpTestData;
-import uk.gov.hmcts.befta.data.HttpTestDataSource;
-import uk.gov.hmcts.befta.data.JsonStoreHttpTestDataSource;
-import uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+
+import uk.gov.hmcts.befta.DefaultTestAutomationAdapter;
+import uk.gov.hmcts.befta.data.HttpTestData;
+import uk.gov.hmcts.befta.data.HttpTestDataSource;
+import uk.gov.hmcts.befta.data.JsonStoreHttpTestDataSource;
+import uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext;
 
 public class DynamicValueInjectorTest {
 
@@ -55,6 +56,8 @@ public class DynamicValueInjectorTest {
             e.printStackTrace();
         }
     }
+
+    @SuppressWarnings({ "deprecation" })
     private void prepareScenarioConext() {
         MockitoAnnotations.initMocks(this);
         scenarioContext = new BackEndFunctionalTestScenarioContextForTest();

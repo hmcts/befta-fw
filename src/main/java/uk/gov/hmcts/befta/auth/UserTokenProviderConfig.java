@@ -2,9 +2,6 @@ package uk.gov.hmcts.befta.auth;
 
 import java.util.Objects;
 
-//import static uk.gov.hmcts.befta.util.EnvironmentVariableUtils.getOptionalVariable;
-//import static uk.gov.hmcts.befta.util.EnvironmentVariableUtils.getRequiredVariable;
-
 import lombok.Getter;
 import uk.gov.hmcts.befta.util.EnvironmentVariableUtils;
 

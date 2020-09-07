@@ -9,8 +9,9 @@ import uk.gov.hmcts.befta.dse.ccd.definition.converter.JsonTransformer;
 public class DefinitionConverter {
 
     private static Logger logger = LoggerFactory.getLogger(DefinitionConverter.class);
+
     public static final String DEFAULT_DEFINITIONS_PATH = "uk/gov/hmcts/befta/dse/ccd/definitions/valid";
-    private static final String TEMPORARY_DEFINITION_FOLDER = "definition_files";
+
 
     /**
      * Main method to convert between json and excel versions of a definition file
@@ -24,58 +25,61 @@ public class DefinitionConverter {
     public static void main(String[] args) {
         validateArgs(args);
 
-        String transformationKeyword  = args[0];
+        String transformationKeyword = args[0];
         String inputPath = args[1];
         String outputPath = args.length > 2 ? args[2] : null;
         boolean useJurisdictionAsFolder = args.length <= 3 || Boolean.parseBoolean(args[3]);
-        try{
-        switch (transformationKeyword){
-            case "to-json" : new ExcelTransformer(inputPath,outputPath, useJurisdictionAsFolder).transformToJson();
+        try {
+            switch (transformationKeyword) {
+            case "to-json":
+                new ExcelTransformer(inputPath, outputPath, useJurisdictionAsFolder).transformToJson();
                 break;
-            case "to-excel" : new JsonTransformer(inputPath,outputPath).transformToExcel();
+            case "to-excel":
+                new JsonTransformer(inputPath, outputPath).transformToExcel();
                 break;
-        }
-        System.out.println("Definition conversion completed successfully.");
+            }
+            System.out.println("Definition conversion completed successfully.");
 
         } catch (Exception ex) {
-        	ex.printStackTrace();
-        }
-        finally {
-        	
+            ex.printStackTrace();
+        } finally {
+
         }
     }
 
     private static void validateArgs(String[] args) throws IllegalArgumentException {
-        String instructions = "Arguments expected as follows: <to-json|to-excel> <input folder/file path> <Optional: output path> " +
-                "<Optional boolean: use jurisdiction as as folder name for json to excel transformation>";
+        String instructions = "Arguments expected as follows: <to-json|to-excel> <input folder/file path> <Optional: output path> "
+                + "<Optional boolean: use jurisdiction as as folder name for json to excel transformation>";
 
-
-        if (args.length < 2){
+        if (args.length < 2) {
             logger.info(instructions);
-            throw new IllegalArgumentException("At least 2 arguments expected: <to-json|to-excel> <input folder/file path> " +
-                    "<Optional: output path> <Optional boolean: use jurisdiction as as folder name for json to excel transformation>");
-        } 
+            throw new IllegalArgumentException(
+                    "At least 2 arguments expected: <to-json|to-excel> <input folder/file path> "
+                            + "<Optional: output path> <Optional boolean: use jurisdiction as as folder name for json to excel transformation>");
+        }
         String transformerKeyword = args[0];
-        if (!transformerKeyword.equals("to-json") && !transformerKeyword.equals("to-excel")){
+        if (!transformerKeyword.equals("to-json") && !transformerKeyword.equals("to-excel")) {
             logger.info(instructions);
-            throw new IllegalArgumentException("First arg should be either 'to-json' or 'to-excel' but got "+ transformerKeyword);
+            throw new IllegalArgumentException(
+                    "First arg should be either 'to-json' or 'to-excel' but got " + transformerKeyword);
         }
 
-
-        if (args.length > 2){
+        if (args.length > 2) {
             String outputPath = args[2];
-            if (outputPath.equals("true") || outputPath.equals("false")){
+            if (outputPath.equals("true") || outputPath.equals("false")) {
                 logger.info(instructions);
-                throw new IllegalArgumentException("Third arg should be a path not a boolean, if you wish to set Jurisdiction " +
-                        "name boolean and want the output path to be the same as the input path you can put null for this arg");
+                throw new IllegalArgumentException(
+                        "Third arg should be a path not a boolean, if you wish to set Jurisdiction "
+                                + "name boolean and want the output path to be the same as the input path you can put null for this arg");
             }
         }
 
-        if (args.length > 3){
+        if (args.length > 3) {
             String jurisdictionAsFolderBool = args[3];
             logger.info(instructions);
-            if (!jurisdictionAsFolderBool.equals("true") && !jurisdictionAsFolderBool.equals("false")){
-                throw new IllegalArgumentException("Forth arg should be a boolean but got: " + jurisdictionAsFolderBool);
+            if (!jurisdictionAsFolderBool.equals("true") && !jurisdictionAsFolderBool.equals("false")) {
+                throw new IllegalArgumentException(
+                        "Forth arg should be a boolean but got: " + jurisdictionAsFolderBool);
             }
         }
 

@@ -15,24 +15,30 @@ import uk.gov.hmcts.jsonstore.JsonStoreWithInheritance;
  *
  */
 public class JsonStoreFactory {
-	private JsonStoreFactory() {}
-	public static final String FILE_STR = "FILE";
-	public static JsonStoreWithInheritance createJsonStore(String jsonStoreOption,String[] resourcePaths, String idFieldName, String inheritanceFieldName) {
-		if(FILE_STR.equalsIgnoreCase(jsonStoreOption)) {
-			File location = BeftaUtils.getSingleFileFromResource(resourcePaths);
-			return new JsonFileStoreWithInheritance(location, idFieldName, inheritanceFieldName);
-		}
-		else {
-			return new JsonResourceStoreWithInheritance(resourcePaths, idFieldName, inheritanceFieldName);
-		}
-	}
-	public static JsonStoreWithInheritance createJsonStore(String jsonStoreOption,String[] resourcePaths) {
-		if(FILE_STR.equalsIgnoreCase(jsonStoreOption)) {
-			File location = BeftaUtils.getSingleFileFromResource(resourcePaths);
-			return new JsonFileStoreWithInheritance(location);
-		}
-		else {
-			return new JsonResourceStoreWithInheritance(resourcePaths);
-		}
-	}
+
+    public static final String FILE_STR = "FILE";
+
+    private JsonStoreFactory() {
+    }
+
+    public static JsonStoreWithInheritance createJsonStoreWithInheritance(String jsonStoreOption,
+            String[] resourcePaths, String idFieldName, String inheritanceFieldName) {
+        if (FILE_STR.equalsIgnoreCase(jsonStoreOption)) {
+            File location = BeftaUtils.getSingleFileFromResource(resourcePaths);
+            return new JsonFileStoreWithInheritance(location, idFieldName, inheritanceFieldName);
+        } else {
+            return new JsonResourceStoreWithInheritance(resourcePaths, idFieldName, inheritanceFieldName);
+        }
+    }
+
+    public static JsonStoreWithInheritance createJsonStoreWithInheritance(String jsonStoreOption,
+            String[] resourcePaths) {
+        if (FILE_STR.equalsIgnoreCase(jsonStoreOption)) {
+            File location = BeftaUtils.getSingleFileFromResource(resourcePaths);
+            return new JsonFileStoreWithInheritance(location);
+        } else {
+            return new JsonResourceStoreWithInheritance(resourcePaths);
+        }
+    }
+
 }

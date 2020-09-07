@@ -1,20 +1,15 @@
 package uk.gov.hmcts.befta.player;
 
-import static org.hamcrest.CoreMatchers.any;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junitpioneer.jupiter.SetEnvironmentVariable;
 import org.mockito.Mock;
 import org.mockito.MockedStatic;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
@@ -22,14 +17,13 @@ import java.util.Collection;
 
 import io.cucumber.java.Scenario;
 import uk.gov.hmcts.befta.BeftaMain;
-import uk.gov.hmcts.befta.DefaultTestAutomationAdapter;
-import uk.gov.hmcts.befta.TestAutomationAdapter;
 import uk.gov.hmcts.befta.data.HttpTestData;
 import uk.gov.hmcts.befta.data.JsonStoreHttpTestDataSource;
 import uk.gov.hmcts.common.TestUtils;
 
 public class BackEndFunctionalTestScenarioContextTest {
-	public static final String DEFINITION_STORE_HOST_KEY = "DEFINITION_STORE_HOST";
+
+    public static final String DEFINITION_STORE_HOST_KEY = "DEFINITION_STORE_HOST";
 	public static final String DEFINITION_STORE_HOST_VALUE = "http://127.0.0.1:8089/";
 	public static final String IDAM_URL_KEY = "IDAM_URL";
 	public static final String IDAM_URL_VALUE = "IDAM_URL_VALUE";
@@ -60,7 +54,8 @@ public class BackEndFunctionalTestScenarioContextTest {
             e.printStackTrace();
         }
     }
-   @AfterEach
+
+    @AfterEach
     public void closeStaticMockedObjectUnderTest() {
         try {
         	beftaMain.close();
@@ -68,6 +63,8 @@ public class BackEndFunctionalTestScenarioContextTest {
             e.printStackTrace();
         }
     }
+
+    @SuppressWarnings("deprecation")
     @BeforeEach
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);

@@ -5,10 +5,10 @@ package uk.gov.hmcts.befta.dse.ccd;
 
 import static org.junit.Assert.assertTrue;
 
-import java.io.File;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import java.io.File;
 
 import uk.gov.hmcts.befta.dse.ccd.definition.converter.FileUtils;
 
@@ -18,7 +18,8 @@ import uk.gov.hmcts.befta.dse.ccd.definition.converter.FileUtils;
  *
  */
 class DefinitionConverterTest {
-	public static final String DEFAULT_DEFINITIONS_PATH_JSON = "src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/valid/CCD_CNP_27";
+
+    public static final String DEFAULT_DEFINITIONS_PATH_JSON = "src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/valid/CCD_CNP_27";
 	public static final String DEFAULT_DEFINITIONS_PATH_EXCEL = "src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/excel/CCD_CNP_27.xlsx";
     public static final String TEMPORARY_DEFINITION_FOLDER_JSON = "src/main/resources/uk/gov/hmcts/befta/dse/ccd/definition_files/json";
     public static final String TEMPORARY_DEFINITION_FOLDER_EXCEL = "src/main/resources/uk/gov/hmcts/befta/dse/ccd/definition_files/excel";
@@ -35,6 +36,7 @@ class DefinitionConverterTest {
 				"IllegalArgumentException is not thrown");
 		assertTrue(aeThrown.getMessage().contains("At least 2 arguments expected: <to-json|to-excel> <input folder/file path> "));
 	}
+
 	/**
 	 * Test method for {@link uk.gov.hmcts.befta.dse.ccd.DefinitionConverter#main(java.lang.String[])}.
 	 */
@@ -58,6 +60,7 @@ class DefinitionConverterTest {
 				"IllegalArgumentException is not thrown");
 		assertTrue(aeThrown.getMessage().contains("Third arg should be a path not a boolean, if you wish to set Jurisdiction"));
 	}
+
 	/**
 	 * Test method for {@link uk.gov.hmcts.befta.dse.ccd.DefinitionConverter#main(java.lang.String[])}.
 	 */
@@ -69,6 +72,7 @@ class DefinitionConverterTest {
 				"IllegalArgumentException is not thrown");
 		assertTrue(aeThrown.getMessage().contains("Forth arg should be a boolean but got: "));
 	}
+
 	/**
 	 * Test method for {@link uk.gov.hmcts.befta.dse.ccd.DefinitionConverter#main(java.lang.String[])}.
 	 */
@@ -78,6 +82,7 @@ class DefinitionConverterTest {
     	DefinitionConverter.main(args);
     	assertTrue(FileUtils.deleteDirectory(TEMPORARY_DEFINITION_FOLDER));
 	}
+
 	@Test
 	void testMainArgsTojsonFalse() {
 		String[] args = {"to-json",DEFAULT_DEFINITIONS_PATH_EXCEL,TEMPORARY_DEFINITION_FOLDER_JSON,"false"};
@@ -94,6 +99,7 @@ class DefinitionConverterTest {
     	DefinitionConverter.main(args);
     	assertTrue(FileUtils.deleteDirectory(tempJsonFolder));
 	}
+
 	/**
 	 * Test method for {@link uk.gov.hmcts.befta.dse.ccd.DefinitionConverter#main(java.lang.String[])}.
 	 */
@@ -103,6 +109,7 @@ class DefinitionConverterTest {
     	DefinitionConverter.main(args);
     	assertTrue(FileUtils.deleteDirectory(TEMPORARY_DEFINITION_FOLDER));
 	}
+
 	/**
 	 * Test method for {@link uk.gov.hmcts.befta.dse.ccd.DefinitionConverter#main(java.lang.String[])}.
 	 */
@@ -112,6 +119,7 @@ class DefinitionConverterTest {
     	DefinitionConverter.main(args);
     	assertTrue(FileUtils.deleteDirectory(TEMPORARY_DEFINITION_FOLDER));
 	}
+
 	/**
 	 * Test method for {@link uk.gov.hmcts.befta.dse.ccd.DefinitionConverter#main(java.lang.String[])}.
 	 */
@@ -123,4 +131,5 @@ class DefinitionConverterTest {
     	DefinitionConverter.main(args);
     	assertTrue(tempfile.delete());
 	}
+
 }

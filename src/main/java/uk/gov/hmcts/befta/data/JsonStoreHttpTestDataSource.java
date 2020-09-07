@@ -45,7 +45,8 @@ public class JsonStoreHttpTestDataSource implements HttpTestDataSource {
         long start = System.currentTimeMillis();
         String jsonStoreOption="Resource";
         if (jsonStore == null) {
-            jsonStore = JsonStoreFactory.createJsonStore(jsonStoreOption, resourcePaths.toArray(new String[0]));
+            jsonStore = JsonStoreFactory.createJsonStoreWithInheritance(jsonStoreOption,
+                    resourcePaths.toArray(new String[0]));
         }
         try {
             return jsonStore.getObjectWithId(testDataId, HttpTestData.class);

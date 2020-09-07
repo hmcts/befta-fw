@@ -20,7 +20,8 @@ import uk.gov.hmcts.jsonstore.JsonStoreWithInheritance;
  *
  */
 public class JsonStoreFactoryTest {
-	private static final String FILE_STR = "FILE";
+
+    private static final String FILE_STR = "FILE";
 	private static final String FILE_WITH_INHERITANCE = "framework-test-data/json-store-test-data";
 	private static final String GUID = "_guid_";
 	private static final String EXTENDS = "_extends_";
@@ -29,7 +30,8 @@ public class JsonStoreFactoryTest {
 	public void testCreateJsonStoreFile() {
 		String jsonStoreOption = FILE_STR;
 		String[] resourcePaths = { FILE_WITH_INHERITANCE };
-		JsonStoreWithInheritance actual = JsonStoreFactory.createJsonStore(jsonStoreOption, resourcePaths);
+        JsonStoreWithInheritance actual = JsonStoreFactory.createJsonStoreWithInheritance(jsonStoreOption,
+                resourcePaths);
 		MatcherAssert.assertThat(actual, IsInstanceOf.instanceOf(JsonFileStoreWithInheritance.class));
 	}
 
@@ -38,7 +40,8 @@ public class JsonStoreFactoryTest {
 		String jsonStoreOption = FILE_STR;
 		String[] resourcePaths = { FILE_WITH_INHERITANCE, "InValid" };
 		JsonStoreCreationException aeThrown = Assertions.assertThrows(JsonStoreCreationException.class,
-				() -> JsonStoreFactory.createJsonStore(jsonStoreOption, resourcePaths),
+                () -> JsonStoreFactory.createJsonStoreWithInheritance(jsonStoreOption,
+                        resourcePaths),
 				"JsonStoreCreationException is not thrown");
 		assertTrue(aeThrown.getMessage().contains("Invalid parameter, for array with single entry a Signle directory or a file location."));
 	}
@@ -47,7 +50,7 @@ public class JsonStoreFactoryTest {
 	public void testCreateJsonStoreFileParam() {
 		String jsonStoreOption = FILE_STR;
 		String[] resourcePaths = { FILE_WITH_INHERITANCE };
-		JsonStoreWithInheritance actual = JsonStoreFactory.createJsonStore(jsonStoreOption, resourcePaths, GUID,
+		JsonStoreWithInheritance actual = JsonStoreFactory.createJsonStoreWithInheritance(jsonStoreOption, resourcePaths, GUID,
 				EXTENDS);
 		MatcherAssert.assertThat(actual, IsInstanceOf.instanceOf(JsonFileStoreWithInheritance.class));
 	}
@@ -57,7 +60,8 @@ public class JsonStoreFactoryTest {
 		String jsonStoreOption = FILE_STR;
 		String[] resourcePaths = { FILE_WITH_INHERITANCE, "InValid" };
 		JsonStoreCreationException aeThrown = Assertions.assertThrows(JsonStoreCreationException.class,
-				() -> JsonStoreFactory.createJsonStore(jsonStoreOption, resourcePaths),
+                () -> JsonStoreFactory.createJsonStoreWithInheritance(jsonStoreOption,
+                        resourcePaths),
 				"JsonStoreCreationException is not thrown");
 		assertTrue(aeThrown.getMessage().contains("Invalid parameter, for array with single entry a Signle directory or a file location."));
 	}
@@ -66,7 +70,8 @@ public class JsonStoreFactoryTest {
 	public void testCreateJsonStoreResouceNull() {
 		String jsonStoreOption = "default";
 		String[] resourcePaths = null;
-		JsonStoreWithInheritance actual = JsonStoreFactory.createJsonStore(jsonStoreOption, resourcePaths);
+        JsonStoreWithInheritance actual = JsonStoreFactory.createJsonStoreWithInheritance(jsonStoreOption,
+                resourcePaths);
 		MatcherAssert.assertThat(actual, IsInstanceOf.instanceOf(JsonResourceStoreWithInheritance.class));
 	}
 
@@ -74,7 +79,8 @@ public class JsonStoreFactoryTest {
 	public void testCreateJsonStoreResource() {
 		String jsonStoreOption = "default";
 		String[] resourcePaths = { FILE_WITH_INHERITANCE };
-		JsonStoreWithInheritance actual = JsonStoreFactory.createJsonStore(jsonStoreOption, resourcePaths);
+        JsonStoreWithInheritance actual = JsonStoreFactory.createJsonStoreWithInheritance(jsonStoreOption,
+                resourcePaths);
 		MatcherAssert.assertThat(actual, IsInstanceOf.instanceOf(JsonResourceStoreWithInheritance.class));
 	}
 
@@ -82,7 +88,7 @@ public class JsonStoreFactoryTest {
 	public void testCreateJsonStoreResouceNullWithParam() {
 		String jsonStoreOption = "default";
 		String[] resourcePaths = null;
-		JsonStoreWithInheritance actual = JsonStoreFactory.createJsonStore(jsonStoreOption, resourcePaths, GUID,
+		JsonStoreWithInheritance actual = JsonStoreFactory.createJsonStoreWithInheritance(jsonStoreOption, resourcePaths, GUID,
 				EXTENDS);
 		MatcherAssert.assertThat(actual, IsInstanceOf.instanceOf(JsonResourceStoreWithInheritance.class));
 	}
@@ -91,7 +97,7 @@ public class JsonStoreFactoryTest {
 	public void testCreateJsonStoreResourceWithParam() {
 		String jsonStoreOption = "default";
 		String[] resourcePaths = { FILE_WITH_INHERITANCE };
-		JsonStoreWithInheritance actual = JsonStoreFactory.createJsonStore(jsonStoreOption, resourcePaths, GUID,
+		JsonStoreWithInheritance actual = JsonStoreFactory.createJsonStoreWithInheritance(jsonStoreOption, resourcePaths, GUID,
 				EXTENDS);
 		MatcherAssert.assertThat(actual, IsInstanceOf.instanceOf(JsonResourceStoreWithInheritance.class));
 	}

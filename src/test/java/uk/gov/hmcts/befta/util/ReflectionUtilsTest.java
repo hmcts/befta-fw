@@ -6,23 +6,21 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
 import uk.gov.hmcts.befta.data.HttpTestData;
 import uk.gov.hmcts.befta.data.RequestData;
 import uk.gov.hmcts.befta.data.ResponseData;
 import uk.gov.hmcts.befta.data.UserData;
 
-
 public class ReflectionUtilsTest {
-
 
     @Test
     public void shouldDeepGetFieldInObjectNull() throws Exception {
@@ -30,6 +28,7 @@ public class ReflectionUtilsTest {
 
         assertNull(result);
     }
+
     @Test
     public void shouldDeepGetFieldInObject() throws Exception {
         HttpTestData testData = new HttpTestData();

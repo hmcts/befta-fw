@@ -1,0 +1,51 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_3_4",
+  "Channel" : "CaseWorker",
+  "TabID" : "FirstTab",
+  "TabLabel" : "First tab",
+  "TabDisplayOrder" : 1,
+  "CaseFieldID" : "TextField",
+  "TabFieldDisplayOrder" : 1
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_3_4",
+  "Channel" : "CaseWorker",
+  "TabID" : "FirstTab",
+  "TabLabel" : "First tab",
+  "TabDisplayOrder" : 1,
+  "CaseFieldID" : "NumberField",
+  "TabFieldDisplayOrder" : 2
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_3_4",
+  "Channel" : "CaseWorker",
+  "TabID" : "FirstTab",
+  "TabLabel" : "First tab",
+  "TabDisplayOrder" : 1,
+  "CaseFieldID" : "MetaLabelField",
+  "TabFieldDisplayOrder" : 3
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_3_4",
+  "Channel" : "CaseWorker",
+  "TabID" : "FirstTab",
+  "TabLabel" : "First tab",
+  "TabDisplayOrder" : 1,
+  "CaseFieldID" : "YesOrNoField",
+  "TabFieldDisplayOrder" : 4
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_3_4",
+  "Channel" : "CaseWorker",
+  "TabID" : "HistoryTab",
+  "TabLabel" : "History Tab",
+  "TabDisplayOrder" : 2,
+  "CaseFieldID" : "HistoryComponentField",
+  "TabFieldDisplayOrder" : 1
+} ]

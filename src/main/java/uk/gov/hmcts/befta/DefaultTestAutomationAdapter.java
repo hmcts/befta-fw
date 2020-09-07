@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import lombok.Getter;
 import uk.gov.hmcts.befta.auth.AuthApi;
 import uk.gov.hmcts.befta.auth.UserTokenProviderConfig;
 import uk.gov.hmcts.befta.data.UserData;
@@ -33,7 +32,7 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
     private final Map<String, ServiceAuthTokenGenerator> tokenGenerators = new ConcurrentHashMap<>();
 
     private final Map<String, UserData> users = new HashMap<>();
-    @Getter
+
     private boolean isTestDataLoaded = false;
 
     public DefaultTestAutomationAdapter() {
@@ -186,6 +185,10 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
                 return LocalDate.now().format(DateTimeFormatter.ofPattern(dateTimeFormat));
         }
         return null;
+    }
+
+    public boolean isTestDataLoaded() {
+        return this.isTestDataLoaded;
     }
 
     protected String getDateTimeFormatRequested(String key) {

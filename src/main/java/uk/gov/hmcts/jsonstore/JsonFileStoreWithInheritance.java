@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import java.io.File;
 
 public class JsonFileStoreWithInheritance extends JsonStoreWithInheritance {
+
     private File location;
     private ObjectMapper mapper = new ObjectMapper();
 

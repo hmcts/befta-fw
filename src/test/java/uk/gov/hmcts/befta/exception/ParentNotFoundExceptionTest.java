@@ -3,7 +3,8 @@
  */
 package uk.gov.hmcts.befta.exception;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +13,8 @@ import org.junit.jupiter.api.Test;
  *
  */
 class ParentNotFoundExceptionTest {
-	public static final String MESSAGE = "Exception Message";
+
+    public static final String MESSAGE = "Exception Message";
 
 	/**
 	 * Test method for {@link uk.gov.hmcts.befta.exception.ParentNotFoundException#ParentNotFoundException(java.lang.String)}.

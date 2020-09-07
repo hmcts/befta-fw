@@ -3,7 +3,8 @@
  */
 package uk.gov.hmcts.befta.data;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +13,8 @@ import org.junit.jupiter.api.Test;
  *
  */
 class FileInBodyTest {
-	public static final String DEFAULT_DEFINITIONS_PATH_JSON = "src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/valid/CCD_CNP_27";
+
+    public static final String DEFAULT_DEFINITIONS_PATH_JSON = "src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/valid/CCD_CNP_27";
 
 	/**
 	 * Test method for {@link uk.gov.hmcts.befta.data.FileInBody#FileInBody(java.lang.String)}.
@@ -22,6 +24,7 @@ class FileInBodyTest {
 		FileInBody actual = new FileInBody(DEFAULT_DEFINITIONS_PATH_JSON);
 		assertEquals(DEFAULT_DEFINITIONS_PATH_JSON,actual.getFullPath());
 	}
+
 	@Test
 	void testFileInBodyEquals() {
 		FileInBody actual = new FileInBody(DEFAULT_DEFINITIONS_PATH_JSON);
@@ -29,6 +32,7 @@ class FileInBodyTest {
 		assertEquals(other,actual);
 		assertEquals(other.hashCode(),actual.hashCode());
 	}
+
 	@Test
 	void testFileInBodyNotEquals() {
 		FileInBody actual = new FileInBody(DEFAULT_DEFINITIONS_PATH_JSON);

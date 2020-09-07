@@ -32,7 +32,8 @@ import uk.gov.hmcts.befta.exception.FunctionalTestException;
  *
  */
 class TestDataLoaderToDefinitionStoreTest {
-	public static final String DEFINITION_STORE_HOST_KEY = "DEFINITION_STORE_HOST";
+
+    public static final String DEFINITION_STORE_HOST_KEY = "DEFINITION_STORE_HOST";
 	public static final String DEFINITION_STORE_HOST_VALUE = "http://127.0.0.1:8089/";
 	public static final String BEFTA_S2S_CLIENT_ID_KEY = "BEFTA_S2S_CLIENT_ID";
 	public static final String BEFTA_S2S_CLIENT_ID_VALUE = "BEFTA_S2S_CLIENT_ID_VALUE";
@@ -48,6 +49,7 @@ class TestDataLoaderToDefinitionStoreTest {
 	public static final String CCD_IMPORT_AUTOTEST_PASSWORD = "CCD_IMPORT_AUTOTEST_PASSWORD";
 	public static final String CCD_IMPORT_AUTOTEST_PASSWORD_VALUE = "CCD_IMPORT_AUTOTEST_PASSWORD_VALUE";
     private MockedStatic<RestAssured> restAssuredMock = null; 
+
     @BeforeEach
     public void prepareMockedObjectUnderTest() {
         try {
@@ -56,6 +58,7 @@ class TestDataLoaderToDefinitionStoreTest {
             e.printStackTrace();
         }
     }
+
     @AfterEach
     public void closeMockedObjectUnderTest() {
         try {
@@ -64,9 +67,11 @@ class TestDataLoaderToDefinitionStoreTest {
             e.printStackTrace();
         }
     }	
-	/**
-	 * Test method for {@link uk.gov.hmcts.befta.dse.ccd.TestDataLoaderToDefinitionStore#TestDataLoaderToDefinitionStore(uk.gov.hmcts.befta.TestAutomationAdapter)}.
-	 */
+
+    /**
+     * Test method for
+     * {@link uk.gov.hmcts.befta.dse.ccd.TestDataLoaderToDefinitionStore#TestDataLoaderToDefinitionStore(uk.gov.hmcts.befta.TestAutomationAdapter)}.
+     */
 	@Test
     @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
     @SetEnvironmentVariable(key = IDAM_URL_KEY, value = IDAM_URL_VALUE)
@@ -124,9 +129,7 @@ class TestDataLoaderToDefinitionStoreTest {
 		Response rs = mock(io.restassured.response.Response.class);
 
 		when(mockAdapter.getNewS2SToken()).thenReturn("s2s_token");
-		CcdRoleConfig roleConfig = new CcdRoleConfig("caseworker-autotest1", "PUBLIC");
 		TestDataLoaderToDefinitionStore testDataLoaderToDefinitionStore = new TestDataLoaderToDefinitionStore(mockAdapter);
-		ResponseBody responseBody = mock(io.restassured.response.ResponseBody.class);
         when(RestAssured.given(any())).thenReturn(requestSpecification);
         when(requestSpecification.header(any(), any(), ArgumentMatchers.<String>any())).thenReturn(requestSpecification);
         when(requestSpecification.given()).thenReturn(requestSpecification);
@@ -137,6 +140,7 @@ class TestDataLoaderToDefinitionStoreTest {
 		assertNotNull(testDataLoaderToDefinitionStore);
 		testDataLoaderToDefinitionStore.addCcdRoles();
 	}
+
 	/**
 	 * Test method for {@link uk.gov.hmcts.befta.dse.ccd.TestDataLoaderToDefinitionStore#addCcdRole(uk.gov.hmcts.befta.dse.ccd.CcdRoleConfig)}.
 	 */
@@ -159,7 +163,7 @@ class TestDataLoaderToDefinitionStoreTest {
 		when(mockAdapter.getNewS2SToken()).thenReturn("s2s_token");
 		CcdRoleConfig roleConfig = new CcdRoleConfig("caseworker-autotest1", "PUBLIC");
 		TestDataLoaderToDefinitionStore testDataLoaderToDefinitionStore = new TestDataLoaderToDefinitionStore(mockAdapter);
-		ResponseBody responseBody = mock(io.restassured.response.ResponseBody.class);
+        mock(io.restassured.response.ResponseBody.class);
         when(RestAssured.given(any())).thenReturn(requestSpecification);
         when(requestSpecification.header(any(), any(), ArgumentMatchers.<String>any())).thenReturn(requestSpecification);
         when(requestSpecification.given()).thenReturn(requestSpecification);
@@ -193,7 +197,7 @@ class TestDataLoaderToDefinitionStoreTest {
 		when(mockAdapter.getNewS2SToken()).thenReturn("s2s_token");
 		CcdRoleConfig roleConfig = new CcdRoleConfig("caseworker-autotest1", "PUBLIC");
 		TestDataLoaderToDefinitionStore testDataLoaderToDefinitionStore = new TestDataLoaderToDefinitionStore(mockAdapter);
-		ResponseBody responseBody = mock(io.restassured.response.ResponseBody.class);
+        ResponseBody<?> responseBody = mock(io.restassured.response.ResponseBody.class);
         when(RestAssured.given(any())).thenReturn(requestSpecification);
         when(requestSpecification.header(any(), any(), ArgumentMatchers.<String>any())).thenReturn(requestSpecification);
         when(requestSpecification.given()).thenReturn(requestSpecification);
@@ -207,6 +211,7 @@ class TestDataLoaderToDefinitionStoreTest {
     		testDataLoaderToDefinitionStore.addCcdRole(roleConfig);
           });
 	}
+
 	/**
 	 * Test method for {@link uk.gov.hmcts.befta.dse.ccd.TestDataLoaderToDefinitionStore#getAllDefinitionFilesToLoad()}.
 	 */

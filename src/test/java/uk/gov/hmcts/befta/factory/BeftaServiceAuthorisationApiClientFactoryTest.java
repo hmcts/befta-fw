@@ -3,7 +3,7 @@
  */
 package uk.gov.hmcts.befta.factory;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
 import org.junitpioneer.jupiter.SetEnvironmentVariable;
@@ -15,7 +15,8 @@ import uk.gov.hmcts.reform.authorisation.ServiceAuthorisationApi;
  *
  */
 class BeftaServiceAuthorisationApiClientFactoryTest {
-	public static final String S2S_URL_KEY = "S2S_URL";
+
+    public static final String S2S_URL_KEY = "S2S_URL";
 	public static final String S2S_URL_VALUE = "S2S_URL_VALUE";
 
 	/**

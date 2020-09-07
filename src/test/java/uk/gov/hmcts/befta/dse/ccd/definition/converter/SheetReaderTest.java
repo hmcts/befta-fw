@@ -3,10 +3,8 @@
  */
 package uk.gov.hmcts.befta.dse.ccd.definition.converter;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.io.File;
-import java.io.IOException;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.ss.usermodel.Row;
@@ -17,12 +15,16 @@ import org.junit.jupiter.api.Test;
 
 import com.fasterxml.jackson.databind.node.ArrayNode;
 
+import java.io.File;
+import java.io.IOException;
+
 /**
  * @author korneleehenry
  *
  */
 class SheetReaderTest {
-	public static final String DEFAULT_DEFINITIONS_PATH_EXCEL = "src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/excel/CCD_CNP_27.xlsx";
+
+    public static final String DEFAULT_DEFINITIONS_PATH_EXCEL = "src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/excel/CCD_CNP_27.xlsx";
 
 	/**
 	 * Test method for {@link uk.gov.hmcts.befta.dse.ccd.definition.converter.SheetReader#transformToJson(org.apache.poi.ss.usermodel.Sheet)}.

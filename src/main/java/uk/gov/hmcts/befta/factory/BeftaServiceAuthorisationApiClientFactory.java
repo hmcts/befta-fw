@@ -15,10 +15,14 @@ import uk.gov.hmcts.reform.authorisation.ServiceAuthorisationApi;
  *
  */
 public class BeftaServiceAuthorisationApiClientFactory {
-	private BeftaServiceAuthorisationApiClientFactory() {}
-	public static ServiceAuthorisationApi createServiceAuthorisationApiClient() {
-		return Feign.builder().encoder(new JacksonEncoder())
-                .contract(new SpringMvcContract())
+
+    private BeftaServiceAuthorisationApiClientFactory() {
+    }
+
+    public static ServiceAuthorisationApi createServiceAuthorisationApiClient() {
+        return Feign.builder().encoder(new JacksonEncoder()).contract(
+                new SpringMvcContract())
                 .target(ServiceAuthorisationApi.class, BeftaMain.getConfig().getS2SURL());
-	}
+    }
+
 }

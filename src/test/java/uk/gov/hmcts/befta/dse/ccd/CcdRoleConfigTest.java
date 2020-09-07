@@ -3,7 +3,9 @@
  */
 package uk.gov.hmcts.befta.dse.ccd;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
 
@@ -12,8 +14,10 @@ import org.junit.jupiter.api.Test;
  *
  */
 class CcdRoleConfigTest {
-	private static final String PUBLIC = "PUBLIC";
+
+    private static final String PUBLIC = "PUBLIC";
 	private static final String CASEWORKER_ROLE = "caseworker-autotest1";;
+
 	/**
 	 * Test method for {@link uk.gov.hmcts.befta.dse.ccd.CcdRoleConfig#CcdRoleConfig(java.lang.String, java.lang.String)}.
 	 */

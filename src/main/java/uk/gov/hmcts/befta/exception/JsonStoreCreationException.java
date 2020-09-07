@@ -11,4 +11,5 @@ public class JsonStoreCreationException extends FunctionalTestException {
     public JsonStoreCreationException(final String message, final Throwable cause) {
         super(message, cause);
     }
+
 }

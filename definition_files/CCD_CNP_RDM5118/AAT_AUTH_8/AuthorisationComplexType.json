@@ -1,0 +1,49 @@
+[ {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_AUTH_8",
+  "CaseFieldID" : "ComplexField",
+  "ListElementCode" : "ComplexTextField",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_AUTH_8",
+  "CaseFieldID" : "ComplexField",
+  "ListElementCode" : "ComplexFixedListField",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_AUTH_8",
+  "CaseFieldID" : "ComplexField",
+  "ListElementCode" : "ComplexNestedField",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_AUTH_8",
+  "CaseFieldID" : "ComplexField",
+  "ListElementCode" : "ComplexTextField",
+  "UserRole" : "caseworker-autotest1-private",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_AUTH_8",
+  "CaseFieldID" : "ComplexField",
+  "ListElementCode" : "ComplexFixedListField",
+  "UserRole" : "caseworker-autotest1-private",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_AUTH_8",
+  "CaseFieldID" : "ComplexField",
+  "ListElementCode" : "ComplexNestedField",
+  "UserRole" : "caseworker-autotest1-private",
+  "CRUD" : "CRUD"
+} ]

@@ -3,7 +3,7 @@
  */
 package uk.gov.hmcts.befta.factory;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
 import org.junitpioneer.jupiter.SetEnvironmentVariable;
@@ -15,7 +15,8 @@ import uk.gov.hmcts.befta.auth.AuthApi;
  *
  */
 class BeftaIdamApiClientFactoryTest {
-	public static final String IDAM_URL_KEY = "IDAM_URL";
+
+    public static final String IDAM_URL_KEY = "IDAM_URL";
 	public static final String IDAM_URL_VALUE = "IDAM_URL_VALUE\"";
 
 	/**

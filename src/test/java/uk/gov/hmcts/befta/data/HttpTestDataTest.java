@@ -9,9 +9,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import uk.gov.hmcts.befta.data.CollectionVerificationConfig.Operator;
-import uk.gov.hmcts.befta.data.CollectionVerificationConfig.Ordering;
-
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;

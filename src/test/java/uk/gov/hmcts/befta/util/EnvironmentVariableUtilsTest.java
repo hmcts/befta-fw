@@ -11,7 +11,6 @@ public class EnvironmentVariableUtilsTest {
     private static final String ENV_VAR_NAME = "ENV_VAR";
     private static final String RETURN_VALUE = "VALUE";
     private static final String KEY = "[[$ENV_VAR]]";
-    private static final String ERROR_MESSAGE = "Environment variable `ENV_VAR` is required";
     private static final String NULL_VALUE = null;
     private static final String INVALID_KEY = "[$ENV_VAR]";
 

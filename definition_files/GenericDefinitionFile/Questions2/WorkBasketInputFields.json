@@ -1,0 +1,17 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "Questions2",
+  "CaseFieldID" : "text",
+  "ListElementCode" : "",
+  "Label" : "Text Field",
+  "DisplayOrder" : 1
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "Questions2",
+  "CaseFieldID" : "[CASE_REFERENCE]",
+  "ListElementCode" : "",
+  "Label" : "Case Reference",
+  "DisplayOrder" : 2
+} ]
