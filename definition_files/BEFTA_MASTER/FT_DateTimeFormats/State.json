@@ -1,0 +1,28 @@
+[ {
+  "LiveFrom" : "02/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_DateTimeFormats",
+  "ID" : "TODO",
+  "Name" : "To do",
+  "Description" : "",
+  "DisplayOrder" : 1,
+  "TitleDisplay" : ""
+}, {
+  "LiveFrom" : "03/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_DateTimeFormats",
+  "ID" : "IN_PROGRESS",
+  "Name" : "In progress",
+  "Description" : "",
+  "DisplayOrder" : 2,
+  "TitleDisplay" : ""
+}, {
+  "LiveFrom" : "04/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_DateTimeFormats",
+  "ID" : "DONE",
+  "Name" : "Done",
+  "Description" : "",
+  "DisplayOrder" : 3,
+  "TitleDisplay" : ""
+} ]

@@ -5,6 +5,7 @@ import static uk.gov.hmcts.common.CommonAssertions.applyCommonAssertionsOnBasicD
 import static uk.gov.hmcts.common.CommonAssertions.applyCommonAssertionsOnExtendedData;
 import static uk.gov.hmcts.common.CommonAssertions.applyCommonAssertionsOnOverriddenData;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,6 +20,12 @@ public class JsonStoreHttpTestDataSourceTest {
         dataSource = new JsonStoreHttpTestDataSource(TEST_DATA_RESOURCE_PACKAGES);
     }
     
+
+    @AfterEach
+    public void clearUp() {
+    	dataSource = null;
+    }
+
     @Test
     public void shouldGetBasicDataForTestCallSuccessfully() {
         HttpTestData result = dataSource.getDataForTestCall("Simple-Data-Without-Inheritance");

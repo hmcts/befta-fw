@@ -1,0 +1,43 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "Questions2",
+  "ID" : "qanda",
+  "Label" : "Questions and Answers",
+  "HintText" : "",
+  "FieldType" : "Collection",
+  "CategoryID" : "",
+  "FieldTypeParameter" : "qandaComplex",
+  "RegularExpression" : "",
+  "SecurityClassification" : "Public",
+  "Min" : "",
+  "Max" : ""
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "Questions2",
+  "ID" : "text",
+  "Label" : "text",
+  "HintText" : "",
+  "FieldType" : "Text",
+  "CategoryID" : "",
+  "FieldTypeParameter" : "",
+  "RegularExpression" : "",
+  "SecurityClassification" : "Public",
+  "Min" : "",
+  "Max" : ""
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "Questions2",
+  "ID" : "judgeNotes",
+  "Label" : "Judge Notes",
+  "HintText" : "",
+  "FieldType" : "Collection",
+  "CategoryID" : "",
+  "FieldTypeParameter" : "judgeNotesComplex",
+  "RegularExpression" : "",
+  "SecurityClassification" : "Public",
+  "Min" : "",
+  "Max" : ""
+} ]

@@ -1,0 +1,40 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "CaseViewCallbackMessages",
+  "Channel" : "notApplicable",
+  "TabID" : "data",
+  "TabLabel" : "data",
+  "TabDisplayOrder" : 1,
+  "CaseFieldID" : "TextField0",
+  "TabFieldDisplayOrder" : 1,
+  "FieldShowCondition" : "",
+  "TabShowCondition" : "",
+  "DisplayContextParameter" : ""
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "CaseViewCallbackMessages",
+  "Channel" : "notApplicable",
+  "TabID" : "data",
+  "TabLabel" : "data",
+  "TabDisplayOrder" : 2,
+  "CaseFieldID" : "TextField1",
+  "TabFieldDisplayOrder" : 2,
+  "FieldShowCondition" : "",
+  "TabShowCondition" : "",
+  "DisplayContextParameter" : ""
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "CaseViewCallbackMessages",
+  "Channel" : "notApplicable",
+  "TabID" : "History",
+  "TabLabel" : "History",
+  "TabDisplayOrder" : 1,
+  "CaseFieldID" : "CaseHistory",
+  "TabFieldDisplayOrder" : 1,
+  "FieldShowCondition" : "",
+  "TabShowCondition" : "",
+  "DisplayContextParameter" : ""
+} ]

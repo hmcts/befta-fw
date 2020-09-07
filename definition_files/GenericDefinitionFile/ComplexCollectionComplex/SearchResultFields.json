@@ -1,0 +1,17 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "ComplexCollectionComplex",
+  "CaseFieldID" : "FamilyDetails",
+  "Label" : "FamilyDetails",
+  "ListElementCode" : "",
+  "DisplayOrder" : 1
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "ComplexCollectionComplex",
+  "CaseFieldID" : "MySchool",
+  "Label" : "Is Autisic",
+  "ListElementCode" : "Name",
+  "DisplayOrder" : 2
+} ]

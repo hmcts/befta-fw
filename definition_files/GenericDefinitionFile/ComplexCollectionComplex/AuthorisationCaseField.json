@@ -1,0 +1,57 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "ComplexCollectionComplex",
+  "CaseFieldID" : "Children",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "ComplexCollectionComplex",
+  "CaseFieldID" : "Homeless",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "ComplexCollectionComplex",
+  "CaseFieldID" : "FamilyDetails",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "ComplexCollectionComplex",
+  "CaseFieldID" : "MySchool",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "ComplexCollectionComplex",
+  "CaseFieldID" : "MySchoolLabel",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "ComplexCollectionComplex",
+  "CaseFieldID" : "CaseHistory",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "ComplexCollectionComplex",
+  "CaseFieldID" : "MyCompany",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "ComplexCollectionComplex",
+  "CaseFieldID" : "CollectionComplexField",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRUD"
+} ]

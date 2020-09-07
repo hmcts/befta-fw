@@ -1,0 +1,85 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_PRIVATE",
+  "CaseStateID" : "TODO",
+  "UserRole" : "caseworker-autotest1-private",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_PRIVATE",
+  "CaseStateID" : "IN_PROGRESS",
+  "UserRole" : "caseworker-autotest1-private",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_PRIVATE",
+  "CaseStateID" : "DONE",
+  "UserRole" : "caseworker-autotest1-private",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_PRIVATE",
+  "CaseStateID" : "TODO",
+  "UserRole" : "caseworker-autotest1-senior",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_PRIVATE",
+  "CaseStateID" : "IN_PROGRESS",
+  "UserRole" : "caseworker-autotest1-senior",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_PRIVATE",
+  "CaseStateID" : "DONE",
+  "UserRole" : "caseworker-autotest1-senior",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_PRIVATE",
+  "CaseStateID" : "TODO",
+  "UserRole" : "caseworker-autotest1-solicitor",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_PRIVATE",
+  "CaseStateID" : "IN_PROGRESS",
+  "UserRole" : "caseworker-autotest1-solicitor",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_PRIVATE",
+  "CaseStateID" : "DONE",
+  "UserRole" : "caseworker-autotest1-solicitor",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_PRIVATE",
+  "CaseStateID" : "TODO",
+  "UserRole" : "[DEFENDANT]",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_PRIVATE",
+  "CaseStateID" : "IN_PROGRESS",
+  "UserRole" : "[DEFENDANT]",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_PRIVATE",
+  "CaseStateID" : "DONE",
+  "UserRole" : "[DEFENDANT]",
+  "CRUD" : "CRU"
+} ]

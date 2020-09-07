@@ -1,17 +1,13 @@
 package uk.gov.hmcts.befta.util;
 
-import static org.hamcrest.Matchers.startsWith;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import org.junit.runner.RunWith;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,11 +20,14 @@ import uk.gov.hmcts.befta.data.RequestData;
 import uk.gov.hmcts.befta.data.ResponseData;
 import uk.gov.hmcts.befta.data.UserData;
 
-@RunWith(PowerMockRunner.class)
 public class ReflectionUtilsTest {
 
-    @Rule
-    public ExpectedException exceptionRule = ExpectedException.none();
+    @Test
+    public void shouldDeepGetFieldInObjectNull() throws Exception {
+        final Object result = ReflectionUtils.deepGetFieldInObject(null, "invokingUser.username");
+
+        assertNull(result);
+    }
 
     @Test
     public void shouldDeepGetFieldInObject() throws Exception {
@@ -58,12 +57,25 @@ public class ReflectionUtilsTest {
     public void shouldErrorWithEmptyFieldPathForDeepGetFieldInObject() throws Exception {
         HttpTestData testData = new HttpTestData();
 
-        exceptionRule.expect(IllegalArgumentException.class);
-        exceptionRule.expectMessage("Field path must be non-empty String.");
-
-        ReflectionUtils.deepGetFieldInObject(testData, "");
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            ReflectionUtils.deepGetFieldInObject(testData, "");
+          });
     }
 
+    @Test
+    public void shouldRetrieveFieldInSimpleObjectNull() throws Exception {
+        final Object result = ReflectionUtils.retrieveFieldInObject(null, "invokingUser");
+
+        assertNull(result);
+    }
+    @Test
+    public void shouldErrorWithEmptyFieldPathForRetrieveFieldInObject() throws Exception {
+        HttpTestData testData = new HttpTestData();
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            ReflectionUtils.retrieveFieldInObject(testData, "");
+          });
+    }
     @Test
     public void shouldRetrieveFieldInSimpleObject() throws Exception {
         HttpTestData testData = new HttpTestData();
@@ -89,7 +101,23 @@ public class ReflectionUtilsTest {
 
         assertEquals(responseData, result);
     }
-
+    @Test
+    public void shouldRetrieveFieldInObjectArraYByIndex() throws Exception {
+        ResponseData responseData = new ResponseData();
+        responseData.setResponseCode(200);
+        ResponseData[] testArray = {responseData};
+        Assertions.assertThrows(NoSuchFieldException.class, () -> {
+        	ReflectionUtils.retrieveFieldInObject(testArray, "ResponseCode[1]");
+          });
+    }
+    @Test
+    public void shouldRetrieveFieldInObjectByIndex() throws Exception {
+        ResponseData responseData = new ResponseData();
+        responseData.setResponseCode(200);
+        Assertions.assertThrows(RuntimeException.class, () -> {
+        	ReflectionUtils.retrieveFieldInObject(responseData, "ResponseCode[1]");
+          });
+    }
     @Test
     public void shouldRetrieveFieldFromMultiValueListAsList() throws Exception {
         List<UserData> testList = new ArrayList<UserData>() {
@@ -125,10 +153,9 @@ public class ReflectionUtilsTest {
         testData.setS2sClientId("ccd_gw");
         testData.setUserTokenClientId("ccd_gw");
 
-        exceptionRule.expect(NoSuchFieldException.class);
-        exceptionRule.expectMessage(startsWith("nonExistingField not retrievable"));
-
-        ReflectionUtils.retrieveFieldInObject(testData, "nonExistingField");
+        Assertions.assertThrows(NoSuchFieldException.class, () -> {
+            ReflectionUtils.retrieveFieldInObject(testData, "nonExistingField");
+          });
     }
 
     @Test
@@ -141,7 +168,7 @@ public class ReflectionUtilsTest {
     }
 
     @Test
-    public void shouldErrorWhenTryingToRetrieveNonExistingFieldInList() throws Exception {
+    public void shouldErrorWhenTryingToRetrieveNonExistingFieldInList() {
         List<UserData> testList = new ArrayList<UserData>() {
             private static final long serialVersionUID = 1L;
             {
@@ -149,10 +176,9 @@ public class ReflectionUtilsTest {
             }
         };
 
-        exceptionRule.expect(NoSuchFieldException.class);
-        exceptionRule.expectMessage(startsWith("nonExistingField not retrievable"));
-
-        ReflectionUtils.retrieveFieldInObject(testList, "nonExistingField");
+        Assertions.assertThrows(NoSuchFieldException.class, () -> {
+            ReflectionUtils.retrieveFieldInObject(testList, "nonExistingField");
+          });
     }
 
     @Test

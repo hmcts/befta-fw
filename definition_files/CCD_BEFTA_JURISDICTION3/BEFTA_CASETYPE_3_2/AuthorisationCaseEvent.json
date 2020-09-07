@@ -1,0 +1,148 @@
+[ {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_3_2",
+  "CaseEventID" : "CREATE",
+  "UserRole" : "citizen",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_3_2",
+  "CaseEventID" : "START_PROGRESS",
+  "UserRole" : "citizen",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_3_2",
+  "CaseEventID" : "STOP_PROGRESS",
+  "UserRole" : "citizen",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_3_2",
+  "CaseEventID" : "COMPLETE",
+  "UserRole" : "citizen",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_3_2",
+  "CaseEventID" : "UPDATE",
+  "UserRole" : "citizen",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_3_2",
+  "CaseEventID" : "REVIEW",
+  "UserRole" : "citizen",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_3_2",
+  "CaseEventID" : "EVENT_CRUD",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_3_2",
+  "CaseEventID" : "EVENT_CRD",
+  "UserRole" : "citizen",
+  "CRUD" : "CRD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_3_2",
+  "CaseEventID" : "EVENT_CRU",
+  "UserRole" : "citizen",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_3_2",
+  "CaseEventID" : "EVENT_CUD",
+  "UserRole" : "citizen",
+  "CRUD" : "CUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_3_2",
+  "CaseEventID" : "EVENT_RUD",
+  "UserRole" : "citizen",
+  "CRUD" : "RUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_3_2",
+  "CaseEventID" : "EVENT_CU",
+  "UserRole" : "citizen",
+  "CRUD" : "CU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_3_2",
+  "CaseEventID" : "EVENT_CR",
+  "UserRole" : "citizen",
+  "CRUD" : "CR"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_3_2",
+  "CaseEventID" : "EVENT_CD",
+  "UserRole" : "citizen",
+  "CRUD" : "CD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_3_2",
+  "CaseEventID" : "EVENT_RU",
+  "UserRole" : "citizen",
+  "CRUD" : "RU"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_3_2",
+  "CaseEventID" : "EVENT_RD",
+  "UserRole" : "citizen",
+  "CRUD" : "RD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_3_2",
+  "CaseEventID" : "EVENT_UD",
+  "UserRole" : "citizen",
+  "CRUD" : "UD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_3_2",
+  "CaseEventID" : "EVENT_C",
+  "UserRole" : "citizen",
+  "CRUD" : "C"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_3_2",
+  "CaseEventID" : "EVENT_R",
+  "UserRole" : "citizen",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_3_2",
+  "CaseEventID" : "EVENT_U",
+  "UserRole" : "citizen",
+  "CRUD" : "U"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_3_2",
+  "CaseEventID" : "EVENT_D",
+  "UserRole" : "citizen",
+  "CRUD" : "D"
+} ]

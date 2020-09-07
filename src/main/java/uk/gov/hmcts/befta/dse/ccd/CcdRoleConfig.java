@@ -7,14 +7,14 @@ import lombok.ToString;
 @ToString
 public class CcdRoleConfig {
 
-    private String role;
+	private String role;
 
-    private String securityClassification;
+	private String securityClassification;
 
-    public CcdRoleConfig(String role, String securityClassification) {
-        super();
-        this.role = role;
-        this.securityClassification = securityClassification;
-    }
+	public CcdRoleConfig(String role, String securityClassification) {
+		super();
+		this.role = role;
+		this.securityClassification = securityClassification;
+	}
 
 }

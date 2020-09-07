@@ -11,4 +11,5 @@ public class InvalidTestDataException extends FunctionalTestException {
     public InvalidTestDataException(final String message, final Throwable cause) {
         super(message, cause);
     }
+
 }

@@ -10,11 +10,24 @@ import java.net.URL;
 import io.restassured.internal.util.IOUtils;
 import uk.gov.hmcts.befta.dse.ccd.definition.converter.FileUtils;
 import uk.gov.hmcts.befta.exception.FunctionalTestException;
+import uk.gov.hmcts.befta.exception.JsonStoreCreationException;
 
 public class BeftaUtils {
 
     private static final String TEMPORARY_DEFINITION_FOLDER = "definition_files";
 
+    public static File getSingleFileFromResource(String[] filelocation) {
+    	if(filelocation!=null&&filelocation.length==1) {
+    		return getFileFromResource(filelocation[0]);
+    	}
+    	else {
+    		throw new JsonStoreCreationException("Invalid parameter, for array with single entry a Signle directory or a file location.");
+    	}
+    }
+    public static File getFileFromResource(String location) {
+        URL url = ClassLoader.getSystemResource(location);
+        return new File(url.getFile());
+    }
     public static File getClassPathResourceIntoTemporaryFile(String resourcePath) {
         return createTempFile(resourcePath,"");
     }
@@ -38,7 +51,8 @@ public class BeftaUtils {
             byte[] buffer = IOUtils.toByteArray(stream);
             String pathName;
             if (directoryPath.isEmpty()){
-                pathName =  "_temp_" + System.currentTimeMillis() + "_" + simpleName;
+            	resource.getFile();
+                pathName =  resource.getFile()+File.separator+"_temp_" + System.currentTimeMillis() + "_" + simpleName;
             } else {
                 pathName = directoryPath + File.separator + simpleName;
             }

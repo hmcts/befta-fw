@@ -1,0 +1,11 @@
+[ {
+  "CaseTypeID" : "AAT_PRIVATE",
+  "ID" : "[Claimant]",
+  "Name" : "Claimant",
+  "Description" : "The person created the case"
+}, {
+  "CaseTypeID" : "AAT_PRIVATE",
+  "ID" : "[DEFENDANT]",
+  "Name" : "Defendant",
+  "Description" : "The defending party"
+} ]

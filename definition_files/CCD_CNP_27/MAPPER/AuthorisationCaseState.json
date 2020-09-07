@@ -1,0 +1,22 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "MAPPER",
+  "CaseStateID" : "TODO",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "MAPPER",
+  "CaseStateID" : "IN_PROGRESS",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "MAPPER",
+  "CaseStateID" : "DONE",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRU"
+} ]

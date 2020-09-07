@@ -1,0 +1,22 @@
+[ {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_PRIVATE",
+  "CaseFieldID" : "TextAreaField",
+  "Label" : "`TextArea` search",
+  "DisplayOrder" : 1
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_PRIVATE",
+  "CaseFieldID" : "EmailField",
+  "Label" : "`Email` search",
+  "DisplayOrder" : 2
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_PRIVATE",
+  "CaseFieldID" : "TextField",
+  "Label" : "`Text` search",
+  "DisplayOrder" : 3
+} ]

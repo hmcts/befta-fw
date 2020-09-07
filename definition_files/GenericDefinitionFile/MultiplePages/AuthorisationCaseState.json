@@ -1,0 +1,15 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "MultiplePages",
+  "CaseStateID" : "CaseCreated",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "MultiplePages",
+  "CaseStateID" : "extraDetailsAdded",
+  "UserRole" : "caseworker-autotest1",
+  "CRUD" : "CRUD"
+} ]

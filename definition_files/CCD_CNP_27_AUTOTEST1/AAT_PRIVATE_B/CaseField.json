@@ -1,0 +1,15 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "AAT_PRIVATE_B",
+  "ID" : "TextField",
+  "Label" : "A `Text` field",
+  "HintText" : "Some generic textual data.",
+  "FieldType" : "Text",
+  "FieldTypeParameter" : "",
+  "DefaultHidden" : "No",
+  "RegularExpression" : "",
+  "SecurityClassification" : "PRIVATE",
+  "Min" : "",
+  "Max" : ""
+} ]

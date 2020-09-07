@@ -2,10 +2,7 @@ package uk.gov.hmcts.befta.util;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.net.URL;
@@ -16,8 +13,6 @@ import uk.gov.hmcts.befta.data.HttpTestData;
 import uk.gov.hmcts.befta.data.RequestData;
 
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(JsonUtilsTest.class)
 public class JsonUtilsTest {
 
     private static final String TEST_RESOURCE = "framework-test-data/features/F-000/S-000.td.json";

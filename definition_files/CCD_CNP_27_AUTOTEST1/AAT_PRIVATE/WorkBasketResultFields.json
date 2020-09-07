@@ -1,0 +1,28 @@
+[ {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "HintText" : "",
+  "UserRole" : "caseworker-autotest1-private",
+  "CaseTypeID" : "AAT_PRIVATE",
+  "CaseFieldID" : "TextField",
+  "Label" : "`Text` workbasket",
+  "DisplayOrder" : 1
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "HintText" : "",
+  "UserRole" : "caseworker-autotest1-private",
+  "CaseTypeID" : "AAT_PRIVATE",
+  "CaseFieldID" : "EmailField",
+  "Label" : "`Email` workbasket",
+  "DisplayOrder" : 2
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "HintText" : "",
+  "UserRole" : "caseworker-autotest1-senior",
+  "CaseTypeID" : "AAT_PRIVATE",
+  "CaseFieldID" : "MoneyGBPField",
+  "Label" : "`Money` workbasket",
+  "DisplayOrder" : 3
+} ]
