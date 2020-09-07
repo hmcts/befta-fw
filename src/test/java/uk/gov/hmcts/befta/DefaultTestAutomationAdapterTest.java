@@ -8,12 +8,15 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
+import static org.mockito.Mockito.when;
+
+import java.util.HashMap;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junitpioneer.jupiter.SetEnvironmentVariable;
@@ -24,8 +27,11 @@ import org.mockito.Mockito;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import uk.gov.hmcts.befta.auth.AuthApi;
-import uk.gov.hmcts.befta.auth.UserTokenProviderConfig;
+import uk.gov.hmcts.befta.data.HttpTestData;
+import uk.gov.hmcts.befta.data.RequestData;
+import uk.gov.hmcts.befta.data.ResponseData;
 import uk.gov.hmcts.befta.data.UserData;
+import uk.gov.hmcts.befta.exception.FunctionalTestException;
 import uk.gov.hmcts.befta.factory.BeftaIdamApiClientFactory;
 import uk.gov.hmcts.befta.factory.BeftaServiceAuthorisationApiClientFactory;
 import uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext;
@@ -253,22 +259,223 @@ class DefaultTestAutomationAdapterTest {
 		assertNotNull(tad);
 		assertEquals(null,tad.calculateCustomValue(contextUnderTest,null));
 	}
-//	/**
-//	 * Test method for {@link uk.gov.hmcts.befta.DefaultTestAutomationAdapter#calculateCustomValue(uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext, java.lang.Object)}.
-//	 */
-//	@Test
-//    @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
-//    @SetEnvironmentVariable(key = IDAM_URL_KEY, value = IDAM_URL_VALUE)
-//    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_ID_KEY, value = BEFTA_S2S_CLIENT_ID_VALUE)
-//    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_SECRET_KEY, value = BEFTA_S2S_CLIENT_SECRET_VALUE)
-//    @SetEnvironmentVariable(key = S2S_URL_KEY, value = S2S_URL_VALUE)
-//	void testCalculateCustomValue() {
-//		String key = "request";
-//		BackEndFunctionalTestScenarioContext contextUnderTest = new BackEndFunctionalTestScenarioContext();
-//		assertNotNull(tad);
-//		assertNotNull(tad.calculateCustomValue(contextUnderTest,key));
-//	}
+	/**
+	 * Test method for {@link uk.gov.hmcts.befta.DefaultTestAutomationAdapter#calculateCustomValue(uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext, java.lang.Object)}.
+	 */
+	@Test
+    @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
+    @SetEnvironmentVariable(key = IDAM_URL_KEY, value = IDAM_URL_VALUE)
+    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_ID_KEY, value = BEFTA_S2S_CLIENT_ID_VALUE)
+    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_SECRET_KEY, value = BEFTA_S2S_CLIENT_SECRET_VALUE)
+    @SetEnvironmentVariable(key = S2S_URL_KEY, value = S2S_URL_VALUE)
+	void testCalculateCustomValueRequest() {
+		String key = "request";
+        HttpTestData testData = mock(HttpTestData.class);
+		BackEndFunctionalTestScenarioContext context = mock(BackEndFunctionalTestScenarioContext.class);
+        when(context.getTestData()).thenReturn(testData);
+        when(testData.getRequest()).thenReturn(new RequestData());
+		assertNotNull(tad);
+		assertNotNull(tad.calculateCustomValue(context,key));
+	}
+	/**
+	 * Test method for {@link uk.gov.hmcts.befta.DefaultTestAutomationAdapter#calculateCustomValue(uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext, java.lang.Object)}.
+	 */
+	@Test
+    @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
+    @SetEnvironmentVariable(key = IDAM_URL_KEY, value = IDAM_URL_VALUE)
+    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_ID_KEY, value = BEFTA_S2S_CLIENT_ID_VALUE)
+    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_SECRET_KEY, value = BEFTA_S2S_CLIENT_SECRET_VALUE)
+    @SetEnvironmentVariable(key = S2S_URL_KEY, value = S2S_URL_VALUE)
+	void testCalculateCustomValueRequestBody() {
+		String key = "requestbody";
+		RequestData request = mock(RequestData.class);
+        HttpTestData testData = mock(HttpTestData.class);
+		BackEndFunctionalTestScenarioContext context = mock(BackEndFunctionalTestScenarioContext.class);
+        when(context.getTestData()).thenReturn(testData);
+        when(testData.getRequest()).thenReturn(request);
+        when(request.getBody()).thenReturn(new HashMap<String, Object>());
+		assertNotNull(tad);
+		assertNotNull(tad.calculateCustomValue(context,key));
+	}
 
+	@Test
+    @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
+    @SetEnvironmentVariable(key = IDAM_URL_KEY, value = IDAM_URL_VALUE)
+    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_ID_KEY, value = BEFTA_S2S_CLIENT_ID_VALUE)
+    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_SECRET_KEY, value = BEFTA_S2S_CLIENT_SECRET_VALUE)
+    @SetEnvironmentVariable(key = S2S_URL_KEY, value = S2S_URL_VALUE)
+	void testCalculateCustomValueRequestHeaders() {
+		String key = "requestheaders";
+		RequestData request = mock(RequestData.class);
+        HttpTestData testData = mock(HttpTestData.class);
+		BackEndFunctionalTestScenarioContext context = mock(BackEndFunctionalTestScenarioContext.class);
+        when(context.getTestData()).thenReturn(testData);
+        when(testData.getRequest()).thenReturn(request);
+        when(request.getHeaders()).thenReturn(new HashMap<String, Object>());
+		assertNotNull(tad);
+		assertNotNull(tad.calculateCustomValue(context,key));
+	}
+	@Test
+    @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
+    @SetEnvironmentVariable(key = IDAM_URL_KEY, value = IDAM_URL_VALUE)
+    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_ID_KEY, value = BEFTA_S2S_CLIENT_ID_VALUE)
+    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_SECRET_KEY, value = BEFTA_S2S_CLIENT_SECRET_VALUE)
+    @SetEnvironmentVariable(key = S2S_URL_KEY, value = S2S_URL_VALUE)
+	void testCalculateCustomValueRequestPaths() {
+		String key = "requestpathvars";
+		RequestData request = mock(RequestData.class);
+        HttpTestData testData = mock(HttpTestData.class);
+		BackEndFunctionalTestScenarioContext context = mock(BackEndFunctionalTestScenarioContext.class);
+        when(context.getTestData()).thenReturn(testData);
+        when(testData.getRequest()).thenReturn(request);
+        when(request.getPathVariables()).thenReturn(new HashMap<String, Object>());
+		assertNotNull(tad);
+		assertNotNull(tad.calculateCustomValue(context,key));
+	}
+	@Test
+    @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
+    @SetEnvironmentVariable(key = IDAM_URL_KEY, value = IDAM_URL_VALUE)
+    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_ID_KEY, value = BEFTA_S2S_CLIENT_ID_VALUE)
+    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_SECRET_KEY, value = BEFTA_S2S_CLIENT_SECRET_VALUE)
+    @SetEnvironmentVariable(key = S2S_URL_KEY, value = S2S_URL_VALUE)
+	void testCalculateCustomValueRequestQuery() {
+		String key = "requestqueryparams";
+		RequestData request = mock(RequestData.class);
+        HttpTestData testData = mock(HttpTestData.class);
+		BackEndFunctionalTestScenarioContext context = mock(BackEndFunctionalTestScenarioContext.class);
+        when(context.getTestData()).thenReturn(testData);
+        when(testData.getRequest()).thenReturn(request);
+        when(request.getQueryParams()).thenReturn(new HashMap<String, Object>());
+		assertNotNull(tad);
+		assertNotNull(tad.calculateCustomValue(context,key));
+	}
+	@Test
+    @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
+    @SetEnvironmentVariable(key = IDAM_URL_KEY, value = IDAM_URL_VALUE)
+    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_ID_KEY, value = BEFTA_S2S_CLIENT_ID_VALUE)
+    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_SECRET_KEY, value = BEFTA_S2S_CLIENT_SECRET_VALUE)
+    @SetEnvironmentVariable(key = S2S_URL_KEY, value = S2S_URL_VALUE)
+	void testCalculateCustomValueRequestExpectedresponse() {
+		String key = "expectedresponse";
+        HttpTestData testData = mock(HttpTestData.class);
+		BackEndFunctionalTestScenarioContext context = mock(BackEndFunctionalTestScenarioContext.class);
+        when(context.getTestData()).thenReturn(testData);
+        when(testData.getExpectedResponse()).thenReturn(new ResponseData());
+		assertNotNull(tad);
+		assertNotNull(tad.calculateCustomValue(context,key));
+	}
+	@Test
+    @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
+    @SetEnvironmentVariable(key = IDAM_URL_KEY, value = IDAM_URL_VALUE)
+    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_ID_KEY, value = BEFTA_S2S_CLIENT_ID_VALUE)
+    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_SECRET_KEY, value = BEFTA_S2S_CLIENT_SECRET_VALUE)
+    @SetEnvironmentVariable(key = S2S_URL_KEY, value = S2S_URL_VALUE)
+	void testCalculateCustomValueRequestExpectedresponseHeaders() {
+		String key = "expectedresponseheaders";
+		ResponseData response = mock(ResponseData.class);
+        HttpTestData testData = mock(HttpTestData.class);
+		BackEndFunctionalTestScenarioContext context = mock(BackEndFunctionalTestScenarioContext.class);
+        when(context.getTestData()).thenReturn(testData);
+        when(testData.getExpectedResponse()).thenReturn(response);
+        when(response.getHeaders()).thenReturn(new HashMap<String, Object>());
+		assertNotNull(tad);
+		assertNotNull(tad.calculateCustomValue(context,key));
+	}
+	@Test
+    @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
+    @SetEnvironmentVariable(key = IDAM_URL_KEY, value = IDAM_URL_VALUE)
+    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_ID_KEY, value = BEFTA_S2S_CLIENT_ID_VALUE)
+    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_SECRET_KEY, value = BEFTA_S2S_CLIENT_SECRET_VALUE)
+    @SetEnvironmentVariable(key = S2S_URL_KEY, value = S2S_URL_VALUE)
+	void testCalculateCustomValueRequestExpectedresponseBody() {
+		String key = "expectedresponsebody";
+		ResponseData response = mock(ResponseData.class);
+        HttpTestData testData = mock(HttpTestData.class);
+		BackEndFunctionalTestScenarioContext context = mock(BackEndFunctionalTestScenarioContext.class);
+        when(context.getTestData()).thenReturn(testData);
+        when(testData.getExpectedResponse()).thenReturn(response);
+        when(response.getBody()).thenReturn(new HashMap<String, Object>());
+		assertNotNull(tad);
+		assertNotNull(tad.calculateCustomValue(context,key));
+	}
+	@Test
+    @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
+    @SetEnvironmentVariable(key = IDAM_URL_KEY, value = IDAM_URL_VALUE)
+    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_ID_KEY, value = BEFTA_S2S_CLIENT_ID_VALUE)
+    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_SECRET_KEY, value = BEFTA_S2S_CLIENT_SECRET_VALUE)
+    @SetEnvironmentVariable(key = S2S_URL_KEY, value = S2S_URL_VALUE)
+	void testCalculateCustomValueRequestActualresponse() {
+		String key = "actualresponse";
+        HttpTestData testData = mock(HttpTestData.class);
+		BackEndFunctionalTestScenarioContext context = mock(BackEndFunctionalTestScenarioContext.class);
+        when(context.getTestData()).thenReturn(testData);
+        when(testData.getActualResponse()).thenReturn(new ResponseData());
+		assertNotNull(tad);
+		assertNotNull(tad.calculateCustomValue(context,key));
+	}
+	@Test
+    @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
+    @SetEnvironmentVariable(key = IDAM_URL_KEY, value = IDAM_URL_VALUE)
+    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_ID_KEY, value = BEFTA_S2S_CLIENT_ID_VALUE)
+    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_SECRET_KEY, value = BEFTA_S2S_CLIENT_SECRET_VALUE)
+    @SetEnvironmentVariable(key = S2S_URL_KEY, value = S2S_URL_VALUE)
+	void testCalculateCustomValueRequestActualresponseHeaders() {
+		String key = "actualresponseheaders";
+		ResponseData response = mock(ResponseData.class);
+        HttpTestData testData = mock(HttpTestData.class);
+		BackEndFunctionalTestScenarioContext context = mock(BackEndFunctionalTestScenarioContext.class);
+        when(context.getTestData()).thenReturn(testData);
+        when(testData.getActualResponse()).thenReturn(response);
+        when(response.getHeaders()).thenReturn(new HashMap<String, Object>());
+		assertNotNull(tad);
+		assertNotNull(tad.calculateCustomValue(context,key));
+	}
+	@Test
+    @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
+    @SetEnvironmentVariable(key = IDAM_URL_KEY, value = IDAM_URL_VALUE)
+    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_ID_KEY, value = BEFTA_S2S_CLIENT_ID_VALUE)
+    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_SECRET_KEY, value = BEFTA_S2S_CLIENT_SECRET_VALUE)
+    @SetEnvironmentVariable(key = S2S_URL_KEY, value = S2S_URL_VALUE)
+	void testCalculateCustomValueRequestActualresponseBody() {
+		String key = "actualresponsebody";
+		ResponseData response = mock(ResponseData.class);
+        HttpTestData testData = mock(HttpTestData.class);
+		BackEndFunctionalTestScenarioContext context = mock(BackEndFunctionalTestScenarioContext.class);
+        when(context.getTestData()).thenReturn(testData);
+        when(testData.getActualResponse()).thenReturn(response);
+        when(response.getBody()).thenReturn(new HashMap<String, Object>());
+		assertNotNull(tad);
+		assertNotNull(tad.calculateCustomValue(context,key));
+	}
+	@Test
+    @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
+    @SetEnvironmentVariable(key = IDAM_URL_KEY, value = IDAM_URL_VALUE)
+    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_ID_KEY, value = BEFTA_S2S_CLIENT_ID_VALUE)
+    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_SECRET_KEY, value = BEFTA_S2S_CLIENT_SECRET_VALUE)
+    @SetEnvironmentVariable(key = S2S_URL_KEY, value = S2S_URL_VALUE)
+	void testCalculateCustomValueRequestedToken() {
+		String key = "tokenvaluefromaccompanyingtokencall";
+        HttpTestData testData = mock(HttpTestData.class);
+		BackEndFunctionalTestScenarioContext context = mock(BackEndFunctionalTestScenarioContext.class);
+        when(context.getTestData()).thenReturn(testData);
+        when(testData.get_guid_()).thenReturn("1");
+		assertNotNull(tad);
+        Assertions.assertThrows(FunctionalTestException.class, () -> {
+    		assertNotNull(tad.calculateCustomValue(context,key));
+          });
+	}
+	@Test
+    @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
+    @SetEnvironmentVariable(key = IDAM_URL_KEY, value = IDAM_URL_VALUE)
+    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_ID_KEY, value = BEFTA_S2S_CLIENT_ID_VALUE)
+    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_SECRET_KEY, value = BEFTA_S2S_CLIENT_SECRET_VALUE)
+    @SetEnvironmentVariable(key = S2S_URL_KEY, value = S2S_URL_VALUE)
+	void testCalculateCustomValueRequestedToday() {
+		String key = "today";
+		BackEndFunctionalTestScenarioContext context = mock(BackEndFunctionalTestScenarioContext.class);
+		assertNotNull(tad);
+		assertNotNull(tad.calculateCustomValue(context,key));
+	}
 	/**
 	 * Test method for {@link uk.gov.hmcts.befta.DefaultTestAutomationAdapter#getDateTimeFormatRequested(java.lang.String)}.
 	 */

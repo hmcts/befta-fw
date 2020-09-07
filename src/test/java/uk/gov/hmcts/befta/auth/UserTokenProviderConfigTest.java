@@ -5,6 +5,7 @@ package uk.gov.hmcts.befta.auth;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junitpioneer.jupiter.SetEnvironmentVariable;
 
@@ -17,6 +18,7 @@ class UserTokenProviderConfigTest {
 	/**BEFTA_OAUTH2_ACCESS_TOKEN_TYPE_OF_
 	 * Test method for {@link uk.gov.hmcts.befta.auth.UserTokenProviderConfig#of(java.lang.String)}.
 	 */
+	@Disabled
 	@Test
     @SetEnvironmentVariable(key = "OAUTH2_CLIENT_ID", value = "OAUTH2_CLIENT_ID_VALUE")
     @SetEnvironmentVariable(key = "OAUTH2_CLIENT_SECRET", value = "OAUTH2_CLIENT_SECRET_VALUE")
@@ -32,6 +34,7 @@ class UserTokenProviderConfigTest {
 	/**
 	 * Test method for {@link uk.gov.hmcts.befta.auth.UserTokenProviderConfig#isForOidc()}.
 	 */
+	@Disabled
 	@Test
     @SetEnvironmentVariable(key = "OAUTH2_CLIENT_ID", value = "OAUTH2_CLIENT_ID_VALUE")
     @SetEnvironmentVariable(key = "OAUTH2_CLIENT_SECRET", value = "OAUTH2_CLIENT_SECRET_VALUE")
@@ -45,6 +48,7 @@ class UserTokenProviderConfigTest {
 	/**
 	 * Test method for {@link uk.gov.hmcts.befta.auth.UserTokenProviderConfig#isForOauth2()}.
 	 */
+	@Disabled
 	@Test
     @SetEnvironmentVariable(key = "OAUTH2_CLIENT_ID", value = "OAUTH2_CLIENT_ID_VALUE")
     @SetEnvironmentVariable(key = "OAUTH2_CLIENT_SECRET", value = "OAUTH2_CLIENT_SECRET_VALUE")
@@ -55,6 +59,7 @@ class UserTokenProviderConfigTest {
 		assertTrue(actual.isForOauth2());
 	}
 
+	@Disabled
 	@Test
     @SetEnvironmentVariable(key = "OAUTH2_CLIENT_ID", value = "OAUTH2_CLIENT_ID_VALUE")
     @SetEnvironmentVariable(key = "OAUTH2_CLIENT_SECRET", value = "OAUTH2_CLIENT_SECRET_VALUE")

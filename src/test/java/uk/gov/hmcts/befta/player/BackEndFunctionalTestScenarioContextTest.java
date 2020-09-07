@@ -1,28 +1,50 @@
 package uk.gov.hmcts.befta.player;
 
+import static org.hamcrest.CoreMatchers.any;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.when;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junitpioneer.jupiter.SetEnvironmentVariable;
 import org.mockito.Mock;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
 import io.cucumber.java.Scenario;
+import uk.gov.hmcts.befta.BeftaMain;
+import uk.gov.hmcts.befta.DefaultTestAutomationAdapter;
+import uk.gov.hmcts.befta.TestAutomationAdapter;
 import uk.gov.hmcts.befta.data.HttpTestData;
 import uk.gov.hmcts.befta.data.JsonStoreHttpTestDataSource;
 import uk.gov.hmcts.common.TestUtils;
 
 public class BackEndFunctionalTestScenarioContextTest {
+	public static final String DEFINITION_STORE_HOST_KEY = "DEFINITION_STORE_HOST";
+	public static final String DEFINITION_STORE_HOST_VALUE = "http://127.0.0.1:8089/";
+	public static final String IDAM_URL_KEY = "IDAM_URL";
+	public static final String IDAM_URL_VALUE = "IDAM_URL_VALUE";
+	public static final String S2S_URL_KEY = "S2S_URL";
+	public static final String S2S_URL_VALUE = "S2S_URL_VALUE";
+	public static final String BEFTA_S2S_CLIENT_ID_KEY = "BEFTA_S2S_CLIENT_ID";
+	public static final String BEFTA_S2S_CLIENT_ID_VALUE = "BEFTA_S2S_CLIENT_ID_VALUE";
+	public static final String BEFTA_S2S_CLIENT_SECRET_KEY = "BEFTA_S2S_CLIENT_SECRET";
+	public static final String BEFTA_S2S_CLIENT_SECRET_VALUE = "BEFTA_S2S_CLIENT_SECRET_VALUE";
+
 
     private static final String VALID_TAG_ID = "S-133";
 
     private BackEndFunctionalTestScenarioContext contextUnderTest = new BackEndFunctionalTestScenarioContext();
-
+    private MockedStatic <BeftaMain> beftaMain = null;
     @Mock
     private HttpTestData s103TestData;
 
@@ -31,7 +53,21 @@ public class BackEndFunctionalTestScenarioContextTest {
 
     @Mock
     private JsonStoreHttpTestDataSource dataSource;
-
+    public void prepareStaticMockedObjectUnderTest() {
+        try {
+        	beftaMain = mockStatic(BeftaMain.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+   @AfterEach
+    public void closeStaticMockedObjectUnderTest() {
+        try {
+        	beftaMain.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     @BeforeEach
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
@@ -41,7 +77,7 @@ public class BackEndFunctionalTestScenarioContextTest {
 
         TestUtils.setFieldWithReflection(BackEndFunctionalTestScenarioContext.class.getDeclaredField("DATA_SOURCE"),
                 dataSource);
-
+        closeStaticMockedObjectUnderTest();
     }
 
     @Test
@@ -150,4 +186,22 @@ public class BackEndFunctionalTestScenarioContextTest {
         // ASSERT
         assertEquals(testContextId, result);
     }
+//    @Test
+//    public void testcalculateCustomValue() {
+//        // ARRANGE
+//        final String testContextId = "TEST_CONTEXT_ID";
+//        contextUnderTest.setContextId(testContextId);
+//        String today = "today";
+//        TestAutomationAdapter tAdapter = mock(TestAutomationAdapter.class);
+//        BackEndFunctionalTestScenarioContext context = new BackEndFunctionalTestScenarioContext();
+//        when(BeftaMain.getAdapter()).thenReturn(tAdapter);
+//        when(tAdapter.calculateCustomValue(context, today)).thenReturn(today);
+//        // ACT
+//        String result = contextUnderTest.getContextId();
+//
+//        // ASSERT
+//        assertEquals(testContextId, result);
+//        ;
+//        assertNotNull(context.calculateCustomValue(today));
+//    }
 }
