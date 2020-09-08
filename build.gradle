@@ -120,8 +120,8 @@ dependencies {
 
     compile group: 'io.rest-assured', name: 'rest-assured', version: '3.1.0'
 
-    compile group: 'io.cucumber', name: 'cucumber-java', version: '5.0.0-RC1'
-    compile group: 'io.cucumber', name: 'cucumber-junit', version: '5.0.0-RC1'
+    compile group: 'io.cucumber', name: 'cucumber-java', version: '5.7.0'
+    compile group: 'io.cucumber', name: 'cucumber-junit', version: '5.7.0'
 
     compile 'org.projectlombok:lombok:1.18.4'
 
