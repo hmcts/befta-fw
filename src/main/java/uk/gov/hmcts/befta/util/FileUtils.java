@@ -1,4 +1,4 @@
-package uk.gov.hmcts.befta.dse.ccd.definition.converter;
+package uk.gov.hmcts.befta.util;
 
 import java.io.File;
 

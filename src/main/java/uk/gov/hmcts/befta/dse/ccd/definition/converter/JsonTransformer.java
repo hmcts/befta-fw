@@ -1,13 +1,10 @@
 package uk.gov.hmcts.befta.dse.ccd.definition.converter;
 
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
-import uk.gov.hmcts.befta.BeftaMain;
-import uk.gov.hmcts.befta.exception.DefinitionTransformerException;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -18,6 +15,10 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+
+import uk.gov.hmcts.befta.BeftaMain;
+import uk.gov.hmcts.befta.exception.DefinitionTransformerException;
+import uk.gov.hmcts.befta.util.FileUtils;
 
 /**
  * Read a JSON representation of a definition file
@@ -78,7 +79,8 @@ public class JsonTransformer {
                     JsonNode rootSheetArray = objectMapper.readTree(jsonFile);
                     String jsonFileNameNoSuffix = jsonFile.getName().replace(".json", "");
 
-                    if (BeftaMain.getConfig().getTestUrl().contains("localhost")
+                    if (BeftaMain.getConfig().getTestUrl() != null && BeftaMain.getConfig().getTestUrl()
+                            .contains("localhost")
                             && SHEETS_FOR_URL_SUBSTITUTIONS.contains(jsonFileNameNoSuffix)) {
                         String rootSheetArrayString = rootSheetArray.toString().replaceAll("ccd-test-stubs-service-aat.service.core-compute-aat.internal", "ccd-test-stubs-service:5555");
                         rootSheetArray = objectMapper.readTree(rootSheetArrayString);

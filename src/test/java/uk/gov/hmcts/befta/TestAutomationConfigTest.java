@@ -153,8 +153,8 @@ class TestAutomationConfigTest {
      * {@link uk.gov.hmcts.befta.TestAutomationConfig#getResponseHeaderCheckPolicy()}.
      */
     @Test
+    @SetEnvironmentVariable(key = "BEFTA_RESPONSE_HEADER_CHECK_POLICY", value = "FAIL_TEST")
     void testGetResponseHeaderCheckPolicyNull() {
-
         assertEquals(ResponseHeaderCheckPolicy.FAIL_TEST, TestAutomationConfig.INSTANCE.getResponseHeaderCheckPolicy());
     }
 

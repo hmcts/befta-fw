@@ -9,10 +9,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junitpioneer.jupiter.SetEnvironmentVariable;
 
 import java.io.File;
 
-import uk.gov.hmcts.befta.dse.ccd.definition.converter.FileUtils;
+import uk.gov.hmcts.befta.util.FileUtils;
 
 /**
  * @author korneleehenry
@@ -46,6 +47,7 @@ class CcdBeftaUtilsTest {
      * {@link uk.gov.hmcts.befta.dse.ccd.CcdBeftaUtils#convertJsonDefinitionToExcel(java.lang.String)}.
      */
     @Test
+    @SetEnvironmentVariable(key = "TEST_URL", value = "http://localhost:8080/dummy-api")
     void testConvertJsonDefinitionToExcelString() {
 
         String expected = DEFAULT_DEFINITIONS_PATH_JSON + ".xlsx";
@@ -60,6 +62,7 @@ class CcdBeftaUtilsTest {
      * {@link uk.gov.hmcts.befta.dse.ccd.CcdBeftaUtils#convertJsonDefinitionToExcel(java.io.File)}.
      */
     @Test
+    @SetEnvironmentVariable(key = "TEST_URL", value = "http://localhost:8080/dummy-api")
     void testConvertJsonDefinitionToExcelFile() {
         String expected = DEFAULT_DEFINITIONS_PATH_JSON + ".xlsx";
         File tempfile = new File(expected);
@@ -73,6 +76,7 @@ class CcdBeftaUtilsTest {
      * {@link uk.gov.hmcts.befta.dse.ccd.CcdBeftaUtils#convertExcelFileToJson(java.lang.String)}.
      */
     @Test
+    @SetEnvironmentVariable(key = "TEST_URL", value = "http://localhost:8080/dummy-api")
     void testConvertExcelFileToJsonString() {
         File actual = CcdBeftaUtils.convertExcelFileToJson(DEFAULT_DEFINITIONS_PATH_EXCEL);
         assertEquals(tempFolder, actual);
@@ -84,6 +88,7 @@ class CcdBeftaUtilsTest {
      * {@link uk.gov.hmcts.befta.dse.ccd.CcdBeftaUtils#convertExcelFileToJson(java.io.File)}.
      */
     @Test
+    @SetEnvironmentVariable(key = "TEST_URL", value = "http://localhost:8080/dummy-api")
     void testConvertExcelFileToJsonFile() {
         File actual = CcdBeftaUtils.convertExcelFileToJson(excelFile);
         assertEquals(tempFolder, actual);
