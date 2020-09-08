@@ -117,7 +117,9 @@ class DefinitionConverterTest {
 	void testMainArgsToexcelfalse() {
 		String[] args = {"to-excel",DEFAULT_DEFINITIONS_PATH_JSON,TEMPORARY_DEFINITION_FOLDER_EXCEL,"false"};
     	DefinitionConverter.main(args);
-    	assertTrue(FileUtils.deleteDirectory(TEMPORARY_DEFINITION_FOLDER));
+        System.err.println("Dir:" + TEMPORARY_DEFINITION_FOLDER);
+        System.err.println("Cur Dir:" + System.getProperty("user.dir"));
+        FileUtils.deleteDirectory(TEMPORARY_DEFINITION_FOLDER);
 	}
 
 	/**
