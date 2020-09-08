@@ -20,14 +20,15 @@ import java.io.IOException;
  */
 class JsonTransformerTest {
 
-    public static final String DEFAULT_DEFINITIONS_PATH_JSON_EMPTY_1_FILE = "src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/invalid/test/1/empty.json";
-	public static final String DEFAULT_DEFINITIONS_PATH_JSON_EMPTY_1 = "src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/invalid/test/1";
-	public static final String DEFAULT_DEFINITIONS_PATH_JSON_EMPTY = "src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/invalid/test";
-	public static final String DEFAULT_DEFINITIONS_PATH_JSON = "src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/valid/CCD_CNP_27";
-	public static final String DEFAULT_DEFINITIONS_PATH_EXCEL = "src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/excel/CCD_CNP_27.xlsx";
-    public static final String TEMPORARY_DEFINITION_FOLDER_JSON = "src/main/resources/uk/gov/hmcts/befta/dse/ccd/definition_files/json";
-    public static final String TEMPORARY_DEFINITION_FOLDER_EXCEL = "src/main/resources/uk/gov/hmcts/befta/dse/ccd/definition_files/excel";
-    public static final String TEMPORARY_DEFINITION_FOLDER = "src/main/resources/uk/gov/hmcts/befta/dse/ccd/definition_files";
+    private static final String DEFAULT_DEFINITIONS_PATH_JSON_EMPTY_1_FILE = "src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/invalid/test/1/empty.json";
+    private static final String DEFAULT_DEFINITIONS_PATH_JSON_EMPTY = "src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/invalid/test";
+    private static final String DEFAULT_DEFINITIONS_PATH_JSON = "src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/valid/CCD_CNP_27";
+
+    private static final String TEMPORARY_DEFINITION_FOLDER = "temp_dir/JsonTransformerTest/"
+            + System.currentTimeMillis()
+    + "/definition_files";
+    private static final String TEMPORARY_DEFINITION_FOLDER_EXCEL = TEMPORARY_DEFINITION_FOLDER + "/excel";
+
     @BeforeEach
     void setup() {
 		File tempemptyFile = new File(DEFAULT_DEFINITIONS_PATH_JSON_EMPTY_1_FILE);
