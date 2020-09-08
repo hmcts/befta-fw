@@ -34,6 +34,7 @@ public class FileUtils {
                 }
             }
         }
+        System.err.println("Deleting: " + directoryToBeDeleted);
         return directoryToBeDeleted.delete();
     }
 }
