@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import org.junit.Ignore;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,6 +19,7 @@ import java.io.IOException;
  * @author korneleehenry
  *
  */
+@Ignore
 class JsonTransformerTest {
 
     public static final String DEFAULT_DEFINITIONS_PATH_JSON_EMPTY_1_FILE = "src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/invalid/test/1/empty.json";
