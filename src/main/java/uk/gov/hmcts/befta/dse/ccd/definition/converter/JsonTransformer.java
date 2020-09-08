@@ -16,6 +16,7 @@ import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import uk.gov.hmcts.befta.BeftaMain;
 import uk.gov.hmcts.befta.exception.DefinitionTransformerException;
 
 /**
