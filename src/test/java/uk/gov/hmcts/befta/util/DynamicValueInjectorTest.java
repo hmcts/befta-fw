@@ -1,21 +1,16 @@
 package uk.gov.hmcts.befta.util;
 
+import static org.mockito.Mockito.mockStatic;
+
 import org.apache.logging.log4j.util.Strings;
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.mockito.MockedStatic;
 import org.mockito.Mockito;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
-
-import uk.gov.hmcts.befta.DefaultTestAutomationAdapter;
-import uk.gov.hmcts.befta.data.HttpTestData;
-import uk.gov.hmcts.befta.data.HttpTestDataSource;
-import uk.gov.hmcts.befta.data.JsonStoreHttpTestDataSource;
-import uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext;
+import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,8 +18,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(EnvironmentVariableUtils.class)
+import uk.gov.hmcts.befta.DefaultTestAutomationAdapter;
+import uk.gov.hmcts.befta.data.HttpTestData;
+import uk.gov.hmcts.befta.data.HttpTestDataSource;
+import uk.gov.hmcts.befta.data.JsonStoreHttpTestDataSource;
+import uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext;
+
 public class DynamicValueInjectorTest {
 
     private static final String[] TEST_DATA_RESOURCE_PACKAGES = { "framework-test-data" };
@@ -36,19 +35,31 @@ public class DynamicValueInjectorTest {
     @Mock
     private DefaultTestAutomationAdapter taAdapter;
 
-    @Before
-    public void prepareScenarioContext() {
-        PowerMockito.mockStatic(EnvironmentVariableUtils.class);
+   private MockedStatic<EnvironmentVariableUtils> environmentVariableUtilsMock = null;
 
-        Mockito.when(EnvironmentVariableUtils.getRequiredVariable("S2S_URL")).thenReturn("http://s2s.hmcts.bla.bla");
-        Mockito.when(EnvironmentVariableUtils.getRequiredVariable("IDAM_URL")).thenReturn("http://idam.hmcts.bla.bla");
-        Mockito.when(EnvironmentVariableUtils.getRequiredVariable("IDAM_USER_URL"))
-                .thenReturn("http://idamuser.hmcts.bla.bla");
-        Mockito.when(EnvironmentVariableUtils.getRequiredVariable("DEFINITION_STORE_HOST"))
-                .thenReturn("http://defstore.hmcts.bla.bla");
-        Mockito.when(EnvironmentVariableUtils.getRequiredVariable("CCD_CASEWORKER_AUTOTEST_PASSWORD"))
-                .thenReturn("PassQ@rT");
+    @BeforeEach
+    public void prepareMockedObjectUnderTest() {
+        try {
+        	environmentVariableUtilsMock = mockStatic(EnvironmentVariableUtils.class);
+        	prepareScenarioConext();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
+    @AfterEach
+    public void closeMockedObjectUnderTest() {
+        try {
+        	scenarioContext = null;
+        	environmentVariableUtilsMock.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @SuppressWarnings({ "deprecation" })
+    private void prepareScenarioConext() {
+        MockitoAnnotations.initMocks(this);
         scenarioContext = new BackEndFunctionalTestScenarioContextForTest();
 
         scenarioContext.initializeTestDataFor("Simple-Test-Data-With-All-Possible-Dynamic-Values");
@@ -71,7 +82,17 @@ public class DynamicValueInjectorTest {
         Assert.assertEquals("[[DEFAULT_AUTO_VALUE]]", testData.getRequest().getPathVariables().get("uid"));
 
         underTest.injectDataFromContextBeforeApiCall();
+        // Mocking
+        Mockito.when(EnvironmentVariableUtils.getRequiredVariable("S2S_URL")).thenReturn("http://s2s.hmcts.bla.bla");
+        Mockito.when(EnvironmentVariableUtils.getRequiredVariable("IDAM_URL")).thenReturn("http://idam.hmcts.bla.bla");
+        Mockito.when(EnvironmentVariableUtils.getRequiredVariable("IDAM_USER_URL"))
+                .thenReturn("http://idamuser.hmcts.bla.bla");
+        Mockito.when(EnvironmentVariableUtils.getRequiredVariable("DEFINITION_STORE_HOST"))
+                .thenReturn("http://defstore.hmcts.bla.bla");
+        Mockito.when(EnvironmentVariableUtils.getRequiredVariable("CCD_CASEWORKER_AUTOTEST_PASSWORD"))
+                .thenReturn("PassQ@rT");
 
+        // Mocked behavior
         Assert.assertEquals("mutlu.sancaktutar@hmcts.net", testData.getRequest().getPathVariables().get("email"));
 
         Assert.assertEquals("token value", testData.getRequest().getPathVariables().get("token"));
@@ -97,10 +118,21 @@ public class DynamicValueInjectorTest {
 
         DynamicValueInjector underTest = new DynamicValueInjector(taAdapter, testData, scenarioContext);
 
+
+        // Mocking
+        Mockito.when(EnvironmentVariableUtils.getRequiredVariable("S2S_URL")).thenReturn("http://s2s.hmcts.bla.bla");
+        Mockito.when(EnvironmentVariableUtils.getRequiredVariable("IDAM_URL")).thenReturn("http://idam.hmcts.bla.bla");
+        Mockito.when(EnvironmentVariableUtils.getRequiredVariable("IDAM_USER_URL"))
+                .thenReturn("http://idamuser.hmcts.bla.bla");
+        Mockito.when(EnvironmentVariableUtils.getRequiredVariable("DEFINITION_STORE_HOST"))
+                .thenReturn("http://defstore.hmcts.bla.bla");
+        Mockito.when(EnvironmentVariableUtils.getRequiredVariable("CCD_CASEWORKER_AUTOTEST_PASSWORD"))
+                .thenReturn("PassQ@rT");
+
+        // Mocked behavior
         Assert.assertEquals("[[DEFAULT_AUTO_VALUE]]", testData.getRequest().getPathVariables().get("uid"));
 
         underTest.injectDataFromContextBeforeApiCall();
-
         Assert.assertEquals(
                 "a.user@http://idam.hmcts.bla.bla/token value at index 2#http://idamuser.hmcts.bla.bla/documents/binary",
                 testData.getRequest().getPathVariables().get("dummyComplexPathVariable"));
@@ -128,8 +160,8 @@ public class DynamicValueInjectorTest {
         Assert.assertEquals(
                 "abctoken value at index 2.=.{{DEFINITION_STORE_HOST}}token value at index 2abc123{{DEFINITION_STORE_HOST}}",
                 testData.getExpectedResponse().getBody().get("complicatedNestedValue_2"));
-
         underTest.injectDataFromContextAfterApiCall();
+        Mockito.when(EnvironmentVariableUtils.getRequiredVariable("IDAM_URL")).thenReturn("http://idam.hmcts.bla.bla");
 
         Assert.assertEquals("http://defstore.hmcts.bla.blaPa55word11http://defstore.hmcts.bla.bla",
                 testData.getExpectedResponse().getBody().get("threeEnvironmentVariablesOnly"));
@@ -138,6 +170,7 @@ public class DynamicValueInjectorTest {
         Assert.assertEquals(
                 "abctoken value at index 2.=.http://defstore.hmcts.bla.blatoken value at index 2abc123http://defstore.hmcts.bla.bla",
                 testData.getExpectedResponse().getBody().get("complicatedNestedValue_2"));
+
     }
 
     @Test

@@ -7,7 +7,8 @@ import com.google.common.reflect.ClassPath;
 
 import java.util.ArrayList;
 
-import uk.gov.hmcts.jsonstore.JsonResourceStoreWithInheritance;
+import uk.gov.hmcts.befta.factory.JsonStoreFactory;
+import uk.gov.hmcts.jsonstore.JsonStoreWithInheritance;
 
 public class JsonStoreHttpTestDataSource implements HttpTestDataSource {
 
@@ -15,7 +16,7 @@ public class JsonStoreHttpTestDataSource implements HttpTestDataSource {
 
     private ArrayList<String> resourcePaths = new ArrayList<>();
 
-    private JsonResourceStoreWithInheritance jsonStore = null;
+    private JsonStoreWithInheritance jsonStore = null;
 
     public JsonStoreHttpTestDataSource(String[] resourcePackages) {
         long start = System.currentTimeMillis();
@@ -42,8 +43,10 @@ public class JsonStoreHttpTestDataSource implements HttpTestDataSource {
     @Override
     public HttpTestData getDataForTestCall(String testDataId) {
         long start = System.currentTimeMillis();
+        String jsonStoreOption="Resource";
         if (jsonStore == null) {
-            jsonStore = new JsonResourceStoreWithInheritance(resourcePaths.toArray(new String[0]));
+            jsonStore = JsonStoreFactory.createJsonStoreWithInheritance(jsonStoreOption,
+                    resourcePaths.toArray(new String[0]));
         }
         try {
             return jsonStore.getObjectWithId(testDataId, HttpTestData.class);

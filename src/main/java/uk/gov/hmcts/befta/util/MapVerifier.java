@@ -24,6 +24,15 @@ public class MapVerifier {
 
     private boolean caseSensitiveForStrings;
 
+	public static MapVerifier createMapVerifier(String fieldPrefix, int maxMessageDepth,
+			boolean caseSensitiveForStrings) {
+		return new MapVerifier(fieldPrefix, maxMessageDepth, caseSensitiveForStrings);
+	}
+
+	public static MapVerifier createMapVerifier(String fieldPrefix, int maxMessageDepth) {
+		return new MapVerifier(fieldPrefix, maxMessageDepth);
+	}
+
     public MapVerifier(String fieldPrefix) {
         this(fieldPrefix, 5);
     }
