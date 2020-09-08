@@ -1,10 +1,13 @@
 package uk.gov.hmcts.befta.dse.ccd.definition.converter;
 
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
+
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import uk.gov.hmcts.befta.BeftaMain;
+import uk.gov.hmcts.befta.exception.DefinitionTransformerException;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -15,9 +18,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-
-import uk.gov.hmcts.befta.BeftaMain;
-import uk.gov.hmcts.befta.exception.DefinitionTransformerException;
 
 /**
  * Read a JSON representation of a definition file
@@ -35,6 +35,8 @@ public class JsonTransformer {
             "CaseEventToFields", "CaseField", "CaseRoles", "CaseTypeTab" ,"SearchInputFields", "SearchResultFields", "State",
             "WorkBasketInputFields", "WorkBasketResultFields", "Category", "Banner", "CaseType", "ComplexTypes", "EventToComplexTypes",
             "FixedLists", "Jurisdiction", "UserProfile","SearchAlias", "SearchCasesResultFields");
+
+    private static final List<String> SHEETS_FOR_URL_SUBSTITUTIONS = Arrays.asList("BEFTA_MASTER/FT_MasterCaseType/CaseEvent.json");
 
     private Map<String, ArrayNode> defFileMap;
 
@@ -75,13 +77,14 @@ public class JsonTransformer {
                 try {
                     JsonNode rootSheetArray = objectMapper.readTree(jsonFile);
 
-                    if (BeftaMain.getConfig().getTestUrl().contains("localhost")) {
+                    if (BeftaMain.getConfig().getTestUrl().contains("localhost")
+                            && SHEETS_FOR_URL_SUBSTITUTIONS.stream().anyMatch(substitutionFilePath -> jsonFile.getPath().endsWith(substitutionFilePath))) {
                         String rootSheetArrayString = rootSheetArray.toString().replaceAll("ccd-test-stubs-service-aat.service.core-compute-aat.internal", "ccd-test-stubs-service:5555");
                         rootSheetArray = objectMapper.readTree(rootSheetArrayString);
                     }
 
                     for (JsonNode sheetRow : rootSheetArray){
-                        sheet = jsonFile.getName().replace(".json","");
+                        sheet = jsonFile.getName().replace(".json", "");
                         defFileMap.get(sheet).add(sheetRow);
                     }
                 } catch (IOException e) {
