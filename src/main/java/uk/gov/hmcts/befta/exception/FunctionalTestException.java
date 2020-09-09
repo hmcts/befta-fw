@@ -11,4 +11,5 @@ public class FunctionalTestException extends RuntimeException {
     public FunctionalTestException(final String message, final Throwable cause) {
         super(message, cause);
     }
+
 }

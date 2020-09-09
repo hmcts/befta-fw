@@ -1,12 +1,15 @@
-package uk.gov.hmcts.befta.dse.ccd.definition.converter;
+package uk.gov.hmcts.befta.util;
 
 import java.io.File;
 
 public class FileUtils {
 
+    private FileUtils() {
+    }
+
     public static void createDirectoryHierarchy(File dir) {
-        if (!dir.exists()){
-            if (!dir.mkdirs()){
+        if (!dir.exists()) {
+            if (!dir.mkdirs()) {
                 throw new RuntimeException("Could not create directory for " + dir);
             }
         }
@@ -18,12 +21,12 @@ public class FileUtils {
         createDirectoryHierarchy(file);
     }
 
-    public static boolean deleteDirectory(String path){
+    public static boolean deleteDirectory(String path) {
         return deleteDirectory(new File(path));
     }
 
-    public static boolean deleteDirectory(File directoryToBeDeleted){
-        if (directoryToBeDeleted.exists()){
+    public static boolean deleteDirectory(File directoryToBeDeleted) {
+        if (directoryToBeDeleted.exists()) {
             File[] allContents = directoryToBeDeleted.listFiles();
             if (allContents != null) {
                 for (File file : allContents) {
