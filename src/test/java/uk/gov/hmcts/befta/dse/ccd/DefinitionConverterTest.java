@@ -7,10 +7,11 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junitpioneer.jupiter.SetEnvironmentVariable;
 
 import java.io.File;
 
-import uk.gov.hmcts.befta.dse.ccd.definition.converter.FileUtils;
+import uk.gov.hmcts.befta.util.FileUtils;
 
 
 /**
@@ -19,11 +20,13 @@ import uk.gov.hmcts.befta.dse.ccd.definition.converter.FileUtils;
  */
 class DefinitionConverterTest {
 
-    public static final String DEFAULT_DEFINITIONS_PATH_JSON = "src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/valid/CCD_CNP_27";
-	public static final String DEFAULT_DEFINITIONS_PATH_EXCEL = "src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/excel/CCD_CNP_27.xlsx";
-    public static final String TEMPORARY_DEFINITION_FOLDER_JSON = "src/main/resources/uk/gov/hmcts/befta/dse/ccd/definition_files/json";
-    public static final String TEMPORARY_DEFINITION_FOLDER_EXCEL = "src/main/resources/uk/gov/hmcts/befta/dse/ccd/definition_files/excel";
-    public static final String TEMPORARY_DEFINITION_FOLDER = "src/main/resources/uk/gov/hmcts/befta/dse/ccd/definition_files";
+    private static final String DEFAULT_DEFINITIONS_PATH_JSON = "src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/valid/CCD_CNP_27";
+    private static final String DEFAULT_DEFINITIONS_PATH_EXCEL = "src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/excel/CCD_CNP_27.xlsx";
+    private static final String TEMPORARY_DEFINITION_FOLDER = "temp_dir/DefinitionConverterTest/"
+            + System.currentTimeMillis()
+            + "/definition_files";
+    private static final String TEMPORARY_DEFINITION_FOLDER_JSON = TEMPORARY_DEFINITION_FOLDER + "/json";
+    private static final String TEMPORARY_DEFINITION_FOLDER_EXCEL = TEMPORARY_DEFINITION_FOLDER + "/excel";
 
 	/**
 	 * Test method for {@link uk.gov.hmcts.befta.dse.ccd.DefinitionConverter#main(java.lang.String[])}.
@@ -93,6 +96,7 @@ class DefinitionConverterTest {
 	 * Test method for {@link uk.gov.hmcts.befta.dse.ccd.DefinitionConverter#main(java.lang.String[])}.
 	 */
 	@Test
+    @SetEnvironmentVariable(key = "TEST_URL", value = "http://localhost:8080/dummy-api")
 	void testMainArgsTojson() {
 		String tempJsonFolder = "src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/excel/AUTOTEST1";
 		String[] args = {"to-json",DEFAULT_DEFINITIONS_PATH_EXCEL};
@@ -104,6 +108,7 @@ class DefinitionConverterTest {
 	 * Test method for {@link uk.gov.hmcts.befta.dse.ccd.DefinitionConverter#main(java.lang.String[])}.
 	 */
 	@Test
+    @SetEnvironmentVariable(key = "TEST_URL", value = "http://localhost:8080/dummy-api")
 	void testMainArgsToexcelTrue() {
 		String[] args = {"to-excel",DEFAULT_DEFINITIONS_PATH_JSON,TEMPORARY_DEFINITION_FOLDER_EXCEL,"true"};
     	DefinitionConverter.main(args);
@@ -114,16 +119,18 @@ class DefinitionConverterTest {
 	 * Test method for {@link uk.gov.hmcts.befta.dse.ccd.DefinitionConverter#main(java.lang.String[])}.
 	 */
 	@Test
+    @SetEnvironmentVariable(key = "TEST_URL", value = "http://localhost:8080/dummy-api")
 	void testMainArgsToexcelfalse() {
 		String[] args = {"to-excel",DEFAULT_DEFINITIONS_PATH_JSON,TEMPORARY_DEFINITION_FOLDER_EXCEL,"false"};
     	DefinitionConverter.main(args);
-    	assertTrue(FileUtils.deleteDirectory(TEMPORARY_DEFINITION_FOLDER));
+        assertTrue(FileUtils.deleteDirectory(TEMPORARY_DEFINITION_FOLDER));
 	}
 
 	/**
 	 * Test method for {@link uk.gov.hmcts.befta.dse.ccd.DefinitionConverter#main(java.lang.String[])}.
 	 */
 	@Test
+    @SetEnvironmentVariable(key = "TEST_URL", value = "http://localhost:8080/dummy-api")
 	void testMainArgsToexcel() {
 		String tempExcel = "src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/valid/CCD_CNP_27.xlsx";
 		File tempfile = new File(tempExcel);

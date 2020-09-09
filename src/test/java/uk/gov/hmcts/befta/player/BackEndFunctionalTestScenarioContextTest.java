@@ -58,7 +58,9 @@ public class BackEndFunctionalTestScenarioContextTest {
     @AfterEach
     public void closeStaticMockedObjectUnderTest() {
         try {
-        	beftaMain.close();
+            if (beftaMain != null) {
+                beftaMain.close();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

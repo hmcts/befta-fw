@@ -8,7 +8,6 @@ import java.io.OutputStream;
 import java.net.URL;
 
 import io.restassured.internal.util.IOUtils;
-import uk.gov.hmcts.befta.dse.ccd.definition.converter.FileUtils;
 import uk.gov.hmcts.befta.exception.FunctionalTestException;
 import uk.gov.hmcts.befta.exception.JsonStoreCreationException;
 

@@ -20,6 +20,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import uk.gov.hmcts.befta.util.FileUtils;
+
 public class ExcelTransformer {
     private static final List<String> PER_CASE_TYPE_SHEET_NAMES = Arrays.asList("CaseEvent", "AuthorisationCaseEvent",
             "AuthorisationCaseField", "AuthorisationCaseState", "AuthorisationCaseType", "AuthorisationComplexType",
