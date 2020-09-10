@@ -24,10 +24,10 @@ public class LaunchDarklyConfig {
     }
 
     public static String getEnvironmentName() {
-       return EnvironmentVariableUtils.getRequiredVariable("LAUNCH_DARKLY_ENV");
+       return System.getenv("LAUNCH_DARKLY_ENV");
     }
 
     public static String getLDMicroserviceName() {
-        return EnvironmentVariableUtils.getRequiredVariable("MICROSERVICE_NAME");
+        return System.getenv("MICROSERVICE_NAME");
     }
 }
