@@ -29,13 +29,13 @@ public class LaunchDarklyFeatureToggleService implements FeatureToggle {
                 .map(tag -> tag.substring(tag.indexOf("(") + 1, tag.indexOf(")")))
                 .findFirst();
 
-        if (ldClient != null && flagName.isPresent() && StringUtils.isNotEmpty(flagName.get())) {
+        if (ldClient != null && flagName.isPresent()) {
             if (LaunchDarklyConfig.getLDMicroserviceName() == null) {
-                BeftaUtils.skipScenario(scenario, ("The Scenario is being skipped as Microservice Name variable is not configured"));
+                BeftaUtils.skipScenario(scenario, ("The Scenario is being skipped as MICROSERVICE_NAME variable is not configured"));
 
             }
             if (LaunchDarklyConfig.getEnvironmentName() == null) {
-                BeftaUtils.skipScenario(scenario, ("The Scenario is being skipped as LD Environment variable is not configured"));
+                BeftaUtils.skipScenario(scenario, ("The Scenario is being skipped as LAUNCH_DARKLY_ENV is not configured"));
             }
 
             LDUser user = new LDUser.Builder(LaunchDarklyConfig.getEnvironmentName())
