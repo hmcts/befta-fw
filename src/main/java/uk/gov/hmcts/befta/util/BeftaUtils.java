@@ -1,5 +1,13 @@
 package uk.gov.hmcts.befta.util;
 
+import io.cucumber.java.Scenario;
+import io.restassured.internal.util.IOUtils;
+import org.junit.AssumptionViolatedException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import uk.gov.hmcts.befta.dse.ccd.definition.converter.FileUtils;
+import uk.gov.hmcts.befta.exception.FunctionalTestException;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -7,12 +15,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 
-import io.restassured.internal.util.IOUtils;
-import uk.gov.hmcts.befta.dse.ccd.definition.converter.FileUtils;
-import uk.gov.hmcts.befta.exception.FunctionalTestException;
-
 public class BeftaUtils {
 
+    static Logger logger = LoggerFactory.getLogger(BeftaUtils.class);
     private static final String TEMPORARY_DEFINITION_FOLDER = "definition_files";
 
     public static File getClassPathResourceIntoTemporaryFile(String resourcePath) {
@@ -53,5 +58,10 @@ public class BeftaUtils {
         }
     }
 
+    public static void skipScenario(Scenario scenario, String reason) {
+        scenario.log(reason);
+        logger.info(reason);
 
+        throw new AssumptionViolatedException(reason);
+    }
 }

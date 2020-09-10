@@ -5,8 +5,8 @@ import com.launchdarkly.sdk.server.LDClient;
 import io.cucumber.java.Scenario;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
-import org.junit.AssumptionViolatedException;
 import uk.gov.hmcts.befta.featureToggle.FeatureToggle;
+import uk.gov.hmcts.befta.util.BeftaUtils;
 
 import java.util.Optional;
 
@@ -14,6 +14,9 @@ import java.util.Optional;
 public class LaunchDarklyFeatureToggleService implements FeatureToggle {
     public static final LaunchDarklyFeatureToggleService INSTANCE =
             new LaunchDarklyFeatureToggleService();
+    public static final String BEFTA = "befta";
+    public static final String USER = "user";
+    public static final String SERVICENAME = "servicename";
 
     private final LDClient ldClient = LaunchDarklyConfig.getLdInstance();
     private static final String LAUNCH_DARKLY_FLAG = "FeatureToggle";
@@ -28,20 +31,20 @@ public class LaunchDarklyFeatureToggleService implements FeatureToggle {
 
         if (ldClient != null && flagName.isPresent() && StringUtils.isNotEmpty(flagName.get())) {
             LDUser user = new LDUser.Builder(LaunchDarklyConfig.getEnvironmentName())
-                    .firstName("befta")
-                    .lastName("user")
-                    .custom("servicename", LaunchDarklyConfig.getLDMicroserviceName())
+                    .firstName(BEFTA)
+                    .lastName(USER)
+                    .custom(SERVICENAME, LaunchDarklyConfig.getLDMicroserviceName())
                     .build();
 
-            boolean isFlagTrue = ldClient.boolVariation(flagName.get(), user, false);
+            boolean isLDFlagEnabled = ldClient.boolVariation(flagName.get(), user, false);
 
-            if (!isFlagTrue) {
+            if (!isLDFlagEnabled) {
                 Optional<String> scenarioName = scenario.getSourceTagNames().stream()
                         .filter(tag -> tag.contains("@S-"))
                         .map(tag -> tag.substring(1))
                         .findFirst();
 
-                throw new AssumptionViolatedException(String.format("The scenario %s is not enabled.",
+                BeftaUtils.skipScenario(scenario, String.format("The Scenario %s is being skipped as LD flag is disabled",
                         scenarioName.orElse(StringUtils.EMPTY)));
             }
         }
