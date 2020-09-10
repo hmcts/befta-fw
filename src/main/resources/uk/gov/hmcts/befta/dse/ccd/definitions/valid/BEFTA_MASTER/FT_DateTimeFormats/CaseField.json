@@ -12,7 +12,8 @@
   "SecurityClassification" : "PUBLIC",
   "Min" : "",
   "Max" : "",
-  "DefaultHidden" : "No"
+  "DefaultHidden" : "No",
+  "Searchable" : ""
 }, {
   "LiveFrom" : "02/01/2017",
   "LiveTo" : "",
@@ -27,7 +28,8 @@
   "SecurityClassification" : "PUBLIC",
   "Min" : "",
   "Max" : "",
-  "DefaultHidden" : "No"
+  "DefaultHidden" : "No",
+  "Searchable" : ""
 }, {
   "LiveFrom" : "03/01/2017",
   "LiveTo" : "",
@@ -42,7 +44,8 @@
   "SecurityClassification" : "PUBLIC",
   "Min" : "",
   "Max" : "",
-  "DefaultHidden" : "No"
+  "DefaultHidden" : "No",
+  "Searchable" : ""
 }, {
   "LiveFrom" : "04/01/2017",
   "LiveTo" : "",
@@ -57,7 +60,8 @@
   "SecurityClassification" : "PUBLIC",
   "Min" : "",
   "Max" : "",
-  "DefaultHidden" : "No"
+  "DefaultHidden" : "No",
+  "Searchable" : ""
 }, {
   "LiveFrom" : "05/01/2017",
   "LiveTo" : "",
@@ -72,7 +76,8 @@
   "SecurityClassification" : "PUBLIC",
   "Min" : "",
   "Max" : "",
-  "DefaultHidden" : "No"
+  "DefaultHidden" : "No",
+  "Searchable" : ""
 }, {
   "LiveFrom" : "06/01/2017",
   "LiveTo" : "",
@@ -87,7 +92,8 @@
   "SecurityClassification" : "PUBLIC",
   "Min" : "",
   "Max" : "",
-  "DefaultHidden" : "No"
+  "DefaultHidden" : "No",
+  "Searchable" : ""
 }, {
   "LiveFrom" : "07/01/2017",
   "LiveTo" : "",
@@ -102,7 +108,8 @@
   "SecurityClassification" : "PUBLIC",
   "Min" : "",
   "Max" : "",
-  "DefaultHidden" : "No"
+  "DefaultHidden" : "No",
+  "Searchable" : ""
 }, {
   "LiveFrom" : "08/01/2017",
   "LiveTo" : "",
@@ -117,7 +124,8 @@
   "SecurityClassification" : "PUBLIC",
   "Min" : "",
   "Max" : "",
-  "DefaultHidden" : "No"
+  "DefaultHidden" : "No",
+  "Searchable" : ""
 }, {
   "LiveFrom" : "09/01/2017",
   "LiveTo" : "",
@@ -132,7 +140,8 @@
   "SecurityClassification" : "PUBLIC",
   "Min" : "",
   "Max" : "",
-  "DefaultHidden" : "No"
+  "DefaultHidden" : "No",
+  "Searchable" : ""
 }, {
   "LiveFrom" : "10/01/2017",
   "LiveTo" : "",
@@ -147,5 +156,6 @@
   "SecurityClassification" : "PUBLIC",
   "Min" : "",
   "Max" : "",
-  "DefaultHidden" : "No"
+  "DefaultHidden" : "No",
+  "Searchable" : ""
 } ]

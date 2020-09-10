@@ -23,16 +23,17 @@ import uk.gov.hmcts.befta.BeftaMain;
 import uk.gov.hmcts.befta.TestAutomationAdapter;
 import uk.gov.hmcts.befta.auth.UserTokenProviderConfig;
 import uk.gov.hmcts.befta.data.UserData;
-import uk.gov.hmcts.befta.dse.ccd.definition.converter.FileUtils;
 import uk.gov.hmcts.befta.dse.ccd.definition.converter.JsonTransformer;
 import uk.gov.hmcts.befta.exception.FunctionalTestException;
 import uk.gov.hmcts.befta.util.BeftaUtils;
+import uk.gov.hmcts.befta.util.FileUtils;
 
 public class TestDataLoaderToDefinitionStore {
 
     private static final Logger logger = LoggerFactory.getLogger(TestDataLoaderToDefinitionStore.class);
 
     public static final String DEFAULT_DEFINITIONS_PATH = "uk/gov/hmcts/befta/dse/ccd/definitions/valid";
+
     private static final String TEMPORARY_DEFINITION_FOLDER = "definition_files";
 
     private static final CcdRoleConfig[] CCD_ROLES_NEEDED_FOR_TA = {
@@ -68,8 +69,7 @@ public class TestDataLoaderToDefinitionStore {
             new CcdRoleConfig("caseworker-befta_master-solicitor_3", "PUBLIC"),
             new CcdRoleConfig("caseworker-befta_master-junior", "PUBLIC"),
             new CcdRoleConfig("caseworker-befta_master-manager", "PUBLIC"),
-            new CcdRoleConfig("caseworker-caa", "PUBLIC")
-    };
+            new CcdRoleConfig("caseworker-caa", "PUBLIC") };
 
     private TestAutomationAdapter adapter;
     private String definitionsPath;
@@ -125,7 +125,8 @@ public class TestDataLoaderToDefinitionStore {
         Map<String, String> ccdRoleInfo = new HashMap<>();
         ccdRoleInfo.put("role", roleConfig.getRole());
         ccdRoleInfo.put("security_classification", roleConfig.getSecurityClassification());
-        Response response = asAutoTestImporter().given().header("Content-type", "application/json").body(ccdRoleInfo)
+        Response response = asAutoTestImporter().given().header("Content-type", "application/json").body(
+                ccdRoleInfo)
                 .when().put("/api/user-role");
         if (response.getStatusCode() / 100 != 2) {
             String message = "Import failed with response body: " + response.body().prettyPrint();
@@ -143,7 +144,7 @@ public class TestDataLoaderToDefinitionStore {
             for (ClassPath.ResourceInfo info : cp.getResources()) {
                 if (isAnExcelFileToImport(info.getResourceName())) {
                     definitionFileResources.add(info.getResourceName());
-                } else if (isUnderAJsonDefinitionPackage(info.getResourceName())){
+                } else if (isUnderAJsonDefinitionPackage(info.getResourceName())) {
                     convertJsonFilesToExcel = true;
                     File jsonFile = BeftaUtils.createJsonDefinitionFileFromClasspath(info.getResourceName());
                     String jsonDefinitionParentFolder = jsonFile.getParentFile().getParentFile().getPath();
@@ -152,9 +153,9 @@ public class TestDataLoaderToDefinitionStore {
             }
 
             if (convertJsonFilesToExcel) {
-                definitionFileResources.addAll(
-                        definitionJsonResourcesToTransform.stream()
-                        .map(folderPath -> new JsonTransformer(folderPath,TEMPORARY_DEFINITION_FOLDER).transformToExcel())
+                definitionFileResources.addAll(definitionJsonResourcesToTransform.stream()
+                        .map(folderPath -> new JsonTransformer(folderPath, TEMPORARY_DEFINITION_FOLDER)
+                                .transformToExcel())
                         .collect(Collectors.toList()));
             }
 
@@ -165,11 +166,8 @@ public class TestDataLoaderToDefinitionStore {
     }
 
     protected void importDefinition(String fileResourcePath) throws IOException {
-        File file =  new File(fileResourcePath).exists()
-                ?
-                new File(fileResourcePath)
-                :
-                BeftaUtils.getClassPathResourceIntoTemporaryFile(fileResourcePath);
+        File file = new File(fileResourcePath).exists() ? new File(fileResourcePath)
+                : BeftaUtils.getClassPathResourceIntoTemporaryFile(fileResourcePath);
 
         try {
             Response response = asAutoTestImporter().given().multiPart(file).when().post("/import");
@@ -196,14 +194,13 @@ public class TestDataLoaderToDefinitionStore {
     }
 
     private boolean isAnExcelFileToImport(String resourceName) {
-        return resourceName.startsWith(definitionsPath)
-                && resourceName.toLowerCase().endsWith(".xlsx")
+        return resourceName.startsWith(definitionsPath) && resourceName.toLowerCase().endsWith(
+                ".xlsx")
                 && !resourceName.startsWith("~$");
     }
 
     private boolean isUnderAJsonDefinitionPackage(String resourceName) {
-            return resourceName.startsWith(definitionsPath)
-                && resourceName.toLowerCase().endsWith(".json");
+        return resourceName.startsWith(definitionsPath) && resourceName.toLowerCase().endsWith(".json");
     }
 
 }

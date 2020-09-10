@@ -42,6 +42,7 @@ import uk.gov.hmcts.befta.exception.FunctionalTestException;
 import uk.gov.hmcts.befta.exception.InvalidTestDataException;
 import uk.gov.hmcts.befta.exception.UnconfirmedApiCallException;
 import uk.gov.hmcts.befta.exception.UnconfirmedDataSpecException;
+import uk.gov.hmcts.befta.factory.BeftaScenarioContextFactory;
 import uk.gov.hmcts.befta.featureToggle.FeatureToggle;
 import uk.gov.hmcts.befta.launchdarkly.LaunchDarklyFeatureToggleService;
 import uk.gov.hmcts.befta.util.BeftaUtils;
@@ -63,7 +64,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
 
     public DefaultBackEndFunctionalTestScenarioPlayer() {
         RestAssured.useRelaxedHTTPSValidation();
-        scenarioContext = new BackEndFunctionalTestScenarioContext();
+        scenarioContext = BeftaScenarioContextFactory.createBeftaScenarioContext();
     }
 
     @Before
@@ -75,86 +76,86 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     @Override
     @Given("an appropriate test context as detailed in the test data source")
     public void initializeAppropriateTestContextAsDetailedInTheTestDataSource() {
-            scenarioContext.initializeTestDataFor(scenario);
-            String logPrefix = scenarioContext.getCurrentScenarioTag() + ": Test data ";
-            if (scenarioContext.getTestData() != null) {
-                logger.info(logPrefix + "was loaded successfully");
-            } else {
-                logger.info(logPrefix + "was not found");
-            }
+        scenarioContext.initializeTestDataFor(scenario);
+        String logPrefix = scenarioContext.getCurrentScenarioTag() + ": Test data ";
+        if (scenarioContext.getTestData() != null) {
+            logger.info(logPrefix + "was loaded successfully");
+        } else {
+            logger.info(logPrefix + "was not found");
         }
+    }
 
     @Override
     @Given("a case that has just been created as in [{}]")
     public void createCaseWithTheDataProvidedInATestDataObject(String caseCreationDataId) throws IOException {
-            createCase("to create a full case", caseCreationDataId);
-        }
+        createCase("to create a full case", caseCreationDataId);
+    }
 
     @Override
     @Given("a case [{}] created as in [{}]")
     public void createCaseWithTheDataProvidedInATestDataObject(String specAboutCase, String caseCreationDataId)
             throws IOException {
-            createCase(specAboutCase, caseCreationDataId);
-        }
+        createCase(specAboutCase, caseCreationDataId);
+    }
 
     private void createCase(String specAboutCase, String caseCreationDataId) throws IOException {
-            String accompanyingTokenCreationDataId = caseCreationDataId + "_Token_Creation";
-            HttpTestData tokenCreationData = BackEndFunctionalTestScenarioContext.DATA_SOURCE
-                    .getDataForTestCall(accompanyingTokenCreationDataId);
-            if (tokenCreationData == null) {
-                accompanyingTokenCreationDataId = "Standard_Token_Creation_Data_For_Case_Creation";
-            }
-            performAndVerifyTheExpectedResponseForAnApiCall("to create a token for case creation",
-                    accompanyingTokenCreationDataId);
-            performAndVerifyTheExpectedResponseForAnApiCall(specAboutCase, caseCreationDataId);
+        String accompanyingTokenCreationDataId = caseCreationDataId + "_Token_Creation";
+        HttpTestData tokenCreationData = BackEndFunctionalTestScenarioContext.DATA_SOURCE
+                .getDataForTestCall(accompanyingTokenCreationDataId);
+        if (tokenCreationData == null) {
+            accompanyingTokenCreationDataId = "Standard_Token_Creation_Data_For_Case_Creation";
         }
+        performAndVerifyTheExpectedResponseForAnApiCall("to create a token for case creation",
+                accompanyingTokenCreationDataId);
+        performAndVerifyTheExpectedResponseForAnApiCall(specAboutCase, caseCreationDataId);
+    }
 
     @Override
     @Given("a user [{}]")
     @Given("a user with [{}]")
     public void verifyThatThereIsAUserInTheContextWithAParticularSpecification(String specificationAboutAUser) {
-            verifyThatThereIsAUserInTheContextWithAParticularSpecification(this.scenarioContext, specificationAboutAUser);
-        }
+        verifyThatThereIsAUserInTheContextWithAParticularSpecification(this.scenarioContext, specificationAboutAUser);
+    }
 
     private void verifyThatThereIsAUserInTheContextWithAParticularSpecification(
             BackEndFunctionalTestScenarioContext scenarioContext, String specificationAboutAUser) {
-            boolean doesTestDataMeetSpec = scenarioContext.getTestData().meetsSpec(specificationAboutAUser);
-            if (!doesTestDataMeetSpec) {
-                throw new UnconfirmedDataSpecException(specificationAboutAUser);
-            }
-
-            Entry<String, UserData> userDataEntry = scenarioContext.getNextUserToAuthenticate();
-
-            if (userDataEntry != null) {
-                verifyTheUserBeingSpecifiedInTheContext(scenarioContext, userDataEntry.getKey(), userDataEntry.getValue());
-            } else {
-                String message = "The user [" + specificationAboutAUser
-                        + "] will not be verified with authentication as it is not listed in test data.";
-                scenario.write(message);
-                logger.warn(message);
-            }
+        boolean doesTestDataMeetSpec = scenarioContext.getTestData().meetsSpec(specificationAboutAUser);
+        if (!doesTestDataMeetSpec) {
+            throw new UnconfirmedDataSpecException(specificationAboutAUser);
         }
+
+        Entry<String, UserData> userDataEntry = scenarioContext.getNextUserToAuthenticate();
+
+        if (userDataEntry != null) {
+            verifyTheUserBeingSpecifiedInTheContext(scenarioContext, userDataEntry.getKey(), userDataEntry.getValue());
+        } else {
+            String message = "The user [" + specificationAboutAUser
+                    + "] will not be verified with authentication as it is not listed in test data.";
+            scenario.write(message);
+            logger.warn(message);
+        }
+    }
 
     @Override
     @Given("[{}] in the context of the scenario")
     @Given("[{}] in the context")
     public void verifyThatASpecificationAboutScenarioContextIsConfirmed(String specificationAboutScenarioContext) {
-            if (specificationAboutScenarioContext.toLowerCase().startsWith("a user ")) {
-                verifyThatThereIsAUserInTheContextWithAParticularSpecification(specificationAboutScenarioContext);
-            } else {
-                boolean doesTestDataMeetSpec = scenarioContext.getTestData().meetsSpec(specificationAboutScenarioContext);
-                if (!doesTestDataMeetSpec) {
-                    throw new UnconfirmedDataSpecException(specificationAboutScenarioContext);
-                }
+        if (specificationAboutScenarioContext.toLowerCase().startsWith("a user ")) {
+            verifyThatThereIsAUserInTheContextWithAParticularSpecification(specificationAboutScenarioContext);
+        } else {
+            boolean doesTestDataMeetSpec = scenarioContext.getTestData().meetsSpec(specificationAboutScenarioContext);
+            if (!doesTestDataMeetSpec) {
+                throw new UnconfirmedDataSpecException(specificationAboutScenarioContext);
             }
         }
+    }
 
     @Override
     @When("a request is prepared with appropriate values")
     public void prepareARequestWithAppropriateValues() throws IOException {
-            runPrerequisitesSpecifiedInTheContext(this.scenarioContext);
-            prepareARequestWithAppropriateValues(this.scenarioContext);
-        }
+        runPrerequisitesSpecifiedInTheContext(this.scenarioContext);
+        prepareARequestWithAppropriateValues(this.scenarioContext);
+    }
 
     private void prepareARequestWithAppropriateValues(BackEndFunctionalTestScenarioContext scenarioContext)
             throws IOException {
@@ -305,8 +306,8 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     @Override
     @When("the request [{}]")
     public void verifyTheRequestInTheContextWithAParticularSpecification(String requestSpecification) {
-            verifyTheRequestInTheContextWithAParticularSpecification(this.scenarioContext, requestSpecification);
-        }
+        verifyTheRequestInTheContextWithAParticularSpecification(this.scenarioContext, requestSpecification);
+    }
 
     private void verifyTheRequestInTheContextWithAParticularSpecification(
             BackEndFunctionalTestScenarioContext scenarioContext, String requestSpecification) {
@@ -421,28 +422,28 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     @Override
     @Then("a positive response is received")
     public void verifyThatAPositiveResponseWasReceived() {
-            int responseCode = scenarioContext.getTheResponse().getResponseCode();
-            scenario.write("Response code: " + responseCode);
-            boolean responseCodePositive = responseCode / 100 == 2;
-            Assert.assertTrue("Response code '" + responseCode + "' is not a success code.", responseCodePositive);
-        }
+        int responseCode = scenarioContext.getTheResponse().getResponseCode();
+        scenario.write("Response code: " + responseCode);
+        boolean responseCodePositive = responseCode / 100 == 2;
+        Assert.assertTrue("Response code '" + responseCode + "' is not a success code.", responseCodePositive);
+    }
 
     @Override
     @Then("a negative response is received")
     public void verifyThatANegativeResponseWasReceived() {
-            int responseCode = scenarioContext.getTheResponse().getResponseCode();
-            scenario.write("Response code: " + responseCode);
-            boolean responseCodePositive = responseCode / 100 == 2;
-            Assert.assertFalse("Response code '" + responseCode + "' is unexpectedly a success code.",
-                    responseCodePositive);
-        }
+        int responseCode = scenarioContext.getTheResponse().getResponseCode();
+        scenario.write("Response code: " + responseCode);
+        boolean responseCodePositive = responseCode / 100 == 2;
+        Assert.assertFalse("Response code '" + responseCode + "' is unexpectedly a success code.",
+                responseCodePositive);
+    }
 
     @Override
     @Then("the response has all the details as expected")
     @Then("the response has all other details as expected")
     public void verifyThatTheResponseHasAllTheDetailsAsExpected() throws IOException {
-            verifyThatTheResponseHasAllTheDetailsAsExpected(this.scenarioContext);
-        }
+        verifyThatTheResponseHasAllTheDetailsAsExpected(this.scenarioContext);
+    }
 
     private void verifyThatTheResponseHasAllTheDetailsAsExpected(BackEndFunctionalTestScenarioContext scenarioContext)
             throws IOException {
@@ -507,11 +508,11 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     @Override
     @Then("the response [{}]")
     public void verifyTheResponseInTheContextWithAParticularSpecification(String responseSpecification) {
-            boolean responseSpecificationConfirmed = scenarioContext.getTestData().meetsSpec(responseSpecification);
-            if (!responseSpecificationConfirmed) {
-                throw new UnconfirmedDataSpecException(responseSpecification);
-            }
+        boolean responseSpecificationConfirmed = scenarioContext.getTestData().meetsSpec(responseSpecification);
+        if (!responseSpecificationConfirmed) {
+            throw new UnconfirmedDataSpecException(responseSpecification);
         }
+    }
 
     @Override
     @Given("a successful call [{}] as in [{}]")
@@ -520,8 +521,8 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     @Then("another call [{}] will get the expected response as in [{}]")
     public void performAndVerifyTheExpectedResponseForAnApiCall(String testDataSpec, String testDataId)
             throws IOException {
-            performAndVerifyTheExpectedResponseForAnApiCall(this.scenarioContext, testDataSpec, testDataId, null);
-        }
+        performAndVerifyTheExpectedResponseForAnApiCall(this.scenarioContext, testDataSpec, testDataId, null);
+    }
 
     private void performAndVerifyTheExpectedResponseForAnApiCall(BackEndFunctionalTestScenarioContext parentContext,
             String testDataSpec, String testDataId, String contextId) throws IOException {
@@ -590,11 +591,11 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     @When("a wait time is allowed for [{}] seconds [{}]")
     public void suspendExecutionOnPurposeForAGivenNumberOfSeconds(String waitTime, String specAboutWaitTime)
             throws InterruptedException {
-            try {
-                DecimalFormat df = new DecimalFormat("#.##");
-                TimeUnit.MILLISECONDS.sleep((long) (Double.valueOf(df.format(Double.parseDouble(waitTime))) * 1000));
-            } catch (NumberFormatException ex) {
-                throw new FunctionalTestException("Wait time provided is not a valid number: " + waitTime, ex);
-            }
+        try {
+            DecimalFormat df = new DecimalFormat("#.##");
+            TimeUnit.MILLISECONDS.sleep((long) (Double.valueOf(df.format(Double.parseDouble(waitTime))) * 1000));
+        } catch (NumberFormatException ex) {
+            throw new FunctionalTestException("Wait time provided is not a valid number: " + waitTime, ex);
         }
+    }
 }

@@ -2,24 +2,6 @@
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
   "CaseTypeID" : "FT_ComplexCollectionComplex",
-  "CaseFieldID" : "Homeless",
-  "ListElementCode" : "",
-  "Label" : "Homeless?",
-  "DisplayOrder" : 1,
-  "DisplayContextParameter" : ""
-}, {
-  "LiveFrom" : "01/01/2017",
-  "LiveTo" : "",
-  "CaseTypeID" : "FT_ComplexCollectionComplex",
-  "CaseFieldID" : "FamilyDetails",
-  "ListElementCode" : "MotherFullName",
-  "Label" : "Mother full name",
-  "DisplayOrder" : 2,
-  "DisplayContextParameter" : ""
-}, {
-  "LiveFrom" : "01/01/2017",
-  "LiveTo" : "",
-  "CaseTypeID" : "FT_ComplexCollectionComplex",
   "CaseFieldID" : "FamilyDetails",
   "ListElementCode" : "MotherAge",
   "Label" : "Mother age",

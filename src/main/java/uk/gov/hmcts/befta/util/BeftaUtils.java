@@ -1,13 +1,5 @@
 package uk.gov.hmcts.befta.util;
 
-import io.cucumber.java.Scenario;
-import io.restassured.internal.util.IOUtils;
-import org.junit.AssumptionViolatedException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import uk.gov.hmcts.befta.dse.ccd.definition.converter.FileUtils;
-import uk.gov.hmcts.befta.exception.FunctionalTestException;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -15,10 +7,29 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 
-public class BeftaUtils {
+import io.cucumber.java.Scenario;
+import io.restassured.internal.util.IOUtils;
+import org.junit.AssumptionViolatedException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import uk.gov.hmcts.befta.exception.FunctionalTestException;
+import uk.gov.hmcts.befta.exception.JsonStoreCreationException;
 
+public class BeftaUtils {
     static Logger logger = LoggerFactory.getLogger(BeftaUtils.class);
-    private static final String TEMPORARY_DEFINITION_FOLDER = "definition_files";
+
+    public static File getSingleFileFromResource(String[] filelocation) {
+        if(filelocation!=null&&filelocation.length==1) {
+            return getFileFromResource(filelocation[0]);
+        }
+        else {
+            throw new JsonStoreCreationException("Invalid parameter, for array with single entry a Signle directory or a file location.");
+        }
+    }
+    public static File getFileFromResource(String location) {
+        URL url = ClassLoader.getSystemResource(location);
+        return new File(url.getFile());
+    }
 
     public static File getClassPathResourceIntoTemporaryFile(String resourcePath) {
         return createTempFile(resourcePath,"");
@@ -26,9 +37,9 @@ public class BeftaUtils {
 
     public static File createJsonDefinitionFileFromClasspath(String resourcePath) {
         String[] path = resourcePath.split("/");
-        String directoryStructure = TEMPORARY_DEFINITION_FOLDER + File.separator + path[path.length-3] + File.separator + path[path.length-2];
+        String directoryStructure = "build" + File.separator + "tmp" + File.separator + path[path.length-3] + File.separator + path[path.length-2];
         FileUtils.createDirectoryHierarchy(directoryStructure);
-       return createTempFile(resourcePath,directoryStructure);
+        return createTempFile(resourcePath,directoryStructure);
     }
 
     private static File createTempFile(String resourcePath, String directoryPath){

@@ -3,17 +3,16 @@ package uk.gov.hmcts.befta.data;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-@RunWith(PowerMockRunner.class)
 public class HttpTestDataTest {
 
     private HttpTestData testData;
@@ -21,11 +20,16 @@ public class HttpTestDataTest {
     private static final String OPERATION = "OPERATION";
     private static final String PRODUCT = "PRODUCT";
 
-    @Before
+    @BeforeEach
     public void setUp() {
         testData = new HttpTestData();
     }
 
+    @AfterEach
+    public void clearUp() {
+        testData = null;
+    }
+    
     @Test
     public void shouldReturnTrueWhenSpecIsMet() {
         final String testSpec = "SPEC 2";
@@ -88,5 +92,25 @@ public class HttpTestDataTest {
 
         assertEquals(user, testData.getInvokingUser());
     }
+	@Test
+	void testToString() {
+		String s2sClientId = "s2sClientId";
+		String userTokenClientId = "userTokenClientId";
+        testData = new HttpTestData();
+        testData.setS2sClientId(s2sClientId);
+        testData.setUserTokenClientId(userTokenClientId);
+        HttpTestData actual = new HttpTestData(); 
+        actual.setS2sClientId(s2sClientId);
+        actual.setUserTokenClientId(userTokenClientId);
+        assertEquals(testData.hashCode(),actual.hashCode());
+        assertEquals(testData,actual);
+        assertNotNull(actual.toString());
+	}
+	@Test
+	void testgetUserEntryAt() {
+        testData = new HttpTestData();
+        assertEquals(null,testData.getUserEntryAt(0));
+	}
+
 }
 
