@@ -30,6 +30,14 @@ public class LaunchDarklyFeatureToggleService implements FeatureToggle {
                 .findFirst();
 
         if (ldClient != null && flagName.isPresent() && StringUtils.isNotEmpty(flagName.get())) {
+            if (LaunchDarklyConfig.getLDMicroserviceName() == null) {
+                BeftaUtils.skipScenario(scenario, ("The Scenario is being skipped as Microservice Name variable is not configured"));
+
+            }
+            if (LaunchDarklyConfig.getEnvironmentName() == null) {
+                BeftaUtils.skipScenario(scenario, ("The Scenario is being skipped as LD Environment variable is not configured"));
+            }
+
             LDUser user = new LDUser.Builder(LaunchDarklyConfig.getEnvironmentName())
                     .firstName(BEFTA)
                     .lastName(USER)

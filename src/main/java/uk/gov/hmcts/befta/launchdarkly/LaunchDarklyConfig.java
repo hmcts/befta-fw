@@ -6,6 +6,8 @@ import uk.gov.hmcts.befta.util.EnvironmentVariableUtils;
 public class LaunchDarklyConfig {
 
     public static final String LD_SDK_KEY = "LD_SDK_KEY";
+    public static final String LAUNCH_DARKLY_ENV = "LAUNCH_DARKLY_ENV";
+    public static final String MICROSERVICE_NAME = "MICROSERVICE_NAME";
 
     private LaunchDarklyConfig() { }
 
@@ -13,7 +15,6 @@ public class LaunchDarklyConfig {
 
     public static LDClient getLdInstance() {
         if (ldClient == null) {
-            //synchronized block to remove overhead
             synchronized (LaunchDarklyConfig.class) {
                 if (ldClient == null && System.getenv(LD_SDK_KEY) != null) {
                     ldClient = new LDClient(System.getenv(LD_SDK_KEY));
@@ -24,10 +25,10 @@ public class LaunchDarklyConfig {
     }
 
     public static String getEnvironmentName() {
-       return System.getenv("LAUNCH_DARKLY_ENV");
+       return System.getenv(LAUNCH_DARKLY_ENV);
     }
 
     public static String getLDMicroserviceName() {
-        return System.getenv("MICROSERVICE_NAME");
+        return System.getenv(MICROSERVICE_NAME);
     }
 }
