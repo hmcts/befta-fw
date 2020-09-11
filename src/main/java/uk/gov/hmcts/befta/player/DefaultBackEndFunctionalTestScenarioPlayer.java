@@ -70,6 +70,8 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     @Before
     public void cucumberPrepare(Scenario scenario) {
         this.scenario = scenario;
+        logger.info("Before evaluating the LD flag");
+        scenario.log("Before evaluating the LD flag");
         featureToggle.evaluateFlag(scenario);
     }
 
