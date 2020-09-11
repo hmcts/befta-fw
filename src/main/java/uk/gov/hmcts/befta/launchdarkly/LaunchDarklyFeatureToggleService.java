@@ -18,8 +18,9 @@ public class LaunchDarklyFeatureToggleService implements FeatureToggle {
     public static final String USER = "user";
     public static final String SERVICENAME = "servicename";
 
-    private final LDClient ldClient = LaunchDarklyConfig.getLdInstance();
     private static final String LAUNCH_DARKLY_FLAG = "FeatureToggle";
+    private final LDClient ldClient = LaunchDarklyConfig.getLdInstance();
+
 
     @Override
     public void evaluateFlag(Scenario scenario) {
