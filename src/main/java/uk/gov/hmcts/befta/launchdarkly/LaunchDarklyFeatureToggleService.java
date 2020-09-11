@@ -37,7 +37,6 @@ public class LaunchDarklyFeatureToggleService implements FeatureToggle {
                 .filter(tag -> tag.contains(LAUNCH_DARKLY_FLAG))
                 .map(tag -> tag.substring(tag.indexOf("(") + 1, tag.indexOf(")")))
                 .findFirst();
-
         logger.info("LDClient is: " + ldClient);
         scenario.log("LDClient is: " + ldClient);
 
@@ -66,7 +65,10 @@ public class LaunchDarklyFeatureToggleService implements FeatureToggle {
                     .custom(SERVICENAME, LaunchDarklyConfig.getLDMicroserviceName())
                     .build();
 
-            boolean isLDFlagEnabled = ldClient.boolVariation(flagName.get(), user, false);
+            logger.info("Inside User is " + user.toString());
+            scenario.log("User is" + user.toString());
+
+            boolean isLDFlagEnabled = ldClient.boolVariation("get-ld-flag", user, false);
             logger.info("Inside isLDFlagEnabled " + isLDFlagEnabled);
             scenario.log("Inside isLDFlagEnabled" + isLDFlagEnabled);
 
