@@ -44,10 +44,16 @@ public class LaunchDarklyFeatureToggleService implements FeatureToggle {
         logger.info("flagname is: " + flagName.orElse("Flag name is empty"));
         scenario.log("flagname is: " + flagName.orElse("Flag name is empty"));
         if (ldClient != null && flagName.isPresent()) {
+            logger.info("getLDMicroserviceName is: " + LaunchDarklyConfig.getLDMicroserviceName());
+            scenario.log("getLDMicroserviceName is: " + LaunchDarklyConfig.getLDMicroserviceName());
+
             if (LaunchDarklyConfig.getLDMicroserviceName() == null) {
                 BeftaUtils.skipScenario(scenario, ("The Scenario is being skipped as MICROSERVICE_NAME variable is not configured"));
 
             }
+            logger.info("getEnvironmentName is: " + LaunchDarklyConfig.getEnvironmentName());
+            scenario.log("getEnvironmentName is: " + LaunchDarklyConfig.getEnvironmentName());
+
             if (LaunchDarklyConfig.getEnvironmentName() == null) {
                 BeftaUtils.skipScenario(scenario, ("The Scenario is being skipped as LAUNCH_DARKLY_ENV is not configured"));
             }
