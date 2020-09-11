@@ -37,40 +37,23 @@ public class LaunchDarklyFeatureToggleService implements FeatureToggle {
                 .filter(tag -> tag.contains(LAUNCH_DARKLY_FLAG))
                 .map(tag -> tag.substring(tag.indexOf("(") + 1, tag.indexOf(")")))
                 .findFirst();
-        logger.info("LDClient is: " + ldClient);
-        scenario.log("LDClient is: " + ldClient);
 
-        logger.info("flagname is: " + flagName.orElse("Flag name is empty"));
-        scenario.log("flagname is: " + flagName.orElse("Flag name is empty"));
         if (ldClient != null && flagName.isPresent()) {
-            logger.info("getLDMicroserviceName is: " + LaunchDarklyConfig.getLDMicroserviceName());
-            scenario.log("getLDMicroserviceName is: " + LaunchDarklyConfig.getLDMicroserviceName());
-
             if (LaunchDarklyConfig.getLDMicroserviceName() == null) {
                 BeftaUtils.skipScenario(scenario, ("The Scenario is being skipped as MICROSERVICE_NAME variable is not configured"));
 
             }
-            logger.info("getEnvironmentName is: " + LaunchDarklyConfig.getEnvironmentName());
-            scenario.log("getEnvironmentName is: " + LaunchDarklyConfig.getEnvironmentName());
-
             if (LaunchDarklyConfig.getEnvironmentName() == null) {
                 BeftaUtils.skipScenario(scenario, ("The Scenario is being skipped as LAUNCH_DARKLY_ENV is not configured"));
             }
 
-            logger.info("Calling LD : " + LaunchDarklyConfig.getLDMicroserviceName() + "  " + LaunchDarklyConfig.getEnvironmentName());
-            scenario.log("Calling LD : " + LaunchDarklyConfig.getLDMicroserviceName() + "  " + LaunchDarklyConfig.getEnvironmentName());
             LDUser user = new LDUser.Builder(LaunchDarklyConfig.getEnvironmentName())
                     .firstName(BEFTA)
                     .lastName(USER)
                     .custom(SERVICENAME, LaunchDarklyConfig.getLDMicroserviceName())
                     .build();
 
-            logger.info("Inside User is " + user.toString());
-            scenario.log("User is" + user.toString());
-
             boolean isLDFlagEnabled = ldClient.boolVariation("get-ld-flag", user, false);
-            logger.info("Inside isLDFlagEnabled " + isLDFlagEnabled);
-            scenario.log("Inside isLDFlagEnabled" + isLDFlagEnabled);
 
             if (!isLDFlagEnabled) {
                 Optional<String> scenarioName = scenario.getSourceTagNames().stream()
