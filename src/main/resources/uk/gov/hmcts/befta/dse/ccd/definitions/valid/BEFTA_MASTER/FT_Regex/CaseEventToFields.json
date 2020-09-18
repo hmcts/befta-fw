@@ -11,6 +11,7 @@
   "PageDisplayOrder" : 1,
   "PageColumnNumber" : "",
   "FieldShowCondition" : "",
+  "RetainHiddenValue" : "",
   "PageShowCondition" : "",
   "DisplayContextParameter" : "",
   "ShowSummaryChangeOption" : "Y",

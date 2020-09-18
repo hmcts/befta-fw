@@ -1,9 +1,5 @@
 package uk.gov.hmcts.befta.dse.ccd.definition.converter;
 
-import static org.apache.poi.ss.usermodel.CellType.BLANK;
-import static org.apache.poi.ss.usermodel.CellType.NUMERIC;
-import static org.apache.poi.ss.usermodel.CellType.STRING;
-
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
@@ -20,6 +16,8 @@ import java.util.Iterator;
 import java.util.Objects;
 
 import uk.gov.hmcts.befta.exception.DefinitionTransformerException;
+
+import static org.apache.poi.ss.usermodel.CellType.*;
 
 public class SheetReader {
 
@@ -156,6 +154,9 @@ public class SheetReader {
                 rowJsonObject.put(key, val);
             } else if (type == BLANK) {
                 rowJsonObject.put(key, ""); // todo should this be null?
+            } else if (type == BOOLEAN) {
+                String val = String.valueOf(cell.getBooleanCellValue());
+                rowJsonObject.put(key, val);
             } else {
                 throw new DefinitionTransformerException("unsupported excel cell type value found:" + type);
             }
