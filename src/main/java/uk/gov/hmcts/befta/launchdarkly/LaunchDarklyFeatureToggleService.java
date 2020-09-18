@@ -53,7 +53,7 @@ public class LaunchDarklyFeatureToggleService implements FeatureToggle {
                     .custom(SERVICENAME, LaunchDarklyConfig.getLDMicroserviceName())
                     .build();
 
-            boolean isLDFlagEnabled = ldClient.boolVariation("get-ld-flag", user, false);
+            boolean isLDFlagEnabled = ldClient.boolVariation(flagName.get(), user, false);
 
             if (!isLDFlagEnabled) {
                 Optional<String> scenarioName = scenario.getSourceTagNames().stream()
