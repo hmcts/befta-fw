@@ -1,0 +1,51 @@
+[ {
+  "LiveTo" : "",
+  "CaseTypeID" : "",
+  "ID" : "FT_ComplexOrganisation",
+  "DisplayOrder" : "NoCChallenge",
+  "QuestionText" : 1,
+  "AnswerFieldType" : "What's the name of the party you wish to represent?",
+  "DisplayContextParameter" : "Date",
+  "Answer" : "#DATETIMEENTRY(dd-MM-yyyy)",
+  "QuestionId" : "${OrganisationField.OrganisationName}|${OrganisationField.OrganisationID}:[Claimant],${OrganisationField.OrganisationName}|${OrganisationField.OrganisationID}:[Defendant]"
+}, {
+  "LiveTo" : "",
+  "CaseTypeID" : "",
+  "ID" : "FT_ComplexOrganisation",
+  "DisplayOrder" : "NoCChallenge",
+  "QuestionText" : 2,
+  "AnswerFieldType" : "What's xxxx?",
+  "DisplayContextParameter" : "DateTime",
+  "Answer" : "#DATETIMEENTRY(dd-MM-yyyy)",
+  "QuestionId" : "${OrganisationField.OrganisationName}|${OrganisationField.OrganisationID}:[Defendant]"
+}, {
+  "LiveTo" : "",
+  "CaseTypeID" : "",
+  "ID" : "FT_ComplexOrganisation",
+  "DisplayOrder" : "NoCChallenge",
+  "QuestionText" : 2,
+  "AnswerFieldType" : "What  time is it?",
+  "DisplayContextParameter" : "DateTime",
+  "Answer" : "#DATETIMEENTRY(dd-MM-yyyy)",
+  "QuestionId" : "${OrganisationField.OrganisationID}:[Defendant]"
+}, {
+  "LiveTo" : "",
+  "CaseTypeID" : "",
+  "ID" : "FT_ComplexOrganisation",
+  "DisplayOrder" : "NoCChallenge",
+  "QuestionText" : 2,
+  "AnswerFieldType" : "What's their Postcode?",
+  "DisplayContextParameter" : "Postcode",
+  "Answer" : "",
+  "QuestionId" : "${OrganisationField.OrganisationID}:[Defendant]"
+}, {
+  "LiveTo" : "",
+  "CaseTypeID" : "",
+  "ID" : "FT_ComplexCollectionComplex",
+  "DisplayOrder" : "Collections",
+  "QuestionText" : 2,
+  "AnswerFieldType" : "What's their Postcode?",
+  "DisplayContextParameter" : "Text",
+  "Answer" : "",
+  "QuestionId" : "${CaseLinkComplex}:[Defendant]"
+} ]
