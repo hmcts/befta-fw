@@ -32,7 +32,7 @@ public class JsonTransformer {
             "AuthorisationCaseField", "AuthorisationCaseState", "AuthorisationCaseType", "AuthorisationComplexType",
             "CaseEventToFields", "CaseField", "CaseRoles", "CaseTypeTab" ,"SearchInputFields", "SearchResultFields", "State",
             "WorkBasketInputFields", "WorkBasketResultFields", "Category", "Banner", "CaseType", "ComplexTypes", "EventToComplexTypes",
-            "FixedLists", "Jurisdiction", "UserProfile","SearchAlias", "SearchCasesResultFields", "NoticeOfChangeConfig");
+            "FixedLists", "Jurisdiction", "UserProfile","SearchAlias", "SearchCasesResultFields", "NoticeOfChangeConfig", "ChallengeQuestion");
 
     private static final List<String> SHEETS_FOR_URL_SUBSTITUTIONS = Arrays.asList("CaseEvent");
 
