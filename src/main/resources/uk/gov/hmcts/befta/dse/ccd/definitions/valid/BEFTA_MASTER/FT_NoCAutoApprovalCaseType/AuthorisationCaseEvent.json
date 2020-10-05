@@ -1,0 +1,22 @@
+[ {
+  "LiveFrom" : "02/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCAutoApprovalCaseType",
+  "CaseEventID" : "nocRequest",
+  "UserRole" : "caseworker-caa",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "03/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCAutoApprovalCaseType",
+  "CaseEventID" : "createCase",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "04/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCAutoApprovalCaseType",
+  "CaseEventID" : "nocRequest",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "CRUD"
+} ]

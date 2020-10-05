@@ -1,0 +1,10 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCCaseType",
+  "ID" : "CaseCreated",
+  "Name" : "Case created",
+  "Description" : "",
+  "DisplayOrder" : 1,
+  "TitleDisplay" : ""
+} ]
