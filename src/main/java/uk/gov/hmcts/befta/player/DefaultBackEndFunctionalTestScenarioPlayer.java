@@ -414,14 +414,14 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         Map<String, Object> wrapperMap = null;
         if (isResponseJson(apiResponse, contentType)) {
             if (isArrayInJson(apiResponse, contentType)) {
-            String wrapperString = "{\"arrayInMap\":" + apiResponse + "}";
-            try {
-                wrapperMap= JsonUtils.readObjectFromJsonText(wrapperString, Map.class);
-            } catch (Exception e) {
-                scenario.log("Can't convert the body to JSON: \n" + wrapperString);
-                throw new FunctionalTestException("Can't convert the body to JSON.", e);
+                String wrapperString = "{\"arrayInMap\":" + apiResponse + "}";
+                try {
+                    wrapperMap = JsonUtils.readObjectFromJsonText(wrapperString, Map.class);
+                } catch (Exception e) {
+                    scenario.log("Can't convert the body to JSON: \n" + wrapperString);
+                    throw new FunctionalTestException("Can't convert the body to JSON.", e);
+                }
             }
-        }
         } else {
             wrapperMap = new HashedMap<>();
             wrapperMap.put("__plainTextValue__", apiResponse.replaceAll("\n", ""));
@@ -436,9 +436,8 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
 
     private boolean isArrayInJson(String apiResponse, String contentType) {
 
-        return isResponseJson(apiResponse, contentType)
-                && apiResponse != null
-                && apiResponse.startsWith("[") && apiResponse.endsWith("]");
+        return isResponseJson(apiResponse, contentType) && apiResponse != null && apiResponse.startsWith("[")
+                && apiResponse.endsWith("]");
     }
 
     @Override
