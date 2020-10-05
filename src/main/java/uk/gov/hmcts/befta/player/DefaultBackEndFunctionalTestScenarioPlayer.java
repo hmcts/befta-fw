@@ -1,5 +1,6 @@
 package uk.gov.hmcts.befta.player;
 
+import org.apache.commons.collections4.map.HashedMap;
 import org.apache.http.impl.EnglishReasonPhraseCatalog;
 import org.aspectj.util.FileUtil;
 import org.junit.Assert;
@@ -58,7 +59,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     private final BackEndFunctionalTestScenarioContext scenarioContext;
     private Scenario scenario;
     private ObjectMapper mapper = new ObjectMapper();
-    
+
     public DefaultBackEndFunctionalTestScenarioPlayer() {
         RestAssured.useRelaxedHTTPSValidation();
         scenarioContext = BeftaScenarioContextFactory.createBeftaScenarioContext();
@@ -358,21 +359,25 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         responseData.setHeaders(responseHeaders);
 
         String jsonForBody = null;
+        Map<String, Object> wrappedInMap = null;
         if (shouldTreatBodyAsAFile(scenarioContext.getTestData().getExpectedResponse())) {
             jsonForBody = getFileInMapJson(response);
         } else {
             if (!response.getBody().asString().isEmpty()) {
                 jsonForBody = response.getBody().asString();
-                jsonForBody = wrapInMapIfNecessary(jsonForBody, response.getContentType());
+                wrappedInMap = wrapInMapIfNecessary(jsonForBody, response.getContentType());
             }
         }
 
+        Map<String, Object> mapForBody = null;
         try {
-            responseData.setBody(jsonForBody == null ? null : JsonUtils.readObjectFromJsonText(jsonForBody, Map.class));
+            mapForBody = wrappedInMap != null ? wrappedInMap : JsonUtils.readObjectFromJsonText(jsonForBody, Map.class);
         } catch (Exception e) {
             scenario.write("Can't convert the body to JSON: \n" + jsonForBody);
             throw new FunctionalTestException("Can't convert the body to JSON.", e);
         }
+
+        responseData.setBody(mapForBody);
 
         return responseData;
     }
@@ -404,15 +409,36 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         }
     }
 
-    private String wrapInMapIfNecessary(String apiResponse, String contentType) {
-        if (contentType != null && contentType.toLowerCase().contains("json")) {
-            if (apiResponse.startsWith("[") && apiResponse.endsWith("]")) {
-                apiResponse = "{\"arrayInMap\":" + apiResponse + "}";
+    @SuppressWarnings("unchecked")
+    private Map<String, Object> wrapInMapIfNecessary(String apiResponse, String contentType) {
+        Map<String, Object> wrapperMap = null;
+        if (isResponseJson(apiResponse, contentType)) {
+            if (isArrayInJson(apiResponse, contentType)) {
+            String wrapperString = "{\"arrayInMap\":" + apiResponse + "}";
+            try {
+                wrapperMap= JsonUtils.readObjectFromJsonText(wrapperString, Map.class);
+            } catch (Exception e) {
+                scenario.log("Can't convert the body to JSON: \n" + wrapperString);
+                throw new FunctionalTestException("Can't convert the body to JSON.", e);
             }
-        } else {
-            apiResponse = "{\"__plainTextValue__\": \"" + apiResponse.replaceAll("\n", "") + "\"}";
         }
-        return apiResponse;
+        } else {
+            wrapperMap = new HashedMap<>();
+            wrapperMap.put("__plainTextValue__", apiResponse.replaceAll("\n", ""));
+        }
+        return wrapperMap;
+    }
+
+    private boolean isResponseJson(String apiResponse, String contentType) {
+
+        return contentType != null && contentType.toLowerCase().contains("json");
+    }
+
+    private boolean isArrayInJson(String apiResponse, String contentType) {
+
+        return isResponseJson(apiResponse, contentType)
+                && apiResponse != null
+                && apiResponse.startsWith("[") && apiResponse.endsWith("]");
     }
 
     @Override
@@ -522,8 +548,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
 
     private void performAndVerifyTheExpectedResponseForAnApiCall(BackEndFunctionalTestScenarioContext parentContext,
             String testDataSpec, String testDataId, String contextId) throws IOException {
-        BackEndFunctionalTestScenarioContext subcontext = BeftaScenarioContextFactory
-                .createBeftaScenarioContext();
+        BackEndFunctionalTestScenarioContext subcontext = BeftaScenarioContextFactory.createBeftaScenarioContext();
         subcontext.initializeTestDataFor(testDataId);
         if (contextId == null) {
             parentContext.addChildContext(subcontext);
@@ -545,8 +570,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     }
 
     private void verifyTheUserBeingSpecifiedInTheContext(final BackEndFunctionalTestScenarioContext scenarioContext,
-            final String userKey,
-            final UserData userBeingSpecified) {
+            final String userKey, final UserData userBeingSpecified) {
         String prefix = "users[" + userKey + "]";
         resolveUserData(scenarioContext, prefix, userBeingSpecified);
         scenario.write("Attempting to authenticate [" + userBeingSpecified.getUsername() + "]...");
@@ -560,8 +584,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
 
         String resolvedPassword = EnvironmentVariableUtils.resolvePossibleVariable(aUser.getPassword());
         if (resolvedPassword.equals(aUser.getPassword())) {
-            logger.warn(scenarioContext.getTestData()
-                    .get_guid_()
+            logger.warn(scenarioContext.getTestData().get_guid_()
                     + ": Expected environment variable declaration "
                     + "for " + prefix + ".password but found a hard coded value!'");
         }
