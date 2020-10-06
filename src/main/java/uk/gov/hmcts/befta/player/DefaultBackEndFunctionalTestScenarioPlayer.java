@@ -358,28 +358,34 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         responseData.setResponseMessage(reasonPhrase);
         responseData.setHeaders(responseHeaders);
 
-        String jsonForBody = "";
+        String jsonForBody;
         Map<String, Object> wrappedInMap = null;
         if (shouldTreatBodyAsAFile(scenarioContext.getTestData().getExpectedResponse())) {
             jsonForBody = getFileInMapJson(response);
         } else {
-            if (!response.getBody().asString().isEmpty()) {
-                jsonForBody = response.getBody().asString();
+            jsonForBody = response.getBody() == null ? null : response.getBody().asString();
+            if (jsonForBody != null && !jsonForBody.isEmpty()) {
                 wrappedInMap = wrapInMapIfNecessary(jsonForBody, response.getContentType());
             }
         }
 
-        Map<String, Object> mapForBody = null;
+        Map<String, Object> mapForBody = getMapForBodyFrom(wrappedInMap, jsonForBody);
+        responseData.setBody(mapForBody);
+
+        return responseData;
+    }
+
+    private Map<String, Object> getMapForBodyFrom(Map<String, Object> wrappedInMap, String jsonForBody) {
+        if (wrappedInMap != null)
+            return wrappedInMap;
+        if (jsonForBody == null || jsonForBody.isEmpty())
+            return null;
         try {
-            mapForBody = wrappedInMap != null ? wrappedInMap : JsonUtils.readObjectFromJsonText(jsonForBody, Map.class);
+            return JsonUtils.readObjectFromJsonText(jsonForBody, Map.class);
         } catch (Exception e) {
             scenario.write("Can't convert the body to JSON: \n" + jsonForBody);
             throw new FunctionalTestException("Can't convert the body to JSON.", e);
         }
-
-        responseData.setBody(mapForBody);
-
-        return responseData;
     }
 
     private boolean shouldTreatBodyAsAFile(ResponseData expectedResponse) {
