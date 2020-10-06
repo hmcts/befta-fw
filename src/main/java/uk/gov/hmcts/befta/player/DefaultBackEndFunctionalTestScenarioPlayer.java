@@ -358,7 +358,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         responseData.setResponseMessage(reasonPhrase);
         responseData.setHeaders(responseHeaders);
 
-        String jsonForBody = null;
+        String jsonForBody = "";
         Map<String, Object> wrappedInMap = null;
         if (shouldTreatBodyAsAFile(scenarioContext.getTestData().getExpectedResponse())) {
             jsonForBody = getFileInMapJson(response);
