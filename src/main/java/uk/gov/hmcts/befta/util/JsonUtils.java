@@ -27,6 +27,9 @@ public class JsonUtils {
 
     public static <T> T readObjectFromJsonText(String jsonText, Class<T> objectType)
             throws JsonParseException, JsonMappingException, IOException {
+        if (jsonText == null) {
+            return null;
+        }
         return mapper.readValue(jsonText, objectType);
     }
 
