@@ -36,7 +36,7 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
     private boolean isTestDataLoaded = false;
 
     public DefaultTestAutomationAdapter() {
-        serviceAuthorisationApi = BeftaServiceAuthorisationApiClientFactory.createServiceAuthorisationApiClient(); 
+        serviceAuthorisationApi = BeftaServiceAuthorisationApiClientFactory.createServiceAuthorisationApiClient();
         idamApi = BeftaIdamApiClientFactory.createAuthorizationClient();
         ServiceAuthTokenGenerator defaultGenerator = getNewS2sClientWithCredentials(
                 BeftaMain.getConfig().getS2SClientId(), BeftaMain.getConfig().getS2SClientSecret());
@@ -57,19 +57,21 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
 
     @Override
     public void authenticate(UserData user, String userTokenClientId) {
-        UserData cached = users.computeIfAbsent(user.getUsername(), e -> {
-            final String accessToken = getUserAccessToken(user.getUsername(), user
-                    .getPassword(),
-                    UserTokenProviderConfig.of(userTokenClientId));
-            final AuthApi.User idamUser = idamApi.getUser(accessToken);
-            user.setId(idamUser.getId());
-            user.setAccessToken(accessToken);
-            return user;
-        });
+        synchronized (this) {
+            UserData cached = users.computeIfAbsent(user.getUsername(), e -> {
+                final String accessToken = getUserAccessToken(user.getUsername(), user
+                                .getPassword(),
+                        UserTokenProviderConfig.of(userTokenClientId));
+                final AuthApi.User idamUser = idamApi.getUser(accessToken);
+                user.setId(idamUser.getId());
+                user.setAccessToken(accessToken);
+                return user;
+            });
 
-        if (user != cached) {
-            user.setId(cached.getId());
-            user.setAccessToken(cached.getAccessToken());
+            if (user != cached) {
+                user.setId(cached.getId());
+                user.setAccessToken(cached.getAccessToken());
+            }
         }
     }
 

@@ -23,7 +23,7 @@ public class BackEndFunctionalTestScenarioContext {
 
     private static final String[] TEST_DATA_RESOURCE_PACKAGES = { "features" };
     static final HttpTestDataSource DATA_SOURCE = HttpTestDataSourceFactory.createHttpTestDataSource(TEST_DATA_RESOURCE_PACKAGES);
- 
+
     @Getter
     private Scenario scenario;
 
@@ -69,12 +69,14 @@ public class BackEndFunctionalTestScenarioContext {
     }
 
     public void initializeTestDataFor(String testDataId) {
-        HttpTestData original = DATA_SOURCE.getDataForTestCall(testDataId);
-        if (original == null) {
-            throw new FunctionalTestException("No test data found with ID [" + testDataId + "].");
+        synchronized (this) {
+            HttpTestData original = DATA_SOURCE.getDataForTestCall(testDataId);
+            if (original == null) {
+                throw new FunctionalTestException("No test data found with ID [" + testDataId + "].");
+            }
+            testData = new HttpTestData(original);
+            dynamicValueInjector = new DynamicValueInjector(BeftaMain.getAdapter(), testData, this);
         }
-        testData = new HttpTestData(original);
-        dynamicValueInjector = new DynamicValueInjector(BeftaMain.getAdapter(), testData, this);
     }
 
     void injectDataFromContextBeforeApiCall() {
@@ -123,3 +125,4 @@ public class BackEndFunctionalTestScenarioContext {
     }
 
 }
+

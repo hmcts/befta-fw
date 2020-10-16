@@ -1,3 +1,4 @@
+
 package uk.gov.hmcts.jsonstore;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -23,7 +24,9 @@ public class JsonResourceStoreWithInheritance extends JsonStoreWithInheritance {
 
     @Override
     protected void buildObjectStore() throws Exception {
-        rootNode = buildObjectStoreInResourcePaths();
+        synchronized (this) {
+            rootNode = buildObjectStoreInResourcePaths();
+        }
     }
 
     private JsonNode buildObjectStoreInResourcePaths() throws Exception {

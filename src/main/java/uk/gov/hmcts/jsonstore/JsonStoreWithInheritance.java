@@ -50,14 +50,18 @@ public abstract class JsonStoreWithInheritance {
 
     protected Map<String, JsonNode> getNodeLibrary() throws Exception {
         if (rootNode == null)
-            loadStore();
+            synchronized(this) {
+                loadStore();
+            }
         return nodeLibrary;
     }
 
     private void loadStore() throws Exception {
         try {
-            buildObjectStore();
-            addToLibrary(rootNode);
+            synchronized(this) {
+                buildObjectStore();
+                addToLibrary(rootNode);
+            }
             for (String id : nodeLibrary.keySet())
                 inheritAndOverlayValuesFor(nodeLibrary.get(id));
             removeInheritanceMechanismFields(rootNode);
