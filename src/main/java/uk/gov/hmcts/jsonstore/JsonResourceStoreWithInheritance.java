@@ -30,25 +30,27 @@ public class JsonResourceStoreWithInheritance extends JsonStoreWithInheritance {
     }
 
     private JsonNode buildObjectStoreInResourcePaths() throws Exception {
-        ArrayNode store = new ArrayNode(null);
-        for (String resource : resourcePaths) {
-            JsonNode substore = null;
-            if (resource.toLowerCase().endsWith(".json"))
-                substore = buildObjectStoreInAResource(resource);
-            if (substore != null && !substore.equals(MissingNode.getInstance())) {
-                String guid = substore.get(GUID).asText();
-                validateGUID(guid);
-                if (substore.isArray()) {
-                    for (int i = 0; i < substore.size(); i++)
-                        store.add(substore.get(i));
-                } else
-                    store.add(substore);
-                processedGUIDs.add(guid);
+        synchronized (this) {
+            ArrayNode store = new ArrayNode(null);
+            for (String resource : resourcePaths) {
+                JsonNode substore = null;
+                if (resource.toLowerCase().endsWith(".json"))
+                    substore = buildObjectStoreInAResource(resource);
+                if (substore != null && !substore.equals(MissingNode.getInstance())) {
+                    String guid = substore.get(GUID).asText();
+                    validateGUID(guid);
+                    if (substore.isArray()) {
+                        for (int i = 0; i < substore.size(); i++)
+                            store.add(substore.get(i));
+                    } else
+                        store.add(substore);
+                    processedGUIDs.add(guid);
+                }
             }
+            if (store.size() == 1)
+                return store.get(0);
+            return store;
         }
-        if (store.size() == 1)
-            return store.get(0);
-        return store;
     }
 
     private JsonNode buildObjectStoreInAResource(String resource) throws Exception {
