@@ -23,14 +23,12 @@ public class JsonResourceStoreWithInheritance extends JsonStoreWithInheritance {
     }
 
     @Override
-    protected void buildObjectStore() throws Exception {
-        synchronized (this) {
+    protected synchronized void buildObjectStore() throws Exception {
             rootNode = buildObjectStoreInResourcePaths();
         }
-    }
 
-    private JsonNode buildObjectStoreInResourcePaths() throws Exception {
-        synchronized (this) {
+
+    private synchronized JsonNode buildObjectStoreInResourcePaths() throws Exception {
             ArrayNode store = new ArrayNode(null);
             for (String resource : resourcePaths) {
                 JsonNode substore = null;
@@ -50,7 +48,7 @@ public class JsonResourceStoreWithInheritance extends JsonStoreWithInheritance {
             if (store.size() == 1)
                 return store.get(0);
             return store;
-        }
+
     }
 
     private JsonNode buildObjectStoreInAResource(String resource) throws Exception {

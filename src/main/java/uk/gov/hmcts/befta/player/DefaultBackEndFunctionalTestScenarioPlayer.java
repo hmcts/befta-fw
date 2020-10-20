@@ -114,9 +114,8 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         verifyThatThereIsAUserInTheContextWithAParticularSpecification(this.scenarioContext, specificationAboutAUser);
     }
 
-    private void verifyThatThereIsAUserInTheContextWithAParticularSpecification(
+    private synchronized void verifyThatThereIsAUserInTheContextWithAParticularSpecification(
             BackEndFunctionalTestScenarioContext scenarioContext, String specificationAboutAUser) {
-        synchronized (this) {
             boolean doesTestDataMeetSpec = scenarioContext.getTestData().meetsSpec(specificationAboutAUser);
             if (!doesTestDataMeetSpec) {
                 throw new UnconfirmedDataSpecException(specificationAboutAUser);
@@ -133,7 +132,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
                 scenario.write(message);
                 logger.warn(message);
             }
-        }
+
     }
 
     @Override

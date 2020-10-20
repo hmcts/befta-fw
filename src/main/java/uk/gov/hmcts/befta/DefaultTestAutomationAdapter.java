@@ -49,15 +49,14 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
     }
 
     @Override
-    public String getNewS2SToken(String clientId) {
+    public synchronized String getNewS2SToken(String clientId) {
         return tokenGenerators.computeIfAbsent(clientId, key -> {
             return getNewS2sClient(clientId);
         }).generate();
     }
 
     @Override
-    public void authenticate(UserData user, String userTokenClientId) {
-        synchronized (this) {
+    public synchronized void authenticate(UserData user, String userTokenClientId) {
             UserData cached = users.computeIfAbsent(user.getUsername(), e -> {
                 final String accessToken = getUserAccessToken(user.getUsername(), user
                                 .getPassword(),
@@ -73,10 +72,10 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
                 user.setAccessToken(cached.getAccessToken());
             }
         }
-    }
+
 
     @Override
-    public void loadTestDataIfNecessary() {
+    public synchronized void loadTestDataIfNecessary() {
         if (!isTestDataLoaded) {
             try {
                 doLoadTestData();

@@ -48,20 +48,16 @@ public abstract class JsonStoreWithInheritance {
         return rootNode;
     }
 
-    protected Map<String, JsonNode> getNodeLibrary() throws Exception {
+    protected synchronized Map<String, JsonNode> getNodeLibrary() throws Exception {
         if (rootNode == null)
-            synchronized(this) {
                 loadStore();
-            }
         return nodeLibrary;
     }
 
-    private void loadStore() throws Exception {
+    private synchronized void loadStore() throws Exception {
         try {
-            synchronized(this) {
-                buildObjectStore();
-                addToLibrary(rootNode);
-            }
+            buildObjectStore();
+            addToLibrary(rootNode);
             for (String id : nodeLibrary.keySet())
                 inheritAndOverlayValuesFor(nodeLibrary.get(id));
             removeInheritanceMechanismFields(rootNode);
@@ -72,8 +68,7 @@ public abstract class JsonStoreWithInheritance {
     }
 
     @SuppressWarnings("unchecked")
-    public <T> Map<String, T> getMapWithIds(Class<? extends T> clazz) throws Exception {
-        synchronized (this) {
+    public synchronized <T> Map<String, T> getMapWithIds(Class<? extends T> clazz) throws Exception {
             Map<String, T> objectLibrary = (Map<String, T>) objectLibraryPerTypes.get(clazz);
             if (objectLibrary == null) {
                 objectLibrary = new HashMap<String, T>();
@@ -96,7 +91,6 @@ public abstract class JsonStoreWithInheritance {
                 objectLibraryPerTypes.put(clazz, objectLibrary);
             }
             return objectLibrary;
-        }
     }
 
     public <T> T getObjectWithId(String id, Class<? extends T> clazz) throws Exception {
