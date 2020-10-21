@@ -31,7 +31,7 @@
   "PostConditionState" : "*",
   "CallBackURLAboutToStartEvent" : "",
   "RetriesTimeoutAboutToStartEvent" : "",
-  "CallBackURLAboutToSubmitEvent" : "http://host.docker.internal:5555/callback_returning_simulated_completed_noc_request",
+  "CallBackURLAboutToSubmitEvent" : "http://ccd-test-stubs-service-aat.service.core-compute-aat.internal/callback_returning_simulated_completed_noc_request",
   "RetriesTimeoutURLAboutToSubmitEvent" : "",
   "CallBackURLSubmittedEvent" : "",
   "RetriesTimeoutURLSubmittedEvent" : "",
