@@ -1,5 +1,5 @@
 [ {
-  "LiveTo" : "",
+  "LiveTo" : "01/01/2022",
   "CaseTypeID" : "FT_ComplexOrganisation",
   "ID" : "NoCChallenge",
   "DisplayOrder" : 1,
@@ -9,7 +9,7 @@
   "Answer" : "${OrganisationField.OrganisationName}|${OrganisationField.OrganisationID}:[Claimant],${OrganisationField.OrganisationName}|${OrganisationField.OrganisationID}:[Defendant]",
   "QuestionId" : "NoCChallengeQ1"
 }, {
-  "LiveTo" : "",
+  "LiveTo" : "01/01/2022",
   "CaseTypeID" : "FT_ComplexOrganisation",
   "ID" : "NoCChallenge",
   "DisplayOrder" : 2,
@@ -19,7 +19,7 @@
   "Answer" : "${OrganisationField.OrganisationName}|${OrganisationField.OrganisationID}:[Defendant]",
   "QuestionId" : "NoCChallengeQ2"
 }, {
-  "LiveTo" : "",
+  "LiveTo" : "01/01/2022",
   "CaseTypeID" : "FT_ComplexOrganisation",
   "ID" : "NoCChallenge",
   "DisplayOrder" : 3,
@@ -29,7 +29,7 @@
   "Answer" : "${OrganisationField.OrganisationID}:[Defendant]",
   "QuestionId" : "NoCChallengeQ3"
 }, {
-  "LiveTo" : "",
+  "LiveTo" : "01/01/2022",
   "CaseTypeID" : "FT_ComplexOrganisation",
   "ID" : "NoCChallengeGroup2",
   "DisplayOrder" : 4,
@@ -39,7 +39,7 @@
   "Answer" : "${OrganisationField.OrganisationID}:[Defendant]",
   "QuestionId" : "NoCChallengeG2Q1"
 }, {
-  "LiveTo" : "",
+  "LiveTo" : "01/01/2022",
   "CaseTypeID" : "FT_ComplexCollectionComplex",
   "ID" : "Collections",
   "DisplayOrder" : 1,
@@ -49,6 +49,7 @@
   "Answer" : "${CaseLinkComplex}:[Defendant]",
   "QuestionId" : "CollectionsQ1"
 }, {
+  "LiveTo" : "01/01/2022",
   "CaseTypeID" : "FT_NoCCaseType",
   "ID" : "NoCChallenge",
   "DisplayOrder" : 4,
@@ -58,6 +59,7 @@
   "Answer" : "${applicant.individual.LastName}|${applicant.company.Name}|${applicant.soletrader.Name}:[ApplicantSolicitor],${respondent.individual.LastName}|${respondent.company.Name}|${respondent.soletrader.Name}:[RespondentSolicitor],${otherParty.individual.LastName}|${otherParty.company.Name}|${otherParty.soletrader.Name}:[OtherPartySolicitor]",
   "QuestionId" : "NOC_Challenge_Name"
 }, {
+  "LiveTo" : "01/01/2022",
   "CaseTypeID" : "FT_NoCAutoApprovalCaseType",
   "ID" : "NoCChallenge",
   "DisplayOrder" : 5,
