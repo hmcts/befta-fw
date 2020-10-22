@@ -116,22 +116,22 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
 
     private synchronized void verifyThatThereIsAUserInTheContextWithAParticularSpecification(
             BackEndFunctionalTestScenarioContext scenarioContext, String specificationAboutAUser) {
-            boolean doesTestDataMeetSpec = scenarioContext.getTestData().meetsSpec(specificationAboutAUser);
-            if (!doesTestDataMeetSpec) {
-                throw new UnconfirmedDataSpecException(specificationAboutAUser);
-            }
+        boolean doesTestDataMeetSpec = scenarioContext.getTestData().meetsSpec(specificationAboutAUser);
+        if (!doesTestDataMeetSpec) {
+            throw new UnconfirmedDataSpecException(specificationAboutAUser);
+        }
 
 
-            Entry<String, UserData> userDataEntry = scenarioContext.getNextUserToAuthenticate();
+        Entry<String, UserData> userDataEntry = scenarioContext.getNextUserToAuthenticate();
 
-            if (userDataEntry != null) {
-                verifyTheUserBeingSpecifiedInTheContext(scenarioContext, userDataEntry.getKey(), userDataEntry.getValue());
-            } else {
-                String message = "The user [" + specificationAboutAUser
-                        + "] will not be verified with authentication as it is not listed in test data.";
-                scenario.write(message);
-                logger.warn(message);
-            }
+        if (userDataEntry != null) {
+            verifyTheUserBeingSpecifiedInTheContext(scenarioContext, userDataEntry.getKey(), userDataEntry.getValue());
+        } else {
+            String message = "The user [" + specificationAboutAUser
+                    + "] will not be verified with authentication as it is not listed in test data.";
+            scenario.write(message);
+            logger.warn(message);
+        }
 
     }
 

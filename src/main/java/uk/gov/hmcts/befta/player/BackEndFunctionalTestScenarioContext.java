@@ -69,13 +69,13 @@ public class BackEndFunctionalTestScenarioContext {
     }
 
     public synchronized void  initializeTestDataFor(String testDataId) {
-            HttpTestData original = DATA_SOURCE.getDataForTestCall(testDataId);
-            if (original == null) {
-                throw new FunctionalTestException("No test data found with ID [" + testDataId + "].");
-            }
-            testData = new HttpTestData(original);
-            dynamicValueInjector = new DynamicValueInjector(BeftaMain.getAdapter(), testData, this);
+        HttpTestData original = DATA_SOURCE.getDataForTestCall(testDataId);
+        if (original == null) {
+            throw new FunctionalTestException("No test data found with ID [" + testDataId + "].");
         }
+        testData = new HttpTestData(original);
+        dynamicValueInjector = new DynamicValueInjector(BeftaMain.getAdapter(), testData, this);
+    }
 
 
     void injectDataFromContextBeforeApiCall() {

@@ -57,21 +57,21 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
 
     @Override
     public synchronized void authenticate(UserData user, String userTokenClientId) {
-            UserData cached = users.computeIfAbsent(user.getUsername(), e -> {
-                final String accessToken = getUserAccessToken(user.getUsername(), user
-                                .getPassword(),
-                        UserTokenProviderConfig.of(userTokenClientId));
-                final AuthApi.User idamUser = idamApi.getUser(accessToken);
-                user.setId(idamUser.getId());
-                user.setAccessToken(accessToken);
-                return user;
-            });
+        UserData cached = users.computeIfAbsent(user.getUsername(), e -> {
+            final String accessToken = getUserAccessToken(user.getUsername(), user
+                            .getPassword(),
+                    UserTokenProviderConfig.of(userTokenClientId));
+            final AuthApi.User idamUser = idamApi.getUser(accessToken);
+            user.setId(idamUser.getId());
+            user.setAccessToken(accessToken);
+            return user;
+        });
 
-            if (user != cached) {
-                user.setId(cached.getId());
-                user.setAccessToken(cached.getAccessToken());
-            }
+        if (user != cached) {
+            user.setId(cached.getId());
+            user.setAccessToken(cached.getAccessToken());
         }
+    }
 
 
     @Override

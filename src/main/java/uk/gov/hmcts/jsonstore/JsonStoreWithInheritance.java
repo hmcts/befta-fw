@@ -50,7 +50,7 @@ public abstract class JsonStoreWithInheritance {
 
     protected synchronized Map<String, JsonNode> getNodeLibrary() throws Exception {
         if (rootNode == null)
-                loadStore();
+            loadStore();
         return nodeLibrary;
     }
 
@@ -69,28 +69,28 @@ public abstract class JsonStoreWithInheritance {
 
     @SuppressWarnings("unchecked")
     public synchronized <T> Map<String, T> getMapWithIds(Class<? extends T> clazz) throws Exception {
-            Map<String, T> objectLibrary = (Map<String, T>) objectLibraryPerTypes.get(clazz);
-            if (objectLibrary == null) {
-                objectLibrary = new HashMap<String, T>();
-                Set<String> keys = getNodeLibrary().keySet();
-                ObjectMapper om = new ObjectMapper();
-                om.enable(SerializationFeature.INDENT_OUTPUT);
-                om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-                for (String key : keys) {
-                    JsonNode nodeInLibrary = nodeLibrary.get(key);
-                    String jsonText = om.writeValueAsString(nodeInLibrary);
-                    T anOnject = om.readValue(jsonText, clazz);
-                    try {
-                        if (ReflectionUtils.retrieveFieldInObject(anOnject, idFieldName) != null) {
-                            objectLibrary.put(key, anOnject);
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
+        Map<String, T> objectLibrary = (Map<String, T>) objectLibraryPerTypes.get(clazz);
+        if (objectLibrary == null) {
+            objectLibrary = new HashMap<String, T>();
+            Set<String> keys = getNodeLibrary().keySet();
+            ObjectMapper om = new ObjectMapper();
+            om.enable(SerializationFeature.INDENT_OUTPUT);
+            om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+            for (String key : keys) {
+                JsonNode nodeInLibrary = nodeLibrary.get(key);
+                String jsonText = om.writeValueAsString(nodeInLibrary);
+                T anOnject = om.readValue(jsonText, clazz);
+                try {
+                    if (ReflectionUtils.retrieveFieldInObject(anOnject, idFieldName) != null) {
+                        objectLibrary.put(key, anOnject);
                     }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                objectLibraryPerTypes.put(clazz, objectLibrary);
             }
-            return objectLibrary;
+            objectLibraryPerTypes.put(clazz, objectLibrary);
+        }
+        return objectLibrary;
     }
 
     public <T> T getObjectWithId(String id, Class<? extends T> clazz) throws Exception {
