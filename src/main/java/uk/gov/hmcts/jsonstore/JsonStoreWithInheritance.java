@@ -48,13 +48,13 @@ public abstract class JsonStoreWithInheritance {
         return rootNode;
     }
 
-    protected synchronized Map<String, JsonNode> getNodeLibrary() throws Exception {
+    protected Map<String, JsonNode> getNodeLibrary() throws Exception {
         if (rootNode == null)
             loadStore();
         return nodeLibrary;
     }
 
-    private synchronized void loadStore() throws Exception {
+    private void loadStore() throws Exception {
         try {
             buildObjectStore();
             addToLibrary(rootNode);
@@ -68,7 +68,7 @@ public abstract class JsonStoreWithInheritance {
     }
 
     @SuppressWarnings("unchecked")
-    public synchronized <T> Map<String, T> getMapWithIds(Class<? extends T> clazz) throws Exception {
+    private <T> Map<String, T> getMapWithIds(Class<? extends T> clazz) throws Exception {
         Map<String, T> objectLibrary = (Map<String, T>) objectLibraryPerTypes.get(clazz);
         if (objectLibrary == null) {
             objectLibrary = new HashMap<String, T>();

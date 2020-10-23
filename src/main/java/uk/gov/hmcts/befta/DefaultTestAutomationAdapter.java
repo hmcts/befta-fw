@@ -132,7 +132,7 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
     }
 
     @Override
-    public Object calculateCustomValue(BackEndFunctionalTestScenarioContext scenarioContext, Object key) {
+    public synchronized Object calculateCustomValue(BackEndFunctionalTestScenarioContext scenarioContext, Object key) {
         if (key == null)
             return null;
         if (key instanceof String) {
@@ -188,7 +188,7 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
         return null;
     }
 
-    public boolean isTestDataLoaded() {
+    public synchronized boolean isTestDataLoaded() {
         return this.isTestDataLoaded;
     }
 
