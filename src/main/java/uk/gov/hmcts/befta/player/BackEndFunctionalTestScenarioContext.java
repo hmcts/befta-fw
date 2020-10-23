@@ -8,8 +8,6 @@ import java.util.stream.Collectors;
 
 import io.cucumber.java.Scenario;
 import io.restassured.specification.RequestSpecification;
-import lombok.Getter;
-import lombok.Setter;
 import uk.gov.hmcts.befta.BeftaMain;
 import uk.gov.hmcts.befta.data.HttpTestData;
 import uk.gov.hmcts.befta.data.HttpTestDataSource;
@@ -22,47 +20,40 @@ import uk.gov.hmcts.befta.util.DynamicValueInjector;
 public class BackEndFunctionalTestScenarioContext {
 
     private static final String[] TEST_DATA_RESOURCE_PACKAGES = { "features" };
+
     static final HttpTestDataSource DATA_SOURCE = HttpTestDataSourceFactory.createHttpTestDataSource(TEST_DATA_RESOURCE_PACKAGES);
 
-    @Getter
     private Scenario scenario;
 
-    @Getter
     protected HttpTestData testData;
 
-    @Getter @Setter
     private RequestSpecification theRequest;
 
-    @Getter @Setter
     private ResponseData theResponse;
 
-    @Getter
     private Function<Object, Object> customValues = (valueKey -> calculateCustomValue(valueKey));
 
-    @Getter @Setter
     private BackEndFunctionalTestScenarioContext parentContext;
 
-    @Getter
     private Map<String, BackEndFunctionalTestScenarioContext> childContexts = new HashMap<>();
 
-    @Setter
     protected String contextId = null;
 
     private int userCountAuthenticatedSoFar = 0;
 
     private DynamicValueInjector dynamicValueInjector;
 
-    public void addChildContext(BackEndFunctionalTestScenarioContext childContext) {
+    public synchronized void addChildContext(BackEndFunctionalTestScenarioContext childContext) {
         addChildContext(childContext.getTestDataId(), childContext);
     }
 
-    public void addChildContext(String contextId, BackEndFunctionalTestScenarioContext childContext) {
+    public synchronized void addChildContext(String contextId, BackEndFunctionalTestScenarioContext childContext) {
         childContext.setParentContext(this);
         childContext.setContextId(contextId);
         this.childContexts.put(contextId, childContext);
     }
 
-    public void initializeTestDataFor(Scenario scenario) {
+    public synchronized void initializeTestDataFor(Scenario scenario) {
         this.scenario = scenario;
         String scenarioTag = getCurrentScenarioTag();
         initializeTestDataFor(scenarioTag);
@@ -78,38 +69,42 @@ public class BackEndFunctionalTestScenarioContext {
     }
 
 
-    void injectDataFromContextBeforeApiCall() {
+    synchronized void injectDataFromContextBeforeApiCall() {
         dynamicValueInjector.injectDataFromContextBeforeApiCall();
     }
 
-    void injectDataFromContextAfterApiCall() {
+    synchronized void injectDataFromContextAfterApiCall() {
         dynamicValueInjector.injectDataFromContextAfterApiCall();
     }
 
-    public String getCurrentScenarioTag() {
+    public synchronized String getCurrentScenarioTag() {
         return scenario.getSourceTagNames().stream()
             .filter(tag -> tag.startsWith("@S-"))
             .map(tag -> tag.substring(1))
             .collect(Collectors.joining(","));
     }
 
-    public String getContextId() {
+    public synchronized String getContextId() {
         return contextId == null ? getTestDataId() : contextId;
     }
 
-    public UserData getTheInvokingUser() {
+    synchronized void setContextId(String contextId) {
+        this.contextId = contextId;
+    }
+
+    public synchronized UserData getTheInvokingUser() {
         return testData.getInvokingUser();
     }
 
-    public void setTheInvokingUser(UserData theInvokingUser) {
+    public synchronized void setTheInvokingUser(UserData theInvokingUser) {
         testData.setInvokingUser(theInvokingUser);
     }
 
-    protected Object calculateCustomValue(Object key) {
+    protected synchronized Object calculateCustomValue(Object key) {
         return BeftaMain.getAdapter().calculateCustomValue(this, key);
     }
 
-    public Map<String, BackEndFunctionalTestScenarioContext> getSiblingContexts() {
+    public synchronized Map<String, BackEndFunctionalTestScenarioContext> getSiblingContexts() {
         if (parentContext == null)
             return null;
         return getParentContext().getChildContexts();
@@ -119,8 +114,44 @@ public class BackEndFunctionalTestScenarioContext {
         return testData == null ? "" : testData.get_guid_();
     }
 
-    public Entry<String, UserData> getNextUserToAuthenticate() {
+    public synchronized Entry<String, UserData> getNextUserToAuthenticate() {
         return testData.getUserEntryAt(userCountAuthenticatedSoFar++);
+    }
+
+    public synchronized BackEndFunctionalTestScenarioContext getParentContext() {
+        return parentContext;
+    }
+
+    public synchronized void setParentContext(BackEndFunctionalTestScenarioContext parentContext) {
+        this.parentContext = parentContext;
+    }
+
+    public synchronized Map<String, BackEndFunctionalTestScenarioContext> getChildContexts() {
+        return childContexts;
+    }
+
+    public synchronized HttpTestData getTestData() {
+        return testData;
+    }
+
+    public synchronized RequestSpecification getTheRequest() {
+        return theRequest;
+    }
+
+    public synchronized void setTheRequest(RequestSpecification theRequest) {
+        this.theRequest = theRequest;
+    }
+
+    public synchronized ResponseData getTheResponse() {
+        return theResponse;
+    }
+
+    public synchronized void setTheResponse(ResponseData theResponse) {
+        this.theResponse = theResponse;
+    }
+
+    public synchronized Function<Object, Object> getCustomValues() {
+        return customValues;
     }
 
 }
