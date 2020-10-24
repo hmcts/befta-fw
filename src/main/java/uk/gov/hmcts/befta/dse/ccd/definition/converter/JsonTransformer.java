@@ -60,6 +60,9 @@ public class JsonTransformer {
 
     private String getFolderName(String path){
         String delimiter = File.separator;
+        if(delimiter.equals("\\")) {
+        	delimiter = "\\\\";
+        }
         String[] dirStructure = path.split(delimiter);
         return  dirStructure[dirStructure.length-1];
     }
