@@ -41,7 +41,7 @@ public class JsonStoreHttpTestDataSource implements HttpTestDataSource {
     }
 
     @Override
-    public HttpTestData getDataForTestCall(String testDataId) {
+    public synchronized HttpTestData getDataForTestCall(String testDataId) {
         long start = System.currentTimeMillis();
         String jsonStoreOption="Resource";
         if (jsonStore == null) {

@@ -36,7 +36,7 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
     private boolean isTestDataLoaded = false;
 
     public DefaultTestAutomationAdapter() {
-        serviceAuthorisationApi = BeftaServiceAuthorisationApiClientFactory.createServiceAuthorisationApiClient(); 
+        serviceAuthorisationApi = BeftaServiceAuthorisationApiClientFactory.createServiceAuthorisationApiClient();
         idamApi = BeftaIdamApiClientFactory.createAuthorizationClient();
         ServiceAuthTokenGenerator defaultGenerator = getNewS2sClientWithCredentials(
                 BeftaMain.getConfig().getS2SClientId(), BeftaMain.getConfig().getS2SClientSecret());
@@ -49,17 +49,17 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
     }
 
     @Override
-    public String getNewS2SToken(String clientId) {
+    public synchronized String getNewS2SToken(String clientId) {
         return tokenGenerators.computeIfAbsent(clientId, key -> {
             return getNewS2sClient(clientId);
         }).generate();
     }
 
     @Override
-    public void authenticate(UserData user, String userTokenClientId) {
+    public synchronized void authenticate(UserData user, String userTokenClientId) {
         UserData cached = users.computeIfAbsent(user.getUsername(), e -> {
             final String accessToken = getUserAccessToken(user.getUsername(), user
-                    .getPassword(),
+                            .getPassword(),
                     UserTokenProviderConfig.of(userTokenClientId));
             final AuthApi.User idamUser = idamApi.getUser(accessToken);
             user.setId(idamUser.getId());
@@ -73,8 +73,9 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
         }
     }
 
+
     @Override
-    public void loadTestDataIfNecessary() {
+    public synchronized void loadTestDataIfNecessary() {
         if (!isTestDataLoaded) {
             try {
                 doLoadTestData();
@@ -131,7 +132,7 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
     }
 
     @Override
-    public Object calculateCustomValue(BackEndFunctionalTestScenarioContext scenarioContext, Object key) {
+    public synchronized Object calculateCustomValue(BackEndFunctionalTestScenarioContext scenarioContext, Object key) {
         if (key == null)
             return null;
         if (key instanceof String) {
@@ -187,7 +188,7 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
         return null;
     }
 
-    public boolean isTestDataLoaded() {
+    public synchronized boolean isTestDataLoaded() {
         return this.isTestDataLoaded;
     }
 
