@@ -1,5 +1,5 @@
 [ {
-  "LiveFrom" : "09/01/2017",
+  "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
   "CaseTypeID" : "FT_NoCCaseType",
   "Channel" : "notApplicable",
@@ -12,7 +12,7 @@
   "TabShowCondition" : "",
   "DisplayContextParameter" : ""
 }, {
-  "LiveFrom" : "09/01/2017",
+  "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
   "CaseTypeID" : "FT_NoCCaseType",
   "Channel" : "notApplicable",
@@ -25,7 +25,7 @@
   "TabShowCondition" : "",
   "DisplayContextParameter" : ""
 }, {
-  "LiveFrom" : "09/01/2017",
+  "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
   "CaseTypeID" : "FT_NoCCaseType",
   "Channel" : "notApplicable",
@@ -38,7 +38,7 @@
   "TabShowCondition" : "",
   "DisplayContextParameter" : ""
 }, {
-  "LiveFrom" : "09/01/2017",
+  "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
   "CaseTypeID" : "FT_NoCCaseType",
   "Channel" : "notApplicable",

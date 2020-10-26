@@ -178,4 +178,14 @@
   "PrintableDocumentsUrl" : "",
   "RetriesTimeoutURLPrintEvent" : "",
   "SecurityClassification" : "Public"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "FT_NoCWithoutEventsCaseType",
+  "Name" : "FT-NoC WithoutEvents Case Type",
+  "Description" : "CaseType for testing Notice of Change with bad config (i.e. missing NoC events)",
+  "JurisdictionID" : "BEFTA_MASTER",
+  "PrintableDocumentsUrl" : "",
+  "RetriesTimeoutURLPrintEvent" : "",
+  "SecurityClassification" : "Public"
 } ]

@@ -107,6 +107,34 @@
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
   "CaseTypeID" : "FT_NoCAutoApprovalCaseType",
+  "CaseFieldID" : "applicantOrganisationPolicy",
+  "UserRole" : "caseworker-approver",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCAutoApprovalCaseType",
+  "CaseFieldID" : "respondentOrganisationPolicy",
+  "UserRole" : "caseworker-approver",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCAutoApprovalCaseType",
+  "CaseFieldID" : "otherPartyOrganisationPolicy",
+  "UserRole" : "caseworker-approver",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCAutoApprovalCaseType",
+  "CaseFieldID" : "changeOrganisationRequestField",
+  "UserRole" : "caseworker-approver",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCAutoApprovalCaseType",
   "CaseFieldID" : "CaseHistory",
   "UserRole" : "caseworker-befta_master",
   "CRUD" : "CRUD"

@@ -1,5 +1,5 @@
 [ {
-  "LiveTo" : "01/01/2022",
+  "LiveTo" : "",
   "CaseTypeID" : "FT_ComplexOrganisation",
   "ID" : "NoCChallenge",
   "DisplayOrder" : 1,
@@ -9,7 +9,7 @@
   "Answer" : "${OrganisationField.OrganisationName}|${OrganisationField.OrganisationID}:[Claimant],${OrganisationField.OrganisationName}|${OrganisationField.OrganisationID}:[Defendant]",
   "QuestionId" : "NoCChallengeQ1"
 }, {
-  "LiveTo" : "01/01/2022",
+  "LiveTo" : "",
   "CaseTypeID" : "FT_ComplexOrganisation",
   "ID" : "NoCChallenge",
   "DisplayOrder" : 2,
@@ -19,7 +19,7 @@
   "Answer" : "${OrganisationField.OrganisationName}|${OrganisationField.OrganisationID}:[Defendant]",
   "QuestionId" : "NoCChallengeQ2"
 }, {
-  "LiveTo" : "01/01/2022",
+  "LiveTo" : "",
   "CaseTypeID" : "FT_ComplexOrganisation",
   "ID" : "NoCChallenge",
   "DisplayOrder" : 3,
@@ -29,7 +29,7 @@
   "Answer" : "${OrganisationField.OrganisationID}:[Defendant]",
   "QuestionId" : "NoCChallengeQ3"
 }, {
-  "LiveTo" : "01/01/2022",
+  "LiveTo" : "",
   "CaseTypeID" : "FT_ComplexOrganisation",
   "ID" : "NoCChallengeGroup2",
   "DisplayOrder" : 4,
@@ -39,7 +39,7 @@
   "Answer" : "${OrganisationField.OrganisationID}:[Defendant]",
   "QuestionId" : "NoCChallengeG2Q1"
 }, {
-  "LiveTo" : "01/01/2022",
+  "LiveTo" : "",
   "CaseTypeID" : "FT_ComplexCollectionComplex",
   "ID" : "Collections",
   "DisplayOrder" : 1,
@@ -49,7 +49,7 @@
   "Answer" : "${CaseLinkComplex}:[Defendant]",
   "QuestionId" : "CollectionsQ1"
 }, {
-  "LiveTo" : "01/01/2022",
+  "LiveTo" : "",
   "CaseTypeID" : "FT_NoCCaseType",
   "ID" : "NoCChallenge",
   "DisplayOrder" : 4,
@@ -57,9 +57,9 @@
   "AnswerFieldType" : "Text",
   "DisplayContextParameter" : "",
   "Answer" : "${applicant.individual.LastName}|${applicant.company.Name}|${applicant.soletrader.Name}:[ApplicantSolicitor],${respondent.individual.LastName}|${respondent.company.Name}|${respondent.soletrader.Name}:[RespondentSolicitor],${otherParty.individual.LastName}|${otherParty.company.Name}|${otherParty.soletrader.Name}:[OtherPartySolicitor]",
-  "QuestionId" : "NOC_Challenge_Name"
+  "QuestionId" : "NoC_Challenge_Name"
 }, {
-  "LiveTo" : "01/01/2022",
+  "LiveTo" : "",
   "CaseTypeID" : "FT_NoCAutoApprovalCaseType",
   "ID" : "NoCChallenge",
   "DisplayOrder" : 5,
@@ -68,4 +68,14 @@
   "DisplayContextParameter" : "",
   "Answer" : "${applicant.individual.LastName}|${applicant.company.Name}|${applicant.soletrader.Name}:[ApplicantSolicitor],${respondent.individual.LastName}|${respondent.company.Name}|${respondent.soletrader.Name}:[RespondentSolicitor],${otherParty.individual.LastName}|${otherParty.company.Name}|${otherParty.soletrader.Name}:[OtherPartySolicitor]",
   "QuestionId" : "NoC_AutoApproval_Challenge_Name"
+}, {
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCWithoutEventsCaseType",
+  "ID" : "NoCChallenge",
+  "DisplayOrder" : 6,
+  "QuestionText" : "What's the name of the party you wish to represent?",
+  "AnswerFieldType" : "Text",
+  "DisplayContextParameter" : "",
+  "Answer" : "${applicant.individual.LastName}|${applicant.company.Name}|${applicant.soletrader.Name}:[ApplicantSolicitor],${respondent.individual.LastName}|${respondent.company.Name}|${respondent.soletrader.Name}:[RespondentSolicitor],${otherParty.individual.LastName}|${otherParty.company.Name}|${otherParty.soletrader.Name}:[OtherPartySolicitor]",
+  "QuestionId" : "NoC_WithoutEvents_Challenge_Name"
 } ]
