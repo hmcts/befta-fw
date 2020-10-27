@@ -750,8 +750,8 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         when(response.getBody()).thenReturn(responseBody);
         when(responseBody.asString()).thenReturn(bodyString);
 
-        Map<String, Object> body = mock(Map.class);
-        when(JsonUtils.readObjectFromJsonText(any(), any())).thenReturn(body);
+        Map<String, Object> body = new HashMap<>();
+        body.put("__plainTextValue__", "{}");
 
         scenarioPlayer.submitTheRequestToCallAnOperationOfAProduct(OPERATION, PRODUCT_NAME);
 

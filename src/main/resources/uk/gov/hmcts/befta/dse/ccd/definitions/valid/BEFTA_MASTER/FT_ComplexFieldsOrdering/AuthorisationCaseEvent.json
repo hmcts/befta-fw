@@ -1,0 +1,50 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexFieldsOrdering",
+  "CaseEventID" : "CREATE1",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexFieldsOrdering",
+  "CaseEventID" : "CREATE2",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexFieldsOrdering",
+  "CaseEventID" : "CREATE3",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexFieldsOrdering",
+  "CaseEventID" : "CREATE4",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexFieldsOrdering",
+  "CaseEventID" : "CREATE5",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexFieldsOrdering",
+  "CaseEventID" : "CREATE6",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexFieldsOrdering",
+  "CaseEventID" : "CREATE7",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "CRUD"
+} ]

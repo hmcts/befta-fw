@@ -68,7 +68,7 @@ public abstract class JsonStoreWithInheritance {
     }
 
     @SuppressWarnings("unchecked")
-    public <T> Map<String, T> getMapWithIds(Class<? extends T> clazz) throws Exception {
+    private <T> Map<String, T> getMapWithIds(Class<? extends T> clazz) throws Exception {
         Map<String, T> objectLibrary = (Map<String, T>) objectLibraryPerTypes.get(clazz);
         if (objectLibrary == null) {
             objectLibrary = new HashMap<String, T>();

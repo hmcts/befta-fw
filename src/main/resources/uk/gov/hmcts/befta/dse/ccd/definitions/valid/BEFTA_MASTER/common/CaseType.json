@@ -138,4 +138,24 @@
   "PrintableDocumentsUrl" : "",
   "RetriesTimeoutURLPrintEvent" : "",
   "SecurityClassification" : "Public"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "FT_ComplexFieldsOrdering",
+  "Name" : "FT-Complex Fields Ordering",
+  "Description" : "CaseType for testing complex type ordering",
+  "JurisdictionID" : "BEFTA_MASTER",
+  "PrintableDocumentsUrl" : "",
+  "RetriesTimeoutURLPrintEvent" : "",
+  "SecurityClassification" : "Public"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "FT_ConditionalPostState",
+  "Name" : "FT-Conditional Post State",
+  "Description" : "CaseType for testing Conditional event post state",
+  "JurisdictionID" : "BEFTA_MASTER",
+  "PrintableDocumentsUrl" : "",
+  "RetriesTimeoutURLPrintEvent" : "",
+  "SecurityClassification" : "Public"
 } ]

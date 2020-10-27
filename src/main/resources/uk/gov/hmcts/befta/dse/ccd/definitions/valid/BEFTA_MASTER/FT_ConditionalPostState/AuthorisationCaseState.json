@@ -1,0 +1,36 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ConditionalPostState",
+  "CaseStateID" : "CaseCreated",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ConditionalPostState",
+  "CaseStateID" : "CaseUpdated",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ConditionalPostState",
+  "CaseStateID" : "CaseAmended",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ConditionalPostState",
+  "CaseStateID" : "CaseRevoked",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ConditionalPostState",
+  "CaseStateID" : "CaseDeleted",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "CRUD"
+} ]
