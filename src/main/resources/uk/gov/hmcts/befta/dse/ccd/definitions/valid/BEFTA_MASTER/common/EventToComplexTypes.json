@@ -235,19 +235,6 @@
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
-  "ID" : "Organisation",
-  "CaseEventID" : "createOrganisation",
-  "CaseFieldId" : "OrganisationField",
-  "ListElementCode" : "OrganisationName",
-  "DefaultValue" : "",
-  "EventElementLabel" : "Updated Organisation Name",
-  "EventHintText" : "",
-  "FieldDisplayOrder" : 2,
-  "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
-}, {
-  "LiveFrom" : "1/1/18",
-  "LiveTo" : "",
   "ID" : "OrganisationPolicy",
   "CaseEventID" : "createOrganisation",
   "CaseFieldId" : "OrganisationPolicyField",
@@ -256,19 +243,6 @@
   "EventElementLabel" : "",
   "EventHintText" : "",
   "FieldDisplayOrder" : 3,
-  "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
-}, {
-  "LiveFrom" : "1/1/18",
-  "LiveTo" : "",
-  "ID" : "OrganisationPolicy",
-  "CaseEventID" : "createOrganisation",
-  "CaseFieldId" : "OrganisationPolicyField",
-  "ListElementCode" : "Organisation.OrganisationName",
-  "DefaultValue" : "",
-  "EventElementLabel" : "",
-  "EventHintText" : "",
-  "FieldDisplayOrder" : 4,
   "DisplayContext" : "OPTIONAL",
   "FieldShowCondition" : ""
 }, {
@@ -316,37 +290,11 @@
   "ID" : "OrganisationPolicy",
   "CaseEventID" : "createOrganisation",
   "CaseFieldId" : "ChangeOrganisationRequestField",
-  "ListElementCode" : "OrganisationToAdd.OrganisationName",
-  "DefaultValue" : "",
-  "EventElementLabel" : "",
-  "EventHintText" : "",
-  "FieldDisplayOrder" : 8,
-  "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
-}, {
-  "LiveFrom" : "1/1/18",
-  "LiveTo" : "",
-  "ID" : "OrganisationPolicy",
-  "CaseEventID" : "createOrganisation",
-  "CaseFieldId" : "ChangeOrganisationRequestField",
   "ListElementCode" : "OrganisationToRemove.OrganisationID",
   "DefaultValue" : "",
   "EventElementLabel" : "",
   "EventHintText" : "",
   "FieldDisplayOrder" : 9,
-  "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
-}, {
-  "LiveFrom" : "1/1/18",
-  "LiveTo" : "",
-  "ID" : "OrganisationPolicy",
-  "CaseEventID" : "createOrganisation",
-  "CaseFieldId" : "ChangeOrganisationRequestField",
-  "ListElementCode" : "OrganisationToRemove.OrganisationName",
-  "DefaultValue" : "",
-  "EventElementLabel" : "",
-  "EventHintText" : "",
-  "FieldDisplayOrder" : 10,
   "DisplayContext" : "OPTIONAL",
   "FieldShowCondition" : ""
 }, {
@@ -443,19 +391,6 @@
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
-  "ID" : "Organisation",
-  "CaseEventID" : "updateOrganisation",
-  "CaseFieldId" : "OrganisationField",
-  "ListElementCode" : "OrganisationName",
-  "DefaultValue" : "",
-  "EventElementLabel" : "",
-  "EventHintText" : "",
-  "FieldDisplayOrder" : 2,
-  "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
-}, {
-  "LiveFrom" : "1/1/18",
-  "LiveTo" : "",
   "ID" : "OrganisationPolicy",
   "CaseEventID" : "updateOrganisation",
   "CaseFieldId" : "OrganisationPolicyField",
@@ -464,19 +399,6 @@
   "EventElementLabel" : "",
   "EventHintText" : "",
   "FieldDisplayOrder" : 3,
-  "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
-}, {
-  "LiveFrom" : "1/1/18",
-  "LiveTo" : "",
-  "ID" : "OrganisationPolicy",
-  "CaseEventID" : "updateOrganisation",
-  "CaseFieldId" : "OrganisationPolicyField",
-  "ListElementCode" : "Organisation.OrganisationName",
-  "DefaultValue" : "",
-  "EventElementLabel" : "",
-  "EventHintText" : "",
-  "FieldDisplayOrder" : 4,
   "DisplayContext" : "OPTIONAL",
   "FieldShowCondition" : ""
 }, {
@@ -524,37 +446,11 @@
   "ID" : "OrganisationPolicy",
   "CaseEventID" : "updateOrganisation",
   "CaseFieldId" : "ChangeOrganisationRequestField",
-  "ListElementCode" : "OrganisationToAdd.OrganisationName",
-  "DefaultValue" : "",
-  "EventElementLabel" : "",
-  "EventHintText" : "",
-  "FieldDisplayOrder" : 8,
-  "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
-}, {
-  "LiveFrom" : "1/1/18",
-  "LiveTo" : "",
-  "ID" : "OrganisationPolicy",
-  "CaseEventID" : "updateOrganisation",
-  "CaseFieldId" : "ChangeOrganisationRequestField",
   "ListElementCode" : "OrganisationToRemove.OrganisationID",
   "DefaultValue" : "",
   "EventElementLabel" : "",
   "EventHintText" : "",
   "FieldDisplayOrder" : 9,
-  "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
-}, {
-  "LiveFrom" : "1/1/18",
-  "LiveTo" : "",
-  "ID" : "OrganisationPolicy",
-  "CaseEventID" : "updateOrganisation",
-  "CaseFieldId" : "ChangeOrganisationRequestField",
-  "ListElementCode" : "OrganisationToRemove.OrganisationName",
-  "DefaultValue" : "",
-  "EventElementLabel" : "",
-  "EventHintText" : "",
-  "FieldDisplayOrder" : 10,
   "DisplayContext" : "OPTIONAL",
   "FieldShowCondition" : ""
 }, {
@@ -654,19 +550,6 @@
   "ID" : "OrganisationCaseRoles",
   "CaseEventID" : "createCase",
   "CaseFieldId" : "OrganisationPolicyField1",
-  "ListElementCode" : "Organisation.OrganisationName",
-  "DefaultValue" : "",
-  "EventElementLabel" : "",
-  "EventHintText" : "",
-  "FieldDisplayOrder" : 4,
-  "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
-}, {
-  "LiveFrom" : "6/1/20",
-  "LiveTo" : "",
-  "ID" : "OrganisationCaseRoles",
-  "CaseEventID" : "createCase",
-  "CaseFieldId" : "OrganisationPolicyField1",
   "ListElementCode" : "OrgPolicyCaseAssignedRole",
   "DefaultValue" : "[Claimant]",
   "EventElementLabel" : "",
@@ -698,19 +581,6 @@
   "EventElementLabel" : "",
   "EventHintText" : "",
   "FieldDisplayOrder" : 7,
-  "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
-}, {
-  "LiveFrom" : "6/1/20",
-  "LiveTo" : "",
-  "ID" : "OrganisationCaseRoles",
-  "CaseEventID" : "createCase",
-  "CaseFieldId" : "OrganisationPolicyField2",
-  "ListElementCode" : "Organisation.OrganisationName",
-  "DefaultValue" : "",
-  "EventElementLabel" : "",
-  "EventHintText" : "",
-  "FieldDisplayOrder" : 8,
   "DisplayContext" : "OPTIONAL",
   "FieldShowCondition" : ""
 }, {
@@ -758,19 +628,6 @@
   "ID" : "OrganisationCaseRoles",
   "CaseEventID" : "updateCase",
   "CaseFieldId" : "OrganisationPolicyField1",
-  "ListElementCode" : "Organisation.OrganisationName",
-  "DefaultValue" : "",
-  "EventElementLabel" : "",
-  "EventHintText" : "",
-  "FieldDisplayOrder" : 4,
-  "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
-}, {
-  "LiveFrom" : "6/1/20",
-  "LiveTo" : "",
-  "ID" : "OrganisationCaseRoles",
-  "CaseEventID" : "updateCase",
-  "CaseFieldId" : "OrganisationPolicyField1",
   "ListElementCode" : "OrgPolicyCaseAssignedRole",
   "DefaultValue" : "[Defendant]",
   "EventElementLabel" : "",
@@ -802,19 +659,6 @@
   "EventElementLabel" : "",
   "EventHintText" : "",
   "FieldDisplayOrder" : 7,
-  "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
-}, {
-  "LiveFrom" : "6/1/20",
-  "LiveTo" : "",
-  "ID" : "OrganisationCaseRoles",
-  "CaseEventID" : "updateCase",
-  "CaseFieldId" : "OrganisationPolicyField2",
-  "ListElementCode" : "Organisation.OrganisationName",
-  "DefaultValue" : "",
-  "EventElementLabel" : "",
-  "EventHintText" : "",
-  "FieldDisplayOrder" : 8,
   "DisplayContext" : "OPTIONAL",
   "FieldShowCondition" : ""
 }, {
