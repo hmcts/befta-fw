@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 import io.cucumber.java.Scenario;
 import io.restassured.specification.RequestSpecification;
@@ -15,6 +14,7 @@ import uk.gov.hmcts.befta.data.ResponseData;
 import uk.gov.hmcts.befta.data.UserData;
 import uk.gov.hmcts.befta.exception.FunctionalTestException;
 import uk.gov.hmcts.befta.factory.HttpTestDataSourceFactory;
+import uk.gov.hmcts.befta.util.BeftaUtils;
 import uk.gov.hmcts.befta.util.DynamicValueInjector;
 
 public class BackEndFunctionalTestScenarioContext {
@@ -78,10 +78,7 @@ public class BackEndFunctionalTestScenarioContext {
     }
 
     public synchronized String getCurrentScenarioTag() {
-        return scenario.getSourceTagNames().stream()
-            .filter(tag -> tag.startsWith("@S-"))
-            .map(tag -> tag.substring(1))
-            .collect(Collectors.joining(","));
+        return BeftaUtils.getScenarioTag(scenario);
     }
 
     public synchronized String getContextId() {

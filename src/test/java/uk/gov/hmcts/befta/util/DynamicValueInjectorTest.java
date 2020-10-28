@@ -35,13 +35,13 @@ public class DynamicValueInjectorTest {
     @Mock
     private DefaultTestAutomationAdapter taAdapter;
 
-   private MockedStatic<EnvironmentVariableUtils> environmentVariableUtilsMock = null;
+    private MockedStatic<EnvironmentVariableUtils> environmentVariableUtilsMock = null;
 
     @BeforeEach
     public void prepareMockedObjectUnderTest() {
         try {
-        	environmentVariableUtilsMock = mockStatic(EnvironmentVariableUtils.class);
-        	prepareScenarioConext();
+            environmentVariableUtilsMock = mockStatic(EnvironmentVariableUtils.class);
+            prepareScenarioConext();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -50,8 +50,8 @@ public class DynamicValueInjectorTest {
     @AfterEach
     public void closeMockedObjectUnderTest() {
         try {
-        	scenarioContext = null;
-        	environmentVariableUtilsMock.close();
+            scenarioContext = null;
+            environmentVariableUtilsMock.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -63,7 +63,7 @@ public class DynamicValueInjectorTest {
         scenarioContext = new BackEndFunctionalTestScenarioContextForTest();
 
         scenarioContext.initializeTestDataFor("Simple-Test-Data-With-All-Possible-Dynamic-Values");
-        
+
         BackEndFunctionalTestScenarioContext subcontext = new BackEndFunctionalTestScenarioContextForTest();
         subcontext.initializeTestDataFor("Token_Creation_Call");
         subcontext.getTestData().setActualResponse(subcontext.getTestData().getExpectedResponse());
@@ -71,7 +71,7 @@ public class DynamicValueInjectorTest {
         scenarioContext.setTheInvokingUser(scenarioContext.getTestData().getInvokingUser());
         scenarioContext.addChildContext(subcontext);
     }
-    
+
     @Test
     public void shouldInjectAllFormulaValues() {
 

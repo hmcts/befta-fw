@@ -7,7 +7,7 @@ plugins {
 
 apply plugin: 'java'
 
-def buildNumber = System.getenv("RELEASE_VERSION")?.replace("refs/tags/", "") ?: "5.18.0-RDM-9893"
+def buildNumber = System.getenv("RELEASE_VERSION")?.replace("refs/tags/", "") ?: "5.19.0-RDM-9893"
 
 group 'uk.gov.hmcts'
 
@@ -134,6 +134,8 @@ dependencies {
 
     compile group: 'org.apache.poi', name: 'poi', version: '4.0.0'
     compile group: 'org.apache.poi', name: 'poi-ooxml', version: '4.0.0'
+
+    implementation group: 'com.launchdarkly', name: 'launchdarkly-java-server-sdk', version: '5.+'
 
     testCompile 'io.github.openfeign:feign-jackson:9.7.0'
     testCompile group: 'org.mockito', name: 'mockito-core', version: '3.3.3'
