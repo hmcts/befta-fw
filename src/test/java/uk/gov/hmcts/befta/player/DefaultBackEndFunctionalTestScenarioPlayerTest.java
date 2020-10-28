@@ -159,7 +159,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
 
         scenarioPlayer.verifyThatAPositiveResponseWasReceived();
 
-        verify(scenario).write("Response code: 204");
+        verify(scenario).log("Response code: 204");
     }
 
     @Test
@@ -177,7 +177,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
 
         scenarioPlayer.verifyThatANegativeResponseWasReceived();
 
-        verify(scenario).write("Response code: 400");
+        verify(scenario).log("Response code: 400");
     }
 
     @Test
@@ -387,7 +387,8 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         verify(this.context, never()).addChildContext(any(), eq(prerequisiteContext2));
         verify(prerequisiteContext1, times(1)).setTheResponse(any());
         verify(prerequisiteContext2, never()).setTheResponse(any());
-        verify(this.scenario).write(eq("Skipping prerequisite: [TEST_CONTEXT_ID].[TEST2]")); // i.e. TEST2 already executed
+        verify(this.scenario).log(eq("Skipping prerequisite: [TEST_CONTEXT_ID].[TEST2]")); // i.e. TEST2 already
+                                                                                           // executed
     }
 
     @Test
@@ -721,7 +722,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
 
     }
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @SuppressWarnings({ "rawtypes" })
     @Test
     public void shouldSubmitTheRequestToCallAnOperationOfAProductWithCorrectOperation() throws IOException {
         final String methodType = "POST";

@@ -39,13 +39,14 @@ import uk.gov.hmcts.befta.data.HttpTestData;
 import uk.gov.hmcts.befta.data.RequestData;
 import uk.gov.hmcts.befta.data.ResponseData;
 import uk.gov.hmcts.befta.data.UserData;
+import uk.gov.hmcts.befta.exception.FeatureToggleCheckFailureException;
 import uk.gov.hmcts.befta.exception.FunctionalTestException;
 import uk.gov.hmcts.befta.exception.InvalidTestDataException;
 import uk.gov.hmcts.befta.exception.UnconfirmedApiCallException;
 import uk.gov.hmcts.befta.exception.UnconfirmedDataSpecException;
 import uk.gov.hmcts.befta.factory.BeftaScenarioContextFactory;
-import uk.gov.hmcts.befta.featureToggle.FeatureToggle;
-import uk.gov.hmcts.befta.launchdarkly.LaunchDarklyFeatureToggleService;
+import uk.gov.hmcts.befta.featuretoggle.FeatureToggleInfo;
+import uk.gov.hmcts.befta.featuretoggle.FeatureToggleService;
 import uk.gov.hmcts.befta.util.BeftaUtils;
 import uk.gov.hmcts.befta.util.EnvironmentVariableUtils;
 import uk.gov.hmcts.befta.util.JsonUtils;
@@ -62,8 +63,6 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     private Scenario scenario;
     private ObjectMapper mapper = new ObjectMapper();
 
-    private static final FeatureToggle featureToggle = LaunchDarklyFeatureToggleService.INSTANCE;
-
     public DefaultBackEndFunctionalTestScenarioPlayer() {
         RestAssured.useRelaxedHTTPSValidation();
         scenarioContext = BeftaScenarioContextFactory.createBeftaScenarioContext();
@@ -72,7 +71,19 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     @Before
     public void cucumberPrepare(Scenario scenario) {
         this.scenario = scenario;
-        featureToggle.evaluateFlag(scenario);
+        FeatureToggleService toggleService = BeftaMain.getFeatureToggleService();
+        if (toggleService != null) {
+            try {
+                FeatureToggleInfo toggleInfo = toggleService.getToggleStatusFor(scenario);
+                if (toggleInfo != null && toggleInfo.isAnyDisabled()) {
+                    BeftaUtils.skipScenario(scenario, toggleInfo);
+                }
+            } catch (FeatureToggleCheckFailureException e) {
+                BeftaUtils.log(scenario,
+                        "Feature toggle check failed, will assume toggle on and run the scenario. Failure message: "
+                                + e.getMessage());
+            }
+        }
     }
 
     @Override
@@ -133,7 +144,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         } else {
             String message = "The user [" + specificationAboutAUser
                     + "] will not be verified with authentication as it is not listed in test data.";
-            scenario.write(message);
+            scenario.log(message);
             logger.warn(message);
         }
     }
@@ -165,7 +176,8 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         RequestSpecification raRequest = buildRestAssuredRequestWith(scenarioContext.getTestData());
 
         scenarioContext.setTheRequest(raRequest);
-        scenario.write("Request prepared with the following variables: "
+        scenario.log(
+                "Request prepared with the following variables: "
                 + JsonUtils.getPrettyJsonFromObject(scenarioContext.getTestData().getRequest()));
     }
 
@@ -175,7 +187,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         List<Object> prerequisites = scenarioContext.getTestData().getPrerequisites();
 
         if (prerequisites != null && !prerequisites.isEmpty()) {
-            scenario.write("Prerequisite processing started: [" + scenarioContext.getContextId() + "]");
+            scenario.log("Prerequisite processing started: [" + scenarioContext.getContextId() + "]");
 
             // prerequisites as list of objects
             for (Object prerequisite : prerequisites) {
@@ -198,7 +210,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
                 }
             }
 
-            scenario.write("Prerequisite processing complete: [" + scenarioContext.getContextId() + "]");
+            scenario.log("Prerequisite processing complete: [" + scenarioContext.getContextId() + "]");
         }
     }
 
@@ -209,11 +221,12 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
 
         // avoid undesirable re-execution
         if (shouldExecutePrerequisite(parentContext, subcontextId)) {
-            scenario.write("Prerequisite: [" + parentContext.getContextId() + "].[" + subcontextId + "] from ["
+            scenario.log("Prerequisite: [" + parentContext.getContextId() + "].[" + subcontextId
+                    + "] from ["
                     + testDataId + "]");
             performAndVerifyTheExpectedResponseForAnApiCall(parentContext, PREREQUISITE_SPEC, testDataId, subcontextId);
         } else {
-            scenario.write("Skipping prerequisite: [" + parentContext.getContextId() + "].[" + subcontextId + "]");
+            scenario.log("Skipping prerequisite: [" + parentContext.getContextId() + "].[" + subcontextId + "]");
         }
     }
 
@@ -346,13 +359,12 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         ResponseData responseData = convertRestAssuredResponseToBeftaResponse(scenarioContext, response);
         scenarioContext.getTestData().setActualResponse(responseData);
         scenarioContext.setTheResponse(responseData);
-        scenario.write("Called: " + queryableRequest.getMethod() + " " + queryableRequest.getURI());
-        scenario.write("Response:\n" + JsonUtils.getPrettyJsonFromObject(scenarioContext.getTheResponse()));
+        scenario.log("Called: " + queryableRequest.getMethod() + " " + queryableRequest.getURI());
+        scenario.log("Response:\n" + JsonUtils.getPrettyJsonFromObject(scenarioContext.getTheResponse()));
         scenarioContext.injectDataFromContextAfterApiCall();
 
     }
 
-    @SuppressWarnings("unchecked")
     private ResponseData convertRestAssuredResponseToBeftaResponse(BackEndFunctionalTestScenarioContext scenarioContext,
             Response response) throws IOException {
         Map<String, Object> responseHeaders = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
@@ -380,6 +392,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         return responseData;
     }
 
+    @SuppressWarnings("unchecked")
     private Map<String, Object> getMapForBodyFrom(Map<String, Object> wrappedInMap, String jsonForBody) {
         if (wrappedInMap != null)
             return wrappedInMap;
@@ -388,7 +401,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         try {
             return JsonUtils.readObjectFromJsonText(jsonForBody, Map.class);
         } catch (Exception e) {
-            scenario.write("Can't convert the body to JSON: \n" + jsonForBody);
+            scenario.log("Can't convert the body to JSON: \n" + jsonForBody);
             throw new FunctionalTestException("Can't convert the body to JSON.", e);
         }
     }
@@ -455,7 +468,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     @Then("a positive response is received")
     public void verifyThatAPositiveResponseWasReceived() {
         int responseCode = scenarioContext.getTheResponse().getResponseCode();
-        scenario.write("Response code: " + responseCode);
+        scenario.log("Response code: " + responseCode);
         boolean responseCodePositive = responseCode / 100 == 2;
         Assert.assertTrue("Response code '" + responseCode + "' is not a success code.", responseCodePositive);
     }
@@ -464,7 +477,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     @Then("a negative response is received")
     public void verifyThatANegativeResponseWasReceived() {
         int responseCode = scenarioContext.getTheResponse().getResponseCode();
-        scenario.write("Response code: " + responseCode);
+        scenario.log("Response code: " + responseCode);
         boolean responseCodePositive = responseCode / 100 == 2;
         Assert.assertFalse("Response code '" + responseCode + "' is unexpectedly a success code.",
                 responseCodePositive);
@@ -583,9 +596,9 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
             final String userKey, final UserData userBeingSpecified) {
         String prefix = "users[" + userKey + "]";
         resolveUserData(scenarioContext, prefix, userBeingSpecified);
-        scenario.write("Attempting to authenticate [" + userBeingSpecified.getUsername() + "]...");
+        scenario.log("Attempting to authenticate [" + userBeingSpecified.getUsername() + "]...");
         authenticateUser(scenarioContext, prefix, userBeingSpecified);
-        scenario.write("Authenticated user with Id [" + userBeingSpecified.getId() + "].");
+        scenario.log("Authenticated user with Id [" + userBeingSpecified.getId() + "].");
     }
 
     private void resolveUserData(final BackEndFunctionalTestScenarioContext scenarioContext, String prefix,
@@ -607,7 +620,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
             UserData user) {
         String logPrefix = scenarioContext.getTestData().get_guid_() + ": " + prefix + " [" + user.getUsername() + "] ";
         String preferredTokenProviderClientId = scenarioContext.getTestData().getUserTokenClientId();
-        scenario.write("Authentication attempt from: " + preferredTokenProviderClientId + ".");
+        scenario.log("Authentication attempt from: " + preferredTokenProviderClientId + ".");
         try {
             BeftaMain.getAdapter().authenticate(user, preferredTokenProviderClientId);
             logger.info(logPrefix + "authenticated.");
