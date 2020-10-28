@@ -39,13 +39,13 @@ import uk.gov.hmcts.befta.data.HttpTestData;
 import uk.gov.hmcts.befta.data.RequestData;
 import uk.gov.hmcts.befta.data.ResponseData;
 import uk.gov.hmcts.befta.data.UserData;
+import uk.gov.hmcts.befta.exception.FeatureToggleCheckFailureException;
 import uk.gov.hmcts.befta.exception.FunctionalTestException;
 import uk.gov.hmcts.befta.exception.InvalidTestDataException;
 import uk.gov.hmcts.befta.exception.UnconfirmedApiCallException;
 import uk.gov.hmcts.befta.exception.UnconfirmedDataSpecException;
 import uk.gov.hmcts.befta.factory.BeftaScenarioContextFactory;
-import uk.gov.hmcts.befta.featureToggle.FeatureToggle;
-import uk.gov.hmcts.befta.launchdarkly.LaunchDarklyFeatureToggleService;
+import uk.gov.hmcts.befta.featureToggle.FeatureToggleInfo;
 import uk.gov.hmcts.befta.util.BeftaUtils;
 import uk.gov.hmcts.befta.util.EnvironmentVariableUtils;
 import uk.gov.hmcts.befta.util.JsonUtils;
@@ -62,8 +62,6 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     private Scenario scenario;
     private ObjectMapper mapper = new ObjectMapper();
 
-    private static final FeatureToggle featureToggle = LaunchDarklyFeatureToggleService.INSTANCE;
-
     public DefaultBackEndFunctionalTestScenarioPlayer() {
         RestAssured.useRelaxedHTTPSValidation();
         scenarioContext = BeftaScenarioContextFactory.createBeftaScenarioContext();
@@ -72,7 +70,14 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     @Before
     public void cucumberPrepare(Scenario scenario) {
         this.scenario = scenario;
-        featureToggle.evaluateFlag(scenario);
+        try {
+            FeatureToggleInfo toggleInfo = BeftaMain.getFeatureToggleService().getToggleStatusFor(scenario);
+            if (toggleInfo != null && toggleInfo.isAnyDisabled()) {
+                BeftaUtils.skipScenario(scenario, toggleInfo);
+            }
+        } catch (FeatureToggleCheckFailureException e) {
+            BeftaUtils.log(scenario, "Feature toggle check failed: " + e.getMessage());
+        }
     }
 
     @Override

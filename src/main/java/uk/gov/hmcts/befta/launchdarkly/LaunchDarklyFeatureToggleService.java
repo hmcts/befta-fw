@@ -2,76 +2,62 @@ package uk.gov.hmcts.befta.launchdarkly;
 
 import com.launchdarkly.sdk.LDUser;
 import com.launchdarkly.sdk.server.LDClient;
-import io.cucumber.java.Scenario;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import uk.gov.hmcts.befta.featureToggle.FeatureToggle;
-import uk.gov.hmcts.befta.util.BeftaUtils;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
-@Slf4j
-public class LaunchDarklyFeatureToggleService implements FeatureToggle {
+import io.cucumber.java.Scenario;
+import uk.gov.hmcts.befta.exception.FeatureToggleCheckFailureException;
+import uk.gov.hmcts.befta.featureToggle.FeatureToggleInfo;
+import uk.gov.hmcts.befta.featureToggle.FeatureToggleService;
 
-    private final Logger logger = LoggerFactory.getLogger(LaunchDarklyFeatureToggleService.class);
+public class LaunchDarklyFeatureToggleService implements FeatureToggleService {
 
-    public static final LaunchDarklyFeatureToggleService INSTANCE =
-            new LaunchDarklyFeatureToggleService();
+    public static final LaunchDarklyFeatureToggleService INSTANCE = new LaunchDarklyFeatureToggleService();
 
-    public static final String BEFTA = "befta";
-    public static final String USER = "user";
-    public static final String SERVICENAME = "servicename";
+    private static final String BEFTA = "befta";
+    private static final String USER = "user";
+    private static final String SERVICENAME = "servicename";
+
+    private static final LDUser user = new LDUser.Builder(LaunchDarklyConfig.getEnvironmentName()).firstName(BEFTA)
+            .lastName(USER).custom(SERVICENAME, LaunchDarklyConfig.getLDMicroserviceName()).build();
 
     private static final String LAUNCH_DARKLY_FLAG = "FeatureToggle";
+
     private final LDClient ldClient = LaunchDarklyConfig.getLdInstance();
 
     @Override
-    public void evaluateFlag(Scenario scenario) {
+    public FeatureToggleInfo getToggleStatusFor(Scenario scenario) {
+        if (ldClient == null)
+            return null;
 
-        boolean isLDFlagEnabled = true;
-        logger.info("Inside evaluateFlag");
-        scenario.log("Inside evaluateFlag");
-        List<String> flagNames = scenario.getSourceTagNames().stream()
-                .filter(tag -> tag.contains(LAUNCH_DARKLY_FLAG))
-                .map(tag -> tag.substring(tag.indexOf("(") + 1, tag.indexOf(")")))
-                .collect(Collectors.toList());
+        FeatureToggleInfo status = new FeatureToggleInfo();
+        List<String> flagNames = getFeatureFlagsOn(scenario);
+        if (flagNames.isEmpty())
+            return status;
 
-        if (ldClient != null && !flagNames.isEmpty()) {
-            if (LaunchDarklyConfig.getLDMicroserviceName() == null) {
-                BeftaUtils.skipScenario(scenario, ("The Scenario is being skipped as MICROSERVICE_NAME variable is not configured"));
+        checkLaunchDarklyConfig(scenario);
 
-            }
-            if (LaunchDarklyConfig.getEnvironmentName() == null) {
-                BeftaUtils.skipScenario(scenario, ("The Scenario is being skipped as LAUNCH_DARKLY_ENV is not configured"));
-            }
+        for (String flag : flagNames) {
+            boolean isLDFlagEnabled = ldClient.boolVariation(flag, user, false);
+            status.add(flag, isLDFlagEnabled);
+        }
+        return status;
+    }
 
-            LDUser user = new LDUser.Builder(LaunchDarklyConfig.getEnvironmentName())
-                    .firstName(BEFTA)
-                    .lastName(USER)
-                    .custom(SERVICENAME, LaunchDarklyConfig.getLDMicroserviceName())
-                    .build();
-
-            for (String flag : flagNames) {
-                isLDFlagEnabled = ldClient.boolVariation(flag, user, false);
-
-                if (!isLDFlagEnabled) {
-                    Optional<String> scenarioName = scenario.getSourceTagNames().stream()
-                            .filter(tag -> tag.contains("@S-"))
-                            .map(tag -> tag.substring(1))
-                            .findFirst();
-
-                    BeftaUtils.skipScenario(scenario, String.format("The Scenario %s is being skipped as LD flag %s is disabled",
-                            scenarioName.orElse(StringUtils.EMPTY), flag));
-                    break;
-                }
-
-            }
-
+    private void checkLaunchDarklyConfig(Scenario scenario) {
+        if (LaunchDarklyConfig.getLDMicroserviceName() == null) {
+            throw new FeatureToggleCheckFailureException(
+                    "The Scenario is being skipped as MICROSERVICE_NAME variable is not configured");
+        }
+        if (LaunchDarklyConfig.getEnvironmentName() == null) {
+            throw new FeatureToggleCheckFailureException(
+                    "The Scenario is being skipped as LAUNCH_DARKLY_ENV is not configured");
         }
     }
-}
 
+    private List<String> getFeatureFlagsOn(Scenario scenario) {
+        return scenario.getSourceTagNames().stream().filter(tag -> tag.contains(LAUNCH_DARKLY_FLAG))
+                .map(tag -> tag.substring(tag.indexOf("(") + 1, tag.indexOf(")"))).collect(Collectors.toList());
+    }
+}

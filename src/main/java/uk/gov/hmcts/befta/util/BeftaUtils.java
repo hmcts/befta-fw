@@ -1,22 +1,24 @@
 package uk.gov.hmcts.befta.util;
 
+import org.junit.AssumptionViolatedException;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
+import java.util.stream.Collectors;
 
 import io.cucumber.java.Scenario;
 import io.restassured.internal.util.IOUtils;
-import org.junit.AssumptionViolatedException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import uk.gov.hmcts.befta.exception.FunctionalTestException;
 import uk.gov.hmcts.befta.exception.JsonStoreCreationException;
+import uk.gov.hmcts.befta.featureToggle.FeatureToggleInfo;
 
+@Slf4j
 public class BeftaUtils {
-    static Logger logger = LoggerFactory.getLogger(BeftaUtils.class);
 
     public static File getSingleFileFromResource(String[] filelocation) {
         if(filelocation!=null&&filelocation.length==1) {
@@ -69,10 +71,25 @@ public class BeftaUtils {
         }
     }
 
-    public static void skipScenario(Scenario scenario, String reason) {
-        scenario.log(reason);
-        logger.info(reason);
+    public static void skipScenario(Scenario scenario, FeatureToggleInfo toggleInfo) {
+        String skipReason = String.format(
+                "The scenario %s is being skipped because of feature(s) toggled off: %s",
+                getScenarioTag(scenario), toggleInfo.getDisabledFeatureFlags());
+        BeftaUtils.skipScenario(scenario, skipReason);
+    }
 
+    public static void skipScenario(Scenario scenario, String reason) {
+        log(scenario, reason);
         throw new AssumptionViolatedException(reason);
+    }
+
+    public static String getScenarioTag(Scenario scenario) {
+        return scenario.getSourceTagNames().stream().filter(tag -> tag.startsWith("@S-")).map(tag -> tag.substring(1))
+                .collect(Collectors.joining(","));
+    }
+
+    public static void log(Scenario scenario, String logString) {
+        log.info(logString);
+        scenario.log(logString);
     }
 }
