@@ -49,7 +49,7 @@
   "Description" : "Update a case 2",
   "DisplayOrder" : 3,
   "PreConditionState(s)" : "CaseCreated",
-  "PostConditionState" : "CaseUpdated2(TextField=\"updated2\" OR EmailField=\"*\"):1;CaseAmended2(TextField=\"amended2\" OR EmailField=\"matched@test.com\"):2;*(TextField=\"keepstate\"):3;CaseRevoked2(EmailField!=\"\"):4;CaseDeleted",
+  "PostConditionState" : "CaseUpdated2(TextField=\"updated2\" AND EmailField=\"*\"):1;CaseAmended2(TextField=\"amended2\" OR EmailField=\"matched@test.com\"):2;*(TextField=\"keepstate\"):3;CaseRevoked2(EmailField!=\"\"):4;CaseDeleted",
   "CallBackURLAboutToStartEvent" : "",
   "RetriesTimeoutAboutToStartEvent" : "",
   "CallBackURLAboutToSubmitEvent" : "",
