@@ -12,4 +12,11 @@
   "CaseEventID" : "updateCase",
   "UserRole" : "caseworker-befta_master",
   "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ConditionalPostState",
+  "CaseEventID" : "updateCase2",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "CRUD"
 } ]
