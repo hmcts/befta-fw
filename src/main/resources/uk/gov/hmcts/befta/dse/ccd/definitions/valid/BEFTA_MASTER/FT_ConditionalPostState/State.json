@@ -43,4 +43,31 @@
   "Description" : "",
   "DisplayOrder" : 1,
   "TitleDisplay" : ""
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ConditionalPostState",
+  "ID" : "CaseUpdated2",
+  "Name" : "Update case 2",
+  "Description" : "",
+  "DisplayOrder" : 1,
+  "TitleDisplay" : ""
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ConditionalPostState",
+  "ID" : "CaseAmended2",
+  "Name" : "Amend case 2",
+  "Description" : "",
+  "DisplayOrder" : 1,
+  "TitleDisplay" : ""
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ConditionalPostState",
+  "ID" : "CaseRevoked2",
+  "Name" : "Revoke case 2",
+  "Description" : "",
+  "DisplayOrder" : 1,
+  "TitleDisplay" : ""
 } ]
