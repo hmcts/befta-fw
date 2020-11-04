@@ -40,4 +40,25 @@
   "CaseEventID" : "ApplyNoCDecision",
   "UserRole" : "caseworker-befta_master",
   "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCCaseType",
+  "CaseEventID" : "manageRespondentOrganisation",
+  "UserRole" : "caseworker-caa",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCCaseType",
+  "CaseEventID" : "manageApplicantOrganisation",
+  "UserRole" : "caseworker-caa",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCCaseType",
+  "CaseEventID" : "manageAllOrgPolicies",
+  "UserRole" : "caseworker-caa",
+  "CRUD" : "CRUD"
 } ]

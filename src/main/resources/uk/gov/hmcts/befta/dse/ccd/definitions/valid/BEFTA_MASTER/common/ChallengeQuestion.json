@@ -60,6 +60,16 @@
   "QuestionId" : "NoC_Challenge_Name"
 }, {
   "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCCaseType",
+  "ID" : "NoCChallenge",
+  "DisplayOrder" : 2,
+  "QuestionText" : "significant date?",
+  "AnswerFieldType" : "Date",
+  "DisplayContextParameter" : "#DATETIMEENTRY(dd-MM-yyyy)",
+  "Answer" : "${applicant.dob}:[ApplicantSolicitor],${respondent.incorporationDate}:[RespondentSolicitor],${otherParty.tradingStartDate}:[OtherPartySolicitor]",
+  "QuestionId" : "NoC_Challenge_Name2"
+}, {
+  "LiveTo" : "",
   "CaseTypeID" : "FT_NoCAutoApprovalCaseType",
   "ID" : "NoCChallenge",
   "DisplayOrder" : 5,

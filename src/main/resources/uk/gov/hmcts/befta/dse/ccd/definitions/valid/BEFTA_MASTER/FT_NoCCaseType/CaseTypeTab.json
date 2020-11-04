@@ -50,4 +50,30 @@
   "FieldShowCondition" : "",
   "TabShowCondition" : "",
   "DisplayContextParameter" : ""
+}, {
+  "LiveFrom" : "09/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCCaseType",
+  "Channel" : "notApplicable",
+  "TabID" : "ApplicantOrganisationPolicy",
+  "TabLabel" : "ApplicantOrganisationPolicy",
+  "TabDisplayOrder" : 2,
+  "CaseFieldID" : "applicantOrganisationPolicy",
+  "TabFieldDisplayOrder" : 3,
+  "FieldShowCondition" : "",
+  "TabShowCondition" : "",
+  "DisplayContextParameter" : ""
+}, {
+  "LiveFrom" : "09/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCCaseType",
+  "Channel" : "notApplicable",
+  "TabID" : "RespondentOrganisationPolicy",
+  "TabLabel" : "RespondentOrganisationPolicy",
+  "TabDisplayOrder" : 2,
+  "CaseFieldID" : "respondentOrganisationPolicy",
+  "TabFieldDisplayOrder" : 3,
+  "FieldShowCondition" : "",
+  "TabShowCondition" : "",
+  "DisplayContextParameter" : ""
 } ]

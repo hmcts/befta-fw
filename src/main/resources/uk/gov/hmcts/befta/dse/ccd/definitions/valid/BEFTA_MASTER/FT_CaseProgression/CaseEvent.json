@@ -8,15 +8,15 @@
   "DisplayOrder" : 1,
   "PreConditionState(s)" : "",
   "PostConditionState" : "CaseCreated",
-  "CallBackURLAboutToStartEvent" : "",
+  "CallBackURLAboutToStartEvent" : "https://run.mocky.io/v3/da112024-02af-4564-8542-324a0d88dc82",
   "RetriesTimeoutAboutToStartEvent" : "",
   "CallBackURLAboutToSubmitEvent" : "",
   "RetriesTimeoutURLAboutToSubmitEvent" : "",
   "CallBackURLSubmittedEvent" : "",
   "RetriesTimeoutURLSubmittedEvent" : "",
   "SecurityClassification" : "Public",
-  "ShowSummary" : "N",
-  "ShowEventNotes" : "N",
+  "ShowSummary" : "y",
+  "ShowEventNotes" : "Y",
   "CanSaveDraft" : "",
   "EndButtonLabel" : ""
 }, {
