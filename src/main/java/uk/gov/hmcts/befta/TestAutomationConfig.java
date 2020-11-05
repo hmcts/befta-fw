@@ -55,4 +55,13 @@ public class TestAutomationConfig {
         return setting == null ? ResponseHeaderCheckPolicy.FAIL_TEST : ResponseHeaderCheckPolicy.valueOf(setting);
     }
 
+    public String getTestDataReloadFrequency() {
+        String desiredDataReoadFrequency = "10";
+        if (null != EnvironmentVariableUtils.getRequiredVariable("TEST_DATA_RELOAD_FREQUENCY") &&
+                !"".equalsIgnoreCase(EnvironmentVariableUtils.getRequiredVariable("TEST_DATA_RELOAD_FREQUENCY"))) {
+            desiredDataReoadFrequency = EnvironmentVariableUtils.getRequiredVariable("TEST_DATA_RELOAD_FREQUENCY");
+        }
+        return desiredDataReoadFrequency;
+    }
+
 }
