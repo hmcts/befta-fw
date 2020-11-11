@@ -135,6 +135,8 @@ dependencies {
     compile group: 'org.apache.poi', name: 'poi', version: '4.0.0'
     compile group: 'org.apache.poi', name: 'poi-ooxml', version: '4.0.0'
 
+    implementation group: 'com.launchdarkly', name: 'launchdarkly-java-server-sdk', version: '5.+'
+
     testCompile 'io.github.openfeign:feign-jackson:9.7.0'
     testCompile group: 'org.mockito', name: 'mockito-core', version: '3.3.3'
     testCompile group: 'org.mockito', name: 'mockito-inline', version: '3.4.0'
