@@ -6,7 +6,7 @@
   "QuestionText" : "What's the name of the party you wish to represent?",
   "AnswerFieldType" : "Date",
   "DisplayContextParameter" : "#DATETIMEENTRY(dd-MM-yyyy)",
-  "Answer" : "${OrganisationField.OrganisationID}:[Claimant],${OrganisationField.OrganisationID}:[Defendant]",
+  "Answer" : "${OrganisationField.OrganisationName}|${OrganisationField.OrganisationID}:[Claimant],${OrganisationField.OrganisationName}|${OrganisationField.OrganisationID}:[Defendant]",
   "QuestionId" : "NoCChallengeQ1"
 }, {
   "LiveTo" : "",
@@ -16,7 +16,7 @@
   "QuestionText" : "What's xxxx?",
   "AnswerFieldType" : "DateTime",
   "DisplayContextParameter" : "#DATETIMEENTRY(dd-MM-yyyy)",
-  "Answer" : "${OrganisationField.OrganisationID}:[Defendant]",
+  "Answer" : "${OrganisationField.OrganisationName}|${OrganisationField.OrganisationID}:[Defendant]",
   "QuestionId" : "NoCChallengeQ2"
 }, {
   "LiveTo" : "",
