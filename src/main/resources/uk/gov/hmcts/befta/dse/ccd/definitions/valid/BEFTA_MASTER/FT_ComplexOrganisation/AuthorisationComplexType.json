@@ -30,4 +30,12 @@
   "ListElementCode" : "Organisation.OrganisationID",
   "UserRole" : "caseworker-befta_master",
   "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexOrganisation",
+  "CaseFieldID" : "OrganisationPolicyField",
+  "ListElementCode" : "Organisation.OrganisationName",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "CRUD"
 } ]
