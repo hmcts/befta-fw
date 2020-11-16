@@ -158,4 +158,34 @@
   "PrintableDocumentsUrl" : "",
   "RetriesTimeoutURLPrintEvent" : "",
   "SecurityClassification" : "Public"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "FT_NoCCaseType",
+  "Name" : "FT-NoC Case Type",
+  "Description" : "CaseType for testing Notice of Change",
+  "JurisdictionID" : "BEFTA_MASTER",
+  "PrintableDocumentsUrl" : "",
+  "RetriesTimeoutURLPrintEvent" : "",
+  "SecurityClassification" : "Public"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "FT_NoCAutoApprovalCaseType",
+  "Name" : "FT-NoC AutoApproval Case Type",
+  "Description" : "CaseType for testing Notice of Change with Auto Approval",
+  "JurisdictionID" : "BEFTA_MASTER",
+  "PrintableDocumentsUrl" : "",
+  "RetriesTimeoutURLPrintEvent" : "",
+  "SecurityClassification" : "Public"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "FT_NoCWithoutEventsCaseType",
+  "Name" : "FT-NoC WithoutEvents Case Type",
+  "Description" : "CaseType for testing Notice of Change with bad config (i.e. missing NoC events)",
+  "JurisdictionID" : "BEFTA_MASTER",
+  "PrintableDocumentsUrl" : "",
+  "RetriesTimeoutURLPrintEvent" : "",
+  "SecurityClassification" : "Public"
 } ]

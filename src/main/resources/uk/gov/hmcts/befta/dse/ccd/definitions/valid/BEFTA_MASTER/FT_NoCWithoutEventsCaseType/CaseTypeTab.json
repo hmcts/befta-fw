@@ -1,0 +1,53 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCWithoutEventsCaseType",
+  "Channel" : "notApplicable",
+  "TabID" : "History",
+  "TabLabel" : "History",
+  "TabDisplayOrder" : 1,
+  "CaseFieldID" : "CaseHistory",
+  "TabFieldDisplayOrder" : 1,
+  "FieldShowCondition" : "",
+  "TabShowCondition" : "",
+  "DisplayContextParameter" : ""
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCWithoutEventsCaseType",
+  "Channel" : "notApplicable",
+  "TabID" : "Data",
+  "TabLabel" : "Data",
+  "TabDisplayOrder" : 2,
+  "CaseFieldID" : "applicant",
+  "TabFieldDisplayOrder" : 1,
+  "FieldShowCondition" : "",
+  "TabShowCondition" : "",
+  "DisplayContextParameter" : ""
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCWithoutEventsCaseType",
+  "Channel" : "notApplicable",
+  "TabID" : "Data",
+  "TabLabel" : "Data",
+  "TabDisplayOrder" : 2,
+  "CaseFieldID" : "respondent",
+  "TabFieldDisplayOrder" : 2,
+  "FieldShowCondition" : "",
+  "TabShowCondition" : "",
+  "DisplayContextParameter" : ""
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCWithoutEventsCaseType",
+  "Channel" : "notApplicable",
+  "TabID" : "Data",
+  "TabLabel" : "Data",
+  "TabDisplayOrder" : 2,
+  "CaseFieldID" : "otherParty",
+  "TabFieldDisplayOrder" : 3,
+  "FieldShowCondition" : "",
+  "TabShowCondition" : "",
+  "DisplayContextParameter" : ""
+} ]

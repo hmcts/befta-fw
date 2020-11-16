@@ -1,0 +1,22 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCWithoutEventsCaseType",
+  "ID" : "createCase",
+  "Name" : "Create Case",
+  "Description" : "",
+  "DisplayOrder" : 1,
+  "PreConditionState(s)" : "",
+  "PostConditionState" : "CaseCreated",
+  "CallBackURLAboutToStartEvent" : "",
+  "RetriesTimeoutAboutToStartEvent" : "",
+  "CallBackURLAboutToSubmitEvent" : "",
+  "RetriesTimeoutURLAboutToSubmitEvent" : "",
+  "CallBackURLSubmittedEvent" : "",
+  "RetriesTimeoutURLSubmittedEvent" : "",
+  "SecurityClassification" : "Public",
+  "ShowSummary" : "Y",
+  "ShowEventNotes" : "Y",
+  "CanSaveDraft" : "",
+  "EndButtonLabel" : ""
+} ]
