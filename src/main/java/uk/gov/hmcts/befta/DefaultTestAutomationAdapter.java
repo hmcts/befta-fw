@@ -54,6 +54,9 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
         });
     }
 
+    // S2S_AUTH_RETRY_INTERVALS=1000
+    // USER_AUTH_RETRY_INTERVALS=1000,2000,4000
+
     @Override
     public synchronized void authenticateIfNecessary(UserData user, String userTokenClientId) {
         UserData cached = users.computeIfAbsent(user.getUsername(), e -> {
