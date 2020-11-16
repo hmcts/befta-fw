@@ -7,6 +7,8 @@ public class TestAutomationConfig {
 
     public static final TestAutomationConfig INSTANCE = new TestAutomationConfig();
 
+    private static final double DEFAULT_TEST_DATA_LOAD_SKIP_PERIOD = 10.0;
+
     private TestAutomationConfig() {
     }
 
@@ -55,13 +57,13 @@ public class TestAutomationConfig {
         return setting == null ? ResponseHeaderCheckPolicy.FAIL_TEST : ResponseHeaderCheckPolicy.valueOf(setting);
     }
 
-    public String getTestDataReloadFrequency() {
-        String desiredDataReoadFrequency = "10";
-        if (null != EnvironmentVariableUtils.getRequiredVariable("TEST_DATA_RELOAD_FREQUENCY") &&
-                !"".equalsIgnoreCase(EnvironmentVariableUtils.getRequiredVariable("TEST_DATA_RELOAD_FREQUENCY"))) {
-            desiredDataReoadFrequency = EnvironmentVariableUtils.getRequiredVariable("TEST_DATA_RELOAD_FREQUENCY");
+    public double getTestDataLoadSkipPeriod() {
+        double testDataLoadSkipPeriod = DEFAULT_TEST_DATA_LOAD_SKIP_PERIOD;
+        String envVar = EnvironmentVariableUtils.getOptionalVariable("TEST_DATA_LOAD_SKIP_PERIOD");
+        if (envVar != null) {
+            testDataLoadSkipPeriod = Double.parseDouble(envVar);
         }
-        return desiredDataReoadFrequency;
+        return testDataLoadSkipPeriod;
     }
 
 }

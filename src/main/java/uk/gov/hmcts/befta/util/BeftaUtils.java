@@ -79,7 +79,7 @@ public class BeftaUtils {
     }
 
     public static void skipScenario(Scenario scenario, String reason) {
-        log(scenario, reason);
+        defaultLog(scenario, reason);
         throw new AssumptionViolatedException(reason);
     }
 
@@ -88,8 +88,26 @@ public class BeftaUtils {
                 .collect(Collectors.joining(","));
     }
 
-    public static void log(Scenario scenario, String logString) {
+    public static void defaultLog(Scenario scenario, String logString) {
         log.info(logString);
         scenario.log(logString);
+    }
+
+    public static void defaultLog(String logString) {
+        log.info(logString);
+    }
+
+    public static void defaultLog(String logString, Exception e) {
+        log.info(logString, e);
+    }
+
+    public static String getDateTimeFormatRequested(String key) {
+        if (key.equals("today"))
+            return "yyyy-MM-dd";
+        else if (key.equals("now"))
+            return "yyyy-MM-dd'T'HH:mm:ss.SSS";
+        else if (key.startsWith("now("))
+            return key.substring(4, key.length() - 1);
+        return null;
     }
 }
