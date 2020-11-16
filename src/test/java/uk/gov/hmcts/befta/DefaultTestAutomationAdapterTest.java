@@ -220,11 +220,11 @@ class DefaultTestAutomationAdapterTest {
     @SetEnvironmentVariable(key = TEST_DATA_RELOAD_FREQUENCY_KEY, value = TEST_DATA_RELOAD_FREQUENCY_VALUE)
     void testLoadTestDataIfNecessary() {
         assertNotNull(tad);
-        assertFalse(tad.isTestDataLoadedForThisRound());
-        tad.loadTestDataIfNecessary();
-        assertTrue(tad.isTestDataLoadedForThisRound());
-        tad.loadTestDataIfNecessary();
-        assertTrue(tad.isTestDataLoadedForThisRound());
+        assertFalse(tad.getDataLoader().isTestDataLoadedForCurrentRound());
+        tad.getDataLoader().loadTestDataIfNecessary();
+        assertTrue(tad.getDataLoader().isTestDataLoadedForCurrentRound());
+        tad.getDataLoader().loadTestDataIfNecessary();
+        assertTrue(tad.getDataLoader().isTestDataLoadedForCurrentRound());
     }
 
     /**

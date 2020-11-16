@@ -44,7 +44,7 @@ class BeftaTestDataLoaderTest {
         DefaultTestAutomationAdapter taAdapter = new DefaultTestAutomationAdapter();
         BeftaMain.setTaAdapter(taAdapter);
         BeftaTestDataLoader.main(args);
-        assertTrue(taAdapter.isTestDataLoadedForThisRound());
+        assertTrue(taAdapter.getDataLoader().isTestDataLoadedForCurrentRound());
     }
 
     /**
@@ -63,7 +63,7 @@ class BeftaTestDataLoaderTest {
         DefaultTestAutomationAdapter taAdapter = new DefaultTestAutomationAdapter();
         BeftaMain.setTaAdapter(taAdapter);
         BeftaTestDataLoader.main(args);
-        assertFalse(taAdapter.isTestDataLoadedForThisRound());
+        assertFalse(taAdapter.getDataLoader().isTestDataLoadedForCurrentRound());
     }
 
 }
