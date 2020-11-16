@@ -14,6 +14,7 @@ import uk.gov.hmcts.befta.exception.FunctionalTestException;
 import uk.gov.hmcts.befta.factory.BeftaIdamApiClientFactory;
 import uk.gov.hmcts.befta.factory.BeftaServiceAuthorisationApiClientFactory;
 import uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext;
+import uk.gov.hmcts.befta.util.BeftaUtils;
 import uk.gov.hmcts.befta.util.EnvironmentVariableUtils;
 import uk.gov.hmcts.befta.util.ReflectionUtils;
 import uk.gov.hmcts.reform.authorisation.ServiceAuthorisationApi;
@@ -29,7 +30,7 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
     private final AuthApi idamApi;
     private final ServiceAuthorisationApi serviceAuthorisationApi;
 
-    private final Map<String, ServiceAuthTokenGenerator> tokenGenerators = new ConcurrentHashMap<>();
+    private final Map<String, String> s2sTokens = new ConcurrentHashMap<>();
 
     private final Map<String, UserData> users = new HashMap<>();
 
@@ -38,39 +39,37 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
     public DefaultTestAutomationAdapter() {
         serviceAuthorisationApi = BeftaServiceAuthorisationApiClientFactory.createServiceAuthorisationApiClient();
         idamApi = BeftaIdamApiClientFactory.createAuthorizationClient();
-        ServiceAuthTokenGenerator defaultGenerator = getNewS2sClientWithCredentials(
-                BeftaMain.getConfig().getS2SClientId(), BeftaMain.getConfig().getS2SClientSecret());
-        tokenGenerators.put(BeftaMain.getConfig().getS2SClientId(), defaultGenerator);
     }
 
     @Override
     public String getNewS2SToken() {
-        return getNewS2SToken(BeftaMain.getConfig().getS2SClientId());
+        return getNewS2SToken(BeftaMain.getConfig().getDefaultS2sClientId());
     }
 
     @Override
     public synchronized String getNewS2SToken(String clientId) {
-        return tokenGenerators.computeIfAbsent(clientId, key -> {
-            return getNewS2sClient(clientId);
-        }).generate();
+        return s2sTokens.computeIfAbsent(clientId, key -> {
+            BeftaUtils.log("Getting a new S2S token for " + clientId);
+            return getNewS2sClient(clientId).generate();
+        });
     }
 
     @Override
-    public synchronized void authenticate(UserData user, String userTokenClientId) {
+    public synchronized void authenticateIfNecessary(UserData user, String userTokenClientId) {
         UserData cached = users.computeIfAbsent(user.getUsername(), e -> {
+            BeftaUtils.log("Authenticating " + user.getUsername());
             final String accessToken = getUserAccessToken(user.getUsername(), user
                             .getPassword(),
                     UserTokenProviderConfig.of(userTokenClientId));
+            BeftaUtils.log("Authenticated " + user.getUsername());
             final AuthApi.User idamUser = idamApi.getUser(accessToken);
+            BeftaUtils.log("Fetched user info for " + user.getUsername());
             user.setId(idamUser.getId());
             user.setAccessToken(accessToken);
             return user;
         });
-
-        if (user != cached) {
-            user.setId(cached.getId());
-            user.setAccessToken(cached.getAccessToken());
-        }
+        user.setId(cached.getId());
+        user.setAccessToken(cached.getAccessToken());
     }
 
 
@@ -91,8 +90,13 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
     }
 
     protected ServiceAuthTokenGenerator getNewS2sClient(String s2sClientId) {
-        String clientSecret = EnvironmentVariableUtils
-                .getRequiredVariable("BEFTA_S2S_CLIENT_SECRET_OF_" + s2sClientId.toUpperCase());
+        String enVarName = "BEFTA_S2S_CLIENT_SECRET";
+
+        if (!s2sClientId.equals(BeftaMain.getConfig().getDefaultS2sClientId())) {
+            enVarName += "_" + s2sClientId.toUpperCase();
+        }
+
+        String clientSecret = EnvironmentVariableUtils.getRequiredVariable(enVarName);
         return getNewS2sClientWithCredentials(s2sClientId, clientSecret);
     }
 

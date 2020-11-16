@@ -622,7 +622,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         String preferredTokenProviderClientId = scenarioContext.getTestData().getUserTokenClientId();
         scenario.log("Authentication attempt from: " + preferredTokenProviderClientId + ".");
         try {
-            BeftaMain.getAdapter().authenticate(user, preferredTokenProviderClientId);
+            BeftaMain.getAdapter().authenticateIfNecessary(user, preferredTokenProviderClientId);
             logger.info(logPrefix + "authenticated.");
         } catch (Exception ex) {
             throw new FunctionalTestException(logPrefix + "could not authenticate.", ex);

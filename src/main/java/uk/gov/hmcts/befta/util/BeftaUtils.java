@@ -92,4 +92,8 @@ public class BeftaUtils {
         log.info(logString);
         scenario.log(logString);
     }
+
+    public static void log(String logString) {
+        log.info(logString);
+    }
 }

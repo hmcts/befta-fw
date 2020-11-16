@@ -76,12 +76,12 @@ class TestAutomationConfigTest {
 
     /**
      * Test method for
-     * {@link uk.gov.hmcts.befta.TestAutomationConfig#getS2SClientId()}.
+     * {@link uk.gov.hmcts.befta.TestAutomationConfig#getDefaultS2sClientId()}.
      */
     @Test
     @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_ID_KEY, value = BEFTA_S2S_CLIENT_ID_VALUE)
     void testGetS2SClientId() {
-        assertEquals(BEFTA_S2S_CLIENT_ID_VALUE, TestAutomationConfig.INSTANCE.getS2SClientId());
+        assertEquals(BEFTA_S2S_CLIENT_ID_VALUE, TestAutomationConfig.INSTANCE.getDefaultS2sClientId());
     }
 
     /**

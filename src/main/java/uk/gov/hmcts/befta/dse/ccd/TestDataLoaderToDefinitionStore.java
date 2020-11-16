@@ -185,7 +185,7 @@ public class TestDataLoaderToDefinitionStore {
     protected RequestSpecification asAutoTestImporter() {
         UserData importingUser = new UserData(BeftaMain.getConfig().getImporterAutoTestEmail(),
                 BeftaMain.getConfig().getImporterAutoTestPassword());
-        adapter.authenticate(importingUser, UserTokenProviderConfig.DEFAULT_INSTANCE.getClientId());
+        adapter.authenticateIfNecessary(importingUser, UserTokenProviderConfig.DEFAULT_INSTANCE.getClientId());
 
         String s2sToken = adapter.getNewS2SToken();
         return RestAssured.given(new RequestSpecBuilder().setBaseUri(definitionStoreUrl).build())

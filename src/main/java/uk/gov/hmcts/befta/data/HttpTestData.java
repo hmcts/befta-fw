@@ -136,7 +136,7 @@ public class HttpTestData {
 
     public String getS2sClientId() {
         if (this.s2sClientId == null) {
-            return BeftaMain.getConfig().getS2SClientId();
+            return BeftaMain.getConfig().getDefaultS2sClientId();
         }
         return s2sClientId;
     }

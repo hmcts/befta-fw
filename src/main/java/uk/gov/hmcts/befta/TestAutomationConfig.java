@@ -22,7 +22,7 @@ public class TestAutomationConfig {
         return EnvironmentVariableUtils.getRequiredVariable("S2S_URL");
     }
 
-    public String getS2SClientId() {
+    public String getDefaultS2sClientId() {
         return EnvironmentVariableUtils.getRequiredVariable("BEFTA_S2S_CLIENT_ID");
     }
 

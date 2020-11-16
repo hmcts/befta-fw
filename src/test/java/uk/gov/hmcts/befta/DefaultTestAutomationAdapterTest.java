@@ -146,7 +146,7 @@ class DefaultTestAutomationAdapterTest {
 
     /**
      * Test method for
-     * {@link uk.gov.hmcts.befta.DefaultTestAutomationAdapter#authenticate(uk.gov.hmcts.befta.data.UserData, java.lang.String)}.
+     * {@link uk.gov.hmcts.befta.DefaultTestAutomationAdapter#authenticateIfNecessary(uk.gov.hmcts.befta.data.UserData, java.lang.String)}.
      */
     @Test
     @SetEnvironmentVariable(key = "OAUTH2_CLIENT_ID", value = "OAUTH2_CLIENT_ID_VALUE")
@@ -169,7 +169,7 @@ class DefaultTestAutomationAdapterTest {
         user.setId("id");
         String userTokenClientId = "OTHER";
         assertNotNull(tad);
-        tad.authenticate(user, userTokenClientId);
+        tad.authenticateIfNecessary(user, userTokenClientId);
     }
 
     @Test
@@ -202,7 +202,7 @@ class DefaultTestAutomationAdapterTest {
 //        Mockito.when(idamApi.authenticateUser(isA(String.class), isA(String.class), isA(String.class), isA(String.class))).thenReturn(auresponse);
 //        Mockito.when(idamApi.exchangeCode(isA(String.class), isA(String.class), isA(String.class), isA(String.class), isA(String.class))).thenReturn(idamtockenExch);
 
-        tad.authenticate(user, userTokenClientId);
+        tad.authenticateIfNecessary(user, userTokenClientId);
     }
 
     /**
