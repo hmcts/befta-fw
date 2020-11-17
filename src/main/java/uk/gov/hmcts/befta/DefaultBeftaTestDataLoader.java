@@ -38,7 +38,7 @@ public class DefaultBeftaTestDataLoader implements BeftaTestDataLoader {
 
     private boolean shouldSkipDataLoad() {
         try {
-            int testDataLoadSkipPeriod = BeftaMain.getConfig().getTestDataLoadSkipPeriod();
+            double testDataLoadSkipPeriod = BeftaMain.getConfig().getTestDataLoadSkipPeriod();
             RecentExecutionsInfo recentExecutionsInfo = JsonUtils
                     .readObjectFromJsonFile(TestAutomationAdapter.EXECUTION_INFO_FILE, RecentExecutionsInfo.class);
             String recentExecutionTime = recentExecutionsInfo.getLastExecutionTime();
@@ -103,11 +103,11 @@ public class DefaultBeftaTestDataLoader implements BeftaTestDataLoader {
 
     private boolean isWithinSkipPeriod(
             String recentExecutionTime,
-            int testDataLoadSkipPeriod) {
+            double testDataLoadSkipPeriod) {
         LocalDateTime currentTime = LocalDateTime.now();
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS");
         LocalDateTime givenDateTIme = LocalDateTime.parse(recentExecutionTime, format);
-        Long timeDifference = Duration.between(givenDateTIme, currentTime).toSeconds();
+        Long timeDifference = Duration.between(givenDateTIme, currentTime).toMinutes();
         return timeDifference < testDataLoadSkipPeriod;
     }
 

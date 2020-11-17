@@ -7,7 +7,7 @@ public class TestAutomationConfig {
 
     public static final TestAutomationConfig INSTANCE = new TestAutomationConfig();
 
-    private static final int DEFAULT_TEST_DATA_LOAD_SKIP_PERIOD = 10 * 60;
+    private static final double DEFAULT_TEST_DATA_LOAD_SKIP_PERIOD = 10.0;
 
     private TestAutomationConfig() {
     }
@@ -57,11 +57,11 @@ public class TestAutomationConfig {
         return setting == null ? ResponseHeaderCheckPolicy.FAIL_TEST : ResponseHeaderCheckPolicy.valueOf(setting);
     }
 
-    public int getTestDataLoadSkipPeriod() {
-        int testDataLoadSkipPeriod = DEFAULT_TEST_DATA_LOAD_SKIP_PERIOD;
+    public double getTestDataLoadSkipPeriod() {
+        double testDataLoadSkipPeriod = DEFAULT_TEST_DATA_LOAD_SKIP_PERIOD;
         String envVar = EnvironmentVariableUtils.getOptionalVariable("TEST_DATA_LOAD_SKIP_PERIOD");
         if (envVar != null) {
-            testDataLoadSkipPeriod = Integer.parseInt(envVar);
+            testDataLoadSkipPeriod = Double.parseDouble(envVar);
         }
         return testDataLoadSkipPeriod;
     }
