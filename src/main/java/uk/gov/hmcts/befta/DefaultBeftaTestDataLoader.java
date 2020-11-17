@@ -15,8 +15,13 @@ public class DefaultBeftaTestDataLoader implements BeftaTestDataLoader {
     private boolean isTestDataLoadedForCurrentRound = false;
 
     @Override
+    public synchronized boolean isTestDataLoadedForCurrentRound() {
+        return this.isTestDataLoadedForCurrentRound;
+    }
+
+    @Override
     public synchronized void loadTestDataIfNecessary() {
-        if (!wasTestDataRecentlyLoaded() && !isTestDataLoadedForCurrentRound) {
+        if (!isTestDataLoadedForCurrentRound && !shouldSkipDataLoad()) {
             try {
                 doLoadTestData();
                 updateDataLoadDetailsInRecentExecutionsInfo();
@@ -28,8 +33,31 @@ public class DefaultBeftaTestDataLoader implements BeftaTestDataLoader {
         }
     }
 
-    public void updateDataLoadDetailsInRecentExecutionsInfo() {
-        String recentExecutionsInfoFilePath = TestAutomationAdapter.EXECUTION_INFO_JSON_PATH;
+    protected void doLoadTestData() {
+    }
+
+    private boolean shouldSkipDataLoad() {
+        try {
+            int testDataLoadSkipPeriod = BeftaMain.getConfig().getTestDataLoadSkipPeriod();
+            RecentExecutionsInfo recentExecutionsInfo = JsonUtils
+                    .readObjectFromJsonFile(TestAutomationAdapter.EXECUTION_INFO_FILE, RecentExecutionsInfo.class);
+            String recentExecutionTime = recentExecutionsInfo.getLastExecutionTime();
+
+            if (isWithinSkipPeriod(
+                    recentExecutionTime,
+                    testDataLoadSkipPeriod)
+                    && wasMostRecentDataForSameTests(recentExecutionsInfo)) {
+                return true;
+            }
+        } catch (Exception e) {
+            BeftaUtils.defaultLog("Should NOT skip loading data.", e);
+            return false;
+        }
+        return false;
+    }
+
+    private void updateDataLoadDetailsInRecentExecutionsInfo() {
+        String recentExecutionsInfoFilePath = TestAutomationAdapter.EXECUTION_INFO_FILE;
         String dateTimeFormat = BeftaUtils.getDateTimeFormatRequested("now");
         String currentTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern(dateTimeFormat));
         RecentExecutionsInfo recentExecutionsInfo = new RecentExecutionsInfo();
@@ -43,7 +71,7 @@ public class DefaultBeftaTestDataLoader implements BeftaTestDataLoader {
         }
     }
 
-    public String getCurrentGitBranch() {
+    private String getCurrentGitBranch() {
         String branchName = "";
         try {
             Process process = Runtime.getRuntime().exec("git rev-parse --abbrev-ref HEAD");
@@ -58,7 +86,7 @@ public class DefaultBeftaTestDataLoader implements BeftaTestDataLoader {
         return branchName;
     }
 
-    public String getCurrentGitRepo() {
+    private String getCurrentGitRepo() {
         String repoName = "";
         try {
             Process process = Runtime.getRuntime().exec("git remote -v");
@@ -73,60 +101,29 @@ public class DefaultBeftaTestDataLoader implements BeftaTestDataLoader {
         return repoName;
     }
 
-    protected void doLoadTestData() {
-    }
-
-    @Override
-    public synchronized boolean isTestDataLoadedForCurrentRound() {
-        return this.isTestDataLoadedForCurrentRound;
-    }
-
-    public synchronized boolean wasTestDataRecentlyLoaded() {
-        boolean wasRecentlyLoaded = true;
-        try {
-            String testDataReloadFrequency = BeftaMain.getConfig().getTestDataReloadFrequency();
-            RecentExecutionsInfo recentExecutionsInfo = JsonUtils
-                    .readObjectFromJsonFile(TestAutomationAdapter.EXECUTION_INFO_JSON_PATH,
-                    RecentExecutionsInfo.class);
-            String recentExecutionTime = recentExecutionsInfo.getLastExecutionTime();
-            String recentExecutionGitBranch = recentExecutionsInfo.getLastExecutionProjectBranch();
-            String recentExecutionGitRepo = recentExecutionsInfo.getLastExecutionProjectRepo();
-
-            if (timeFromLastLoadDurationGreaterThanFrequency(recentExecutionTime,
-                    testDataReloadFrequency)
-                    || !isRecentExecutionFromSameRepoAndBranch(recentExecutionGitRepo, recentExecutionGitBranch)) {
-                wasRecentlyLoaded = false;
-            }
-        } catch (Exception e) {
-            return false;
-        }
-        return wasRecentlyLoaded;
-    }
-
-    public boolean timeFromLastLoadDurationGreaterThanFrequency(String recentExecutionTIme,
-            String testDataReloadFrequency) {
-        boolean isTimeElapsed = false;
+    private boolean isWithinSkipPeriod(
+            String recentExecutionTime,
+            int testDataLoadSkipPeriod) {
         LocalDateTime currentTime = LocalDateTime.now();
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS");
-        LocalDateTime givenDateTIme = LocalDateTime.parse(recentExecutionTIme, format);
-        Long timeDifference = Duration.between(givenDateTIme, currentTime).toMinutes();
-        if (timeDifference >= Integer.parseInt(testDataReloadFrequency)) {
-            isTimeElapsed = true;
-        }
-        return isTimeElapsed;
+        LocalDateTime givenDateTIme = LocalDateTime.parse(recentExecutionTime, format);
+        Long timeDifference = Duration.between(givenDateTIme, currentTime).toSeconds();
+        return timeDifference < testDataLoadSkipPeriod;
     }
 
-    public boolean isRecentExecutionFromSameRepoAndBranch(String recentRepo, String recentBranch) {
-        boolean isSameRepoAndBranch = false;
-        String recentRepoSubString = recentRepo.substring(recentRepo.indexOf(":"), recentRepo.length());
-        if (getCurrentGitRepo().contains(recentRepoSubString) && getCurrentGitBranch().equalsIgnoreCase(recentBranch)) {
-            isSameRepoAndBranch = true;
+    private boolean wasMostRecentDataForSameTests(RecentExecutionsInfo recentExecutionsInfo) {
+        String repoName = recentExecutionsInfo.getLastExecutionProjectRepo();
+        String branchName = recentExecutionsInfo.getLastExecutionProjectBranch();
+        String recentRepoSubString = repoName.substring(repoName.indexOf(":"), repoName.length());
+        if (getCurrentGitRepo().contains(recentRepoSubString) && getCurrentGitBranch().equalsIgnoreCase(branchName)) {
+            return true;
         } else {
-            System.out.println("repo branch not matching -" + recentRepoSubString + "--" + getCurrentGitRepo() + "--"
-                    + recentBranch + "--" + getCurrentGitBranch());
+            BeftaUtils.defaultLog("repo branch not matching -" + recentRepoSubString + "--"
+                    + getCurrentGitRepo()
+                    + "--"
+                    + branchName + "--" + getCurrentGitBranch());
         }
-        return isSameRepoAndBranch;
-
+        return false;
     }
 
 }

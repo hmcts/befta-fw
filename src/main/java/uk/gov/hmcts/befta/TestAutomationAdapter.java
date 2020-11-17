@@ -5,7 +5,7 @@ import uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext;
 
 public interface TestAutomationAdapter {
 
-    public static final String EXECUTION_INFO_JSON_PATH = "./befta_recent_executions_info.json";
+    public static final String EXECUTION_INFO_FILE = "./befta_recent_executions_info.json";
 
     String getNewS2SToken();
 

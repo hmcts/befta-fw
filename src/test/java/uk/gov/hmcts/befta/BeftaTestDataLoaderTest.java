@@ -9,6 +9,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junitpioneer.jupiter.SetEnvironmentVariable;
 
+import java.io.File;
+
 /**
  * @author korneleehenry
  *
@@ -40,10 +42,12 @@ class BeftaTestDataLoaderTest {
     @SetEnvironmentVariable(key = S2S_URL_KEY, value = S2S_URL_VALUE)
     @SetEnvironmentVariable(key = TEST_DATA_RELOAD_FREQUENCY_KEY, value = TEST_DATA_RELOAD_FREQUENCY_VALUE)
     void testMain() {
+        new File(TestAutomationAdapter.EXECUTION_INFO_FILE).delete();
         String[] args = {};
         DefaultTestAutomationAdapter taAdapter = new DefaultTestAutomationAdapter();
         BeftaMain.setTaAdapter(taAdapter);
         BeftaTestDataLoader.main(args);
+        new File(TestAutomationAdapter.EXECUTION_INFO_FILE).deleteOnExit();
         assertTrue(taAdapter.getDataLoader().isTestDataLoadedForCurrentRound());
     }
 

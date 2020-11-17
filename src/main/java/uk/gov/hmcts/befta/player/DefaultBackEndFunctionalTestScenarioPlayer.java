@@ -79,7 +79,8 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
                     BeftaUtils.skipScenario(scenario, toggleInfo);
                 }
             } catch (FeatureToggleCheckFailureException e) {
-                BeftaUtils.log(scenario,
+                BeftaUtils.defaultLog(
+                        scenario,
                         "Feature toggle check failed, will assume toggle on and run the scenario. Failure message: "
                                 + e.getMessage());
             }
