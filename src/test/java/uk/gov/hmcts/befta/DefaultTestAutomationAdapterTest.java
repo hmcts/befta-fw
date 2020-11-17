@@ -24,6 +24,7 @@ import org.mockito.Mockito;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.File;
 import java.util.HashMap;
 
 import uk.gov.hmcts.befta.auth.AuthApi;
@@ -221,7 +222,9 @@ class DefaultTestAutomationAdapterTest {
     void testLoadTestDataIfNecessary() {
         assertNotNull(tad);
         assertFalse(tad.getDataLoader().isTestDataLoadedForCurrentRound());
+        new File(TestAutomationAdapter.EXECUTION_INFO_FILE).delete();
         tad.getDataLoader().loadTestDataIfNecessary();
+        new File(TestAutomationAdapter.EXECUTION_INFO_FILE).deleteOnExit();
         assertTrue(tad.getDataLoader().isTestDataLoadedForCurrentRound());
         tad.getDataLoader().loadTestDataIfNecessary();
         assertTrue(tad.getDataLoader().isTestDataLoadedForCurrentRound());
