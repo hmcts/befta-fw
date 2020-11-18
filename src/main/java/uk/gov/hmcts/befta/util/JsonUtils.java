@@ -43,7 +43,7 @@ public class JsonUtils {
     }
 
     public static void writeJsonToFile(String filePath, Object object) throws IOException, JsonGenerationException, JsonMappingException {
-        mapper.writeValue(new File(filePath), object);
+        mapper.writerWithDefaultPrettyPrinter().writeValue(new File(filePath), object);
     }
 
 

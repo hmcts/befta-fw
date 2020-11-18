@@ -120,21 +120,25 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
             branchName = reader.readLine();
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
 
         return branchName;
     }
 
     public String getCurrentGitRepo() {
-        String repoName = "";
+        String repoName = System.getProperty("user.dir");
+        repoName = repoName.substring(repoName.lastIndexOf("/")+1,repoName.length() );
         try {
             Process process = Runtime.getRuntime().exec("git remote -v");
             process.waitFor();
-
             BufferedReader reader = new BufferedReader(
                     new InputStreamReader(process.getInputStream()));
 
             repoName = reader.readLine();
+            if(null!=repoName && repoName.contains(".git")) {
+                repoName = repoName.substring(repoName.indexOf(":hmcts/")+7, repoName.lastIndexOf(".git"));
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -279,12 +283,12 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
 
     public boolean isRecentExecutionFromSameRepoAndBranch(String recentRepo, String recentBranch) {
         boolean isSameRepoAndBranch = false;
-        String recentRepoSubString = recentRepo.substring(recentRepo.indexOf(":"), recentRepo.length());
-        if (getCurrentGitRepo().contains(recentRepoSubString) && getCurrentGitBranch().equalsIgnoreCase(recentBranch)) {
+        //String recentRepoSubString = recentRepo.substring(recentRepo.indexOf(":"), recentRepo.length());
+        if (getCurrentGitRepo().contains(recentRepo) && getCurrentGitBranch().equalsIgnoreCase(recentBranch)) {
             isSameRepoAndBranch = true;
         } else {
             System.out.println("repo branch not matching -" +
-                    recentRepoSubString + "--" + getCurrentGitRepo() +
+                    recentRepo + "--" + getCurrentGitRepo() +
                     "--" + recentBranch + "--" + getCurrentGitBranch());
         }
         return isSameRepoAndBranch;

@@ -26,7 +26,7 @@ class BeftaTestDataLoaderTest {
     public static final String BEFTA_S2S_CLIENT_SECRET_VALUE = "BEFTA_S2S_CLIENT_SECRET_VALUE";
     public static final String TEST_DATA_RELOAD_FREQUENCY_KEY = "TEST_DATA_RELOAD_FREQUENCY";
     public static final String TEST_DATA_RELOAD_FREQUENCY_VALUE = "0";
-    public static final String TEST_DATA_HIGH_RELOAD_FREQUENCY_VALUE = "10";
+    public static final String TEST_DATA_HIGH_RELOAD_FREQUENCY_VALUE = "100";
 
     /**
      * Test method for

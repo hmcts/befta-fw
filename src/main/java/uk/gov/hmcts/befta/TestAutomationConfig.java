@@ -56,7 +56,7 @@ public class TestAutomationConfig {
     }
 
     public String getTestDataReloadFrequency() {
-        String desiredDataReoadFrequency = "10";
+        String desiredDataReoadFrequency = "100";
         if (null != EnvironmentVariableUtils.getRequiredVariable("TEST_DATA_RELOAD_FREQUENCY") &&
                 !"".equalsIgnoreCase(EnvironmentVariableUtils.getRequiredVariable("TEST_DATA_RELOAD_FREQUENCY"))) {
             desiredDataReoadFrequency = EnvironmentVariableUtils.getRequiredVariable("TEST_DATA_RELOAD_FREQUENCY");
