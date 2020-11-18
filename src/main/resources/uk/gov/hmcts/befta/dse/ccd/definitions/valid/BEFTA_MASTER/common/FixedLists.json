@@ -182,4 +182,28 @@
   "ListElement" : "Decree Absolute",
   "CategoryID" : "decreeAbsolute",
   "DisplayOrder" : 2
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "litigantType",
+  "ListElementCode" : "INDIVIDUAL",
+  "ListElement" : "Individual",
+  "CategoryID" : "",
+  "DisplayOrder" : 1
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "litigantType",
+  "ListElementCode" : "COMPANY",
+  "ListElement" : "Company",
+  "CategoryID" : "",
+  "DisplayOrder" : 2
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "litigantType",
+  "ListElementCode" : "SOLETRADER",
+  "ListElement" : "Sole trader",
+  "CategoryID" : "",
+  "DisplayOrder" : 3
 } ]
