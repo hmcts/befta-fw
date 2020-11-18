@@ -51,6 +51,13 @@
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
   "CaseTypeID" : "FT_NoCCaseType",
+  "CaseFieldID" : "changeOrganisationRequestField",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCCaseType",
   "CaseFieldID" : "CaseHistory",
   "UserRole" : "caseworker-caa",
   "CRUD" : "CRUD"
