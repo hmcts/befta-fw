@@ -1,12 +1,13 @@
 package uk.gov.hmcts.befta;
 
-public class BeftaTestDataLoader {
-
-    private BeftaTestDataLoader() {
-    }
+public interface BeftaTestDataLoader {
 
     public static void main(String[] args) {
-        BeftaMain.getAdapter().loadTestDataIfNecessary();
+        BeftaMain.getAdapter().getDataLoader().loadTestDataIfNecessary();
     }
+
+    void loadTestDataIfNecessary();
+
+    boolean isTestDataLoadedForCurrentRound();
 
 }

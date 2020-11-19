@@ -24,6 +24,7 @@ import org.mockito.Mockito;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.File;
 import java.util.HashMap;
 
 import uk.gov.hmcts.befta.auth.AuthApi;
@@ -220,11 +221,13 @@ class DefaultTestAutomationAdapterTest {
     @SetEnvironmentVariable(key = TEST_DATA_RELOAD_FREQUENCY_KEY, value = TEST_DATA_RELOAD_FREQUENCY_VALUE)
     void testLoadTestDataIfNecessary() {
         assertNotNull(tad);
-        assertFalse(tad.isTestDataLoadedForThisRound());
-        tad.loadTestDataIfNecessary();
-        assertTrue(tad.isTestDataLoadedForThisRound());
-        tad.loadTestDataIfNecessary();
-        assertTrue(tad.isTestDataLoadedForThisRound());
+        assertFalse(tad.getDataLoader().isTestDataLoadedForCurrentRound());
+        new File(TestAutomationAdapter.EXECUTION_INFO_FILE).delete();
+        tad.getDataLoader().loadTestDataIfNecessary();
+        new File(TestAutomationAdapter.EXECUTION_INFO_FILE).deleteOnExit();
+        assertTrue(tad.getDataLoader().isTestDataLoadedForCurrentRound());
+        tad.getDataLoader().loadTestDataIfNecessary();
+        assertTrue(tad.getDataLoader().isTestDataLoadedForCurrentRound());
     }
 
     /**
