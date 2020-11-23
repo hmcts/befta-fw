@@ -18,5 +18,6 @@
   "ShowSummary" : "Y",
   "ShowEventNotes" : "",
   "CanSaveDraft" : "N",
-  "EndButtonLabel" : ""
+  "EndButtonLabel" : "",
+  "Publish" : ""
 } ]

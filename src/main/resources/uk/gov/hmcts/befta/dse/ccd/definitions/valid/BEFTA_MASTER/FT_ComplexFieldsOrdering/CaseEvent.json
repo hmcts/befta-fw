@@ -18,7 +18,8 @@
   "ShowSummary" : "Y",
   "ShowEventNotes" : "",
   "CanSaveDraft" : "",
-  "EndButtonLabel" : ""
+  "EndButtonLabel" : "",
+  "Publish" : ""
 }, {
   "LiveFrom" : "04/01/2017",
   "LiveTo" : "",
@@ -39,7 +40,8 @@
   "ShowSummary" : "Y",
   "ShowEventNotes" : "",
   "CanSaveDraft" : "",
-  "EndButtonLabel" : ""
+  "EndButtonLabel" : "",
+  "Publish" : ""
 }, {
   "LiveFrom" : "04/01/2017",
   "LiveTo" : "",
@@ -60,7 +62,8 @@
   "ShowSummary" : "Y",
   "ShowEventNotes" : "",
   "CanSaveDraft" : "",
-  "EndButtonLabel" : ""
+  "EndButtonLabel" : "",
+  "Publish" : ""
 }, {
   "LiveFrom" : "04/01/2017",
   "LiveTo" : "",
@@ -81,7 +84,8 @@
   "ShowSummary" : "Y",
   "ShowEventNotes" : "",
   "CanSaveDraft" : "",
-  "EndButtonLabel" : ""
+  "EndButtonLabel" : "",
+  "Publish" : ""
 }, {
   "LiveFrom" : "04/01/2017",
   "LiveTo" : "",
@@ -102,7 +106,8 @@
   "ShowSummary" : "Y",
   "ShowEventNotes" : "",
   "CanSaveDraft" : "",
-  "EndButtonLabel" : ""
+  "EndButtonLabel" : "",
+  "Publish" : ""
 }, {
   "LiveFrom" : "04/01/2017",
   "LiveTo" : "",
@@ -123,7 +128,8 @@
   "ShowSummary" : "Y",
   "ShowEventNotes" : "",
   "CanSaveDraft" : "",
-  "EndButtonLabel" : ""
+  "EndButtonLabel" : "",
+  "Publish" : ""
 }, {
   "LiveFrom" : "04/01/2017",
   "LiveTo" : "",
@@ -144,5 +150,6 @@
   "ShowSummary" : "Y",
   "ShowEventNotes" : "",
   "CanSaveDraft" : "",
-  "EndButtonLabel" : ""
+  "EndButtonLabel" : "",
+  "Publish" : ""
 } ]
