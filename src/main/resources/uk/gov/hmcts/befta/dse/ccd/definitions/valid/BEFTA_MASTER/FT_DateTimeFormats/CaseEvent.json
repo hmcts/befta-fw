@@ -18,7 +18,8 @@
   "ShowSummary" : "Yes",
   "ShowEventNotes" : "",
   "CanSaveDraft" : "",
-  "EndButtonLabel" : ""
+  "EndButtonLabel" : "",
+  "Publish" : ""
 }, {
   "LiveFrom" : "03/01/2017",
   "LiveTo" : "",
@@ -39,7 +40,8 @@
   "ShowSummary" : "Yes",
   "ShowEventNotes" : "",
   "CanSaveDraft" : "",
-  "EndButtonLabel" : ""
+  "EndButtonLabel" : "",
+  "Publish" : ""
 }, {
   "LiveFrom" : "04/01/2017",
   "LiveTo" : "",
@@ -60,7 +62,8 @@
   "ShowSummary" : "Yes",
   "ShowEventNotes" : "",
   "CanSaveDraft" : "",
-  "EndButtonLabel" : ""
+  "EndButtonLabel" : "",
+  "Publish" : ""
 }, {
   "LiveFrom" : "05/01/2017",
   "LiveTo" : "",
@@ -81,5 +84,6 @@
   "ShowSummary" : "Yes",
   "ShowEventNotes" : "",
   "CanSaveDraft" : "",
-  "EndButtonLabel" : ""
+  "EndButtonLabel" : "",
+  "Publish" : ""
 } ]
