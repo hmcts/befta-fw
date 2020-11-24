@@ -145,24 +145,10 @@ and correctly configured, can cause some or all of the functional tests to fail 
 
 BEFTA Framework contains definition files in both XLSX and JSON formats.
 
-Typically, CCD services under test will define implementations of a TestAutomationAdapter by extending the `befta-fw` 
-provided `DefaultTestAutomationAdaoter`, and overriding its `doLoadTestData` method in order to load this definition
+Typically, CCD services under test will call BEFTA Framework code in order to load this definition
 data before running feature tests.
 
-```java
-public class ServiceTestAutomationAdapter extends DefaultTestAutomationAdapter {
-
-    private final TestDataLoaderToDefinitionStore loader = new TestDataLoaderToDefinitionStore(this);
-
-    @Override
-    public void doLoadTestData() {
-        loader.addCcdRoles();
-        loader.importDefinitions();
-    }
-}
-``` 
-
-The `loader.importDefinitions()` call above will always load the JSON definitions in `befta-fw` from the directory 
+The BEFTA Framework will always load the JSON definitions in `befta-fw` from the directory 
 `src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions`, use them to create a XLSX file and import it to the 
 ccd definition store.  
 
