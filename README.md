@@ -141,6 +141,33 @@ Obviously, to test a CCD application, for example, the proper setup procedure sh
 have been completed as a prerequisite. An incomplete setup, like some users not fully 
 and correctly configured, can cause some or all of the functional tests to fail as false positives.
 
+### 3.11) Importing definition files
+
+BEFTA Framework contains definition files in both XLSX and JSON formats.
+
+Typically, CCD services under test will call BEFTA Framework code in order to load this definition
+data before running feature tests.
+
+The BEFTA Framework will always load the JSON definitions in `befta-fw` from the directory 
+`src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions`, use them to create a XLSX file and import it to the 
+ccd definition store.  
+
+Any changes made to XLSX files in the directory `src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/excel` will 
+*NOT* be imported to the definition store.
+
+The XLSX may be updated, rather than the JSON directly, but for these changes to take effect, they must be applied to the 
+corresponding JSON files, by executing the `DefinitionConverter` class provided by BEFTA Framework.
+
+This can be done by creating a run configuration within your IDE, providing the path to the main class 
+`uk.gov.hmcts.befta.dse.ccd.DefinitionConverter`, as well as the necessary program arguments listed below.
+
+```
+    arg1: to-json | to-excel : key word to convert from excel to json or from json to excel
+    arg2: input file path for excel document or parent jurisdiction folder for json version
+    arg3: (Optional) output folder path for resulting json or excel file. By default will use parent folder from the input location
+    arg4: (Optional) Boolean: true - use jurisdiction name to generate the parent folder name when converting from excel to JSON,
+          false - use file name as the folder name
+```
 
 ## 4) SAMPLE REPOSITORIES USING BEFTA FRAMEWORK
 
