@@ -14,6 +14,7 @@ import uk.gov.hmcts.befta.exception.FunctionalTestException;
 import uk.gov.hmcts.befta.factory.BeftaIdamApiClientFactory;
 import uk.gov.hmcts.befta.factory.BeftaServiceAuthorisationApiClientFactory;
 import uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext;
+import uk.gov.hmcts.befta.util.BeftaUtils;
 import uk.gov.hmcts.befta.util.EnvironmentVariableUtils;
 import uk.gov.hmcts.befta.util.ReflectionUtils;
 import uk.gov.hmcts.reform.authorisation.ServiceAuthorisationApi;
@@ -33,7 +34,7 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
 
     private final Map<String, UserData> users = new HashMap<>();
 
-    private boolean isTestDataLoaded = false;
+    private BeftaTestDataLoader dataLoader;
 
     public DefaultTestAutomationAdapter() {
         serviceAuthorisationApi = BeftaServiceAuthorisationApiClientFactory.createServiceAuthorisationApiClient();
@@ -41,6 +42,7 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
         ServiceAuthTokenGenerator defaultGenerator = getNewS2sClientWithCredentials(
                 BeftaMain.getConfig().getS2SClientId(), BeftaMain.getConfig().getS2SClientSecret());
         tokenGenerators.put(BeftaMain.getConfig().getS2SClientId(), defaultGenerator);
+        dataLoader = buildTestDataLoader();
     }
 
     @Override
@@ -73,21 +75,8 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
         }
     }
 
-
-    @Override
-    public synchronized void loadTestDataIfNecessary() {
-        if (!isTestDataLoaded) {
-            try {
-                doLoadTestData();
-            } catch (Exception e) {
-                throw e;
-            } finally {
-                isTestDataLoaded = true;
-            }
-        }
-    }
-
-    protected void doLoadTestData() {
+    protected BeftaTestDataLoader buildTestDataLoader() {
+        return new DefaultBeftaTestDataLoader();
     }
 
     protected ServiceAuthTokenGenerator getNewS2sClient(String s2sClientId) {
@@ -138,48 +127,48 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
         if (key instanceof String) {
             String keyString = ((String) key).toLowerCase().replaceAll(" ", "").replaceAll("-", "").replaceAll("_", "");
             switch (keyString) {
-            case "request":
-                return scenarioContext.getTestData().getRequest();
+                case "request":
+                    return scenarioContext.getTestData().getRequest();
 
-            case "requestbody":
-                return scenarioContext.getTestData().getRequest().getBody();
+                case "requestbody":
+                    return scenarioContext.getTestData().getRequest().getBody();
 
-            case "requestheaders":
-                return scenarioContext.getTestData().getRequest().getHeaders();
+                case "requestheaders":
+                    return scenarioContext.getTestData().getRequest().getHeaders();
 
-            case "requestpathvars":
-                return scenarioContext.getTestData().getRequest().getPathVariables();
+                case "requestpathvars":
+                    return scenarioContext.getTestData().getRequest().getPathVariables();
 
-            case "requestqueryparams":
-                return scenarioContext.getTestData().getRequest().getQueryParams();
+                case "requestqueryparams":
+                    return scenarioContext.getTestData().getRequest().getQueryParams();
 
-            case "expectedresponse":
-                return scenarioContext.getTestData().getExpectedResponse();
+                case "expectedresponse":
+                    return scenarioContext.getTestData().getExpectedResponse();
 
-            case "expectedresponseheaders":
-                return scenarioContext.getTestData().getExpectedResponse().getHeaders();
+                case "expectedresponseheaders":
+                    return scenarioContext.getTestData().getExpectedResponse().getHeaders();
 
-            case "expectedresponsebody":
-                return scenarioContext.getTestData().getExpectedResponse().getBody();
+                case "expectedresponsebody":
+                    return scenarioContext.getTestData().getExpectedResponse().getBody();
 
-            case "actualresponse":
-                return scenarioContext.getTestData().getActualResponse();
+                case "actualresponse":
+                    return scenarioContext.getTestData().getActualResponse();
 
-            case "actualresponseheaders":
-                return scenarioContext.getTestData().getActualResponse().getHeaders();
+                case "actualresponseheaders":
+                    return scenarioContext.getTestData().getActualResponse().getHeaders();
 
-            case "actualresponsebody":
-                return scenarioContext.getTestData().getActualResponse().getBody();
-            case "tokenvaluefromaccompanyingtokencall":
-                try {
-                    String accompanyingTokenCreationDataId = scenarioContext.getTestData().get_guid_()
-                            + "_Token_Creation";
-                    return ReflectionUtils.deepGetFieldInObject(scenarioContext, "scenarioContext.siblingContexts."
-                            + accompanyingTokenCreationDataId + ".testData.actualResponse.body.token");
+                case "actualresponsebody":
+                    return scenarioContext.getTestData().getActualResponse().getBody();
+                case "tokenvaluefromaccompanyingtokencall":
+                    try {
+                        String accompanyingTokenCreationDataId = scenarioContext.getTestData().get_guid_()
+                                + "_Token_Creation";
+                        return ReflectionUtils.deepGetFieldInObject(scenarioContext, "scenarioContext.siblingContexts."
+                                + accompanyingTokenCreationDataId + ".testData.actualResponse.body.token");
 
-                } catch (Exception e) {
-                    throw new FunctionalTestException("Failed to get custom value", e);
-                }
+                    } catch (Exception e) {
+                        throw new FunctionalTestException("Failed to get custom value", e);
+                    }
             }
             String dateTimeFormat = getDateTimeFormatRequested((String) key);
             if (dateTimeFormat != null)
@@ -188,17 +177,12 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
         return null;
     }
 
-    public synchronized boolean isTestDataLoaded() {
-        return this.isTestDataLoaded;
+    protected String getDateTimeFormatRequested(String key) {
+        return BeftaUtils.getDateTimeFormatRequested(key);
     }
 
-    protected String getDateTimeFormatRequested(String key) {
-        if (key.equals("today"))
-            return "yyyy-MM-dd";
-        else if (key.equals("now"))
-            return "yyyy-MM-dd'T'HH:mm:ss.SSS";
-        else if (key.startsWith("now("))
-            return key.substring(4, key.length() - 1);
-        return null;
+    @Override
+    public BeftaTestDataLoader getDataLoader() {
+        return dataLoader;
     }
 }

@@ -1,5 +1,6 @@
 package uk.gov.hmcts.befta.util;
 
+import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -40,6 +41,11 @@ public class JsonUtils {
     public static String getPrettyJsonFromObject(Object object) throws JsonParseException, JsonMappingException, IOException {
         return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(object);
     }
+
+    public static void writeJsonToFile(String filePath, Object object) throws IOException, JsonGenerationException, JsonMappingException {
+        mapper.writerWithDefaultPrettyPrinter().writeValue(new File(filePath), object);
+    }
+
 
     public static Object deepCopy(Object original) {
         try {
