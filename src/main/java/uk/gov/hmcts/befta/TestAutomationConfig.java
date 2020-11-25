@@ -7,7 +7,7 @@ public class TestAutomationConfig {
 
     public static final TestAutomationConfig INSTANCE = new TestAutomationConfig();
 
-    private static final double DEFAULT_TEST_DATA_LOAD_SKIP_PERIOD = 100.0;
+    private static final double DEFAULT_TEST_DATA_LOAD_SKIP_PERIOD = 15.0;
 
     private TestAutomationConfig() {
     }
