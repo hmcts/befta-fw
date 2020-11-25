@@ -54,8 +54,8 @@ class DefaultTestAutomationAdapterTest {
     public static final String BEFTA_S2S_CLIENT_ID_VALUE = "BEFTA_S2S_CLIENT_ID_VALUE";
     public static final String BEFTA_S2S_CLIENT_SECRET_KEY = "BEFTA_S2S_CLIENT_SECRET";
     public static final String BEFTA_S2S_CLIENT_SECRET_VALUE = "BEFTA_S2S_CLIENT_SECRET_VALUE";
-    public static final String TEST_DATA_RELOAD_FREQUENCY_KEY = "TEST_DATA_RELOAD_FREQUENCY";
-    public static final String TEST_DATA_RELOAD_FREQUENCY_VALUE = "0";
+    public static final String TEST_DATA_LOAD_SKIP_PERIOD_KEY = "TEST_DATA_LOAD_SKIP_PERIOD";
+    public static final String TEST_DATA_LOAD_SKIP_PERIOD_VALUE = "0";
     private DefaultTestAutomationAdapter tad = null;
     private MockedStatic<BeftaServiceAuthorisationApiClientFactory> beftaServiceapi = null;
     private MockedStatic<BeftaIdamApiClientFactory> beftaIdamapi = null;
@@ -218,7 +218,7 @@ class DefaultTestAutomationAdapterTest {
     @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_ID_KEY, value = BEFTA_S2S_CLIENT_ID_VALUE)
     @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_SECRET_KEY, value = BEFTA_S2S_CLIENT_SECRET_VALUE)
     @SetEnvironmentVariable(key = S2S_URL_KEY, value = S2S_URL_VALUE)
-    @SetEnvironmentVariable(key = TEST_DATA_RELOAD_FREQUENCY_KEY, value = TEST_DATA_RELOAD_FREQUENCY_VALUE)
+    @SetEnvironmentVariable(key = TEST_DATA_LOAD_SKIP_PERIOD_KEY, value = TEST_DATA_LOAD_SKIP_PERIOD_VALUE)
     void testLoadTestDataIfNecessary() {
         assertNotNull(tad);
         assertFalse(tad.getDataLoader().isTestDataLoadedForCurrentRound());
