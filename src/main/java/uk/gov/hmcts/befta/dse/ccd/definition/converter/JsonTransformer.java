@@ -13,7 +13,6 @@ import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import uk.gov.hmcts.befta.BeftaMain;
 import uk.gov.hmcts.befta.exception.DefinitionTransformerException;
 import uk.gov.hmcts.befta.util.FileUtils;
 
@@ -74,7 +73,7 @@ public class JsonTransformer {
                     JsonNode rootSheetArray = objectMapper.readTree(jsonFile);
                     String jsonFileNameNoSuffix = jsonFile.getName().replace(".json", "");
 
-                   rootSheetArray = EnvironmentUrlUtils.updateCallBackURLs(rootSheetArray, jsonFileNameNoSuffix);
+                   rootSheetArray = EnvironmentURLUtils.updateCallBackURLs(rootSheetArray, jsonFileNameNoSuffix);
 
                     for (JsonNode sheetRow : rootSheetArray){
                         sheet = jsonFileNameNoSuffix;

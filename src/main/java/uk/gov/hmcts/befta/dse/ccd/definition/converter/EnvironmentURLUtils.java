@@ -10,7 +10,7 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 
-public class EnvironmentUrlUtils {
+public class EnvironmentURLUtils {
 
     private static final List<String> SHEETS_FOR_URL_SUBSTITUTIONS = Arrays.asList("CaseEvent");
     private static final String LOCALHOST = "localhost";
