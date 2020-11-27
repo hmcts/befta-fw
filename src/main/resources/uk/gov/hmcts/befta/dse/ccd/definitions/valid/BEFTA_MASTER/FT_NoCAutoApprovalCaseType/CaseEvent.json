@@ -34,7 +34,7 @@
   "RetriesTimeoutAboutToStartEvent" : "",
   "CallBackURLAboutToSubmitEvent" : "",
   "RetriesTimeoutURLAboutToSubmitEvent" : "",
-  "CallBackURLSubmittedEvent" : "https://aac-manage-case-assignment-pr-164.service.core-compute-preview.internal/noc/check-noc-approval",
+  "CallBackURLSubmittedEvent" : "http://ccd-test-stubs-service-aat.service.core-compute-aat.internal/noc/check-noc-approval",
   "RetriesTimeoutURLSubmittedEvent" : "",
   "SecurityClassification" : "Public",
   "ShowSummary" : "Y",
