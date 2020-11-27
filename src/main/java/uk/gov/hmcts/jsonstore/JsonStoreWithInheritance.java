@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.BooleanNode;
+import com.fasterxml.jackson.databind.node.NullNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.common.collect.Sets;
 
@@ -163,8 +164,10 @@ public abstract class JsonStoreWithInheritance {
                 ((ObjectNode) object).set(fieldNameInParent, parentFieldCopy);
             } else if (thisField.isContainerNode()) {
                 inheritAndOverlayValuesFor(thisField);
-                ((ObjectNode) object).set(fieldNameInParent, parentFieldCopy);
-                overlayFieldWith(parentFieldCopy, thisField);
+                if (!(parentFieldCopy instanceof NullNode)) {
+                    overlayFieldWith(parentFieldCopy, thisField);
+                    ((ObjectNode) object).set(fieldNameInParent, parentFieldCopy);
+                }
             }
         } else {
             ((ObjectNode) object).set(fieldNameInParent, parentFieldCopy);
@@ -207,7 +210,7 @@ public abstract class JsonStoreWithInheritance {
                     JsonNode overlaidSubField = overlaidField.get(overlayingSubFieldName);
                     if (overlaidSubField != null && overlaidSubField.isContainerNode()) {
                         overlayFieldWith(overlaidSubField, overlayingSubField);
-                    } else {
+                    } else if (overlaidField instanceof ObjectNode) {
                         ((ObjectNode) overlaidField).set(overlayingSubFieldName, overlayingSubField);
                     }
                 }

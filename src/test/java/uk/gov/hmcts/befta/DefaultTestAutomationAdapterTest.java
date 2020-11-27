@@ -24,6 +24,7 @@ import org.mockito.Mockito;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.File;
 import java.util.HashMap;
 
 import uk.gov.hmcts.befta.auth.AuthApi;
@@ -53,6 +54,8 @@ class DefaultTestAutomationAdapterTest {
     public static final String BEFTA_S2S_CLIENT_ID_VALUE = "BEFTA_S2S_CLIENT_ID_VALUE";
     public static final String BEFTA_S2S_CLIENT_SECRET_KEY = "BEFTA_S2S_CLIENT_SECRET";
     public static final String BEFTA_S2S_CLIENT_SECRET_VALUE = "BEFTA_S2S_CLIENT_SECRET_VALUE";
+    public static final String TEST_DATA_LOAD_SKIP_PERIOD_KEY = "TEST_DATA_LOAD_SKIP_PERIOD";
+    public static final String TEST_DATA_LOAD_SKIP_PERIOD_VALUE = "0";
     private DefaultTestAutomationAdapter tad = null;
     private MockedStatic<BeftaServiceAuthorisationApiClientFactory> beftaServiceapi = null;
     private MockedStatic<BeftaIdamApiClientFactory> beftaIdamapi = null;
@@ -215,13 +218,16 @@ class DefaultTestAutomationAdapterTest {
     @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_ID_KEY, value = BEFTA_S2S_CLIENT_ID_VALUE)
     @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_SECRET_KEY, value = BEFTA_S2S_CLIENT_SECRET_VALUE)
     @SetEnvironmentVariable(key = S2S_URL_KEY, value = S2S_URL_VALUE)
+    @SetEnvironmentVariable(key = TEST_DATA_LOAD_SKIP_PERIOD_KEY, value = TEST_DATA_LOAD_SKIP_PERIOD_VALUE)
     void testLoadTestDataIfNecessary() {
         assertNotNull(tad);
-        assertFalse(tad.isTestDataLoaded());
-        tad.loadTestDataIfNecessary();
-        assertTrue(tad.isTestDataLoaded());
-        tad.loadTestDataIfNecessary();
-        assertTrue(tad.isTestDataLoaded());
+        assertFalse(tad.getDataLoader().isTestDataLoadedForCurrentRound());
+        new File(TestAutomationAdapter.EXECUTION_INFO_FILE).delete();
+        tad.getDataLoader().loadTestDataIfNecessary();
+        new File(TestAutomationAdapter.EXECUTION_INFO_FILE).deleteOnExit();
+        assertTrue(tad.getDataLoader().isTestDataLoadedForCurrentRound());
+        tad.getDataLoader().loadTestDataIfNecessary();
+        assertTrue(tad.getDataLoader().isTestDataLoadedForCurrentRound());
     }
 
     /**
