@@ -34,8 +34,6 @@ public class JsonTransformer {
             "WorkBasketInputFields", "WorkBasketResultFields", "Category", "Banner", "CaseType", "ComplexTypes", "EventToComplexTypes",
             "FixedLists", "Jurisdiction", "UserProfile","SearchAlias", "SearchCasesResultFields", "NoticeOfChangeConfig", "ChallengeQuestion");
 
-    private static final List<String> SHEETS_FOR_URL_SUBSTITUTIONS = Arrays.asList("CaseEvent");
-
     private Map<String, ArrayNode> defFileMap;
 
     public String transformToExcel(){
@@ -76,12 +74,7 @@ public class JsonTransformer {
                     JsonNode rootSheetArray = objectMapper.readTree(jsonFile);
                     String jsonFileNameNoSuffix = jsonFile.getName().replace(".json", "");
 
-                    if (BeftaMain.getConfig().getTestUrl() != null && BeftaMain.getConfig().getTestUrl()
-                            .contains("localhost")
-                            && SHEETS_FOR_URL_SUBSTITUTIONS.contains(jsonFileNameNoSuffix)) {
-                        String rootSheetArrayString = rootSheetArray.toString().replaceAll("ccd-test-stubs-service-aat.service.core-compute-aat.internal", "ccd-test-stubs-service:5555");
-                        rootSheetArray = objectMapper.readTree(rootSheetArrayString);
-                    }
+                   rootSheetArray = EnvironmentUrlUtils.updateCallBackURLs(rootSheetArray, jsonFileNameNoSuffix);
 
                     for (JsonNode sheetRow : rootSheetArray){
                         sheet = jsonFileNameNoSuffix;
