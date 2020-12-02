@@ -8,7 +8,7 @@
   "DisplayOrder" : 1,
   "PreConditionState(s)" : "",
   "PostConditionState" : "CaseCreated",
-  "CallBackURLAboutToStartEvent" : "http://ccd-test-stubs-service-aat.service.core-compute-aat.internal/case_type/fe-functional-test/mid_event_dynamic_list",
+  "CallBackURLAboutToStartEvent" : "${TEST_STUB_SERVICE_BASE_URL:http://ccd-test-stubs-service-aat.service.core-compute-aat.internal}/case_type/fe-functional-test/mid_event_dynamic_list",
   "RetriesTimeoutAboutToStartEvent" : "",
   "CallBackURLAboutToSubmitEvent" : "",
   "RetriesTimeoutURLAboutToSubmitEvent" : "",
