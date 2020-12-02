@@ -33,7 +33,7 @@ public class EnvironmentURLUtils {
         while (matcher.find()) {
             BaseUrlPlaceholder matchedResult = parseDefaultHostValue(matcher.group(1));
 
-            String replacementUrl = getURLStringFromEnvironmentValue(matchedResult.environmentVariable);
+            String replacementUrl = getURLStringFromEnvironmentValue(matchedResult.getEnvironmentVariable());
             if (replacementUrl == null) {
                 replacementUrl = matchedResult.getUrlDefaultValue();
             }
