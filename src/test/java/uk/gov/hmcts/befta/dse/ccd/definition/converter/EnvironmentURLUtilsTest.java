@@ -116,7 +116,7 @@ public class EnvironmentURLUtilsTest {
         JsonNode nullJsonNode = objectMapper.nullNode();
         JsonNode modifiedJsonNode = EnvironmentURLUtils.updateCallBackURLs(nullJsonNode, "AFileNameThatIsNotCaseEvent");
 
-        // check JSON has mot been modified
+        // check JSON has not been modified
         assertEquals(nullJsonNode, modifiedJsonNode);
     }
 
