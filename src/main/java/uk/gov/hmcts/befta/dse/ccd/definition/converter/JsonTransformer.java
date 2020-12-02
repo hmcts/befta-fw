@@ -73,7 +73,7 @@ public class JsonTransformer {
                     JsonNode rootSheetArray = objectMapper.readTree(jsonFile);
                     String jsonFileNameNoSuffix = jsonFile.getName().replace(".json", "");
 
-                   rootSheetArray = EnvironmentURLUtils.updateCallBackURLs(rootSheetArray, jsonFileNameNoSuffix);
+                    rootSheetArray = EnvironmentURLUtils.updateCallBackURLs(rootSheetArray, jsonFileNameNoSuffix);
 
                     for (JsonNode sheetRow : rootSheetArray){
                         sheet = jsonFileNameNoSuffix;

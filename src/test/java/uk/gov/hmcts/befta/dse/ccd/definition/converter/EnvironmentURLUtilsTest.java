@@ -22,6 +22,9 @@ public class EnvironmentURLUtilsTest {
     private static final String CASE_EVENT =  "CaseEvent";
     private static final String LOCALHOST_URL = "http://localhost:8080";
 
+    private static final String MCA_API_BASE_URL = "MCA_API_BASE_URL";
+    private static final String TEST_STUB_SERVICE_BASE_URL = "TEST_STUB_SERVICE_BASE_URL";
+
     ObjectMapper objectMapper = new ObjectMapper();
 
     JsonNode caseEventJson;
@@ -111,13 +114,14 @@ public class EnvironmentURLUtilsTest {
     @Test
     void unsupportedSheetNamesShouldNotModifyURLs() throws JsonProcessingException, MalformedURLException {
         JsonNode nullJsonNode = objectMapper.nullNode();
-
         JsonNode modifiedJsonNode = EnvironmentURLUtils.updateCallBackURLs(nullJsonNode, "AFileNameThatIsNotCaseEvent");
+
+        // check JSON has mot been modified
         assertEquals(nullJsonNode, modifiedJsonNode);
     }
 
     @Test
-    @SetEnvironmentVariable(key = EnvironmentURLUtils.TEST_STUB_SERVICE_BASE_URL, value = LOCALHOST_URL)
+    @SetEnvironmentVariable(key = TEST_STUB_SERVICE_BASE_URL, value = LOCALHOST_URL)
     void caseEventToFieldsSheetModifyTestStubURL() throws JsonProcessingException, MalformedURLException {
         JsonNode caseEventToFieldsNode = objectMapper.readTree(String.format(CASE_EVENT_TO_FIELDS_TEMPLATE,
                 CREATE_CASE_CALLBACK_MID_EVENT_HOST,
@@ -136,7 +140,7 @@ public class EnvironmentURLUtilsTest {
     }
 
     @Test
-    void caseEventToFieldsUpdatedWithDefaultValuesWheNoEnvironmentVariablesSet()
+    void caseEventToFieldsUpdatedWithDefaultValuesWhenNoEnvironmentVariablesSet()
             throws JsonProcessingException, MalformedURLException {
         JsonNode caseEventToFieldsNode = objectMapper.readTree(String.format(CASE_EVENT_TO_FIELDS_TEMPLATE,
                 CREATE_CASE_CALLBACK_MID_EVENT_HOST,
@@ -176,7 +180,7 @@ public class EnvironmentURLUtilsTest {
     }
 
     @Test
-    @SetEnvironmentVariable(key = EnvironmentURLUtils.MCA_API_BASE_URL, value = LOCALHOST_URL)
+    @SetEnvironmentVariable(key = MCA_API_BASE_URL, value = LOCALHOST_URL)
     void caseEventMcaApiBaseUrlUpdated() throws IOException {
         JsonNode modifiedJsonNode = EnvironmentURLUtils.updateCallBackURLs(caseEventJson, CASE_EVENT);
 
@@ -195,7 +199,7 @@ public class EnvironmentURLUtilsTest {
     }
 
     @Test
-    @SetEnvironmentVariable(key = EnvironmentURLUtils.TEST_STUB_SERVICE_BASE_URL, value = LOCALHOST_URL)
+    @SetEnvironmentVariable(key = TEST_STUB_SERVICE_BASE_URL, value = LOCALHOST_URL)
     void caseEventTestStubServiceBaseUrlUpdated() throws IOException {
         JsonNode modifiedJsonNode = EnvironmentURLUtils.updateCallBackURLs(caseEventJson, CASE_EVENT);
 
@@ -215,8 +219,8 @@ public class EnvironmentURLUtilsTest {
     }
 
     @Test
-    @SetEnvironmentVariable(key = EnvironmentURLUtils.MCA_API_BASE_URL, value = LOCALHOST_URL)
-    @SetEnvironmentVariable(key = EnvironmentURLUtils.TEST_STUB_SERVICE_BASE_URL, value = LOCALHOST_URL)
+    @SetEnvironmentVariable(key = MCA_API_BASE_URL, value = LOCALHOST_URL)
+    @SetEnvironmentVariable(key = TEST_STUB_SERVICE_BASE_URL, value = LOCALHOST_URL)
     void caseEventAllBaseUrlsUpdated() throws IOException {
         JsonNode modifiedJsonNode = EnvironmentURLUtils.updateCallBackURLs(caseEventJson, CASE_EVENT);
 
@@ -233,7 +237,7 @@ public class EnvironmentURLUtilsTest {
     }
 
     @Test
-    @SetEnvironmentVariable(key = EnvironmentURLUtils.MCA_API_BASE_URL, value = "httpsMalformed://" + LOCALHOST_URL)
+    @SetEnvironmentVariable(key = MCA_API_BASE_URL, value = "httpsMalformed://" + LOCALHOST_URL)
     void urlNotConvertedOnPreviewEnvironmentTestUrlMalformed()  {
         Exception exception = assertThrows(MalformedURLException.class,
                 () -> EnvironmentURLUtils.updateCallBackURLs(caseEventJson, CASE_EVENT));

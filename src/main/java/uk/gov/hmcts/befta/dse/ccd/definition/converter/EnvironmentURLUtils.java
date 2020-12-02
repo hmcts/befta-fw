@@ -15,11 +15,8 @@ import java.util.regex.Pattern;
 
 public class EnvironmentURLUtils {
 
-    private static final String BASE_URL_PLACEHOLDER_REGEX = "\\$\\{(.*?)\\}";
+    private static final String BASE_URL_PLACEHOLDER_REGEX = "\\$\\{(.*?)}";
     private static final List<String> SHEETS_FOR_URL_SUBSTITUTIONS = Arrays.asList("CaseEvent", "CaseEventToFields");
-
-    protected static final String MCA_API_BASE_URL = "MCA_API_BASE_URL";
-    protected static final String TEST_STUB_SERVICE_BASE_URL = "TEST_STUB_SERVICE_BASE_URL";
 
     public static JsonNode updateCallBackURLs(JsonNode rootSheetArray, String jsonFileName)
             throws JsonProcessingException, MalformedURLException {
@@ -38,10 +35,10 @@ public class EnvironmentURLUtils {
 
             String replacementUrl = getURLStringFromEnvironmentValue(matchedResult.environmentVariable);
             if (replacementUrl == null) {
-                replacementUrl = matchedResult.urlDefaultValue;
+                replacementUrl = matchedResult.getUrlDefaultValue();
             }
-            sheet = sheet.replaceAll(String.format("\\$\\{%s.*?\\}", matchedResult.environmentVariable),
-                    replacementUrl);
+
+            sheet = sheet.replace(matcher.group(0), replacementUrl);
         }
 
         return sheet;
@@ -53,19 +50,14 @@ public class EnvironmentURLUtils {
     }
 
     private static BaseUrlPlaceholder parseDefaultHostValue(String value) {
-        BaseUrlPlaceholder baseUrlPlaceholder = null;
-        if (value != null) {
-            String[] split = value.split(":", 2);
-            baseUrlPlaceholder = new BaseUrlPlaceholder(split[0], split[1]);
-        }
-
-        return baseUrlPlaceholder;
+        String[] split = value.split(":", 2);
+        return new BaseUrlPlaceholder(split[0], split[1]);
     }
 
     @AllArgsConstructor
     @Data
     private static class BaseUrlPlaceholder {
-        private String environmentVariable;
-        private String urlDefaultValue;
+        private final String environmentVariable;
+        private final String urlDefaultValue;
     }
 }
