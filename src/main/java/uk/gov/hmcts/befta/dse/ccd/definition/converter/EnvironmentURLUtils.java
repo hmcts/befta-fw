@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import uk.gov.hmcts.befta.exception.InvalidPropertyException;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -19,7 +20,7 @@ public class EnvironmentURLUtils {
     private static final List<String> SHEETS_FOR_URL_SUBSTITUTIONS = Arrays.asList("CaseEvent", "CaseEventToFields");
 
     public static JsonNode updateCallBackURLs(JsonNode rootSheetArray, String jsonFileName)
-            throws JsonProcessingException, MalformedURLException {
+            throws JsonProcessingException, MalformedURLException, InvalidPropertyException {
         if (SHEETS_FOR_URL_SUBSTITUTIONS.contains(jsonFileName)) {
             return new ObjectMapper().readTree(parseCallbackHostValues(rootSheetArray.toString()));
         } else {
@@ -27,11 +28,11 @@ public class EnvironmentURLUtils {
         }
     }
 
-    private static String parseCallbackHostValues(String sheet) throws MalformedURLException {
+    private static String parseCallbackHostValues(String sheet) throws MalformedURLException, InvalidPropertyException {
         Matcher matcher = Pattern.compile(BASE_URL_PLACEHOLDER_REGEX).matcher(sheet);
 
         while (matcher.find()) {
-            BaseUrlPlaceholder matchedResult = parseDefaultHostValue(matcher.group(1));
+            BaseUrlPlaceholder matchedResult = parseDefaultHostValue(matcher);
 
             String replacementUrl = getURLStringFromEnvironmentValue(matchedResult.getEnvironmentVariable());
             if (replacementUrl == null) {
@@ -49,8 +50,14 @@ public class EnvironmentURLUtils {
         return environmentValue != null ? new URL(environmentValue).toString() : null;
     }
 
-    private static BaseUrlPlaceholder parseDefaultHostValue(String value) {
-        String[] split = value.split(":", 2);
+    private static BaseUrlPlaceholder parseDefaultHostValue(Matcher matcher) throws InvalidPropertyException {
+        String[] split = matcher.group(1).split(":", 2);
+
+        if (split.length != 2 || split[1].isEmpty()) {
+            throw new InvalidPropertyException(
+                    String.format("%s should be in the format ${ENVIRONMENT_VARIABLE:defaultValue}",
+                    matcher.group(0)));
+        }
         return new BaseUrlPlaceholder(split[0], split[1]);
     }
 

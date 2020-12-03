@@ -1,11 +1,11 @@
 package uk.gov.hmcts.befta.dse.ccd.definition.converter;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junitpioneer.jupiter.SetEnvironmentVariable;
+import uk.gov.hmcts.befta.exception.InvalidPropertyException;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -112,7 +112,7 @@ public class EnvironmentURLUtilsTest {
     }
 
     @Test
-    void unsupportedSheetNamesShouldNotModifyURLs() throws JsonProcessingException, MalformedURLException {
+    void unsupportedSheetNamesShouldNotModifyURLs() throws Exception{
         JsonNode nullJsonNode = objectMapper.nullNode();
         JsonNode modifiedJsonNode = EnvironmentURLUtils.updateCallBackURLs(nullJsonNode, "AFileNameThatIsNotCaseEvent");
 
@@ -122,7 +122,7 @@ public class EnvironmentURLUtilsTest {
 
     @Test
     @SetEnvironmentVariable(key = TEST_STUB_SERVICE_BASE_URL, value = LOCALHOST_URL)
-    void caseEventToFieldsSheetModifyTestStubURL() throws JsonProcessingException, MalformedURLException {
+    void caseEventToFieldsSheetModifyTestStubURL() throws Exception {
         JsonNode caseEventToFieldsNode = objectMapper.readTree(String.format(CASE_EVENT_TO_FIELDS_TEMPLATE,
                 CREATE_CASE_CALLBACK_MID_EVENT_HOST,
                 CREATE_CASE_CALLBACK_MID_EVENT_PATH));
@@ -140,8 +140,7 @@ public class EnvironmentURLUtilsTest {
     }
 
     @Test
-    void caseEventToFieldsUpdatedWithDefaultValuesWhenNoEnvironmentVariablesSet()
-            throws JsonProcessingException, MalformedURLException {
+    void caseEventToFieldsUpdatedWithDefaultValuesWhenNoEnvironmentVariablesSet() throws Exception {
         JsonNode caseEventToFieldsNode = objectMapper.readTree(String.format(CASE_EVENT_TO_FIELDS_TEMPLATE,
                 CREATE_CASE_CALLBACK_MID_EVENT_HOST,
                 CREATE_CASE_CALLBACK_MID_EVENT_PATH));
@@ -160,7 +159,7 @@ public class EnvironmentURLUtilsTest {
     }
 
     @Test
-    void caseEventUrlsUpdatedWithDefaultValuesWheNoEnvironmentVariablesSet() throws IOException {
+    void caseEventUrlsUpdatedWithDefaultValuesWheNoEnvironmentVariablesSet() throws Exception {
         JsonNode modifiedJsonNode = EnvironmentURLUtils.updateCallBackURLs(caseEventJson, CASE_EVENT);
 
         // check JSON has been modified
@@ -181,7 +180,7 @@ public class EnvironmentURLUtilsTest {
 
     @Test
     @SetEnvironmentVariable(key = MCA_API_BASE_URL, value = LOCALHOST_URL)
-    void caseEventMcaApiBaseUrlUpdated() throws IOException {
+    void caseEventMcaApiBaseUrlUpdated() throws Exception {
         JsonNode modifiedJsonNode = EnvironmentURLUtils.updateCallBackURLs(caseEventJson, CASE_EVENT);
 
         // check JSON has been modified
@@ -200,7 +199,7 @@ public class EnvironmentURLUtilsTest {
 
     @Test
     @SetEnvironmentVariable(key = TEST_STUB_SERVICE_BASE_URL, value = LOCALHOST_URL)
-    void caseEventTestStubServiceBaseUrlUpdated() throws IOException {
+    void caseEventTestStubServiceBaseUrlUpdated() throws Exception {
         JsonNode modifiedJsonNode = EnvironmentURLUtils.updateCallBackURLs(caseEventJson, CASE_EVENT);
 
         // check JSON has been modified
@@ -221,7 +220,7 @@ public class EnvironmentURLUtilsTest {
     @Test
     @SetEnvironmentVariable(key = MCA_API_BASE_URL, value = LOCALHOST_URL)
     @SetEnvironmentVariable(key = TEST_STUB_SERVICE_BASE_URL, value = LOCALHOST_URL)
-    void caseEventAllBaseUrlsUpdated() throws IOException {
+    void caseEventAllBaseUrlsUpdated() throws Exception {
         JsonNode modifiedJsonNode = EnvironmentURLUtils.updateCallBackURLs(caseEventJson, CASE_EVENT);
 
         // check JSON has been modified
@@ -243,5 +242,39 @@ public class EnvironmentURLUtilsTest {
                 () -> EnvironmentURLUtils.updateCallBackURLs(caseEventJson, CASE_EVENT));
         assertNotNull(exception);
         assertTrue(exception.getMessage().contains("unknown protocol"));
+    }
+
+    @Test
+    void throwExceptionIfCallBackURLHasNoDefaultValue() throws Exception {
+        final String invalidCallBackURLTemplate = "${HOST}";
+        caseEventJson = objectMapper.readTree(
+                String.format(CASE_EVENT_CONTENT_TEMPLATE,
+                        invalidCallBackURLTemplate, NOC_REQUEST_AUTO_APPROVAL_SUBMIT_EVENT_PATH,
+                        APPLY_NOC_DECISION_SUBMIT_EVENT_HOST, APPLY_NOC_DECISION_SUBMIT_EVENT_PATH)
+        );
+
+        Exception exception = assertThrows(InvalidPropertyException.class,
+                () -> EnvironmentURLUtils.updateCallBackURLs(caseEventJson, CASE_EVENT));
+
+        assertNotNull(exception);
+        assertEquals(exception.getMessage(),
+                invalidCallBackURLTemplate + " should be in the format ${ENVIRONMENT_VARIABLE:defaultValue}");
+    }
+
+    @Test
+    void throwExceptionIfCallBackURLHasBlankDefaultValue() throws Exception {
+        final String invalidCallBackURLTemplate = "${HOST:}";
+        caseEventJson = objectMapper.readTree(
+                String.format(CASE_EVENT_CONTENT_TEMPLATE,
+                        invalidCallBackURLTemplate, NOC_REQUEST_AUTO_APPROVAL_SUBMIT_EVENT_PATH,
+                        APPLY_NOC_DECISION_SUBMIT_EVENT_HOST, APPLY_NOC_DECISION_SUBMIT_EVENT_PATH)
+        );
+
+        Exception exception = assertThrows(InvalidPropertyException.class,
+                () -> EnvironmentURLUtils.updateCallBackURLs(caseEventJson, CASE_EVENT));
+
+        assertNotNull(exception);
+        assertEquals(exception.getMessage(),
+                invalidCallBackURLTemplate + " should be in the format ${ENVIRONMENT_VARIABLE:defaultValue}");
     }
 }
