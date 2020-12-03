@@ -14,7 +14,7 @@ public class InvalidPropertyException extends IOException {
      * Constructs a {@code InvalidPropertyException} with the
      * specified detail message.
      *
-     * @param   msg   the detail message.
+     * @param msg the detail message.
      */
     public InvalidPropertyException(String msg) {
         super(msg);
