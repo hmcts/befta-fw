@@ -8,6 +8,7 @@
   "DisplayOrder" : 1,
   "PreConditionState(s)" : "",
   "PostConditionState" : "CaseCreated",
+  "EventEnablingCondition" : "",
   "CallBackURLAboutToStartEvent" : "",
   "RetriesTimeoutAboutToStartEvent" : "",
   "CallBackURLAboutToSubmitEvent" : "",
