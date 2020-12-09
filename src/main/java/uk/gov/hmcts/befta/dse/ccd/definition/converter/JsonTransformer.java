@@ -81,7 +81,7 @@ public class JsonTransformer {
                         defFileMap.get(sheet).add(sheetRow);
                     }
                 } catch (InvalidTestDataException | IOException e) {
-                    throw new DefinitionTransformerException("Unable to read json file:" + jsonFile.getPath(), e);
+                    throw new DefinitionTransformerException("Unable to read or process json file:" + jsonFile.getPath(), e);
                 } catch (NullPointerException e){
                     throw new DefinitionTransformerException("May be a problem generating sheet: " + sheet, e);
                 }
