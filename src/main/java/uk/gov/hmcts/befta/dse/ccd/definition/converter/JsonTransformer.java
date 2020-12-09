@@ -14,6 +14,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import uk.gov.hmcts.befta.exception.DefinitionTransformerException;
+import uk.gov.hmcts.befta.exception.InvalidTestDataException;
 import uk.gov.hmcts.befta.util.FileUtils;
 
 /**
@@ -79,7 +80,7 @@ public class JsonTransformer {
                         sheet = jsonFileNameNoSuffix;
                         defFileMap.get(sheet).add(sheetRow);
                     }
-                } catch (IOException e) {
+                } catch (InvalidTestDataException | IOException e) {
                     throw new DefinitionTransformerException("Unable to read json file:" + jsonFile.getPath(), e);
                 } catch (NullPointerException e){
                     throw new DefinitionTransformerException("May be a problem generating sheet: " + sheet, e);

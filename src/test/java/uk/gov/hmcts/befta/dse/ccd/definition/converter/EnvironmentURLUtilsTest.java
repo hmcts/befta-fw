@@ -4,8 +4,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junitpioneer.jupiter.ClearEnvironmentVariable;
 import org.junitpioneer.jupiter.SetEnvironmentVariable;
-import uk.gov.hmcts.befta.exception.InvalidPropertyException;
+import uk.gov.hmcts.befta.exception.InvalidTestDataException;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -140,6 +141,8 @@ public class EnvironmentURLUtilsTest {
     }
 
     @Test
+    @ClearEnvironmentVariable(key = TEST_STUB_SERVICE_BASE_URL)
+    @ClearEnvironmentVariable(key = MCA_API_BASE_URL)
     void caseEventToFieldsUpdatedWithDefaultValuesWhenNoEnvironmentVariablesSet() throws Exception {
         JsonNode caseEventToFieldsNode = objectMapper.readTree(String.format(CASE_EVENT_TO_FIELDS_TEMPLATE,
                 CREATE_CASE_CALLBACK_MID_EVENT_HOST,
@@ -159,6 +162,8 @@ public class EnvironmentURLUtilsTest {
     }
 
     @Test
+    @ClearEnvironmentVariable(key = TEST_STUB_SERVICE_BASE_URL)
+    @ClearEnvironmentVariable(key = MCA_API_BASE_URL)
     void caseEventUrlsUpdatedWithDefaultValuesWheNoEnvironmentVariablesSet() throws Exception {
         JsonNode modifiedJsonNode = EnvironmentURLUtils.updateCallBackURLs(caseEventJson, CASE_EVENT);
 
@@ -180,6 +185,7 @@ public class EnvironmentURLUtilsTest {
 
     @Test
     @SetEnvironmentVariable(key = MCA_API_BASE_URL, value = LOCALHOST_URL)
+    @ClearEnvironmentVariable(key = TEST_STUB_SERVICE_BASE_URL)
     void caseEventMcaApiBaseUrlUpdated() throws Exception {
         JsonNode modifiedJsonNode = EnvironmentURLUtils.updateCallBackURLs(caseEventJson, CASE_EVENT);
 
@@ -253,7 +259,7 @@ public class EnvironmentURLUtilsTest {
                         APPLY_NOC_DECISION_SUBMIT_EVENT_HOST, APPLY_NOC_DECISION_SUBMIT_EVENT_PATH)
         );
 
-        Exception exception = assertThrows(InvalidPropertyException.class,
+        Exception exception = assertThrows(InvalidTestDataException.class,
                 () -> EnvironmentURLUtils.updateCallBackURLs(caseEventJson, CASE_EVENT));
 
         assertNotNull(exception);
@@ -270,7 +276,7 @@ public class EnvironmentURLUtilsTest {
                         APPLY_NOC_DECISION_SUBMIT_EVENT_HOST, APPLY_NOC_DECISION_SUBMIT_EVENT_PATH)
         );
 
-        Exception exception = assertThrows(InvalidPropertyException.class,
+        Exception exception = assertThrows(InvalidTestDataException.class,
                 () -> EnvironmentURLUtils.updateCallBackURLs(caseEventJson, CASE_EVENT));
 
         assertNotNull(exception);

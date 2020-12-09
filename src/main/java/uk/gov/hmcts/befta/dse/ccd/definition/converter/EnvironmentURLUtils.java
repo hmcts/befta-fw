@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import uk.gov.hmcts.befta.exception.InvalidPropertyException;
+import uk.gov.hmcts.befta.exception.InvalidTestDataException;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -20,7 +20,7 @@ public class EnvironmentURLUtils {
     private static final List<String> SHEETS_FOR_URL_SUBSTITUTIONS = Arrays.asList("CaseEvent", "CaseEventToFields");
 
     public static JsonNode updateCallBackURLs(JsonNode rootSheetArray, String jsonFileName)
-            throws JsonProcessingException, MalformedURLException, InvalidPropertyException {
+            throws JsonProcessingException, MalformedURLException, InvalidTestDataException {
         if (SHEETS_FOR_URL_SUBSTITUTIONS.contains(jsonFileName)) {
             return new ObjectMapper().readTree(parseCallbackHostValues(rootSheetArray.toString()));
         } else {
@@ -28,7 +28,7 @@ public class EnvironmentURLUtils {
         }
     }
 
-    private static String parseCallbackHostValues(String sheet) throws MalformedURLException, InvalidPropertyException {
+    private static String parseCallbackHostValues(String sheet) throws MalformedURLException, InvalidTestDataException {
         Matcher matcher = Pattern.compile(BASE_URL_PLACEHOLDER_REGEX).matcher(sheet);
 
         while (matcher.find()) {
@@ -50,11 +50,11 @@ public class EnvironmentURLUtils {
         return environmentValue != null ? new URL(environmentValue).toString() : null;
     }
 
-    private static BaseUrlPlaceholder parseDefaultHostValue(Matcher matcher) throws InvalidPropertyException {
+    private static BaseUrlPlaceholder parseDefaultHostValue(Matcher matcher) throws InvalidTestDataException {
         String[] split = matcher.group(1).split(":", 2);
 
         if (split.length != 2 || split[1].isEmpty()) {
-            throw new InvalidPropertyException(
+            throw new InvalidTestDataException(
                     String.format("%s should be in the format ${ENVIRONMENT_VARIABLE:defaultValue}",
                     matcher.group(0)));
         }
