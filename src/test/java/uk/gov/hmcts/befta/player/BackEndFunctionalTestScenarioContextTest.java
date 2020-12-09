@@ -1,11 +1,16 @@
 package uk.gov.hmcts.befta.player;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.any;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -16,9 +21,17 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import io.cucumber.java.Scenario;
+import io.restassured.specification.RequestSpecification;
+import io.restassured.specification.ResponseSpecification;
 import uk.gov.hmcts.befta.BeftaMain;
+import uk.gov.hmcts.befta.DefaultTestAutomationAdapter;
+import uk.gov.hmcts.befta.TestAutomationAdapter;
 import uk.gov.hmcts.befta.data.HttpTestData;
 import uk.gov.hmcts.befta.data.JsonStoreHttpTestDataSource;
+import uk.gov.hmcts.befta.data.ResponseData;
+import uk.gov.hmcts.befta.exception.FunctionalTestException;
+import uk.gov.hmcts.befta.factory.DynamicValueInjectorFactory;
+import uk.gov.hmcts.befta.util.DynamicValueInjector;
 import uk.gov.hmcts.common.TestUtils;
 
 public class BackEndFunctionalTestScenarioContextTest {
@@ -39,6 +52,7 @@ public class BackEndFunctionalTestScenarioContextTest {
 
     private BackEndFunctionalTestScenarioContext contextUnderTest = new BackEndFunctionalTestScenarioContext();
     private MockedStatic <BeftaMain> beftaMain = null;
+    private MockedStatic <DynamicValueInjectorFactory> dynamicValueInjectorFactory = null;
     @Mock
     private HttpTestData s103TestData;
 
@@ -50,6 +64,7 @@ public class BackEndFunctionalTestScenarioContextTest {
     public void prepareStaticMockedObjectUnderTest() {
         try {
         	beftaMain = mockStatic(BeftaMain.class);
+        	dynamicValueInjectorFactory = mockStatic(DynamicValueInjectorFactory.class);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -60,6 +75,9 @@ public class BackEndFunctionalTestScenarioContextTest {
         try {
             if (beftaMain != null) {
                 beftaMain.close();
+            }
+            if (dynamicValueInjectorFactory != null) {
+            	dynamicValueInjectorFactory.close();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -76,7 +94,7 @@ public class BackEndFunctionalTestScenarioContextTest {
 
         TestUtils.setFieldWithReflection(BackEndFunctionalTestScenarioContext.class.getDeclaredField("DATA_SOURCE"),
                 dataSource);
-        closeStaticMockedObjectUnderTest();
+        prepareStaticMockedObjectUnderTest();
     }
 
     @Test
@@ -185,22 +203,220 @@ public class BackEndFunctionalTestScenarioContextTest {
         // ASSERT
         assertEquals(testContextId, result);
     }
-//    @Test
-//    public void testcalculateCustomValue() {
-//        // ARRANGE
-//        final String testContextId = "TEST_CONTEXT_ID";
-//        contextUnderTest.setContextId(testContextId);
-//        String today = "today";
-//        TestAutomationAdapter tAdapter = mock(TestAutomationAdapter.class);
-//        BackEndFunctionalTestScenarioContext context = new BackEndFunctionalTestScenarioContext();
-//        when(BeftaMain.getAdapter()).thenReturn(tAdapter);
-//        when(tAdapter.calculateCustomValue(context, today)).thenReturn(today);
-//        // ACT
-//        String result = contextUnderTest.getContextId();
-//
-//        // ASSERT
-//        assertEquals(testContextId, result);
-//        ;
-//        assertNotNull(context.calculateCustomValue(today));
-//    }
+    @Test
+    public void testcalculateCustomValue() {
+        // ARRANGE
+        final String testContextId = "TEST_CONTEXT_ID";
+        contextUnderTest.setContextId(testContextId);
+        String today = "today";
+        TestAutomationAdapter tAdapter = mock(TestAutomationAdapter.class);
+        BackEndFunctionalTestScenarioContext context = new BackEndFunctionalTestScenarioContext();
+        when(BeftaMain.getAdapter()).thenReturn(tAdapter);
+        when(tAdapter.calculateCustomValue(context, today)).thenReturn(today);
+        // ACT
+        String result = contextUnderTest.getContextId();
+
+        // ASSERT
+        assertEquals(testContextId, result);
+        ;
+        assertNotNull(context.calculateCustomValue(today));
+    }
+	/**
+	 * Test method for {@link uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext#addChildContext(uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext)}.
+	 */
+	@Test
+	void testAddChildContextBackEndFunctionalTestScenarioContext() {
+	}
+
+	/**
+	 * Test method for {@link uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext#addChildContext(java.lang.String, uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext)}.
+	 */
+	@Test
+	void testAddChildContextStringBackEndFunctionalTestScenarioContext() {
+	}
+
+	/**
+	 * Test method for {@link uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext#initializeTestDataFor(io.cucumber.java.Scenario)}.
+	 */
+	@Test
+	void testInitializeTestDataForScenario() {
+        contextUnderTest = new BackEndFunctionalTestScenarioContext();
+        Assertions.assertThrows(FunctionalTestException.class, () -> {
+            contextUnderTest.initializeTestDataFor(scenario);
+          });
+	}
+
+	/**
+	 * Test method for {@link uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext#initializeTestDataFor(java.lang.String)}.
+	 */
+	@Test
+	void testInitializeTestDataForString() {
+		String testDataId = "S-33,S-356";
+        when(dataSource.getDataForTestCall(testDataId)).thenReturn(null);
+        contextUnderTest = new BackEndFunctionalTestScenarioContext();
+        Assertions.assertThrows(FunctionalTestException.class, () -> {
+            contextUnderTest.initializeTestDataFor(testDataId);
+          });
+	}
+
+	/**
+	 * Test method for {@link uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext#injectDataFromContextBeforeApiCall()}.
+	 */
+	@Test
+	void testInjectDataFromContextBeforeApiCall() {
+		String testDataId = "S-356";
+        when(dataSource.getDataForTestCall(testDataId)).thenReturn(s103TestData);
+		DynamicValueInjector dynamicValueInjector = mock(DynamicValueInjector.class);
+        contextUnderTest = new BackEndFunctionalTestScenarioContext();
+        when(DynamicValueInjectorFactory.createDynamicValueInjector(any(), any(), any())).thenReturn(dynamicValueInjector);
+        contextUnderTest.initializeTestDataFor(testDataId);
+        contextUnderTest.injectDataFromContextBeforeApiCall();
+        verify(dynamicValueInjector).injectDataFromContextBeforeApiCall();
+
+	}
+
+	/**
+	 * Test method for {@link uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext#injectDataFromContextAfterApiCall()}.
+	 */
+	@Test
+	void testInjectDataFromContextAfterApiCall() {
+		String testDataId = "S-356";
+        when(dataSource.getDataForTestCall(testDataId)).thenReturn(s103TestData);
+		DynamicValueInjector dynamicValueInjector = mock(DynamicValueInjector.class);
+        contextUnderTest = new BackEndFunctionalTestScenarioContext();
+        when(DynamicValueInjectorFactory.createDynamicValueInjector(any(), any(), any())).thenReturn(dynamicValueInjector);
+        contextUnderTest.initializeTestDataFor(testDataId);
+        contextUnderTest.injectDataFromContextAfterApiCall();
+        verify(dynamicValueInjector).injectDataFromContextAfterApiCall();
+	}
+
+	/**
+	 * Test method for {@link uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext#getCurrentScenarioTag()}.
+	 */
+	@Test
+	void testGetCurrentScenarioTag() {
+	}
+
+	/**
+	 * Test method for {@link uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext#getContextId()}.
+	 */
+	@Test
+	void testGetContextId() {
+	}
+
+	/**
+	 * Test method for {@link uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext#setContextId(java.lang.String)}.
+	 */
+	@Test
+	void testSetContextId() {
+	}
+
+	/**
+	 * Test method for {@link uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext#getTheInvokingUser()}.
+	 */
+	@Test
+	void testGetTheInvokingUser() {
+	}
+
+	/**
+	 * Test method for {@link uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext#setTheInvokingUser(uk.gov.hmcts.befta.data.UserData)}.
+	 */
+	@Test
+	void testSetTheInvokingUser() {
+	}
+
+	/**
+	 * Test method for {@link uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext#calculateCustomValue(java.lang.Object)}.
+	 */
+	@Test
+	void testCalculateCustomValue() {
+	}
+
+	/**
+	 * Test method for {@link uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext#getSiblingContexts()}.
+	 */
+	@Test
+	void testGetSiblingContexts() {
+	}
+
+	/**
+	 * Test method for {@link uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext#getNextUserToAuthenticate()}.
+	 */
+	@Test
+	void testGetNextUserToAuthenticate() {
+	}
+
+	/**
+	 * Test method for {@link uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext#getParentContext()}.
+	 */
+	@Test
+	void testGetParentContext() {
+	}
+
+	/**
+	 * Test method for {@link uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext#setParentContext(uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext)}.
+	 */
+	@Test
+	void testSetParentContext() {
+	}
+
+	/**
+	 * Test method for {@link uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext#getChildContexts()}.
+	 */
+	@Test
+	void testGetChildContexts() {
+	}
+
+	/**
+	 * Test method for {@link uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext#getTestData()}.
+	 */
+	@Test
+	void testGetTestData() {
+	}
+
+	/**
+	 * Test method for {@link uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext#getTheRequest()}.
+	 */
+	@Test
+	void testGetTheRequest() {
+        BackEndFunctionalTestScenarioContext testContext = new BackEndFunctionalTestScenarioContext();
+		RequestSpecification requestSpecification = mock (RequestSpecification.class);
+        testContext.setTheRequest(requestSpecification);
+        assertEquals(requestSpecification,testContext.getTheRequest());
+		
+	}
+
+	/**
+	 * Test method for {@link uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext#setTheRequest(io.restassured.specification.RequestSpecification)}.
+	 */
+	@Test
+	void testSetTheRequest() {
+	}
+
+	/**
+	 * Test method for {@link uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext#getTheResponse()}.
+	 */
+	@Test
+	void testGetTheResponse() {
+        BackEndFunctionalTestScenarioContext testContext = new BackEndFunctionalTestScenarioContext();
+        ResponseData responseData = mock (ResponseData.class);
+        testContext.setTheResponse(responseData);
+        assertEquals(responseData,testContext.getTheResponse());
+	}
+
+	/**
+	 * Test method for {@link uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext#setTheResponse(uk.gov.hmcts.befta.data.ResponseData)}.
+	 */
+	@Test
+	void testSetTheResponse() {
+	}
+
+	/**
+	 * Test method for {@link uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext#getCustomValues()}.
+	 */
+	@Test
+	void testGetCustomValues() {
+	}
+    
+    
 }

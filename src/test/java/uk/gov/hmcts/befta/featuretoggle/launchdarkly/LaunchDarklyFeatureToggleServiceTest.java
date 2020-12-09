@@ -112,13 +112,14 @@ class LaunchDarklyFeatureToggleServiceTest {
             {
                 add(LAUNCH_DARKLY_FLAG);
                 add("S-987");
-                add("@S-133");
-                add("@F-103");
+                add("S-133");
+                add("F-103");
             }
         };
         when(scenario.getSourceTagNames()).thenReturn(tags);
         LaunchDarklyFeatureToggleService launchDarklyFeatureToggleService  = new LaunchDarklyFeatureToggleService();
         FeatureToggleInfo status = new FeatureToggleInfo();
+        status.add("FeatureToggle", false);
         		
     	launchDarklyFeatureToggleService.getToggleStatusFor(scenario);
 		assertEquals(status.getDisabledFeatureFlags(),launchDarklyFeatureToggleService.getToggleStatusFor(scenario).getDisabledFeatureFlags());

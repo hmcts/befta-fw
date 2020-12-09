@@ -2,6 +2,7 @@ package uk.gov.hmcts.befta.player;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
@@ -829,6 +830,120 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         );
         assertTrue(feThrown.getMessage().contains("Wait time provided is not a valid number: "));
     }
+
+	/**
+	 * Test method for {@link uk.gov.hmcts.befta.player.DefaultBackEndFunctionalTestScenarioPlayer#DefaultBackEndFunctionalTestScenarioPlayer()}.
+	 */
+	@Test
+	void testDefaultBackEndFunctionalTestScenarioPlayer() {
+	}
+
+	/**
+	 * Test method for {@link uk.gov.hmcts.befta.player.DefaultBackEndFunctionalTestScenarioPlayer#cucumberPrepare(io.cucumber.java.Scenario)}.
+	 */
+	@Test
+	void testCucumberPrepare() {
+	}
+
+	/**
+	 * Test method for {@link uk.gov.hmcts.befta.player.DefaultBackEndFunctionalTestScenarioPlayer#initializeAppropriateTestContextAsDetailedInTheTestDataSource()}.
+	 */
+	@Test
+	void testInitializeAppropriateTestContextAsDetailedInTheTestDataSource() {
+	}
+
+	/**
+	 * Test method for {@link uk.gov.hmcts.befta.player.DefaultBackEndFunctionalTestScenarioPlayer#createCaseWithTheDataProvidedInATestDataObject(java.lang.String)}.
+	 */
+	@Test
+	void testCreateCaseWithTheDataProvidedInATestDataObjectString() {
+	}
+
+	/**
+	 * Test method for {@link uk.gov.hmcts.befta.player.DefaultBackEndFunctionalTestScenarioPlayer#createCaseWithTheDataProvidedInATestDataObject(java.lang.String, java.lang.String)}.
+	 */
+	@Test
+	void testCreateCaseWithTheDataProvidedInATestDataObjectStringString() {
+	}
+
+	/**
+	 * Test method for {@link uk.gov.hmcts.befta.player.DefaultBackEndFunctionalTestScenarioPlayer#verifyThatThereIsAUserInTheContextWithAParticularSpecification(java.lang.String)}.
+	 */
+	@Test
+	void testVerifyThatThereIsAUserInTheContextWithAParticularSpecification() {
+	}
+
+	/**
+	 * Test method for {@link uk.gov.hmcts.befta.player.DefaultBackEndFunctionalTestScenarioPlayer#verifyThatASpecificationAboutScenarioContextIsConfirmed(java.lang.String)}.
+	 */
+	@Test
+	void testVerifyThatASpecificationAboutScenarioContextIsConfirmed() {
+	}
+
+	/**
+	 * Test method for {@link uk.gov.hmcts.befta.player.DefaultBackEndFunctionalTestScenarioPlayer#prepareARequestWithAppropriateValues()}.
+	 */
+	@Test
+	void testPrepareARequestWithAppropriateValues() {
+	}
+
+	/**
+	 * Test method for {@link uk.gov.hmcts.befta.player.DefaultBackEndFunctionalTestScenarioPlayer#verifyTheRequestInTheContextWithAParticularSpecification(java.lang.String)}.
+	 */
+	@Test
+	void testVerifyTheRequestInTheContextWithAParticularSpecification() {
+	}
+
+	/**
+	 * Test method for {@link uk.gov.hmcts.befta.player.DefaultBackEndFunctionalTestScenarioPlayer#submitTheRequestToCallAnOperationOfAProduct(java.lang.String, java.lang.String)}.
+	 */
+	@Test
+	void testSubmitTheRequestToCallAnOperationOfAProduct() {
+	}
+
+	/**
+	 * Test method for {@link uk.gov.hmcts.befta.player.DefaultBackEndFunctionalTestScenarioPlayer#verifyThatAPositiveResponseWasReceived()}.
+	 */
+	@Test
+	void testVerifyThatAPositiveResponseWasReceived() {
+	}
+
+	/**
+	 * Test method for {@link uk.gov.hmcts.befta.player.DefaultBackEndFunctionalTestScenarioPlayer#verifyThatANegativeResponseWasReceived()}.
+	 */
+	@Test
+	void testVerifyThatANegativeResponseWasReceived() {
+	}
+
+	/**
+	 * Test method for {@link uk.gov.hmcts.befta.player.DefaultBackEndFunctionalTestScenarioPlayer#verifyThatTheResponseHasAllTheDetailsAsExpected()}.
+	 */
+	@Test
+	void testVerifyThatTheResponseHasAllTheDetailsAsExpected() {
+	}
+
+	/**
+	 * Test method for {@link uk.gov.hmcts.befta.player.DefaultBackEndFunctionalTestScenarioPlayer#verifyTheResponseInTheContextWithAParticularSpecification(java.lang.String)}.
+	 */
+	@Test
+	void testVerifyTheResponseInTheContextWithAParticularSpecification() {
+	}
+
+	/**
+	 * Test method for {@link uk.gov.hmcts.befta.player.DefaultBackEndFunctionalTestScenarioPlayer#performAndVerifyTheExpectedResponseForAnApiCall(java.lang.String, java.lang.String)}.
+	 */
+	@Test
+	void testPerformAndVerifyTheExpectedResponseForAnApiCall() {
+	}
+
+	/**
+	 * Test method for {@link uk.gov.hmcts.befta.player.DefaultBackEndFunctionalTestScenarioPlayer#suspendExecutionOnPurposeForAGivenNumberOfSeconds(java.lang.String, java.lang.String)}.
+	 */
+	@Test
+	void testSuspendExecutionOnPurposeForAGivenNumberOfSeconds() {
+	}
+    
+    
 
     private ResponseData createResponseDataWithResponseCode(int responseCode) {
         ResponseData responseData = new ResponseData();
