@@ -2,7 +2,6 @@ package uk.gov.hmcts.befta.player;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
@@ -31,7 +30,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.concurrent.TimeUnit;
 
 import io.cucumber.java.Scenario;
@@ -46,6 +47,7 @@ import io.restassured.specification.SpecificationQuerier;
 import uk.gov.hmcts.befta.BeftaMain;
 import uk.gov.hmcts.befta.DefaultTestAutomationAdapter;
 import uk.gov.hmcts.befta.data.HttpTestData;
+import uk.gov.hmcts.befta.data.JsonStoreHttpTestDataSource;
 import uk.gov.hmcts.befta.data.RequestData;
 import uk.gov.hmcts.befta.data.ResponseData;
 import uk.gov.hmcts.befta.data.UserData;
@@ -98,6 +100,10 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
     private static final String PASSWORD = "PASSWORD";
     private static final String OPERATION = "OPERATION";
     private static final String PRODUCT_NAME = "PRODUCT NAME";
+    @Mock
+    private HttpTestData s103TestData;
+    @Mock
+    private JsonStoreHttpTestDataSource dataSource;
 
 
     @Captor
@@ -139,6 +145,10 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
     @SuppressWarnings("deprecation")
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
+        TestUtils.setFieldWithReflection(context,
+        		context.getClass().getDeclaredField("DATA_SOURCE"),
+        		dataSource);
+
         scenarioPlayer = new DefaultBackEndFunctionalTestScenarioPlayer();
         TestUtils.setFieldWithReflection(scenarioPlayer,
                 scenarioPlayer.getClass().getDeclaredField("scenarioContext"),
@@ -831,39 +841,56 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         assertTrue(feThrown.getMessage().contains("Wait time provided is not a valid number: "));
     }
 
-	/**
-	 * Test method for {@link uk.gov.hmcts.befta.player.DefaultBackEndFunctionalTestScenarioPlayer#DefaultBackEndFunctionalTestScenarioPlayer()}.
-	 */
-	@Test
-	void testDefaultBackEndFunctionalTestScenarioPlayer() {
-	}
-
-	/**
-	 * Test method for {@link uk.gov.hmcts.befta.player.DefaultBackEndFunctionalTestScenarioPlayer#cucumberPrepare(io.cucumber.java.Scenario)}.
-	 */
-	@Test
-	void testCucumberPrepare() {
-	}
-
-	/**
-	 * Test method for {@link uk.gov.hmcts.befta.player.DefaultBackEndFunctionalTestScenarioPlayer#initializeAppropriateTestContextAsDetailedInTheTestDataSource()}.
-	 */
-	@Test
-	void testInitializeAppropriateTestContextAsDetailedInTheTestDataSource() {
-	}
 
 	/**
 	 * Test method for {@link uk.gov.hmcts.befta.player.DefaultBackEndFunctionalTestScenarioPlayer#createCaseWithTheDataProvidedInATestDataObject(java.lang.String)}.
+	 * @throws IOException 
 	 */
 	@Test
-	void testCreateCaseWithTheDataProvidedInATestDataObjectString() {
-	}
+	void testCreateCaseWithTheDataProvidedInATestDataObjectString() throws IOException {
+        // ARRANGE
+        String testDataId = "Standard_Token_Creation_Data_For_Case_Creation";
+        String[] testDataSpec = {"to create a token for case creation", "to create a full case" };
+        
+        
+        BackEndFunctionalTestScenarioContext testDataContext = createAndPrepareTestScenarioContext(Arrays.asList(testDataSpec), testDataId);
+        Mockito.when(BeftaScenarioContextFactory.createBeftaScenarioContext()).thenReturn(testDataContext);
+        mapVerifierMock.when(() -> MapVerifier.createMapVerifier("actualResponse.headers", 1, false)).thenReturn(mapVerifier);
+        mapVerifierMock.when(() -> MapVerifier.createMapVerifier("actualResponse.body", 20)).thenReturn(mapVerifier);
+        HttpTestData testData = mock(HttpTestData.class);
+        when(testData.meetsSpec(any())).thenReturn(true);
+        when(testData.meetsSpec(any())).thenReturn(true);
+        when(context.getTestData()).thenReturn(testData);
+
+        // ACT
+        scenarioPlayer.createCaseWithTheDataProvidedInATestDataObject(testDataId);
+
+        // ASSERT
+        verify(this.context, times(2)).addChildContext(eq(testDataContext));
+        verify(testDataContext, times(2)).initializeTestDataFor(eq(testDataId));
+        verify(testDataContext, times(2)).setTheResponse(any());
+    }
 
 	/**
 	 * Test method for {@link uk.gov.hmcts.befta.player.DefaultBackEndFunctionalTestScenarioPlayer#createCaseWithTheDataProvidedInATestDataObject(java.lang.String, java.lang.String)}.
+	 * @throws IOException 
 	 */
 	@Test
-	void testCreateCaseWithTheDataProvidedInATestDataObjectStringString() {
+	void testCreateCaseWithTheDataProvidedInATestDataObjectStringString() throws IOException {
+        // ARRANGE
+        String testDataId = "TD1";
+        String testDataSpec = "Spec1";
+        BackEndFunctionalTestScenarioContext testDataContext = createAndPrepareTestScenarioContext(testDataSpec, testDataId);
+        Mockito.when(BeftaScenarioContextFactory.createBeftaScenarioContext()).thenReturn(testDataContext);
+        mapVerifierMock.when(() -> MapVerifier.createMapVerifier("actualResponse.headers", 1, false)).thenReturn(mapVerifier);
+        mapVerifierMock.when(() -> MapVerifier.createMapVerifier("actualResponse.body", 20)).thenReturn(mapVerifier);
+
+        // ACT
+        Assertions.assertThrows(UnconfirmedDataSpecException.class, () -> {
+            scenarioPlayer.createCaseWithTheDataProvidedInATestDataObject(testDataId);
+          });
+
+			
 	}
 
 	/**
@@ -871,79 +898,77 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
 	 */
 	@Test
 	void testVerifyThatThereIsAUserInTheContextWithAParticularSpecification() {
+		final String specificationAboutUser = "a user";
+        HttpTestData testData = mock(HttpTestData.class);
+        UserData userData = createUserData(USERNAME, PASSWORD);
+        LinkedHashMap<String, UserData> users = new LinkedHashMap<String, UserData>() {
+            private static final long serialVersionUID = 1L;
+            {
+                put("invokingUser", userData);
+            }
+        };
+        Entry<String, UserData> entry = users.entrySet().iterator().next();
+        when(testData.meetsSpec(any())).thenReturn(true);
+        when(testData.getInvokingUser()).thenReturn(userData);
+        when(testData.getUsers()).thenReturn(users);
+        when(testData.getUserEntryAt(0)).thenReturn(new AbstractMap.SimpleEntry<>("invokingUser", userData));
+        when(context.getTestData()).thenReturn(testData);
+        when(EnvironmentVariableUtils.resolvePossibleVariable(USERNAME)).thenReturn(USERNAME);
+        when(EnvironmentVariableUtils.resolvePossibleVariable(PASSWORD)).thenReturn(PASSWORD);
+        BeftaMain.setTaAdapter(adapter);
+        when(context.getNextUserToAuthenticate()).thenReturn(entry);
+        
+        scenarioPlayer.verifyThatThereIsAUserInTheContextWithAParticularSpecification(specificationAboutUser);
+
+        verify(testData).meetsSpec(specificationAboutUser);
+		
 	}
 
-	/**
-	 * Test method for {@link uk.gov.hmcts.befta.player.DefaultBackEndFunctionalTestScenarioPlayer#verifyThatASpecificationAboutScenarioContextIsConfirmed(java.lang.String)}.
-	 */
-	@Test
-	void testVerifyThatASpecificationAboutScenarioContextIsConfirmed() {
-	}
-
-	/**
-	 * Test method for {@link uk.gov.hmcts.befta.player.DefaultBackEndFunctionalTestScenarioPlayer#prepareARequestWithAppropriateValues()}.
-	 */
-	@Test
-	void testPrepareARequestWithAppropriateValues() {
-	}
-
-	/**
-	 * Test method for {@link uk.gov.hmcts.befta.player.DefaultBackEndFunctionalTestScenarioPlayer#verifyTheRequestInTheContextWithAParticularSpecification(java.lang.String)}.
-	 */
-	@Test
-	void testVerifyTheRequestInTheContextWithAParticularSpecification() {
-	}
 
 	/**
 	 * Test method for {@link uk.gov.hmcts.befta.player.DefaultBackEndFunctionalTestScenarioPlayer#submitTheRequestToCallAnOperationOfAProduct(java.lang.String, java.lang.String)}.
+	 * @throws IOException 
 	 */
 	@Test
-	void testSubmitTheRequestToCallAnOperationOfAProduct() {
-	}
+	void testSubmitTheRequestToCallAnOperationOfAProduct() throws IOException {
+        final String methodType = "POST";
+        final String uri = "URI";
+        final String bodyString = "{}";
+        HttpTestData testData = mock(HttpTestData.class);
 
-	/**
-	 * Test method for {@link uk.gov.hmcts.befta.player.DefaultBackEndFunctionalTestScenarioPlayer#verifyThatAPositiveResponseWasReceived()}.
-	 */
-	@Test
-	void testVerifyThatAPositiveResponseWasReceived() {
-	}
+        when(testData.meetsOperationOfProduct(eq(PRODUCT_NAME), eq(OPERATION))).thenReturn(true);
+        when(testData.getMethod()).thenReturn(methodType);
+        when(testData.getUri()).thenReturn(uri);
+        ResponseData responseData1 = new ResponseData();
+      Map<String, Object> body = new HashMap<>();
+      body.put("__fileInBody__", "{}");
+    responseData1.setBody(body);
+        when(testData.getExpectedResponse()).thenReturn(responseData1);
+        when(context.getTestData()).thenReturn(testData);
+        testData.setMethod("POST");
+        when(context.getTheRequest()).thenReturn(requestSpecification);
 
-	/**
-	 * Test method for {@link uk.gov.hmcts.befta.player.DefaultBackEndFunctionalTestScenarioPlayer#verifyThatANegativeResponseWasReceived()}.
-	 */
-	@Test
-	void testVerifyThatANegativeResponseWasReceived() {
-	}
+        Response response = mock(Response.class);
+        when(response.getHeaders())
+                .thenReturn(new Headers(Collections.singletonList(new Header("Content-Type", "application/json;charset=UTF-8"))));
+        when(response.getStatusCode()).thenReturn(200);
+        when(response.contentType()).thenReturn("application/json;charset=UTF-8");
+        when(requestSpecification.request(eq("POST"), eq(uri))).thenReturn(response);
+        QueryableRequestSpecification queryableRequest = mock(QueryableRequestSpecification.class);
+        when(SpecificationQuerier.query(eq(requestSpecification))).thenReturn(queryableRequest);
 
-	/**
-	 * Test method for {@link uk.gov.hmcts.befta.player.DefaultBackEndFunctionalTestScenarioPlayer#verifyThatTheResponseHasAllTheDetailsAsExpected()}.
-	 */
-	@Test
-	void testVerifyThatTheResponseHasAllTheDetailsAsExpected() {
-	}
+        ResponseBody responseBody = mock(ResponseBody.class);
+        when(response.getBody()).thenReturn(responseBody);
+        when(responseBody.asString()).thenReturn(bodyString);
 
-	/**
-	 * Test method for {@link uk.gov.hmcts.befta.player.DefaultBackEndFunctionalTestScenarioPlayer#verifyTheResponseInTheContextWithAParticularSpecification(java.lang.String)}.
-	 */
-	@Test
-	void testVerifyTheResponseInTheContextWithAParticularSpecification() {
-	}
+        scenarioPlayer.submitTheRequestToCallAnOperationOfAProduct(OPERATION, PRODUCT_NAME);
 
-	/**
-	 * Test method for {@link uk.gov.hmcts.befta.player.DefaultBackEndFunctionalTestScenarioPlayer#performAndVerifyTheExpectedResponseForAnApiCall(java.lang.String, java.lang.String)}.
-	 */
-	@Test
-	void testPerformAndVerifyTheExpectedResponseForAnApiCall() {
+        verify(testData).setActualResponse((ResponseData) captor.capture());
+        ResponseData responseData = (ResponseData) captor.getValue();
+        assertEquals(200, responseData.getResponseCode());
+        assertEquals(1, responseData.getHeaders().size());
+        assertEquals("OK", responseData.getResponseMessage());
 	}
-
-	/**
-	 * Test method for {@link uk.gov.hmcts.befta.player.DefaultBackEndFunctionalTestScenarioPlayer#suspendExecutionOnPurposeForAGivenNumberOfSeconds(java.lang.String, java.lang.String)}.
-	 */
-	@Test
-	void testSuspendExecutionOnPurposeForAGivenNumberOfSeconds() {
-	}
-    
-    
 
     private ResponseData createResponseDataWithResponseCode(int responseCode) {
         ResponseData responseData = new ResponseData();
@@ -966,8 +991,12 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         when(subcontext.getParentContext()).thenReturn(parentContext);
         return subcontext;
     }
+    private BackEndFunctionalTestScenarioContext createAndPrepareTestScenarioContext(String testDataSpec,  String testDataId) {
 
-    private BackEndFunctionalTestScenarioContext createAndPrepareTestScenarioContext(String testDataSpec, String testDataId) {
+    	List<String> testDataSpecs = Collections.singletonList(testDataSpec);
+    	return createAndPrepareTestScenarioContext(testDataSpecs,testDataId);
+    }
+    private BackEndFunctionalTestScenarioContext createAndPrepareTestScenarioContext(List<String> testDataSpecs, String testDataId) {
 
         RequestData requestData = new RequestData();
         ResponseData expectedResponseData = new ResponseData();
@@ -978,7 +1007,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         testData.setRequest(requestData);
         testData.setExpectedResponse(expectedResponseData);
         testData.set_guid_(testDataId);
-        testData.setSpecs(Collections.singletonList(testDataSpec));
+        testData.setSpecs(testDataSpecs);
         testData.setOperationName("GET " + testDataId);
         testData.setProductName("Test Product Name");
 

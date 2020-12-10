@@ -45,6 +45,9 @@ class FeatureToggleInfoTest {
 	void testAdd() {
 		featureToggleInfo.add("Flag", true);
 		assertTrue(featureToggleInfo.isAnyEnabled());
+		assertTrue(featureToggleInfo.isAllEnabled());
+		assertFalse(featureToggleInfo.isAnyDisabled());
+		assertFalse(featureToggleInfo.isAllDisabled());
 	}
 
 	/**
@@ -95,6 +98,7 @@ class FeatureToggleInfoTest {
 		featureToggleInfo.add("Flag2", false);
 		featureToggleInfo.add("Flag3", true);
 		featureToggleInfo.add("Flag4", true);
+		assertFalse(featureToggleInfo.isAllEnabled());
 		assertTrue(featureToggleInfo.getDisabledFeatureFlags().containsAll(list));
 	}
 
