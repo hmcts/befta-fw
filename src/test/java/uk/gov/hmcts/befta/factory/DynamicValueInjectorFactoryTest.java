@@ -21,14 +21,14 @@ import uk.gov.hmcts.befta.util.DynamicValueInjector;
 class DynamicValueInjectorFactoryTest {
 	
 	/**
-	 * Test method for {@link uk.gov.hmcts.befta.factory.DynamicValueInjectorFactory#createDynamicValueInjector(uk.gov.hmcts.befta.TestAutomationAdapter, uk.gov.hmcts.befta.data.HttpTestData, uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext)}.
+	 * Test method for {@link uk.gov.hmcts.befta.factory.DynamicValueInjectorFactory#create(uk.gov.hmcts.befta.TestAutomationAdapter, uk.gov.hmcts.befta.data.HttpTestData, uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext)}.
 	 */
 	@Test
 	void testCreateDynamicValueInjector() {
 		BackEndFunctionalTestScenarioContext scenarioContext = mock(BackEndFunctionalTestScenarioContext.class);
 		TestAutomationAdapter taAdapter = mock(TestAutomationAdapter.class);
 		HttpTestData testData = mock(HttpTestData.class);
-		DynamicValueInjector actual = DynamicValueInjectorFactory.createDynamicValueInjector(taAdapter, testData, scenarioContext);
+		DynamicValueInjector actual = DynamicValueInjectorFactory.create(taAdapter, testData, scenarioContext);
 		assertNotNull(actual);
 	}
 

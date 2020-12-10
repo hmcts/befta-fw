@@ -78,7 +78,7 @@ public class DynamicValueInjectorTest {
 
         HttpTestData testData = scenarioContext.getTestData();
 
-        DynamicValueInjector underTest = DynamicValueInjectorFactory.createDynamicValueInjector(taAdapter, testData, scenarioContext);
+        DynamicValueInjector underTest = DynamicValueInjectorFactory.create(taAdapter, testData, scenarioContext);
 
         Assert.assertEquals("[[DEFAULT_AUTO_VALUE]]", testData.getRequest().getPathVariables().get("uid"));
 
@@ -117,7 +117,7 @@ public class DynamicValueInjectorTest {
 
         HttpTestData testData = scenarioContext.getTestData();
 
-        DynamicValueInjector underTest = DynamicValueInjectorFactory.createDynamicValueInjector(taAdapter, testData, scenarioContext);
+        DynamicValueInjector underTest = DynamicValueInjectorFactory.create(taAdapter, testData, scenarioContext);
 
 
         // Mocking
@@ -218,7 +218,7 @@ public class DynamicValueInjectorTest {
         Mockito.when(taAdapter.calculateCustomValue(scenarioContext, "test-custom-value-key")).thenReturn(expectedResponse);
         Mockito.when(taAdapter.calculateCustomValue(scenarioContext, "test-custom-value-string")).thenReturn("INLINE");
 
-        DynamicValueInjector underTest = DynamicValueInjectorFactory.createDynamicValueInjector(taAdapter, testData, scenarioContext);
+        DynamicValueInjector underTest = DynamicValueInjectorFactory.create(taAdapter, testData, scenarioContext);
 
         // verify custom-value TD file looks OK prior to execution of test
         assertCustomValuesTestData(testData, "${[scenarioContext][customValues][test-custom-value-key]}");

@@ -224,22 +224,8 @@ public class BackEndFunctionalTestScenarioContextTest {
 
         // ASSERT
         assertEquals(testContextId, result);
-        ;
         assertNotNull(context.calculateCustomValue(today));
     }
-	/**
-	 * Test method for {@link uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext#addChildContext(uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext)}.
-	 */
-	@Test
-	void testAddChildContextBackEndFunctionalTestScenarioContext() {
-	}
-
-	/**
-	 * Test method for {@link uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext#addChildContext(java.lang.String, uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext)}.
-	 */
-	@Test
-	void testAddChildContextStringBackEndFunctionalTestScenarioContext() {
-	}
 
 	/**
 	 * Test method for {@link uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext#initializeTestDataFor(io.cucumber.java.Scenario)}.
@@ -274,7 +260,7 @@ public class BackEndFunctionalTestScenarioContextTest {
         when(dataSource.getDataForTestCall(testDataId)).thenReturn(s103TestData);
 		DynamicValueInjector dynamicValueInjector = mock(DynamicValueInjector.class);
         contextUnderTest = new BackEndFunctionalTestScenarioContext();
-        when(DynamicValueInjectorFactory.createDynamicValueInjector(any(), any(), any())).thenReturn(dynamicValueInjector);
+        when(DynamicValueInjectorFactory.create(any(), any(), any())).thenReturn(dynamicValueInjector);
         contextUnderTest.initializeTestDataFor(testDataId);
         contextUnderTest.injectDataFromContextBeforeApiCall();
         verify(dynamicValueInjector).injectDataFromContextBeforeApiCall();
@@ -290,7 +276,7 @@ public class BackEndFunctionalTestScenarioContextTest {
         when(dataSource.getDataForTestCall(testDataId)).thenReturn(s103TestData);
 		DynamicValueInjector dynamicValueInjector = mock(DynamicValueInjector.class);
         contextUnderTest = new BackEndFunctionalTestScenarioContext();
-        when(DynamicValueInjectorFactory.createDynamicValueInjector(any(), any(), any())).thenReturn(dynamicValueInjector);
+        when(DynamicValueInjectorFactory.create(any(), any(), any())).thenReturn(dynamicValueInjector);
         contextUnderTest.initializeTestDataFor(testDataId);
         contextUnderTest.injectDataFromContextAfterApiCall();
         verify(dynamicValueInjector).injectDataFromContextAfterApiCall();
@@ -312,7 +298,7 @@ public class BackEndFunctionalTestScenarioContextTest {
         when(s103TestData.getUsers()).thenReturn(users);
 		DynamicValueInjector dynamicValueInjector = mock(DynamicValueInjector.class);
         contextUnderTest = new BackEndFunctionalTestScenarioContext();
-        when(DynamicValueInjectorFactory.createDynamicValueInjector(any(), any(), any())).thenReturn(dynamicValueInjector);
+        when(DynamicValueInjectorFactory.create(any(), any(), any())).thenReturn(dynamicValueInjector);
         contextUnderTest.initializeTestDataFor(testDataId);
         Entry<String, UserData> actual = contextUnderTest.getNextUserToAuthenticate();
         assertNotNull(actual);

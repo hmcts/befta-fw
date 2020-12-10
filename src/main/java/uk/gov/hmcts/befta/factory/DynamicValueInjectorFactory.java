@@ -16,7 +16,7 @@ public class DynamicValueInjectorFactory {
 	
 	private DynamicValueInjectorFactory() {}
 	
-	public static DynamicValueInjector createDynamicValueInjector(TestAutomationAdapter taAdapter, HttpTestData testData,
+	public static DynamicValueInjector create(TestAutomationAdapter taAdapter, HttpTestData testData,
             BackEndFunctionalTestScenarioContext scenarioContext) {
 		
 		return new DynamicValueInjector(taAdapter, testData, scenarioContext);

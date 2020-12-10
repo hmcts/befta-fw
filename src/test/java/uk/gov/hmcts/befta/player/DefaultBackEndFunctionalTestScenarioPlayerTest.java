@@ -940,9 +940,9 @@ public class DefaultBackEndFunctionalTestScenarioPlayerTest {
         when(testData.getMethod()).thenReturn(methodType);
         when(testData.getUri()).thenReturn(uri);
         ResponseData responseData1 = new ResponseData();
-      Map<String, Object> body = new HashMap<>();
-      body.put("__fileInBody__", "{}");
-    responseData1.setBody(body);
+        Map<String, Object> body = new HashMap<>();
+        body.put("__fileInBody__", "{}");
+        responseData1.setBody(body);
         when(testData.getExpectedResponse()).thenReturn(responseData1);
         when(context.getTestData()).thenReturn(testData);
         testData.setMethod("POST");

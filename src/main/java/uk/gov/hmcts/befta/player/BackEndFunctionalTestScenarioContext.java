@@ -66,7 +66,7 @@ public class BackEndFunctionalTestScenarioContext {
             throw new FunctionalTestException("No test data found with ID [" + testDataId + "].");
         }
         testData = new HttpTestData(original);
-        dynamicValueInjector = DynamicValueInjectorFactory.createDynamicValueInjector(BeftaMain.getAdapter(), testData, this);
+        dynamicValueInjector = DynamicValueInjectorFactory.create(BeftaMain.getAdapter(), testData, this);
     }
 
 
