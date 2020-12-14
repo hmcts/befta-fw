@@ -84,6 +84,9 @@ public class TestAutomationConfig {
     }
 
     public static Set<String> getTestDataPackages() {
+        RuntimeOptions options = getCucumberRuntimeOptions();
+        if (options == null)
+            return Set.of();
         return getCucumberRuntimeOptions().getFeaturePaths().stream().map(u -> u.getPath()).collect(Collectors.toSet());
     }
 
