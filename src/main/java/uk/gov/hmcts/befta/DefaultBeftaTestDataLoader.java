@@ -127,7 +127,7 @@ public class DefaultBeftaTestDataLoader implements BeftaTestDataLoader {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS");
         LocalDateTime givenDateTIme = LocalDateTime.parse(recentExecutionTime, format);
         Long timeDifference = Duration.between(givenDateTIme, currentTime).toMinutes();
-        defaultLog(format("Reload test data if last test execution (%s minutes ago) is "
+        defaultLog(format("Reload test data if last test execution time (%s minutes ago) is "
                         + "greater than skip period value (%s minutes)", timeDifference, testDataLoadSkipPeriod));
         return timeDifference < testDataLoadSkipPeriod;
     }
