@@ -1,5 +1,6 @@
 package uk.gov.hmcts.befta;
 
+import java.util.Collections;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -86,8 +87,10 @@ public class TestAutomationConfig {
     public static Set<String> getTestDataPackages() {
         RuntimeOptions options = getCucumberRuntimeOptions();
         if (options == null)
-            return Set.of();
-        return getCucumberRuntimeOptions().getFeaturePaths().stream().map(u -> u.getPath()).collect(Collectors.toSet());
+            return Collections.emptySet();
+        return options.getFeaturePaths().stream()
+                .map(u -> u == null ? null : u.toString().replace("classpath:", ""))
+                .collect(Collectors.toSet());
     }
 
 }
