@@ -12,6 +12,9 @@ import uk.gov.hmcts.befta.data.RecentExecutionsInfo;
 import uk.gov.hmcts.befta.util.BeftaUtils;
 import uk.gov.hmcts.befta.util.JsonUtils;
 
+import static java.lang.String.format;
+import static uk.gov.hmcts.befta.util.BeftaUtils.defaultLog;
+
 public class DefaultBeftaTestDataLoader implements BeftaTestDataLoader {
 
     private boolean isTestDataLoadedForCurrentRound = false;
@@ -45,25 +48,22 @@ public class DefaultBeftaTestDataLoader implements BeftaTestDataLoader {
             String recentExecutionTime  = "2020-01-01T00:00:00.001";
             File recentExecutionFile = new File(TestAutomationAdapter.EXECUTION_INFO_FILE);
             double testDataLoadSkipPeriod = BeftaMain.getConfig().getTestDataLoadSkipPeriod();
-            System.out.println("testDataLoadSkipPeriod from the config" + testDataLoadSkipPeriod);
+            defaultLog(format("testDataLoadSkipPeriod from the config: %s minutes", testDataLoadSkipPeriod));
             if(recentExecutionFile.exists()) {
-                System.out.println("recent exec file exists");
                 RecentExecutionsInfo recentExecutionsInfo = JsonUtils
                         .readObjectFromJsonFile(TestAutomationAdapter.EXECUTION_INFO_FILE, RecentExecutionsInfo.class);
                 recentExecutionTime = recentExecutionsInfo.getLastExecutionTime();
-                System.out.println("recent exec file exec time" + recentExecutionTime);
+                defaultLog(format("recent exec file exists and timestamp is : %s", recentExecutionTime));
                 if (isWithinSkipPeriod(
                         recentExecutionTime,
                         testDataLoadSkipPeriod)
                         && wasMostRecentDataForSameTests(recentExecutionsInfo)) {
-                    System.out.println("Should  skip loading data.");
+                    defaultLog("Should skip loading data.");
                     return true;
                 }
             }
-
-
         } catch (Exception e) {
-            BeftaUtils.defaultLog("Should NOT skip loading data.", e);
+            defaultLog("Should NOT skip loading data.", e);
             return false;
         }
         return false;
@@ -102,7 +102,8 @@ public class DefaultBeftaTestDataLoader implements BeftaTestDataLoader {
 
     public String getCurrentGitRepo() {
         String repoName = System.getProperty("user.dir");
-        repoName = repoName.substring(repoName.lastIndexOf("/")+1,repoName.length() );
+        repoName = repoName.substring(repoName.lastIndexOf("/") + 1);
+
         try {
             Process process = Runtime.getRuntime().exec("git remote -v");
             process.waitFor();
@@ -110,13 +111,13 @@ public class DefaultBeftaTestDataLoader implements BeftaTestDataLoader {
                     new InputStreamReader(process.getInputStream()));
 
             repoName = reader.readLine();
-            if(null!=repoName && repoName.contains(".git")) {
-                repoName = repoName.substring(repoName.indexOf(":hmcts/")+7, repoName.lastIndexOf(".git"));
+            if (null != repoName && repoName.contains(".git")) {
+                repoName = repoName.substring(repoName.indexOf(":hmcts/") + 7, repoName.lastIndexOf(".git"));
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return repoName;
+        return repoName.trim();
     }
 
     private boolean isWithinSkipPeriod(
@@ -126,25 +127,22 @@ public class DefaultBeftaTestDataLoader implements BeftaTestDataLoader {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS");
         LocalDateTime givenDateTIme = LocalDateTime.parse(recentExecutionTime, format);
         Long timeDifference = Duration.between(givenDateTIme, currentTime).toMinutes();
-        System.out.println("the values for time diff and skip period are and less is true- " + timeDifference + "," + testDataLoadSkipPeriod);
+        defaultLog(format("Reload test data if last test execution time (%s minutes ago) is "
+                        + "greater than skip period value (%s minutes)", timeDifference, testDataLoadSkipPeriod));
         return timeDifference < testDataLoadSkipPeriod;
     }
 
     private boolean wasMostRecentDataForSameTests(RecentExecutionsInfo recentExecutionsInfo) {
         String repoName = recentExecutionsInfo.getLastExecutionProjectRepo();
         String branchName = recentExecutionsInfo.getLastExecutionProjectBranch();
-        String recentRepoSubString = repoName.substring(repoName.lastIndexOf("/")+1,repoName.length() );
+        String recentRepoSubString = repoName.substring(repoName.lastIndexOf("/") + 1);
         if (getCurrentGitRepo().contains(recentRepoSubString) && getCurrentGitBranch().equalsIgnoreCase(branchName)) {
-            System.out.println ("the repo and the branch from the recent execution matched" +  recentRepoSubString + "--"
-                    + getCurrentGitRepo()
-                    + "--"
-                    + branchName + "--" + getCurrentGitBranch());
+            defaultLog(format("the repository (%s) and the branch (%s) from the recent execution"
+                    + " of %s matched", getCurrentGitRepo(), branchName, recentRepoSubString));
             return true;
         } else {
-            BeftaUtils.defaultLog("repo branch not matching -" + recentRepoSubString + "--"
-                    + getCurrentGitRepo()
-                    + "--"
-                    + branchName + "--" + getCurrentGitBranch());
+            defaultLog(format("The repository (%s) and the branch (%s) do not match: ",
+                    getCurrentGitRepo(), branchName));
         }
         return false;
     }
