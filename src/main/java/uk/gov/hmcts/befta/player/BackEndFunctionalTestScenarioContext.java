@@ -13,6 +13,7 @@ import uk.gov.hmcts.befta.data.HttpTestDataSource;
 import uk.gov.hmcts.befta.data.ResponseData;
 import uk.gov.hmcts.befta.data.UserData;
 import uk.gov.hmcts.befta.exception.FunctionalTestException;
+import uk.gov.hmcts.befta.factory.DynamicValueInjectorFactory;
 import uk.gov.hmcts.befta.factory.HttpTestDataSourceFactory;
 import uk.gov.hmcts.befta.util.BeftaUtils;
 import uk.gov.hmcts.befta.util.DynamicValueInjector;
@@ -65,7 +66,7 @@ public class BackEndFunctionalTestScenarioContext {
             throw new FunctionalTestException("No test data found with ID [" + testDataId + "].");
         }
         testData = new HttpTestData(original);
-        dynamicValueInjector = new DynamicValueInjector(BeftaMain.getAdapter(), testData, this);
+        dynamicValueInjector = DynamicValueInjectorFactory.create(BeftaMain.getAdapter(), testData, this);
     }
 
 
