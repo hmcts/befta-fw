@@ -13,8 +13,8 @@ import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import uk.gov.hmcts.befta.BeftaMain;
 import uk.gov.hmcts.befta.exception.DefinitionTransformerException;
+import uk.gov.hmcts.befta.exception.InvalidTestDataException;
 import uk.gov.hmcts.befta.util.FileUtils;
 
 /**
@@ -33,8 +33,6 @@ public class JsonTransformer {
             "CaseEventToFields", "CaseField", "CaseRoles", "CaseTypeTab" ,"SearchInputFields", "SearchResultFields", "State",
             "WorkBasketInputFields", "WorkBasketResultFields", "Category", "Banner", "CaseType", "ComplexTypes", "EventToComplexTypes",
             "FixedLists", "Jurisdiction", "UserProfile","SearchAlias", "SearchCasesResultFields", "NoticeOfChangeConfig", "ChallengeQuestion");
-
-    private static final List<String> SHEETS_FOR_URL_SUBSTITUTIONS = Arrays.asList("CaseEvent");
 
     private Map<String, ArrayNode> defFileMap;
 
@@ -76,19 +74,14 @@ public class JsonTransformer {
                     JsonNode rootSheetArray = objectMapper.readTree(jsonFile);
                     String jsonFileNameNoSuffix = jsonFile.getName().replace(".json", "");
 
-                    if (BeftaMain.getConfig().getTestUrl() != null && BeftaMain.getConfig().getTestUrl()
-                            .contains("localhost")
-                            && SHEETS_FOR_URL_SUBSTITUTIONS.contains(jsonFileNameNoSuffix)) {
-                        String rootSheetArrayString = rootSheetArray.toString().replaceAll("ccd-test-stubs-service-aat.service.core-compute-aat.internal", "ccd-test-stubs-service:5555");
-                        rootSheetArray = objectMapper.readTree(rootSheetArrayString);
-                    }
+                    rootSheetArray = EnvironmentURLUtils.updateCallBackURLs(rootSheetArray, jsonFileNameNoSuffix);
 
                     for (JsonNode sheetRow : rootSheetArray){
                         sheet = jsonFileNameNoSuffix;
                         defFileMap.get(sheet).add(sheetRow);
                     }
-                } catch (IOException e) {
-                    throw new DefinitionTransformerException("Unable to read json file:" + jsonFile.getPath(), e);
+                } catch (InvalidTestDataException | IOException e) {
+                    throw new DefinitionTransformerException("Unable to read or process json file:" + jsonFile.getPath(), e);
                 } catch (NullPointerException e){
                     throw new DefinitionTransformerException("May be a problem generating sheet: " + sheet, e);
                 }
