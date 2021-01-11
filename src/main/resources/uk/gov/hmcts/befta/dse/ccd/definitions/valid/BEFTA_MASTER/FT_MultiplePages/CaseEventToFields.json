@@ -16,7 +16,7 @@
   "DisplayContextParameter" : "",
   "ShowSummaryChangeOption" : "Y",
   "ShowSummaryContentOption" : "",
-  "CallBackURLMidEvent" : "http://ccd-test-stubs-service-aat.service.core-compute-aat.internal/case_type/fe-functional-test/mid_event_dynamic_list"
+  "CallBackURLMidEvent" : "${TEST_STUB_SERVICE_BASE_URL:http://ccd-test-stubs-service-aat.service.core-compute-aat.internal}/case_type/fe-functional-test/mid_event_dynamic_list"
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
