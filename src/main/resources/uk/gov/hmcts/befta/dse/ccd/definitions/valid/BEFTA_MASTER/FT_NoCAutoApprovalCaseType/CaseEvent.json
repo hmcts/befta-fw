@@ -54,7 +54,6 @@
   "DisplayOrder" : 2,
   "PreConditionState(s)" : "*",
   "PostConditionState" : "*",
-  "EventEnablingCondition" : "",
   "CallBackURLAboutToStartEvent" : "${TEST_STUB_SERVICE_BASE_URL:http://ccd-test-stubs-service-aat.service.core-compute-aat.internal}/callback_returning_simulated_completed_noc_request",
   "RetriesTimeoutAboutToStartEvent" : "",
   "CallBackURLAboutToSubmitEvent" : "",
