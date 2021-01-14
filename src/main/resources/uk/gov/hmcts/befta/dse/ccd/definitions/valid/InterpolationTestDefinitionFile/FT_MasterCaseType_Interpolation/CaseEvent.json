@@ -9,7 +9,7 @@
   "PreConditionState(s)" : "",
   "PostConditionState" : "CaseCreated",
   "EventEnablingCondition" : "",
-  "CallBackURLAboutToStartEvent" : "http://ccd-test-stubs-service-aat.service.core-compute-aat.internal/case_type/fe-functional-test/mid_event_dynamic_list",
+  "CallBackURLAboutToStartEvent" : "",
   "RetriesTimeoutAboutToStartEvent" : "",
   "CallBackURLAboutToSubmitEvent" : "",
   "RetriesTimeoutURLAboutToSubmitEvent" : "",
