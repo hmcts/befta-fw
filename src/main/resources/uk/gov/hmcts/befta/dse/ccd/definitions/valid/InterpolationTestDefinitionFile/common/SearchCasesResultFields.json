@@ -1,0 +1,37 @@
+[ {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "1/1/17",
+  "CaseTypeID" : "FT_MasterCaseType_Interpolation",
+  "UserRole" : "",
+  "CaseFieldID" : "TextField",
+  "ListElementCode" : "",
+  "Label" : "`Text` orgcases",
+  "DisplayOrder" : 1,
+  "ResultsOrdering" : "1:ASC",
+  "DisplayContextParameter" : "",
+  "UseCase" : "orgcases"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "1/1/17",
+  "CaseTypeID" : "FT_MasterCaseType_Interpolation",
+  "UserRole" : "",
+  "CaseFieldID" : "EmailField",
+  "ListElementCode" : "",
+  "Label" : "`Email` orgcases",
+  "DisplayOrder" : 2,
+  "ResultsOrdering" : "",
+  "DisplayContextParameter" : "",
+  "UseCase" : "orgcases"
+}, {
+  "LiveFrom" : "1/1/17",
+  "LiveTo" : "1/1/17",
+  "CaseTypeID" : "FT_MasterCaseType_Interpolation",
+  "UserRole" : "",
+  "CaseFieldID" : "[CASE_REFERENCE]",
+  "ListElementCode" : "",
+  "Label" : "`CaseReference` orgcases",
+  "DisplayOrder" : 3,
+  "ResultsOrdering" : "",
+  "DisplayContextParameter" : "",
+  "UseCase" : "orgcases"
+} ]

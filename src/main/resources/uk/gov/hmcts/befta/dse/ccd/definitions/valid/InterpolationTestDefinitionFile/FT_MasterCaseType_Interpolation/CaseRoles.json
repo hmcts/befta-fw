@@ -1,0 +1,21 @@
+[ {
+  "CaseTypeID" : "FT_MasterCaseType_Interpolation",
+  "ID" : "[Claimant]",
+  "Name" : "Claimant",
+  "Description" : "The person created the case"
+}, {
+  "CaseTypeID" : "FT_MasterCaseType_Interpolation",
+  "ID" : "[Defendant]",
+  "Name" : "Defendant",
+  "Description" : "The defending party"
+}, {
+  "CaseTypeID" : "FT_MasterCaseType_Interpolation",
+  "ID" : "[ClaimantSolicitor]",
+  "Name" : "Claimant solicitor",
+  "Description" : "The claiming solicitor"
+}, {
+  "CaseTypeID" : "FT_MasterCaseType_Interpolation",
+  "ID" : "[DefendantSolicitor]",
+  "Name" : "Defendant solicitor",
+  "Description" : "The defending solicitor"
+} ]
