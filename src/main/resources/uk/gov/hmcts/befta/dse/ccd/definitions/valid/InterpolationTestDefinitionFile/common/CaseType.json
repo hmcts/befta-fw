@@ -2,7 +2,7 @@
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
   "ID" : "FT_MasterCaseType_Interpolation",
-  "Name" : "FT-All Field Data Types Interpolated",
+  "Name" : "FT-Interpolated Test",
   "Description" : "Test case containing all data types ",
   "JurisdictionID" : "BEFTA_MASTER",
   "PrintableDocumentsUrl" : "http://localhost:4452/callback/jurisdictions/AUTOTEST1/case-types/MasterCaseType/documents",
