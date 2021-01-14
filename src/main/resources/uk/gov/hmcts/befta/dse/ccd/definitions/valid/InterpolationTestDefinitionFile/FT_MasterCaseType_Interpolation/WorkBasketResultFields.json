@@ -1,11 +1,31 @@
 [ {
-  "LiveFrom" : "",
+  "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
-  "CaseTypeID" : "",
-  "CaseFieldID" : "",
+  "CaseTypeID" : "FT_MasterCaseType_Interpolation",
+  "CaseFieldID" : "[CASE_REFERENCE]",
   "ListElementCode" : "",
-  "Label" : "",
-  "DisplayOrder" : "",
+  "Label" : "Case Reference",
+  "DisplayOrder" : 1,
+  "ResultsOrdering" : "",
+  "DisplayContextParameter" : ""
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_MasterCaseType_Interpolation",
+  "CaseFieldID" : "InterpolationText",
+  "ListElementCode" : "",
+  "Label" : "Text Field",
+  "DisplayOrder" : 2,
+  "ResultsOrdering" : "",
+  "DisplayContextParameter" : ""
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_MasterCaseType_Interpolation",
+  "CaseFieldID" : "InterpolationTextArea",
+  "ListElementCode" : "",
+  "Label" : "TextAreaField",
+  "DisplayOrder" : 3,
   "ResultsOrdering" : "",
   "DisplayContextParameter" : ""
 } ]
