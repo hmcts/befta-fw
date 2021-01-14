@@ -1,41 +1,9 @@
 [ {
-  "LiveFrom" : "1/1/17",
+  "LiveFrom" : "",
   "LiveTo" : "",
-  "CaseTypeID" : "FT_MasterCaseType_Interpolation",
-  "CaseFieldID" : "OrganisationPolicyField",
-  "ListElementCode" : "OrgPolicyCaseAssignedRole",
-  "UserRole" : "caseworker-befta_master",
-  "CRUD" : "CRUD"
-}, {
-  "LiveFrom" : "1/1/17",
-  "LiveTo" : "",
-  "CaseTypeID" : "FT_MasterCaseType_Interpolation",
-  "CaseFieldID" : "OrganisationPolicyField",
-  "ListElementCode" : "OrgPolicyReference",
-  "UserRole" : "caseworker-befta_master",
-  "CRUD" : "CRUD"
-}, {
-  "LiveFrom" : "1/1/17",
-  "LiveTo" : "",
-  "CaseTypeID" : "FT_MasterCaseType_Interpolation",
-  "CaseFieldID" : "OrganisationPolicyField",
-  "ListElementCode" : "Organisation",
-  "UserRole" : "caseworker-befta_master",
-  "CRUD" : "CRUD"
-}, {
-  "LiveFrom" : "1/1/17",
-  "LiveTo" : "",
-  "CaseTypeID" : "FT_MasterCaseType_Interpolation",
-  "CaseFieldID" : "OrganisationPolicyField",
-  "ListElementCode" : "Organisation.OrganisationID",
-  "UserRole" : "caseworker-befta_master",
-  "CRUD" : "CRUD"
-}, {
-  "LiveFrom" : "1/1/17",
-  "LiveTo" : "",
-  "CaseTypeID" : "FT_MasterCaseType_Interpolation",
-  "CaseFieldID" : "OrganisationPolicyField",
-  "ListElementCode" : "Organisation.OrganisationName",
-  "UserRole" : "caseworker-befta_master",
-  "CRUD" : "CRUD"
+  "CaseTypeID" : "",
+  "CaseFieldID" : "",
+  "ListElementCode" : "",
+  "UserRole" : "",
+  "CRUD" : ""
 } ]
