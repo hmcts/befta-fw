@@ -31,7 +31,7 @@
   "DisplayOrder" : 2,
   "PreConditionState(s)" : "CaseCreated",
   "PostConditionState" : "CaseUpdated(TextField=\"updated\" AND EmailField=\"*\"):1;CaseAmended(TextField=\"amended\" AND EmailField=\"*\"):2;CaseRevoked(AddressField.AddressLine1=\"Some address\" AND EmailField=\"*\"):3;CaseDeleted",
-  "EventEnablingCondition" : "TextField=\"updated\" AND EmailField=\"*\" AND [STATE]=\"CaseCreated\"",
+  "EventEnablingCondition" : "TextField=\"updated\" AND EmailField=\"*\"",
   "CallBackURLAboutToStartEvent" : "",
   "RetriesTimeoutAboutToStartEvent" : "",
   "CallBackURLAboutToSubmitEvent" : "",
