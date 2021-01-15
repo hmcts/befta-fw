@@ -292,4 +292,25 @@
   "CaseFieldID" : "DynamicList",
   "UserRole" : "caseworker-befta_master",
   "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_Conditionals",
+  "CaseFieldID" : "CaseLinkField",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_Conditionals",
+  "CaseFieldID" : "DocumentField",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_Conditionals",
+  "CaseFieldID" : "PostcodeField",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "CRUD"
 } ]

@@ -1077,7 +1077,7 @@
   "FieldType" : "FixedRadioList",
   "CategoryID" : "",
   "FieldTypeParameter" : "regionalCentreEnum",
-  "ElementLabel" : "School regional centre ${School.Name}",
+  "ElementLabel" : "School regional centre ${[LAST_STATE_MODIFIED_DATE]}",
   "FieldShowCondition" : "",
   "RetainHiddenValue" : "",
   "RegularExpression" : "",
