@@ -6,6 +6,7 @@ package uk.gov.hmcts.befta;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.ArgumentMatchers.matches;
 import static org.mockito.Mockito.mockStatic;
 
 import org.junit.jupiter.api.AfterEach;
@@ -14,6 +15,9 @@ import org.junit.jupiter.api.Test;
 import org.junitpioneer.jupiter.SetEnvironmentVariable;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
+import uk.gov.hmcts.befta.featuretoggle.FeatureToggleService;
+import uk.gov.hmcts.befta.util.BeftaUtils;
+
 
 /**
  * @author korneleehenry
@@ -153,7 +157,34 @@ class BeftaMainTest {
     void testsetUpMain() {
         BeftaMain.setUp();
         assertEquals(TestAutomationConfig.INSTANCE, BeftaMain.getConfig());
+        assertEquals(FeatureToggleService.DEFAULT_INSTANCE, BeftaMain.getFeatureToggleService());
         assertNotNull(BeftaMain.getAdapter());
     }
 
+    @Test
+    void testOutputJarInformation_inJarThereforeInOutput() {
+        // ARRANGE
+        try (MockedStatic<BeftaUtils> bUtilsMock = mockStatic(BeftaUtils.class)) {
+
+            // ACT
+            BeftaMain.outputJarInformation(MockedStatic.class); // use any class from a third party package
+
+            // ASSERT
+            final String regex = "^Jar: .+\\.jar$"; // e.g. "Jar: mockito-core-3.4.0.jar"
+            bUtilsMock.verify(() -> BeftaUtils.defaultLog(matches(regex)));
+        }
+    }
+
+    @Test
+    void testOutputJarInformation_notInJarThereforeNotInOutput() {
+        // ARRANGE
+        try (MockedStatic<BeftaUtils> bUtilsMock = mockStatic(BeftaUtils.class)) {
+
+            // ACT
+            BeftaMain.outputJarInformation(this.getClass());
+
+            // ASSERT
+            bUtilsMock.verifyNoInteractions();
+        }
+    }
 }

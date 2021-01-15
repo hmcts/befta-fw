@@ -5,6 +5,12 @@ import uk.gov.hmcts.befta.featuretoggle.FeatureToggleService;
 import uk.gov.hmcts.befta.player.DefaultBackEndFunctionalTestScenarioPlayer;
 import uk.gov.hmcts.befta.util.CucumberStepAnnotationUtils;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static java.lang.String.format;
+import static uk.gov.hmcts.befta.util.BeftaUtils.defaultLog;
+
 public class BeftaMain {
 
     private static TestAutomationConfig config = TestAutomationConfig.INSTANCE;
@@ -54,6 +60,7 @@ public class BeftaMain {
 
     public static void setUp(TestAutomationConfig config, TestAutomationAdapter taAdapter,
             FeatureToggleService featureToggleService) {
+        outputJarInformation(BeftaMain.class);
         setConfig(config);
         setTaAdapter(taAdapter);
         setFeatureToggleService(featureToggleService);
@@ -88,6 +95,23 @@ public class BeftaMain {
 
     public static void setFeatureToggleService(FeatureToggleService featureToggle) {
         BeftaMain.featureToggleService = featureToggle;
+    }
+
+    protected static void outputJarInformation(Class<?> clazz) {
+        // regex to search only JAR paths ...
+        // ... and extract the jar name (see output of first match group)
+        final String regex = "^(?:jar:.*/)(.*\\.jar)(?:!.*)$";
+
+        // load class path including jar information when packaged
+        final String className = clazz.getSimpleName() + ".class";
+        final String classPath = clazz.getResource(className).toString();
+
+        Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
+        Matcher matcher = pattern.matcher(classPath);
+
+        if (matcher.find()) {
+            defaultLog(format("Jar: %s", matcher.group(1)));
+        }
     }
 
 }
