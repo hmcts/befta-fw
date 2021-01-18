@@ -679,7 +679,7 @@
   "HintText" : "",
   "FieldType" : "DynamicList",
   "CategoryID" : "",
-  "FieldTypeParameter" : "",
+  "FieldTypeParameter" : "regionalCentreEnum",
   "RegularExpression" : "",
   "SecurityClassification" : "Public",
   "Min" : "",
