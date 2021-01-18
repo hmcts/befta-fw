@@ -289,7 +289,7 @@
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
   "CaseTypeID" : "FT_Conditionals",
-  "CaseFieldID" : "DynamicListField",
+  "CaseFieldID" : "CaseLinkField",
   "UserRole" : "caseworker-befta_master",
   "CRUD" : "CRUD"
 } ]

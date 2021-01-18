@@ -573,7 +573,7 @@
   "LiveTo" : "",
   "CaseTypeID" : "FT_Conditionals",
   "CaseEventID" : "createCase",
-  "CaseFieldID" : "DynamicListField",
+  "CaseFieldID" : "CaseLinkField",
   "PageFieldDisplayOrder" : 29,
   "DisplayContext" : "Optional",
   "PageID" : "ConditionalPage1",
