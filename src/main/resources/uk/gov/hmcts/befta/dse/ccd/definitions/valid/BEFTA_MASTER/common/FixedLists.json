@@ -1,0 +1,209 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "marritalStatusEnum",
+  "ListElementCode" : "MARRIAGE",
+  "ListElement" : "Marriage",
+  "CategoryID" : "",
+  "DisplayOrder" : 2
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "marritalStatusEnum",
+  "ListElementCode" : "CIVIL_PARTNERSHIP",
+  "ListElement" : "Civil Partnership",
+  "CategoryID" : "",
+  "DisplayOrder" : 1
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "marritalStatusEnum",
+  "ListElementCode" : "SINGLE",
+  "ListElement" : "Single",
+  "CategoryID" : "",
+  "DisplayOrder" : 4
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "marritalStatusEnum",
+  "ListElementCode" : "WIDOW",
+  "ListElement" : "Widow",
+  "CategoryID" : "",
+  "DisplayOrder" : 3
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "regionalCentreEnum",
+  "ListElementCode" : "CARDIFF",
+  "ListElement" : "Cardiff",
+  "CategoryID" : "",
+  "DisplayOrder" : 5
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "regionalCentreEnum",
+  "ListElementCode" : "MANCHESTER",
+  "ListElement" : "Manchester",
+  "CategoryID" : "",
+  "DisplayOrder" : 2
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "regionalCentreEnum",
+  "ListElementCode" : "OXFORD",
+  "ListElement" : "Oxford",
+  "CategoryID" : "",
+  "DisplayOrder" : ""
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "gender",
+  "ListElementCode" : "MALE",
+  "ListElement" : "Male",
+  "CategoryID" : "",
+  "DisplayOrder" : ""
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "gender",
+  "ListElementCode" : "FEMALE",
+  "ListElement" : "Female",
+  "CategoryID" : "",
+  "DisplayOrder" : ""
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "gender",
+  "ListElementCode" : "OTHER",
+  "ListElement" : "Other",
+  "CategoryID" : "",
+  "DisplayOrder" : 4
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "boolean",
+  "ListElementCode" : "TRUE",
+  "ListElement" : "true",
+  "CategoryID" : "",
+  "DisplayOrder" : ""
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "boolean",
+  "ListElementCode" : "FALSE",
+  "ListElement" : "false",
+  "CategoryID" : "",
+  "DisplayOrder" : ""
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "classMandatoryForEnum",
+  "ListElementCode" : "MSc",
+  "ListElement" : "Master of Science",
+  "CategoryID" : "",
+  "DisplayOrder" : 4
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "classMandatoryForEnum",
+  "ListElementCode" : "ScD",
+  "ListElement" : "Doctor of Science",
+  "CategoryID" : "",
+  "DisplayOrder" : ""
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "classMandatoryForEnum",
+  "ListElementCode" : "BSc",
+  "ListElement" : "Bachelor of Science",
+  "CategoryID" : "",
+  "DisplayOrder" : 2
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "floorEnum",
+  "ListElementCode" : "ONE",
+  "ListElement" : "One",
+  "CategoryID" : "",
+  "DisplayOrder" : 2
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "floorEnum",
+  "ListElementCode" : "TWO",
+  "ListElement" : "Two",
+  "CategoryID" : "",
+  "DisplayOrder" : 4
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "floorEnum",
+  "ListElementCode" : "THREE",
+  "ListElement" : "Three",
+  "CategoryID" : "",
+  "DisplayOrder" : 5
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "floorEnum",
+  "ListElementCode" : "FOUR",
+  "ListElement" : "Four",
+  "CategoryID" : "",
+  "DisplayOrder" : 7
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "countryOfResidence",
+  "ListElementCode" : "UK",
+  "ListElement" : "United Kingdom",
+  "CategoryID" : "",
+  "DisplayOrder" : 1
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "countryOfResidence",
+  "ListElementCode" : "OutsideUK",
+  "ListElement" : "Outside of the United Kingdom",
+  "CategoryID" : "",
+  "DisplayOrder" : 2
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "divorceState",
+  "ListElementCode" : "DecreeNisi",
+  "ListElement" : "Decree Nisi",
+  "CategoryID" : "decreeNisi",
+  "DisplayOrder" : 1
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "divorceState",
+  "ListElementCode" : "DecreeAbsolute",
+  "ListElement" : "Decree Absolute",
+  "CategoryID" : "decreeAbsolute",
+  "DisplayOrder" : 2
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "litigantType",
+  "ListElementCode" : "INDIVIDUAL",
+  "ListElement" : "Individual",
+  "CategoryID" : "",
+  "DisplayOrder" : 1
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "litigantType",
+  "ListElementCode" : "COMPANY",
+  "ListElement" : "Company",
+  "CategoryID" : "",
+  "DisplayOrder" : 2
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "litigantType",
+  "ListElementCode" : "SOLETRADER",
+  "ListElement" : "Sole trader",
+  "CategoryID" : "",
+  "DisplayOrder" : 3
+} ]

@@ -1,0 +1,37 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexCollectionComplex",
+  "CaseFieldID" : "FamilyDetails",
+  "ListElementCode" : "MotherAge",
+  "Label" : "Mother age",
+  "DisplayOrder" : 3,
+  "DisplayContextParameter" : ""
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexCollectionComplex",
+  "CaseFieldID" : "FamilyDetails",
+  "ListElementCode" : "FatherFullName",
+  "Label" : "Father full name",
+  "DisplayOrder" : 4,
+  "DisplayContextParameter" : ""
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexCollectionComplex",
+  "CaseFieldID" : "FamilyDetails",
+  "ListElementCode" : "FatherAge",
+  "Label" : "Father age",
+  "DisplayOrder" : 5,
+  "DisplayContextParameter" : ""
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexCollectionComplex",
+  "CaseFieldID" : "FamilyDetails",
+  "ListElementCode" : "FamilyAddress.Country",
+  "Label" : "Country",
+  "DisplayOrder" : 6,
+  "DisplayContextParameter" : ""
+} ]

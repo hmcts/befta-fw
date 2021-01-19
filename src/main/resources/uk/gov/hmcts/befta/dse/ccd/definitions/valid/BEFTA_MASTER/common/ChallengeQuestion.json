@@ -1,0 +1,91 @@
+[ {
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexOrganisation",
+  "ID" : "NoCChallenge",
+  "DisplayOrder" : 1,
+  "QuestionText" : "What's the name of the party you wish to represent?",
+  "AnswerFieldType" : "Date",
+  "DisplayContextParameter" : "#DATETIMEENTRY(dd-MM-yyyy)",
+  "Answer" : "${OrganisationField.OrganisationName}|${OrganisationField.OrganisationID}:[Claimant],${OrganisationField.OrganisationName}|${OrganisationField.OrganisationID}:[Defendant]",
+  "QuestionId" : "NoCChallengeQ1"
+}, {
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexOrganisation",
+  "ID" : "NoCChallenge",
+  "DisplayOrder" : 2,
+  "QuestionText" : "What's xxxx?",
+  "AnswerFieldType" : "DateTime",
+  "DisplayContextParameter" : "#DATETIMEENTRY(dd-MM-yyyy)",
+  "Answer" : "${OrganisationField.OrganisationName}|${OrganisationField.OrganisationID}:[Defendant]",
+  "QuestionId" : "NoCChallengeQ2"
+}, {
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexOrganisation",
+  "ID" : "NoCChallenge",
+  "DisplayOrder" : 3,
+  "QuestionText" : "What  time is it?",
+  "AnswerFieldType" : "DateTime",
+  "DisplayContextParameter" : "#DATETIMEENTRY(dd-MM-yyyy)",
+  "Answer" : "${OrganisationField.OrganisationID}:[Defendant]",
+  "QuestionId" : "NoCChallengeQ3"
+}, {
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexOrganisation",
+  "ID" : "NoCChallengeGroup2",
+  "DisplayOrder" : 4,
+  "QuestionText" : "What's their Postcode?",
+  "AnswerFieldType" : "Postcode",
+  "DisplayContextParameter" : "",
+  "Answer" : "${OrganisationField.OrganisationID}:[Defendant]",
+  "QuestionId" : "NoCChallengeG2Q1"
+}, {
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexCollectionComplex",
+  "ID" : "Collections",
+  "DisplayOrder" : 5,
+  "QuestionText" : "What's their Postcode?",
+  "AnswerFieldType" : "Text",
+  "DisplayContextParameter" : "",
+  "Answer" : "${CaseLinkComplex}:[Defendant]",
+  "QuestionId" : "CollectionsQ1"
+}, {
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCCaseType",
+  "ID" : "NoCChallenge",
+  "DisplayOrder" : 6,
+  "QuestionText" : "What's the name of the party you wish to represent?",
+  "AnswerFieldType" : "Text",
+  "DisplayContextParameter" : "",
+  "Answer" : "${applicant.individual.LastName}|${applicant.company.Name}|${applicant.soletrader.Name}:[ApplicantSolicitor],${respondent.individual.LastName}|${respondent.company.Name}|${respondent.soletrader.Name}:[RespondentSolicitor],${otherParty.individual.LastName}|${otherParty.company.Name}|${otherParty.soletrader.Name}:[OtherPartySolicitor]",
+  "QuestionId" : "NoC_Challenge_Name"
+}, {
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCCaseType",
+  "ID" : "NoCChallenge",
+  "DisplayOrder" : 7,
+  "QuestionText" : "significant date?",
+  "AnswerFieldType" : "Date",
+  "DisplayContextParameter" : "#DATETIMEENTRY(dd-MM-yyyy)",
+  "Answer" : "${applicant.dob}:[ApplicantSolicitor],${respondent.incorporationDate}:[RespondentSolicitor],${otherParty.tradingStartDate}:[OtherPartySolicitor]",
+  "QuestionId" : "NoC_Challenge_Name2"
+}, {
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCAutoApprovalCaseType",
+  "ID" : "NoCChallenge",
+  "DisplayOrder" : 8,
+  "QuestionText" : "What's the name of the party you wish to represent?",
+  "AnswerFieldType" : "Text",
+  "DisplayContextParameter" : "",
+  "Answer" : "${applicant.individual.LastName}|${applicant.company.Name}|${applicant.soletrader.Name}:[ApplicantSolicitor],${respondent.individual.LastName}|${respondent.company.Name}|${respondent.soletrader.Name}:[RespondentSolicitor],${otherParty.individual.LastName}|${otherParty.company.Name}|${otherParty.soletrader.Name}:[OtherPartySolicitor]",
+  "QuestionId" : "NoC_AutoApproval_Challenge_Name"
+}, {
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCWithoutEventsCaseType",
+  "ID" : "NoCChallenge",
+  "DisplayOrder" : 9,
+  "QuestionText" : "What's the name of the party you wish to represent?",
+  "AnswerFieldType" : "Text",
+  "DisplayContextParameter" : "",
+  "Answer" : "${applicant.individual.LastName}|${applicant.company.Name}|${applicant.soletrader.Name}:[ApplicantSolicitor],${respondent.individual.LastName}|${respondent.company.Name}|${respondent.soletrader.Name}:[RespondentSolicitor],${otherParty.individual.LastName}|${otherParty.company.Name}|${otherParty.soletrader.Name}:[OtherPartySolicitor]",
+  "QuestionId" : "NoC_WithoutEvents_Challenge_Name"
+} ]

@@ -1,0 +1,16 @@
+[ {
+  "CaseTypeID" : "FT_NoCAutoApprovalCaseType",
+  "ID" : "[ApplicantSolicitor]",
+  "Name" : "Applicant Solicitor",
+  "Description" : "The applicant solicitor"
+}, {
+  "CaseTypeID" : "FT_NoCAutoApprovalCaseType",
+  "ID" : "[RespondentSolicitor]",
+  "Name" : "Respondent Solicitor",
+  "Description" : "The respondent solicitor"
+}, {
+  "CaseTypeID" : "FT_NoCAutoApprovalCaseType",
+  "ID" : "[OtherPartySolicitor]",
+  "Name" : "Other Party Solicitor",
+  "Description" : "The other party solicitor"
+} ]

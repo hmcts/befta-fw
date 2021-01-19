@@ -1,0 +1,6 @@
+[ {
+  "CaseTypeID" : "FT_ComplexCollectionComplex",
+  "ID" : "[Defendant]",
+  "Name" : "Defendant",
+  "Description" : "The defending party"
+} ]

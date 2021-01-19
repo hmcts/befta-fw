@@ -1,0 +1,43 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCAutoApprovalCaseType",
+  "CaseEventID" : "createCase",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCAutoApprovalCaseType",
+  "CaseEventID" : "nocRequest_autoApproval",
+  "UserRole" : "caseworker-caa",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCAutoApprovalCaseType",
+  "CaseEventID" : "createCase",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCAutoApprovalCaseType",
+  "CaseEventID" : "nocRequest_autoApproval",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCAutoApprovalCaseType",
+  "CaseEventID" : "ApplyNoCDecision",
+  "UserRole" : "caseworker-approver",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCAutoApprovalCaseType",
+  "CaseEventID" : "ApplyNoCDecision",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "CRUD"
+} ]

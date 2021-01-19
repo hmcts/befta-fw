@@ -1,0 +1,14 @@
+[ {
+  "LiveFrom" : "09/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_ComplexFieldsOrdering",
+  "Channel" : "notApplicable",
+  "TabID" : "Details",
+  "TabLabel" : "Respondent details",
+  "TabDisplayOrder" : 1,
+  "CaseFieldID" : "RespondentDetails",
+  "TabFieldDisplayOrder" : 1,
+  "FieldShowCondition" : "",
+  "TabShowCondition" : "",
+  "DisplayContextParameter" : ""
+} ]

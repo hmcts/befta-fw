@@ -1,0 +1,51 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCWithoutEventsCaseType",
+  "CaseFieldID" : "[CASE_REFERENCE]",
+  "Label" : "Case Reference",
+  "ListElementCode" : "",
+  "DisplayOrder" : 1,
+  "ResultsOrdering" : "",
+  "DisplayContextParameter" : ""
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCWithoutEventsCaseType",
+  "CaseFieldID" : "[STATE]",
+  "Label" : "State",
+  "ListElementCode" : "",
+  "DisplayOrder" : 2,
+  "ResultsOrdering" : "",
+  "DisplayContextParameter" : ""
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCWithoutEventsCaseType",
+  "CaseFieldID" : "applicant",
+  "Label" : "Applicant",
+  "ListElementCode" : "",
+  "DisplayOrder" : 3,
+  "ResultsOrdering" : "",
+  "DisplayContextParameter" : ""
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCWithoutEventsCaseType",
+  "CaseFieldID" : "respondent",
+  "Label" : "Respondent",
+  "ListElementCode" : "",
+  "DisplayOrder" : 4,
+  "ResultsOrdering" : "",
+  "DisplayContextParameter" : ""
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCWithoutEventsCaseType",
+  "CaseFieldID" : "otherParty",
+  "Label" : "Other Party",
+  "ListElementCode" : "",
+  "DisplayOrder" : 5,
+  "ResultsOrdering" : "",
+  "DisplayContextParameter" : ""
+} ]

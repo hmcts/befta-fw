@@ -1,0 +1,28 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCWithoutEventsCaseType",
+  "CaseFieldID" : "applicant",
+  "ListElementCode" : "",
+  "Label" : "Applicant",
+  "DisplayOrder" : 1,
+  "DisplayContextParameter" : ""
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCWithoutEventsCaseType",
+  "CaseFieldID" : "respondent",
+  "ListElementCode" : "",
+  "Label" : "Respondent",
+  "DisplayOrder" : 2,
+  "DisplayContextParameter" : ""
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCWithoutEventsCaseType",
+  "CaseFieldID" : "otherParty",
+  "ListElementCode" : "",
+  "Label" : "Other Party",
+  "DisplayOrder" : 3,
+  "DisplayContextParameter" : ""
+} ]

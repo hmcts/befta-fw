@@ -1,0 +1,197 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCAutoApprovalCaseType",
+  "CaseFieldID" : "CaseHistory",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCAutoApprovalCaseType",
+  "CaseFieldID" : "applicant",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCAutoApprovalCaseType",
+  "CaseFieldID" : "respondent",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCAutoApprovalCaseType",
+  "CaseFieldID" : "otherParty",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCAutoApprovalCaseType",
+  "CaseFieldID" : "applicantOrganisationPolicy",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCAutoApprovalCaseType",
+  "CaseFieldID" : "respondentOrganisationPolicy",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCAutoApprovalCaseType",
+  "CaseFieldID" : "otherPartyOrganisationPolicy",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCAutoApprovalCaseType",
+  "CaseFieldID" : "changeOrganisationRequestField",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCAutoApprovalCaseType",
+  "CaseFieldID" : "CaseHistory",
+  "UserRole" : "caseworker-caa",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCAutoApprovalCaseType",
+  "CaseFieldID" : "applicant",
+  "UserRole" : "caseworker-caa",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCAutoApprovalCaseType",
+  "CaseFieldID" : "respondent",
+  "UserRole" : "caseworker-caa",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCAutoApprovalCaseType",
+  "CaseFieldID" : "otherParty",
+  "UserRole" : "caseworker-caa",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCAutoApprovalCaseType",
+  "CaseFieldID" : "applicantOrganisationPolicy",
+  "UserRole" : "caseworker-caa",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCAutoApprovalCaseType",
+  "CaseFieldID" : "respondentOrganisationPolicy",
+  "UserRole" : "caseworker-caa",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCAutoApprovalCaseType",
+  "CaseFieldID" : "otherPartyOrganisationPolicy",
+  "UserRole" : "caseworker-caa",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCAutoApprovalCaseType",
+  "CaseFieldID" : "changeOrganisationRequestField",
+  "UserRole" : "caseworker-caa",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCAutoApprovalCaseType",
+  "CaseFieldID" : "applicantOrganisationPolicy",
+  "UserRole" : "caseworker-approver",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCAutoApprovalCaseType",
+  "CaseFieldID" : "respondentOrganisationPolicy",
+  "UserRole" : "caseworker-approver",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCAutoApprovalCaseType",
+  "CaseFieldID" : "otherPartyOrganisationPolicy",
+  "UserRole" : "caseworker-approver",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCAutoApprovalCaseType",
+  "CaseFieldID" : "changeOrganisationRequestField",
+  "UserRole" : "caseworker-approver",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCAutoApprovalCaseType",
+  "CaseFieldID" : "CaseHistory",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCAutoApprovalCaseType",
+  "CaseFieldID" : "applicant",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCAutoApprovalCaseType",
+  "CaseFieldID" : "respondent",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCAutoApprovalCaseType",
+  "CaseFieldID" : "otherParty",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCAutoApprovalCaseType",
+  "CaseFieldID" : "applicantOrganisationPolicy",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCAutoApprovalCaseType",
+  "CaseFieldID" : "respondentOrganisationPolicy",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCAutoApprovalCaseType",
+  "CaseFieldID" : "otherPartyOrganisationPolicy",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_NoCAutoApprovalCaseType",
+  "CaseFieldID" : "changeOrganisationRequestField",
+  "UserRole" : "caseworker-befta_master",
+  "CRUD" : "CRUD"
+} ]
