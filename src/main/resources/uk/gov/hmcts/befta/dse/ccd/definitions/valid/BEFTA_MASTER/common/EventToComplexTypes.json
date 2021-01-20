@@ -2975,4 +2975,56 @@
   "FieldDisplayOrder" : 15,
   "DisplayContext" : "OPTIONAL",
   "FieldShowCondition" : ""
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FT_DynamicFieldCaseType",
+  "CaseEventID" : "createCase",
+  "CaseFieldId" : "DynamicListsComplexField",
+  "ListElementCode" : "DynamicRadioListComplex",
+  "DefaultValue" : "",
+  "EventElementLabel" : "",
+  "EventHintText" : "",
+  "FieldDisplayOrder" : 1,
+  "DisplayContext" : "OPTIONAL",
+  "FieldShowCondition" : ""
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FT_DynamicFieldCaseType",
+  "CaseEventID" : "createCase",
+  "CaseFieldId" : "DynamicListsComplexField",
+  "ListElementCode" : "DynamicMultiSelectComplex",
+  "DefaultValue" : "",
+  "EventElementLabel" : "",
+  "EventHintText" : "",
+  "FieldDisplayOrder" : 2,
+  "DisplayContext" : "OPTIONAL",
+  "FieldShowCondition" : ""
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FT_DynamicFieldCaseType",
+  "CaseEventID" : "updateCase",
+  "CaseFieldId" : "DynamicListsComplexField",
+  "ListElementCode" : "DynamicRadioListComplex",
+  "DefaultValue" : "",
+  "EventElementLabel" : "",
+  "EventHintText" : "",
+  "FieldDisplayOrder" : 1,
+  "DisplayContext" : "OPTIONAL",
+  "FieldShowCondition" : ""
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FT_DynamicFieldCaseType",
+  "CaseEventID" : "updateCase",
+  "CaseFieldId" : "DynamicListsComplexField",
+  "ListElementCode" : "DynamicMultiSelectComplex",
+  "DefaultValue" : "",
+  "EventElementLabel" : "",
+  "EventHintText" : "",
+  "FieldDisplayOrder" : 2,
+  "DisplayContext" : "OPTIONAL",
+  "FieldShowCondition" : ""
 } ]
