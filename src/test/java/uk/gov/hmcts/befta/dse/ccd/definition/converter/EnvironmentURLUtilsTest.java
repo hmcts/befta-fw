@@ -204,6 +204,7 @@ public class EnvironmentURLUtilsTest {
     }
 
     @Test
+    @ClearEnvironmentVariable(key = MCA_API_BASE_URL)
     @SetEnvironmentVariable(key = TEST_STUB_SERVICE_BASE_URL, value = LOCALHOST_URL)
     void caseEventTestStubServiceBaseUrlUpdated() throws Exception {
         JsonNode modifiedJsonNode = EnvironmentURLUtils.updateCallBackURLs(caseEventJson, CASE_EVENT);
