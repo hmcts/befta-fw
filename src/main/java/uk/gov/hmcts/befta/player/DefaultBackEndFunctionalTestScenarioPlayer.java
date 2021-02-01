@@ -1,5 +1,11 @@
 package uk.gov.hmcts.befta.player;
 
+import com.github.rholder.retry.RetryException;
+import com.github.rholder.retry.Retryer;
+import com.github.rholder.retry.RetryerBuilder;
+import com.github.rholder.retry.StopStrategies;
+import com.github.rholder.retry.WaitStrategies;
+import com.google.common.base.Predicates;
 import org.apache.commons.collections4.map.HashedMap;
 import org.apache.http.impl.EnglishReasonPhraseCatalog;
 import org.aspectj.util.FileUtil;
@@ -13,11 +19,14 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.ConnectException;
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 import io.cucumber.java.Before;
@@ -31,6 +40,7 @@ import io.restassured.response.Response;
 import io.restassured.specification.QueryableRequestSpecification;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.SpecificationQuerier;
+import uk.gov.hmcts.befta.AuthenticationRetryConfiguration;
 import uk.gov.hmcts.befta.BeftaMain;
 import uk.gov.hmcts.befta.TestAutomationConfig;
 import uk.gov.hmcts.befta.TestAutomationConfig.ResponseHeaderCheckPolicy;
@@ -621,12 +631,53 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
             UserData user) {
         String logPrefix = scenarioContext.getTestData().get_guid_() + ": " + prefix + " [" + user.getUsername() + "] ";
         String preferredTokenProviderClientId = scenarioContext.getTestData().getUserTokenClientId();
-        scenario.log("Authentication attempt from: " + preferredTokenProviderClientId + ".");
-        try {
+
+        AuthenticationRetryConfiguration authenticationRetryConfiguration =
+                BeftaMain.getConfig().getAuthenticationRetryConfiguration();
+
+        if (authenticationRetryConfiguration.isRetryDisabled()) {
+            try {
+                scenario.log("Authentication attempt from: " + preferredTokenProviderClientId + ".");
+                BeftaMain.getAdapter().authenticate(user, preferredTokenProviderClientId);
+                BeftaUtils.defaultLog(logPrefix + "authenticated.");
+            } catch (Exception ex) {
+                throw new FunctionalTestException(logPrefix + "could not authenticate.", ex);
+            }
+        } else {
+            BeftaUtils.defaultLog("Authentication retry enabled");
+            authenticateUserWithRetry(authenticationRetryConfiguration, user, logPrefix, preferredTokenProviderClientId);
+        }
+    }
+
+    private void authenticateUserWithRetry(AuthenticationRetryConfiguration config,
+                                           UserData user,
+                                           String logPrefix,
+                                           String preferredTokenProviderClientId) {
+        Callable<Boolean> callable = () -> {
             BeftaMain.getAdapter().authenticate(user, preferredTokenProviderClientId);
-            logger.info(logPrefix + "authenticated.");
-        } catch (Exception ex) {
-            throw new FunctionalTestException(logPrefix + "could not authenticate.", ex);
+            return true;
+        };
+
+        Retryer<Boolean> retryer = RetryerBuilder.<Boolean>newBuilder()
+                .retryIfResult(Predicates.isNull())
+                .retryIfExceptionOfType(IOException.class)
+                .retryIfExceptionOfType(ConnectException.class)
+                .retryIfRuntimeException()
+                .withStopStrategy(StopStrategies.stopAfterAttempt(config.getRetryAttempts()))
+                .withWaitStrategy(WaitStrategies.fibonacciWait(config.getRetryMultiplierTimeinMilliseconds(),
+                        config.getRetryMaxTimeInSeconds(),
+                        TimeUnit.SECONDS))
+                .build();
+        try {
+            retryer.call(callable);
+            BeftaUtils.defaultLog(String.format("%s authenticated.", logPrefix));
+        } catch (RetryException retryException) {
+            throw new FunctionalTestException(
+                    String.format("Retry Exception when authenticating user %s", user.getUsername()), retryException);
+        } catch (ExecutionException executionException) {
+            throw new FunctionalTestException(
+                    String.format("Execution Exception when authenticating user %s", user.getUsername()),
+                    executionException);
         }
     }
 

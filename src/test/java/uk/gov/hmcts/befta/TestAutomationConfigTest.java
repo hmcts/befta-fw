@@ -3,16 +3,17 @@
  */
 package uk.gov.hmcts.befta;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junitpioneer.jupiter.SetEnvironmentVariable;
-
 import uk.gov.hmcts.befta.TestAutomationConfig.ResponseHeaderCheckPolicy;
 import uk.gov.hmcts.befta.auth.UserTokenProviderConfig;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author korneleehenry
@@ -37,6 +38,11 @@ class TestAutomationConfigTest {
     public static final String CCD_IMPORT_AUTOTEST_PASSWORD_VALUE = "CCD_IMPORT_AUTOTEST_PASSWORD_VALUE";
     public static final String BEFTA_RESPONSE_HEADER_CHECK_POLICY = "BEFTA_RESPONSE_HEADER_CHECK_POLICY";
     public static final String BEFTA_RESPONSE_HEADER_CHECK_POLICY_VALUE = "JUST_WARN";
+    public static final String BEFTA_USER_AUTHENTICATION_RETRY_MAX_ATTEMPTS_VALUE = "5";
+    public static final String BEFTA_USER_AUTHENTICATION_RETRY_MAX_TIME_VALUE = "9";
+    public static final String BEFTA_USER_AUTHENTICATION_RETRY_MULTIPLIER_VALUE = "1500";
+    public static final String BEFTA_USER_TOKEN_CACHE_TTL_VALUE = "3";
+    public static final String BEFTA_S2S_TOKEN_CACHE_TTL_VALUE = "4";
 
     @BeforeEach
 //    @SetEnvironmentVariable(key = "TEST_URL", value = TEST_URL_VALUE)
@@ -158,4 +164,114 @@ class TestAutomationConfigTest {
         assertEquals(ResponseHeaderCheckPolicy.FAIL_TEST, TestAutomationConfig.INSTANCE.getResponseHeaderCheckPolicy());
     }
 
+    /**
+     * Test method for
+     * {@link uk.gov.hmcts.befta.TestAutomationConfig#getAuthenticationRetryConfiguration()}.
+     */
+    @Test
+    @SetEnvironmentVariable(key = "BEFTA_USER_AUTHENTICATION_RETRY_MAX_ATTEMPTS",
+            value = BEFTA_USER_AUTHENTICATION_RETRY_MAX_ATTEMPTS_VALUE)
+    void testGetRetryAttempts() {
+        assertEquals(Integer.parseInt(BEFTA_USER_AUTHENTICATION_RETRY_MAX_ATTEMPTS_VALUE),
+                TestAutomationConfig.INSTANCE.getAuthenticationRetryConfiguration().getRetryAttempts());
+    }
+
+    /**
+     * Test method for
+     * {@link TestAutomationConfig#getAuthenticationRetryConfiguration()}.
+     */
+    @Test
+    @SetEnvironmentVariable(key = "BEFTA_USER_AUTHENTICATION_RETRY_MAX_TIME_SECONDS",
+            value = BEFTA_USER_AUTHENTICATION_RETRY_MAX_TIME_VALUE)
+    void testGetRetryMaxTimeInSeconds() {
+        assertEquals(Integer.parseInt(BEFTA_USER_AUTHENTICATION_RETRY_MAX_TIME_VALUE),
+                TestAutomationConfig.INSTANCE.getAuthenticationRetryConfiguration().getRetryMaxTimeInSeconds());
+    }
+
+    /**
+     * Test method for
+     * {@link TestAutomationConfig#getAuthenticationRetryConfiguration()}.
+     */
+    @Test
+    @SetEnvironmentVariable(key = "BEFTA_USER_AUTHENTICATION_RETRY_MULTIPLIER_MILLISECONDS",
+            value = BEFTA_USER_AUTHENTICATION_RETRY_MULTIPLIER_VALUE)
+    void testGetRetryMultiplierTimeinMilliseconds() {
+        assertEquals(Integer.parseInt(BEFTA_USER_AUTHENTICATION_RETRY_MULTIPLIER_VALUE),
+                TestAutomationConfig.INSTANCE.getAuthenticationRetryConfiguration().getRetryMultiplierTimeinMilliseconds());
+    }
+
+    /**
+     * Test method for
+     * {@link TestAutomationConfig#getUserTokenCacheTtlInSeconds()}.
+     */
+    @Test
+    @SetEnvironmentVariable(key = "BEFTA_USER_TOKEN_CACHE_TTL_SECONDS",
+            value = BEFTA_USER_TOKEN_CACHE_TTL_VALUE)
+    void testGetUserTokenCacheTtlInSeconds() {
+        assertEquals(Long.parseLong(BEFTA_USER_TOKEN_CACHE_TTL_VALUE),
+                TestAutomationConfig.INSTANCE.getUserTokenCacheTtlInSeconds());
+    }
+
+    /**
+     * Test method for
+     * {@link TestAutomationConfig#getUserTokenCacheTtlInSeconds()}.
+     */
+    @Test
+    void testGetUserTokenCacheTtlInSecondsNoValueSet() {
+        assertEquals(0L,
+                TestAutomationConfig.INSTANCE.getUserTokenCacheTtlInSeconds());
+    }
+
+    /**
+     * Test method for
+     * {@link TestAutomationConfig#getS2STokenCacheTtlInSeconds()}.
+     */
+    @Test
+    @SetEnvironmentVariable(key = "BEFTA_S2S_TOKEN_CACHE_TTL_SECONDS",
+            value = BEFTA_S2S_TOKEN_CACHE_TTL_VALUE)
+    void testGetS2STokenCacheTtlInSeconds() {
+        assertEquals(Long.parseLong(BEFTA_S2S_TOKEN_CACHE_TTL_VALUE),
+                TestAutomationConfig.INSTANCE.getS2STokenCacheTtlInSeconds());
+    }
+
+    /**
+     * Test method for
+     * {@link TestAutomationConfig#getS2STokenCacheTtlInSeconds()}.
+     */
+    @Test
+    void testGetS2STokenCacheTtlInSecondsNoValuesSet() {
+        assertEquals(0L,
+                TestAutomationConfig.INSTANCE.getS2STokenCacheTtlInSeconds());
+    }
+
+    /**
+     * Test method for
+     * {@link TestAutomationConfig#isHttpLoggingEnabled()}.
+     */
+    @Test
+    @SetEnvironmentVariable(key = "BEFTA_HTTP_LOGGING_ENABLED",
+            value = "TRUE")
+    void testIsHttpLoggingEnabled() {
+        assertTrue(TestAutomationConfig.INSTANCE.isHttpLoggingEnabled());
+    }
+
+    /**
+     * Test method for
+     * {@link TestAutomationConfig#isHttpLoggingEnabled()}.
+     */
+    @Test
+    @SetEnvironmentVariable(key = "BEFTA_HTTP_LOGGING_ENABLED",
+            value = "Not True")
+    void testIsHttpLoggingEnabledValueNotBoolean() {
+        assertFalse(TestAutomationConfig.INSTANCE.isHttpLoggingEnabled());
+    }
+
+    /**
+     * Test method for
+     * {@link TestAutomationConfig#isHttpLoggingEnabled()}.
+     */
+    @Test
+    void testIsHttpLoggingEnabledEnvVarNotPresent() {
+        assertFalse(TestAutomationConfig.INSTANCE.isHttpLoggingEnabled());
+    }
 }

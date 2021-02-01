@@ -1,9 +1,20 @@
 package uk.gov.hmcts.befta.dse.ccd;
 
+import com.google.common.reflect.ClassPath;
+import io.restassured.RestAssured;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.reflect.ClassPath;
+import uk.gov.hmcts.befta.BeftaMain;
+import uk.gov.hmcts.befta.TestAutomationAdapter;
+import uk.gov.hmcts.befta.auth.UserTokenProviderConfig;
+import uk.gov.hmcts.befta.data.UserData;
+import uk.gov.hmcts.befta.dse.ccd.definition.converter.JsonTransformer;
+import uk.gov.hmcts.befta.exception.FunctionalTestException;
+import uk.gov.hmcts.befta.util.BeftaUtils;
+import uk.gov.hmcts.befta.util.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,20 +24,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
-
-import io.restassured.RestAssured;
-import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.response.Response;
-import io.restassured.specification.RequestSpecification;
-import uk.gov.hmcts.befta.BeftaMain;
-import uk.gov.hmcts.befta.TestAutomationAdapter;
-import uk.gov.hmcts.befta.auth.UserTokenProviderConfig;
-import uk.gov.hmcts.befta.data.UserData;
-import uk.gov.hmcts.befta.dse.ccd.definition.converter.JsonTransformer;
-import uk.gov.hmcts.befta.exception.FunctionalTestException;
-import uk.gov.hmcts.befta.util.BeftaUtils;
-import uk.gov.hmcts.befta.util.FileUtils;
 
 public class TestDataLoaderToDefinitionStore {
 
@@ -184,15 +183,20 @@ public class TestDataLoaderToDefinitionStore {
         }
     }
 
-    protected RequestSpecification asAutoTestImporter() {
+    protected RequestSpecification asAutoTestImporter()  {
         UserData importingUser = new UserData(BeftaMain.getConfig().getImporterAutoTestEmail(),
                 BeftaMain.getConfig().getImporterAutoTestPassword());
-        adapter.authenticate(importingUser, UserTokenProviderConfig.DEFAULT_INSTANCE.getClientId());
 
-        String s2sToken = adapter.getNewS2SToken();
-        return RestAssured.given(new RequestSpecBuilder().setBaseUri(definitionStoreUrl).build())
-                .header("Authorization", "Bearer " + importingUser.getAccessToken())
-                .header("ServiceAuthorization", s2sToken);
+        try {
+            adapter.authenticate(importingUser, UserTokenProviderConfig.DEFAULT_INSTANCE.getClientId());
+            String s2sToken = adapter.getNewS2SToken();
+            return RestAssured.given(new RequestSpecBuilder().setBaseUri(definitionStoreUrl).build())
+                    .header("Authorization", "Bearer " + importingUser.getAccessToken())
+                    .header("ServiceAuthorization", s2sToken);
+        } catch (ExecutionException e) {
+            String message = String.format("authenticating as %s failed ", importingUser.getUsername());
+            throw new FunctionalTestException(message, e);
+        }
     }
 
     private boolean isAnExcelFileToImport(String resourceName) {
