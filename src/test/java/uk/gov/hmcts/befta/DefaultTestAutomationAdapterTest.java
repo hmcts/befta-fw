@@ -186,6 +186,8 @@ class DefaultTestAutomationAdapterTest {
     @SetEnvironmentVariable(key = "BEFTA_OAUTH2_REDIRECT_URI_OF_OTHER", value = "BEFTA_OAUTH2_REDIRECT_URI_OF_OTHER_VALUE")
     @SetEnvironmentVariable(key = "BEFTA_OAUTH2_CLIENT_SECRET_OF_OTHER", value = "BEFTA_OAUTH2_CLIENT_SECRET_OF_OTHER_VALUE")
     @SetEnvironmentVariable(key = "BEFTA_USER_TOKEN_CACHE_TTL_SECONDS", value="3")
+    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_ID_KEY, value = BEFTA_S2S_CLIENT_ID_VALUE)
+    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_SECRET_KEY, value = BEFTA_S2S_CLIENT_SECRET_VALUE)
     void testAuthenticateTimeToLive() throws Exception {
         UserData user = new UserData("user", "pwd");
         user.setId("id");
