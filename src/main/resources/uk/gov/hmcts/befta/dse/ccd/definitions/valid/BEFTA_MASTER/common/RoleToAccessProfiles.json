@@ -1,0 +1,55 @@
+[ {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "RoleName" : "Role1",
+  "Authorisation" : "auth1",
+  "CaseTypeID" : "FT_MasterCaseType",
+  "AccessProfiles" : "caseworker-befta_master",
+  "ReadOnly" : "Y",
+  "Disabled" : "F"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "RoleName" : "Role2",
+  "Authorisation" : "",
+  "CaseTypeID" : "FT_MasterCaseType",
+  "AccessProfiles" : "caseworker-befta_master",
+  "ReadOnly" : "N",
+  "Disabled" : "No"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "RoleName" : "Role3",
+  "Authorisation" : "",
+  "CaseTypeID" : "FT_MasterCaseType",
+  "AccessProfiles" : "caseworker-befta_master,caseworker-befta_master-junior",
+  "ReadOnly" : "YES",
+  "Disabled" : "False"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "RoleName" : "Role4",
+  "Authorisation" : "",
+  "CaseTypeID" : "FT_MasterCaseType",
+  "AccessProfiles" : "caseworker-befta_master,caseworker-befta_master-junior,caseworker-befta_master-manager",
+  "ReadOnly" : "false",
+  "Disabled" : "Y"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "RoleName" : "Role1",
+  "Authorisation" : "auth2",
+  "CaseTypeID" : "FT_NoCAutoApprovalCaseType",
+  "AccessProfiles" : "caseworker-befta_master,caseworker-befta_master-solicitor",
+  "ReadOnly" : "N",
+  "Disabled" : "No"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "RoleName" : "Role2",
+  "Authorisation" : "",
+  "CaseTypeID" : "FT_NoCAutoApprovalCaseType",
+  "AccessProfiles" : "caseworker-approver",
+  "ReadOnly" : "No",
+  "Disabled" : "Yes"
+} ]
