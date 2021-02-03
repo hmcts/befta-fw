@@ -30,7 +30,7 @@
   "PageDisplayOrder" : 1,
   "PageColumnNumber" : "",
   "FieldShowCondition" : "Homeless=\"no\"",
-  "RetainHiddenValue" : "",
+  "RetainHiddenValue" : "true",
   "PageShowCondition" : "",
   "DisplayContextParameter" : "",
   "ShowSummaryChangeOption" : "Y",
