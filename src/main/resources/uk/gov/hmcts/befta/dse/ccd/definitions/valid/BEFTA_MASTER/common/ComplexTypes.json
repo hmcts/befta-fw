@@ -491,7 +491,7 @@
   "FieldTypeParameter" : "",
   "ElementLabel" : "Child date of Birth",
   "FieldShowCondition" : "ChildFullName=\"Jack\"",
-  "RetainHiddenValue" : "",
+  "RetainHiddenValue" : "false",
   "RegularExpression" : "",
   "HintText" : "",
   "SecurityClassification" : "Public",

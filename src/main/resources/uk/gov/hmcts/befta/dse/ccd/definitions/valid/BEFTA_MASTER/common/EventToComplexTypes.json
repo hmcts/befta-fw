@@ -3315,7 +3315,7 @@
   "FieldDisplayOrder" : 5,
   "DisplayContext" : "OPTIONAL",
   "FieldShowCondition" : "",
-  "RetainHiddenValue" : ""
+  "RetainHiddenValue" : "false"
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -3357,7 +3357,7 @@
   "FieldDisplayOrder" : 7,
   "DisplayContext" : "OPTIONAL",
   "FieldShowCondition" : "MySchool.ProvidesAutisticChildrenSupport=\"Yes\"",
-  "RetainHiddenValue" : "false"
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
