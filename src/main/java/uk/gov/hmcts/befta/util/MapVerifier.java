@@ -1,8 +1,7 @@
 package uk.gov.hmcts.befta.util;
 
-import static uk.gov.hmcts.befta.data.CollectionVerificationConfig.ELEMENT_ID_FIELD_NAME;
-import static uk.gov.hmcts.befta.data.CollectionVerificationConfig.OPERATOR_FIELD_NAME;
-import static uk.gov.hmcts.befta.data.CollectionVerificationConfig.ORDERING_FIELD_NAME;
+import uk.gov.hmcts.befta.data.CollectionVerificationConfig;
+import uk.gov.hmcts.befta.data.CollectionVerificationConfig.Ordering;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -11,10 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
-
-import uk.gov.hmcts.befta.data.CollectionVerificationConfig;
-import uk.gov.hmcts.befta.data.CollectionVerificationConfig.Operator;
-import uk.gov.hmcts.befta.data.CollectionVerificationConfig.Ordering;
 
 public class MapVerifier {
 
@@ -164,7 +159,7 @@ public class MapVerifier {
             List<String> badValueMessages) {
         if (expectedCollection == actualCollection)
             return;
-        CollectionVerificationConfig verificationConfig = getVerificationConfigFrom(expectedCollection);
+        CollectionVerificationConfig verificationConfig = CollectionVerificationConfig.getVerificationConfigFrom(expectedCollection);
         addAnySizeBasedIssue(fieldPrefix, expectedCollection, actualCollection, verificationConfig, badValueMessages);
         Iterator<?> itrExpected = expectedCollection.iterator();
         if (!verificationConfig.isDefault())
@@ -283,32 +278,6 @@ public class MapVerifier {
                     .findFirst().orElse(null);
             }
         }
-    }
-
-    private CollectionVerificationConfig getVerificationConfigFrom(Collection<?> collection) {
-        if (collection == null || collection.isEmpty())
-            return CollectionVerificationConfig.DEFAULT;
-        Object firstElement = collection.iterator().next();
-        if (firstElement instanceof CollectionVerificationConfig)
-            return (CollectionVerificationConfig) firstElement;
-        if (firstElement instanceof Map<?, ?>) {
-            Map<?, ?> firstMap = (Map<?, ?>) firstElement;
-            if (firstMap.containsKey(OPERATOR_FIELD_NAME) || firstMap.containsKey(ORDERING_FIELD_NAME)
-                    || firstMap.containsKey(ELEMENT_ID_FIELD_NAME)) {
-                CollectionVerificationConfig config = new CollectionVerificationConfig();
-                Operator operator = Operator.of((String) firstMap.get(OPERATOR_FIELD_NAME));
-                if (operator != null)
-                    config.setOperator(operator);
-                Ordering ordering = Ordering.of((String) firstMap.get(ORDERING_FIELD_NAME));
-                if (ordering != null)
-                    config.setOrdering(ordering);
-                String idString = (String) firstMap.get(ELEMENT_ID_FIELD_NAME);
-                if (idString != null)
-                    config.setElementId(idString);
-                return config;
-            }
-        }
-        return CollectionVerificationConfig.DEFAULT;
     }
 
     private Object compareValues(String commonKey, Object expectedValue, Object actualValue, int currentDepth,
