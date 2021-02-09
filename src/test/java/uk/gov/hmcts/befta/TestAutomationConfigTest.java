@@ -3,49 +3,39 @@
  */
 package uk.gov.hmcts.befta;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junitpioneer.jupiter.SetEnvironmentVariable;
-
 import uk.gov.hmcts.befta.TestAutomationConfig.ResponseHeaderCheckPolicy;
 import uk.gov.hmcts.befta.auth.UserTokenProviderConfig;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static uk.gov.hmcts.befta.data.CollectionVerificationConfig.Ordering;
 
 /**
  * @author korneleehenry
  *
  */
 class TestAutomationConfigTest {
-    public static final String TEST_URL_KEY = "TEST_URL";
-    public static final String TEST_URL_VALUE = "TEST_URL_VALUE";
-    public static final String IDAM_URL_KEY = "IDAM_URL";
-    public static final String IDAM_URL_VALUE = "IDAM_URL_VALUE";
-    public static final String S2S_URL_KEY = "S2S_URL";
-    public static final String S2S_URL_VALUE = "S2S_URL_VALUE";
-    public static final String BEFTA_S2S_CLIENT_ID_KEY = "BEFTA_S2S_CLIENT_ID";
-    public static final String BEFTA_S2S_CLIENT_ID_VALUE = "BEFTA_S2S_CLIENT_ID_VALUE";
-    public static final String BEFTA_S2S_CLIENT_SECRET_KEY = "BEFTA_S2S_CLIENT_SECRET";
-    public static final String BEFTA_S2S_CLIENT_SECRET_VALUE = "BEFTA_S2S_CLIENT_SECRET_VALUE";
-    public static final String DEFINITION_STORE_HOST_KEY = "DEFINITION_STORE_HOST";
-    public static final String DEFINITION_STORE_HOST_VALUE = "DEFINITION_STORE_HOST_VALUE";
-    public static final String CCD_IMPORT_AUTOTEST_EMAIL = "CCD_IMPORT_AUTOTEST_EMAIL";
-    public static final String CCD_IMPORT_AUTOTEST_EMAIL_VALUE = "CCD_IMPORT_AUTOTEST_EMAIL_VALUE";
-    public static final String CCD_IMPORT_AUTOTEST_PASSWORD = "CCD_IMPORT_AUTOTEST_PASSWORD";
-    public static final String CCD_IMPORT_AUTOTEST_PASSWORD_VALUE = "CCD_IMPORT_AUTOTEST_PASSWORD_VALUE";
-    public static final String BEFTA_RESPONSE_HEADER_CHECK_POLICY = "BEFTA_RESPONSE_HEADER_CHECK_POLICY";
-    public static final String BEFTA_RESPONSE_HEADER_CHECK_POLICY_VALUE = "JUST_WARN";
-
-    @BeforeEach
-//    @SetEnvironmentVariable(key = "TEST_URL", value = TEST_URL_VALUE)
-    void setup() {
-    }
-
-    @AfterEach
-    void cleanup() {
-    }
+    private static final String TEST_URL_KEY = "TEST_URL";
+    private static final String TEST_URL_VALUE = "TEST_URL_VALUE";
+    private static final String IDAM_URL_KEY = "IDAM_URL";
+    private static final String IDAM_URL_VALUE = "IDAM_URL_VALUE";
+    private static final String S2S_URL_KEY = "S2S_URL";
+    private static final String S2S_URL_VALUE = "S2S_URL_VALUE";
+    private static final String BEFTA_S2S_CLIENT_ID_KEY = "BEFTA_S2S_CLIENT_ID";
+    private static final String BEFTA_S2S_CLIENT_ID_VALUE = "BEFTA_S2S_CLIENT_ID_VALUE";
+    private static final String BEFTA_S2S_CLIENT_SECRET_KEY = "BEFTA_S2S_CLIENT_SECRET";
+    private static final String BEFTA_S2S_CLIENT_SECRET_VALUE = "BEFTA_S2S_CLIENT_SECRET_VALUE";
+    private static final String DEFINITION_STORE_HOST_KEY = "DEFINITION_STORE_HOST";
+    private static final String DEFINITION_STORE_HOST_VALUE = "DEFINITION_STORE_HOST_VALUE";
+    private static final String CCD_IMPORT_AUTOTEST_EMAIL = "CCD_IMPORT_AUTOTEST_EMAIL";
+    private static final String CCD_IMPORT_AUTOTEST_EMAIL_VALUE = "CCD_IMPORT_AUTOTEST_EMAIL_VALUE";
+    private static final String CCD_IMPORT_AUTOTEST_PASSWORD = "CCD_IMPORT_AUTOTEST_PASSWORD";
+    private static final String CCD_IMPORT_AUTOTEST_PASSWORD_VALUE = "CCD_IMPORT_AUTOTEST_PASSWORD_VALUE";
+    private static final String BEFTA_RESPONSE_HEADER_CHECK_POLICY = "BEFTA_RESPONSE_HEADER_CHECK_POLICY";
+    private static final String BEFTA_RESPONSE_HEADER_CHECK_POLICY_VALUE = "JUST_WARN";
+    private static final String DEFAULT_COLLECTION_ASSERTION_MODE = "DEFAULT_COLLECTION_ASSERTION_MODE";
 
     /**
      * Test method for {@link uk.gov.hmcts.befta.TestAutomationConfig#getTestUrl()}.
@@ -158,4 +148,32 @@ class TestAutomationConfigTest {
         assertEquals(ResponseHeaderCheckPolicy.FAIL_TEST, TestAutomationConfig.INSTANCE.getResponseHeaderCheckPolicy());
     }
 
+    /**
+     * Test method for
+     * {@link TestAutomationConfig#getDefaultCollectionAssertionMode()} ()}.
+     */
+    @Test
+    @SetEnvironmentVariable(key = DEFAULT_COLLECTION_ASSERTION_MODE, value = "SetValue")
+    void testDefaultCollectionAssertionModeSetToUnexpectedValue() {
+        assertEquals(Ordering.ORDERED, TestAutomationConfig.INSTANCE.getDefaultCollectionAssertionMode());
+    }
+
+    /**
+     * Test method for
+     * {@link TestAutomationConfig#getDefaultCollectionAssertionMode()} ()}.
+     */
+    @Test
+    void testDefaultCollectionAssertionModeReturnsDefaultWhenNotSet() {
+        assertEquals(Ordering.ORDERED, TestAutomationConfig.INSTANCE.getDefaultCollectionAssertionMode());
+    }
+
+    /**
+     * Test method for
+     * {@link TestAutomationConfig#getDefaultCollectionAssertionMode()} ()}.
+     */
+    @Test
+    @SetEnvironmentVariable(key = DEFAULT_COLLECTION_ASSERTION_MODE, value = "UNORDERED")
+    void testDefaultCollectionAssertionModeReturnsValue() {
+        assertEquals(Ordering.UNORDERED, TestAutomationConfig.INSTANCE.getDefaultCollectionAssertionMode());
+    }
 }
