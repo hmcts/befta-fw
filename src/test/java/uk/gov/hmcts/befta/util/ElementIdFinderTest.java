@@ -7,6 +7,7 @@ import uk.gov.hmcts.befta.exception.InvalidTestDataException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -184,6 +185,32 @@ public class ElementIdFinderTest {
         caseRole.put("case_role", "[CR-2]");
         caseUsers.add(caseRole);
 
-        assertThrows(InvalidTestDataException.class, () -> ElementIdFinder  .findElementIds(caseUsers));
+        assertThrows(InvalidTestDataException.class, () -> ElementIdFinder.findElementIds(caseUsers));
+    }
+
+    @Test
+    void testElementsFieldsWithDepthGreaterThanOneAreIgnored() {
+       List<Object> objectCaseUsers = new ArrayList<>();
+
+        Map<String, Object> caseRole1 = new HashMap<>();
+        caseRole1.put(CASE_ROLE_KEY, "[CR-1]");
+
+        List<Map<String, String>> listOfMaps = new ArrayList<>();
+        Map<String, String> map = new HashMap<>();
+        map.put("nestedKey", "nestedValue");
+        map.put("nestedKey1", "nestedValue1");
+
+        listOfMaps.add(map);
+
+        caseRole1.put("nestedListOfMaps", listOfMaps);
+
+        Map<String, String> caseRole2 = new HashMap<>();
+        caseRole2.put(CASE_ROLE_KEY, "[CR-2]");
+
+        objectCaseUsers.add(metaData);
+        objectCaseUsers.add(caseRole1);
+        objectCaseUsers.add(caseRole2);
+
+        assertEquals(CASE_ROLE_KEY, ElementIdFinder.findElementIds(objectCaseUsers));
     }
 }

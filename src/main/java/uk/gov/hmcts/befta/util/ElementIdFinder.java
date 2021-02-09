@@ -63,10 +63,11 @@ public class ElementIdFinder {
 
         itr.forEachRemaining( currentElement -> {
             Map map = ((Map)currentElement);
-                elementsVisited.getAndIncrement();
-                Set<Map.Entry> keys = map.entrySet();
-                keys.forEach(entry -> {
-                    String key = (String) entry.getKey();
+            elementsVisited.getAndIncrement();
+            Set<Map.Entry> keys = map.entrySet();
+            keys.forEach(entry -> {
+                String key = (String) entry.getKey();
+                if (entry.getValue() instanceof String) { // Don't examine more 1 level deep
                     String value = (String) entry.getValue();
                     if (isCalculatedAtRuntime(value)) {
                         BeftaUtils.defaultLog(String.format("Ignoring map value calculated at runtime when finding " +
@@ -76,7 +77,8 @@ public class ElementIdFinder {
                             multimap.put(key, value);
                         }
                     }
-                });
+                }
+            });
         });
 
         commonMapKeys = multimap.keySet().stream()
