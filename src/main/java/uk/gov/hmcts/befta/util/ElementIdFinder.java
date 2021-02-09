@@ -7,20 +7,26 @@ import uk.gov.hmcts.befta.exception.InvalidTestDataException;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 public class ElementIdFinder {
 
     private static final String COULD_NOT_CALCULATE_ELEMENT_ID = "Befta Framework could not calculate the element " +
-            "IDs required to compare an undordered collection, please add an `__elementId__` to your expected response" +
-            " body";
+            "IDs required to compare an undordered collection, please add an `__elementId__` to your expected " +
+            "response body";
 
-    public boolean isCalculatedAtRuntime(String value) {
+    private ElementIdFinder() {
+
+    }
+
+    private static boolean isCalculatedAtRuntime(String value) {
         List<String> elements = Lists.reverse(Arrays.asList(value.substring(value.indexOf("[") + 1).split("]\\[|]}")));
 
         boolean isCalculatedAtRuntime = false;
@@ -35,8 +41,18 @@ public class ElementIdFinder {
         return isCalculatedAtRuntime;
     }
 
-    public Set<String> findCommonMapEntries(Collection<?> expectedCollection) {
-        Set<String> commonMapKeys = new HashSet<>();
+    /**
+     * Returns unique element ids that can be used to compare unordered test data within a collection.
+     *
+     * Fields containing data calculated at runtime are excluded
+     *
+     * Throws an InvalidTestDataException if no element ids can be calculated
+     *
+     * @param expectedCollection the expected collection test data
+     * @return an alphabetically sorted comma delimited string of elements IDs
+     */
+    public static String findElementIds(Collection<?> expectedCollection) {
+        SortedSet<String> commonMapKeys;
 
         Iterator itr = expectedCollection.iterator();
         itr.next(); // first element in collection is the metadata map
@@ -53,7 +69,8 @@ public class ElementIdFinder {
                     String key = (String) entry.getKey();
                     String value = (String) entry.getValue();
                     if (isCalculatedAtRuntime(value)) {
-                        BeftaUtils.defaultLog("Ignoring map value calculated at runtime when finding elements for ordering");
+                        BeftaUtils.defaultLog(String.format("Ignoring map value calculated at runtime when finding " +
+                                "elements for ordering %s: %s", key, value));
                     } else {
                         if (!multimap.containsEntry(key, value)) {
                             multimap.put(key, value);
@@ -62,16 +79,15 @@ public class ElementIdFinder {
                 });
         });
 
-        multimap.keySet().stream().forEach(x -> {if (multimap.get(x).size() > 1 && multimap.get(x).size() == elementsVisited.get()) {
-                commonMapKeys.add(x);
-            }
-        });
+        commonMapKeys = multimap.keySet().stream()
+                .filter(key -> multimap.get(key).size() > 1 && multimap.get(key).size() == elementsVisited.get())
+                .collect(Collectors.toCollection(TreeSet::new));
 
         if (commonMapKeys.isEmpty()) {
             throw new InvalidTestDataException(COULD_NOT_CALCULATE_ELEMENT_ID);
         }
 
-        return commonMapKeys;
+        return String.join(",", commonMapKeys);
     }
 
 }
