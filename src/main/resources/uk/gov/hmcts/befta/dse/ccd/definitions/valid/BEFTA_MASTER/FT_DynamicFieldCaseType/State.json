@@ -1,0 +1,28 @@
+[ {
+  "LiveFrom" : "DD/01/YYYY",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_DynamicFieldCaseType",
+  "ID" : "CaseCreated",
+  "Name" : "Delete case",
+  "Description" : "",
+  "DisplayOrder" : 1,
+  "TitleDisplay" : ""
+}, {
+  "LiveFrom" : "DD/01/YYYY",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_DynamicFieldCaseType",
+  "ID" : "CaseUpdated",
+  "Name" : "Update case",
+  "Description" : "",
+  "DisplayOrder" : 1,
+  "TitleDisplay" : ""
+}, {
+  "LiveFrom" : "DD/01/YYYY",
+  "LiveTo" : "",
+  "CaseTypeID" : "FT_DynamicFieldCaseType",
+  "ID" : "CaseAmended",
+  "Name" : "Amend case",
+  "Description" : "",
+  "DisplayOrder" : 1,
+  "TitleDisplay" : ""
+} ]

@@ -198,4 +198,14 @@
   "PrintableDocumentsUrl" : "",
   "RetriesTimeoutURLPrintEvent" : "",
   "SecurityClassification" : "Public"
+}, {
+  "LiveFrom" : "01/01/2017",
+  "LiveTo" : "",
+  "ID" : "FT_DynamicFieldCaseType",
+  "Name" : "FT-Dynamic Fields Case Type",
+  "Description" : "CaseType for Dynamic Radio List and Dynamic Multi Select List",
+  "JurisdictionID" : "BEFTA_MASTER",
+  "PrintableDocumentsUrl" : "",
+  "RetriesTimeoutURLPrintEvent" : "",
+  "SecurityClassification" : "Public"
 } ]
