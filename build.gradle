@@ -43,6 +43,7 @@ repositories {
 ext {
     junitJupiterVersion = '5.2.0'
     junitVintageVersion = '5.2.0'
+    definitionConverterMain = "uk.gov.hmcts.befta.dse.ccd.DefinitionConverter"
 }
 
 jar {
@@ -74,6 +75,42 @@ test {
 artifacts {
     archives sourcesJar
     archives javadocJar
+}
+
+task definitionsToJson(dependsOn: sourcesJar) {
+    group = "Execution"
+    description = "Runs DefinitionConverter for Excel to JSON"
+
+    doFirst() {
+        fileTree("${project.projectDir}/src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/excel").matching {
+            include "*.xlsx"
+        }.visit { FileVisitDetails details ->
+            def name = details.getName()
+            def inputPath = "${project.projectDir}/src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/excel/${details.getPath()}"
+            def outputFolderPath = "${project.projectDir}/src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/valid/"
+            def useJurisdictionName = false;
+
+            // overrides for BEFTA Master
+            if (name == 'BEFTA_Master_Definition.xlsx') {
+                useJurisdictionName = true;
+            }
+
+            logger.quiet("\nConverting ${name} to JSON.\n")
+
+            javaexec {
+                classpath = sourceSets.main.runtimeClasspath
+                main = definitionConverterMain
+                args = [
+                    "to-json",
+                    inputPath,
+                    outputFolderPath,
+                    useJurisdictionName
+                ]
+            }
+        }
+    }
+
+    outputs.upToDateWhen { false }
 }
 
 publishing {
