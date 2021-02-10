@@ -10,7 +10,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 1,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -23,7 +24,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 2,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -36,7 +38,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 3,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -49,7 +52,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 1,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -62,7 +66,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 2,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -75,7 +80,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 2,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -88,7 +94,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 3,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -101,7 +108,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 5,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -114,7 +122,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 6,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -127,7 +136,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : "",
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : "MySchool.Class.ClassName=\"A team\""
+  "FieldShowCondition" : "MySchool.Class.ClassName=\"A team\"",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -140,7 +150,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 7,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : "MySchool.ProvidesAutisticChildrenSupport=\"Yes\""
+  "FieldShowCondition" : "MySchool.ProvidesAutisticChildrenSupport=\"Yes\"",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -153,7 +164,8 @@
   "EventHintText" : "Child hint (UPDATED)",
   "FieldDisplayOrder" : 4,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -166,7 +178,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 6,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -179,7 +192,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 6,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -192,7 +206,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 5,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -205,7 +220,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 8,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : "MySchool.ProvidesAutisticChildrenSupport=\"Yes\" AND MySchool.Class.ClassMembers.Children.IsAutistic=\"Yes\""
+  "FieldShowCondition" : "MySchool.ProvidesAutisticChildrenSupport=\"Yes\" AND MySchool.Class.ClassMembers.Children.IsAutistic=\"Yes\"",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -218,7 +234,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : "",
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : "MySchool.Class.ClassMembers.Children.IsAutistic=\"Yes\""
+  "FieldShowCondition" : "MySchool.Class.ClassMembers.Children.IsAutistic=\"Yes\"",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -231,7 +248,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 1,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -244,7 +262,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 2,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -257,7 +276,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 3,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -270,7 +290,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 4,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -283,7 +304,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 5,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -296,7 +318,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 6,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -309,7 +332,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 7,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -322,7 +346,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 8,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -335,7 +360,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 9,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -348,7 +374,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 10,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -361,7 +388,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 11,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -374,7 +402,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 12,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -387,7 +416,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 13,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -400,7 +430,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 14,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -413,7 +444,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 15,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -426,7 +458,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 16,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -439,7 +472,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 1,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -452,7 +486,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 2,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -465,7 +500,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 3,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -478,7 +514,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 4,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -491,7 +528,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 5,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -504,7 +542,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 6,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -517,7 +556,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 7,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -530,7 +570,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 8,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -543,7 +584,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 9,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -556,7 +598,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 10,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -569,7 +612,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 11,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -582,7 +626,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 12,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -595,7 +640,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 13,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -608,7 +654,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 14,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -621,7 +668,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 15,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -634,7 +682,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 16,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "6/1/20",
   "LiveTo" : "",
@@ -647,7 +696,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 3,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "6/1/20",
   "LiveTo" : "",
@@ -660,7 +710,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 4,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "6/1/20",
   "LiveTo" : "",
@@ -673,7 +724,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 5,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "6/1/20",
   "LiveTo" : "",
@@ -686,7 +738,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 6,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "6/1/20",
   "LiveTo" : "",
@@ -699,7 +752,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 7,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "6/1/20",
   "LiveTo" : "",
@@ -712,7 +766,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 8,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "6/1/20",
   "LiveTo" : "",
@@ -725,7 +780,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 9,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "6/1/20",
   "LiveTo" : "",
@@ -738,7 +794,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 10,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "6/1/20",
   "LiveTo" : "",
@@ -751,7 +808,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 3,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "6/1/20",
   "LiveTo" : "",
@@ -764,7 +822,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 4,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "6/1/20",
   "LiveTo" : "",
@@ -777,7 +836,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 5,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "6/1/20",
   "LiveTo" : "",
@@ -790,7 +850,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 6,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "6/1/20",
   "LiveTo" : "",
@@ -803,7 +864,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 7,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "6/1/20",
   "LiveTo" : "",
@@ -816,7 +878,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 8,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "6/1/20",
   "LiveTo" : "",
@@ -829,7 +892,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 9,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "6/1/20",
   "LiveTo" : "",
@@ -842,7 +906,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 10,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -855,7 +920,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 1,
   "DisplayContext" : "READONLY",
-  "FieldShowCondition" : "Name=\"alwaysHideThisField\""
+  "FieldShowCondition" : "Name=\"alwaysHideThisField\"",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -868,7 +934,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 1,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : "MySchool.Class.ClassMandatoryFor=\"MSc\""
+  "FieldShowCondition" : "MySchool.Class.ClassMandatoryFor=\"MSc\"",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -881,7 +948,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 1,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -894,7 +962,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 1,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -907,7 +976,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 2,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -920,7 +990,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 1,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -933,7 +1004,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 1,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -946,7 +1018,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 2,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -959,7 +1032,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 1,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -972,7 +1046,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 1,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -985,7 +1060,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 2,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -998,7 +1074,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 3,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1011,7 +1088,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 1,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1024,7 +1102,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 1,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1037,7 +1116,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 2,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1050,7 +1130,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 3,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1063,7 +1144,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : "",
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1076,7 +1158,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : "",
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1089,7 +1172,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : "",
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1102,7 +1186,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : "",
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1115,7 +1200,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : "",
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1128,7 +1214,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : "",
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1141,7 +1228,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 2,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1154,7 +1242,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : "",
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1167,7 +1256,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 1,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1180,7 +1270,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : "",
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1193,7 +1284,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 3,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1206,7 +1298,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : "",
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1219,7 +1312,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : "",
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1232,7 +1326,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 2,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1245,7 +1340,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : "",
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1258,7 +1354,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : "",
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1271,7 +1368,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 3,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1284,7 +1382,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 1,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1297,7 +1396,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 2,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1310,7 +1410,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 2,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1323,7 +1424,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 1,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1336,7 +1438,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 1,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1349,7 +1452,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 2,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1362,7 +1466,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 1,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1375,7 +1480,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 2,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1388,7 +1494,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 3,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1401,7 +1508,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 4,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1414,7 +1522,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 5,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1427,7 +1536,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 2,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1440,7 +1550,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 1,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1453,7 +1564,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 3,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1466,7 +1578,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 4,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1479,7 +1592,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 5,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1492,7 +1606,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 6,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1505,7 +1620,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 7,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1518,7 +1634,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 8,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1531,7 +1648,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 9,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1544,7 +1662,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 10,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1557,7 +1676,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 6,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1570,7 +1690,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 7,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1583,7 +1704,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 8,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1596,7 +1718,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 9,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1609,7 +1732,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 10,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1622,7 +1746,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 2,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1635,7 +1760,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 1,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1648,7 +1774,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 3,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1661,7 +1788,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 4,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1674,7 +1802,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 6,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1687,7 +1816,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 7,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1700,7 +1830,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 8,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1713,7 +1844,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 9,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1726,7 +1858,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 11,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1739,7 +1872,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 12,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1752,7 +1886,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 13,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1765,7 +1900,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 14,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1778,7 +1914,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 11,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1791,7 +1928,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 12,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1804,7 +1942,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 13,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1817,7 +1956,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 14,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1830,7 +1970,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 15,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1843,7 +1984,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 1,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1856,7 +1998,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 2,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1869,7 +2012,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 3,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1882,7 +2026,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 4,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1895,7 +2040,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 5,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1908,7 +2054,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 7,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1921,7 +2068,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 8,
   "DisplayContext" : "READONLY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1934,7 +2082,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 1,
   "DisplayContext" : "READONLY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1947,7 +2096,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 2,
   "DisplayContext" : "READONLY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1960,7 +2110,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 3,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1973,7 +2124,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 4,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1986,7 +2138,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 5,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -1999,7 +2152,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 6,
   "DisplayContext" : "READONLY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2012,7 +2166,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 7,
   "DisplayContext" : "READONLY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2025,7 +2180,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 8,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2038,7 +2194,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 9,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2051,7 +2208,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 10,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2064,7 +2222,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 11,
   "DisplayContext" : "READONLY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2077,7 +2236,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 12,
   "DisplayContext" : "READONLY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2090,7 +2250,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 13,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2103,7 +2264,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 14,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2116,7 +2278,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 15,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2129,7 +2292,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 16,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2142,7 +2306,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 17,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2155,7 +2320,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 18,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2168,7 +2334,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 19,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2181,7 +2348,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 20,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2194,7 +2362,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 21,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2207,7 +2376,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 22,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2220,7 +2390,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 1,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2233,7 +2404,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 2,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2246,7 +2418,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 3,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2259,7 +2432,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 4,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2272,7 +2446,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 5,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2285,7 +2460,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 6,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2298,7 +2474,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 7,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2311,7 +2488,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 8,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2324,7 +2502,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 9,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2337,7 +2516,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 10,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2350,7 +2530,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 11,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2363,7 +2544,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 12,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2376,7 +2558,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 13,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2389,7 +2572,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 14,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2402,7 +2586,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 15,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2415,7 +2600,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 1,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2428,7 +2614,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 2,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2441,7 +2628,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 3,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2454,7 +2642,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 4,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2467,7 +2656,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 5,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2480,7 +2670,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 7,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2493,7 +2684,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 8,
   "DisplayContext" : "READONLY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2506,7 +2698,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 1,
   "DisplayContext" : "READONLY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2519,7 +2712,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 2,
   "DisplayContext" : "READONLY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2532,7 +2726,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 3,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2545,7 +2740,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 4,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2558,7 +2754,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 5,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2571,7 +2768,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 6,
   "DisplayContext" : "READONLY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2584,7 +2782,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 7,
   "DisplayContext" : "READONLY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2597,7 +2796,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 8,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2610,7 +2810,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 9,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2623,7 +2824,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 10,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2636,7 +2838,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 11,
   "DisplayContext" : "READONLY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2649,7 +2852,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 12,
   "DisplayContext" : "READONLY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2662,7 +2866,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 13,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2675,7 +2880,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 14,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2688,7 +2894,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 15,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2701,7 +2908,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 16,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2714,7 +2922,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 17,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2727,7 +2936,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 18,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2740,7 +2950,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 19,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2753,7 +2964,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 20,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2766,7 +2978,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 21,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2779,7 +2992,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 22,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2792,7 +3006,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 1,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2805,7 +3020,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 2,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2818,7 +3034,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 3,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2831,7 +3048,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 4,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2844,7 +3062,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 5,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2857,7 +3076,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 6,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2870,7 +3090,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 7,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2883,7 +3104,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 8,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2896,7 +3118,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 9,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2909,7 +3132,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 10,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2922,7 +3146,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 11,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2935,7 +3160,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 12,
   "DisplayContext" : "MANDATORY",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2948,7 +3174,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 13,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2961,7 +3188,8 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 14,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
 }, {
   "LiveFrom" : "1/1/18",
   "LiveTo" : "",
@@ -2974,5 +3202,244 @@
   "EventHintText" : "",
   "FieldDisplayOrder" : 15,
   "DisplayContext" : "OPTIONAL",
-  "FieldShowCondition" : ""
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FT_RetainHiddenValue",
+  "CaseEventID" : "CREATE3",
+  "CaseFieldId" : "MySchool",
+  "ListElementCode" : "Name",
+  "DefaultValue" : "",
+  "EventElementLabel" : "",
+  "EventHintText" : "",
+  "FieldDisplayOrder" : 1,
+  "DisplayContext" : "MANDATORY",
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FT_RetainHiddenValue",
+  "CaseEventID" : "CREATE3",
+  "CaseFieldId" : "MySchool",
+  "ListElementCode" : "ProvidesAutisticChildrenSupport",
+  "DefaultValue" : "",
+  "EventElementLabel" : "",
+  "EventHintText" : "",
+  "FieldDisplayOrder" : 2,
+  "DisplayContext" : "MANDATORY",
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FT_RetainHiddenValue",
+  "CaseEventID" : "CREATE3",
+  "CaseFieldId" : "MySchool",
+  "ListElementCode" : "SchoolRegionalCentre",
+  "DefaultValue" : "",
+  "EventElementLabel" : "",
+  "EventHintText" : "",
+  "FieldDisplayOrder" : 3,
+  "DisplayContext" : "MANDATORY",
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FT_RetainHiddenValue",
+  "CaseEventID" : "CREATE3",
+  "CaseFieldId" : "MySchool",
+  "ListElementCode" : "Class.ClassName",
+  "DefaultValue" : "",
+  "EventElementLabel" : "",
+  "EventHintText" : "",
+  "FieldDisplayOrder" : 1,
+  "DisplayContext" : "MANDATORY",
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FT_RetainHiddenValue",
+  "CaseEventID" : "CREATE3",
+  "CaseFieldId" : "MySchool",
+  "ListElementCode" : "Class.ClassMandatoryFor",
+  "DefaultValue" : "",
+  "EventElementLabel" : "",
+  "EventHintText" : "",
+  "FieldDisplayOrder" : 2,
+  "DisplayContext" : "MANDATORY",
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FT_RetainHiddenValue",
+  "CaseEventID" : "CREATE3",
+  "CaseFieldId" : "MySchool",
+  "ListElementCode" : "Class.ClassDetails.ClassRanking",
+  "DefaultValue" : "",
+  "EventElementLabel" : "",
+  "EventHintText" : "",
+  "FieldDisplayOrder" : 2,
+  "DisplayContext" : "MANDATORY",
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FT_RetainHiddenValue",
+  "CaseEventID" : "CREATE3",
+  "CaseFieldId" : "MySchool",
+  "ListElementCode" : "Class.ClassDetails.ClassTeacher",
+  "DefaultValue" : "",
+  "EventElementLabel" : "",
+  "EventHintText" : "",
+  "FieldDisplayOrder" : 3,
+  "DisplayContext" : "MANDATORY",
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FT_RetainHiddenValue",
+  "CaseEventID" : "CREATE3",
+  "CaseFieldId" : "MySchool",
+  "ListElementCode" : "Class.ClassDetails.ClassLocation.Building.Name",
+  "DefaultValue" : "",
+  "EventElementLabel" : "",
+  "EventHintText" : "",
+  "FieldDisplayOrder" : 5,
+  "DisplayContext" : "OPTIONAL",
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : "false"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FT_RetainHiddenValue",
+  "CaseEventID" : "CREATE3",
+  "CaseFieldId" : "MySchool",
+  "ListElementCode" : "Class.ClassDetails.ClassLocation.Building.Floor",
+  "DefaultValue" : "",
+  "EventElementLabel" : "",
+  "EventHintText" : "",
+  "FieldDisplayOrder" : 6,
+  "DisplayContext" : "MANDATORY",
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FT_RetainHiddenValue",
+  "CaseEventID" : "CREATE3",
+  "CaseFieldId" : "MySchool",
+  "ListElementCode" : "Class.ClassNumber",
+  "DefaultValue" : "",
+  "EventElementLabel" : "",
+  "EventHintText" : "",
+  "FieldDisplayOrder" : "",
+  "DisplayContext" : "OPTIONAL",
+  "FieldShowCondition" : "MySchool.Class.ClassName=\"A team\"",
+  "RetainHiddenValue" : "true"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FT_RetainHiddenValue",
+  "CaseEventID" : "CREATE3",
+  "CaseFieldId" : "MySchool",
+  "ListElementCode" : "Class.ClassMembers.Children.IsAutistic",
+  "DefaultValue" : "",
+  "EventElementLabel" : "",
+  "EventHintText" : "",
+  "FieldDisplayOrder" : 7,
+  "DisplayContext" : "OPTIONAL",
+  "FieldShowCondition" : "MySchool.ProvidesAutisticChildrenSupport=\"Yes\"",
+  "RetainHiddenValue" : ""
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FT_RetainHiddenValue",
+  "CaseEventID" : "CREATE3",
+  "CaseFieldId" : "MySchool",
+  "ListElementCode" : "Class.ClassMembers.Children.ChildFullName",
+  "DefaultValue" : "",
+  "EventElementLabel" : "Child full name (UPDATED)",
+  "EventHintText" : "Child hint (UPDATED)",
+  "FieldDisplayOrder" : 4,
+  "DisplayContext" : "MANDATORY",
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FT_RetainHiddenValue",
+  "CaseEventID" : "CREATE3",
+  "CaseFieldId" : "MySchool",
+  "ListElementCode" : "Class.ClassMembers.Children.ChildGender",
+  "DefaultValue" : "",
+  "EventElementLabel" : "",
+  "EventHintText" : "",
+  "FieldDisplayOrder" : 6,
+  "DisplayContext" : "MANDATORY",
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FT_RetainHiddenValue",
+  "CaseEventID" : "CREATE3",
+  "CaseFieldId" : "MySchool",
+  "ListElementCode" : "Class.ClassMembers.Children.BirthCertificate",
+  "DefaultValue" : "",
+  "EventElementLabel" : "",
+  "EventHintText" : "",
+  "FieldDisplayOrder" : 6,
+  "DisplayContext" : "OPTIONAL",
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FT_RetainHiddenValue",
+  "CaseEventID" : "CREATE3",
+  "CaseFieldId" : "MySchool",
+  "ListElementCode" : "Class.ClassMembers.Children.ChildAddress.AddressLine1",
+  "DefaultValue" : "",
+  "EventElementLabel" : "",
+  "EventHintText" : "",
+  "FieldDisplayOrder" : 5,
+  "DisplayContext" : "OPTIONAL",
+  "FieldShowCondition" : "",
+  "RetainHiddenValue" : ""
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FT_RetainHiddenValue",
+  "CaseEventID" : "CREATE3",
+  "CaseFieldId" : "MySchool",
+  "ListElementCode" : "Class.ClassMembers.Children.NeedsSupport",
+  "DefaultValue" : "",
+  "EventElementLabel" : "",
+  "EventHintText" : "",
+  "FieldDisplayOrder" : 8,
+  "DisplayContext" : "OPTIONAL",
+  "FieldShowCondition" : "MySchool.ProvidesAutisticChildrenSupport=\"Yes\" AND MySchool.Class.ClassMembers.Children.IsAutistic=\"Yes\"",
+  "RetainHiddenValue" : ""
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FT_RetainHiddenValue",
+  "CaseEventID" : "CREATE3",
+  "CaseFieldId" : "MySchool",
+  "ListElementCode" : "Class.ClassMembers.Children.AutisticChildCaseNumber.CaseReference",
+  "DefaultValue" : "",
+  "EventElementLabel" : "",
+  "EventHintText" : "",
+  "FieldDisplayOrder" : "",
+  "DisplayContext" : "OPTIONAL",
+  "FieldShowCondition" : "MySchool.Class.ClassMembers.Children.IsAutistic=\"Yes\"",
+  "RetainHiddenValue" : ""
 } ]

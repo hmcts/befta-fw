@@ -188,4 +188,14 @@
   "PrintableDocumentsUrl" : "",
   "RetriesTimeoutURLPrintEvent" : "",
   "SecurityClassification" : "Public"
+}, {
+  "LiveFrom" : "02/01/2017",
+  "LiveTo" : "",
+  "ID" : "FT_RetainHiddenValue",
+  "Name" : "FT- Retain Hidden Value",
+  "Description" : "Case Type for testing RetainHiddenValue",
+  "JurisdictionID" : "BEFTA_MASTER",
+  "PrintableDocumentsUrl" : "",
+  "RetriesTimeoutURLPrintEvent" : "",
+  "SecurityClassification" : "Public"
 } ]
