@@ -65,7 +65,7 @@
   "DisplayContext" : "COMPLEX",
   "PageID" : "SingleFormPageWithComplex",
   "PageLabel" : "Create school class",
-  "PageDisplayOrder" : 1,
+  "PageDisplayOrder" : 2,
   "PageColumnNumber" : "",
   "FieldShowCondition" : "",
   "RetainHiddenValue" : "",
