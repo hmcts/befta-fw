@@ -124,6 +124,18 @@ public class ElementIdFinderTest {
     }
 
     @Test
+    void testCaseRoleIdIsReturnedInSingleElementMap() {
+        caseUsers = new ArrayList<>();
+
+        Map<String, String> caseRole = new HashMap<>();
+        caseRole.put(CASE_ROLE_KEY, "[CR-1]");
+
+        caseUsers.add(caseRole);
+
+        assertEquals(CASE_ROLE_KEY, ElementIdFinder.findElementIds(caseUsers));
+    }
+
+    @Test
     void testCaseIdKeyCalculatedAtRuntimeIsIgnoredThrowsException() {
         caseUsers = new ArrayList<>();
 
@@ -144,6 +156,17 @@ public class ElementIdFinderTest {
         caseUsers.add(caseRole2);
         caseUsers.add(caseRole3);
         caseUsers.add(caseRole4);
+
+        assertThrows(InvalidTestDataException.class, () -> ElementIdFinder.findElementIds(caseUsers));
+    }
+
+    @Test
+    void testCaseIdKeyWildcardCalculatedAtRuntimeThrowsException() {
+
+        Collection<Map<String, String>> caseUsers = new ArrayList<>();
+        Map<String, String> caseRole = new HashMap<>();
+        caseRole.put(CASE_ROLE_KEY, "[[ANYTHING_PRESENT]");
+        caseUsers.add(caseRole);
 
         assertThrows(InvalidTestDataException.class, () -> ElementIdFinder.findElementIds(caseUsers));
     }
