@@ -7,6 +7,7 @@ import uk.gov.hmcts.befta.BeftaMain;
 import uk.gov.hmcts.befta.util.ElementIdFinder;
 
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.Map;
 
 @Data
@@ -65,10 +66,10 @@ public class CollectionVerificationConfig {
             return (CollectionVerificationConfig) firstElement;
         }
         if (firstElement instanceof Map<?, ?>) {
+            CollectionVerificationConfig config = new CollectionVerificationConfig();
             Map<?, ?> firstMap = (Map<?, ?>) firstElement;
             if (firstMap.containsKey(OPERATOR_FIELD_NAME) || firstMap.containsKey(ORDERING_FIELD_NAME)
                     || firstMap.containsKey(ELEMENT_ID_FIELD_NAME)) {
-                CollectionVerificationConfig config = new CollectionVerificationConfig();
                 Operator operator = Operator.of((String) firstMap.get(OPERATOR_FIELD_NAME));
                 if (operator != null) {
                     config.setOperator(operator);
@@ -90,8 +91,38 @@ public class CollectionVerificationConfig {
                     }
                 }
                 return config;
+            } else {
+                config.setOrdering(BeftaMain.getConfig().getDefaultCollectionAssertionMode());
+
+                if (config.getOrdering() == Ordering.UNORDERED) {
+                        config.setElementId(ElementIdFinder.findElementIds(collection));
+                }
+
+                System.out.println("***** NO FIRST ELEMENT SO SETTING TO " + BeftaMain.getConfig().getDefaultCollectionAssertionMode() + " using id " + config.getElementId());
+                return config;
             }
         }
+        System.out.println("***** RETURNING DEFAULT CollectionVerificationConfig ");
         return DEFAULT;
+    }
+
+    public static boolean isFirstElementOfCollectionMetadata(Object obj) {
+        boolean returnValue = false;
+        if (isFirstElementOfMapMetadata(obj)) {
+            returnValue = true;
+        } else if (obj instanceof Collection) {
+            Iterator itr = ((Collection)obj).iterator();
+            returnValue = itr.hasNext() && isFirstElementOfMapMetadata(itr.next());
+         }
+        return returnValue;
+    }
+
+    private static boolean isFirstElementOfMapMetadata(Object map) {
+        if (map instanceof Map) {
+            Map<String, String> mapInstance = (Map)map;
+            return mapInstance.keySet().stream().anyMatch(element -> element.startsWith("__"));
+        } else {
+            return false;
+        }
     }
 }

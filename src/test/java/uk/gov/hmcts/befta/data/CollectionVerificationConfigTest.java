@@ -4,6 +4,7 @@
 package uk.gov.hmcts.befta.data;
 
 import org.junit.jupiter.api.Test;
+import org.junitpioneer.jupiter.SetEnvironmentVariable;
 import uk.gov.hmcts.befta.data.CollectionVerificationConfig.Operator;
 import uk.gov.hmcts.befta.data.CollectionVerificationConfig.Ordering;
 import uk.gov.hmcts.befta.exception.InvalidTestDataException;
@@ -18,9 +19,11 @@ import java.util.Map;
 import static java.util.Arrays.asList;
 import static java.util.Collections.unmodifiableCollection;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author korneleehenry
@@ -224,5 +227,90 @@ class CollectionVerificationConfigTest {
 		listOfMaps.add(dataElement2);
 
 		assertThrows(InvalidTestDataException.class, () -> CollectionVerificationConfig.getVerificationConfigFrom(listOfMaps));
+	}
+
+	/**
+	 * Test method for {@link uk.gov.hmcts.befta.data.CollectionVerificationConfig#getVerificationConfigFrom(Collection)} ()}.
+	 */
+	@SetEnvironmentVariable(key = "DEFAULT_COLLECTION_ASSERTION_MODE", value = "UNORDERED")
+	@Test
+	void testVerificationConfigCalculatesFieldNamesWhenDefaultCollectionAssertionModeIsUnorderedAndNoMetadata() {
+		Map<String, String> dataElement1 = new HashMap<>();
+		dataElement1.put(CASE_ID, CASE_ID_VALUE);
+
+		Map<String, String> dataElement2 = new HashMap<>();
+		dataElement2.put(CASE_ID, CASE_ID_VALUE + "_1");
+
+		List<Map<String, String>> listOfMaps = new ArrayList<>();
+
+		listOfMaps.add(dataElement1);
+		listOfMaps.add(dataElement2);
+
+		CollectionVerificationConfig expectedCollectionVerificationConfig = new CollectionVerificationConfig(Operator.EQUIVALENT, Ordering.UNORDERED, "case_id");
+
+		assertEquals(expectedCollectionVerificationConfig, CollectionVerificationConfig.getVerificationConfigFrom(listOfMaps));
+	}
+
+	@Test
+	public void testIsFirstElementOfCollectionMetadataReturnsFalseForNullObject() {
+		assertFalse(CollectionVerificationConfig.isFirstElementOfCollectionMetadata(null));
+	}
+
+	@Test
+	public void testIsFirstElementOfCollectionMetadataReturnsFalseForNonMap() {
+		assertFalse(CollectionVerificationConfig.isFirstElementOfCollectionMetadata(Collections.EMPTY_LIST));
+	}
+
+	@Test
+	public void testIsFirstElementOfCollectionMetadataReturnsFalseForMapWhereFirstElementDoesNotContainElementIds() {
+		Map<String, String> map = new HashMap<>();
+		map.put("test", "value");
+
+		assertFalse(CollectionVerificationConfig.isFirstElementOfCollectionMetadata(map));
+	}
+
+	@Test
+	public void testIsFirstElementOfCollectionMetadataReturnsFalseForMapWhereFirstElementContainElementIds() {
+		Map<String, String> map = new HashMap<>();
+		map.put("__ordering__", "value");
+
+		assertTrue(CollectionVerificationConfig.isFirstElementOfCollectionMetadata(map));
+	}
+
+	@Test
+	public void testIsFirstElementOfCollectionMetadataReturnsFalseForCollectionNotContainingMap() {
+		List<List<String>> listOfLists = new ArrayList<>();
+		List<String> subList = new ArrayList<>();
+		subList.add("Test");
+		listOfLists.add(subList);
+
+		assertFalse(CollectionVerificationConfig.isFirstElementOfCollectionMetadata(listOfLists));
+	}
+
+	@Test
+	public void testIsFirstElementOfCollectionMetadataReturnsFalseForEmptyCollection() {
+		assertFalse(CollectionVerificationConfig.isFirstElementOfCollectionMetadata(Collections.emptyList()));
+	}
+
+	@Test
+	public void testIsFirstElementOfCollectionMetadataReturnsFalseForCollectionWhereFirstElementContainElementIds() {
+		Map<String, String> map = new HashMap<>();
+		map.put("__ordering__", "value");
+
+		List<Map<String, String>> listOfMaps = new ArrayList<>();
+		listOfMaps.add(map);
+
+ 		assertTrue(CollectionVerificationConfig.isFirstElementOfCollectionMetadata(listOfMaps));
+	}
+
+	@Test
+	public void testIsFirstElementOfCollectionMetadataReturnsFalseForCollectionWhereFirstElementDoesNotContainElementIds() {
+		Map<String, String> map = new HashMap<>();
+		map.put("test", "value");
+
+		List<Map<String, String>> listOfMaps = new ArrayList<>();
+		listOfMaps.add(map);
+
+		assertFalse(CollectionVerificationConfig.isFirstElementOfCollectionMetadata(listOfMaps));
 	}
 }

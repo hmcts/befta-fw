@@ -82,7 +82,7 @@ public class ElementIdFinder {
         });
 
         commonMapKeys = multimap.keySet().stream()
-                .filter(key -> multimap.get(key).size() > 1 && multimap.get(key).size() == elementsVisited.get())
+                .filter(key -> multimap.get(key).size() == elementsVisited.get())
                 .collect(Collectors.toCollection(TreeSet::new));
 
         if (commonMapKeys.isEmpty()) {
