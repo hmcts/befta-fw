@@ -114,7 +114,7 @@
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
   "CaseTypeID" : "FT_NoCWithoutEventsCaseType",
-  "ID" : "changeOrganisationRequestField",
+  "ID" : "ChangeOrganisationRequest",
   "Label" : "Change Organisation Request",
   "HintText" : "",
   "FieldType" : "ChangeOrganisationRequest",

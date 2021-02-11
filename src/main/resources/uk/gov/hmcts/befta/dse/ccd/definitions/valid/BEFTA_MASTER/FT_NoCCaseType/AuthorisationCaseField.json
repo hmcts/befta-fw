@@ -51,7 +51,7 @@
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
   "CaseTypeID" : "FT_NoCCaseType",
-  "CaseFieldID" : "changeOrganisationRequestField",
+  "CaseFieldID" : "ChangeOrganisationRequest",
   "UserRole" : "citizen",
   "CRUD" : "CRUD"
 }, {
@@ -107,7 +107,7 @@
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
   "CaseTypeID" : "FT_NoCCaseType",
-  "CaseFieldID" : "changeOrganisationRequestField",
+  "CaseFieldID" : "ChangeOrganisationRequest",
   "UserRole" : "caseworker-caa",
   "CRUD" : "CRUD"
 }, {
@@ -135,7 +135,7 @@
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
   "CaseTypeID" : "FT_NoCCaseType",
-  "CaseFieldID" : "changeOrganisationRequestField",
+  "CaseFieldID" : "ChangeOrganisationRequest",
   "UserRole" : "caseworker-approver",
   "CRUD" : "CRUD"
 }, {
@@ -191,7 +191,7 @@
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
   "CaseTypeID" : "FT_NoCCaseType",
-  "CaseFieldID" : "changeOrganisationRequestField",
+  "CaseFieldID" : "ChangeOrganisationRequest",
   "UserRole" : "caseworker-befta_master",
   "CRUD" : "CRUD"
 } ]
