@@ -20,8 +20,8 @@ import java.util.stream.Collectors;
 public class ElementIdFinder {
 
     private static final String COULD_NOT_CALCULATE_ELEMENT_ID = "Befta Framework could not calculate the element " +
-            "IDs required to compare an unordered collection, please add an `__elementId__` to your expected " +
-            "response body";
+            "IDs required to compare an unordered collection, please add an `__elementId__` to field '%s' in your " +
+            "expected response body, or change to an ordered comparison";
 
     private ElementIdFinder() {
 
@@ -50,6 +50,7 @@ public class ElementIdFinder {
     private static boolean shouldIgnoreElementIdField(String value) {
         return isCalculatedAtRuntime(value) || isWildcardValue(value);
     }
+
     /**
      * Returns unique element ids that can be used to compare unordered test data within a collection.
      *
@@ -58,9 +59,10 @@ public class ElementIdFinder {
      * Throws an InvalidTestDataException if no element ids can be calculated
      *
      * @param expectedCollection the expected collection test data
+     * @param field the field in the expected response for which the expectedCollection holds data
      * @return an alphabetically sorted comma delimited string of elements IDs
      */
-    public static String findElementIds(Collection<?> expectedCollection) {
+    public static String findElementIds(Collection<?> expectedCollection, String field) {
         SortedSet<String> commonMapKeys;
 
         Iterator itr = expectedCollection.iterator();
@@ -97,7 +99,7 @@ public class ElementIdFinder {
                 .collect(Collectors.toCollection(TreeSet::new));
 
         if (commonMapKeys.isEmpty()) {
-            throw new InvalidTestDataException(COULD_NOT_CALCULATE_ELEMENT_ID);
+            throw new InvalidTestDataException(String.format(COULD_NOT_CALCULATE_ELEMENT_ID, field));
         }
 
         return String.join(",", commonMapKeys);

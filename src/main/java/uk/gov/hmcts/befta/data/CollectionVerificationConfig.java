@@ -57,7 +57,7 @@ public class CollectionVerificationConfig {
         return this == DEFAULT;
     }
 
-    public static CollectionVerificationConfig getVerificationConfigFrom(Collection<?> collection) {
+    public static CollectionVerificationConfig getVerificationConfigFrom(Collection<?> collection, String field) {
         if (collection == null || collection.isEmpty()) {
             return DEFAULT;
         }
@@ -87,7 +87,7 @@ public class CollectionVerificationConfig {
                     if (idString != null) {
                         config.setElementId(idString);
                     } else {
-                        config.setElementId(ElementIdFinder.findElementIds(collection));
+                        config.setElementId(ElementIdFinder.findElementIds(collection, field));
                     }
                 }
                 return config;
@@ -95,14 +95,12 @@ public class CollectionVerificationConfig {
                 config.setOrdering(BeftaMain.getConfig().getDefaultCollectionAssertionMode());
 
                 if (config.getOrdering() == Ordering.UNORDERED) {
-                        config.setElementId(ElementIdFinder.findElementIds(collection));
+                        config.setElementId(ElementIdFinder.findElementIds(collection, field));
                 }
 
-                System.out.println("***** NO FIRST ELEMENT SO SETTING TO " + BeftaMain.getConfig().getDefaultCollectionAssertionMode() + " using id " + config.getElementId());
                 return config;
             }
         }
-        System.out.println("***** RETURNING DEFAULT CollectionVerificationConfig ");
         return DEFAULT;
     }
 

@@ -159,15 +159,17 @@ public class MapVerifier {
             List<String> badValueMessages) {
         if (expectedCollection == actualCollection)
             return;
-        CollectionVerificationConfig verificationConfig = CollectionVerificationConfig.getVerificationConfigFrom(expectedCollection);
+        String prefixWithFirstElementRemoved = fieldPrefix.substring(fieldPrefix.indexOf('.') + 1);
+        CollectionVerificationConfig verificationConfig = CollectionVerificationConfig.getVerificationConfigFrom(expectedCollection, prefixWithFirstElementRemoved);
         addAnySizeBasedIssue(fieldPrefix, expectedCollection, actualCollection, verificationConfig, badValueMessages);
         Iterator<?> itrExpected = expectedCollection.iterator();
-        if (!verificationConfig.isDefault())
-            itrExpected.next();
         Iterator<?> itrActual = actualCollection.iterator();
         int i = 0;
         while (itrExpected.hasNext() && itrActual.hasNext()) {
             Object o1 = itrExpected.next();
+            if (CollectionVerificationConfig.isFirstElementOfCollectionMetadata(o1)) {
+                break;
+            }
             String subfield = getSubfieldFor(field, verificationConfig, i, o1);
             if (isPrimitive(o1)) {
                 if (!actualCollection.contains(o1)) {
@@ -239,7 +241,7 @@ public class MapVerifier {
             Collection<?> actualCollection, CollectionVerificationConfig verificationConfig,
             List<String> badValueMessages) {
 
-        int expectedCount = expectedCollection.size() - (verificationConfig.isDefault() ? 0 : 1);
+        int expectedCount = expectedCollection.size() - (CollectionVerificationConfig.isFirstElementOfCollectionMetadata(expectedCollection) ? 1 : 0);
         int actualCount = actualCollection.size();
 
         switch (verificationConfig.getOperator()) {

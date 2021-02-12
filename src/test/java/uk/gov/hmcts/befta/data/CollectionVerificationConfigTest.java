@@ -37,6 +37,7 @@ class CollectionVerificationConfigTest {
 	private static final String CASE_ROLE_KEY = "case_role_key";
 	private static final String USER_ID_VALUE = "user_id_value";
 	private static final String CASE_ROLE_VALUE = "case_role_value";
+	private static final String FIELD = "test_field";
 
 	/**
 	 * Test method for {@link uk.gov.hmcts.befta.data.CollectionVerificationConfig#equals(java.lang.Object)}.
@@ -63,43 +64,43 @@ class CollectionVerificationConfigTest {
 	}
 
 	/**
-	 * Test method for {@link uk.gov.hmcts.befta.data.CollectionVerificationConfig#getVerificationConfigFrom(Collection)} ()}.
+	 * Test method for {@link uk.gov.hmcts.befta.data.CollectionVerificationConfig#getVerificationConfigFrom(Collection, String)}.
 	 */
 	@Test
 	void testVerificationConfigFromNullCollection() {
-		assertEquals(CollectionVerificationConfig.DEFAULT, CollectionVerificationConfig.getVerificationConfigFrom(null));
+		assertEquals(CollectionVerificationConfig.DEFAULT, CollectionVerificationConfig.getVerificationConfigFrom(null, FIELD));
 	}
 
 	/**
-	 * Test method for {@link uk.gov.hmcts.befta.data.CollectionVerificationConfig#getVerificationConfigFrom(Collection)} ()}.
+	 * Test method for {@link uk.gov.hmcts.befta.data.CollectionVerificationConfig#getVerificationConfigFrom(Collection, String)} ()}.
 	 */
 	@Test
 	void testVerificationConfigFromEmptyCollection() {
 		assertEquals(CollectionVerificationConfig.DEFAULT,
-				CollectionVerificationConfig.getVerificationConfigFrom(unmodifiableCollection(Collections.emptyList())));
+				CollectionVerificationConfig.getVerificationConfigFrom(unmodifiableCollection(Collections.emptyList()), FIELD));
 	}
 
 	/**
-	 * Test method for {@link uk.gov.hmcts.befta.data.CollectionVerificationConfig#getVerificationConfigFrom(Collection)} ()}.
+	 * Test method for {@link uk.gov.hmcts.befta.data.CollectionVerificationConfig#getVerificationConfigFrom(Collection, String)} ()}.
 	 */
 	@Test
 	void testVerificationConfigReturnsDefaultFromListCollectionWhereirstElementIsCollectionVerificationConfig() {
 		assertEquals(CollectionVerificationConfig.DEFAULT,
-				CollectionVerificationConfig.getVerificationConfigFrom(unmodifiableCollection(asList(CollectionVerificationConfig.DEFAULT))));
+				CollectionVerificationConfig.getVerificationConfigFrom(unmodifiableCollection(asList(CollectionVerificationConfig.DEFAULT)), FIELD));
 	}
 
 	/**
-	 * Test method for {@link uk.gov.hmcts.befta.data.CollectionVerificationConfig#getVerificationConfigFrom(Collection)} ()}.
+	 * Test method for {@link uk.gov.hmcts.befta.data.CollectionVerificationConfig#getVerificationConfigFrom(Collection, String)} ()}.
 	 */
 	@Test
 	void testVerificationConfigReturnsDefaultFromListCollectionWhereFirstElementIsNotCollectionVerificationConfig() {
 
 		assertEquals(CollectionVerificationConfig.DEFAULT,
-				CollectionVerificationConfig.getVerificationConfigFrom((Collection<?>) Collections.EMPTY_LIST));
+				CollectionVerificationConfig.getVerificationConfigFrom((Collection<?>) Collections.EMPTY_LIST, FIELD));
 	}
 
 	/**
-	 * Test method for {@link uk.gov.hmcts.befta.data.CollectionVerificationConfig#getVerificationConfigFrom(Collection)} ()}.
+	 * Test method for {@link uk.gov.hmcts.befta.data.CollectionVerificationConfig#getVerificationConfigFrom(Collection, String)} ()}.
 	 */
 	@Test
 	void testVerificationConfigReturnsDefaultFromMapNotContainingDoubleUnderscoredKeys() {
@@ -108,11 +109,11 @@ class CollectionVerificationConfigTest {
 		listOfMaps.add(Collections.emptyMap());
 
 		assertEquals(CollectionVerificationConfig.DEFAULT,
-				CollectionVerificationConfig.getVerificationConfigFrom(listOfMaps));
+				CollectionVerificationConfig.getVerificationConfigFrom(listOfMaps, FIELD));
 	}
 
 	/**
-	 * Test method for {@link uk.gov.hmcts.befta.data.CollectionVerificationConfig#getVerificationConfigFrom(Collection)} ()}.
+	 * Test method for {@link uk.gov.hmcts.befta.data.CollectionVerificationConfig#getVerificationConfigFrom(Collection, String)} ()}.
 	 */
 	@Test
 	void testVerificationConfigReturnsConfigFromMapContainingOperatorFieldName() {
@@ -127,11 +128,11 @@ class CollectionVerificationConfigTest {
 		CollectionVerificationConfig collectionVerificationConfig = new CollectionVerificationConfig(Operator.SUBSET, Ordering.ORDERED, "id");
 
 		assertEquals(collectionVerificationConfig,
-				CollectionVerificationConfig.getVerificationConfigFrom(listOfMaps));
+				CollectionVerificationConfig.getVerificationConfigFrom(listOfMaps, FIELD));
 	}
 
 	/**
-	 * Test method for {@link uk.gov.hmcts.befta.data.CollectionVerificationConfig#getVerificationConfigFrom(Collection)} ()}.
+	 * Test method for {@link uk.gov.hmcts.befta.data.CollectionVerificationConfig#getVerificationConfigFrom(Collection, String)} ()}.
 	 */
 	@Test
 	void testVerificationConfigReturnsConfigFromMapContainingOperatorFieldNameAndOrderingFieldNameORDERED() {
@@ -147,11 +148,11 @@ class CollectionVerificationConfigTest {
 		CollectionVerificationConfig collectionVerificationConfig = new CollectionVerificationConfig(Operator.SUBSET, Ordering.ORDERED, "id");
 
 		assertEquals(collectionVerificationConfig,
-				CollectionVerificationConfig.getVerificationConfigFrom(listOfMaps));
+				CollectionVerificationConfig.getVerificationConfigFrom(listOfMaps, FIELD));
 	}
 
 	/**
-	 * Test method for {@link uk.gov.hmcts.befta.data.CollectionVerificationConfig#getVerificationConfigFrom(Collection)} ()}.
+	 * Test method for {@link uk.gov.hmcts.befta.data.CollectionVerificationConfig#getVerificationConfigFrom(Collection, String)} ()}.
 	 */
 	@Test
 	void testVerificationConfigReturnsConfigFromMapContainingOperatorFieldNameAndOrderingFieldNameUNORDERED() {
@@ -167,11 +168,11 @@ class CollectionVerificationConfigTest {
 		CollectionVerificationConfig collectionVerificationConfig = new CollectionVerificationConfig(Operator.SUBSET, Ordering.UNORDERED, "idFieldName");
 
 		assertEquals(collectionVerificationConfig,
-				CollectionVerificationConfig.getVerificationConfigFrom(listOfMaps));
+				CollectionVerificationConfig.getVerificationConfigFrom(listOfMaps, FIELD));
 	}
 
 	/**
-	 * Test method for {@link uk.gov.hmcts.befta.data.CollectionVerificationConfig#getVerificationConfigFrom(Collection)} ()}.
+	 * Test method for {@link uk.gov.hmcts.befta.data.CollectionVerificationConfig#getVerificationConfigFrom(Collection, String)} ()}.
 	 */
 	@Test
 	void testVerificationConfigReturnsConfigFromMapContainingOperatorFieldNameAndOrderingFieldNameUNORDEREDAutoCalculatedFieldNames() {
@@ -200,11 +201,11 @@ class CollectionVerificationConfigTest {
 		CollectionVerificationConfig collectionVerificationConfig = new CollectionVerificationConfig(Operator.SUBSET, Ordering.UNORDERED, "case_id,case_role_key,user_id");
 
 		assertEquals(collectionVerificationConfig,
-				CollectionVerificationConfig.getVerificationConfigFrom(listOfMaps));
+				CollectionVerificationConfig.getVerificationConfigFrom(listOfMaps, FIELD));
 	}
 
 	/**
-	 * Test method for {@link uk.gov.hmcts.befta.data.CollectionVerificationConfig#getVerificationConfigFrom(Collection)} ()}.
+	 * Test method for {@link uk.gov.hmcts.befta.data.CollectionVerificationConfig#getVerificationConfigFrom(Collection, String)} ()}.
 	 */
 	@Test
 	void testVerificationConfigThrowsExceptionWhenCannotCalculateFieldNames() {
@@ -226,11 +227,13 @@ class CollectionVerificationConfigTest {
 		listOfMaps.add(dataElement1);
 		listOfMaps.add(dataElement2);
 
-		assertThrows(InvalidTestDataException.class, () -> CollectionVerificationConfig.getVerificationConfigFrom(listOfMaps));
+		InvalidTestDataException invalidTestDataException =
+				assertThrows(InvalidTestDataException.class, () -> CollectionVerificationConfig.getVerificationConfigFrom(listOfMaps, FIELD));
+		assertTrue(invalidTestDataException.getMessage().contains(FIELD));
 	}
 
 	/**
-	 * Test method for {@link uk.gov.hmcts.befta.data.CollectionVerificationConfig#getVerificationConfigFrom(Collection)} ()}.
+	 * Test method for {@link uk.gov.hmcts.befta.data.CollectionVerificationConfig#getVerificationConfigFrom(Collection, String)} ()}.
 	 */
 	@SetEnvironmentVariable(key = "DEFAULT_COLLECTION_ASSERTION_MODE", value = "UNORDERED")
 	@Test
@@ -248,7 +251,7 @@ class CollectionVerificationConfigTest {
 
 		CollectionVerificationConfig expectedCollectionVerificationConfig = new CollectionVerificationConfig(Operator.EQUIVALENT, Ordering.UNORDERED, "case_id");
 
-		assertEquals(expectedCollectionVerificationConfig, CollectionVerificationConfig.getVerificationConfigFrom(listOfMaps));
+		assertEquals(expectedCollectionVerificationConfig, CollectionVerificationConfig.getVerificationConfigFrom(listOfMaps, FIELD));
 	}
 
 	@Test

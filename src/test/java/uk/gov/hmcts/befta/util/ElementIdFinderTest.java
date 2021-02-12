@@ -6,12 +6,14 @@ import uk.gov.hmcts.befta.exception.InvalidTestDataException;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class ElementIdFinderTest {
@@ -21,6 +23,7 @@ public class ElementIdFinderTest {
     private static final String CASE_ID_KEY = "case_id";
     private static final String CASE_ROLE_KEY = "case_role";
     private static final String USER_ID_KEY = "user_id";
+    private static final String FIELD = "test_field";
 
     Collection<Map<String, String>> caseUsers = new ArrayList<>();
 
@@ -53,7 +56,7 @@ public class ElementIdFinderTest {
 
     @Test
     void testCaseRoleKeyIsPresentInAllMapsWithUniqueValues() {
-        assertEquals(CASE_ROLE_KEY, ElementIdFinder.findElementIds(caseUsers));
+        assertEquals(CASE_ROLE_KEY, ElementIdFinder.findElementIds(caseUsers, FIELD));
     }
 
     @Test
@@ -86,7 +89,7 @@ public class ElementIdFinderTest {
         caseUsers.add(caseRole3);
         caseUsers.add(caseRole4);
 
-        assertEquals(USER_ID_KEY, ElementIdFinder.findElementIds(caseUsers));
+        assertEquals(USER_ID_KEY, ElementIdFinder.findElementIds(caseUsers, FIELD));
     }
 
     @Test
@@ -120,7 +123,7 @@ public class ElementIdFinderTest {
         caseUsers.add(caseRole4);
 
         String expectedValues = CASE_ROLE_KEY + "," + USER_ID_KEY;
-        assertEquals(expectedValues, ElementIdFinder.findElementIds(caseUsers));
+        assertEquals(expectedValues, ElementIdFinder.findElementIds(caseUsers, FIELD));
     }
 
     @Test
@@ -132,7 +135,7 @@ public class ElementIdFinderTest {
 
         caseUsers.add(caseRole);
 
-        assertEquals(CASE_ROLE_KEY, ElementIdFinder.findElementIds(caseUsers));
+        assertEquals(CASE_ROLE_KEY, ElementIdFinder.findElementIds(caseUsers, FIELD));
     }
 
     @Test
@@ -157,7 +160,10 @@ public class ElementIdFinderTest {
         caseUsers.add(caseRole3);
         caseUsers.add(caseRole4);
 
-        assertThrows(InvalidTestDataException.class, () -> ElementIdFinder.findElementIds(caseUsers));
+        InvalidTestDataException invalidTestDataException =
+                assertThrows(InvalidTestDataException.class, () -> ElementIdFinder.findElementIds(caseUsers, FIELD));
+        assertTrue(invalidTestDataException.getMessage().contains(FIELD));
+
     }
 
     @Test
@@ -168,7 +174,9 @@ public class ElementIdFinderTest {
         caseRole.put(CASE_ROLE_KEY, "[[ANYTHING_PRESENT]");
         caseUsers.add(caseRole);
 
-        assertThrows(InvalidTestDataException.class, () -> ElementIdFinder.findElementIds(caseUsers));
+        InvalidTestDataException invalidTestDataException = assertThrows(InvalidTestDataException.class, () -> ElementIdFinder.findElementIds(caseUsers, FIELD));
+        assertTrue(invalidTestDataException.getMessage().contains(FIELD));
+
     }
 
     @Test
@@ -197,7 +205,7 @@ public class ElementIdFinderTest {
         caseUsers.add(caseRole3);
         caseUsers.add(caseRole4);
 
-        assertEquals(CASE_ROLE_KEY, ElementIdFinder.findElementIds(caseUsers));
+        assertEquals(CASE_ROLE_KEY, ElementIdFinder.findElementIds(caseUsers, FIELD));
     }
 
     @Test
@@ -208,7 +216,7 @@ public class ElementIdFinderTest {
         caseRole.put("case_role", "[CR-2]");
         caseUsers.add(caseRole);
 
-        assertThrows(InvalidTestDataException.class, () -> ElementIdFinder.findElementIds(caseUsers));
+        assertThrows(InvalidTestDataException.class, () -> ElementIdFinder.findElementIds(caseUsers, FIELD));
     }
 
     @Test
@@ -234,6 +242,6 @@ public class ElementIdFinderTest {
         objectCaseUsers.add(caseRole1);
         objectCaseUsers.add(caseRole2);
 
-        assertEquals(CASE_ROLE_KEY, ElementIdFinder.findElementIds(objectCaseUsers));
+        assertEquals(CASE_ROLE_KEY, ElementIdFinder.findElementIds(objectCaseUsers, FIELD));
     }
 }
