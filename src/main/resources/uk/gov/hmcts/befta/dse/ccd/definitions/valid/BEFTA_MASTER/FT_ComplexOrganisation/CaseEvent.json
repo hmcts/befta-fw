@@ -20,7 +20,7 @@
   "ShowEventNotes" : "",
   "CanSaveDraft" : "",
   "EndButtonLabel" : "",
-  "Publish" : ""
+  "Publish" : "Y"
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
@@ -43,5 +43,5 @@
   "ShowEventNotes" : "",
   "CanSaveDraft" : "",
   "EndButtonLabel" : "",
-  "Publish" : ""
+  "Publish" : "Y"
 } ]
