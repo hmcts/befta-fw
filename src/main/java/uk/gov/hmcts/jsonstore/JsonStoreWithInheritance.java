@@ -162,13 +162,16 @@ public abstract class JsonStoreWithInheritance {
                     if (parentFieldCopy.isArray()) {
                         ((ArrayNode) parentFieldCopy).addAll((ArrayNode) thisField);
                     }
+                }
                 ((ObjectNode) object).set(fieldNameInParent, parentFieldCopy);
             } else if (thisField.isContainerNode()) {
                 inheritAndOverlayValuesFor(thisField);
+
                 if (!(parentFieldCopy instanceof NullNode)) {
                     overlayFieldWith(parentFieldCopy, thisField);
                     ((ObjectNode) object).set(fieldNameInParent, parentFieldCopy);
                 }
+
             }
         } else {
             ((ObjectNode) object).set(fieldNameInParent, parentFieldCopy);
