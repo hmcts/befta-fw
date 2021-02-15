@@ -84,7 +84,7 @@ class CollectionVerificationConfigTest {
 	 * Test method for {@link uk.gov.hmcts.befta.data.CollectionVerificationConfig#getVerificationConfigFrom(Collection, String)} ()}.
 	 */
 	@Test
-	void testVerificationConfigReturnsDefaultFromListCollectionWhereirstElementIsCollectionVerificationConfig() {
+	void testVerificationConfigReturnsDefaultFromListCollectionWhereFirstElementIsCollectionVerificationConfig() {
 		assertEquals(CollectionVerificationConfig.DEFAULT,
 				CollectionVerificationConfig.getVerificationConfigFrom(unmodifiableCollection(asList(CollectionVerificationConfig.DEFAULT)), FIELD));
 	}
