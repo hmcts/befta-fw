@@ -8,6 +8,7 @@ import java.util.function.Function;
 import io.cucumber.java.Scenario;
 import io.restassured.specification.RequestSpecification;
 import uk.gov.hmcts.befta.BeftaMain;
+import uk.gov.hmcts.befta.TestAutomationConfig;
 import uk.gov.hmcts.befta.data.HttpTestData;
 import uk.gov.hmcts.befta.data.HttpTestDataSource;
 import uk.gov.hmcts.befta.data.ResponseData;
@@ -20,7 +21,8 @@ import uk.gov.hmcts.befta.util.DynamicValueInjector;
 
 public class BackEndFunctionalTestScenarioContext {
 
-    private static final String[] TEST_DATA_RESOURCE_PACKAGES = { "features" };
+    private static final String[] TEST_DATA_RESOURCE_PACKAGES = TestAutomationConfig.getTestDataPackages()
+            .toArray(new String[0]);
 
     static final HttpTestDataSource DATA_SOURCE = HttpTestDataSourceFactory.createHttpTestDataSource(TEST_DATA_RESOURCE_PACKAGES);
 

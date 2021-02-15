@@ -1,6 +1,14 @@
 package uk.gov.hmcts.befta;
 
+import java.util.Collections;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import io.cucumber.core.cli.Main;
+import io.cucumber.core.options.RuntimeOptions;
+import io.cucumber.junit.Cucumber;
 import uk.gov.hmcts.befta.auth.UserTokenProviderConfig;
+import uk.gov.hmcts.befta.util.BeftaUtils;
 import uk.gov.hmcts.befta.util.EnvironmentVariableUtils;
 
 public class TestAutomationConfig {
@@ -64,6 +72,25 @@ public class TestAutomationConfig {
             testDataLoadSkipPeriod = Double.parseDouble(envVar);
         }
         return testDataLoadSkipPeriod;
+    }
+
+    public static RuntimeOptions getCucumberRuntimeOptions() {
+        String command = System.getProperty("sun.java.command");
+        BeftaUtils.defaultLog("Running tests with command: " + command);
+        RuntimeOptions options = Main.getRuntimeOptions();
+        if (options == null) {
+            options = Cucumber.getRuntimeOptions();
+        }
+        return options;
+    }
+
+    public static Set<String> getTestDataPackages() {
+        RuntimeOptions options = getCucumberRuntimeOptions();
+        if (options == null)
+            return Collections.emptySet();
+        return options.getFeaturePaths().stream()
+                .map(u -> u == null ? null : u.toString().replace("classpath:", ""))
+                .collect(Collectors.toSet());
     }
 
 }
