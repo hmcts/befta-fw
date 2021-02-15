@@ -16,7 +16,9 @@
   "DisplayContextParameter" : "",
   "ShowSummaryChangeOption" : "Yes",
   "ShowSummaryContentOption" : "",
-  "CallBackURLMidEvent" : ""
+  "CallBackURLMidEvent" : "",
+  "Publish" : "",
+  "PublishAs" : ""
 }, {
   "LiveFrom" : "07/01/2017",
   "LiveTo" : "",
@@ -35,7 +37,9 @@
   "DisplayContextParameter" : "",
   "ShowSummaryChangeOption" : "Yes",
   "ShowSummaryContentOption" : "",
-  "CallBackURLMidEvent" : ""
+  "CallBackURLMidEvent" : "",
+  "Publish" : "",
+  "PublishAs" : ""
 }, {
   "LiveFrom" : "08/01/2017",
   "LiveTo" : "",
@@ -54,7 +58,9 @@
   "DisplayContextParameter" : "",
   "ShowSummaryChangeOption" : "Yes",
   "ShowSummaryContentOption" : "",
-  "CallBackURLMidEvent" : ""
+  "CallBackURLMidEvent" : "",
+  "Publish" : "",
+  "PublishAs" : ""
 }, {
   "LiveFrom" : "09/01/2017",
   "LiveTo" : "",
@@ -73,7 +79,9 @@
   "DisplayContextParameter" : "",
   "ShowSummaryChangeOption" : "Yes",
   "ShowSummaryContentOption" : "",
-  "CallBackURLMidEvent" : ""
+  "CallBackURLMidEvent" : "",
+  "Publish" : "",
+  "PublishAs" : ""
 }, {
   "LiveFrom" : "10/01/2017",
   "LiveTo" : "",
@@ -92,7 +100,9 @@
   "DisplayContextParameter" : "",
   "ShowSummaryChangeOption" : "Yes",
   "ShowSummaryContentOption" : "",
-  "CallBackURLMidEvent" : ""
+  "CallBackURLMidEvent" : "",
+  "Publish" : "",
+  "PublishAs" : ""
 }, {
   "LiveFrom" : "11/01/2017",
   "LiveTo" : "",
@@ -111,7 +121,9 @@
   "DisplayContextParameter" : "",
   "ShowSummaryChangeOption" : "Yes",
   "ShowSummaryContentOption" : "",
-  "CallBackURLMidEvent" : ""
+  "CallBackURLMidEvent" : "",
+  "Publish" : "",
+  "PublishAs" : ""
 }, {
   "LiveFrom" : "12/01/2017",
   "LiveTo" : "",
@@ -130,7 +142,9 @@
   "DisplayContextParameter" : "",
   "ShowSummaryChangeOption" : "Yes",
   "ShowSummaryContentOption" : "",
-  "CallBackURLMidEvent" : ""
+  "CallBackURLMidEvent" : "",
+  "Publish" : "",
+  "PublishAs" : ""
 }, {
   "LiveFrom" : "13/01/2017",
   "LiveTo" : "",
@@ -149,7 +163,9 @@
   "DisplayContextParameter" : "",
   "ShowSummaryChangeOption" : "Yes",
   "ShowSummaryContentOption" : "",
-  "CallBackURLMidEvent" : ""
+  "CallBackURLMidEvent" : "",
+  "Publish" : "",
+  "PublishAs" : ""
 }, {
   "LiveFrom" : "06/01/2017",
   "LiveTo" : "",
@@ -168,7 +184,9 @@
   "DisplayContextParameter" : "",
   "ShowSummaryChangeOption" : "Yes",
   "ShowSummaryContentOption" : "",
-  "CallBackURLMidEvent" : ""
+  "CallBackURLMidEvent" : "",
+  "Publish" : "",
+  "PublishAs" : ""
 }, {
   "LiveFrom" : "07/01/2017",
   "LiveTo" : "",
@@ -187,7 +205,9 @@
   "DisplayContextParameter" : "",
   "ShowSummaryChangeOption" : "Yes",
   "ShowSummaryContentOption" : "",
-  "CallBackURLMidEvent" : ""
+  "CallBackURLMidEvent" : "",
+  "Publish" : "",
+  "PublishAs" : ""
 }, {
   "LiveFrom" : "08/01/2017",
   "LiveTo" : "",
@@ -206,7 +226,9 @@
   "DisplayContextParameter" : "",
   "ShowSummaryChangeOption" : "Yes",
   "ShowSummaryContentOption" : "",
-  "CallBackURLMidEvent" : ""
+  "CallBackURLMidEvent" : "",
+  "Publish" : "",
+  "PublishAs" : ""
 }, {
   "LiveFrom" : "09/01/2017",
   "LiveTo" : "",
@@ -225,7 +247,9 @@
   "DisplayContextParameter" : "",
   "ShowSummaryChangeOption" : "Yes",
   "ShowSummaryContentOption" : "",
-  "CallBackURLMidEvent" : ""
+  "CallBackURLMidEvent" : "",
+  "Publish" : "",
+  "PublishAs" : ""
 }, {
   "LiveFrom" : "10/01/2017",
   "LiveTo" : "",
@@ -244,7 +268,9 @@
   "DisplayContextParameter" : "",
   "ShowSummaryChangeOption" : "Yes",
   "ShowSummaryContentOption" : "",
-  "CallBackURLMidEvent" : ""
+  "CallBackURLMidEvent" : "",
+  "Publish" : "",
+  "PublishAs" : ""
 }, {
   "LiveFrom" : "11/01/2017",
   "LiveTo" : "",
@@ -263,7 +289,9 @@
   "DisplayContextParameter" : "",
   "ShowSummaryChangeOption" : "Yes",
   "ShowSummaryContentOption" : "",
-  "CallBackURLMidEvent" : ""
+  "CallBackURLMidEvent" : "",
+  "Publish" : "",
+  "PublishAs" : ""
 }, {
   "LiveFrom" : "12/01/2017",
   "LiveTo" : "",
@@ -282,7 +310,9 @@
   "DisplayContextParameter" : "",
   "ShowSummaryChangeOption" : "Yes",
   "ShowSummaryContentOption" : "",
-  "CallBackURLMidEvent" : ""
+  "CallBackURLMidEvent" : "",
+  "Publish" : "",
+  "PublishAs" : ""
 }, {
   "LiveFrom" : "13/01/2017",
   "LiveTo" : "",
@@ -301,5 +331,7 @@
   "DisplayContextParameter" : "",
   "ShowSummaryChangeOption" : "Yes",
   "ShowSummaryContentOption" : "",
-  "CallBackURLMidEvent" : ""
+  "CallBackURLMidEvent" : "",
+  "Publish" : "",
+  "PublishAs" : ""
 } ]
