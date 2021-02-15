@@ -51,7 +51,7 @@
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
   "CaseTypeID" : "FT_NoCWithoutEventsCaseType",
-  "CaseFieldID" : "ChangeOrganisationRequest",
+  "CaseFieldID" : "changeOrganisationRequestField",
   "UserRole" : "caseworker-caa",
   "CRUD" : "CRUD"
 }, {
@@ -79,7 +79,7 @@
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
   "CaseTypeID" : "FT_NoCWithoutEventsCaseType",
-  "CaseFieldID" : "ChangeOrganisationRequest",
+  "CaseFieldID" : "changeOrganisationRequestField",
   "UserRole" : "caseworker-approver",
   "CRUD" : "CRUD"
 }, {
@@ -135,7 +135,7 @@
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
   "CaseTypeID" : "FT_NoCWithoutEventsCaseType",
-  "CaseFieldID" : "ChangeOrganisationRequest",
+  "CaseFieldID" : "changeOrganisationRequestField",
   "UserRole" : "caseworker-befta_master",
   "CRUD" : "CRUD"
 } ]

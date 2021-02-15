@@ -32,7 +32,7 @@
   "TabID" : "ChangeOrganisationRequest",
   "TabLabel" : "Change Organisation Request",
   "TabDisplayOrder" : 5,
-  "CaseFieldID" : "ChangeOrganisationRequest",
+  "CaseFieldID" : "ChangeOrganisationRequestField",
   "TabFieldDisplayOrder" : 3,
   "FieldShowCondition" : "",
   "TabShowCondition" : "",
