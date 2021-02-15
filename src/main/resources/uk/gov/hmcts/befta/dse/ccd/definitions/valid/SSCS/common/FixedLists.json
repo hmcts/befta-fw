@@ -1,0 +1,6013 @@
+[ {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_AssignToJudge",
+  "ListElementCode" : "unassigned",
+  "ListElement" : "Unassigned"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_AssignToJudge",
+  "ListElementCode" : "judgetestersscs@mailnesia.com",
+  "ListElement" : "SSCS Test Judge"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_AssignToJudge",
+  "ListElementCode" : "juitestjudgesscs@mailnesia.com",
+  "ListElement" : "JUI Test Judge"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_AssignToJudge",
+  "ListElementCode" : "sscs4jui@mailnesia.com",
+  "ListElement" : "SSCS 4 JUI"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_AssignToJudge",
+  "ListElementCode" : "juitestuser2@gmail.com",
+  "ListElement" : "JUI Test User2"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_AssignToMedicalMember",
+  "ListElementCode" : "Don't select",
+  "ListElement" : "Don't select"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_AssignToMedicalMember",
+  "ListElementCode" : "510604|Medical 1",
+  "ListElement" : "Medical 1"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_AssignToMedicalMember",
+  "ListElementCode" : "512530|Medical 2",
+  "ListElement" : "Medical 2"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_AssignToMedicalMember",
+  "ListElementCode" : "unassigned",
+  "ListElement" : "Unassigned"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_AssignToDisabilityMember",
+  "ListElementCode" : "Don't select",
+  "ListElement" : "Don't select"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_AssignToDisabilityMember",
+  "ListElementCode" : "511043|Disability 1",
+  "ListElement" : "Disability 1"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_AssignToDisabilityMember",
+  "ListElementCode" : "512531|Disability 2",
+  "ListElement" : "Disability 2"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_AssignToDisabilityMember",
+  "ListElementCode" : "unassigned",
+  "ListElement" : "Unassigned"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_mobilityActivities",
+  "ListElementCode" : "movingAround",
+  "ListElement" : "Moving around"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_mobilityActivities",
+  "ListElementCode" : "planningAndFollowing",
+  "ListElement" : "Planning and following journeys"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dailyLivingActivities",
+  "ListElementCode" : "budgetingDecisions",
+  "ListElement" : "Making budgeting decisions"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dailyLivingActivities",
+  "ListElementCode" : "engagingWithOthers",
+  "ListElement" : "Engaging with other people face to face"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dailyLivingActivities",
+  "ListElementCode" : "readingUnderstanding",
+  "ListElement" : "Reading and understanding signs, symbols and words"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dailyLivingActivities",
+  "ListElementCode" : "communicating",
+  "ListElement" : "Communicating verbally"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dailyLivingActivities",
+  "ListElementCode" : "dressingAndUndressing",
+  "ListElement" : "Dressing and undressing"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dailyLivingActivities",
+  "ListElementCode" : "managingToiletNeeds",
+  "ListElement" : "Managing toilet needs or incontinence"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dailyLivingActivities",
+  "ListElementCode" : "washingAndBathing",
+  "ListElement" : "Washing and bathing"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dailyLivingActivities",
+  "ListElementCode" : "managingTherapy",
+  "ListElement" : "Managing therapy or monitoring a health condition"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dailyLivingActivities",
+  "ListElementCode" : "takingNutrition",
+  "ListElement" : "Taking nutrition"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dailyLivingActivities",
+  "ListElementCode" : "preparingFood",
+  "ListElement" : "Preparing food"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionPreparingFoodQuestions",
+  "ListElementCode" : "preparingFood1f",
+  "ListElement" : "1f. Cannot prepare and cook food. (8 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionPreparingFoodQuestions",
+  "ListElementCode" : "preparingFood1e",
+  "ListElement" : "1e. Needs supervision or assistance to either prepare or cook a simple meal. (4 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionPreparingFoodQuestions",
+  "ListElementCode" : "preparingFood1d",
+  "ListElement" : "1d. Needs prompting to be able to either prepare or cook a simple meal. (2 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionPreparingFoodQuestions",
+  "ListElementCode" : "preparingFood1c",
+  "ListElement" : "1c. Cannot cook a simple meal using a conventional cooker but is able to do so using a microwave. (2 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionPreparingFoodQuestions",
+  "ListElementCode" : "preparingFood1b",
+  "ListElement" : "1b. Needs to use an aid or appliance to be able to either prepare or cook a simple meal. (2 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionPreparingFoodQuestions",
+  "ListElementCode" : "preparingFood1a",
+  "ListElement" : "1a. Can prepare and cook a simple meal unaided. (0 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionTakingNutritionQuestions",
+  "ListElementCode" : "takingNutrition2f",
+  "ListElement" : "2f. Cannot convey food and drink to their mouth and needs another person to do so. (10 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionTakingNutritionQuestions",
+  "ListElementCode" : "takingNutrition2e",
+  "ListElement" : "2e. Needs assistance to be able to manage a therapeutic source to take nutrition. (6 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionTakingNutritionQuestions",
+  "ListElementCode" : "takingNutrition2d",
+  "ListElement" : "2d. Needs prompting to be able to take nutrition. (4 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionTakingNutritionQuestions",
+  "ListElementCode" : "takingNutrition2c",
+  "ListElement" : "2c. Needs a therapeutic source to take nutrition. (2 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionTakingNutritionQuestions",
+  "ListElementCode" : "takingNutrition2b",
+  "ListElement" : "2b. Needs either - (i) to use an aid or appliance to take nutrition; or (ii) supervision to be able to take nutrition; or (iii) assistance to be able to cut up food. (2 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionTakingNutritionQuestions",
+  "ListElementCode" : "takingNutrition2a",
+  "ListElement" : "2a. Can take nutrition unaided. (0 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionManagingTherapyQuestions",
+  "ListElementCode" : "managingTherapy3f",
+  "ListElement" : "3f. Needs supervision, prompting or assistance to be able to manage therapy that takes more than 14 hours a week. (8 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionManagingTherapyQuestions",
+  "ListElementCode" : "managingTherapy3e",
+  "ListElement" : "3e. Needs supervision, prompting or assistance to be able to manage therapy that takes more than 7 but no more than 14 hours a week. (6 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionManagingTherapyQuestions",
+  "ListElementCode" : "managingTherapy3d",
+  "ListElement" : "3d. Needs supervision, prompting or assistance to be able to manage therapy that takes more than 3.5 but no more than 7 hours a week. (4 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionManagingTherapyQuestions",
+  "ListElementCode" : "managingTherapy3c",
+  "ListElement" : "3c. Needs supervision, prompting or assistance to be able to manage therapy that takes no more than 3.5 hours a week. (2 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionManagingTherapyQuestions",
+  "ListElementCode" : "managingTherapy3b",
+  "ListElement" : "3b. Needs any one or more of the following - (i) to use an aid or appliance to be able to manage medication; (ii) supervision, prompting or assistance to be able to manage medication; (iii) supervision, prompting or assistance to be able to monitor a health condition. (1 point)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionManagingTherapyQuestions",
+  "ListElementCode" : "managingTherapy3a",
+  "ListElement" : "3a. Either - (i) does not receive medication or therapy or need to monitor a health condition; or (ii) can manage medication or therapy or monitor a health condition unaided. (0 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionWashingAndBathingQuestions",
+  "ListElementCode" : "washingAndBathing4g",
+  "ListElement" : "4g. Cannot wash and bathe at all and needs another person to wash their entire body. (8 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionWashingAndBathingQuestions",
+  "ListElementCode" : "washingAndBathing4f",
+  "ListElement" : "4f. Needs assistance to be able to wash their body between the shoulders and waist. (4 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionWashingAndBathingQuestions",
+  "ListElementCode" : "washingAndBathing4e",
+  "ListElement" : "4e. Needs assistance to be able to get in or out of a bath or shower. (3 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionWashingAndBathingQuestions",
+  "ListElementCode" : "washingAndBathing4d",
+  "ListElement" : "4d. Needs assistance to be able to wash either their hair or body below the waist. (2 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionWashingAndBathingQuestions",
+  "ListElementCode" : "washingAndBathing4c",
+  "ListElement" : "4c. Needs supervision or prompting to be able to wash or bathe. (2 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionWashingAndBathingQuestions",
+  "ListElementCode" : "washingAndBathing4b",
+  "ListElement" : "4b. Needs to use an aid or appliance to be able to wash or bathe. (2 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionWashingAndBathingQuestions",
+  "ListElementCode" : "washingAndBathing4a",
+  "ListElement" : "4a. Can wash and bathe unaided. (0 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionManagingToiletNeedsQuestions",
+  "ListElementCode" : "managingToiletNeeds5f",
+  "ListElement" : "5f. Needs assistance to be able to manage incontinence of both bladder and bowel. (8 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionManagingToiletNeedsQuestions",
+  "ListElementCode" : "managingToiletNeeds5e",
+  "ListElement" : "5e. Needs assistance to be able to manage incontinence of either bladder or bowel. (6 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionManagingToiletNeedsQuestions",
+  "ListElementCode" : "managingToiletNeeds5d",
+  "ListElement" : "5d. Needs assistance to be able to manage toilet needs. (4 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionManagingToiletNeedsQuestions",
+  "ListElementCode" : "managingToiletNeeds5c",
+  "ListElement" : "5c. Needs supervision or prompting to be able to manage toilet needs. (2 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionManagingToiletNeedsQuestions",
+  "ListElementCode" : "managingToiletNeeds5b",
+  "ListElement" : "5b. Needs to use an aid or appliance to be able to manage toilet needs or incontinence. (2 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionManagingToiletNeedsQuestions",
+  "ListElementCode" : "managingToiletNeeds5a",
+  "ListElement" : "5a. Can manage toilet needs or incontinence unaided. (0 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionDressingAndUndressingQuestions",
+  "ListElementCode" : "dressingAndUndressing6f",
+  "ListElement" : "6f. Cannot dress or undress at all. (8 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionDressingAndUndressingQuestions",
+  "ListElementCode" : "dressingAndUndressing6e",
+  "ListElement" : "6e. Needs assistance to be able to dress or undress their upper body. (4 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionDressingAndUndressingQuestions",
+  "ListElementCode" : "dressingAndUndressing6d",
+  "ListElement" : "6d. Needs assistance to be able to dress or undress their lower body. (2 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionDressingAndUndressingQuestions",
+  "ListElementCode" : "dressingAndUndressing6c",
+  "ListElement" : "6c. Needs either -  (i) prompting to be able to dress, undress or determine appropriate circumstances for remaining clothed; or (ii) prompting or assistance to be able to select appropriate clothing. (2 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionDressingAndUndressingQuestions",
+  "ListElementCode" : "dressingAndUndressing6b",
+  "ListElement" : "6b. Needs to use an aid or appliance to be able to dress or undress. (2 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionDressingAndUndressingQuestions",
+  "ListElementCode" : "dressingAndUndressing6a",
+  "ListElement" : "6a. Can dress and undress unaided. (0 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionCommunicatingQuestions",
+  "ListElementCode" : "communicating7e",
+  "ListElement" : "7e. Cannot express or understand verbal information at all even with communication support. (12 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionCommunicatingQuestions",
+  "ListElementCode" : "communicating7d",
+  "ListElement" : "7d. Needs communication support to be able to express or understand basic verbal information. (8 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionCommunicatingQuestions",
+  "ListElementCode" : "communicating7c",
+  "ListElement" : "7c. Needs communication support to be able to express or understand complex verbal information. (4 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionCommunicatingQuestions",
+  "ListElementCode" : "communicating7b",
+  "ListElement" : "7b. Needs to use an aid or appliance to be able to speak or hear. (2 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionCommunicatingQuestions",
+  "ListElementCode" : "communicating7a",
+  "ListElement" : "7a. Can express and understand verbal information unaided. (0 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionReadingUnderstandingQuestions",
+  "ListElementCode" : "readingAndUnderstanding8e",
+  "ListElement" : "8e. Cannot read or understand signs, symbols or words at all. (8 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionReadingUnderstandingQuestions",
+  "ListElementCode" : "readingAndUnderstanding8d",
+  "ListElement" : "8d. Needs prompting to be able to read or understand basic written information. (4 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionReadingUnderstandingQuestions",
+  "ListElementCode" : "readingAndUnderstanding8c",
+  "ListElement" : "8c. Needs prompting to be able to read or understand complex written information. (2 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionReadingUnderstandingQuestions",
+  "ListElementCode" : "readingAndUnderstanding8b",
+  "ListElement" : "8b. Needs to use an aid or appliance, other than spectacles or contact lenses, to be able to read or understand either basic or complex written information. (2 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionReadingUnderstandingQuestions",
+  "ListElementCode" : "readingAndUnderstanding8a",
+  "ListElement" : "8a. Can read and understand basic and complex written information either unaided or using spectacles or contact lenses. (0 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionEngagingWithOthersQuestions",
+  "ListElementCode" : "engagingWithOtherPeople9d",
+  "ListElement" : "9d. Cannot engage with other people due to such engagement causing either - (i) overwhelming psychological distress to the claimant; or (ii) the claimant to exhibit behaviour which would result in a substantial risk of harm to the claimant or another person. (8 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionEngagingWithOthersQuestions",
+  "ListElementCode" : "engagingWithOtherPeople9c",
+  "ListElement" : "9c. Needs social support to be able to engage with other people. (4 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionEngagingWithOthersQuestions",
+  "ListElementCode" : "engagingWithOtherPeople9b",
+  "ListElement" : "9b. Needs prompting to be able to engage with other people. (2 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionEngagingWithOthersQuestions",
+  "ListElementCode" : "engagingWithOtherPeople9a",
+  "ListElement" : "9a. Can engage with other people unaided. (0 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionBudgetingDecisionsQuestions",
+  "ListElementCode" : "makingBudgetingDecisions10d",
+  "ListElement" : "10d. Cannot make any budgeting decisions at all. (6 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionBudgetingDecisionsQuestions",
+  "ListElementCode" : "makingBudgetingDecisions10c",
+  "ListElement" : "10c. Needs prompting or assistance to be able to make simple budgeting decisions. (4 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionBudgetingDecisionsQuestions",
+  "ListElementCode" : "makingBudgetingDecisions10b",
+  "ListElement" : "10b. Needs prompting or assistance to be able to make complex budgeting decisions. (2 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionBudgetingDecisionsQuestions",
+  "ListElementCode" : "makingBudgetingDecisions10a",
+  "ListElement" : "10a. Can manage complex budgeting decisions unaided. (0 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionPlanningFollowingQuestions",
+  "ListElementCode" : "planningAndFollowing11f",
+  "ListElement" : "11f. Cannot follow the route of a familiar journey without another person, an assistance dog or an orientation aid. (12 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionPlanningFollowingQuestions",
+  "ListElementCode" : "planningAndFollowing11e",
+  "ListElement" : "11e. Cannot undertake any journey because it would cause overwhelming psychological distress to the claimant. (10 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionPlanningFollowingQuestions",
+  "ListElementCode" : "planningAndFollowing11d",
+  "ListElement" : "11d. Cannot follow the route of an unfamiliar journey without another person, assistance dog or orientation aid. (10 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionPlanningFollowingQuestions",
+  "ListElementCode" : "planningAndFollowing11c",
+  "ListElement" : "11c. Cannot plan the route of a journey. (8 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionPlanningFollowingQuestions",
+  "ListElementCode" : "planningAndFollowing11b",
+  "ListElement" : "11b. Needs prompting to be able to undertake any journey to avoid overwhelming psychological distress to the claimant. (4 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionPlanningFollowingQuestions",
+  "ListElementCode" : "planningAndFollowing11a",
+  "ListElement" : "11a. Can plan and follow the route of a journey unaided. (0 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionMovingAroundQuestions",
+  "ListElementCode" : "movingAround12f",
+  "ListElement" : "12f. Cannot, either aided or unaided,  stand; or (ii) move more than 1 metre. (12 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionMovingAroundQuestions",
+  "ListElementCode" : "movingAround12e",
+  "ListElement" : "12e. Can stand and then move more than 1 metre but no more than 20 metres, either aided or unaided. (12 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionMovingAroundQuestions",
+  "ListElementCode" : "movingAround12d",
+  "ListElement" : "12d. Can stand and then move using an aid or appliance more than 20 metres but no more than 50 metres. (10 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionMovingAroundQuestions",
+  "ListElementCode" : "movingAround12c",
+  "ListElement" : "12c. Can stand and then move unaided more than 20 metres but no more than 50 metres. (8 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionMovingAroundQuestions",
+  "ListElementCode" : "movingAround12b",
+  "ListElement" : "12b. Can stand and then move more than 50 metres but no more than 200 metres, either aided or unaided. (4 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipWriteFinalDecisionMovingAroundQuestions",
+  "ListElementCode" : "movingAround12a",
+  "ListElement" : "12a. Can stand and then move more than 200 metres, either aided or unaided. (0 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_physicalDisabilities",
+  "ListElementCode" : "consciousness",
+  "ListElement" : "10. Consciousness during waking moments."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_physicalDisabilities",
+  "ListElementCode" : "lossOfControl",
+  "ListElement" : "9. Absence or loss of control whilst conscious leading to extensive evacuation of the bowel and/or bladder, other than enuresis (bed- wetting), despite the wearing or use of any aids or adaptations which are normally or could reasonably be worn or used."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_physicalDisabilities",
+  "ListElementCode" : "navigation",
+  "ListElement" : "8. Navigation and maintaining safety using a guide dog or other aid if either or both are normally used or could reasonably be used."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_physicalDisabilities",
+  "ListElementCode" : "communication",
+  "ListElement" : "7. Understanding communication by: (i) verbal means (such as hearing or lip reading) alone; (ii) non-verbal means (such as reading 16 point print or Braille) alone; or (iii) a combination of sub-paragraphs (i) and (ii), using any aid that is normally or could reasonably be used, unaided by another person."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_physicalDisabilities",
+  "ListElementCode" : "makingSelfUnderstood",
+  "ListElement" : "6. Making self understood through speaking, writing, typing, or other means which are normally or could reasonably be used, unaided by another person."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_physicalDisabilities",
+  "ListElementCode" : "manualDexterity",
+  "ListElement" : "5. Manual dexterity."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_physicalDisabilities",
+  "ListElementCode" : "pickingUp",
+  "ListElement" : "4. Picking up and moving or transferring by the use of the upper body and arms."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_physicalDisabilities",
+  "ListElementCode" : "reaching",
+  "ListElement" : "3. Reaching."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_physicalDisabilities",
+  "ListElementCode" : "standingAndSitting",
+  "ListElement" : "2. Standing and sitting."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_physicalDisabilities",
+  "ListElementCode" : "mobilisingUnaided",
+  "ListElement" : "1. Mobilising unaided by another person with or without a walking stick, manual wheelchair or other aid if such aid is normally or could reasonably be worn or used."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_mentalAssessment",
+  "ListElementCode" : "appropriatenessOfBehaviour",
+  "ListElement" : "17. Appropriateness of behaviour with other people, due to cognitive impairment or mental disorder."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_mentalAssessment",
+  "ListElementCode" : "socialEngagement",
+  "ListElement" : "16. Coping with social engagement due to cognitive impairment or mental disorder."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_mentalAssessment",
+  "ListElementCode" : "gettingAbout",
+  "ListElement" : "15. Getting about."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_mentalAssessment",
+  "ListElementCode" : "copingWithChange",
+  "ListElement" : "14. Coping with change."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_mentalAssessment",
+  "ListElementCode" : "personalAction",
+  "ListElement" : "13. Initiating and completing personal action (which means planning, organisation, problem solving, prioritising or switching tasks)."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_mentalAssessment",
+  "ListElementCode" : "awarenessOfHazards",
+  "ListElement" : "12. Awareness of everyday hazards (such as boiling water or sharp objects)."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_mentalAssessment",
+  "ListElementCode" : "learningTasks",
+  "ListElement" : "11. Learning tasks."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionMobilisingUnaidedQuestion",
+  "ListElementCode" : "mobilisingUnaided1e",
+  "ListElement" : "1e. None of the above applies. (0 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionMobilisingUnaidedQuestion",
+  "ListElementCode" : "mobilisingUnaided1d",
+  "ListElement" : "1d. Cannot, unaided by another person, either: mobilise more than 200 metres on level ground without stopping in order to avoid significant discomfort or exhaustion; or (ii) repeatedly mobilise 200 metres within a reasonable timescale because of significant discomfort or exhaustion. (6 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionMobilisingUnaidedQuestion",
+  "ListElementCode" : "mobilisingUnaided1c",
+  "ListElement" : "1c. Cannot, unaided by another person, either: (i) mobilise more than 100 metres on level ground without stopping in order to avoid significant discomfort or exhaustion; or (ii) repeatedly mobilise 100 metres within a reasonable timescale because of significant discomfort or exhaustion. (9 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionMobilisingUnaidedQuestion",
+  "ListElementCode" : "mobilisingUnaided1b",
+  "ListElement" : "1b. Cannot, unaided by another person, mount or descend two steps even with the support of a handrail. (9 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionMobilisingUnaidedQuestion",
+  "ListElementCode" : "mobilisingUnaided1a",
+  "ListElement" : "1a. Cannot, unaided by another person, either: (i) mobilise more than 50 metres on level ground without stopping in order to avoid significant discomfort or exhaustion; or (ii) repeatedly mobilise 50 metres within a reasonable timescale because of significant discomfort or exhaustion. (15 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionStandingAndSittingQuestion",
+  "ListElementCode" : "standingAndSitting2d",
+  "ListElement" : "2d. None of the above apply. (0 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionStandingAndSittingQuestion",
+  "ListElementCode" : "standingAndSitting2c",
+  "ListElement" : "2c. Cannot, for the majority of the time, remain at a work station, either: (i) standing unassisted by another person (even if free to move around); or (ii) sitting (even in an adjustable chair); or (iii) a combination of (i) and (ii), for more than an hour before needing to move away in order to avoid significant discomfort or exhaustion. (6 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionStandingAndSittingQuestion",
+  "ListElementCode" : "standingAndSitting2b",
+  "ListElement" : "2b. Cannot, for the majority of the time, remain at a work station either:: (i) standing unassisted by another person (even if free to move around); (ii) sitting (even in an adjustable chair); or (iii) a combination of (i) and (ii), for more than 30 minutes, before needing to move away in order to avoid significant discomfort or exhaustion. (9 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionStandingAndSittingQuestion",
+  "ListElementCode" : "standingAndSitting2a",
+  "ListElement" : "2a. Cannot move between one seated position and another seated position which are located next to one another without receiving physical assistance from another person. (15 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionReachingQuestion",
+  "ListElementCode" : "reaching3d",
+  "ListElement" : "3d. None of the above apply. (0 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionReachingQuestion",
+  "ListElementCode" : "reaching3c",
+  "ListElement" : "3c. Cannot raise either arm above head height as if to reach for something. (6 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionReachingQuestion",
+  "ListElementCode" : "reaching3b",
+  "ListElement" : "3b. Cannot raise either arm to top of head as if to put on a hat. (9 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionReachingQuestion",
+  "ListElementCode" : "reaching3a",
+  "ListElement" : "3a. Cannot raise either arm as if to put something in the top pocket of a coat or jacket. (15 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionPickingUpQuestion",
+  "ListElementCode" : "pickingUp4d",
+  "ListElement" : "4d. None of the above apply. (0 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionPickingUpQuestion",
+  "ListElementCode" : "pickingUp4c",
+  "ListElement" : "4c. Cannot transfer a light but bulky object such as an empty cardboard box. (6 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionPickingUpQuestion",
+  "ListElementCode" : "pickingUp4b",
+  "ListElement" : "4b. Cannot pick up and move a one litre carton full of liquid. (9 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionPickingUpQuestion",
+  "ListElementCode" : "pickingUp4a",
+  "ListElement" : "4a. Cannot pick up and move a 0.5 litre carton full of liquid. (15 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionManualDexterityQuestion",
+  "ListElementCode" : "manualDexterity5e",
+  "ListElement" : "5e. None of the above apply. (0 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionManualDexterityQuestion",
+  "ListElementCode" : "manualDexterity5d",
+  "ListElement" : "5d. Cannot single-handedly use a suitable keyboard or mouse. (9 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionManualDexterityQuestion",
+  "ListElementCode" : "manualDexterity5c",
+  "ListElement" : "5c. Cannot use a pen or pencil to make a meaningful mark with either hand. (9 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionManualDexterityQuestion",
+  "ListElementCode" : "manualDexterity5b",
+  "ListElement" : "5b. Cannot pick up a £1 coin or equivalent with either hand. (15 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionManualDexterityQuestion",
+  "ListElementCode" : "manualDexterity5a",
+  "ListElement" : "5a. Cannot press a button (such as a telephone keypad) with either hand or cannot turn the pages of a book with either hand. (15 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionMakingSelfUnderstoodQuestion",
+  "ListElementCode" : "manualDexterity6d",
+  "ListElement" : "6d. None of the above apply. (0 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionMakingSelfUnderstoodQuestion",
+  "ListElementCode" : "manualDexterity6c",
+  "ListElement" : "6c. Has some difficulty conveying a simple message to strangers. (6 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionMakingSelfUnderstoodQuestion",
+  "ListElementCode" : "manualDexterity6b",
+  "ListElement" : "6b. Has significant difficulty conveying a simple message to strangers. (15 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionMakingSelfUnderstoodQuestion",
+  "ListElementCode" : "manualDexterity6a",
+  "ListElement" : "6a. Cannot convey a simple message, such as the presence of a hazard. (15 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionCommunicationQuestion",
+  "ListElementCode" : "decisionCommunication7d",
+  "ListElement" : "7d. None of the above applies. (0 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionCommunicationQuestion",
+  "ListElementCode" : "decisionCommunication7c",
+  "ListElement" : "7c. Has some difficulty understanding a simple message from a stranger due to sensory impairment. (6 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionCommunicationQuestion",
+  "ListElementCode" : "decisionCommunication7b",
+  "ListElement" : "7b. Has significant difficulty understanding a simple message from a stranger due to sensory impairment. (15 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionCommunicationQuestion",
+  "ListElementCode" : "decisionCommunication7a",
+  "ListElement" : "7a. Cannot understand a simple message, such as the location of a fire escape, due to sensory impairment. (15 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionNavigationQuestion",
+  "ListElementCode" : "decisionNavigation8d",
+  "ListElement" : "8d. None of the above apply. (0 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionNavigationQuestion",
+  "ListElementCode" : "decisionNavigation8c",
+  "ListElement" : "8c. Unable to navigate around unfamiliar surroundings, without being accompanied by another person, due to sensory impairment. (9 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionNavigationQuestion",
+  "ListElementCode" : "decisionNavigation8b",
+  "ListElement" : "8b. Cannot safely complete a potentially hazardous task such as crossing the road, without being accompanied by another person, due to sensory impairment. (15 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionNavigationQuestion",
+  "ListElementCode" : "decisionNavigation8a",
+  "ListElement" : "8a. Unable to navigate around familiar surroundings, without being accompanied by another person, due to sensory impairment. (15 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionLossOfControlQuestion",
+  "ListElementCode" : "lossOfControl9c",
+  "ListElement" : "9c. Neither of the above applies. (0 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionLossOfControlQuestion",
+  "ListElementCode" : "lossOfControl9b",
+  "ListElement" : "9b. The majority of the time is at risk of loss of control leading to extensive evacuation of the bowel and/or voiding of the bladder, sufficient to require cleaning and a change in clothing, if not able to reach a toilet quickly. (6 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionLossOfControlQuestion",
+  "ListElementCode" : "lossOfControl9a",
+  "ListElement" : "9a. At least once a month experiences: (i) loss of control leading to extensive evacuation of the bowel and/or voiding of the bladder; or (ii) substantial leakage of the contents of a collecting device, sufficient to require cleaning and a change in clothing. (15 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionConsciousnessQuestion",
+  "ListElementCode" : "consciousness10c",
+  "ListElement" : "10c. None of the above apply. (0 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionConsciousnessQuestion",
+  "ListElementCode" : "consciousness10b",
+  "ListElement" : "10b. At least once a month, has an involuntary episode of lost or altered consciousness resulting in significantly disrupted awareness or concentration. (6 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionConsciousnessQuestion",
+  "ListElementCode" : "consciousness10a",
+  "ListElement" : "10a. At least once a week, has an involuntary episode of lost or altered consciousness resulting in significantly disrupted awareness or concentration. (15 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionLearningTasksQuestion",
+  "ListElementCode" : "learningTasks11d",
+  "ListElement" : "11d. None of the above apply. (0 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionLearningTasksQuestion",
+  "ListElementCode" : "learningTasks11c",
+  "ListElement" : "11c. Cannot learn anything beyond a moderately complex task, such as the steps involved in operating a washing machine to clean clothes. (6 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionLearningTasksQuestion",
+  "ListElementCode" : "learningTasks11b",
+  "ListElement" : "11b. Cannot learn anything beyond a simple task, such as setting an alarm clock. (9 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionLearningTasksQuestion",
+  "ListElementCode" : "learningTasks11a",
+  "ListElement" : "11a. Cannot learn how to complete a simple task, such as setting an alarm clock. (15 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionAwarenessOfHazardsQuestion",
+  "ListElementCode" : "awarenessOfHazards12d",
+  "ListElement" : "12d. None of the above apply. (0 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionAwarenessOfHazardsQuestion",
+  "ListElementCode" : "awarenessOfHazards12c",
+  "ListElement" : "12c. Reduced awareness of everyday hazards leads to a significant risk of: (i) injury to self or others; or (ii) damage to property or possessions, such that the claimant occasionally requires supervision to maintain safety. (6 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionAwarenessOfHazardsQuestion",
+  "ListElementCode" : "awarenessOfHazards12b",
+  "ListElement" : "12b. Reduced awareness of everyday hazards leads to a significant risk of: (i) injury to self or others; or (ii) damage to property or possessions, such that the claimant frequently requires supervision to maintain safety. (9 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionAwarenessOfHazardsQuestion",
+  "ListElementCode" : "awarenessOfHazards12a",
+  "ListElement" : "12a. Reduced awareness of everyday hazards leads to a significant risk of: (i) injury to self or others; or (ii) damage to property or possessions, such that the claimant requires supervision for the majority of the time to maintain safety. (15 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionPersonalActionQuestion",
+  "ListElementCode" : "personalAction13d",
+  "ListElement" : "13d. None of the above applies. (0 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionPersonalActionQuestion",
+  "ListElementCode" : "personalAction13c",
+  "ListElement" : "13c. Frequently cannot, due to impaired mental function, reliably initiate or complete at least 2 sequential personal actions. (6 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionPersonalActionQuestion",
+  "ListElementCode" : "personalAction13b",
+  "ListElement" : "13b. Cannot, due to impaired mental function, reliably initiate or complete at least 2 sequential personal actions for the majority of the time. (9 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionPersonalActionQuestion",
+  "ListElementCode" : "personalAction13a",
+  "ListElement" : "13a. Cannot, due to impaired mental function, reliably initiate or complete at least 2 sequential personal actions. (15 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionCopingWithChangeQuestion",
+  "ListElementCode" : "copingWithChange14d",
+  "ListElement" : "14d. None of the above apply. (0 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionCopingWithChangeQuestion",
+  "ListElementCode" : "copingWithChange14c",
+  "ListElement" : "14c. Cannot cope with minor unplanned change (such as the timing of an appointment on the day it is due to occur), to the extent that, overall, day to day life is made significantly more difficult. (6 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionCopingWithChangeQuestion",
+  "ListElementCode" : "copingWithChange14b",
+  "ListElement" : "14b. Cannot cope with minor planned change (such as a pre- arranged change to the routine time scheduled for a lunch break), to the extent that, overall, day to day life is made significantly more difficult. (9 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionCopingWithChangeQuestion",
+  "ListElementCode" : "copingWithChange14a",
+  "ListElement" : "14a. Cannot cope with any change to the extent that day to day life cannot be managed. (15 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionGettingAboutQuestion",
+  "ListElementCode" : "gettingAbout15d",
+  "ListElement" : "15d. None of the above apply. (0 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionGettingAboutQuestion",
+  "ListElementCode" : "gettingAbout15c",
+  "ListElement" : "15c. Is unable to get to a specified place with which the claimant is unfamiliar without being accompanied by another person. (6 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionGettingAboutQuestion",
+  "ListElementCode" : "gettingAbout15b",
+  "ListElement" : "15b. Is unable to get to a specified place with which the claimant is familiar, without being accompanied by another person. (9 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionGettingAboutQuestion",
+  "ListElementCode" : "gettingAbout15a",
+  "ListElement" : "15a. Cannot get to any place outside the claimant’s home with which the claimant is familiar. (15 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionSocialEngagementQuestion",
+  "ListElementCode" : "socialEngagement16d",
+  "ListElement" : "16d. None of the above applies. (0 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionSocialEngagementQuestion",
+  "ListElementCode" : "socialEngagement16c",
+  "ListElement" : "16c. Engagement in social contact with someone unfamiliar to the claimant is not possible for the majority of the time due to difficulty relating to others or significant distress experienced by the claimant. (6 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionSocialEngagementQuestion",
+  "ListElementCode" : "socialEngagement16b",
+  "ListElement" : "16b. Engagement in social contact with someone unfamiliar to the claimant is always precluded due to difficulty relating to others or significant distress experienced by the claimant. (9 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionSocialEngagementQuestion",
+  "ListElementCode" : "socialEngagement16a",
+  "ListElement" : "16a. Engagement in social contact is always precluded due to difficulty relating to others or significant distress experienced by the claimant. (15 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionBehaviourQuestion",
+  "ListElementCode" : "appropriatenessOfBehaviour17d",
+  "ListElement" : "17d. None of the above apply. (0 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionBehaviourQuestion",
+  "ListElementCode" : "appropriatenessOfBehaviour17c",
+  "ListElement" : "17c. Occasionally has uncontrollable episodes of aggressive or disinhibited behaviour that would be unreasonable in any workplace. (9 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionBehaviourQuestion",
+  "ListElementCode" : "appropriatenessOfBehaviour17b",
+  "ListElement" : "17b. Frequently has uncontrollable episodes of aggressive or disinhibited behaviour that would be unreasonable in any workplace. (15 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_esaWriteFinalDecisionBehaviourQuestion",
+  "ListElementCode" : "appropriatenessOfBehaviour17a",
+  "ListElement" : "17a. Has, on a daily basis, uncontrollable episodes of aggressive or disinhibited behaviour that would be unreasonable in any workplace. (15 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_schedule3Activities",
+  "ListElementCode" : "schedule3ChewingOrSwallowing",
+  "ListElement" : "16. Chewing or swallowing food or drink. (a) Cannot chew or swallow food or drink; (b) Cannot chew or swallow food or drink without repeatedly stopping or experiencing breathlessness or severe discomfort; (c) Cannot chew or swallow food or drink without repeatedly receiving regular prompting given by someone else in the claimant’s presence; or (d) Owing to a severe disorder of mood or behaviour, fails to: (i) chew or swallow food or drink; or (ii) chew or swallow food or drink without regular prompting given by someone else in the claimant’s presence."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_schedule3Activities",
+  "ListElementCode" : "schedule3ConveyingFoodOrDrink",
+  "ListElement" : "15. Conveying food or drink to the mouth. (a) Cannot convey food or drink to the claimant’s own mouth without receiving physical assistance from someone else; (b) Cannot convey food or drink to the claimant’s own mouth without repeatedly stopping or experiencing breathlessness or severe discomfort; (c) Cannot convey food or drink to the claimant’s own mouth without receiving regular prompting given by someone else in the claimant’s presence; or (d) Owing to a severe disorder of mood or behaviour, fails to convey food or drink to the claimant’s own mouth without receiving: (i) physical assistance from someone else; or (ii) regular prompting given by someone else in the claimant’s presence."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_schedule3Activities",
+  "ListElementCode" : "schedule3AppropriatenessOfBehaviour",
+  "ListElement" : "14. Appropriateness of behaviour with other people, due to cognitive impairment or mental disorder. Has, on a daily basis, uncontrollable episodes of aggressive or disinhibited behaviour that would be unreasonable in any workplace."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_schedule3Activities",
+  "ListElementCode" : "schedule3SocialEngagement",
+  "ListElement" : "13. Coping with social engagement, due to cognitive impairment or mental disorder. Engagement in social contact is always precluded due to difficulty relating to others or significant distress experienced by the claimant."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_schedule3Activities",
+  "ListElementCode" : "schedule3CopingWithChange",
+  "ListElement" : "12. Coping with change. Cannot cope with any change, due to cognitive impairment or mental disorder, to the extent that day to day life cannot be managed."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_schedule3Activities",
+  "ListElementCode" : "schedule3PersonalAction",
+  "ListElement" : "11. Initiating and completing personal action (which means planning, organisation, problem solving, prioritising or switching tasks). Cannot, due to impaired mental function, reliably initiate or complete at least 2 sequential personal actions."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_schedule3Activities",
+  "ListElementCode" : "schedule3AwarenessOfHazards",
+  "ListElement" : "10. Awareness of hazard. Reduced awareness of everyday hazards, due to cognitive impairment or mental disorder, leads to a significant risk of: (a) injury to self or others; or (b) damage to property or possessions, such that the claimant requires supervision for the majority of the time to maintain safety."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_schedule3Activities",
+  "ListElementCode" : "schedule3LearningTasks",
+  "ListElement" : "9. Learning tasks. Cannot learn how to complete a simple task, such as setting an alarm clock, due to cognitive impairment or mental disorder."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_schedule3Activities",
+  "ListElementCode" : "schedule3LossOfControl",
+  "ListElement" : "8. Absence or loss of control whilst conscious leading to extensive evacuation of the bowel and/or voiding of the bladder, other than enuresis (bed-wetting), despite the wearing or use of any aids or adaptations which are normally or could reasonably be worn or used."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_schedule3Activities",
+  "ListElementCode" : "schedule3Communication",
+  "ListElement" : "7. Understanding communication by: (i) verbal means (such as hearing or lip reading) alone; (ii) non-verbal means (such as reading 16 point print or Braille) alone; or (iii) a combination of sub- paragraphs (i)  and (ii), using any aid that is normally, or could reasonably, be used unaided by another person. Cannot understand a simple message, such as the location of a fire escape, due to sensory impairment."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_schedule3Activities",
+  "ListElementCode" : "schedule3MakingSelfUnderstood",
+  "ListElement" : "6. Making self understood through speaking, writing, typing, or other means which are normally, or could reasonably be, used unaided by another person. Cannot convey a simple message, such as the presence of a hazard."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_schedule3Activities",
+  "ListElementCode" : "schedule3ManualDexterity",
+  "ListElement" : "5. Manual dexterity. Cannot press a button (such as a telephone keypad) with either hand or cannot turn the pages of a book with either hand."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_schedule3Activities",
+  "ListElementCode" : "schedule3PickingUp",
+  "ListElement" : "4. Picking up and moving or transferring by the use of the upper body and arms (excluding standing, sitting, bending or kneeling and all other activities specified in this Schedule). Cannot pick up and move a 0.5 litre carton full of liquid."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_schedule3Activities",
+  "ListElementCode" : "schedule3Reaching",
+  "ListElement" : "3. Reaching. Cannot raise either arm as if to put something in the top pocket of a coat or jacket."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_schedule3Activities",
+  "ListElementCode" : "schedule3SittingPositions",
+  "ListElement" : "2. Transferring from one seated position to another. Cannot move between one seated position and another seated position located next to one another without receiving physical assistance from another person."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_schedule3Activities",
+  "ListElementCode" : "schedule3MobilisingUnaided",
+  "ListElement" : "1. Mobilising unaided by another person with or without a walking stick, manual wheelchair or other aid if such aid is normally or could reasonably be worn or used. Cannot either: (a) mobilise more than 50 metres on level ground without stopping in order to avoid significant discomfort or exhaustion; or (b) repeatedly mobilise 50 metres within a reasonable timescale because of significant discomfort or exhaustion."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucPhysicalDisabilities",
+  "ListElementCode" : "consciousness",
+  "ListElement" : "10. Consciousness during waking moments."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucPhysicalDisabilities",
+  "ListElementCode" : "lossOfControl",
+  "ListElement" : "9. Absence or loss of control whilst conscious leading to extensive evacuation of the bowel and/or bladder, other than enuresis (bed- wetting), despite the wearing or use of any aids or adaptations which are normally or could reasonably be worn or used."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucPhysicalDisabilities",
+  "ListElementCode" : "navigation",
+  "ListElement" : "8. Navigation and maintaining safety using a guide dog or other aid if either or both are normally used or could reasonably be used."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucPhysicalDisabilities",
+  "ListElementCode" : "communication",
+  "ListElement" : "7. Understanding communication by: (i) verbal means (such as hearing or lip reading) alone; (ii) non-verbal means (such as reading 16 point print or Braille) alone; or (iii) a combination of sub-paragraphs (i) and (ii), using any aid that is normally or could reasonably be used, unaided by another person."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucPhysicalDisabilities",
+  "ListElementCode" : "makingSelfUnderstood",
+  "ListElement" : "6. Making self understood through speaking, writing, typing, or other means which are normally or could reasonably be used, unaided by another person."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucPhysicalDisabilities",
+  "ListElementCode" : "manualDexterity",
+  "ListElement" : "5. Manual dexterity."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucPhysicalDisabilities",
+  "ListElementCode" : "pickingUp",
+  "ListElement" : "4. Picking up and moving or transferring by the use of the upper body and arms."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucPhysicalDisabilities",
+  "ListElementCode" : "reaching",
+  "ListElement" : "3. Reaching."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucPhysicalDisabilities",
+  "ListElementCode" : "standingAndSitting",
+  "ListElement" : "2. Standing and sitting."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucPhysicalDisabilities",
+  "ListElementCode" : "mobilisingUnaided",
+  "ListElement" : "1. Mobilising unaided by another person with or without a walking stick, manual wheelchair or other aid if such aid is normally or could reasonably be worn or used."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucMentalAssessment",
+  "ListElementCode" : "appropriatenessOfBehaviour",
+  "ListElement" : "17. Appropriateness of behaviour with other people, due to cognitive impairment or mental disorder."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucMentalAssessment",
+  "ListElementCode" : "socialEngagement",
+  "ListElement" : "16. Coping with social engagement due to cognitive impairment or mental disorder."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucMentalAssessment",
+  "ListElementCode" : "gettingAbout",
+  "ListElement" : "15. Getting about."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucMentalAssessment",
+  "ListElementCode" : "copingWithChange",
+  "ListElement" : "14. Coping with change."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucMentalAssessment",
+  "ListElementCode" : "personalAction",
+  "ListElement" : "13. Initiating and completing personal action (which means planning, organisation, problem solving, prioritising or switching tasks)."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucMentalAssessment",
+  "ListElementCode" : "awarenessOfHazards",
+  "ListElement" : "12. Awareness of everyday hazards (such as boiling water or sharp objects)."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucMentalAssessment",
+  "ListElementCode" : "learningTasks",
+  "ListElement" : "11. Learning tasks."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionMobilisingUnaidedQuestion",
+  "ListElementCode" : "mobilisingUnaided1e",
+  "ListElement" : "1e. None of the above applies. (0 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionMobilisingUnaidedQuestion",
+  "ListElementCode" : "mobilisingUnaided1d",
+  "ListElement" : "1d. Cannot, unaided by another person, either: mobilise more than 200 metres on level ground without stopping in order to avoid significant discomfort or exhaustion; or (ii) repeatedly mobilise 200 metres within a reasonable timescale because of significant discomfort or exhaustion. (6 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionMobilisingUnaidedQuestion",
+  "ListElementCode" : "mobilisingUnaided1c",
+  "ListElement" : "1c. Cannot, unaided by another person, either: (i) mobilise more than 100 metres on level ground without stopping in order to avoid significant discomfort or exhaustion; or (ii) repeatedly mobilise 100 metres within a reasonable timescale because of significant discomfort or exhaustion. (9 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionMobilisingUnaidedQuestion",
+  "ListElementCode" : "mobilisingUnaided1b",
+  "ListElement" : "1b. Cannot, unaided by another person, mount or descend two steps even with the support of a handrail. (9 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionMobilisingUnaidedQuestion",
+  "ListElementCode" : "mobilisingUnaided1a",
+  "ListElement" : "1a. Cannot, unaided by another person, either: (i) mobilise more than 50 metres on level ground without stopping in order to avoid significant discomfort or exhaustion; or (ii) repeatedly mobilise 50 metres within a reasonable timescale because of significant discomfort or exhaustion. (15 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionStandingAndSittingQuestion",
+  "ListElementCode" : "standingAndSitting2d",
+  "ListElement" : "2d. None of the above applies. (0 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionStandingAndSittingQuestion",
+  "ListElementCode" : "standingAndSitting2c",
+  "ListElement" : "2c. Cannot, for the majority of the time, remain at a work station: (i) standing unassisted by another person (even if free to move around); (ii) sitting (even in an adjustable chair); or (iii) a combination of paragraphs (i) and (ii), for more than an hour before needing to move away in order to avoid significant discomfort or exhaustion. (6 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionStandingAndSittingQuestion",
+  "ListElementCode" : "standingAndSitting2b",
+  "ListElement" : "2b. Cannot, for the majority of the time, remain at a work station: (i) standing unassisted by another person (even if free to move around); (ii) sitting (even in an adjustable chair); or (iii) a combination of paragraphs (i) and (ii), for more than 30 minutes, before needing to move away in order to avoid significant discomfort or exhaustion. (9 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionStandingAndSittingQuestion",
+  "ListElementCode" : "standingAndSitting2a",
+  "ListElement" : "2a. Cannot move between one seated position and another seated position which are located next to one another without receiving physical assistance from another person. (15 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionReachingQuestion",
+  "ListElementCode" : "reaching3d",
+  "ListElement" : "3d. None of the above applies. (0 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionReachingQuestion",
+  "ListElementCode" : "reaching3c",
+  "ListElement" : "3c. Cannot raise either arm above head height as if to reach for something. (6 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionReachingQuestion",
+  "ListElementCode" : "reaching3b",
+  "ListElement" : "3b. Cannot raise either arm to top of head as if to put on a hat. (9 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionReachingQuestion",
+  "ListElementCode" : "reaching3a",
+  "ListElement" : "3a. Cannot raise either arm as if to put something in the top pocket of a coat or jacket. (15 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionPickingUpQuestion",
+  "ListElementCode" : "pickingUp4d",
+  "ListElement" : "4d. None of the above applies. (0 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionPickingUpQuestion",
+  "ListElementCode" : "pickingUp4c",
+  "ListElement" : "4c. Cannot transfer a light but bulky object such as an empty cardboard box. (6 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionPickingUpQuestion",
+  "ListElementCode" : "pickingUp4b",
+  "ListElement" : "4b. Cannot pick up and move a one litre carton full of liquid. (9 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionPickingUpQuestion",
+  "ListElementCode" : "pickingUp4a",
+  "ListElement" : "4a. Cannot pick up and move a 0.5 litre carton full of liquid. (15 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionManualDexterityQuestion",
+  "ListElementCode" : "manualDexterity5e",
+  "ListElement" : "5e. None of the above applies. (0 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionManualDexterityQuestion",
+  "ListElementCode" : "manualDexterity5d",
+  "ListElement" : "5d. Cannot single-handedly use a suitable keyboard or mouse. (9 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionManualDexterityQuestion",
+  "ListElementCode" : "manualDexterity5c",
+  "ListElement" : "5c. Cannot use a pen or pencil to make a meaningful mark with either hand. (9 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionManualDexterityQuestion",
+  "ListElementCode" : "manualDexterity5b",
+  "ListElement" : "5b. Cannot pick up a £1 coin or equivalent with either hand. (15 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionManualDexterityQuestion",
+  "ListElementCode" : "manualDexterity5a",
+  "ListElement" : "5a. Cannot press a button (such as a telephone keypad) with either hand or cannot turn the pages of a book with either hand. (15 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionMakingSelfUnderstoodQuestion",
+  "ListElementCode" : "manualDexterity6d",
+  "ListElement" : "6d. None of the above applies. (0 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionMakingSelfUnderstoodQuestion",
+  "ListElementCode" : "manualDexterity6c",
+  "ListElement" : "6c. Has some difficulty conveying a simple message to strangers. (6 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionMakingSelfUnderstoodQuestion",
+  "ListElementCode" : "manualDexterity6b",
+  "ListElement" : "6b. Has significant difficulty conveying a simple message to strangers. (15 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionMakingSelfUnderstoodQuestion",
+  "ListElementCode" : "manualDexterity6a",
+  "ListElement" : "6a. Cannot convey a simple message, such as the presence of a hazard. (15 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionCommunicationQuestion",
+  "ListElementCode" : "decisionCommunication7d",
+  "ListElement" : "7d. None of the above applies. (0 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionCommunicationQuestion",
+  "ListElementCode" : "decisionCommunication7c",
+  "ListElement" : "7c. Has some difficulty understanding a simple message from a stranger due to sensory impairment. (6 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionCommunicationQuestion",
+  "ListElementCode" : "decisionCommunication7b",
+  "ListElement" : "7b. Has significant difficulty understanding a simple message from a stranger due to sensory impairment. (15 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionCommunicationQuestion",
+  "ListElementCode" : "decisionCommunication7a",
+  "ListElement" : "7a. Cannot understand a simple message, such as the location of a fire escape, due to sensory impairment. (15 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionNavigationQuestion",
+  "ListElementCode" : "decisionNavigation8d",
+  "ListElement" : "8d. None of the above applies. (0 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionNavigationQuestion",
+  "ListElementCode" : "decisionNavigation8c",
+  "ListElement" : "8c. Unable to navigate around unfamiliar surroundings, without being accompanied by another person, due to sensory impairment. (9 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionNavigationQuestion",
+  "ListElementCode" : "decisionNavigation8b",
+  "ListElement" : "8b. Cannot safely complete a potentially hazardous task such as crossing the road, without being accompanied by another person, due to sensory impairment. (15 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionNavigationQuestion",
+  "ListElementCode" : "decisionNavigation8a",
+  "ListElement" : "8a. Unable to navigate around familiar surroundings, without being accompanied by another person, due to sensory impairment. (15 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionLossOfControlQuestion",
+  "ListElementCode" : "lossOfControl9c",
+  "ListElement" : "9c. Neither of the above applies. (0 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionLossOfControlQuestion",
+  "ListElementCode" : "lossOfControl9b",
+  "ListElement" : "9b. The majority of the time is at risk of loss of control leading to extensive evacuation of the bowel and/or voiding of the bladder, sufficient to require cleaning and a change in clothing, if not able to reach a toilet quickly. (6 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionLossOfControlQuestion",
+  "ListElementCode" : "lossOfControl9a",
+  "ListElement" : "9a. At least once a month experiences: (i) loss of control leading to extensive evacuation of the bowel and/or voiding of the bladder; or (ii) substantial leakage of the contents of a collecting device, sufficient to require cleaning and a change in clothing. (15 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionConsciousnessQuestion",
+  "ListElementCode" : "consciousness10c",
+  "ListElement" : "10c. Neither of the above applies. (0 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionConsciousnessQuestion",
+  "ListElementCode" : "consciousness10b",
+  "ListElement" : "10b. At least once a month, has an involuntary episode of lost or altered consciousness resulting in significantly disrupted awareness or concentration. (6 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionConsciousnessQuestion",
+  "ListElementCode" : "consciousness10a",
+  "ListElement" : "10a. At least once a week, has an involuntary episode of lost or altered consciousness resulting in significantly disrupted awareness or concentration. (15 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionLearningTasksQuestion",
+  "ListElementCode" : "learningTasks11d",
+  "ListElement" : "11d. None of the above applies. (0 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionLearningTasksQuestion",
+  "ListElementCode" : "learningTasks11c",
+  "ListElement" : "11c. Cannot learn anything beyond a moderately complex task, such as the steps involved in operating a washing machine to clean clothes. (6 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionLearningTasksQuestion",
+  "ListElementCode" : "learningTasks11b",
+  "ListElement" : "11b. Cannot learn anything beyond a simple task, such as setting an alarm clock. (9 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionLearningTasksQuestion",
+  "ListElementCode" : "learningTasks11a",
+  "ListElement" : "11a. Cannot learn how to complete a simple task, such as setting an alarm clock. (15 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionAwarenessOfHazardsQuestion",
+  "ListElementCode" : "awarenessOfHazards12d",
+  "ListElement" : "12d. None of the above applies. (0 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionAwarenessOfHazardsQuestion",
+  "ListElementCode" : "awarenessOfHazards12c",
+  "ListElement" : "12c. Reduced awareness of everyday hazards leads to a significant risk of: (i) injury to self or others; or (ii) damage to property or possessions, such that the claimant occasionally requires supervision to maintain safety. (6 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionAwarenessOfHazardsQuestion",
+  "ListElementCode" : "awarenessOfHazards12b",
+  "ListElement" : "12b. Reduced awareness of everyday hazards leads to a significant risk of: (i) injury to self or others; or (ii) damage to property or possessions, such that the claimant frequently requires supervision to maintain safety. (9 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionAwarenessOfHazardsQuestion",
+  "ListElementCode" : "awarenessOfHazards12a",
+  "ListElement" : "12a. Reduced awareness of everyday hazards leads to a significant risk of: (i) injury to self or others; or (ii) damage to property or possessions, such that the claimant requires supervision for the majority of the time to maintain safety. (15 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionPersonalActionQuestion",
+  "ListElementCode" : "personalAction13d",
+  "ListElement" : "13d. None of the above applies. (0 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionPersonalActionQuestion",
+  "ListElementCode" : "personalAction13c",
+  "ListElement" : "13c. Frequently cannot, due to impaired mental function, reliably initiate or complete at least two sequential personal actions. (6 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionPersonalActionQuestion",
+  "ListElementCode" : "personalAction13b",
+  "ListElement" : "13b. Cannot, due to impaired mental function, reliably initiate or complete at least two sequential personal actions for the majority of the time. (9 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionPersonalActionQuestion",
+  "ListElementCode" : "personalAction13a",
+  "ListElement" : "13a. Cannot, due to impaired mental function, reliably initiate or complete at least two sequential personal actions. (15 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionCopingWithChangeQuestion",
+  "ListElementCode" : "copingWithChange14d",
+  "ListElement" : "14d. None of the above applies. (0 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionCopingWithChangeQuestion",
+  "ListElementCode" : "copingWithChange14c",
+  "ListElement" : "14c. Cannot cope with minor unplanned change (such as the timing of an appointment on the day it is due to occur), to the extent that, overall, day to day life is made significantly more difficult. (6 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionCopingWithChangeQuestion",
+  "ListElementCode" : "copingWithChange14b",
+  "ListElement" : "14b. Cannot cope with minor planned change (such as a pre- arranged change to the routine time scheduled for a lunch break), to the extent that, overall, day to day life is made significantly more difficult. (9 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionCopingWithChangeQuestion",
+  "ListElementCode" : "copingWithChange14a",
+  "ListElement" : "14a. Cannot cope with any change to the extent that day to day life cannot be managed. (15 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionGettingAboutQuestion",
+  "ListElementCode" : "gettingAbout15d",
+  "ListElement" : "15d. None of the above applies. (0 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionGettingAboutQuestion",
+  "ListElementCode" : "gettingAbout15c",
+  "ListElement" : "15c. Is unable to get to a specified place with which the claimant is unfamiliar without being accompanied by another person. (6 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionGettingAboutQuestion",
+  "ListElementCode" : "gettingAbout15b",
+  "ListElement" : "15b. Is unable to get to a specified place with which the claimant is familiar, without being accompanied by another person. (9 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionGettingAboutQuestion",
+  "ListElementCode" : "gettingAbout15a",
+  "ListElement" : "15a. Cannot get to any place outside the claimant’s home with which the claimant is familiar. (15 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionSocialEngagementQuestion",
+  "ListElementCode" : "socialEngagement16d",
+  "ListElement" : "16d. None of the above applies. (0 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionSocialEngagementQuestion",
+  "ListElementCode" : "socialEngagement16c",
+  "ListElement" : "16c. Engagement in social contact with someone unfamiliar to the claimant is not possible for the majority of the time due to difficulty relating to others or significant distress experienced by the claimant. (6 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionSocialEngagementQuestion",
+  "ListElementCode" : "socialEngagement16b",
+  "ListElement" : "16b. Engagement in social contact with someone unfamiliar to the claimant is always precluded due to difficulty relating to others or significant distress experienced by the claimant. (9 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionSocialEngagementQuestion",
+  "ListElementCode" : "socialEngagement16a",
+  "ListElement" : "16a. Engagement in social contact is always precluded due to difficulty relating to others or significant distress experienced by the claimant. (15 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionBehaviourQuestion",
+  "ListElementCode" : "appropriatenessOfBehaviour17d",
+  "ListElement" : "17d. None of the above applies. (0 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionBehaviourQuestion",
+  "ListElementCode" : "appropriatenessOfBehaviour17c",
+  "ListElement" : "17c. Occasionally has uncontrollable episodes of aggressive or disinhibited behaviour that would be unreasonable in any workplace. (9 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionBehaviourQuestion",
+  "ListElementCode" : "appropriatenessOfBehaviour17b",
+  "ListElement" : "17b. Frequently has uncontrollable episodes of aggressive or disinhibited behaviour that would be unreasonable in any workplace. (15 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_ucWriteFinalDecisionBehaviourQuestion",
+  "ListElementCode" : "appropriatenessOfBehaviour17a",
+  "ListElement" : "17a. Has, on a daily basis, uncontrollable episodes of aggressive or disinhibited behaviour that would be unreasonable in any workplace. (15 points)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_schedule7Activities",
+  "ListElementCode" : "schedule7ChewingOrSwallowing",
+  "ListElement" : "16. Chewing or swallowing food or drink. (a) Cannot chew or swallow food or drink; (b) Cannot chew or swallow food or drink without repeatedly stopping or experiencing breathlessness or severe discomfort; (c) Cannot chew or swallow food or drink without repeatedly receiving regular prompting given by someone else in the claimant’s presence; or (d) Owing to a severe disorder of mood or behaviour, fails to: (i) chew or swallow food or drink; or (ii) chew or swallow food or drink without regular prompting given by someone else in the claimant’s presence."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_schedule7Activities",
+  "ListElementCode" : "schedule7ConveyingFoodOrDrink",
+  "ListElement" : "15. Conveying food or drink to the mouth. (a) Cannot convey food or drink to the claimant’s own mouth without receiving physical assistance from someone else; (b) Cannot convey food or drink to the claimant’s own mouth without repeatedly stopping or experiencing breathlessness or severe discomfort; (c) Cannot convey food or drink to the claimant’s own mouth without receiving regular prompting given by someone else in the claimant’s presence; or (d) Owing to a severe disorder of mood or behaviour, fails to convey food or drink to the claimant’s own mouth without receiving: (i) physical assistance from someone else; or (ii) regular prompting given by someone else in the claimant’s presence."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_schedule7Activities",
+  "ListElementCode" : "schedule7AppropriatenessOfBehaviour",
+  "ListElement" : "14. Appropriateness of behaviour with other people, due to cognitive impairment or mental disorder. Has, on a daily basis, uncontrollable episodes of aggressive or disinhibited behaviour that would be unreasonable in any workplace."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_schedule7Activities",
+  "ListElementCode" : "schedule7SocialEngagement",
+  "ListElement" : "13. Coping with social engagement, due to cognitive impairment or mental disorder. Engagement in social contact is always precluded due to difficulty relating to others or significant distress experienced by the claimant."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_schedule7Activities",
+  "ListElementCode" : "schedule7CopingWithChange",
+  "ListElement" : "12. Coping with change. Cannot cope with any change, due to cognitive impairment or mental disorder, to the extent that day to day life cannot be managed."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_schedule7Activities",
+  "ListElementCode" : "schedule7PersonalAction",
+  "ListElement" : "11. Initiating and completing personal action (which means planning, organisation, problem solving, prioritising or switching tasks). Cannot, due to impaired mental function, reliably initiate or complete at least two sequential personal actions."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_schedule7Activities",
+  "ListElementCode" : "schedule7AwarenessOfHazards",
+  "ListElement" : "10. Awareness of hazard. Reduced awareness of everyday hazards, due to cognitive impairment or mental disorder, leads to a significant risk of: (a) injury to self or others; or (b) damage to property or possessions, such that the claimant requires supervision for the majority of the time to maintain safety."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_schedule7Activities",
+  "ListElementCode" : "schedule7LearningTasks",
+  "ListElement" : "9. Learning tasks. Cannot learn how to complete a simple task, such as setting an alarm clock, due to cognitive impairment or mental disorder."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_schedule7Activities",
+  "ListElementCode" : "schedule7LossOfControl",
+  "ListElement" : "8. Absence or loss of control whilst conscious leading to extensive evacuation of the bowel and/or voiding of the bladder, other than enuresis (bed-wetting), despite the wearing or use of any aids or adaptations which are normally or could reasonably be worn or used."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_schedule7Activities",
+  "ListElementCode" : "schedule7Communication",
+  "ListElement" : "7. Understanding communication by: (i) verbal means (such as hearing or lip reading) alone; (ii) non-verbal means (such as reading 16 point print or Braille) alone; or (iii) a combination of sub- paragraphs (i)  and (ii), using any aid that is normally, or could reasonably, be used unaided by another person. Cannot understand a simple message, such as the location of a fire escape, due to sensory impairment."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_schedule7Activities",
+  "ListElementCode" : "schedule7MakingSelfUnderstood",
+  "ListElement" : "6. Making self understood through speaking, writing, typing, or other means which are normally, or could reasonably be, used unaided by another person. Cannot convey a simple message, such as the presence of a hazard."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_schedule7Activities",
+  "ListElementCode" : "schedule7ManualDexterity",
+  "ListElement" : "5. Manual dexterity. Cannot press a button (such as a telephone keypad) with either hand or cannot turn the pages of a book with either hand."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_schedule7Activities",
+  "ListElementCode" : "schedule7PickingUp",
+  "ListElement" : "4. Picking up and moving or transferring by the use of the upper body and arms (excluding standing, sitting, bending or kneeling and all other activities specified in this Schedule). Cannot pick up and move a 0.5 litre carton full of liquid."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_schedule7Activities",
+  "ListElementCode" : "schedule7Reaching",
+  "ListElement" : "3. Reaching. Cannot raise either arm as if to put something in the top pocket of a coat or jacket."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_schedule7Activities",
+  "ListElementCode" : "schedule7SittingPositions",
+  "ListElement" : "2. Transferring from one seated position to another. Cannot move between one seated position and another seated position located next to one another without receiving physical assistance from another person."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_schedule7Activities",
+  "ListElementCode" : "schedule7MobilisingUnaided",
+  "ListElement" : "1. Mobilising unaided by another person with or without a walking stick, manual wheelchair or other aid if such aid is normally or could reasonably be worn or used. Cannot either: (a) mobilise more than 50 metres on level ground without stopping in order to avoid significant discomfort or exhaustion; or (b) repeatedly mobilise 50 metres within a reasonable timescale because of significant discomfort or exhaustion."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "zulu",
+  "ListElement" : "Zulu"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "zaza",
+  "ListElement" : "Zaza"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "zaghawa",
+  "ListElement" : "Zaghawa"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "yoruba",
+  "ListElement" : "Yoruba"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "xhosa",
+  "ListElement" : "Xhosa"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "wolof",
+  "ListElement" : "Wolof"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "welsh",
+  "ListElement" : "Welsh"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "visayan",
+  "ListElement" : "Visayan"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "vietnamese",
+  "ListElement" : "Vietnamese"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "uzbek",
+  "ListElement" : "Uzbek"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "urohobo",
+  "ListElement" : "Urohobo"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "urdu",
+  "ListElement" : "Urdu"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "ukrainian",
+  "ListElement" : "Ukrainian"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "uighur",
+  "ListElement" : "Uighur"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "twi",
+  "ListElement" : "Twi"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "turkmen",
+  "ListElement" : "Turkmen"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "turkish",
+  "ListElement" : "Turkish"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "training",
+  "ListElement" : "Training"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "toura",
+  "ListElement" : "Toura"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "tigrinya",
+  "ListElement" : "Tigrinya"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "tigre",
+  "ListElement" : "Tigre"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "tibetan",
+  "ListElement" : "Tibetan"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "thai",
+  "ListElement" : "Thai"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "temne",
+  "ListElement" : "Temne"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "telugu",
+  "ListElement" : "Telugu"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "tamil",
+  "ListElement" : "Tamil"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "taiwanese",
+  "ListElement" : "Taiwanese"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "tagalog",
+  "ListElement" : "Tagalog"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "sylheti",
+  "ListElement" : "Sylheti"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "swedish",
+  "ListElement" : "Swedish"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "swahili",
+  "ListElement" : "Swahili"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "susu",
+  "ListElement" : "Susu"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "spanish",
+  "ListElement" : "Spanish"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "somali",
+  "ListElement" : "Somali"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "slovenian",
+  "ListElement" : "Slovenian"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "slovak",
+  "ListElement" : "Slovak"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "sinhalese",
+  "ListElement" : "Sinhalese"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "sindhi",
+  "ListElement" : "Sindhi"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "signPalantypist",
+  "ListElement" : "Sign Palantypist/Speech to TX"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "signLanguage (Others",
+  "ListElement" : "Sign Language (Others)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "signVisualFrame",
+  "ListElement" : "Sign (Visual Frame)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "signSse",
+  "ListElement" : "Sign (SSE)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "signRelay",
+  "ListElement" : "Sign (Relay)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "signNoteTaker",
+  "ListElement" : "Sign (Note Taker)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "signManualAlphabet",
+  "ListElement" : "Sign (Manual Alphabet)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "signMakaton",
+  "ListElement" : "Sign (Makaton)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "signLipSpeaker",
+  "ListElement" : "Sign (Lip Speaker)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "signInternationalSign",
+  "ListElement" : "Sign (International Sign)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "signDeafBlind",
+  "ListElement" : "Sign (Deaf Blind ‑ Hands on)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "signBsl",
+  "ListElement" : "Sign (BSL)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "signAmericanSign",
+  "ListElement" : "Sign (American Sign)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "shona",
+  "ListElement" : "Shona"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "shina",
+  "ListElement" : "Shina"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "setswana",
+  "ListElement" : "Setswana"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "serboCroatian",
+  "ListElement" : "Serbo‑Croatian"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "senegalWolof",
+  "ListElement" : "Senegal (Wolof)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "senegalFrench",
+  "ListElement" : "Senegal (French) Olof Dialect"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "sarpo",
+  "ListElement" : "Sarpo"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "saraiki",
+  "ListElement" : "Saraiki (Seraiki)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "sarahuleh",
+  "ListElement" : "Sarahuleh"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "rutoro",
+  "ListElement" : "Rutoro"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "russian",
+  "ListElement" : "Russian"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "runyoro",
+  "ListElement" : "Runyoro"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "rukiga",
+  "ListElement" : "Rukiga"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "romany",
+  "ListElement" : "Romany"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "romanian",
+  "ListElement" : "Romanian"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "roma",
+  "ListElement" : "Roma"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "putonghue",
+  "ListElement" : "Putonghue"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "pushtu",
+  "ListElement" : "Pushtu (Also Known As Pashto)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "punjabiPakistani",
+  "ListElement" : "Punjabi (Pakistani)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "punjabiIndian",
+  "ListElement" : "Punjabi (Indian)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "punjabi",
+  "ListElement" : "Punjabi"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "pothohari",
+  "ListElement" : "Pothohari"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "portuguese",
+  "ListElement" : "Portuguese"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "polish",
+  "ListElement" : "Polish"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "pidginEnglish",
+  "ListElement" : "Pidgin English"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "patois",
+  "ListElement" : "Patois"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "pathwari",
+  "ListElement" : "Pathwari"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "pangasinan",
+  "ListElement" : "Pangasinan"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "pampangan",
+  "ListElement" : "Pampangan"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "pahari",
+  "ListElement" : "Pahari"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "oromo",
+  "ListElement" : "Oromo"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "nzima",
+  "ListElement" : "Nzima"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "norwegian",
+  "ListElement" : "Norwegian"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "ngwa",
+  "ListElement" : "Ngwa"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "nepali",
+  "ListElement" : "Nepali"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "ndebele",
+  "ListElement" : "Ndebele"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "navsari",
+  "ListElement" : "Navsari"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "monokutuba",
+  "ListElement" : "Monokutuba"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "mongolian",
+  "ListElement" : "Mongolian"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "moldovan",
+  "ListElement" : "Moldovan"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "mirpuri",
+  "ListElement" : "Mirpuri"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "mina",
+  "ListElement" : "Mina"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "mende",
+  "ListElement" : "Mende"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "marathi",
+  "ListElement" : "Marathi"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "mandinka",
+  "ListElement" : "Mandinka"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "mandarin",
+  "ListElement" : "Mandarin"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "maltese",
+  "ListElement" : "Maltese"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "malinke",
+  "ListElement" : "Malinke"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "maldivian",
+  "ListElement" : "Maldivian"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "malayalam",
+  "ListElement" : "Malayalam"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "malay",
+  "ListElement" : "Malay"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "maghreb",
+  "ListElement" : "Maghreb"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "macedonian",
+  "ListElement" : "Macedonian"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "lutoro",
+  "ListElement" : "Lutoro"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "lusoga",
+  "ListElement" : "Lusoga"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "luoUgandanLango",
+  "ListElement" : "Luo (Ugandan[Lango District])"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "luoUgandanAcholi",
+  "ListElement" : "Luo (Ugandan[Acholi District])"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "luoKenyan",
+  "ListElement" : "Luo (Kenyan)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "luo",
+  "ListElement" : "Luo"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "lunyankole",
+  "ListElement" : "Lunyankole"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "lugisa",
+  "ListElement" : "Lugisa"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "lugandan",
+  "ListElement" : "Lugandan"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "lubaTshiluba",
+  "ListElement" : "Luba (Tshiluba)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "lithuanian",
+  "ListElement" : "Lithuanian"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "lingala",
+  "ListElement" : "Lingala"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "latvian",
+  "ListElement" : "Latvian"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "lango",
+  "ListElement" : "Lango"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "kyrgyz",
+  "ListElement" : "Kyrgyz"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "kutchi",
+  "ListElement" : "Kutchi"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "kurdishSorani",
+  "ListElement" : "Kurdish (Sorani)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "kurdishKurmanji",
+  "ListElement" : "Kurdish (Kurmanji)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "kurdishBardini",
+  "ListElement" : "Kurdish (Bardini)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "kru",
+  "ListElement" : "Kru"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "krio",
+  "ListElement" : "Krio (Sierra Leone)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "korean",
+  "ListElement" : "Korean"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "konkani",
+  "ListElement" : "Konkani"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "kiswahili",
+  "ListElement" : "Kiswahili"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "kisakata",
+  "ListElement" : "Kisakata"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "kirundi",
+  "ListElement" : "Kirundi"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "kinyarwandan",
+  "ListElement" : "Kinyarwandan"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "kikuyu",
+  "ListElement" : "Kikuyu"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "kikongo",
+  "ListElement" : "Kikongo"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "kichagga",
+  "ListElement" : "Kichagga"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "kibanjuni",
+  "ListElement" : "Kibanjuni"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "kibajuni",
+  "ListElement" : "Kibajuni,Kibanjuni,Bajuni,Ban"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "khymer",
+  "ListElement" : "Khymer Khymer"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "khmer",
+  "ListElement" : "Khmer"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "khalanga",
+  "ListElement" : "Khalanga"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "kashmiri",
+  "ListElement" : "Kashmiri"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "karaninka",
+  "ListElement" : "Karaninka"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "kachi",
+  "ListElement" : "Kachi"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "javanese",
+  "ListElement" : "Javanese"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "japanese",
+  "ListElement" : "Japanese"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "jamaican",
+  "ListElement" : "Jamaican"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "italian",
+  "ListElement" : "Italian"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "isoko",
+  "ListElement" : "Isoko"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "ishan",
+  "ListElement" : "Ishan"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "indonesian",
+  "ListElement" : "Indonesian"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "ilocano",
+  "ListElement" : "Ilocano"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "igbo",
+  "ListElement" : "Igbo (Also Known As Ibo)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "ibibio",
+  "ListElement" : "Ibibio"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "hungarian",
+  "ListElement" : "Hungarian"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "hokkien",
+  "ListElement" : "Hokkien"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "hindko",
+  "ListElement" : "Hindko"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "hindi",
+  "ListElement" : "Hindi"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "herero",
+  "ListElement" : "Herero"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "hendko",
+  "ListElement" : "Hendko"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "hebrew",
+  "ListElement" : "Hebrew"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "hausa",
+  "ListElement" : "Hausa"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "hakka",
+  "ListElement" : "Hakka"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "guran",
+  "ListElement" : "Guran"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "gurage",
+  "ListElement" : "Gurage"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "gujarati",
+  "ListElement" : "Gujarati"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "greek",
+  "ListElement" : "Greek"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "gorani",
+  "ListElement" : "Gorani"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "german",
+  "ListElement" : "German"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "georgian",
+  "ListElement" : "Georgian"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "gallacian",
+  "ListElement" : "Gallacian"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "ga",
+  "ListElement" : "Ga"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "fula",
+  "ListElement" : "Fula"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "frenchArabic",
+  "ListElement" : "French (Arabic)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "frenchAfrican",
+  "ListElement" : "French (African)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "french",
+  "ListElement" : "French"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "flemish",
+  "ListElement" : "Flemish"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "fijian",
+  "ListElement" : "Fijian"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "feili",
+  "ListElement" : "Feili"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "farsi",
+  "ListElement" : "Farsi"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "fanti",
+  "ListElement" : "Fanti"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "ewondo",
+  "ListElement" : "Ewondo"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "ewe",
+  "ListElement" : "Ewe"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "estonian",
+  "ListElement" : "Estonian"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "emakhuna",
+  "ListElement" : "Emakhuna"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "efik",
+  "ListElement" : "Efik"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "edo",
+  "ListElement" : "Edo/Benin"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "dutch",
+  "ListElement" : "Dutch"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "douala",
+  "ListElement" : "Douala"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "dioula",
+  "ListElement" : "Dioula"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "dinka",
+  "ListElement" : "Dinka"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "dari",
+  "ListElement" : "Dari"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "danish",
+  "ListElement" : "Danish"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "czech",
+  "ListElement" : "Czech"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "creoleSpanish",
+  "ListElement" : "Creole (Spanish)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "creolePortuguese",
+  "ListElement" : "Creole (Portuguese)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "creoleFrench",
+  "ListElement" : "Creole (French)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "creoleEnglish",
+  "ListElement" : "Creole (English)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "chittagonain",
+  "ListElement" : "Chittagonain"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "chichewa",
+  "ListElement" : "Chichewa"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "chechen",
+  "ListElement" : "Chechen"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "cebuano",
+  "ListElement" : "Cebuano"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "cantonese",
+  "ListElement" : "Cantonese"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "cambellpuri",
+  "ListElement" : "Cambellpuri"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "burmese",
+  "ListElement" : "Burmese"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "bulgarian",
+  "ListElement" : "Bulgarian"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "brong",
+  "ListElement" : "Brong"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "bravanese",
+  "ListElement" : "Bravanese"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "bilin",
+  "ListElement" : "Bilin"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "bihari",
+  "ListElement" : "Bihari"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "bhutanese",
+  "ListElement" : "Bhutanese"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "bharuchi",
+  "ListElement" : "Bharuchi"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "berber",
+  "ListElement" : "Berber"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "benin",
+  "ListElement" : "Benin/Edo"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "bengaliSylheti",
+  "ListElement" : "Bengali (Sylheti)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "bengali",
+  "ListElement" : "Bengali"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "benba",
+  "ListElement" : "Benba (Bemba)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "belorussian",
+  "ListElement" : "Belorussian"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "bassa",
+  "ListElement" : "Bassa"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "bardini",
+  "ListElement" : "Bardini"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "banjuni",
+  "ListElement" : "Banjuni"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "bambara",
+  "ListElement" : "Bambara"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "baluchi",
+  "ListElement" : "Baluchi"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "bajuni",
+  "ListElement" : "Bajuni"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "bajan",
+  "ListElement" : "Bajan (West Indian)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "azerbajani",
+  "ListElement" : "Azerbajani (aka Nth Azari)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "azari",
+  "ListElement" : "Azari"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "ateso",
+  "ListElement" : "Ateso"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "assyrian",
+  "ListElement" : "Assyrian"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "ashanti",
+  "ListElement" : "Ashanti"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "armenian",
+  "ListElement" : "Armenian"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "arabicNorthAfrican",
+  "ListElement" : "Arabic (North African)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "arabicMiddleEastern",
+  "ListElement" : "Arabic (Middle Eastern)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "arabic",
+  "ListElement" : "Arabic"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "amharic",
+  "ListElement" : "Amharic"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "algerian",
+  "ListElement" : "Algerian"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "albanian",
+  "ListElement" : "Albanian"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "akan",
+  "ListElement" : "Akan"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "afrikaans",
+  "ListElement" : "Afrikaans"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_languages",
+  "ListElementCode" : "acholi",
+  "ListElement" : "Acholi"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "eventType",
+  "ListElementCode" : "appealCreated",
+  "ListElement" : "Appeal Created"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "eventType",
+  "ListElementCode" : "updateCaseData",
+  "ListElement" : "Case Updated"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "eventType",
+  "ListElementCode" : "appealLapsed",
+  "ListElement" : "Appeal Lapsed"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "eventType",
+  "ListElementCode" : "appealReceived",
+  "ListElement" : "Appeal Received"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "eventType",
+  "ListElementCode" : "appealWithdrawn",
+  "ListElement" : "Appeal Withdrawn"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "eventType",
+  "ListElementCode" : "evidenceReceived",
+  "ListElement" : "Evidence Received"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "eventType",
+  "ListElementCode" : "evidenceReminder",
+  "ListElement" : "Evidence Reminder"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "eventType",
+  "ListElementCode" : "hearingBooked",
+  "ListElement" : "Hearing Booked"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "eventType",
+  "ListElementCode" : "hearingReminder",
+  "ListElement" : "Hearing Reminder"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "eventType",
+  "ListElementCode" : "hearingPostponed",
+  "ListElement" : "Hearing Postponed"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "eventType",
+  "ListElementCode" : "hearingAdjourned",
+  "ListElement" : "Hearing Adjourned"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "eventType",
+  "ListElementCode" : "responseReceived",
+  "ListElement" : "Response received"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "eventType",
+  "ListElementCode" : "appealDormant",
+  "ListElement" : "Appeal Dormant"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "hearingType",
+  "ListElementCode" : "oral",
+  "ListElement" : "Oral"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "hearingType",
+  "ListElementCode" : "paper",
+  "ListElement" : "Paper"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "hearingArrangementOptions",
+  "ListElementCode" : "signLanguageInterpreter",
+  "ListElement" : "Sign language interpreter"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "hearingArrangementOptions",
+  "ListElementCode" : "hearingLoop",
+  "ListElement" : "Hearing loop"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "hearingArrangementOptions",
+  "ListElementCode" : "disabledAccess",
+  "ListElement" : "Disabled access"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "documentType",
+  "ListElementCode" : "Medical evidence",
+  "ListElement" : "Medical evidence"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "documentType",
+  "ListElementCode" : "Other evidence",
+  "ListElement" : "Other evidence"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "documentType",
+  "ListElementCode" : "DWP response",
+  "ListElement" : "DWP response"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "documentType",
+  "ListElementCode" : "Other document",
+  "ListElement" : "Other document"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "documentType",
+  "ListElementCode" : "Decision Notice",
+  "ListElement" : "Decision Notice"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "documentType",
+  "ListElementCode" : "Direction Notice",
+  "ListElement" : "Directions Notice"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "documentType",
+  "ListElementCode" : "dl6",
+  "ListElement" : "DL6"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "documentType",
+  "ListElementCode" : "dl16",
+  "ListElement" : "DL16"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "documentType",
+  "ListElementCode" : "appellantEvidence",
+  "ListElement" : "Appellant evidence"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "documentType",
+  "ListElementCode" : "representativeEvidence",
+  "ListElement" : "Representative evidence"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "documentType",
+  "ListElementCode" : "dwpEvidence",
+  "ListElement" : "DWP evidence"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "documentType",
+  "ListElementCode" : "at38",
+  "ListElement" : "AT38"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "documentType",
+  "ListElementCode" : "sscs1",
+  "ListElement" : "SSCS1"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "documentType",
+  "ListElementCode" : "tl1Form",
+  "ListElement" : "TL1 form"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "documentType",
+  "ListElementCode" : "draftDecisionNotice",
+  "ListElement" : "Draft Decision Notice"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "documentType",
+  "ListElementCode" : "finalDecisionNotice",
+  "ListElement" : "Final Decision Notice"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "documentType",
+  "ListElementCode" : "draftAdjournmentNotice",
+  "ListElement" : "Draft Adjournment Notice"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "documentType",
+  "ListElementCode" : "adjournmentNotice",
+  "ListElement" : "Adjournment Notice"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "documentType",
+  "ListElementCode" : "jointPartyEvidence",
+  "ListElement" : "Joint party evidence"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "documentTypeFE",
+  "ListElementCode" : "Medical evidence",
+  "ListElement" : "Medical evidence"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "documentTypeFE",
+  "ListElementCode" : "Other evidence",
+  "ListElement" : "Other evidence"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "documentTypeFE",
+  "ListElementCode" : "appellantEvidence",
+  "ListElement" : "Appellant evidence"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "documentTypeFE",
+  "ListElementCode" : "representativeEvidence",
+  "ListElement" : "Representative evidence"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "hearingType",
+  "ListElementCode" : "domiciliary",
+  "ListElement" : "Domiciliary"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "hearingType",
+  "ListElementCode" : "cor",
+  "ListElement" : "Online resolution"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "receivedVia",
+  "ListElementCode" : "Online",
+  "ListElement" : "Online (SYA)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "receivedVia",
+  "ListElementCode" : "Paper",
+  "ListElement" : "Paper (Bulk Scanning)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_timeExtension",
+  "ListElementCode" : "awaitingFurtherEvidence",
+  "ListElement" : "Awaiting further evidence"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_timeExtension",
+  "ListElementCode" : "additionalCustomerContactNTEvidenceRel",
+  "ListElement" : "Awaiting additional customer contact not evidence related"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_timeExtension",
+  "ListElementCode" : "waitingCasePapersStorage",
+  "ListElement" : "Awaiting case papers return from storage"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_timeExtension",
+  "ListElementCode" : "delaysAdminIssues",
+  "ListElement" : "Delays caused by admin issues"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_timeExtension",
+  "ListElementCode" : "dwpStaffing",
+  "ListElement" : "DWP staffing or work backlog at site"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_timeExtension",
+  "ListElementCode" : "otherReasons",
+  "ListElement" : "Other reasons"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_timeExtension",
+  "ListElementCode" : "awaitingFECMG",
+  "ListElement" : "Awaiting further evidence (CMG)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_timeExtension",
+  "ListElementCode" : "delaysCasePapersCMG",
+  "ListElement" : "Delays in obtaining the relevant case papers (CMG)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_timeExtension",
+  "ListElementCode" : "delaysAdminIssuesCMG",
+  "ListElement" : "Delays caused by admin issues (CMG)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_timeExtension",
+  "ListElementCode" : "cmgStaffingCMG",
+  "ListElement" : "CMG staffing or work backlog at site (CMG)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_timeExtension",
+  "ListElementCode" : "variationPpplFirstMadeAppealCMG",
+  "ListElement" : "Variation applications first made at appeal (CMG)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_timeExtension",
+  "ListElementCode" : "editingConfidentialityReqsAllPartiesCMG",
+  "ListElement" : "Editing for confidentiality requests for all parties (CMG)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_timeExtension",
+  "ListElementCode" : "otherReasonsCMG",
+  "ListElement" : "Other reasons (CMG)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_reasonsForChallenge",
+  "ListElementCode" : "groundsForAppeal",
+  "ListElement" : "Grounds for appeal"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_reasonsForChallenge",
+  "ListElementCode" : "lateness",
+  "ListElement" : "Lateness"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_reasonsForChallenge",
+  "ListElementCode" : "noProspectOfSuccess",
+  "ListElement" : "No prospect of success"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_reasonsForChallenge",
+  "ListElementCode" : "outsideJurisdiction",
+  "ListElement" : "Outside jurisdiction"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_reasonsForChallenge",
+  "ListElementCode" : "other",
+  "ListElement" : "Other"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_outcome",
+  "ListElementCode" : "disablementIncreasedNoBenefitAwarded",
+  "ListElement" : "% Disablement Increased, <80%, No Benefit Awarded"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_outcome",
+  "ListElementCode" : "appAttendOralRequestedDNANoReason",
+  "ListElement" : "Appellant to attend - oral requested - did not attend - no reason"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_outcome",
+  "ListElementCode" : "appAttendOralRequestedDNAReasonGiven",
+  "ListElement" : "Appellant to attend - oral requested - did not attend - reason given"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_outcome",
+  "ListElementCode" : "appAttendPaperRequested",
+  "ListElement" : "Appellant to attend - paper requested or no Enquiry Form returned"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_outcome",
+  "ListElementCode" : "decisionInFavourOfAppellant",
+  "ListElement" : "Decision in favour of appellant"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_outcome",
+  "ListElementCode" : "decisionReserved",
+  "ListElement" : "Decision reserved"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_outcome",
+  "ListElementCode" : "decisionRevisedAgainstAppellant",
+  "ListElement" : "Decision revised against appellant"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_outcome",
+  "ListElementCode" : "decisionUpheld",
+  "ListElement" : "Decision upheld"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_outcome",
+  "ListElementCode" : "docsSuppliedNotBeforeTribunalAtHearing",
+  "ListElement" : "Documents supplied but not before the Tribunal at the hearing"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_outcome",
+  "ListElementCode" : "evidenceFurtherResponseFromRespondtReqd",
+  "ListElement" : "Evidence or further Response from Respondent required"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_outcome",
+  "ListElementCode" : "evidenceSubmissionFromAppellantRequired",
+  "ListElement" : "Evidence or submission from Appellant required"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_outcome",
+  "ListElementCode" : "fmeEssential",
+  "ListElement" : "Further medical evidence essential"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_outcome",
+  "ListElementCode" : "insufficientTime",
+  "ListElement" : "Insufficient time to deal with case"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_outcome",
+  "ListElementCode" : "listForSubstantive",
+  "ListElement" : "List For Substantive"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_outcome",
+  "ListElementCode" : "paperCaseNotHeardLackOfTime",
+  "ListElement" : "Listed Paper Case not heard due to lack of time"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_outcome",
+  "ListElementCode" : "noInterpreter",
+  "ListElement" : "No Interpreter"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_outcome",
+  "ListElementCode" : "otherAdminErrors",
+  "ListElement" : "Other administrative errors (specify error)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_outcome",
+  "ListElementCode" : "otherReasonsForAdjourning",
+  "ListElement" : "Other reasons for adjourning"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_outcome",
+  "ListElementCode" : "outwithOutsideJurisdiction",
+  "ListElement" : "Outwith/Outside Jurisdiction"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_outcome",
+  "ListElementCode" : "presentingOfficerToAttend",
+  "ListElement" : "Presenting Officer to attend"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_outcome",
+  "ListElementCode" : "proceedToFullHearing",
+  "ListElement" : "Proceed to full hearing"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_outcome",
+  "ListElementCode" : "referenceRevisedAgainstAppellant",
+  "ListElement" : "Reference, Revised against Appellant"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_outcome",
+  "ListElementCode" : "referenceRevisedFavourAppellant",
+  "ListElement" : "Reference, Revised in Favour of Appellant"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_outcome",
+  "ListElementCode" : "remadeDecisionUpheld",
+  "ListElement" : "Remade Decision Upheld"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_outcome",
+  "ListElementCode" : "respondentFailedToComply",
+  "ListElement" : "Respondent failed to comply with directions"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_outcome",
+  "ListElementCode" : "struckOut",
+  "ListElement" : "Struck out"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_outcome",
+  "ListElementCode" : "struckOutAtHearing",
+  "ListElement" : "Struck out at Hearing"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_outcome",
+  "ListElementCode" : "withdrawnAtHearing",
+  "ListElement" : "Withdrawn at Hearing"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_outcome",
+  "ListElementCode" : "nonCompliantAppealStruckout",
+  "ListElement" : "Non Compliant Appeal, Struck out"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_outcome",
+  "ListElementCode" : "reinstated",
+  "ListElement" : "Reinstated"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_adjournmentReason",
+  "ListElementCode" : "adjournedAllElementsAdjourned",
+  "ListElement" : "Adjourned, All Elements Adjourned"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_adjournmentReason",
+  "ListElementCode" : "adjournedElementsOutstanding",
+  "ListElement" : "Adjourned, element(s) outstanding"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_postponementReason",
+  "ListElementCode" : "postponedDueExclusions",
+  "ListElement" : "Postponed due to Exclusions"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_postponementReason",
+  "ListElementCode" : "postponedDueOtherReasons",
+  "ListElement" : "Postponed due to Other Reasons"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_postponementReason",
+  "ListElementCode" : "postponedIncompleteTribunal",
+  "ListElement" : "Postponed, Incomplete Tribunal"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_postponementReason",
+  "ListElementCode" : "postponedNoReasonGiven",
+  "ListElement" : "Postponed, No Reason Given"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_postponementReason",
+  "ListElementCode" : "postponedOtherPartyUnableAttend",
+  "ListElement" : "Postponed, Other Party Unable to Attend"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_revisedReason",
+  "ListElementCode" : "revisedAssessmentIncreasedShortedPeriod",
+  "ListElement" : "Revised, Assessment Increased, for Shorted Period"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_revisedReason",
+  "ListElementCode" : "revisedAssessmentLessLongerPeriod",
+  "ListElement" : "Revised, Assessment Less, for Longer Period"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_revisedReason",
+  "ListElementCode" : "revisedAssessmentSameLongerPeriod",
+  "ListElement" : "Revised, Assessment the Same, for Longer period"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_requestingParty",
+  "ListElementCode" : "Appellant",
+  "ListElement" : "Appellant"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_requestingParty",
+  "ListElementCode" : "DWP",
+  "ListElement" : "DWP"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_requestingParty",
+  "ListElementCode" : "districtJudge",
+  "ListElement" : "District Judge"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_requestingParty",
+  "ListElementCode" : "originalTribunalJudge",
+  "ListElement" : "Original Tribunal Judge"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_requestingParty",
+  "ListElementCode" : "regionalTribunalJudge",
+  "ListElement" : "Regional Tribunal Judge"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_decisionCorrected",
+  "ListElementCode" : "granted",
+  "ListElement" : "Granted"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_decisionCorrected",
+  "ListElementCode" : "refused",
+  "ListElement" : "Refused"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_decisionMade",
+  "ListElementCode" : "decision",
+  "ListElement" : "Decision made"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_decisionMade",
+  "ListElementCode" : "adjourned",
+  "ListElement" : "Case adjourned"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_waiverDeclaration",
+  "ListElementCode" : "waiverDeclarationText",
+  "ListElement" : "I have carried out a compliance check on the Notification of Appeal, Mandatory Reconsideration Notice and other supporting documents."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_nonCompliantRequirements",
+  "ListElementCode" : "nonCompliantUnsignedAppeal",
+  "ListElement" : "The Appeal was not signed by the Appellant/Appointee."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_nonCompliantRequirements",
+  "ListElementCode" : "nonCompliantNoMRN",
+  "ListElement" : "No MRN submitted in appeal papers by appellant"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_nonCompliantRequirements",
+  "ListElementCode" : "nonCompliantOther",
+  "ListElement" : "Other"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_clerkDelegatedAuthority",
+  "ListElementCode" : "delegatedAuthorityText",
+  "ListElement" : "Using the authority delegated to me by the Senior President of Tribunals under Rule 4 of the Tribunal Procedure Rules (First-tier Tribunal (Social Entitlement Chamber) Rules 2008 I have waived the compliance requirements for the following reason(s):"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_clerkAppealSatisfactionText",
+  "ListElementCode" : "appealSatisfactionText",
+  "ListElement" : "I am satisfied that the appellant has declared their intention to appeal based on the content of the attached Notice of Appeal & MRN submitted by them."
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_clerkOtherReason",
+  "ListElementCode" : "otherReasonWaiver",
+  "ListElement" : "Other"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_InterlocDecision",
+  "ListElementCode" : "Decision Notice",
+  "ListElement" : "Decision Notice"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_InterlocDirection",
+  "ListElementCode" : "Direction Notice",
+  "ListElement" : "Directions Notice"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_interlocWorkflow",
+  "ListElementCode" : "interlocutoryReview",
+  "ListElement" : "Interlocutory Review"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_interlocWorkflow",
+  "ListElementCode" : "reviewByTcw",
+  "ListElement" : "Review by TCW"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_interlocWorkflow",
+  "ListElementCode" : "reviewByJudge",
+  "ListElement" : "Review by Judge"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_interlocWorkflow",
+  "ListElementCode" : "awaitingAdminAction",
+  "ListElement" : "Awaiting Admin Action"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_interlocWorkflow",
+  "ListElementCode" : "awaitingInformation",
+  "ListElement" : "Awaiting Information"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_interlocWorkflow",
+  "ListElementCode" : "none",
+  "ListElement" : "N/A"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_withDwpWorkflow",
+  "ListElementCode" : "sentToDwp",
+  "ListElement" : "Sent to DWP"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_withDwpWorkflow",
+  "ListElementCode" : "failedSending",
+  "ListElement" : "Failed sending"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_withDwpWorkflow",
+  "ListElementCode" : "failedSendingFurtherEvidence",
+  "ListElement" : "Failed sending further evidence"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_withDwpWorkflow",
+  "ListElementCode" : "failedRobotics",
+  "ListElement" : "Failed sending to robotics"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_withDwpWorkflow",
+  "ListElementCode" : "sentToRobotics",
+  "ListElement" : "Sent to robotics"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpWorkFlow",
+  "ListElementCode" : "dwpAppealToBeRegistered",
+  "ListElement" : "Appeal to be registered"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpWorkFlow",
+  "ListElementCode" : "dwpExceptionResponseViaEmail",
+  "ListElement" : "Exception - response via email"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpWorkFlow",
+  "ListElementCode" : "dwpInProgress",
+  "ListElement" : "In-progress"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_isUrgent",
+  "ListElementCode" : "Yes",
+  "ListElement" : "Yes"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_isUrgent",
+  "ListElementCode" : "No",
+  "ListElement" : "No"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "ScannedDocumentType",
+  "ListElementCode" : "cherished",
+  "ListElement" : "Cherished"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "ScannedDocumentType",
+  "ListElementCode" : "other",
+  "ListElement" : "Other"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "ScannedDocumentType",
+  "ListElementCode" : "form",
+  "ListElement" : "Form"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "ScannedDocumentType",
+  "ListElementCode" : "coversheet",
+  "ListElement" : "Coversheet"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpStates",
+  "ListElementCode" : "Withdrawn",
+  "ListElement" : "Withdrawn"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpStates",
+  "ListElementCode" : "withdrawalReceived",
+  "ListElement" : "Withdrawal received"
+}, {
+  "LiveFrom" : "10/10/19",
+  "LiveTo" : "",
+  "ID" : "FL_dwpStates",
+  "ListElementCode" : "validityChallenge",
+  "ListElement" : "Validity challenge"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpStates",
+  "ListElementCode" : "supplementaryResponse",
+  "ListElement" : "Supplementary response"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpStates",
+  "ListElementCode" : "responseSubmittedDwp",
+  "ListElement" : "Response submitted (DWP)"
+}, {
+  "LiveFrom" : "10/17/19",
+  "LiveTo" : "",
+  "ID" : "FL_dwpStates",
+  "ListElementCode" : "repAdded",
+  "ListElement" : "Rep added"
+}, {
+  "LiveFrom" : "10/17/19",
+  "LiveTo" : "",
+  "ID" : "FL_dwpStates",
+  "ListElementCode" : "hearingPostponed",
+  "ListElement" : "Postponed"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpStates",
+  "ListElementCode" : "noAction",
+  "ListElement" : "No action"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpStates",
+  "ListElementCode" : "lapsed",
+  "ListElement" : "Lapsed"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpStates",
+  "ListElementCode" : "inProgress",
+  "ListElement" : "In progress"
+}, {
+  "LiveFrom" : "6/20/19",
+  "LiveTo" : "",
+  "ID" : "FL_dwpStates",
+  "ListElementCode" : "feReceived",
+  "ListElement" : "FE received"
+}, {
+  "LiveFrom" : "6/20/19",
+  "LiveTo" : "",
+  "ID" : "FL_dwpStates",
+  "ListElementCode" : "feActionedNR",
+  "ListElement" : "FE Actioned - NR"
+}, {
+  "LiveFrom" : "6/20/19",
+  "LiveTo" : "",
+  "ID" : "FL_dwpStates",
+  "ListElementCode" : "feActionedNA",
+  "ListElement" : "FE Actioned - NA"
+}, {
+  "LiveFrom" : "10/22/19",
+  "LiveTo" : "",
+  "ID" : "FL_dwpStates",
+  "ListElementCode" : "extensionRequested",
+  "ListElement" : "Extension requested"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpStates",
+  "ListElementCode" : "strikeOutActioned  ",
+  "ListElement" : "Strike-out actioned"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpStates",
+  "ListElementCode" : "struckOut",
+  "ListElement" : "Struck out"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpStates",
+  "ListElementCode" : "Exception",
+  "ListElement" : "Exception"
+}, {
+  "LiveFrom" : "10/22/19",
+  "LiveTo" : "",
+  "ID" : "FL_dwpStates",
+  "ListElementCode" : "directionResponded",
+  "ListElement" : "Direction - responded"
+}, {
+  "LiveFrom" : "10/22/19",
+  "LiveTo" : "",
+  "ID" : "FL_dwpStates",
+  "ListElementCode" : "directionActionRequired",
+  "ListElement" : "Direction - action req'd"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpStates",
+  "ListElementCode" : "confidentialityActionRequired",
+  "ListElement" : "Confidentiality - Action Required"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpStates",
+  "ListElementCode" : "UnRegistered",
+  "ListElement" : "Appeal to-be registered"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpStates",
+  "ListElementCode" : "Registered",
+  "ListElement" : "Appeal registered (DWP)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpStates",
+  "ListElementCode" : "reinstatementGranted",
+  "ListElement" : "Reinstatement Granted"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpStates",
+  "ListElementCode" : "reinstatementRefused",
+  "ListElement" : "Reinstatement Refused"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpFurtherEvidenceStates",
+  "ListElementCode" : "furtherEvidenceReceived",
+  "ListElement" : "Further evidence received"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpFurtherEvidenceStates",
+  "ListElementCode" : "noAction",
+  "ListElement" : "No action"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpFurtherEvidenceStates",
+  "ListElementCode" : "supplementarySubmission",
+  "ListElement" : "Supplementary submission"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpFurtherEvidenceStates",
+  "ListElementCode" : "inProgress",
+  "ListElement" : "Further evidence in progress"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "099",
+  "ListElement" : "099"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "096",
+  "ListElement" : "096"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "095",
+  "ListElement" : "095"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "094",
+  "ListElement" : "094"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "091",
+  "ListElement" : "091"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "089",
+  "ListElement" : "089"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "088",
+  "ListElement" : "088"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "085",
+  "ListElement" : "085"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "082",
+  "ListElement" : "082"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "079",
+  "ListElement" : "079"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "077",
+  "ListElement" : "077"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "076",
+  "ListElement" : "076"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "075",
+  "ListElement" : "075"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "073",
+  "ListElement" : "073"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "070",
+  "ListElement" : "070"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "069",
+  "ListElement" : "069"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "067",
+  "ListElement" : "067"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "064",
+  "ListElement" : "064"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "062",
+  "ListElement" : "062"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "061",
+  "ListElement" : "061"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "058",
+  "ListElement" : "058"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "057",
+  "ListElement" : "057"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "056",
+  "ListElement" : "056"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "055",
+  "ListElement" : "055"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "054",
+  "ListElement" : "054"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "053",
+  "ListElement" : "053"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "052",
+  "ListElement" : "052"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "051",
+  "ListElement" : "051"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "050",
+  "ListElement" : "050"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "049",
+  "ListElement" : "049"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "045",
+  "ListElement" : "045"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "043",
+  "ListElement" : "043"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "040",
+  "ListElement" : "040"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "037",
+  "ListElement" : "037"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "036",
+  "ListElement" : "036"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "035",
+  "ListElement" : "035"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "034",
+  "ListElement" : "034"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "033",
+  "ListElement" : "033"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "032",
+  "ListElement" : "032"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "031",
+  "ListElement" : "031"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "030",
+  "ListElement" : "030"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "028",
+  "ListElement" : "028"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "026",
+  "ListElement" : "026"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "025",
+  "ListElement" : "025"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "024",
+  "ListElement" : "024"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "023",
+  "ListElement" : "023"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "022",
+  "ListElement" : "022"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "016",
+  "ListElement" : "016"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "014",
+  "ListElement" : "014"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "013",
+  "ListElement" : "013"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "012",
+  "ListElement" : "012"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "011",
+  "ListElement" : "011"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "003",
+  "ListElement" : "003"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "002",
+  "ListElement" : "002"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_benefitCodes",
+  "ListElementCode" : "001",
+  "ListElement" : "001"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodes",
+  "ListElementCode" : "WI",
+  "ListElement" : "WI"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodes",
+  "ListElementCode" : "WC",
+  "ListElement" : "WC"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodes",
+  "ListElementCode" : "VW",
+  "ListElement" : "VW"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodes",
+  "ListElementCode" : "US",
+  "ListElement" : "US"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodes",
+  "ListElementCode" : "UM",
+  "ListElement" : "UM"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodes",
+  "ListElementCode" : "UC",
+  "ListElement" : "UC"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodes",
+  "ListElementCode" : "TP",
+  "ListElement" : "TP"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodes",
+  "ListElementCode" : "TL",
+  "ListElement" : "TL"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodes",
+  "ListElementCode" : "SG",
+  "ListElement" : "SG"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodes",
+  "ListElementCode" : "RC",
+  "ListElement" : "RC"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodes",
+  "ListElementCode" : "RA",
+  "ListElement" : "RA"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodes",
+  "ListElementCode" : "PC",
+  "ListElement" : "PC"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodes",
+  "ListElementCode" : "OX",
+  "ListElement" : "OX"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodes",
+  "ListElementCode" : "OS",
+  "ListElement" : "OS"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodes",
+  "ListElementCode" : "ON",
+  "ListElement" : "ON"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodes",
+  "ListElementCode" : "OC",
+  "ListElement" : "OC"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodes",
+  "ListElementCode" : "NC",
+  "ListElement" : "NC"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodes",
+  "ListElementCode" : "MO",
+  "ListElement" : "MO"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodes",
+  "ListElementCode" : "ML",
+  "ListElement" : "ML"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodes",
+  "ListElementCode" : "MD",
+  "ListElement" : "MD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodes",
+  "ListElementCode" : "LT",
+  "ListElement" : "LT"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodes",
+  "ListElementCode" : "LE",
+  "ListElement" : "LE"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodes",
+  "ListElementCode" : "LC",
+  "ListElement" : "LC"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodes",
+  "ListElementCode" : "IM",
+  "ListElement" : "IM"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodes",
+  "ListElementCode" : "HT",
+  "ListElement" : "HT"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodes",
+  "ListElementCode" : "GC",
+  "ListElement" : "GC"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodes",
+  "ListElementCode" : "FR",
+  "ListElement" : "FR"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodes",
+  "ListElementCode" : "EX",
+  "ListElement" : "EX"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodes",
+  "ListElementCode" : "EI",
+  "ListElement" : "EI"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodes",
+  "ListElementCode" : "EC",
+  "ListElement" : "EC"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodes",
+  "ListElementCode" : "DD",
+  "ListElement" : "DD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodes",
+  "ListElementCode" : "CP",
+  "ListElement" : "CP"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodes",
+  "ListElementCode" : "CF",
+  "ListElement" : "CF"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodes",
+  "ListElementCode" : "CE",
+  "ListElement" : "CE"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodes",
+  "ListElementCode" : "CD",
+  "ListElement" : "CD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodes",
+  "ListElementCode" : "CC",
+  "ListElement" : "CC"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodes",
+  "ListElementCode" : "CB",
+  "ListElement" : "CB"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodes",
+  "ListElementCode" : "AR",
+  "ListElement" : "AR"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodes",
+  "ListElementCode" : "AA",
+  "ListElement" : "AA"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodesUc",
+  "ListElementCode" : "WC",
+  "ListElement" : "WC"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodesUc",
+  "ListElementCode" : "UE",
+  "ListElement" : "UE"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodesUc",
+  "ListElementCode" : "UC",
+  "ListElement" : "UC"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodesUc",
+  "ListElementCode" : "TP",
+  "ListElement" : "TP"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodesUc",
+  "ListElementCode" : "TD",
+  "ListElement" : "TD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodesUc",
+  "ListElementCode" : "TB",
+  "ListElement" : "TB"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodesUc",
+  "ListElementCode" : "SX",
+  "ListElement" : "SX"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodesUc",
+  "ListElementCode" : "SS",
+  "ListElement" : "SS"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodesUc",
+  "ListElementCode" : "SA",
+  "ListElement" : "SA"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodesUc",
+  "ListElementCode" : "RA",
+  "ListElement" : "RA"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodesUc",
+  "ListElementCode" : "QC",
+  "ListElement" : "QC"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodesUc",
+  "ListElementCode" : "PT",
+  "ListElement" : "PT"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodesUc",
+  "ListElementCode" : "PC",
+  "ListElement" : "PC"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodesUc",
+  "ListElementCode" : "OX",
+  "ListElement" : "OX"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodesUc",
+  "ListElementCode" : "OS",
+  "ListElement" : "OS"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodesUc",
+  "ListElementCode" : "OC",
+  "ListElement" : "OC"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodesUc",
+  "ListElementCode" : "LT",
+  "ListElement" : "LT"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodesUc",
+  "ListElementCode" : "LM",
+  "ListElement" : "LM"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodesUc",
+  "ListElementCode" : "LE",
+  "ListElement" : "LE"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodesUc",
+  "ListElementCode" : "IQ",
+  "ListElement" : "IQ"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodesUc",
+  "ListElementCode" : "IJ",
+  "ListElement" : "IJ"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodesUc",
+  "ListElementCode" : "HT",
+  "ListElement" : "HT"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodesUc",
+  "ListElementCode" : "HS",
+  "ListElement" : "HS"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodesUc",
+  "ListElementCode" : "HC",
+  "ListElement" : "HC"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodesUc",
+  "ListElementCode" : "GC",
+  "ListElement" : "GC"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodesUc",
+  "ListElementCode" : "EC",
+  "ListElement" : "EC"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodesUc",
+  "ListElementCode" : "CX",
+  "ListElement" : "CX"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodesUc",
+  "ListElementCode" : "CR",
+  "ListElement" : "CR"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodesUc",
+  "ListElementCode" : "CP",
+  "ListElement" : "CP"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodesUc",
+  "ListElementCode" : "CI",
+  "ListElement" : "CI"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodesUc",
+  "ListElementCode" : "CH",
+  "ListElement" : "CH"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodesUc",
+  "ListElementCode" : "CE",
+  "ListElement" : "CE"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodesUc",
+  "ListElementCode" : "BR",
+  "ListElement" : "BR"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodesUc",
+  "ListElementCode" : "BC",
+  "ListElement" : "BC"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_issueCodesUc",
+  "ListElementCode" : "AD",
+  "ListElement" : "AD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "correspondenceType",
+  "ListElementCode" : "Email",
+  "ListElement" : "Email"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "correspondenceType",
+  "ListElementCode" : "Letter",
+  "ListElement" : "Letter"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "correspondenceType",
+  "ListElementCode" : "Sms",
+  "ListElement" : "SMS"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_createdInGapsFrom",
+  "ListElementCode" : "validAppeal",
+  "ListElement" : "No"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_createdInGapsFrom",
+  "ListElementCode" : "readyToList",
+  "ListElement" : "Yes"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_interlocReferralReason",
+  "ListElementCode" : "other",
+  "ListElement" : "Other"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_interlocReferralReason",
+  "ListElementCode" : "noResponseToDirection",
+  "ListElement" : "No response to a direction"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_interlocReferralReason",
+  "ListElementCode" : "noMrn",
+  "ListElement" : "No MRN"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_interlocReferralReason",
+  "ListElementCode" : "over13MonthsAndGroundsMissing",
+  "ListElement" : "Grounds for appeal missing and over 13 months"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_interlocReferralReason",
+  "ListElementCode" : "over13months",
+  "ListElement" : "Over 13 months"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_interlocReferralReason",
+  "ListElementCode" : "timeExtension",
+  "ListElement" : "Time extension"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_interlocReferralReason",
+  "ListElementCode" : "phmeRequest",
+  "ListElement" : "PHME request"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_interlocReferralReason",
+  "ListElementCode" : "none",
+  "ListElement" : "N/A"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_decisionTypes",
+  "ListElementCode" : "strikeOut",
+  "ListElement" : "Strike out"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpRegionalCentre",
+  "ListElementCode" : "Universal Credit",
+  "ListElement" : "Universal Credit"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpRegionalCentre",
+  "ListElementCode" : "Worthing DRT",
+  "ListElement" : "ESA Worthing DRT"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpRegionalCentre",
+  "ListElementCode" : "Wellingborough DRT",
+  "ListElement" : "ESA Wellingborough DRT"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpRegionalCentre",
+  "ListElementCode" : "Watford DRT",
+  "ListElement" : "ESA Watford DRT"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpRegionalCentre",
+  "ListElementCode" : "Springburn DRT",
+  "ListElement" : "ESA Springburn DRT"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpRegionalCentre",
+  "ListElementCode" : "Sheffield DRT",
+  "ListElement" : "ESA Sheffield DRT"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpRegionalCentre",
+  "ListElementCode" : "Norwich DRT",
+  "ListElement" : "ESA Norwich DRT"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpRegionalCentre",
+  "ListElementCode" : "Milton Keynes DRT",
+  "ListElement" : "ESA Milton Keynes DRT"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpRegionalCentre",
+  "ListElementCode" : "Lowestoft DRT",
+  "ListElement" : "ESA Lowestoft DRT"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpRegionalCentre",
+  "ListElementCode" : "Inverness DRT",
+  "ListElement" : "ESA Inverness DRT"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpRegionalCentre",
+  "ListElementCode" : "Coatbridge Benefit Centre",
+  "ListElement" : "ESA Coatbridge Benefit Centre"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpRegionalCentre",
+  "ListElementCode" : "Chesterfield DRT",
+  "ListElement" : "ESA Chesterfield DRT"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpRegionalCentre",
+  "ListElementCode" : "Birkenhead LM DRT",
+  "ListElement" : "ESA Birkenhead LM DRT"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpRegionalCentre",
+  "ListElementCode" : "Balham DRT",
+  "ListElement" : "ESA Balham DRT"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpRegionalCentre",
+  "ListElementCode" : "Bellevale",
+  "ListElement" : "PIP Bellevale"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpRegionalCentre",
+  "ListElementCode" : "Blackpool",
+  "ListElement" : "PIP Blackpool"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpRegionalCentre",
+  "ListElementCode" : "Glasgow",
+  "ListElement" : "PIP Glasgow"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpRegionalCentre",
+  "ListElementCode" : "Newcastle",
+  "ListElement" : "PIP Newcastle"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpRegionalCentre",
+  "ListElementCode" : "Newport",
+  "ListElement" : "PIP Newport"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpRegionalCentre",
+  "ListElementCode" : "Springburn",
+  "ListElement" : "PIP Springburn"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpRegionalCentre",
+  "ListElementCode" : "AE",
+  "ListElement" : "PIP AE"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "pageNumberFormat",
+  "ListElementCode" : "pageRange",
+  "ListElement" : "Page Range"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "pageNumberFormat",
+  "ListElementCode" : "numberOfPages",
+  "ListElement" : "Number Of Pages"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "paginationStyle",
+  "ListElementCode" : "off",
+  "ListElement" : "Off"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "paginationStyle",
+  "ListElementCode" : "topLeft",
+  "ListElement" : "Top Left"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "paginationStyle",
+  "ListElementCode" : "topCenter",
+  "ListElement" : "Top Center"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "paginationStyle",
+  "ListElementCode" : "topRight",
+  "ListElement" : "Top Right"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "paginationStyle",
+  "ListElementCode" : "bottomLeft",
+  "ListElement" : "Bottom Left"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "paginationStyle",
+  "ListElementCode" : "bottomCenter",
+  "ListElement" : "Bottom Center"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "paginationStyle",
+  "ListElementCode" : "bottomRight",
+  "ListElement" : "Bottom Right"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipTypeOfHearing",
+  "ListElementCode" : "triage",
+  "ListElement" : "Triage"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipTypeOfHearing",
+  "ListElementCode" : "paper",
+  "ListElement" : "Paper"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipTypeOfHearing",
+  "ListElementCode" : "video",
+  "ListElement" : "Video"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipTypeOfHearing",
+  "ListElementCode" : "telephone",
+  "ListElement" : "Telephone"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_pipTypeOfHearing",
+  "ListElementCode" : "faceToFace",
+  "ListElement" : "Face to face"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_adjournCaseTypeOfHearing",
+  "ListElementCode" : "paper",
+  "ListElement" : "Paper"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_adjournCaseTypeOfHearing",
+  "ListElementCode" : "video",
+  "ListElement" : "Video"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_adjournCaseTypeOfHearing",
+  "ListElementCode" : "telephone",
+  "ListElement" : "Telephone"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_adjournCaseTypeOfHearing",
+  "ListElementCode" : "faceToFace",
+  "ListElement" : "Face to face"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_adjournCaseNextHearingVenue",
+  "ListElementCode" : "somewhereElse",
+  "ListElement" : "Somewhere else"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_adjournCaseNextHearingVenue",
+  "ListElementCode" : "sameVenue",
+  "ListElement" : "Same venue"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_rateAwarded",
+  "ListElementCode" : "enhancedRate",
+  "ListElement" : "Enhanced rate"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_rateAwarded",
+  "ListElementCode" : "standardRate",
+  "ListElement" : "Standard rate"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_rateAwarded",
+  "ListElementCode" : "noAward",
+  "ListElement" : "No award"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_rateAwarded",
+  "ListElementCode" : "notConsidered",
+  "ListElement" : "Not considered"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_comparedToDWP",
+  "ListElementCode" : "lower",
+  "ListElement" : "Lower"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_comparedToDWP",
+  "ListElementCode" : "same",
+  "ListElement" : "Same"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_comparedToDWP",
+  "ListElementCode" : "higher",
+  "ListElement" : "Higher"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_endDateType",
+  "ListElementCode" : "na",
+  "ListElement" : "N/A - No award"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_endDateType",
+  "ListElementCode" : "indefinite",
+  "ListElement" : "Indefinite award"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_endDateType",
+  "ListElementCode" : "setEndDate",
+  "ListElement" : "Set end date"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_allowedOrRefused",
+  "ListElementCode" : "refused",
+  "ListElement" : "Refused"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_allowedOrRefused",
+  "ListElementCode" : "allowed",
+  "ListElement" : "Allowed"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_adjournCaseDaysOffset",
+  "ListElementCode" : "0",
+  "ListElement" : "Other"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_adjournCaseDaysOffset",
+  "ListElementCode" : "28",
+  "ListElement" : "28 days"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_adjournCaseDaysOffset",
+  "ListElementCode" : "21",
+  "ListElement" : "21 days"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_adjournCaseDaysOffset",
+  "ListElementCode" : "14",
+  "ListElement" : "14 days"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_panelMembersExcluded",
+  "ListElementCode" : "Reserved",
+  "ListElement" : "Reserved"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_panelMembersExcluded",
+  "ListElementCode" : "No",
+  "ListElement" : "No"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_panelMembersExcluded",
+  "ListElementCode" : "Yes",
+  "ListElement" : "Yes"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_adjournCaseNextHearingDateType",
+  "ListElementCode" : "dateToBeFixed",
+  "ListElement" : "Date to be fixed"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_adjournCaseNextHearingDateType",
+  "ListElementCode" : "firstAvailableDateAfter",
+  "ListElement" : "First available date after"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_adjournCaseNextHearingDateType",
+  "ListElementCode" : "firstAvailableDate",
+  "ListElement" : "First available date"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_adjournCaseNextHearingDateOrPeriod",
+  "ListElementCode" : "providePeriod",
+  "ListElement" : "Provide period"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_adjournCaseNextHearingDateOrPeriod",
+  "ListElementCode" : "provideDate",
+  "ListElement" : "Provide date"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_adjournCaseNextHearingPeriod",
+  "ListElementCode" : "90",
+  "ListElement" : "90 days"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_adjournCaseNextHearingPeriod",
+  "ListElementCode" : "42",
+  "ListElement" : "42 days"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_adjournCaseNextHearingPeriod",
+  "ListElementCode" : "28",
+  "ListElement" : "28 days"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_adjournCaseNextHearingTime",
+  "ListElementCode" : "pm",
+  "ListElement" : "PM"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_adjournCaseNextHearingTime",
+  "ListElementCode" : "am",
+  "ListElement" : "AM"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_adjournCaseFirstOnSession",
+  "ListElementCode" : "firstOnSession",
+  "ListElement" : "List first on the session"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_adjournCaseNextHearingDurationType",
+  "ListElementCode" : "nonStandardTimeSlot",
+  "ListElement" : "Non standard time slot"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_adjournCaseNextHearingDurationType",
+  "ListElementCode" : "standardTimeSlot",
+  "ListElement" : "Standard time slot"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_adjournCaseNextHearingDurationUnits",
+  "ListElementCode" : "sessions",
+  "ListElement" : "Session(s)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_adjournCaseNextHearingDurationUnits",
+  "ListElementCode" : "minutes",
+  "ListElement" : "Minutes"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_interlocNotListable",
+  "ListElementCode" : "reviewByTcw",
+  "ListElement" : "A TCW"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_interlocNotListable",
+  "ListElementCode" : "reviewByJudge",
+  "ListElement" : "A Judge"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_notListableNextState",
+  "ListElementCode" : "withDwp",
+  "ListElement" : "With DWP"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_notListableNextState",
+  "ListElementCode" : "readyToList",
+  "ListElement" : "Ready to list"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_elementsDisputed",
+  "ListElementCode" : "disabledChildren",
+  "ListElement" : "Disabled child addition"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_elementsDisputed",
+  "ListElementCode" : "childElement",
+  "ListElement" : "Child element"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_elementsDisputed",
+  "ListElementCode" : "carerElement",
+  "ListElement" : "Carer element"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_elementsDisputed",
+  "ListElementCode" : "childcare",
+  "ListElement" : "Childcare"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_elementsDisputed",
+  "ListElementCode" : "housing",
+  "ListElement" : "Housing"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_elementsDisputed",
+  "ListElementCode" : "standardAllowanceOverpayment",
+  "ListElement" : "Standard allowance - overpayment"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_elementsDisputed",
+  "ListElementCode" : "standardAllowanceSanctions",
+  "ListElement" : "Standard allowance - sanctions"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_elementsDisputed",
+  "ListElementCode" : "general",
+  "ListElement" : "General"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_titles",
+  "ListElementCode" : "reverend",
+  "ListElement" : "Reverend"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_titles",
+  "ListElementCode" : "doctor",
+  "ListElement" : "Doctor"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_titles",
+  "ListElementCode" : "madam",
+  "ListElement" : "Madam"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_titles",
+  "ListElementCode" : "sir",
+  "ListElement" : "Sir"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_titles",
+  "ListElementCode" : "mrandmrs",
+  "ListElement" : "Mr & Mrs"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_titles",
+  "ListElementCode" : "ms",
+  "ListElement" : "Ms"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_titles",
+  "ListElementCode" : "miss",
+  "ListElement" : "Miss"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_titles",
+  "ListElementCode" : "mrs",
+  "ListElement" : "Mrs"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_titles",
+  "ListElementCode" : "mr",
+  "ListElement" : "Mr"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "documentTypeWelsh",
+  "ListElementCode" : "appellantEvidence",
+  "ListElement" : "Appellant evidence"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "documentTypeWelsh",
+  "ListElementCode" : "Decision Notice",
+  "ListElement" : "Decision Notice"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "documentTypeWelsh",
+  "ListElementCode" : "Direction Notice",
+  "ListElement" : "Directions Notice"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "documentTypeWelsh",
+  "ListElementCode" : "sscs1",
+  "ListElement" : "SSCS1"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "documentTypeWelsh",
+  "ListElementCode" : "urgentHearingRequest",
+  "ListElement" : "Urgent hearing request"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "documentTypeWelsh",
+  "ListElementCode" : "adjournmentNotice",
+  "ListElement" : "Adjournment Notice"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "documentLanguage",
+  "ListElementCode" : "CY",
+  "ListElement" : "Welsh"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "documentLanguage",
+  "ListElementCode" : "EN",
+  "ListElement" : "English"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "documentTranslationStatus",
+  "ListElementCode" : "translationNotRequired",
+  "ListElement" : "Translation Not Required"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "documentTranslationStatus",
+  "ListElementCode" : "translationRequired",
+  "ListElement" : "Translation Required"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "documentTranslationStatus",
+  "ListElementCode" : "translationRequested",
+  "ListElement" : "Translation Requested"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "documentTranslationStatus",
+  "ListElementCode" : "translationComplete",
+  "ListElement" : "Translation Complete"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_interlocWorkflow",
+  "ListElementCode" : "welshTranslation",
+  "ListElement" : "Welsh Translation"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_grantOrRefuseConfidentiality",
+  "ListElementCode" : "refuseConfidentialityRequest",
+  "ListElement" : "Refuse confidentiality"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_grantOrRefuseConfidentiality",
+  "ListElementCode" : "grantConfidentialityRequest",
+  "ListElement" : "Grant confidentiality"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_requestOutcomes",
+  "ListElementCode" : "inProgress",
+  "ListElement" : "In progress"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_requestOutcomes",
+  "ListElementCode" : "granted",
+  "ListElement" : "Granted"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_requestOutcomes",
+  "ListElementCode" : "refused",
+  "ListElement" : "Refused"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "documentType",
+  "ListElementCode" : "reinstatementRequest",
+  "ListElement" : "Reinstatement request"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "documentType",
+  "ListElementCode" : "urgentHearingRequest",
+  "ListElement" : "Urgent hearing request"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "documentType",
+  "ListElementCode" : "confidentialityRequest",
+  "ListElement" : "Confidentiality request"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "ScannedDocumentType",
+  "ListElementCode" : "reinstatementRequest",
+  "ListElement" : "Reinstatement request"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "ScannedDocumentType",
+  "ListElementCode" : "urgentHearingRequest",
+  "ListElement" : "Urgent hearing request"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "ScannedDocumentType",
+  "ListElementCode" : "confidentialityRequest",
+  "ListElement" : "Confidentiality request"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_schedule3ActivitiesApply",
+  "ListElementCode" : "No",
+  "ListElement" : "None apply"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_schedule3ActivitiesApply",
+  "ListElementCode" : "Yes",
+  "ListElement" : "The Schedule 3 activities selected below apply:"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpReassessTheAward",
+  "ListElementCode" : "doNotReassess",
+  "ListElement" : "Do not reassess"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpReassessTheAward",
+  "ListElementCode" : "doNotReassess24",
+  "ListElement" : "Do not reassess within 24 months"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpReassessTheAward",
+  "ListElementCode" : "doNotReassess18",
+  "ListElement" : "Do not reassess within 18 months"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpReassessTheAward",
+  "ListElementCode" : "doNotReassess12",
+  "ListElement" : "Do not reassess within 12 months"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpReassessTheAward",
+  "ListElementCode" : "doNotReassess6",
+  "ListElement" : "Do not reassess within 6 months"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpReassessTheAward",
+  "ListElementCode" : "doNotReassess3",
+  "ListElement" : "Do not reassess within 3 months"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpReassessTheAward",
+  "ListElementCode" : "reassess24",
+  "ListElement" : "Reassess within 24 months"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpReassessTheAward",
+  "ListElementCode" : "reassess18",
+  "ListElement" : "Reassess within 18 months"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpReassessTheAward",
+  "ListElementCode" : "reassess12",
+  "ListElement" : "Reassess within 12 months"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpReassessTheAward",
+  "ListElementCode" : "reassess6",
+  "ListElement" : "Reassess within 6 months"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpReassessTheAward",
+  "ListElementCode" : "reassess3",
+  "ListElement" : "Reassess within 3 months"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpReassessTheAward",
+  "ListElementCode" : "noRecommendation",
+  "ListElement" : "No recommendation"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_schedule7ActivitiesApply",
+  "ListElementCode" : "No",
+  "ListElement" : "None apply"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_schedule7ActivitiesApply",
+  "ListElementCode" : "Yes",
+  "ListElement" : "The Schedule 7 activities selected below apply:"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "documentTypeDwp",
+  "ListElementCode" : "tl1Form",
+  "ListElement" : "TL1 form (Request for time extension)"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "documentTypeDwp",
+  "ListElementCode" : "ucb",
+  "ListElement" : "Unacceptable customer behaviour document"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "documentTypeDwp",
+  "ListElementCode" : "dwpLT203",
+  "ListElement" : "LT203 or OM1 document"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "documentTypeDwp",
+  "ListElementCode" : "dwpChallengeValidityDocument",
+  "ListElement" : "DWP challenge validity document"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "documentTypeDwp",
+  "ListElementCode" : "dwpLapseLetter",
+  "ListElement" : "Lapse letter"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "documentTypeDwp",
+  "ListElementCode" : "dwpResponse",
+  "ListElement" : "DWP response"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "documentTypeDwp",
+  "ListElementCode" : "dwpEditedResponse",
+  "ListElement" : "DWP edited response"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "documentTypeDwp",
+  "ListElementCode" : "at38",
+  "ListElement" : "AT38"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "documentTypeDwp",
+  "ListElementCode" : "dwpEvidenceBundle",
+  "ListElement" : "DWP evidence bundle"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "documentTypeDwp",
+  "ListElementCode" : "dwpEditedEvidenceBundle",
+  "ListElement" : "DWP edited evidence bundle"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_editedEvidenceReason",
+  "ListElementCode" : "phme",
+  "ListElement" : "Potentially harmful medical evidence"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_reasonableAdjustmentStatus",
+  "ListElementCode" : "required",
+  "ListElement" : "Required"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_reasonableAdjustmentStatus",
+  "ListElementCode" : "actioned",
+  "ListElement" : "Actioned"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_reasonableAdjustments",
+  "ListElementCode" : "alternativeLetterFormat",
+  "ListElement" : "Alternative Letter Format"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpStates",
+  "ListElementCode" : "appealAbated",
+  "ListElement" : "Appeal abated"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpStates",
+  "ListElementCode" : "appointeeDetailsNeeded",
+  "ListElement" : "Appointee details needed"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_outcome",
+  "ListElementCode" : "abated",
+  "ListElement" : "Abated"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpStates",
+  "ListElementCode" : "finalDecisionIssued",
+  "ListElement" : "Final decision issued"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpStates",
+  "ListElementCode" : "adjournmentNoticeIssued",
+  "ListElement" : "Adjournment notice issued"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "FL_dwpStates",
+  "ListElementCode" : "phmeGranted",
+  "ListElement" : "PHME granted"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "ID" : "FL_dwpStates",
+  "ListElementCode" : "phmeRefused",
+  "ListElement" : "PHME refused"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "ID" : "documentTypeDwp",
+  "ListElementCode" : "appendix12",
+  "ListElement" : "Appendix 12 document"
+} ]

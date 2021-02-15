@@ -1,0 +1,49 @@
+[ {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-anonymouscitizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/2/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-callagent",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/25/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/25/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-pcqextractor",
+  "CRUD" : "R"
+} ]

@@ -1,0 +1,351 @@
+[ {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "",
+  "CaseFieldID" : "[CASE_REFERENCE]",
+  "ListElementCode" : "",
+  "Label" : "Case Ref",
+  "DisplayOrder" : 1,
+  "ResultsOrdering" : ""
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "",
+  "CaseFieldID" : "appeal",
+  "ListElementCode" : "appellant.name.lastName",
+  "Label" : "Surname",
+  "DisplayOrder" : 2,
+  "ResultsOrdering" : ""
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CaseFieldID" : "caseReference",
+  "ListElementCode" : "",
+  "Label" : "SC number",
+  "DisplayOrder" : 3,
+  "ResultsOrdering" : ""
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CaseFieldID" : "region",
+  "ListElementCode" : "",
+  "Label" : "Regional centre",
+  "DisplayOrder" : 4,
+  "ResultsOrdering" : ""
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CaseFieldID" : "[STATE]",
+  "ListElementCode" : "",
+  "Label" : "Case state",
+  "DisplayOrder" : 5,
+  "ResultsOrdering" : ""
+}, {
+  "LiveFrom" : "6/11/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CaseFieldID" : "dateSentToDwp",
+  "ListElementCode" : "",
+  "Label" : "DWP referral date",
+  "DisplayOrder" : 6,
+  "ResultsOrdering" : ""
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CaseFieldID" : "interlocReviewState",
+  "ListElementCode" : "",
+  "Label" : "Interlocutory review state",
+  "DisplayOrder" : 7,
+  "ResultsOrdering" : ""
+}, {
+  "LiveFrom" : "9/25/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CaseFieldID" : "linkedCasesBoolean",
+  "ListElementCode" : "",
+  "Label" : "Has related appeal(s)?",
+  "DisplayOrder" : 8,
+  "ResultsOrdering" : ""
+}, {
+  "LiveFrom" : "9/25/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CaseFieldID" : "[LAST_STATE_MODIFIED_DATE]",
+  "ListElementCode" : "",
+  "Label" : "Date of state change",
+  "DisplayOrder" : 9,
+  "ResultsOrdering" : "1:ASC"
+}, {
+  "LiveFrom" : "6/11/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CaseFieldID" : "appeal",
+  "ListElementCode" : "appellant.name.lastName",
+  "Label" : "Appellant Surname",
+  "DisplayOrder" : 3,
+  "ResultsOrdering" : ""
+}, {
+  "LiveFrom" : "6/11/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CaseFieldID" : "region",
+  "ListElementCode" : "",
+  "Label" : "Regional centre",
+  "DisplayOrder" : 4,
+  "ResultsOrdering" : ""
+}, {
+  "LiveFrom" : "6/11/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CaseFieldID" : "dwpFurtherEvidenceStates",
+  "ListElementCode" : "",
+  "Label" : "Further evidence state",
+  "DisplayOrder" : 5,
+  "ResultsOrdering" : ""
+}, {
+  "LiveFrom" : "6/11/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CaseFieldID" : "dwpState",
+  "ListElementCode" : "",
+  "Label" : "State",
+  "DisplayOrder" : 6,
+  "ResultsOrdering" : ""
+}, {
+  "LiveFrom" : "6/11/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CaseFieldID" : "caseCreated",
+  "ListElementCode" : "",
+  "Label" : "Case created date",
+  "DisplayOrder" : 7,
+  "ResultsOrdering" : ""
+}, {
+  "LiveFrom" : "6/11/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CaseFieldID" : "dateSentToDwp",
+  "ListElementCode" : "",
+  "Label" : "DWP referral date",
+  "DisplayOrder" : 8,
+  "ResultsOrdering" : "1:ASC"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-judge",
+  "CaseFieldID" : "interlocReviewState",
+  "ListElementCode" : "",
+  "Label" : "Interlocutory review state",
+  "DisplayOrder" : 3,
+  "ResultsOrdering" : ""
+}, {
+  "LiveFrom" : "6/18/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-judge",
+  "CaseFieldID" : "urgentCase",
+  "ListElementCode" : "",
+  "Label" : "Is case urgent?",
+  "DisplayOrder" : 4,
+  "ResultsOrdering" : ""
+}, {
+  "LiveFrom" : "6/18/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-judge",
+  "CaseFieldID" : "interlocReferralDate",
+  "ListElementCode" : "",
+  "Label" : "Interloc referral date",
+  "DisplayOrder" : 5,
+  "ResultsOrdering" : "1:ASC"
+}, {
+  "LiveFrom" : "6/11/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-judge",
+  "CaseFieldID" : "dateSentToDwp",
+  "ListElementCode" : "",
+  "Label" : "DWP referral date",
+  "DisplayOrder" : 6,
+  "ResultsOrdering" : ""
+}, {
+  "LiveFrom" : "6/18/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-judge",
+  "CaseFieldID" : "region",
+  "ListElementCode" : "",
+  "Label" : "Regional centre",
+  "DisplayOrder" : 7,
+  "ResultsOrdering" : ""
+}, {
+  "LiveFrom" : "9/25/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-judge",
+  "CaseFieldID" : "linkedCasesBoolean",
+  "ListElementCode" : "",
+  "Label" : "Has related appeal(s)?",
+  "DisplayOrder" : 8,
+  "ResultsOrdering" : ""
+}, {
+  "LiveFrom" : "6/18/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CaseFieldID" : "interlocReviewState",
+  "ListElementCode" : "",
+  "Label" : "Interlocutory review state",
+  "DisplayOrder" : 3,
+  "ResultsOrdering" : ""
+}, {
+  "LiveFrom" : "6/18/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CaseFieldID" : "urgentCase",
+  "ListElementCode" : "",
+  "Label" : "Is case urgent?",
+  "DisplayOrder" : 4,
+  "ResultsOrdering" : ""
+}, {
+  "LiveFrom" : "6/18/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CaseFieldID" : "directionDueDate",
+  "ListElementCode" : "",
+  "Label" : "Response due date",
+  "DisplayOrder" : 5,
+  "ResultsOrdering" : ""
+}, {
+  "LiveFrom" : "6/18/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CaseFieldID" : "interlocReferralDate",
+  "ListElementCode" : "",
+  "Label" : "Interloc referral date",
+  "DisplayOrder" : 6,
+  "ResultsOrdering" : "1:ASC"
+}, {
+  "LiveFrom" : "6/11/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CaseFieldID" : "dateSentToDwp",
+  "ListElementCode" : "",
+  "Label" : "DWP referral date",
+  "DisplayOrder" : 7,
+  "ResultsOrdering" : ""
+}, {
+  "LiveFrom" : "6/18/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CaseFieldID" : "region",
+  "ListElementCode" : "",
+  "Label" : "Regional centre",
+  "DisplayOrder" : 8,
+  "ResultsOrdering" : ""
+}, {
+  "LiveFrom" : "9/25/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CaseFieldID" : "linkedCasesBoolean",
+  "ListElementCode" : "",
+  "Label" : "Has related appeal(s)?",
+  "DisplayOrder" : 9,
+  "ResultsOrdering" : ""
+}, {
+  "LiveFrom" : "7/9/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CaseFieldID" : "caseReference",
+  "ListElementCode" : "",
+  "Label" : "SC number",
+  "DisplayOrder" : 3,
+  "ResultsOrdering" : ""
+}, {
+  "LiveFrom" : "7/9/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CaseFieldID" : "region",
+  "ListElementCode" : "",
+  "Label" : "Regional centre",
+  "DisplayOrder" : 4,
+  "ResultsOrdering" : ""
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CaseFieldID" : "[STATE]",
+  "ListElementCode" : "",
+  "Label" : "Case state",
+  "DisplayOrder" : 5,
+  "ResultsOrdering" : ""
+}, {
+  "LiveFrom" : "6/11/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CaseFieldID" : "dateSentToDwp",
+  "ListElementCode" : "",
+  "Label" : "DWP referral date",
+  "DisplayOrder" : 6,
+  "ResultsOrdering" : ""
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CaseFieldID" : "interlocReviewState",
+  "ListElementCode" : "",
+  "Label" : "Interlocutory review state",
+  "DisplayOrder" : 7,
+  "ResultsOrdering" : ""
+}, {
+  "LiveFrom" : "9/25/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CaseFieldID" : "linkedCasesBoolean",
+  "ListElementCode" : "",
+  "Label" : "Has related appeal(s)?",
+  "DisplayOrder" : 8,
+  "ResultsOrdering" : ""
+}, {
+  "LiveFrom" : "9/25/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CaseFieldID" : "[LAST_STATE_MODIFIED_DATE]",
+  "ListElementCode" : "",
+  "Label" : "Date of state change",
+  "DisplayOrder" : 9,
+  "ResultsOrdering" : "1:ASC"
+} ]

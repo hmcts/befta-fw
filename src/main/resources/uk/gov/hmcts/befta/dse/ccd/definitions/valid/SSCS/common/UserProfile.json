@@ -1,0 +1,15 @@
+[ {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "UserIDAMId" : "local.test@example.com",
+  "WorkBasketDefaultJurisdiction" : "SSCS",
+  "WorkBasketDefaultCaseType" : "Benefit",
+  "WorkBasketDefaultState" : "appealCreated"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "UserIDAMId" : "system.update@hmcts.net",
+  "WorkBasketDefaultJurisdiction" : "SSCS",
+  "WorkBasketDefaultCaseType" : "Benefit",
+  "WorkBasketDefaultState" : "appealCreated"
+} ]

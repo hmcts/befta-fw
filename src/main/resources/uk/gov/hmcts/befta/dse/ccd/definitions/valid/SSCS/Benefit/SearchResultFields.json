@@ -1,0 +1,217 @@
+[ {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "",
+  "CaseFieldID" : "[CASE_REFERENCE]",
+  "ListElementCode" : "",
+  "Label" : "Case reference",
+  "DisplayOrder" : 1
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CaseFieldID" : "appeal",
+  "ListElementCode" : "appellant.name.lastName",
+  "Label" : "Surname",
+  "DisplayOrder" : 2
+}, {
+  "LiveFrom" : "1/3/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CaseFieldID" : "caseReference",
+  "ListElementCode" : "",
+  "Label" : "SC number",
+  "DisplayOrder" : 4
+}, {
+  "LiveFrom" : "1/3/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CaseFieldID" : "interlocReviewState",
+  "ListElementCode" : "",
+  "Label" : "Review state",
+  "DisplayOrder" : 5
+}, {
+  "LiveFrom" : "1/3/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CaseFieldID" : "[STATE]",
+  "ListElementCode" : "",
+  "Label" : "Case state",
+  "DisplayOrder" : 5
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CaseFieldID" : "appeal",
+  "ListElementCode" : "appellant.name.lastName",
+  "Label" : "Surname",
+  "DisplayOrder" : 2
+}, {
+  "LiveFrom" : "1/3/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CaseFieldID" : "caseReference",
+  "ListElementCode" : "",
+  "Label" : "SC number",
+  "DisplayOrder" : 4
+}, {
+  "LiveFrom" : "1/3/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CaseFieldID" : "interlocReviewState",
+  "ListElementCode" : "",
+  "Label" : "Review state",
+  "DisplayOrder" : 5
+}, {
+  "LiveFrom" : "1/3/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CaseFieldID" : "[STATE]",
+  "ListElementCode" : "",
+  "Label" : "Case state",
+  "DisplayOrder" : 5
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CaseFieldID" : "appeal",
+  "ListElementCode" : "appellant.name.lastName",
+  "Label" : "Surname",
+  "DisplayOrder" : 2
+}, {
+  "LiveFrom" : "1/3/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CaseFieldID" : "appeal",
+  "ListElementCode" : "appellant.identity.dob",
+  "Label" : "Date of birth",
+  "DisplayOrder" : 3
+}, {
+  "LiveFrom" : "1/3/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CaseFieldID" : "caseReference",
+  "ListElementCode" : "",
+  "Label" : "SC number",
+  "DisplayOrder" : 4
+}, {
+  "LiveFrom" : "1/3/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CaseFieldID" : "evidencePresent",
+  "ListElementCode" : "",
+  "Label" : "Evidence present",
+  "DisplayOrder" : 5
+}, {
+  "LiveFrom" : "7/19/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CaseFieldID" : "evidenceHandled",
+  "ListElementCode" : "",
+  "Label" : "Further evidence actioned",
+  "DisplayOrder" : 6
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-judge",
+  "CaseFieldID" : "appeal",
+  "ListElementCode" : "appellant.name.lastName",
+  "Label" : "Surname",
+  "DisplayOrder" : 2
+}, {
+  "LiveFrom" : "1/3/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-judge",
+  "CaseFieldID" : "appeal",
+  "ListElementCode" : "appellant.identity.dob",
+  "Label" : "Date of birth",
+  "DisplayOrder" : 3
+}, {
+  "LiveFrom" : "1/3/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-judge",
+  "CaseFieldID" : "caseReference",
+  "ListElementCode" : "",
+  "Label" : "SC number",
+  "DisplayOrder" : 4
+}, {
+  "LiveFrom" : "1/3/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-judge",
+  "CaseFieldID" : "evidencePresent",
+  "ListElementCode" : "",
+  "Label" : "Evidence Present",
+  "DisplayOrder" : 5
+}, {
+  "LiveFrom" : "7/19/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-judge",
+  "CaseFieldID" : "evidenceHandled",
+  "ListElementCode" : "",
+  "Label" : "Further evidence actioned",
+  "DisplayOrder" : 6
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CaseFieldID" : "appeal",
+  "ListElementCode" : "appellant.name.lastName",
+  "Label" : "Surname",
+  "DisplayOrder" : 2
+}, {
+  "LiveFrom" : "1/3/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CaseFieldID" : "appeal",
+  "ListElementCode" : "appellant.identity.dob",
+  "Label" : "Date of birth",
+  "DisplayOrder" : 3
+}, {
+  "LiveFrom" : "1/3/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CaseFieldID" : "caseReference",
+  "ListElementCode" : "",
+  "Label" : "SC number",
+  "DisplayOrder" : 4
+}, {
+  "LiveFrom" : "1/3/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CaseFieldID" : "evidencePresent",
+  "ListElementCode" : "",
+  "Label" : "Evidence present",
+  "DisplayOrder" : 5
+}, {
+  "LiveFrom" : "7/19/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CaseFieldID" : "evidenceHandled",
+  "ListElementCode" : "",
+  "Label" : "Further evidence actioned",
+  "DisplayOrder" : 6
+} ]

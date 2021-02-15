@@ -1,0 +1,11 @@
+[ {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "ID" : "Benefit",
+  "Name" : "SSCS Case v5.7.49_AAT",
+  "Description" : "SSCS Benefit Cases",
+  "JurisdictionID" : "SSCS",
+  "PrintableDocumentsUrl" : "http://ccd-data-store-api-prod.service.core-compute-prod.internal/callback/jurisdictions/SSCS/case-types/Benefit/documents",
+  "RetriesTimeoutURLPrintEvent" : "5,10,15",
+  "SecurityClassification" : "PUBLIC"
+} ]

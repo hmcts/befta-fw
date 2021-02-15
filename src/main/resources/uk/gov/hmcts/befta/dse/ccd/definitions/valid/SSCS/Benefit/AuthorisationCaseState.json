@@ -1,0 +1,680 @@
+[ {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "appealCreated",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "appealCreated",
+  "UserRole" : "caseworker-sscs-callagent",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "7/16/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "appealCreated",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "appealCreated",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "appealCreated",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/25/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "appealCreated",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/27/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "appealCreated",
+  "UserRole" : "citizen",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "dormantAppealState",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "dormantAppealState",
+  "UserRole" : "caseworker-sscs-callagent",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "dormantAppealState",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "dormantAppealState",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "dormantAppealState",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CR"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "dormantAppealState",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "CR"
+}, {
+  "LiveFrom" : "6/25/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "dormantAppealState",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/25/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "dormantAppealState",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/27/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "dormantAppealState",
+  "UserRole" : "citizen",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "draft",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "3/19/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "draft",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "incompleteApplication",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "incompleteApplication",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/25/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "incompleteApplication",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/27/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "incompleteApplication",
+  "UserRole" : "citizen",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "incompleteApplicationInformationReqsted",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "incompleteApplicationInformationReqsted",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/25/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "incompleteApplicationInformationReqsted",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/27/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "incompleteApplicationInformationReqsted",
+  "UserRole" : "citizen",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "interlocutoryReviewState",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "7/16/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "interlocutoryReviewState",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "interlocutoryReviewState",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/25/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "interlocutoryReviewState",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "interlocutoryReviewState",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "interlocutoryReviewState",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/27/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "interlocutoryReviewState",
+  "UserRole" : "citizen",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "6/20/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "responseReceived",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "6/20/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "responseReceived",
+  "UserRole" : "caseworker-sscs-callagent",
+  "CRUD" : "RU"
+}, {
+  "LiveFrom" : "6/20/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "responseReceived",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "RU"
+}, {
+  "LiveFrom" : "6/20/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "responseReceived",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "RU"
+}, {
+  "LiveFrom" : "6/20/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "responseReceived",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "6/20/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "responseReceived",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "RU"
+}, {
+  "LiveFrom" : "6/20/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "responseReceived",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/25/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "responseReceived",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/27/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "responseReceived",
+  "UserRole" : "citizen",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "validAppeal",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "validAppeal",
+  "UserRole" : "caseworker-sscs-callagent",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "validAppeal",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "RU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "validAppeal",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "RU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "validAppeal",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "RU"
+}, {
+  "LiveFrom" : "6/20/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "validAppeal",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "RU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "validAppeal",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/25/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "validAppeal",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/27/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "validAppeal",
+  "UserRole" : "citizen",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "voidState",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "voidState",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/27/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "voidState",
+  "UserRole" : "citizen",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "6/25/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "voidState",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "withDwp",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "7/16/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "withDwp",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "RU"
+}, {
+  "LiveFrom" : "7/16/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "withDwp",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "7/16/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "withDwp",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "RU"
+}, {
+  "LiveFrom" : "7/16/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "withDwp",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "RU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "withDwp",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/25/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "withDwp",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/27/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "withDwp",
+  "UserRole" : "citizen",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "6/25/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "hearing",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/25/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "hearing",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "RU"
+}, {
+  "LiveFrom" : "6/25/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "hearing",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "RU"
+}, {
+  "LiveFrom" : "6/25/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "hearing",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/27/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "hearing",
+  "UserRole" : "citizen",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "6/27/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "hearing",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/27/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "readyToList",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/27/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "readyToList",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/27/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "readyToList",
+  "UserRole" : "citizen",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "6/25/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "readyToList",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/25/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "readyToList",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "RU"
+}, {
+  "LiveFrom" : "6/25/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "readyToList",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "RU"
+}, {
+  "LiveFrom" : "6/25/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "closed",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/25/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "closed",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/27/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "closed",
+  "UserRole" : "citizen",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "6/25/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "closed",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/27/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "draftArchived",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "appealCreated",
+  "UserRole" : "caseworker-sscs-pcqextractor",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "dormantAppealState",
+  "UserRole" : "caseworker-sscs-pcqextractor",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "draft",
+  "UserRole" : "caseworker-sscs-pcqextractor",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "incompleteApplication",
+  "UserRole" : "caseworker-sscs-pcqextractor",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "incompleteApplicationInformationReqsted",
+  "UserRole" : "caseworker-sscs-pcqextractor",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "interlocutoryReviewState",
+  "UserRole" : "caseworker-sscs-pcqextractor",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "6/20/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "responseReceived",
+  "UserRole" : "caseworker-sscs-pcqextractor",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "validAppeal",
+  "UserRole" : "caseworker-sscs-pcqextractor",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "voidState",
+  "UserRole" : "caseworker-sscs-pcqextractor",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "withDwp",
+  "UserRole" : "caseworker-sscs-pcqextractor",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "6/25/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "hearing",
+  "UserRole" : "caseworker-sscs-pcqextractor",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "6/27/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "readyToList",
+  "UserRole" : "caseworker-sscs-pcqextractor",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "6/25/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "closed",
+  "UserRole" : "caseworker-sscs-pcqextractor",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "6/27/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "draftArchived",
+  "UserRole" : "caseworker-sscs-pcqextractor",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "6/27/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "draftArchived",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/27/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "notListable",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/27/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseStateID" : "notListable",
+  "UserRole" : "citizen",
+  "CRUD" : "R"
+} ]

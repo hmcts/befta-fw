@@ -1,0 +1,7554 @@
+[ {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "onlinePanel",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "caseReference",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "caseCreated",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "caseCreated",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "region",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "appeal",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "events",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "hearings",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "evidence",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpTimeExtension",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "subscriptions",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "generatedNino",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "generatedSurname",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "generatedEmail",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "generatedMobile",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "bulkScanCaseReference",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "bulkScanCaseReference",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "regionalProcessingCenter",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "sscsDocument",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CR"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "panel",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "generatedDOB",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "generatedDOB",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "evidencePresent",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "corDocument",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "caseBundles",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "bundleConfiguration",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dateSentToDwp",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "assignedToJudge",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "timeExtension",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "reasonsForChallenge",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "outcome",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "revisedReason",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "lapseInfo",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "withdrawalInfo",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "decisionCorrectionInfo",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "referralInfo",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "caseCorrection",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "decisionInfo",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "assignedToMedicalMember",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "assignedToDisabilityMember",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "decisionNotes",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "isCorDecision",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "appealNotePad",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CR"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "infoRequests",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "informationFromAppellant",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "informationFromDWP",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "informationFromOther",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "interlocDecisionInfo",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "interlocDirectionInfo",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "interlocStrikeOutInfo",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "judgeAppealNotePad",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "evidenceReceivedCF",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "caseHistory",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "relistingReason",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "associatedCase",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "urgentCase",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "documentSentToDwp",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "sscsInterlocDecisionDocument",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "sscsStrikeOutDocument",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "sscsInterlocDirectionDocument",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "directionDueDate",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "reservedToJudge",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "linkedCase",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "evidenceHandled",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "RU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "exceptionRecordReference",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "originalSender",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "furtherEvidenceAction",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpSupplementaryResponseDoc",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpNoActionDoc",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpOtherDoc",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "hmctsDwpState",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "isWaiverNeeded",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "waiverDeclaration",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "waiverReason",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "waiverReasonOther",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "clerkDelegatedAuthority",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "clerkAppealSatisfactionText",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "clerkConfirmationOfMRN",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "clerkOtherReason",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "clerkConfirmationOther",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "reissueFurtherEvidenceDocument",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "resendToAppellant",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "resendToRepresentative",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "resendToDwp",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "correspondence",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "reasonableAdjustmentsLetters",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "6/10/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "reasonableAdjustmentsOutstanding",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "9/29/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "linkedCasesBoolean",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "createdInGapsFrom",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "phmeGranted",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "phmeGrantedLabel",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "phmeUnderReviewLabel",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "subscriptions",
+  "UserRole" : "caseworker-sscs-anonymouscitizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "subscriptions",
+  "UserRole" : "caseworker-sscs-callagent",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "generatedNino",
+  "UserRole" : "caseworker-sscs-callagent",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "generatedSurname",
+  "UserRole" : "caseworker-sscs-callagent",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "generatedEmail",
+  "UserRole" : "caseworker-sscs-callagent",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "generatedMobile",
+  "UserRole" : "caseworker-sscs-callagent",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "bulkScanCaseReference",
+  "UserRole" : "caseworker-sscs-callagent",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "timeExtension",
+  "UserRole" : "caseworker-sscs-callagent",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "reasonsForChallenge",
+  "UserRole" : "caseworker-sscs-callagent",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "outcome",
+  "UserRole" : "caseworker-sscs-callagent",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "revisedReason",
+  "UserRole" : "caseworker-sscs-callagent",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "lapseInfo",
+  "UserRole" : "caseworker-sscs-callagent",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "withdrawalInfo",
+  "UserRole" : "caseworker-sscs-callagent",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "decisionCorrectionInfo",
+  "UserRole" : "caseworker-sscs-callagent",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "referralInfo",
+  "UserRole" : "caseworker-sscs-callagent",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "caseCorrection",
+  "UserRole" : "caseworker-sscs-callagent",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "decisionInfo",
+  "UserRole" : "caseworker-sscs-callagent",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dateSentToDwp",
+  "UserRole" : "caseworker-sscs-callagent",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dateInformationRequested",
+  "UserRole" : "caseworker-sscs-callagent",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "directionText",
+  "UserRole" : "caseworker-sscs-callagent",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "reservedToJudge",
+  "UserRole" : "caseworker-sscs-callagent",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "interlocReviewState",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "hmctsDwpState",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "associatedCase",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "urgentCase",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "documentSentToDwp",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "sscsInterlocDecisionDocument",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "sscsStrikeOutDocument",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "sscsInterlocDirectionDocument",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "directionDueDate",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "reservedToJudge",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "linkedCase",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpRegionalCentre",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpState",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dateSentToDwp",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "isWaiverNeeded",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "waiverDeclaration",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "waiverReason",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "waiverReasonOther",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "clerkDelegatedAuthority",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "clerkAppealSatisfactionText",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "clerkConfirmationOfMRN",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "clerkOtherReason",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "clerkConfirmationOther",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "correspondence",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CR"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "reasonableAdjustmentsLetters",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "RUD"
+}, {
+  "LiveFrom" : "6/10/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "reasonableAdjustmentsOutstanding",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/29/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "linkedCasesBoolean",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpResponseState",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "RU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "associatedCase",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "linkedCase",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpState",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpFurtherEvidenceStates",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpLT203",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpLapseLetter",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "11/18/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "interlocReviewState",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpSupplementaryResponseDoc",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpNoActionDoc",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpOtherDoc",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "caseReference",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "caseCreated",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "region",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "appeal",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "appeal",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "evidence",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "sscsDocument",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "CR"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "evidencePresent",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "generatedNino",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "generatedNino",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "generatedSurname",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "generatedEmail",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "generatedMobile",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "generatedDOB",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "evidenceReceivedCF",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpRegionalCentre",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpResponseDocument",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpEditedResponseDocument",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpAT38Document",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpChallengeValidityDocument",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpEvidenceBundleDocument",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpEditedEvidenceBundleDocument",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpEditedEvidenceReason",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "caseCode",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "caseHistory",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "benefitCode",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "issueCode",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpOriginatingOffice",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpPresentingOffice",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpIsOfficerAttending",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpUCB",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpPHME",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpComplexAppeal",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpFurtherInfo",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "correspondence",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "CR"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "reasonableAdjustmentsLetters",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "6/10/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "reasonableAdjustmentsOutstanding",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpResponseDate",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "onlinePanel",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "caseReference",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "caseCreated",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "region",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "region",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "appeal",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "events",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "hearings",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "evidence",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpTimeExtension",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "subscriptions",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "subscriptions",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "generatedNino",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "generatedSurname",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "generatedEmail",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "generatedMobile",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "bulkScanCaseReference",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "regionalProcessingCenter",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "regionalProcessingCenter",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "sscsDocument",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "panel",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "generatedDOB",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "evidencePresent",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "corDocument",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "assignedToJudge",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "assignedToMedicalMember",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "assignedToDisabilityMember",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "decisionNotes",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "isCorDecision",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "appealNotePad",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "interlocDecisionInfo",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "interlocDirectionInfo",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "interlocStrikeOutInfo",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "evidenceReceivedCF",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "judgeAppealNotePad",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "interlocReviewState",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "hmctsDwpState",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "RU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "associatedCase",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "urgentCase",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "documentSentToDwp",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "sscsInterlocDecisionDocument",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "sscsStrikeOutDocument",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "sscsInterlocDirectionDocument",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "directionDueDate",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "reservedToJudge",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "isWaiverNeeded",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "waiverDeclaration",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "waiverReason",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "waiverReasonOther",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "clerkDelegatedAuthority",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "clerkAppealSatisfactionText",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "clerkConfirmationOfMRN",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "clerkOtherReason",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "clerkConfirmationOther",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "correspondence",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CR"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "reasonableAdjustmentsLetters",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "6/10/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "reasonableAdjustmentsOutstanding",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "9/29/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "linkedCasesBoolean",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "phmeGranted",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "onlinePanel",
+  "UserRole" : "caseworker-sscs-panelmember",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "caseReference",
+  "UserRole" : "caseworker-sscs-panelmember",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "caseCreated",
+  "UserRole" : "caseworker-sscs-panelmember",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "region",
+  "UserRole" : "caseworker-sscs-panelmember",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "appeal",
+  "UserRole" : "caseworker-sscs-panelmember",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "events",
+  "UserRole" : "caseworker-sscs-panelmember",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "hearings",
+  "UserRole" : "caseworker-sscs-panelmember",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "evidence",
+  "UserRole" : "caseworker-sscs-panelmember",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpTimeExtension",
+  "UserRole" : "caseworker-sscs-panelmember",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "subscriptions",
+  "UserRole" : "caseworker-sscs-panelmember",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "generatedNino",
+  "UserRole" : "caseworker-sscs-panelmember",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "generatedSurname",
+  "UserRole" : "caseworker-sscs-panelmember",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "generatedEmail",
+  "UserRole" : "caseworker-sscs-panelmember",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "generatedMobile",
+  "UserRole" : "caseworker-sscs-panelmember",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "bulkScanCaseReference",
+  "UserRole" : "caseworker-sscs-panelmember",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "regionalProcessingCenter",
+  "UserRole" : "caseworker-sscs-panelmember",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "sscsDocument",
+  "UserRole" : "caseworker-sscs-panelmember",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "panel",
+  "UserRole" : "caseworker-sscs-panelmember",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "generatedDOB",
+  "UserRole" : "caseworker-sscs-panelmember",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "evidencePresent",
+  "UserRole" : "caseworker-sscs-panelmember",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "evidencePresent",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "corDocument",
+  "UserRole" : "caseworker-sscs-panelmember",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "assignedToJudge",
+  "UserRole" : "caseworker-sscs-panelmember",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "assignedToMedicalMember",
+  "UserRole" : "caseworker-sscs-panelmember",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "assignedToDisabilityMember",
+  "UserRole" : "caseworker-sscs-panelmember",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "decisionNotes",
+  "UserRole" : "caseworker-sscs-panelmember",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "isCorDecision",
+  "UserRole" : "caseworker-sscs-panelmember",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dateSentToDwp",
+  "UserRole" : "caseworker-sscs-panelmember",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "appealNotePad",
+  "UserRole" : "caseworker-sscs-panelmember",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "correspondence",
+  "UserRole" : "caseworker-sscs-panelmember",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "reasonableAdjustmentsLetters",
+  "UserRole" : "caseworker-sscs-panelmember",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "6/10/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "reasonableAdjustmentsOutstanding",
+  "UserRole" : "caseworker-sscs-panelmember",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "associatedCase",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "urgentCase",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "documentSentToDwp",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "sscsInterlocDecisionDocument",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "sscsStrikeOutDocument",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "sscsInterlocDirectionDocument",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "directionDueDate",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "reservedToJudge",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "appealNotePad",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "linkedCase",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "interlocReviewState",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "correspondence",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "reasonableAdjustmentsLetters",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "RUD"
+}, {
+  "LiveFrom" : "6/10/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "reasonableAdjustmentsOutstanding",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/29/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "linkedCasesBoolean",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "sscsDocument",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "associatedCase",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "urgentCase",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "documentSentToDwp",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "sscsInterlocDecisionDocument",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "sscsStrikeOutDocument",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "sscsInterlocDirectionDocument",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "directionDueDate",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "reservedToJudge",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "linkedCase",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "interlocReviewState",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "caseReference",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "caseCreated",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "region",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "appeal",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "subscriptions",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "events",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "hearings",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "evidence",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpTimeExtension",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "generatedNino",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "generatedSurname",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "generatedSurname",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "generatedEmail",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "generatedMobile",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "generatedDOB",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "regionalProcessingCenter",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "sscsDocument",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "panel",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "evidencePresent",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "onlinePanel",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "assignedToJudge",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "assignedToMedicalMember",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "assignedToDisabilityMember",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "corDocument",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "timeExtension",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "reasonsForChallenge",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "outcome",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "revisedReason",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "lapseInfo",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "withdrawalInfo",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "decisionCorrectionInfo",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "referralInfo",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "caseCorrection",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "decisionInfo",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "bulkScanCaseReference",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dateInformationRequested",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "directionText",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "decisionNotes",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "appealNotePad",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "isCorDecision",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "infoRequests",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "informationFromAppellant",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "informationFromDWP",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "informationFromOther",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "interlocDecisionInfo",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "interlocDirectionInfo",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "interlocStrikeOutInfo",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "judgeAppealNotePad",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "tcwInProgress",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "evidenceReceivedCF",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "caseBundles",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "caseHistory",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "relistingReason",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dateSentToDwp",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "hmctsDwpState",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpResponseState",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "draftSscsDocument",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "draftCorDocument",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "evidenceHandled",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "originalSender",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "furtherEvidenceAction",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "exceptionRecordReference",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpResponseDocument",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpEditedResponseDocument",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpAT38Document",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpChallengeValidityDocument",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpEvidenceBundleDocument",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpEditedEvidenceBundleDocument",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpEditedEvidenceReason",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpRegionalCentre",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "caseCode",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpState",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpFurtherEvidenceStates",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpLT203",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpLapseLetter",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpSupplementaryResponseDoc",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpNoActionDoc",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpOtherDoc",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "isWaiverNeeded",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "waiverDeclaration",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "waiverReason",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "waiverReasonOther",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "clerkDelegatedAuthority",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "clerkAppealSatisfactionText",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "clerkConfirmationOfMRN",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "clerkOtherReason",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "clerkConfirmationOther",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "benefitCode",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "issueCode",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpOriginatingOffice",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpPresentingOffice",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpIsOfficerAttending",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpUCB",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpPHME",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpComplexAppeal",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "correspondence",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "reasonableAdjustmentsLetters",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "RUD"
+}, {
+  "LiveFrom" : "6/10/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "reasonableAdjustmentsOutstanding",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpFurtherInfo",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "isInterlocRequired",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "createdInGapsFrom",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "createdInGapsFrom",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/29/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "linkedCasesBoolean",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "9/29/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpResponseDate",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "6/10/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "isScottishCase",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "phmeGranted",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "caseReference",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "caseCreated",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "region",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "appeal",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "subscriptions",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "events",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "hearings",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "evidence",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpTimeExtension",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "generatedNino",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "generatedSurname",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "generatedEmail",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "generatedMobile",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "bulkScanCaseReference",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "onlinePanel",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "caseBundles",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dateSentToDwp",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "assignedToJudge",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dateInformationRequested",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "directionText",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "assignedToMedicalMember",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "assignedToDisabilityMember",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "decisionNotes",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "isCorDecision",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "infoRequests",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "informationFromAppellant",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "informationFromDWP",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "informationFromOther",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "evidenceReceivedCF",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "relistingReason",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "interlocReviewState",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "hmctsDwpState",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpResponseState",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "draftCorDocument",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "draftSscsDocument",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "associatedCase",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "urgentCase",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "documentSentToDwp",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "sscsInterlocDecisionDocument",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "sscsStrikeOutDocument",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "sscsInterlocDirectionDocument",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "directionDueDate",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "reservedToJudge",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "linkedCase",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "evidenceHandled",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "exceptionRecordReference",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "originalSender",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "furtherEvidenceAction",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "isWaiverNeeded",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "waiverDeclaration",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "waiverReason",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "waiverReasonOther",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "clerkDelegatedAuthority",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "clerkAppealSatisfactionText",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "clerkConfirmationOfMRN",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "clerkOtherReason",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "clerkConfirmationOther",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "correspondence",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "reasonableAdjustmentsLetters",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/10/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "reasonableAdjustmentsOutstanding",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "createdInGapsFrom",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/29/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "linkedCasesBoolean",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "9/29/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpResponseDate",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "9/29/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpResponseDate",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "associatedCase",
+  "UserRole" : "caseworker-sscs-teamleader",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "urgentCase",
+  "UserRole" : "caseworker-sscs-teamleader",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "documentSentToDwp",
+  "UserRole" : "caseworker-sscs-teamleader",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "sscsInterlocDecisionDocument",
+  "UserRole" : "caseworker-sscs-teamleader",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "sscsStrikeOutDocument",
+  "UserRole" : "caseworker-sscs-teamleader",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "sscsInterlocDirectionDocument",
+  "UserRole" : "caseworker-sscs-teamleader",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "directionDueDate",
+  "UserRole" : "caseworker-sscs-teamleader",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "reservedToJudge",
+  "UserRole" : "caseworker-sscs-teamleader",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "linkedCase",
+  "UserRole" : "caseworker-sscs-teamleader",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "correspondence",
+  "UserRole" : "caseworker-sscs-teamleader",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "reasonableAdjustmentsLetters",
+  "UserRole" : "caseworker-sscs-teamleader",
+  "CRUD" : "RUD"
+}, {
+  "LiveFrom" : "6/10/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "reasonableAdjustmentsOutstanding",
+  "UserRole" : "caseworker-sscs-teamleader",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "sscsDocument",
+  "UserRole" : "caseworker-sscs-teamleader",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "onlinePanel",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "caseReference",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "caseCreated",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "region",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "appeal",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "events",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "hearings",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "evidence",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpTimeExtension",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "subscriptions",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "generatedNino",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "generatedSurname",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "generatedEmail",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "generatedMobile",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "bulkScanCaseReference",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "regionalProcessingCenter",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "sscsDocument",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "panel",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "generatedDOB",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "evidencePresent",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "corDocument",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "assignedToJudge",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "timeExtension",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "reasonsForChallenge",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "outcome",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "revisedReason",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "lapseInfo",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "withdrawalInfo",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "decisionCorrectionInfo",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "referralInfo",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "caseCorrection",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "decisionInfo",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "assignedToMedicalMember",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "assignedToDisabilityMember",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "decisionNotes",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "isCorDecision",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dateSentToDwp",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "sscsDocument",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "directionResponse",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "directionResponse",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "directionResponse",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "directionResponse",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "directionResponse",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "appealNotePad",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "caseCode",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "caseCorrection",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "caseHistory",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "decisionCorrectionInfo",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "decisionInfo",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "directionResponse",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpAT38Document",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpEvidenceBundleDocument",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpEditedEvidenceBundleDocument",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpEditedEvidenceReason",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpFurtherEvidenceStates",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpLapseLetter",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpLT203",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpNoActionDoc",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpOtherDoc",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpRegionalCentre",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpRegionalCentre",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpResponseDocument",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpEditedResponseDocument",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpChallengeValidityDocument",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpState",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpState",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpSupplementaryResponseDoc",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "evidencePresent",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "generatedDOB",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "interlocDecisionInfo",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "interlocDirectionInfo",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "interlocStrikeOutInfo",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "judgeAppealNotePad",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "lapseInfo",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "outcome",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "panel",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "reasonsForChallenge",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "referralInfo",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "regionalProcessingCenter",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "revisedReason",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "sscsDocument",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "tcwInProgress",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "timeExtension",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "withdrawalInfo",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "interlocWaiverInfo",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "benefitCode",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "issueCode",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "issueCode",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpOriginatingOffice",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpPresentingOffice",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpIsOfficerAttending",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpUCB",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpPHME",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpComplexAppeal",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpFurtherInfo",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "interlocWaiverInfo",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "interlocWaiverInfo",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "interlocWaiverInfo",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "interlocWaiverInfo",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "interlocWaiverInfo",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "appeal",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "relistingReason",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "relistingReason",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "relistingReason",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "scannedDocuments",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "scannedDocuments",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "scannedDocuments",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "scannedDocuments",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "audioVideoEvidence",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "audioVideoEvidence",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "audioVideoEvidence",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "audioVideoEvidence",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpUploadAudioVideoEvidence",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpUploadAudioVideoEvidence",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpUploadAudioVideoEvidence",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpUploadAudioVideoEvidence",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpUploadAudioVideoEvidence",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "bulkScanCaseReference",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "generatedDOB",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "generatedEmail",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "generatedMobile",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "generatedNino",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "generatedSurname",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "appealNotePad",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "assignedToDisabilityMember",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "assignedToJudge",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "assignedToMedicalMember",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "caseBundles",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "caseCode",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "caseCorrection",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "caseCreated",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "caseHistory",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "caseReference",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dateInformationRequested",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "decisionCorrectionInfo",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "decisionInfo",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "decisionNotes",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "directionText",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "draftCorDocument",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "draftSscsDocument",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpAT38Document",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpEvidenceBundleDocument",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpEditedEvidenceBundleDocument",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpEditedEvidenceReason",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpFurtherEvidenceStates",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpLapseLetter",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpLT203",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpNoActionDoc",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpOtherDoc",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpResponseDocument",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpEditedResponseDocument",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpChallengeValidityDocument",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpResponseState",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpSupplementaryResponseDoc",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpTimeExtension",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "events",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "evidence",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "evidenceHandled",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "evidencePresent",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "evidenceReceivedCF",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "exceptionRecordReference",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "furtherEvidenceAction",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "hearings",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "infoRequests",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "informationFromAppellant",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "informationFromDWP",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "informationFromOther",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "interlocDecisionInfo",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "interlocDirectionInfo",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "interlocStrikeOutInfo",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "isCorDecision",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "judgeAppealNotePad",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "lapseInfo",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "onlinePanel",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "originalSender",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "outcome",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "panel",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "reasonsForChallenge",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "referralInfo",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "region",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "regionalProcessingCenter",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "revisedReason",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "subscriptions",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "tcwInProgress",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "timeExtension",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "withdrawalInfo",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "benefitCode",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "benefitCode",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "issueCode",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpOriginatingOffice",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpPresentingOffice",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpIsOfficerAttending",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpUCB",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpPHME",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpComplexAppeal",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpFurtherInfo",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "isInterlocRequired",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpResponseDocument",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpEditedResponseDocument",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpAT38Document",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpChallengeValidityDocument",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpResponseDocument",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpEditedResponseDocument",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpAT38Document",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpChallengeValidityDocument",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpEvidenceBundleDocument",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpEvidenceBundleDocument",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpEditedEvidenceBundleDocument",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpEditedEvidenceBundleDocument",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpEditedEvidenceReason",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpEditedEvidenceReason",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "caseCode",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "RU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "caseCode",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "directionResponse",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "summaryName",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "summaryAddress",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "summaryNino",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "summaryDOB",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "summaryBenefitType",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "summaryCaseReference",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "summaryHearingType",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "summaryAreAppointee",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "summaryRepresentativeName",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "summaryJointPartyName",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "summaryJointPartySameAddress",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "summaryJointPartyAddress",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "summaryJointPartyNino",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "summaryJointPartyDob",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "summaryState",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "summaryCreatedInGapsFrom",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "summaryTyaNumber",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "summaryTyaNumber",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "summaryTyaNumber",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "summaryTyaAppointeeNumber",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "summaryTyaAppointeeNumber",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "summaryTyaAppointeeNumber",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "summaryMyaAppellantLink",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "summaryMyaAppellantLink",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "summaryMyaAppellantLink",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "summaryMyaRepresentativeLink",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "summaryMyaRepresentativeLink",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "summaryMyaRepresentativeLink",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "summaryMyaAppointeeLink",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "summaryMyaAppointeeLink",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "summaryMyaAppointeeLink",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "interlocReferralDate",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "interlocReferralDate",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "interlocReferralDate",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "interlocReferralDate",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "interlocReferralDate",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "interlocReferralDate",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "7/16/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpStateFeNoAction",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "7/16/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpStateFeNoAction",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "generateNotice",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "previewDocument",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "signedBy",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "signedRole",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "bodyContent",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dateAdded",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "decisionType",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "historicSscsInterlocDirectionDocs",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "generateNotice",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "previewDocument",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "signedBy",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "signedRole",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "bodyContent",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dateAdded",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "decisionType",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "historicSscsInterlocDirectionDocs",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "generateNotice",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "previewDocument",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "signedBy",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "signedRole",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "bodyContent",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dateAdded",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "decisionType",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "historicSscsInterlocDirectionDocs",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "generateNotice",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "previewDocument",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "signedBy",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "signedRole",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "bodyContent",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dateAdded",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "decisionType",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "historicSscsInterlocDirectionDocs",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "generateNotice",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "previewDocument",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "signedBy",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "signedRole",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "bodyContent",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dateAdded",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "decisionType",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "historicSscsInterlocDirectionDocs",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "generateNotice",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "previewDocument",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "signedBy",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "signedRole",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "bodyContent",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dateAdded",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "decisionType",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "historicSscsInterlocDirectionDocs",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "generateNotice",
+  "UserRole" : "caseworker-sscs-teamleader",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "previewDocument",
+  "UserRole" : "caseworker-sscs-teamleader",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "tl1Form",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "tl1Form",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "tl1Form",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "tl1Form",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "tl1Form",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "tl1Form",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "tl1Form",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpDocuments",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpDocuments",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpDocuments",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpDocuments",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpDocuments",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpDocuments",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpDocuments",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "signedBy",
+  "UserRole" : "caseworker-sscs-teamleader",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "signedRole",
+  "UserRole" : "caseworker-sscs-teamleader",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "bodyContent",
+  "UserRole" : "caseworker-sscs-teamleader",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dateAdded",
+  "UserRole" : "caseworker-sscs-teamleader",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "decisionType",
+  "UserRole" : "caseworker-sscs-teamleader",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "historicSscsInterlocDirectionDocs",
+  "UserRole" : "caseworker-sscs-teamleader",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "7/16/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "interlocReferralReason",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "7/16/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "interlocReferralReason",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "7/16/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "interlocReferralReason",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "RU"
+}, {
+  "LiveFrom" : "7/16/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "interlocReferralReason",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRU"
+}, {
+  "LiveFrom" : "7/16/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "interlocReferralReason",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "7/16/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "interlocReferralReason",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "summaryInterlocReferralReason",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "summaryInterlocReferralReason",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "summaryInterlocReferralReason",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "7/16/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "selectWhoReviewsCase",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "7/16/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "selectWhoReviewsCase",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "RU"
+}, {
+  "LiveFrom" : "7/16/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "selectWhoReviewsCase",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "7/16/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "selectWhoReviewsCase",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "RU"
+}, {
+  "LiveFrom" : "7/16/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "selectWhoReviewsCase",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "7/16/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "selectWhoReviewsCase",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "RU"
+}, {
+  "LiveFrom" : "7/16/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "selectWhoReviewsCase",
+  "UserRole" : "caseworker-sscs-teamleader",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "directionType",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "extensionNextEvent",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "extensionNextEventDl",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "directionTypeDl",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "directionTypeDl",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "directionTypeDl",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "directionTypeDl",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "directionTypeDl",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "directionTypeDl",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "9/10/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "directionTypeDl",
+  "UserRole" : "caseworker-sscs-teamleader",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dateCaseSentToGaps",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dateCaseSentToGaps",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dateCaseSentToGaps",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dateCaseSentToGaps",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dateCaseSentToGaps",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "timeExtensionRequested",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "timeExtensionRequested",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "timeExtensionRequested",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "timeExtensionRequested",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "timeExtensionRequested",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "timeExtensionRequested",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "timeExtensionRequested",
+  "UserRole" : "caseworker-sscs-teamleader",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpLT203",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpLT203",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpLT203",
+  "UserRole" : "caseworker-sscs-teamleader",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpLapseLetter",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpLapseLetter",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpLapseLetter",
+  "UserRole" : "caseworker-sscs-teamleader",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpAT38Document",
+  "UserRole" : "caseworker-sscs-teamleader",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpEvidenceBundleDocument",
+  "UserRole" : "caseworker-sscs-teamleader",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpEditedEvidenceBundleDocument",
+  "UserRole" : "caseworker-sscs-teamleader",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpEditedEvidenceReason",
+  "UserRole" : "caseworker-sscs-teamleader",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpResponseDocument",
+  "UserRole" : "caseworker-sscs-teamleader",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpEditedResponseDocument",
+  "UserRole" : "caseworker-sscs-teamleader",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpChallengeValidityDocument",
+  "UserRole" : "caseworker-sscs-teamleader",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "responseRequired",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "pcqId",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "pcqId",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "draftSscsFurtherEvidenceDocument",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CR"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "draftSscsFurtherEvidenceDocument",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "CR"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "draftSscsFurtherEvidenceDocument",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "draftSscsFurtherEvidenceDocument",
+  "UserRole" : "caseworker-sscs-panelmember",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "draftSscsFurtherEvidenceDocument",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "draftSscsFurtherEvidenceDocument",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "draftSscsFurtherEvidenceDocument",
+  "UserRole" : "caseworker-sscs-teamleader",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "draftSscsFurtherEvidenceDocument",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "draftSscsFurtherEvidenceDocument",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "draftSscsFurtherEvidenceDocument",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "writeFinalDecisionIsDescriptorFlow",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "writeFinalDecisionAllowedOrRefused",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "writeFinalDecisionTypeOfHearing",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "writeFinalDecisionPresentingOfficerAttendedQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "writeFinalDecisionAppellantAttendedQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "pipWriteFinalDecisionDailyLivingQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "pipWriteFinalDecisionComparedToDWPDailyLivingQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "pipWriteFinalDecisionMobilityQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "pipWriteFinalDecisionComparedToDWPMobilityQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "writeFinalDecisionStartDate",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "writeFinalDecisionEndDateType",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "writeFinalDecisionEndDate",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "writeFinalDecisionDisabilityQualifiedPanelMemberName",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "writeFinalDecisionMedicallyQualifiedPanelMemberName",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "writeFinalDecisionOtherPanelMemberName",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "writeFinalDecisionDateOfDecision",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "writeFinalDecisionDetailsOfDecision",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "wcaAppeal",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "supportGroupOnlyAppeal",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "pipWriteFinalDecisionDailyLivingActivitiesQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "pipWriteFinalDecisionMobilityActivitiesQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "pipWriteFinalDecisionPreparingFoodQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "pipWriteFinalDecisionTakingNutritionQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "pipWriteFinalDecisionManagingTherapyQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "pipWriteFinalDecisionWashAndBatheQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "pipWriteFinalDecisionManagingToiletNeedsQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "pipWriteFinalDecisionDressingAndUndressingQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "pipWriteFinalDecisionCommunicatingQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "pipWriteFinalDecisionReadingUnderstandingQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "pipWriteFinalDecisionEngagingWithOthersQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "pipWriteFinalDecisionBudgetingDecisionsQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "pipWriteFinalDecisionPlanningAndFollowingQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "pipWriteFinalDecisionMovingAroundQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "writeFinalDecisionPageSectionReference",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "writeFinalDecisionReasons",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "writeFinalDecisionAnythingElse",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "writeFinalDecisionPreviewDocument",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "writeFinalDecisionGeneratedDate",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "writeFinalDecisionGenerateNotice",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "adjournCaseGenerateNotice",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "adjournCaseTypeOfHearing",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "adjournCaseCanCaseBeListedRightAway",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "adjournCaseAreDirectionsBeingMadeToParties",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "adjournCaseDirectionsDueDateDaysOffset",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "adjournCaseDirectionsDueDate",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "adjournCaseTypeOfNextHearing",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "adjournCaseNextHearingVenue",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "adjournCaseNextHearingVenueSelected",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "adjournCasePanelMembersExcluded",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "adjournCaseDisabilityQualifiedPanelMemberName",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "adjournCaseMedicallyQualifiedPanelMemberName",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "adjournCaseOtherPanelMemberName",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "adjournCaseNextHearingListingDurationType",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "adjournCaseNextHearingListingDuration",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "adjournCaseNextHearingListingDurationUnits",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "adjournCaseInterpreterRequired",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "adjournCaseInterpreterLanguage",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "adjournCaseNextHearingDateType",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "adjournCaseNextHearingDateOrPeriod",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "adjournCaseNextHearingFirstAvailableDateAfterDate",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "adjournCaseNextHearingFirstAvailableDateAfterPeriod",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "adjournCaseTime",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "adjournCaseReasons",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "adjournCaseAdditionalDirections",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "adjournCasePreviewDocument",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "adjournCaseGeneratedDate",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/10/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "languagePreferenceWelsh",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/10/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "languagePreferenceWelsh",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/10/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "notListableProvideReasons",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/10/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "notListableDueDate",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/10/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "updateNotListableDirectionsFulfilled",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/10/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "updateNotListableInterlocReview",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/10/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "updateNotListableWhoReviewsCase",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/10/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "updateNotListableSetNewDueDate",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/10/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "updateNotListableDueDate",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/10/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "updateNotListableWhereShouldCaseMoveTo",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/10/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "elementsDisputedList",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/10/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "elementsDisputedGeneral",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/10/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "elementsDisputedSanctions",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/10/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "elementsDisputedOverpayment",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/10/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "elementsDisputedHousing",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/10/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "elementsDisputedChildCare",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/10/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "elementsDisputedCare",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/10/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "elementsDisputedChildElement",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/10/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "elementsDisputedChildDisabled",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/10/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "elementsDisputedIsDecisionDisputedByOthers",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/10/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "elementsDisputedLinkedAppealRef",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "previousState",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "previousState",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/10/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "jointParty",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/10/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "jointPartyName",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/10/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "jointPartyIdentity",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/10/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "jointPartyAddressSameAsAppellant",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/10/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "jointPartyAddress",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/10/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "isScottishCase",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "bulkScanEnvelopes",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "bulkScanEnvelopes",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "bulkScanEnvelopes",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/10/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "translationWorkOutstanding",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/10/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "translationWorkOutstanding",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "sscsWelshDocuments",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "sscsWelshPreviewDocuments",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "originalDocuments",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/10/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "sscsWelshPreviewNextEvent",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "originalNoticeDocuments",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/10/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "documentTypes",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/10/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "welshBodyContent",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/10/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "englishBodyContent",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/10/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "welshInterlocNextReviewState",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/10/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "restoreCasesDate",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "reinstatementRegistered",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "reinstatementOutcome",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/10/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "isConfidentialCase",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "isConfidentialCaseLabel",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "confidentialityRequestOutcomeAppellant",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "confidentialityRequestOutcomeJointParty",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/10/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "confidentialityRequestAppellantGrantedOrRefused",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/10/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "confidentialityRequestJointPartyGrantedOrRefused",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/10/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "formType",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/10/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "isProgressingViaGaps",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "summaryIsProgressingViaGaps",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/10/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "urgentHearingRegistered",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/10/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "urgentHearingOutcome",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "reinstatementRegistered",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "reinstatementOutcome",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/10/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "esaWriteFinalDecisionPhysicalDisabilitiesQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "6/10/20",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "esaWriteFinalDecisionMentalAssessmentQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "esaWriteFinalDecisionMobilisingUnaidedQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "esaWriteFinalDecisionStandingAndSittingQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "esaWriteFinalDecisionReachingQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "esaWriteFinalDecisionPickingUpQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "1/1/18",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "esaWriteFinalDecisionManualDexterityQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "esaWriteFinalDecisionMakingSelfUnderstoodQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "esaWriteFinalDecisionCommunicationQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "esaWriteFinalDecisionNavigationQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "esaWriteFinalDecisionLossOfControlQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "esaWriteFinalDecisionConsciousnessQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "esaWriteFinalDecisionLearningTasksQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "esaWriteFinalDecisionAwarenessOfHazardsQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "esaWriteFinalDecisionPersonalActionQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "esaWriteFinalDecisionCopingWithChangeQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "esaWriteFinalDecisionGettingAboutQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "esaWriteFinalDecisionSocialEngagementQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "esaWriteFinalDecisionAppropriatenessOfBehaviourQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43992",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "doesRegulation29Apply",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43992",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "showRegulation29Page",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43992",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "showSchedule3ActivitiesPage",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43992",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "esaWriteFinalDecisionSchedule3ActivitiesApply",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43992",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "esaWriteFinalDecisionSchedule3ActivitiesQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43992",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "doesRegulation35Apply",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43992",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "showFinalDecisionNoticeSummaryOfOutcomePage",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43992",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "showDwpReassessAwardPage",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43992",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpReassessTheAward",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43992",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "ucWriteFinalDecisionPhysicalDisabilitiesQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43992",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "ucWriteFinalDecisionMentalAssessmentQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "ucWriteFinalDecisionMobilisingUnaidedQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "ucWriteFinalDecisionStandingAndSittingQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "ucWriteFinalDecisionReachingQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "ucWriteFinalDecisionPickingUpQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "ucWriteFinalDecisionManualDexterityQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "ucWriteFinalDecisionMakingSelfUnderstoodQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "ucWriteFinalDecisionCommunicationQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "ucWriteFinalDecisionNavigationQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "ucWriteFinalDecisionLossOfControlQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "ucWriteFinalDecisionConsciousnessQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "ucWriteFinalDecisionLearningTasksQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "ucWriteFinalDecisionAwarenessOfHazardsQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "ucWriteFinalDecisionPersonalActionQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "ucWriteFinalDecisionCopingWithChangeQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "ucWriteFinalDecisionGettingAboutQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "ucWriteFinalDecisionSocialEngagementQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "ucWriteFinalDecisionAppropriatenessOfBehaviourQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "doesSchedule8Paragraph4Apply",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "showSchedule8Paragraph4Page",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "showSchedule7ActivitiesPage",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "ucWriteFinalDecisionSchedule7ActivitiesQuestion",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "ucWriteFinalDecisionSchedule7ActivitiesApply",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "doesSchedule9Paragraph4Apply",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "processingVenue",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpUcbEvidenceDocument",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpUcbEvidenceDocument",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpUcbEvidenceDocument",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpUcbEvidenceDocument",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dwpUcbEvidenceDocument",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "dateOfAppellantDeath",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "44179",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "isSaveAndReturn",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "44179",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "isSaveAndReturn",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "44179",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "isSaveAndReturn",
+  "UserRole" : "caseworker-sscs-anonymouscitizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "44179",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "reasonableAdjustmentChoice",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "reasonableAdjustments",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "44179",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "appendix12Doc",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "draftFurtherEvidenceDocuments",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CR"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "draftFurtherEvidenceDocuments",
+  "UserRole" : "caseworker-sscs-dwpresponsewriter",
+  "CRUD" : "CR"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "draftFurtherEvidenceDocuments",
+  "UserRole" : "caseworker-sscs-judge",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "draftFurtherEvidenceDocuments",
+  "UserRole" : "caseworker-sscs-panelmember",
+  "CRUD" : "R"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "draftFurtherEvidenceDocuments",
+  "UserRole" : "caseworker-sscs-registrar",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "draftFurtherEvidenceDocuments",
+  "UserRole" : "caseworker-sscs-superuser",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "draftFurtherEvidenceDocuments",
+  "UserRole" : "caseworker-sscs-teamleader",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "draftFurtherEvidenceDocuments",
+  "UserRole" : "citizen",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "draftFurtherEvidenceDocuments",
+  "UserRole" : "caseworker-sscs-clerk",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "43101",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "draftFurtherEvidenceDocuments",
+  "UserRole" : "caseworker-sscs-systemupdate",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "44179",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "isAppellantDeceased",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+}, {
+  "LiveFrom" : "44179",
+  "LiveTo" : "",
+  "CaseTypeID" : "Benefit",
+  "CaseFieldID" : "appellantDeceasedLabel",
+  "UserRole" : "caseworker-sscs",
+  "CRUD" : "CRUD"
+} ]
