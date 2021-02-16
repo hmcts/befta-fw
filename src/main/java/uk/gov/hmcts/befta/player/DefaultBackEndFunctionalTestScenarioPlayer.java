@@ -309,7 +309,8 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
                 fileToUpload = BeftaUtils.getClassPathResourceIntoTemporaryFile(multipartInfo.get("filePath"));
                 multipartValue = fileToUpload;
             }
-            request.multiPart(controlName, multipartValue);
+            //request.multiPart(controlName, multipartValue);
+            request.multiPart(controlName, multipartValue, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         } catch (Exception e) {
             throw new FunctionalTestException("Failed to put multi-part into the request: " + controlName, e);
         } finally {
