@@ -7,7 +7,7 @@ plugins {
 
 apply plugin: 'java'
 
-def buildNumber = System.getenv("RELEASE_VERSION")?.replace("refs/tags/", "") ?: "6.11.0"
+def buildNumber = System.getenv("RELEASE_VERSION")?.replace("refs/tags/", "") ?: "6.11.1-SNAPSHOT"
 
 group 'uk.gov.hmcts'
 
@@ -84,9 +84,10 @@ task definitionsToJson(dependsOn: sourcesJar) {
     doFirst() {
         fileTree("${project.projectDir}/src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/excel").matching {
             include "*.xlsx"
+            exclude "~*.xlsx"
         }.visit { FileVisitDetails details ->
             def name = details.getName()
-            def inputPath = "${project.projectDir}/src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/excel/${details.getPath()}"
+            def inputPath = "${project.projectDir}/src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/excel/${name}"
             def outputFolderPath = "${project.projectDir}/src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/valid/"
             def useJurisdictionName = false;
 
