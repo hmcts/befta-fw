@@ -2,42 +2,7 @@
   "LiveFrom" : "1/1/17",
   "LiveTo" : "",
   "CaseTypeID" : "BEFTA_CASETYPE_2_1",
-  "CaseEventID" : "CREATE",
-  "UserRole" : "caseworker-caa",
-  "CRUD" : "CRU"
-}, {
-  "LiveFrom" : "1/1/17",
-  "LiveTo" : "",
-  "CaseTypeID" : "BEFTA_CASETYPE_2_1",
-  "CaseEventID" : "START_PROGRESS",
-  "UserRole" : "caseworker-caa",
-  "CRUD" : "CRU"
-}, {
-  "LiveFrom" : "1/1/17",
-  "LiveTo" : "",
-  "CaseTypeID" : "BEFTA_CASETYPE_2_1",
-  "CaseEventID" : "STOP_PROGRESS",
-  "UserRole" : "caseworker-caa",
-  "CRUD" : "CRU"
-}, {
-  "LiveFrom" : "1/1/17",
-  "LiveTo" : "",
-  "CaseTypeID" : "BEFTA_CASETYPE_2_1",
-  "CaseEventID" : "COMPLETE",
-  "UserRole" : "caseworker-caa",
-  "CRUD" : "CRU"
-}, {
-  "LiveFrom" : "1/1/17",
-  "LiveTo" : "",
-  "CaseTypeID" : "BEFTA_CASETYPE_2_1",
   "CaseEventID" : "UPDATE",
-  "UserRole" : "caseworker-caa",
-  "CRUD" : "CRU"
-}, {
-  "LiveFrom" : "1/1/17",
-  "LiveTo" : "",
-  "CaseTypeID" : "BEFTA_CASETYPE_2_1",
-  "CaseEventID" : "REVIEW",
   "UserRole" : "caseworker-caa",
   "CRUD" : "CRU"
 }, {
