@@ -1,6 +1,7 @@
 package uk.gov.hmcts.befta;
 
 import uk.gov.hmcts.befta.auth.UserTokenProviderConfig;
+import uk.gov.hmcts.befta.data.CollectionVerificationConfig.Ordering;
 import uk.gov.hmcts.befta.util.EnvironmentVariableUtils;
 
 public class TestAutomationConfig {
@@ -46,6 +47,22 @@ public class TestAutomationConfig {
 
     public UserTokenProviderConfig getUserTokenProviderConfig() {
         return UserTokenProviderConfig.DEFAULT_INSTANCE;
+    }
+
+    public Ordering getDefaultCollectionAssertionMode() {
+        Ordering returnValue = Ordering.ORDERED;
+
+        try {
+            Ordering defaultCollectionAssertionMode =
+                    Ordering.of(EnvironmentVariableUtils.getOptionalVariable("DEFAULT_COLLECTION_ASSERTION_MODE"));
+            if (defaultCollectionAssertionMode != null) {
+                returnValue = defaultCollectionAssertionMode;
+            }
+        } catch (IllegalArgumentException iae) {
+            returnValue = Ordering.ORDERED;
+        }
+
+        return returnValue;
     }
 
     public static enum ResponseHeaderCheckPolicy {

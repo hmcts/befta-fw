@@ -16,7 +16,9 @@
   "DisplayContextParameter" : "",
   "ShowSummaryChangeOption" : "Y",
   "ShowSummaryContentOption" : "",
-  "CallBackURLMidEvent" : ""
+  "CallBackURLMidEvent" : "",
+  "Publish" : "",
+  "PublishAs" : ""
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
@@ -35,7 +37,9 @@
   "DisplayContextParameter" : "",
   "ShowSummaryChangeOption" : "Y",
   "ShowSummaryContentOption" : "",
-  "CallBackURLMidEvent" : ""
+  "CallBackURLMidEvent" : "",
+  "Publish" : "",
+  "PublishAs" : ""
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
@@ -54,7 +58,9 @@
   "DisplayContextParameter" : "",
   "ShowSummaryChangeOption" : "Y",
   "ShowSummaryContentOption" : "",
-  "CallBackURLMidEvent" : ""
+  "CallBackURLMidEvent" : "",
+  "Publish" : "",
+  "PublishAs" : ""
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
@@ -65,7 +71,7 @@
   "DisplayContext" : "COMPLEX",
   "PageID" : "SingleFormPageWithComplex",
   "PageLabel" : "Create school class",
-  "PageDisplayOrder" : 1,
+  "PageDisplayOrder" : 2,
   "PageColumnNumber" : "",
   "FieldShowCondition" : "",
   "RetainHiddenValue" : "",
@@ -73,7 +79,9 @@
   "DisplayContextParameter" : "",
   "ShowSummaryChangeOption" : "Y",
   "ShowSummaryContentOption" : "",
-  "CallBackURLMidEvent" : ""
+  "CallBackURLMidEvent" : "",
+  "Publish" : "",
+  "PublishAs" : ""
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
@@ -92,7 +100,9 @@
   "DisplayContextParameter" : "",
   "ShowSummaryChangeOption" : "Y",
   "ShowSummaryContentOption" : "",
-  "CallBackURLMidEvent" : ""
+  "CallBackURLMidEvent" : "",
+  "Publish" : "",
+  "PublishAs" : ""
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
@@ -111,7 +121,9 @@
   "DisplayContextParameter" : "",
   "ShowSummaryChangeOption" : "Y",
   "ShowSummaryContentOption" : "",
-  "CallBackURLMidEvent" : ""
+  "CallBackURLMidEvent" : "",
+  "Publish" : "",
+  "PublishAs" : ""
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
@@ -130,7 +142,9 @@
   "DisplayContextParameter" : "",
   "ShowSummaryChangeOption" : "Y",
   "ShowSummaryContentOption" : "",
-  "CallBackURLMidEvent" : ""
+  "CallBackURLMidEvent" : "",
+  "Publish" : "",
+  "PublishAs" : ""
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
@@ -149,7 +163,9 @@
   "DisplayContextParameter" : "",
   "ShowSummaryChangeOption" : "Y",
   "ShowSummaryContentOption" : "",
-  "CallBackURLMidEvent" : ""
+  "CallBackURLMidEvent" : "",
+  "Publish" : "",
+  "PublishAs" : ""
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
@@ -168,5 +184,7 @@
   "DisplayContextParameter" : "",
   "ShowSummaryChangeOption" : "Y",
   "ShowSummaryContentOption" : "",
-  "CallBackURLMidEvent" : ""
+  "CallBackURLMidEvent" : "",
+  "Publish" : "",
+  "PublishAs" : ""
 } ]

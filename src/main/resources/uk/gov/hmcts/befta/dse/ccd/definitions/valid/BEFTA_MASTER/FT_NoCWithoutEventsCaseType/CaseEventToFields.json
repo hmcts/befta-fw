@@ -16,7 +16,9 @@
   "DisplayContextParameter" : "",
   "ShowSummaryChangeOption" : "Y",
   "ShowSummaryContentOption" : "",
-  "CallBackURLMidEvent" : ""
+  "CallBackURLMidEvent" : "",
+  "Publish" : "",
+  "PublishAs" : ""
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
@@ -35,7 +37,9 @@
   "DisplayContextParameter" : "",
   "ShowSummaryChangeOption" : "Y",
   "ShowSummaryContentOption" : "",
-  "CallBackURLMidEvent" : ""
+  "CallBackURLMidEvent" : "",
+  "Publish" : "",
+  "PublishAs" : ""
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
@@ -54,5 +58,7 @@
   "DisplayContextParameter" : "",
   "ShowSummaryChangeOption" : "Y",
   "ShowSummaryContentOption" : "",
-  "CallBackURLMidEvent" : ""
+  "CallBackURLMidEvent" : "",
+  "Publish" : "",
+  "PublishAs" : ""
 } ]
