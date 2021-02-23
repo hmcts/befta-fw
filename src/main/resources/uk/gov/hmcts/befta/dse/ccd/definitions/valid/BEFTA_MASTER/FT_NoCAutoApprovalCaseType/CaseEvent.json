@@ -55,7 +55,7 @@
   "PreConditionState(s)" : "*",
   "PostConditionState" : "*",
   "EventEnablingCondition" : "",
-  "CallBackURLAboutToStartEvent" : "${TEST_STUB_SERVICE_BASE_URL:http://ccd-test-stubs-service-aat.service.core-compute-aat.internal}/callback_returning_simulated_completed_noc_request",
+  "CallBackURLAboutToStartEvent" : "${MCA_API_BASE_URL:http://aac-manage-case-assignment-aat.service.core-compute-aat.internal}/noc/apply-decision",
   "RetriesTimeoutAboutToStartEvent" : "",
   "CallBackURLAboutToSubmitEvent" : "",
   "RetriesTimeoutURLAboutToSubmitEvent" : "",

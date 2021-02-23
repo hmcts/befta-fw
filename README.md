@@ -152,22 +152,36 @@ The BEFTA Framework will always load the JSON definitions in `befta-fw` from the
 `src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions`, use them to create a XLSX file and import it to the 
 ccd definition store.  
 
-Any changes made to XLSX files in the directory `src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/excel` will 
+:warning: Any changes made to XLSX files in the directory `src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/excel` will 
 *NOT* be imported to the definition store.
 
 The XLSX may be updated, rather than the JSON directly, but for these changes to take effect, they must be applied to the 
-corresponding JSON files, by executing the `DefinitionConverter` class provided by BEFTA Framework.
+corresponding JSON files, by executing the `DefinitionConverter` class provided by BEFTA Framework.  This can be done by either:
 
-This can be done by creating a run configuration within your IDE, providing the path to the main class 
-`uk.gov.hmcts.befta.dse.ccd.DefinitionConverter`, as well as the necessary program arguments listed below.
+* **Running `DefinitionConverter` against all XLSX files**
 
-```
+  The `definitionsToJson` gradle task will run the `DefinitionConverter` against each of the XLSX files in the directory
+  `src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/excel`.  This will relace the corresponding output in the folowing
+  directory: `src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions`.
+
+  ```bash
+    ./gradlew definitionsToJson
+  ```
+
+OR
+
+* **Running `DefinitionConverter` against a single file**
+
+  This can be done by creating a run configuration within your IDE, providing the path to the main class 
+  `uk.gov.hmcts.befta.dse.ccd.DefinitionConverter`, as well as the necessary program arguments listed below.
+
+  ```
     arg1: to-json | to-excel : key word to convert from excel to json or from json to excel
     arg2: input file path for excel document or parent jurisdiction folder for json version
     arg3: (Optional) output folder path for resulting json or excel file. By default will use parent folder from the input location
     arg4: (Optional) Boolean: true - use jurisdiction name to generate the parent folder name when converting from excel to JSON,
           false - use file name as the folder name
-```
+  ```
 
 ## 4) SAMPLE REPOSITORIES USING BEFTA FRAMEWORK
 
