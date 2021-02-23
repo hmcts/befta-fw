@@ -538,28 +538,53 @@ element should be as below:
 ]
 ```
 Here are the 3 fields in this convention:
-* "__operator__" field:
+* `__operator__` field:
 This one represents the mode of comparison of expected and actual content of the collection. It can be one of `equivalent`, `subset` and `superset`. 
 Default is `equivalent` and the field can be omitted if that's the preferred one. Subset 
 and superset comparisons have not yet been implemented.
 
-* "__ordering__" field:
+* `__ordering__` field:
 This one represents whether the elements in the array are has to be compared in the 
 order provided in the test data. It can be one of `ordered`, and `unordered`.
 Default is `ordered` and the field can be omitted if that's the preferred one.
 
-* "__elementId__" field:
-This one represents the field names in the data objects which form up a unique key. 
-Default is `id` and the field can be omitted if there is a field "id" in data objects as 
-a unique key.
-In the case of unordered equivalence check, this field is of no effect.
-In all other cases, the default or specified value of this instructive configuration 
-is essential for the framework to be able to decide which object in the actual response 
-should be compared to which one in the expected response.
+   The ordering can be specified by setting the 
 
+   ```java
+      DEFAULT_COLLECTION_ASSERTION_MODE
+    ```
 
-An example test data file is [here](https://github.com/hmcts/ccd-data-store-api/blob/develop/src/aat/resources/features/F-051/S-109.td.json) showing a 
-nested use of this feature.
+    environment variable to either `ORDERED` or `UNORDERED`.
+    
+    If not set, will revert to default of `ORDERED`.
+    
+    
+* `__elementId__` field:
+
+    This one represents the field names in the data objects which form up a unique key. 
+
+    In the case of unordered equivalence check, this field is of no effect.
+
+    In all other cases, the default or specified value of this instructive configuration 
+    is essential for the framework to be able to decide which object in the actual response 
+    should be compared to which one in the expected response.
+
+    If `__operator__` is set to `UNORDERED`, either explicitly in test data or by setting `DEFAULT_COLLECTION_ASSERTION_MODE` 
+    environment variable and the the `__elementId__` field id(s) are specified, then these values are used by the framework.
+
+    However, if the `__elementId__` id field is not specified, the framework automatically extracts best candidates for 
+    field(s) to uniquely identify the elements for matching static, expected test data.
+
+    Any wildcard element values or data resolved at runtime are excluded as `__elementId__` 
+    candidates.  Examples would be
+
+    ```java
+        "id": "[[ANY_STRING_NOT_NULLABLE]]"
+        "case_id": "${}${[scenarioContext][siblingContexts][F-105_Case_Data_Create_C1][testData][actualResponse][body][id]}"
+    ```  
+    
+    An example test data file is [here](https://github.com/hmcts/ccd-data-store-api/blob/develop/src/aat/resources/features/F-051/S-109.td.json) showing a 
+    nested use of this feature.
 
 
 ## 6) INTRODUCING PROGRAMMATIC LOGIC INTO TEST SUITES
