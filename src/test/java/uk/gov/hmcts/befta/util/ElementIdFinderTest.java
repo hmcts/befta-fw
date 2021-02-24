@@ -6,7 +6,6 @@ import uk.gov.hmcts.befta.exception.InvalidTestDataException;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -243,5 +242,27 @@ public class ElementIdFinderTest {
         objectCaseUsers.add(caseRole2);
 
         assertEquals(CASE_ROLE_KEY, ElementIdFinder.findElementIds(objectCaseUsers, FIELD));
+    }
+
+    @Test
+    public void testElementsFieldsOfTypeIntegerAndBooleanAreUsedAsElementIds(){
+        List<Map<String, Object>> mixedTypeTestCaseUsers = new ArrayList<>();
+
+        Map<String, Object> caseRole1 = new HashMap<>();
+        caseRole1.put("label", "`TextArea` search");
+        caseRole1.put("order", 1);
+        caseRole1.put("metadata", false);
+        caseRole1.put("case_field_id", "TextAreaField");
+
+        Map<String, Object> caseRole2 = new HashMap<>();
+        caseRole2.put("label", "`TextArea` search");
+        caseRole2.put("order", 2);
+        caseRole2.put("metadata", true);
+        caseRole2.put("case_field_id", "TextAreaField");
+
+        mixedTypeTestCaseUsers.add(caseRole1);
+        mixedTypeTestCaseUsers.add(caseRole2);
+
+        assertEquals("metadata,order", ElementIdFinder.findElementIds(mixedTypeTestCaseUsers, FIELD));
     }
 }
