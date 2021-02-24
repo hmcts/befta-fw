@@ -159,17 +159,17 @@ public class MapVerifier {
             List<String> badValueMessages) {
         if (expectedCollection == actualCollection)
             return;
-        String prefixWithFirstElementRemoved = fieldPrefix.substring(fieldPrefix.indexOf('.') + 1);
-        CollectionVerificationConfig verificationConfig = CollectionVerificationConfig.getVerificationConfigFrom(expectedCollection, prefixWithFirstElementRemoved);
+
+        CollectionVerificationConfig verificationConfig = CollectionVerificationConfig.getVerificationConfigFrom(expectedCollection, getFormattedField(fieldPrefix));
         addAnySizeBasedIssue(fieldPrefix, expectedCollection, actualCollection, verificationConfig, badValueMessages);
         Iterator<?> itrExpected = expectedCollection.iterator();
+        if (CollectionVerificationConfig.isFirstElementOfCollectionMetadata(expectedCollection)) {
+            itrExpected.next();
+        }
         Iterator<?> itrActual = actualCollection.iterator();
         int i = 0;
         while (itrExpected.hasNext() && itrActual.hasNext()) {
             Object o1 = itrExpected.next();
-            if (CollectionVerificationConfig.isFirstElementOfCollectionMetadata(o1)) {
-                break;
-            }
             String subfield = getSubfieldFor(field, verificationConfig, i, o1);
             if (isPrimitive(o1)) {
                 if (!actualCollection.contains(o1)) {
@@ -183,6 +183,16 @@ public class MapVerifier {
             }
             i++;
         }
+    }
+
+    private String getFormattedField(String fieldPrefix) {
+        String formattedField;
+        if (fieldPrefix.contains("_X_")) {
+            formattedField = fieldPrefix.substring(0, fieldPrefix.indexOf('[')) + fieldPrefix.substring(fieldPrefix.indexOf(']') + 1);
+        } else {
+            formattedField = fieldPrefix.substring(fieldPrefix.indexOf('.') + 1);
+        }
+        return formattedField;
     }
 
     private String getSubfieldFor(String field, CollectionVerificationConfig verificationConfig, int index,

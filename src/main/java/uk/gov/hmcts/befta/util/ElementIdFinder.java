@@ -80,8 +80,10 @@ public class ElementIdFinder {
             Set<Map.Entry> keys = map.entrySet();
             keys.forEach(entry -> {
                 String key = (String) entry.getKey();
-                if (entry.getValue() instanceof String) { // Don't examine more 1 level deep
-                    String value = (String) entry.getValue();
+                if (entry.getValue() instanceof String ||
+                        entry.getValue() instanceof Boolean ||
+                        entry.getValue() instanceof Integer) { // Don't examine more 1 level deep, i.e submaps
+                    String value = entry.getValue().toString();
                     if (shouldIgnoreElementIdField(value)) {
                         BeftaUtils.defaultLog(String.format("Ignoring map value calculated at runtime when finding " +
                                 "elements for ordering %s: %s", key, value));
