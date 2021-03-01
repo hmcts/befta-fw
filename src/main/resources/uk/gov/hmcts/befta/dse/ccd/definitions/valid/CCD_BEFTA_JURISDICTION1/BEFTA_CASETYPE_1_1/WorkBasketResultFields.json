@@ -2,7 +2,7 @@
   "LiveFrom" : "1/1/19",
   "LiveTo" : "",
   "CaseTypeID" : "BEFTA_CASETYPE_1_1",
-  "UserRole" : "pui-caa",
+  "UserRole" : "caseworker-caa",
   "CaseFieldID" : "TextField",
   "Label" : "`Text` field",
   "DisplayOrder" : 1
@@ -10,7 +10,7 @@
   "LiveFrom" : "1/1/19",
   "LiveTo" : "",
   "CaseTypeID" : "BEFTA_CASETYPE_1_1",
-  "UserRole" : "pui-caa",
+  "UserRole" : "caseworker-caa",
   "CaseFieldID" : "EmailField",
   "Label" : "`Email` field",
   "DisplayOrder" : 2
