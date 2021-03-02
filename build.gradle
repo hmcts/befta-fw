@@ -186,3 +186,23 @@ dependencies {
 }
 // end::dependencies[]
 
+task elasticCurlCommands() {
+    group = "Help"
+    description = "Displays the curl commands required to delete BEFTA case type indexes from ElasticSearch"
+    doFirst() {
+        getCaseTypes().forEach{
+            println "curl -X DELETE http://localhost:9200/${it.toLowerCase()}_cases-000001"
+        }
+    }
+}
+
+def getCaseTypes() {
+    def caseTypes = []
+    new File("${projectDir}/src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/valid/").eachDir { 
+        new File(it.path).eachDir {
+            if (it.name != 'common') caseTypes << it.name
+        }
+    }
+    // TODO: Hardcode case types which are only available in spreadsheets and add to the list?
+    return caseTypes
+}
