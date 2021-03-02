@@ -2,6 +2,7 @@
   "LiveFrom" : "1/1/19",
   "LiveTo" : "",
   "CaseTypeID" : "CASE_TYPE_WITH_NO_CASES",
+  "UserRole" : "",
   "CaseFieldID" : "TextField",
   "Label" : "`Text` field",
   "DisplayOrder" : 1
@@ -9,6 +10,7 @@
   "LiveFrom" : "1/1/19",
   "LiveTo" : "",
   "CaseTypeID" : "CASE_TYPE_WITH_NO_CASES",
+  "UserRole" : "",
   "CaseFieldID" : "EmailField",
   "Label" : "`Email` field",
   "DisplayOrder" : 2

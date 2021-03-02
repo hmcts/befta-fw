@@ -2,6 +2,7 @@
   "LiveFrom" : "1/1/19",
   "LiveTo" : "",
   "CaseTypeID" : "BEFTA_CASETYPE_1_1",
+  "UserRole" : "caseworker-caa",
   "CaseFieldID" : "TextField",
   "Label" : "`Text` field",
   "DisplayOrder" : 1
@@ -9,7 +10,24 @@
   "LiveFrom" : "1/1/19",
   "LiveTo" : "",
   "CaseTypeID" : "BEFTA_CASETYPE_1_1",
+  "UserRole" : "caseworker-caa",
   "CaseFieldID" : "EmailField",
   "Label" : "`Email` field",
+  "DisplayOrder" : 2
+}, {
+  "LiveFrom" : "1/1/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_1_1",
+  "UserRole" : "caseworker-befta_jurisdiction_1",
+  "CaseFieldID" : "TextField",
+  "Label" : "Caseworker Text field",
+  "DisplayOrder" : 1
+}, {
+  "LiveFrom" : "1/1/19",
+  "LiveTo" : "",
+  "CaseTypeID" : "BEFTA_CASETYPE_1_1",
+  "UserRole" : "caseworker-befta_jurisdiction_1",
+  "CaseFieldID" : "EmailField",
+  "Label" : "Caseworker Email field",
   "DisplayOrder" : 2
 } ]
