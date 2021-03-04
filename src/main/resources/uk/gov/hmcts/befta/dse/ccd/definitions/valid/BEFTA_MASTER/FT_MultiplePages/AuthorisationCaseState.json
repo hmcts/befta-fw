@@ -3,13 +3,13 @@
   "LiveTo" : "",
   "CaseTypeID" : "FT_MultiplePages",
   "CaseStateID" : "CaseCreated",
-  "UserRole" : "caseworker-befta_master",
+  "AccessProfile" : "caseworker-befta_master",
   "CRUD" : "CRUD"
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
   "CaseTypeID" : "FT_MultiplePages",
   "CaseStateID" : "extraDetailsAdded",
-  "UserRole" : "caseworker-befta_master",
+  "AccessProfile" : "caseworker-befta_master",
   "CRUD" : "CRUD"
 } ]

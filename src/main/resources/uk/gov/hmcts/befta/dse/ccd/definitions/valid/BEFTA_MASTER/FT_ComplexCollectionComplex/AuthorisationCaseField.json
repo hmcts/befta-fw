@@ -3,69 +3,69 @@
   "LiveTo" : "",
   "CaseTypeID" : "FT_ComplexCollectionComplex",
   "CaseFieldID" : "Children",
-  "UserRole" : "caseworker-befta_master",
+  "AccessProfile" : "caseworker-befta_master",
   "CRUD" : "CRUD"
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
   "CaseTypeID" : "FT_ComplexCollectionComplex",
   "CaseFieldID" : "Homeless",
-  "UserRole" : "caseworker-befta_master",
+  "AccessProfile" : "caseworker-befta_master",
   "CRUD" : "CRUD"
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
   "CaseTypeID" : "FT_ComplexCollectionComplex",
   "CaseFieldID" : "FamilyDetails",
-  "UserRole" : "caseworker-befta_master",
+  "AccessProfile" : "caseworker-befta_master",
   "CRUD" : "CRUD"
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
   "CaseTypeID" : "FT_ComplexCollectionComplex",
   "CaseFieldID" : "MySchool",
-  "UserRole" : "caseworker-befta_master",
+  "AccessProfile" : "caseworker-befta_master",
   "CRUD" : "CRUD"
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
   "CaseTypeID" : "FT_ComplexCollectionComplex",
   "CaseFieldID" : "MySchoolLabel",
-  "UserRole" : "caseworker-befta_master",
+  "AccessProfile" : "caseworker-befta_master",
   "CRUD" : "CRUD"
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
   "CaseTypeID" : "FT_ComplexCollectionComplex",
   "CaseFieldID" : "CaseHistory",
-  "UserRole" : "caseworker-befta_master",
+  "AccessProfile" : "caseworker-befta_master",
   "CRUD" : "CRUD"
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
   "CaseTypeID" : "FT_ComplexCollectionComplex",
   "CaseFieldID" : "MyCompany",
-  "UserRole" : "caseworker-befta_master",
+  "AccessProfile" : "caseworker-befta_master",
   "CRUD" : "CRUD"
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
   "CaseTypeID" : "FT_ComplexCollectionComplex",
   "CaseFieldID" : "CollectionComplexField",
-  "UserRole" : "caseworker-befta_master",
+  "AccessProfile" : "caseworker-befta_master",
   "CRUD" : "CRUD"
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
   "CaseTypeID" : "FT_ComplexCollectionComplex",
   "CaseFieldID" : "CaseLinkCollection",
-  "UserRole" : "caseworker-befta_master",
+  "AccessProfile" : "caseworker-befta_master",
   "CRUD" : "CRUD"
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
   "CaseTypeID" : "FT_ComplexCollectionComplex",
   "CaseFieldID" : "CaseLinkComplex",
-  "UserRole" : "caseworker-befta_master",
+  "AccessProfile" : "caseworker-befta_master",
   "CRUD" : "CRUD"
 } ]

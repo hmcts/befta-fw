@@ -3,48 +3,48 @@
   "LiveTo" : "",
   "CaseTypeID" : "FT_NoCCaseType",
   "CaseEventID" : "createCase",
-  "UserRole" : "citizen",
+  "AccessProfile" : "citizen",
   "CRUD" : "CRUD"
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
   "CaseTypeID" : "FT_NoCCaseType",
   "CaseEventID" : "nocRequest",
-  "UserRole" : "caseworker-caa",
+  "AccessProfile" : "caseworker-caa",
   "CRUD" : "CRUD"
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
   "CaseTypeID" : "FT_NoCCaseType",
   "CaseEventID" : "createCase",
-  "UserRole" : "caseworker-befta_master",
+  "AccessProfile" : "caseworker-befta_master",
   "CRUD" : "CRUD"
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
   "CaseTypeID" : "FT_NoCCaseType",
   "CaseEventID" : "nocRequest",
-  "UserRole" : "caseworker-befta_master",
+  "AccessProfile" : "caseworker-befta_master",
   "CRUD" : "CRUD"
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
   "CaseTypeID" : "FT_NoCCaseType",
   "CaseEventID" : "ApplyNoCDecision",
-  "UserRole" : "caseworker-approver",
+  "AccessProfile" : "caseworker-approver",
   "CRUD" : "CRUD"
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
   "CaseTypeID" : "FT_NoCCaseType",
   "CaseEventID" : "ApplyNoCDecision",
-  "UserRole" : "caseworker-befta_master",
+  "AccessProfile" : "caseworker-befta_master",
   "CRUD" : "CRUD"
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
   "CaseTypeID" : "FT_NoCCaseType",
   "CaseEventID" : "manageAllOrgPolicies",
-  "UserRole" : "caseworker-befta_master",
+  "AccessProfile" : "caseworker-befta_master",
   "CRUD" : "CRUD"
 } ]

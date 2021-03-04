@@ -3,6 +3,6 @@
   "LiveTo" : "",
   "CaseTypeID" : "FT_Tabs",
   "CaseStateID" : "CaseCreated",
-  "UserRole" : "caseworker-befta_master",
+  "AccessProfile" : "caseworker-befta_master",
   "CRUD" : "CRUD"
 } ]

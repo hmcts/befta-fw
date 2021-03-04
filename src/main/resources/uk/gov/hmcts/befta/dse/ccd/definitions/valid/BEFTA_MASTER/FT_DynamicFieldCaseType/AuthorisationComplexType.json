@@ -4,7 +4,7 @@
   "CaseTypeID" : "FT_DynamicFieldCaseType",
   "CaseFieldID" : "DynamicListsComplexField",
   "ListElementCode" : "DynamicRadioListComplex",
-  "UserRole" : "caseworker-befta_master",
+  "AccessProfile" : "caseworker-befta_master",
   "CRUD" : "CRUD"
 }, {
   "LiveFrom" : "1/1/17",
@@ -12,6 +12,6 @@
   "CaseTypeID" : "FT_DynamicFieldCaseType",
   "CaseFieldID" : "DynamicListsComplexField",
   "ListElementCode" : "DynamicMultiSelectComplex",
-  "UserRole" : "caseworker-befta_master",
+  "AccessProfile" : "caseworker-befta_master",
   "CRUD" : "CRUD"
 } ]

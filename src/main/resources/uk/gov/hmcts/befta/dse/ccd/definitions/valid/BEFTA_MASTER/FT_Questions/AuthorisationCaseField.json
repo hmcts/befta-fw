@@ -3,41 +3,41 @@
   "LiveTo" : "",
   "CaseTypeID" : "FT_Questions",
   "CaseFieldID" : "judgeNotes",
-  "UserRole" : "caseworker-befta_master-manager",
+  "AccessProfile" : "caseworker-befta_master-manager",
   "CRUD" : "CRUD"
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
   "CaseTypeID" : "FT_Questions",
   "CaseFieldID" : "judgeNotes",
-  "UserRole" : "caseworker-befta_master-junior",
+  "AccessProfile" : "caseworker-befta_master-junior",
   "CRUD" : "R"
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
   "CaseTypeID" : "FT_Questions",
   "CaseFieldID" : "qanda",
-  "UserRole" : "caseworker-befta_master-junior",
+  "AccessProfile" : "caseworker-befta_master-junior",
   "CRUD" : "CRUD"
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
   "CaseTypeID" : "FT_Questions",
   "CaseFieldID" : "text",
-  "UserRole" : "caseworker-befta_master-junior",
+  "AccessProfile" : "caseworker-befta_master-junior",
   "CRUD" : "CRUD"
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
   "CaseTypeID" : "FT_Questions",
   "CaseFieldID" : "qanda",
-  "UserRole" : "caseworker-befta_master-manager",
+  "AccessProfile" : "caseworker-befta_master-manager",
   "CRUD" : "CRUD"
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
   "CaseTypeID" : "FT_Questions",
   "CaseFieldID" : "text",
-  "UserRole" : "caseworker-befta_master-manager",
+  "AccessProfile" : "caseworker-befta_master-manager",
   "CRUD" : "CRUD"
 } ]

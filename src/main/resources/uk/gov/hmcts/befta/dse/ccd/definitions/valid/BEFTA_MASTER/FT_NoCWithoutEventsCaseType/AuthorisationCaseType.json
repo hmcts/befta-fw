@@ -2,24 +2,24 @@
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
   "CaseTypeID" : "FT_NoCWithoutEventsCaseType",
-  "UserRole" : "citizen",
+  "AccessProfile" : "citizen",
   "CRUD" : "CRUD"
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
   "CaseTypeID" : "FT_NoCWithoutEventsCaseType",
-  "UserRole" : "caseworker-caa",
+  "AccessProfile" : "caseworker-caa",
   "CRUD" : "CRUD"
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
   "CaseTypeID" : "FT_NoCWithoutEventsCaseType",
-  "UserRole" : "caseworker-approver",
+  "AccessProfile" : "caseworker-approver",
   "CRUD" : "CRUD"
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
   "CaseTypeID" : "FT_NoCWithoutEventsCaseType",
-  "UserRole" : "caseworker-befta_master",
+  "AccessProfile" : "caseworker-befta_master",
   "CRUD" : "CRUD"
 } ]
