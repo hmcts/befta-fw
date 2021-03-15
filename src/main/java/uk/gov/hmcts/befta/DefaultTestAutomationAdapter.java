@@ -11,6 +11,7 @@ import uk.gov.hmcts.befta.auth.AuthApi;
 import uk.gov.hmcts.befta.auth.UserTokenProviderConfig;
 import uk.gov.hmcts.befta.data.UserData;
 import uk.gov.hmcts.befta.exception.FunctionalTestException;
+import uk.gov.hmcts.befta.factory.BeftaCaseDocumentAmApiClientFactory;
 import uk.gov.hmcts.befta.factory.BeftaIdamApiClientFactory;
 import uk.gov.hmcts.befta.factory.BeftaServiceAuthorisationApiClientFactory;
 import uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext;
@@ -19,6 +20,7 @@ import uk.gov.hmcts.befta.util.EnvironmentVariableUtils;
 import uk.gov.hmcts.befta.util.ReflectionUtils;
 import uk.gov.hmcts.reform.authorisation.ServiceAuthorisationApi;
 import uk.gov.hmcts.reform.authorisation.generators.ServiceAuthTokenGenerator;
+import uk.gov.hmcts.reform.ccd.document.am.feign.CaseDocumentClientApi;
 
 public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
 
@@ -29,6 +31,7 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
 
     private final AuthApi idamApi;
     private final ServiceAuthorisationApi serviceAuthorisationApi;
+    private final CaseDocumentClientApi caseDocumentClientApi;
 
     private final Map<String, ServiceAuthTokenGenerator> tokenGenerators = new ConcurrentHashMap<>();
 
@@ -38,6 +41,7 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
 
     public DefaultTestAutomationAdapter() {
         serviceAuthorisationApi = BeftaServiceAuthorisationApiClientFactory.createServiceAuthorisationApiClient();
+        caseDocumentClientApi = BeftaCaseDocumentAmApiClientFactory.createCaseDocumentAmApiClient();
         idamApi = BeftaIdamApiClientFactory.createAuthorizationClient();
         ServiceAuthTokenGenerator defaultGenerator = getNewS2sClientWithCredentials(
                 BeftaMain.getConfig().getS2SClientId(), BeftaMain.getConfig().getS2SClientSecret());
@@ -184,5 +188,10 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
     @Override
     public BeftaTestDataLoader getDataLoader() {
         return dataLoader;
+    }
+
+    @Override
+    public CaseDocumentClientApi getCaseDocumentClient() {
+        return caseDocumentClientApi;
     }
 }

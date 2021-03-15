@@ -2,6 +2,7 @@ package uk.gov.hmcts.befta;
 
 import uk.gov.hmcts.befta.data.UserData;
 import uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext;
+import uk.gov.hmcts.reform.ccd.document.am.feign.CaseDocumentClientApi;
 
 public interface TestAutomationAdapter {
 
@@ -16,4 +17,6 @@ public interface TestAutomationAdapter {
     Object calculateCustomValue(BackEndFunctionalTestScenarioContext scenarioContext, Object key);
 
     BeftaTestDataLoader getDataLoader();
+
+    CaseDocumentClientApi getCaseDocumentClient();
 }

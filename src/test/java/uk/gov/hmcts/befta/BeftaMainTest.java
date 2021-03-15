@@ -34,6 +34,8 @@ class BeftaMainTest {
     public static final String BEFTA_S2S_CLIENT_ID_VALUE = "BEFTA_S2S_CLIENT_ID_VALUE";
     public static final String BEFTA_S2S_CLIENT_SECRET_KEY = "BEFTA_S2S_CLIENT_SECRET";
     public static final String BEFTA_S2S_CLIENT_SECRET_VALUE = "BEFTA_S2S_CLIENT_SECRET_VALUE";
+    public static final String CCD_CASE_DOCUMENT_URL_KEY = "CCD_CASE_DOCUMENT_URL";
+    public static final String CCD_CASE_DOCUMENT_URL_VALUE = "CCD_CASE_DOCUMENT_URL_VALUE";
     public static final String TEST_DATA_LOAD_SKIP_PERIOD_KEY = "TEST_DATA_LOAD_SKIP_PERIOD";
     public static final String TEST_DATA_LOAD_SKIP_PERIOD_VALUE = "0";
     private MockedStatic<io.cucumber.core.cli.Main> mainrMock = null;
@@ -66,6 +68,7 @@ class BeftaMainTest {
     @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_ID_KEY, value = BEFTA_S2S_CLIENT_ID_VALUE)
     @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_SECRET_KEY, value = BEFTA_S2S_CLIENT_SECRET_VALUE)
     @SetEnvironmentVariable(key = S2S_URL_KEY, value = S2S_URL_VALUE)
+    @SetEnvironmentVariable(key = CCD_CASE_DOCUMENT_URL_KEY, value = CCD_CASE_DOCUMENT_URL_VALUE)
     @SetEnvironmentVariable(key = TEST_DATA_LOAD_SKIP_PERIOD_KEY, value = TEST_DATA_LOAD_SKIP_PERIOD_VALUE)
     void testMainStringArray() {
         String[] args = {};
@@ -84,6 +87,7 @@ class BeftaMainTest {
     @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_ID_KEY, value = BEFTA_S2S_CLIENT_ID_VALUE)
     @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_SECRET_KEY, value = BEFTA_S2S_CLIENT_SECRET_VALUE)
     @SetEnvironmentVariable(key = S2S_URL_KEY, value = S2S_URL_VALUE)
+    @SetEnvironmentVariable(key = CCD_CASE_DOCUMENT_URL_KEY, value = CCD_CASE_DOCUMENT_URL_VALUE)
     @SetEnvironmentVariable(key = TEST_DATA_LOAD_SKIP_PERIOD_KEY, value = TEST_DATA_LOAD_SKIP_PERIOD_VALUE)
     void testMainStringArrayTestAutomationConfig() {
         String[] args = {};
@@ -102,6 +106,7 @@ class BeftaMainTest {
     @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_ID_KEY, value = BEFTA_S2S_CLIENT_ID_VALUE)
     @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_SECRET_KEY, value = BEFTA_S2S_CLIENT_SECRET_VALUE)
     @SetEnvironmentVariable(key = S2S_URL_KEY, value = S2S_URL_VALUE)
+    @SetEnvironmentVariable(key = CCD_CASE_DOCUMENT_URL_KEY, value = CCD_CASE_DOCUMENT_URL_VALUE)
     @SetEnvironmentVariable(key = TEST_DATA_LOAD_SKIP_PERIOD_KEY, value = TEST_DATA_LOAD_SKIP_PERIOD_VALUE)
     void testMainStringArrayTestAutomationAdapter() {
         BeftaMain.setUp(TestAutomationConfig.INSTANCE);
@@ -118,11 +123,11 @@ class BeftaMainTest {
     @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_ID_KEY, value = BEFTA_S2S_CLIENT_ID_VALUE)
     @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_SECRET_KEY, value = BEFTA_S2S_CLIENT_SECRET_VALUE)
     @SetEnvironmentVariable(key = S2S_URL_KEY, value = S2S_URL_VALUE)
+    @SetEnvironmentVariable(key = CCD_CASE_DOCUMENT_URL_KEY, value = CCD_CASE_DOCUMENT_URL_VALUE)
     @SetEnvironmentVariable(key = TEST_DATA_LOAD_SKIP_PERIOD_KEY, value = TEST_DATA_LOAD_SKIP_PERIOD_VALUE)
     void testMainStringArrayTestAutomationConfigTestAutomationAdapter() {
         TestAutomationAdapter taAdapter = new DefaultTestAutomationAdapter();
         BeftaMain.setUp(taAdapter);
-        ;
         assertEquals(taAdapter, BeftaMain.getAdapter());
     }
 
@@ -136,6 +141,7 @@ class BeftaMainTest {
     @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_ID_KEY, value = BEFTA_S2S_CLIENT_ID_VALUE)
     @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_SECRET_KEY, value = BEFTA_S2S_CLIENT_SECRET_VALUE)
     @SetEnvironmentVariable(key = S2S_URL_KEY, value = S2S_URL_VALUE)
+    @SetEnvironmentVariable(key = CCD_CASE_DOCUMENT_URL_KEY, value = CCD_CASE_DOCUMENT_URL_VALUE)
     @SetEnvironmentVariable(key = TEST_DATA_LOAD_SKIP_PERIOD_KEY, value = TEST_DATA_LOAD_SKIP_PERIOD_VALUE)
     void testRunCucumberMain() {
         String[] args = {};
@@ -153,6 +159,7 @@ class BeftaMainTest {
     @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_ID_KEY, value = BEFTA_S2S_CLIENT_ID_VALUE)
     @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_SECRET_KEY, value = BEFTA_S2S_CLIENT_SECRET_VALUE)
     @SetEnvironmentVariable(key = S2S_URL_KEY, value = S2S_URL_VALUE)
+    @SetEnvironmentVariable(key = CCD_CASE_DOCUMENT_URL_KEY, value = CCD_CASE_DOCUMENT_URL_VALUE)
     @SetEnvironmentVariable(key = TEST_DATA_LOAD_SKIP_PERIOD_KEY, value = TEST_DATA_LOAD_SKIP_PERIOD_VALUE)
     void testsetUpMain() {
         BeftaMain.setUp();

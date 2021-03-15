@@ -1,6 +1,3 @@
-/**
- * 
- */
 package uk.gov.hmcts.befta.factory;
 
 import org.springframework.cloud.openfeign.support.SpringMvcContract;
@@ -10,10 +7,6 @@ import feign.jackson.JacksonEncoder;
 import uk.gov.hmcts.befta.BeftaMain;
 import uk.gov.hmcts.reform.authorisation.ServiceAuthorisationApi;
 
-/**
- * @author korneleehenry
- *
- */
 public class BeftaServiceAuthorisationApiClientFactory {
 
     private BeftaServiceAuthorisationApiClientFactory() {
@@ -24,5 +17,4 @@ public class BeftaServiceAuthorisationApiClientFactory {
                 new SpringMvcContract())
                 .target(ServiceAuthorisationApi.class, BeftaMain.getConfig().getS2SURL());
     }
-
 }

@@ -166,6 +166,7 @@ dependencies {
 
     compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.26'
     compile group: 'uk.gov.hmcts.reform', name: 'service-auth-provider-client', version: '2.0.0'
+    compile group: 'uk.gov.hmcts.reform', name: 'ccd-case-document-am-client', version: '0.1.56'
     compile group: 'org.apache.httpcomponents', name: 'httpcore', version: '4.4.12'
     
     compile group: 'com.google.guava', name: 'guava', version: '28.1-jre'

@@ -46,7 +46,9 @@ public class BackEndFunctionalTestScenarioContextTest {
 	public static final String IDAM_URL_VALUE = "IDAM_URL_VALUE";
 	public static final String S2S_URL_KEY = "S2S_URL";
 	public static final String S2S_URL_VALUE = "S2S_URL_VALUE";
-	public static final String BEFTA_S2S_CLIENT_ID_KEY = "BEFTA_S2S_CLIENT_ID";
+    public static final String CCD_CASE_DOCUMENT_URL_KEY = "CCD_CASE_DOCUMENT_URL";
+    public static final String CCD_CASE_DOCUMENT_URL_VALUE = "CCD_CASE_DOCUMENT_URL_VALUE";
+    public static final String BEFTA_S2S_CLIENT_ID_KEY = "BEFTA_S2S_CLIENT_ID";
 	public static final String BEFTA_S2S_CLIENT_ID_VALUE = "BEFTA_S2S_CLIENT_ID_VALUE";
 	public static final String BEFTA_S2S_CLIENT_SECRET_KEY = "BEFTA_S2S_CLIENT_SECRET";
 	public static final String BEFTA_S2S_CLIENT_SECRET_VALUE = "BEFTA_S2S_CLIENT_SECRET_VALUE";

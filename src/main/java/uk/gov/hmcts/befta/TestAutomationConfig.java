@@ -33,6 +33,10 @@ public class TestAutomationConfig {
         return EnvironmentVariableUtils.getRequiredVariable("BEFTA_S2S_CLIENT_SECRET");
     }
 
+    public String getCaseDocsURL() {
+        return EnvironmentVariableUtils.getRequiredVariable("CCD_CASE_DOCUMENT_URL");
+    }
+
     public String getDefinitionStoreUrl() {
         return EnvironmentVariableUtils.getRequiredVariable("DEFINITION_STORE_HOST");
     }

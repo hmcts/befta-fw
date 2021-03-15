@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import io.cucumber.java.Before;
@@ -31,6 +32,8 @@ import io.restassured.response.Response;
 import io.restassured.specification.QueryableRequestSpecification;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.SpecificationQuerier;
+import org.springframework.core.io.Resource;
+import org.springframework.http.ResponseEntity;
 import uk.gov.hmcts.befta.BeftaMain;
 import uk.gov.hmcts.befta.TestAutomationConfig;
 import uk.gov.hmcts.befta.TestAutomationConfig.ResponseHeaderCheckPolicy;
@@ -52,6 +55,8 @@ import uk.gov.hmcts.befta.util.EnvironmentVariableUtils;
 import uk.gov.hmcts.befta.util.JsonUtils;
 import uk.gov.hmcts.befta.util.MapVerificationResult;
 import uk.gov.hmcts.befta.util.MapVerifier;
+import uk.gov.hmcts.reform.ccd.document.am.feign.CaseDocumentClientApi;
+import uk.gov.hmcts.reform.ccd.document.am.model.Document;
 
 public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFunctionalTestAutomationDSL {
 
@@ -363,7 +368,6 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         scenario.log("Called: " + queryableRequest.getMethod() + " " + queryableRequest.getURI());
         scenario.log("Response:\n" + JsonUtils.getPrettyJsonFromObject(scenarioContext.getTheResponse()));
         scenarioContext.injectDataFromContextAfterApiCall();
-
     }
 
     private ResponseData convertRestAssuredResponseToBeftaResponse(BackEndFunctionalTestScenarioContext scenarioContext,
@@ -384,6 +388,38 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
             jsonForBody = response.getBody() == null ? null : response.getBody().asString();
             if (jsonForBody != null && !jsonForBody.isEmpty()) {
                 wrappedInMap = wrapInMapIfNecessary(jsonForBody, response.getContentType());
+            }
+        }
+
+        Map<String, Object> mapForBody = getMapForBodyFrom(wrappedInMap, jsonForBody);
+        responseData.setBody(mapForBody);
+
+        return responseData;
+    }
+
+    private ResponseData convertResponseEntityResponseToBeftaResponse(BackEndFunctionalTestScenarioContext context,
+                                                                      ResponseEntity response) throws IOException {
+        ResponseData responseData = new ResponseData();
+
+        Map<String, Object> responseHeaders = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+        for (Map.Entry<String, List<String>> header : response.getHeaders().entrySet()) {
+            responseHeaders.put(header.getKey(), header.getValue());
+        }
+
+        responseData.setResponseCode(response.getStatusCode().value());
+
+        String reasonPhrase = EnglishReasonPhraseCatalog.INSTANCE.getReason(response.getStatusCode().value(), null);
+        responseData.setResponseMessage(reasonPhrase);
+        responseData.setHeaders(responseHeaders);
+
+        String jsonForBody;
+        Map<String, Object> wrappedInMap = null;
+        if (shouldTreatBodyAsAFile(scenarioContext.getTestData().getExpectedResponse())) {
+            jsonForBody = getFileInMapJson(response);
+        } else {
+            jsonForBody = response.getBody() == null ? null : response.getBody().toString();
+            if (jsonForBody != null && !jsonForBody.isEmpty()) {
+                wrappedInMap = wrapInMapIfNecessary(jsonForBody, response.getBody().getClass().getName());
             }
         }
 
@@ -416,6 +452,14 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         if (inputStream == null) {
             return null;
         }
+        return getFileInMapJson(inputStream);
+    }
+
+    private String getFileInMapJson(ResponseEntity<Resource> response) throws IOException {
+        return getFileInMapJson(response.getBody().getInputStream());
+    }
+
+    private String getFileInMapJson(InputStream inputStream) throws IOException {
         File tempFile = new File("__download__" + System.currentTimeMillis());
         try {
             tempFile.createNewFile();
@@ -491,8 +535,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         verifyThatTheResponseHasAllTheDetailsAsExpected(this.scenarioContext);
     }
 
-    private void verifyThatTheResponseHasAllTheDetailsAsExpected(BackEndFunctionalTestScenarioContext scenarioContext)
-            throws IOException {
+    private void verifyThatTheResponseHasAllTheDetailsAsExpected(BackEndFunctionalTestScenarioContext scenarioContext) {
         ResponseData expectedResponse = scenarioContext.getTestData().getExpectedResponse();
         ResponseData actualResponse = scenarioContext.getTheResponse();
 
@@ -640,6 +683,60 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
             TimeUnit.MILLISECONDS.sleep((long) (Double.valueOf(df.format(Double.parseDouble(waitTime))) * 1000));
         } catch (NumberFormatException ex) {
             throw new FunctionalTestException("Wait time provided is not a valid number: " + waitTime, ex);
+        }
+    }
+
+    @Override
+    @When("a client call [{}}] made using [{}}] with data as in [{}}]")
+    public void performAndVerifyTheExpectedResponseForCallToClient(
+            String testDataSpec, String clientCallId, String testDataId) throws IOException {
+        BackEndFunctionalTestScenarioContext context = BeftaScenarioContextFactory.createBeftaScenarioContext();
+        context.initializeTestDataFor(testDataId);
+
+        if (clientCallId.equalsIgnoreCase("Case Document AM API Client")) {
+            performAndVerifyCaseDocumentApiClientOperation(context);
+        }
+    }
+
+    private void performAndVerifyCaseDocumentApiClientOperation(BackEndFunctionalTestScenarioContext context) throws IOException {
+        CaseDocumentClientApi caseDocumentClientApi = BeftaMain.getAdapter().getCaseDocumentClient();
+
+        String authorization = "Bearer " + context.getTheInvokingUser().getAccessToken();
+        String s2s = BeftaMain.getAdapter().getNewS2SToken(context.testData.getS2sClientId());
+        String documentId = String.valueOf(context.testData.getRequest().getPathVariables().get("documentId"));
+
+        switch (context.testData.getOperationName()) {
+//            case "uploadDocuments":
+
+            case "getDocumentBinary":
+                ResponseEntity<Resource> r1 = caseDocumentClientApi
+                        .getDocumentBinary(authorization, s2s, UUID.fromString(documentId));
+                ResponseData getDocumentBinaryResponse = convertResponseEntityResponseToBeftaResponse(context, r1);
+
+                context.setTheResponse(getDocumentBinaryResponse);
+                verifyThatTheResponseHasAllTheDetailsAsExpected(context);
+
+//            case "getMetadataForDocument":
+//                Document expectedResponse = mapper.convertValue(context.testData.getExpectedResponse(), Document.class);
+//                Document r2 = caseDocumentClientApi
+//                        .getMetadataForDocument(authorization, s2s, UUID.fromString(documentId));
+//
+//                expectedResponse.classification.equals(r2.classification);
+//                expectedResponse.createdBy.equals(r2.createdBy);
+//                expectedResponse.createdOn.equals(r2.createdOn);
+//                expectedResponse.links.equals(r2.links);
+//                expectedResponse.mimeType.equals(r2.mimeType);
+//                expectedResponse.modifiedOn.equals(r2.modifiedOn);
+//                expectedResponse.originalDocumentName.equals(r2.originalDocumentName);
+//                expectedResponse.size == r2.size;
+
+            case "deleteDocument":
+                ResponseEntity r3 = caseDocumentClientApi
+                        .deleteDocument(authorization, s2s, null, UUID.fromString(documentId), true);
+
+                ResponseData deleteDocumentResponse = convertResponseEntityResponseToBeftaResponse(context, r3);
+                context.setTheResponse(deleteDocumentResponse);
+                verifyThatTheResponseHasAllTheDetailsAsExpected(context);
         }
     }
 }

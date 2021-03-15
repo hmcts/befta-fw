@@ -43,6 +43,8 @@ class TestDataLoaderToDefinitionStoreTest {
 	public static final String BEFTA_S2S_CLIENT_SECRET_VALUE = "BEFTA_S2S_CLIENT_SECRET_VALUE";
 	public static final String S2S_URL_KEY = "S2S_URL";
 	public static final String S2S_URL_VALUE = "S2S_URL_VALUE";
+	public static final String CCD_CASE_DOCUMENT_URL_KEY = "CCD_CASE_DOCUMENT_URL";
+	public static final String CCD_CASE_DOCUMENT_URL_VALUE = "CCD_CASE_DOCUMENT_URL_VALUE";
 	public static final String DEFAULT_DEFINITIONS_PATH_JSON = "src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/valid";
 	public static final String CCD_IMPORT_AUTOTEST_EMAIL = "CCD_IMPORT_AUTOTEST_EMAIL";
 	public static final String CCD_IMPORT_AUTOTEST_EMAIL_VALUE = "CCD_IMPORT_AUTOTEST_EMAIL_VALUE";
@@ -78,6 +80,7 @@ class TestDataLoaderToDefinitionStoreTest {
     @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_ID_KEY, value = BEFTA_S2S_CLIENT_ID_VALUE)
     @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_SECRET_KEY, value = BEFTA_S2S_CLIENT_SECRET_VALUE)
     @SetEnvironmentVariable(key = S2S_URL_KEY, value = S2S_URL_VALUE)
+	@SetEnvironmentVariable(key = CCD_CASE_DOCUMENT_URL_KEY, value = CCD_CASE_DOCUMENT_URL_VALUE)
 	void testTestDataLoaderToDefinitionStoreTestAutomationAdapter() {
 		DefaultTestAutomationAdapter defaultTestAutomationAdapter = new DefaultTestAutomationAdapter();
 		TestDataLoaderToDefinitionStore testDataLoaderToDefinitionStore = new TestDataLoaderToDefinitionStore(defaultTestAutomationAdapter);
@@ -93,6 +96,7 @@ class TestDataLoaderToDefinitionStoreTest {
     @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_ID_KEY, value = BEFTA_S2S_CLIENT_ID_VALUE)
     @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_SECRET_KEY, value = BEFTA_S2S_CLIENT_SECRET_VALUE)
     @SetEnvironmentVariable(key = S2S_URL_KEY, value = S2S_URL_VALUE)
+	@SetEnvironmentVariable(key = CCD_CASE_DOCUMENT_URL_KEY, value = CCD_CASE_DOCUMENT_URL_VALUE)
 	void testTestDataLoaderToDefinitionStoreTestAutomationAdapterStringString() {
 		DefaultTestAutomationAdapter defaultTestAutomationAdapter = new DefaultTestAutomationAdapter();
 		TestDataLoaderToDefinitionStore testDataLoaderToDefinitionStore = new TestDataLoaderToDefinitionStore(defaultTestAutomationAdapter,DEFAULT_DEFINITIONS_PATH_JSON,S2S_URL_VALUE);
@@ -118,7 +122,8 @@ class TestDataLoaderToDefinitionStoreTest {
     @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_ID_KEY, value = BEFTA_S2S_CLIENT_ID_VALUE)
     @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_SECRET_KEY, value = BEFTA_S2S_CLIENT_SECRET_VALUE)
     @SetEnvironmentVariable(key = S2S_URL_KEY, value = S2S_URL_VALUE)
-    @SetEnvironmentVariable(key = CCD_IMPORT_AUTOTEST_EMAIL, value = CCD_IMPORT_AUTOTEST_EMAIL_VALUE)
+	@SetEnvironmentVariable(key = CCD_CASE_DOCUMENT_URL_KEY, value = CCD_CASE_DOCUMENT_URL_VALUE)
+	@SetEnvironmentVariable(key = CCD_IMPORT_AUTOTEST_EMAIL, value = CCD_IMPORT_AUTOTEST_EMAIL_VALUE)
     @SetEnvironmentVariable(key = CCD_IMPORT_AUTOTEST_PASSWORD, value = CCD_IMPORT_AUTOTEST_PASSWORD_VALUE)
     @SetEnvironmentVariable(key = "OAUTH2_CLIENT_ID", value = "OAUTH2_CLIENT_ID_VALUE")
     @SetEnvironmentVariable(key = "OAUTH2_CLIENT_SECRET", value = "OAUTH2_CLIENT_SECRET_VALUE")
@@ -150,7 +155,8 @@ class TestDataLoaderToDefinitionStoreTest {
     @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_ID_KEY, value = BEFTA_S2S_CLIENT_ID_VALUE)
     @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_SECRET_KEY, value = BEFTA_S2S_CLIENT_SECRET_VALUE)
     @SetEnvironmentVariable(key = S2S_URL_KEY, value = S2S_URL_VALUE)
-    @SetEnvironmentVariable(key = CCD_IMPORT_AUTOTEST_EMAIL, value = CCD_IMPORT_AUTOTEST_EMAIL_VALUE)
+	@SetEnvironmentVariable(key = CCD_CASE_DOCUMENT_URL_KEY, value = CCD_CASE_DOCUMENT_URL_VALUE)
+	@SetEnvironmentVariable(key = CCD_IMPORT_AUTOTEST_EMAIL, value = CCD_IMPORT_AUTOTEST_EMAIL_VALUE)
     @SetEnvironmentVariable(key = CCD_IMPORT_AUTOTEST_PASSWORD, value = CCD_IMPORT_AUTOTEST_PASSWORD_VALUE)
     @SetEnvironmentVariable(key = "OAUTH2_CLIENT_ID", value = "OAUTH2_CLIENT_ID_VALUE")
     @SetEnvironmentVariable(key = "OAUTH2_CLIENT_SECRET", value = "OAUTH2_CLIENT_SECRET_VALUE")
@@ -184,7 +190,8 @@ class TestDataLoaderToDefinitionStoreTest {
     @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_ID_KEY, value = BEFTA_S2S_CLIENT_ID_VALUE)
     @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_SECRET_KEY, value = BEFTA_S2S_CLIENT_SECRET_VALUE)
     @SetEnvironmentVariable(key = S2S_URL_KEY, value = S2S_URL_VALUE)
-    @SetEnvironmentVariable(key = CCD_IMPORT_AUTOTEST_EMAIL, value = CCD_IMPORT_AUTOTEST_EMAIL_VALUE)
+	@SetEnvironmentVariable(key = CCD_CASE_DOCUMENT_URL_KEY, value = CCD_CASE_DOCUMENT_URL_VALUE)
+	@SetEnvironmentVariable(key = CCD_IMPORT_AUTOTEST_EMAIL, value = CCD_IMPORT_AUTOTEST_EMAIL_VALUE)
     @SetEnvironmentVariable(key = CCD_IMPORT_AUTOTEST_PASSWORD, value = CCD_IMPORT_AUTOTEST_PASSWORD_VALUE)
     @SetEnvironmentVariable(key = "OAUTH2_CLIENT_ID", value = "OAUTH2_CLIENT_ID_VALUE")
     @SetEnvironmentVariable(key = "OAUTH2_CLIENT_SECRET", value = "OAUTH2_CLIENT_SECRET_VALUE")
@@ -221,7 +228,8 @@ class TestDataLoaderToDefinitionStoreTest {
     @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_ID_KEY, value = BEFTA_S2S_CLIENT_ID_VALUE)
     @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_SECRET_KEY, value = BEFTA_S2S_CLIENT_SECRET_VALUE)
     @SetEnvironmentVariable(key = S2S_URL_KEY, value = S2S_URL_VALUE)
-    @SetEnvironmentVariable(key = CCD_IMPORT_AUTOTEST_EMAIL, value = CCD_IMPORT_AUTOTEST_EMAIL_VALUE)
+	@SetEnvironmentVariable(key = CCD_CASE_DOCUMENT_URL_KEY, value = CCD_CASE_DOCUMENT_URL_VALUE)
+	@SetEnvironmentVariable(key = CCD_IMPORT_AUTOTEST_EMAIL, value = CCD_IMPORT_AUTOTEST_EMAIL_VALUE)
     @SetEnvironmentVariable(key = CCD_IMPORT_AUTOTEST_PASSWORD, value = CCD_IMPORT_AUTOTEST_PASSWORD_VALUE)
     @SetEnvironmentVariable(key = "OAUTH2_CLIENT_ID", value = "OAUTH2_CLIENT_ID_VALUE")
     @SetEnvironmentVariable(key = "OAUTH2_CLIENT_SECRET", value = "OAUTH2_CLIENT_SECRET_VALUE")
