@@ -7,7 +7,7 @@ plugins {
 
 apply plugin: 'java'
 
-def buildNumber = System.getenv("RELEASE_VERSION")?.replace("refs/tags/", "") ?: "6.5.3-SNAPSHOT"
+def buildNumber = System.getenv("RELEASE_VERSION")?.replace("refs/tags/", "") ?: "6.13.0"
 
 group 'uk.gov.hmcts'
 
@@ -43,6 +43,7 @@ repositories {
 ext {
     junitJupiterVersion = '5.2.0'
     junitVintageVersion = '5.2.0'
+    definitionConverterMain = "uk.gov.hmcts.befta.dse.ccd.DefinitionConverter"
 }
 
 jar {
@@ -74,6 +75,43 @@ test {
 artifacts {
     archives sourcesJar
     archives javadocJar
+}
+
+task definitionsToJson(dependsOn: sourcesJar) {
+    group = "Execution"
+    description = "Runs DefinitionConverter for Excel to JSON"
+
+    doFirst() {
+        fileTree("${project.projectDir}/src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/excel").matching {
+            include "*.xlsx"
+            exclude "~*.xlsx"
+        }.visit { FileVisitDetails details ->
+            def name = details.getName()
+            def inputPath = "${project.projectDir}/src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/excel/${name}"
+            def outputFolderPath = "${project.projectDir}/src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/valid/"
+            def useJurisdictionName = false;
+
+            // overrides for BEFTA Master
+            if (name == 'BEFTA_Master_Definition.xlsx') {
+                useJurisdictionName = true;
+            }
+
+            logger.quiet("\nConverting ${name} to JSON.\n")
+
+            javaexec {
+                classpath = sourceSets.main.runtimeClasspath
+                main = definitionConverterMain
+                args = [
+                    "to-json",
+                    inputPath,
+                    outputFolderPath,
+                    useJurisdictionName
+                ]
+            }
+        }
+    }
+
+    outputs.upToDateWhen { false }
 }
 
 publishing {
@@ -149,3 +187,23 @@ dependencies {
 }
 // end::dependencies[]
 
+task elasticCurlCommands() {
+    group = "Help"
+    description = "Displays the curl commands required to delete BEFTA case type indexes from ElasticSearch"
+    doFirst() {
+        getCaseTypes().forEach{
+            println "curl -X DELETE http://localhost:9200/${it.toLowerCase()}_cases-000001"
+        }
+    }
+}
+
+def getCaseTypes() {
+    def caseTypes = []
+    new File("${projectDir}/src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/valid/").eachDir { 
+        new File(it.path).eachDir {
+            if (it.name != 'common') caseTypes << it.name
+        }
+    }
+    // TODO: Hardcode case types which are only available in spreadsheets and add to the list?
+    return caseTypes
+}
