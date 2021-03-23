@@ -54,6 +54,7 @@ class TestAutomationConfigTest {
     @AfterEach
     void cleanup() {
     }
+
     /**
      * Test method for {@link uk.gov.hmcts.befta.TestAutomationConfig#getTestUrl()}.
      */
