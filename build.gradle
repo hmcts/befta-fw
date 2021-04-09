@@ -1,13 +1,12 @@
 plugins {
     id 'java-library'
     id 'maven-publish'
-    id 'com.jfrog.bintray' version '1.8.4'
     id 'maven'
 }
 
 apply plugin: 'java'
 
-def buildNumber = System.getenv("RELEASE_VERSION")?.replace("refs/tags/", "") ?: "6.13.3"
+def buildNumber = System.getenv("RELEASE_VERSION")?.replace("refs/tags/", "") ?: "6.13.4"
 
 group 'uk.gov.hmcts'
 
@@ -35,7 +34,7 @@ repositories {
     mavenCentral()
     jcenter()
     maven {
-        url 'https://dl.bintray.com/hmcts/hmcts-maven'
+        url 'https://jitpack.io'
     }
 }
 // end::repositories[]
@@ -131,23 +130,6 @@ publishing {
                 root.appendNode('url', gitRepo)
                 root.children().last() + pomConfig
             }
-        }
-    }
-}
-
-bintray {
-    user = System.getenv('BINTRAY_USER')
-    key = System.getenv('BINTRAY_KEY')
-    publications = ['Main']
-    publish = true
-    pkg {
-        repo = 'hmcts-maven'
-        name = 'befta-fw'
-        userOrg = 'hmcts'
-        licenses = ['MIT']
-        vcsUrl = gitRepo
-        version {
-            name = project.version
         }
     }
 }
