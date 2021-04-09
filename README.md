@@ -1,6 +1,3 @@
-[![Release](https://jitpack.io/v/hmcts/befta-fw.svg)]
-(https://jitpack.io/#hmcts/befta-fw)
-
 # BACK END FUNCTIONAL TEST AUTOMATION FRAMEWORK
 
 
