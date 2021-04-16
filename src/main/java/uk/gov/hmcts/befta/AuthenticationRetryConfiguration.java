@@ -7,12 +7,12 @@ public class AuthenticationRetryConfiguration {
     private int retryMaxTimeInSeconds;
     private int retryMultiplierInMilliseconds;
 
-    public AuthenticationRetryConfiguration(String retryAttempts,
-                                            String retryMaxTimeInSeconds,
-                                            String retryMultiplierInMilliseconds) {
-        this.retryAttempts = NumberUtils.toInt(retryAttempts);
-        this.retryMaxTimeInSeconds = NumberUtils.toInt(retryMaxTimeInSeconds);
-        this.retryMultiplierInMilliseconds = NumberUtils.toInt(retryMultiplierInMilliseconds);
+    public AuthenticationRetryConfiguration(int retryAttempts,
+                                            int retryMaxTimeInSeconds,
+                                            int retryMultiplierInMilliseconds) {
+        this.retryAttempts =retryAttempts;
+        this.retryMaxTimeInSeconds = retryMaxTimeInSeconds;
+        this.retryMultiplierInMilliseconds = retryMultiplierInMilliseconds;
     }
 
     public int getRetryAttempts() {

@@ -28,6 +28,7 @@ import java.util.TreeMap;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
@@ -635,9 +636,9 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         AuthenticationRetryConfiguration authenticationRetryConfiguration =
                 BeftaMain.getConfig().getAuthenticationRetryConfiguration();
 
+        scenario.log("Authentication attempt from: " + preferredTokenProviderClientId + ".");
         if (authenticationRetryConfiguration.isRetryDisabled()) {
             try {
-                scenario.log("Authentication attempt from: " + preferredTokenProviderClientId + ".");
                 BeftaMain.getAdapter().authenticate(user, preferredTokenProviderClientId);
                 BeftaUtils.defaultLog(logPrefix + "authenticated.");
             } catch (Exception ex) {
@@ -653,7 +654,9 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
                                            UserData user,
                                            String logPrefix,
                                            String preferredTokenProviderClientId) {
+        AtomicInteger counter = new AtomicInteger(0);
         Callable<Boolean> callable = () -> {
+            logger.info("User has been authenticated {} time(s).",counter.incrementAndGet());
             BeftaMain.getAdapter().authenticate(user, preferredTokenProviderClientId);
             return true;
         };

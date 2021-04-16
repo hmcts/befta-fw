@@ -88,9 +88,9 @@ public class TestAutomationConfig {
 
     public AuthenticationRetryConfiguration getAuthenticationRetryConfiguration () {
         return new AuthenticationRetryConfiguration(
-                getOptionalVariable("BEFTA_USER_AUTHENTICATION_RETRY_MAX_ATTEMPTS"),
-                getOptionalVariable("BEFTA_USER_AUTHENTICATION_RETRY_MAX_TIME_SECONDS"),
-                getOptionalVariable("BEFTA_USER_AUTHENTICATION_RETRY_MULTIPLIER_MILLISECONDS")
+                getRetryAttempts(),
+                getRetryMaxTimeInSeconds(),
+                getRetryMultiplierInMilliseconds()
         );
     }
 
@@ -106,6 +106,21 @@ public class TestAutomationConfig {
 
     public boolean isHttpLoggingEnabled() {
         return Boolean.parseBoolean(getOptionalVariable("BEFTA_HTTP_LOGGING_ENABLED"));
+    }
+
+    private int getRetryAttempts() {
+        int retryAttempts = NumberUtils.toInt(getOptionalVariable("BEFTA_USER_AUTHENTICATION_RETRY_MAX_ATTEMPTS"));
+        return retryAttempts !=0 ? retryAttempts : 3;
+    }
+
+    private int getRetryMaxTimeInSeconds() {
+        int retryMaxTimeInSeconds = NumberUtils.toInt(getOptionalVariable("BEFTA_USER_AUTHENTICATION_RETRY_MAX_TIME_SECONDS"));
+        return retryMaxTimeInSeconds !=0 ? retryMaxTimeInSeconds : 10;
+    }
+
+    private int getRetryMultiplierInMilliseconds() {
+        int retryMultiplierInMilliseconds = NumberUtils.toInt(getOptionalVariable("BEFTA_USER_AUTHENTICATION_RETRY_MULTIPLIER_MILLISECONDS"));
+        return retryMultiplierInMilliseconds !=0 ? retryMultiplierInMilliseconds : 60;
     }
 }
 

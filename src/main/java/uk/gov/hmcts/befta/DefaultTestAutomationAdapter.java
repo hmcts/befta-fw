@@ -81,7 +81,7 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
         try {
             s2sToken = tokenGenerators.get(clientId, () -> getNewS2sClient(clientId)).generate();
         } catch (ExecutionException e) {
-            BeftaUtils.defaultLog("Exception when retrieving S2S token from cache", e);
+            BeftaUtils.defaultLog("Exception when creating a new S2S token", e);
         }
 
         return s2sToken;
@@ -89,12 +89,12 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
 
     @Override
     public synchronized void authenticate(UserData user, String userTokenClientId) throws ExecutionException {
-        UserData userData = users.get(user.getUsername(), () -> createUserData(user.getUsername(), user.getPassword(), userTokenClientId));
+        UserData userData = users.get(user.getUsername(), () -> createAuthenticatedUserData(user.getUsername(), user.getPassword(), userTokenClientId));
         user.setId(userData.getId());
         user.setAccessToken(userData.getAccessToken());
     }
 
-    private UserData createUserData(String userName, String password, String userTokenClientId) {
+    private UserData createAuthenticatedUserData(String userName, String password, String userTokenClientId) {
         final String accessToken = getUserAccessToken(userName, password,
                 UserTokenProviderConfig.of(userTokenClientId));
         final AuthApi.User idamUser = idamApi.getUser(accessToken);
