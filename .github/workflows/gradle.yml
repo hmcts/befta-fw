@@ -28,9 +28,24 @@ jobs:
         name: test-reports
         path: build/reports/tests/
     - name: Release
-      env:
-        BINTRAY_USER: jenkins-reform-hmcts
-        BINTRAY_KEY: ${{ secrets.BINTRAY_KEY }}
-        RELEASE_VERSION: ${{ github.ref }}
-      run: ./gradlew bintrayUpload
+      run: |
+        echo "Triggering JitPack build"
+        
+        PACKAGES_URL="https://jitpack.io/com/github/${GITHUB_REPOSITORY}/${GITHUB_REF#refs/tags/}/"
+        
+        # Try the URL 3 times before failing
+        count=1
+        until [[ $count -gt 3 ]] || [[ ${FILE_COUNT:-0} -gt 1 ]]; do
+          echo "Attempt ${count}/3"
+          FILES=$(curl -sS --max-time 900 ${PACKAGES_URL})
+          FILE_COUNT=$(echo ${FILES} | wc -w | xargs)
+          let count+=1
+          sleep 5
+        done
+        
+        echo "::group::Files Available"
+        echo ${FILES}
+        echo "::endgroup::"
+        
+        if [[ $count -gt 3 ]]; then exit 1; fi
       if: startsWith(github.ref, 'refs/tags')
