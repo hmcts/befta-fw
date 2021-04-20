@@ -81,7 +81,7 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
         try {
             s2sToken = tokenGenerators.get(clientId, () -> getNewS2sClient(clientId)).generate();
         } catch (ExecutionException e) {
-            BeftaUtils.defaultLog("Exception when creating a new S2S token", e);
+            BeftaUtils.defaultLog("Exception when acquiring a new S2S token for client Id:" + clientId);
         }
 
         return s2sToken;
