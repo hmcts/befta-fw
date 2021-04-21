@@ -656,7 +656,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
                                            String preferredTokenProviderClientId) {
         AtomicInteger counter = new AtomicInteger(0);
         Callable<Boolean> callable = () -> {
-            logger.info("Number of retries while attempting to authenticate user {} time(s).",counter.incrementAndGet());
+            logger.info("Attempting to authenticate {}. Retry no = {}.", user.getUsername(), counter.incrementAndGet());
             BeftaMain.getAdapter().authenticate(user, preferredTokenProviderClientId);
             return true;
         };
