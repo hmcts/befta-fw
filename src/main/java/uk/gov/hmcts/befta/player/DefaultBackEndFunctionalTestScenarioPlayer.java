@@ -608,9 +608,9 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
             final String userKey, final UserData userBeingSpecified) {
         String prefix = "users[" + userKey + "]";
         resolveUserData(scenarioContext, prefix, userBeingSpecified);
-        scenario.log("Attempting to authenticate [" + userBeingSpecified.getUsername() + "]...");
+        scenario.log("User Email Id [" + userBeingSpecified.getUsername() + "]...");
         authenticateUser(scenarioContext, prefix, userBeingSpecified);
-        scenario.log("Authenticated user with Id [" + userBeingSpecified.getId() + "].");
+        scenario.log("User Id [" + userBeingSpecified.getId() + "].");
     }
 
     private void resolveUserData(final BackEndFunctionalTestScenarioContext scenarioContext, String prefix,
@@ -636,7 +636,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         AuthenticationRetryConfiguration authenticationRetryConfiguration =
                 BeftaMain.getConfig().getAuthenticationRetryConfiguration();
 
-        scenario.log("Authentication attempt from: " + preferredTokenProviderClientId + ".");
+        scenario.log("User service: " + preferredTokenProviderClientId + ".");
         if (authenticationRetryConfiguration.isRetryDisabled()) {
             try {
                 BeftaMain.getAdapter().authenticate(user, preferredTokenProviderClientId);
