@@ -625,6 +625,8 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         }
 
         aUser.setUsername(resolvedUsername);
+        scenario.log("setting user name : " + resolvedUsername);
+        logger.info("Setting user name {} in resolveUserData ", resolvedUsername);
         aUser.setPassword(resolvedPassword);
     }
 
@@ -646,13 +648,12 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
             }
         } else {
             BeftaUtils.defaultLog("Authentication retry enabled");
-            authenticateUserWithRetry(authenticationRetryConfiguration, user, logPrefix, preferredTokenProviderClientId);
+            authenticateUserWithRetry(authenticationRetryConfiguration, user, preferredTokenProviderClientId);
         }
     }
 
     private void authenticateUserWithRetry(AuthenticationRetryConfiguration config,
                                            UserData user,
-                                           String logPrefix,
                                            String preferredTokenProviderClientId) {
         AtomicInteger counter = new AtomicInteger(0);
         Callable<Boolean> callable = () -> {
