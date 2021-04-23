@@ -625,8 +625,6 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         }
 
         aUser.setUsername(resolvedUsername);
-        scenario.log("setting user name : " + resolvedUsername);
-        logger.info("Setting user name {} in resolveUserData ", resolvedUsername);
         aUser.setPassword(resolvedPassword);
     }
 
@@ -648,6 +646,8 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
             }
         } else {
             BeftaUtils.defaultLog("Authentication retry enabled");
+            AtomicInteger counter = new AtomicInteger(0);
+            logger.info("Attempting to authenticate {}. Retry no = {}.", user.getUsername(), counter.incrementAndGet());
             authenticateUserWithRetry(authenticationRetryConfiguration, user, preferredTokenProviderClientId);
         }
     }
@@ -655,9 +655,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     private void authenticateUserWithRetry(AuthenticationRetryConfiguration config,
                                            UserData user,
                                            String preferredTokenProviderClientId) {
-        AtomicInteger counter = new AtomicInteger(0);
         Callable<Boolean> callable = () -> {
-            logger.info("Attempting to authenticate {}. Retry no = {}.", user.getUsername(), counter.incrementAndGet());
             BeftaMain.getAdapter().authenticate(user, preferredTokenProviderClientId);
             return true;
         };
