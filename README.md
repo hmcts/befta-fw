@@ -56,6 +56,11 @@ It provides the following functionalities and conveniences:
      will be delivered.
    * BEFTA_RESPONSE_HEADER_CHECK_POLICY: This env var can be used optionally to switch the policy applied to mismatching 
      response header values. It can be one of IGNORE, JUST_WARN and FAIL_TEST. Default behaviour is to assume FAIL_TEST.
+   * BEFTA_USER_AUTHENTICATION_RETRY_MAX_ATTEMPTS: This env var can be used to specify the number of retry attempts if 
+     token acquisition fails. Default to 3 attempts, if not specified.
+   * BEFTA_USER_AUTHENTICATION_RETRY_MAX_TIME_SECONDS: This specifies the max time to retry if token acquisition fails.
+   * BEFTA_USER_AUTHENTICATION_RETRY_MULTIPLIER_MILLISECONDS: This specifies the retry time after a given series of gaps
+     after every trial.
 
 
 ### 3.5) Domain Specific Environment Variables
