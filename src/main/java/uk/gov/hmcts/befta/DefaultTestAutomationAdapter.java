@@ -2,6 +2,8 @@ package uk.gov.hmcts.befta;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import uk.gov.hmcts.befta.auth.AuthApi;
 import uk.gov.hmcts.befta.auth.UserTokenProviderConfig;
 import uk.gov.hmcts.befta.data.UserData;
@@ -22,6 +24,8 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
+
+    private Logger logger = LoggerFactory.getLogger(DefaultTestAutomationAdapter.class);
 
     private static final String AUTHORIZATION_CODE = "authorization_code";
     private static final String CODE = "code";
@@ -79,6 +83,11 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
     public synchronized String getNewS2SToken(String clientId) {
         String s2sToken = null;
         try {
+            if(tokenGenerators.asMap().containsKey(clientId)) {
+                logger.info("Using S2S token from cache for the clientId: {}", clientId);
+            } else{
+                logger.info("Generating S2S token for the user: {}", clientId);
+            }
             s2sToken = tokenGenerators.get(clientId, () -> getNewS2sClient(clientId)).generate();
         } catch (ExecutionException e) {
             BeftaUtils.defaultLog("Exception when acquiring a new S2S token for client Id:" + clientId);
@@ -89,6 +98,11 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
 
     @Override
     public synchronized void authenticate(UserData user, String userTokenClientId) throws ExecutionException {
+        if(users.asMap().containsKey(user.getUsername())){
+            logger.info("Using token from cache for the user: {}", user.getUsername());
+        } else {
+            logger.info("Generating token for the user: {}", user.getUsername());
+        }
         UserData userData = users.get(user.getUsername(), () -> createAuthenticatedUserData(user.getUsername(), user.getPassword(), userTokenClientId));
         user.setId(userData.getId());
         user.setAccessToken(userData.getAccessToken());
