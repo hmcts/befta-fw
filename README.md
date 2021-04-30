@@ -61,6 +61,8 @@ It provides the following functionalities and conveniences:
    * BEFTA_USER_AUTHENTICATION_RETRY_MAX_TIME_SECONDS: This specifies the max time to retry if token acquisition fails.
    * BEFTA_USER_AUTHENTICATION_RETRY_MULTIPLIER_MILLISECONDS: This specifies the retry time after a given series of gaps
      after every trial.
+   * BEFTA_USER_TOKEN_CACHE_TTL_SECONDS: Configurable amount of time in seconds for user token.
+   * BEFTA_S2S_TOKEN_CACHE_TTL_SECONDS: Configurable amount of time in seconds for s2s toke.
 
 
 ### 3.5) Domain Specific Environment Variables
