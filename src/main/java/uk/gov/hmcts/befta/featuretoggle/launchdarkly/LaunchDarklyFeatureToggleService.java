@@ -28,7 +28,7 @@ public class LaunchDarklyFeatureToggleService implements FeatureToggleService {
             .lastName(USER).custom(SERVICENAME, LaunchDarklyConfig.getLDMicroserviceName()).build();
 
     private static final String LAUNCH_DARKLY_FLAG = "FeatureToggle";
-    private static final String LAUNCH_DARKLY_FLAG_WITH_EXPECTED_VALUE = "FeatureToggleWithExpectedValue";
+    private static final String LAUNCH_DARKLY_FLAG_WITH_EXPECTED_VALUE = "FeatureFlagWithExpectedValue";
     private static final String DATABASE_FLAG_WITH_EXPECTED_VALUE = "DatabaseFlagWithExpectedValue";
 
     private final LDClient ldClient = LaunchDarklyConfig.getLdInstance();
@@ -85,6 +85,7 @@ public class LaunchDarklyFeatureToggleService implements FeatureToggleService {
     }
 
     private Map<String, Boolean> getFeatureFlagsWithDefaultValue(Scenario scenario) {
+        scenario.log("Getting getFeatureFlagsWithDefaultValue ");
         return scenario.getSourceTagNames()
                 .stream()
                 .filter(tag -> tag.contains(LAUNCH_DARKLY_FLAG_WITH_EXPECTED_VALUE))
