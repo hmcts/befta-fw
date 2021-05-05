@@ -98,6 +98,7 @@ class LaunchDarklyFeatureToggleServiceTest {
             }
         };
         when(scenario.getSourceTagNames()).thenReturn(tags);
+
         LaunchDarklyFeatureToggleService launchDarklyFeatureToggleService = new LaunchDarklyFeatureToggleService();
 
         FeatureToggleCheckFailureException aeThrown = Assertions.assertThrows(FeatureToggleCheckFailureException.class,
