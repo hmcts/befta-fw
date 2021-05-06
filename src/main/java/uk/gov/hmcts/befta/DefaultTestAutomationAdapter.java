@@ -131,6 +131,9 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
     }
 
     protected ServiceAuthTokenGenerator getNewS2sClientWithCredentials(String clientId, String clientSecret) {
+        System.out.println("LOGGING | clientID = " + clientId);
+        System.out.println("LOGGING | clientSecret = " + clientSecret);
+        System.out.println("LOGGING | serviceAuthorisationApi = " + serviceAuthorisationApi);
         return new ServiceAuthTokenGenerator(clientSecret, clientId, serviceAuthorisationApi);
     }
 
