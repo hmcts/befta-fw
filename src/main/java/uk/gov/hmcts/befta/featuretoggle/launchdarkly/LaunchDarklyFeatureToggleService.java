@@ -58,14 +58,14 @@ public class LaunchDarklyFeatureToggleService implements FeatureToggleService {
             status.add(flagName, isLDFlagEnabled == expectedValue);
         });
 
-     /*   scenario.log(getDatabaseFlagsWithDefaultValue(scenario).toString());
+        scenario.log(getDatabaseFlagsWithDefaultValue(scenario).toString());
         List<Triple<String, String, Boolean>> tripleList = getDatabaseFlagsWithDefaultValue(scenario);
         tripleList.forEach(triplet -> {
             boolean isDbFlagEnabled = getDbFlagValue(triplet);
             status.add(triplet.getMiddle(), isDbFlagEnabled == triplet.getRight());
-        });*/
-        System.out.println("Status is  :" + status);
-        scenario.log("Status is  :" + status);
+        });
+        System.out.println("Status is  :" + status.isAnyDisabled());
+        scenario.log("Status is  :" + status.isAnyDisabled());
         return status;
     }
 
@@ -89,15 +89,6 @@ public class LaunchDarklyFeatureToggleService implements FeatureToggleService {
         scenario.log("Getting getFeatureFlagsWithDefaultValue ");
 
         System.out.println(scenario.getSourceTagNames());
-
-        System.out.println("Nitish + " + scenario.getSourceTagNames()
-                .stream()
-                .filter(tag -> tag.contains(LAUNCH_DARKLY_FLAG_WITH_EXPECTED_VALUE))
-                .map(tag -> tag.substring(tag.indexOf("(") + 1, tag.indexOf(")")))
-                .map(str -> str.split(","))
-        //        .map(flag -> flag.split(","))
-                //.map(Object::toString)
-        .collect(Collectors.toMap(str -> str[0], str -> str[1])));
 
         System.out.println("Nitish2 + " + scenario.getSourceTagNames()
                 .stream()
@@ -127,18 +118,28 @@ public class LaunchDarklyFeatureToggleService implements FeatureToggleService {
         scenario.getSourceTagNames().forEach(tagname -> {
            if(tagname.contains(DATABASE_FLAG_WITH_EXPECTED_VALUE)) {
                String[] array = tagname.substring(tagname.indexOf("(") + 1, tagname.indexOf(")")).split(",");
+                scenario.log(array.toString());
+               System.out.println(array.toString());
 
                tripleList.add(new ImmutableTriple(array[0].trim(), array[1].trim(),
                        Boolean.valueOf(array[2].trim())));
            }
         });
+        System.out.println(tripleList.get(0));
+        scenario.log(tripleList.get(0).toString());
         return tripleList;
     }
 
     private boolean getDbFlagValue(Triple dbTriple) {
         ///fetchFlagStatus
         RestAssured.useRelaxedHTTPSValidation();
+        System.out.println("dbtriple" + dbTriple.toString());
+        System.out.println("dbtriple" + dbTriple.getLeft().toString());
+
+        System.out.println("dbtriple" + dbTriple.getLeft().toString());
         Response response = RestAssured.get(dbTriple.getLeft().toString());
+        System.out.println(response);
+        System.out.println(response.getBody());
         boolean bool = response.getBody().as(Boolean.class);
         return bool;
     }
