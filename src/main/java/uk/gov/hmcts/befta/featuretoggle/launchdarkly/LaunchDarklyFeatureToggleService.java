@@ -58,13 +58,14 @@ public class LaunchDarklyFeatureToggleService implements FeatureToggleService {
             status.add(flagName, isLDFlagEnabled == expectedValue);
         });
 
-        scenario.log(getDatabaseFlagsWithDefaultValue(scenario).toString());
+     /*   scenario.log(getDatabaseFlagsWithDefaultValue(scenario).toString());
         List<Triple<String, String, Boolean>> tripleList = getDatabaseFlagsWithDefaultValue(scenario);
         tripleList.forEach(triplet -> {
             boolean isDbFlagEnabled = getDbFlagValue(triplet);
             status.add(triplet.getMiddle(), isDbFlagEnabled == triplet.getRight());
-        });
-
+        });*/
+        System.out.println("Status is  :" + status);
+        scenario.log("Status is  :" + status);
         return status;
     }
 
@@ -86,27 +87,38 @@ public class LaunchDarklyFeatureToggleService implements FeatureToggleService {
 
     private Map<String, Boolean> getFeatureFlagsWithDefaultValue(Scenario scenario) {
         scenario.log("Getting getFeatureFlagsWithDefaultValue ");
-        System.out.println("Nitish 1");
+
         System.out.println(scenario.getSourceTagNames());
 
         System.out.println("Nitish + " + scenario.getSourceTagNames()
                 .stream()
                 .filter(tag -> tag.contains(LAUNCH_DARKLY_FLAG_WITH_EXPECTED_VALUE))
-                .toString());
+                .map(tag -> tag.substring(tag.indexOf("(") + 1, tag.indexOf(")")))
+                .map(str -> str.split(","))
+        //        .map(flag -> flag.split(","))
+                //.map(Object::toString)
+        .collect(Collectors.toMap(str -> str[0], str -> str[1])));
 
-        System.out.println(scenario.getSourceTagNames()
+        System.out.println("Nitish2 + " + scenario.getSourceTagNames()
                 .stream()
                 .filter(tag -> tag.contains(LAUNCH_DARKLY_FLAG_WITH_EXPECTED_VALUE))
                 .map(tag -> tag.substring(tag.indexOf("(") + 1, tag.indexOf(")")))
-                .map(flag -> flag.split(","))
-                .collect(Collectors.toMap(tag -> tag[0].trim(), tag -> Boolean.getBoolean(tag[1].trim()))));
+                .map(str -> str.split(","))
+                .collect(Collectors.toMap(str -> str[0], str -> Boolean.parseBoolean(str[1]))));
+
+        scenario.log("Nitish2 + " + scenario.getSourceTagNames()
+                .stream()
+                .filter(tag -> tag.contains(LAUNCH_DARKLY_FLAG_WITH_EXPECTED_VALUE))
+                .map(tag -> tag.substring(tag.indexOf("(") + 1, tag.indexOf(")")))
+                .map(str -> str.split(","))
+                .collect(Collectors.toMap(str -> str[0], str -> Boolean.parseBoolean(str[1]))));
 
         return scenario.getSourceTagNames()
                 .stream()
                 .filter(tag -> tag.contains(LAUNCH_DARKLY_FLAG_WITH_EXPECTED_VALUE))
                 .map(tag -> tag.substring(tag.indexOf("(") + 1, tag.indexOf(")")))
-                .map(flag -> flag.split(","))
-                .collect(Collectors.toMap(tag -> tag[0].trim(), tag -> Boolean.getBoolean(tag[1].trim())));
+                .map(str -> str.split(","))
+                .collect(Collectors.toMap(str -> str[0], str -> Boolean.parseBoolean(str[1])));
     }
 
     private List<Triple<String, String, Boolean>> getDatabaseFlagsWithDefaultValue(Scenario scenario) {
