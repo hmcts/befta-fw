@@ -86,17 +86,20 @@ public class LaunchDarklyFeatureToggleService implements FeatureToggleService {
 
     private Map<String, Boolean> getFeatureFlagsWithDefaultValue(Scenario scenario) {
         scenario.log("Getting getFeatureFlagsWithDefaultValue ");
+        System.out.println("Nitish 1");
+        System.out.println(scenario.getSourceTagNames());
 
-        System.out.println(scenario.getSourceTagNames()
+        System.out.println("Nitish + " + scenario.getSourceTagNames()
                 .stream()
                 .filter(tag -> tag.contains(LAUNCH_DARKLY_FLAG_WITH_EXPECTED_VALUE))
-                .map(tag -> tag.substring(tag.indexOf("(") + 1, tag.indexOf(")"))));
+                .toString());
 
         System.out.println(scenario.getSourceTagNames()
                 .stream()
                 .filter(tag -> tag.contains(LAUNCH_DARKLY_FLAG_WITH_EXPECTED_VALUE))
                 .map(tag -> tag.substring(tag.indexOf("(") + 1, tag.indexOf(")")))
-                .map(flag -> flag.split(",")));
+                .map(flag -> flag.split(","))
+                .collect(Collectors.toMap(tag -> tag[0].trim(), tag -> Boolean.getBoolean(tag[1].trim()))));
 
         return scenario.getSourceTagNames()
                 .stream()
