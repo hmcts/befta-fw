@@ -62,10 +62,22 @@ public class LaunchDarklyFeatureToggleService implements FeatureToggleService {
         List<Triple<String, String, Boolean>> tripleList = getDatabaseFlagsWithDefaultValue(scenario);
         tripleList.forEach(triplet -> {
             boolean isDbFlagEnabled = getDbFlagValue(triplet);
+            System.out.println("isBdFlagEnabled: " + isDbFlagEnabled);
+            System.out.println("triplet.right :" + triplet.getRight());
+            System.out.println("Is Equals: " + (isDbFlagEnabled == triplet.getRight()));
+
+            scenario.log("isBdFlagEnabled: " + isDbFlagEnabled);
+            scenario.log("triplet.right :" + triplet.getRight());
+            scenario.log("Is Equals: " + (isDbFlagEnabled == triplet.getRight()));
             status.add(triplet.getMiddle(), isDbFlagEnabled == triplet.getRight());
         });
-        System.out.println("Status is  :" + status.isAnyDisabled());
-        scenario.log("Status is  :" + status.isAnyDisabled());
+
+        System.out.println("Enabled Flags is  :" + status.getEnabledFeatureFlags());
+        System.out.println("Disabled is  :" + status.getDisabledFeatureFlags());
+
+        scenario.log("Enabled Flags is  :" + status.getEnabledFeatureFlags());
+        scenario.log("Disabled is  :" + status.getDisabledFeatureFlags());
+
         return status;
     }
 
@@ -133,13 +145,16 @@ public class LaunchDarklyFeatureToggleService implements FeatureToggleService {
     private boolean getDbFlagValue(Triple dbTriple) {
         ///fetchFlagStatus
         RestAssured.useRelaxedHTTPSValidation();
+        RestAssured.baseURI = "http://localhost:4096";
         System.out.println("dbtriple" + dbTriple.toString());
         System.out.println("dbtriple" + dbTriple.getLeft().toString());
-
-        System.out.println("dbtriple" + dbTriple.getLeft().toString());
-        Response response = RestAssured.get(dbTriple.getLeft().toString());
+        Response response = RestAssured.get("/" + dbTriple.getLeft().toString());
         System.out.println(response);
+        System.out.println("Nitish 4");
         System.out.println(response.getBody());
+        System.out.println(response.getStatusCode());
+        System.out.println("nitish 5");
+        System.out.println(response.getBody().prettyPrint());
         boolean bool = response.getBody().as(Boolean.class);
         return bool;
     }
