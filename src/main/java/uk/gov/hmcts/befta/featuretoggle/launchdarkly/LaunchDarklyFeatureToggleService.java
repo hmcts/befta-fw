@@ -5,6 +5,8 @@ import com.launchdarkly.sdk.server.LDClient;
 import io.cucumber.java.Scenario;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
+import org.apache.http.HttpStatus;
+import uk.gov.hmcts.befta.TestAutomationConfig;
 import uk.gov.hmcts.befta.exception.FeatureToggleCheckFailureException;
 import uk.gov.hmcts.befta.featuretoggle.FeatureToggleInfo;
 import uk.gov.hmcts.befta.featuretoggle.FeatureToggleService;
@@ -49,8 +51,6 @@ public class LaunchDarklyFeatureToggleService implements FeatureToggleService {
             status.add(flag, isLDFlagEnabled);
         }
 
-        scenario.log(getFeatureFlagsWithDefaultValue(scenario).toString());
-
         Map<String, Boolean> mapFeatureWithExpectedValues = getFeatureFlagsWithDefaultValue(scenario);
         mapFeatureWithExpectedValues.forEach((flagName, expectedValue) -> {
             boolean isLDFlagEnabled = ldClient.boolVariation(flagName, user, false);
@@ -61,12 +61,11 @@ public class LaunchDarklyFeatureToggleService implements FeatureToggleService {
         Map<String, Boolean> dbFlagMap = getDatabaseFlagsWithDefaultValue(scenario);
         dbFlagMap.forEach((dbFlagName, expectedValue) -> {
             boolean dbFlagValue = getDbFlagValue(dbFlagName);
+
             System.out.println("isBdFlagEnabled: " + dbFlagValue);
 
             System.out.println("Is Equals: " + (dbFlagValue == expectedValue));
 
-            scenario.log("isBdFlagEnabled: " + dbFlagValue);
-            scenario.log("triplet.right :" + expectedValue);
             scenario.log("Is Equals: " + (dbFlagValue == expectedValue));
             status.add(dbFlagName, dbFlagValue == expectedValue);
         });
@@ -128,33 +127,30 @@ public class LaunchDarklyFeatureToggleService implements FeatureToggleService {
         scenario.getSourceTagNames().forEach(tagname -> {
             if (tagname.contains(DATABASE_FLAG_WITH_EXPECTED_VALUE)) {
                 String[] array = tagname.substring(tagname.indexOf("(") + 1, tagname.indexOf(")")).split(",");
-                scenario.log(array.toString());
-                System.out.println(array.toString());
-
                 dbFlagMap.put(array[0].trim(), Boolean.valueOf(array[1].trim()));
             }
         });
-        System.out.println(dbFlagMap.get(0));
         return dbFlagMap;
     }
 
     private boolean getDbFlagValue(String dbFlag) {
-        ///fetchFlagStatus
         RestAssured.useRelaxedHTTPSValidation();
         StringBuilder path = new StringBuilder();
+        System.out.println("Base URI " + RestAssured.baseURI);
         path.append("/")
                 .append(EnvironmentVariableUtils.getRequiredVariable("DB_FLAG_QUERY_PATH"))
                 .append(dbFlag);
-        RestAssured.baseURI = "http://localhost:4096";
+        RestAssured.baseURI = TestAutomationConfig.INSTANCE.getTestUrl(); //"http://localhost:4096";
         System.out.println("path" + path.toString());
         Response response = RestAssured.get(path.toString());
-        System.out.println(response);
 
         System.out.println(response.getStatusCode());
         System.out.println(response.getBody().prettyPrint());
 
         System.out.println("nitish 5");
-        boolean bool = response.getBody().as(Boolean.class);
-        return bool;
+        if (response.getStatusCode() == HttpStatus.SC_OK) {
+            return response.getBody().as(Boolean.class);
+        }
+        return false;
     }
 }

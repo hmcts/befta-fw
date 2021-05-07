@@ -11,7 +11,6 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import org.junit.Ignore;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junitpioneer.jupiter.SetEnvironmentVariable;
@@ -58,7 +57,7 @@ class LaunchDarklyFeatureToggleServiceTest {
                 launchDarklyFeatureToggleService.getToggleStatusFor(scenario).getEnabledFeatureFlags());
     }
 
-    //@Test
+    @Test
     @SetEnvironmentVariable(key = LD_SDK_KEY, value = LD_SDK_KEY_VALUE)
     void testGetToggleStatusForFeature() {
         Scenario scenario = mock(Scenario.class);
@@ -83,7 +82,7 @@ class LaunchDarklyFeatureToggleServiceTest {
                 .contains("The Scenario is being skipped as MICROSERVICE_NAME variable is not configured"));
     }
 
-    //@Test
+    @Test
     @SetEnvironmentVariable(key = LD_SDK_KEY, value = LD_SDK_KEY_VALUE)
     @SetEnvironmentVariable(key = MICROSERVICE_NAME, value = MICROSERVICE_NAME_VALUE)
     void testGetToggleStatusFor() {
