@@ -51,18 +51,17 @@ public class LaunchDarklyFeatureToggleService implements FeatureToggleService {
             status.add(flag, isLDFlagEnabled);
         }
 
-        Map<String, Boolean> mapFeatureWithExpectedValues = getFeatureFlagsWithDefaultValue(scenario);
+        Map<String, Boolean> mapFeatureWithExpectedValues = getFeatureFlagsWithExpectedValue(scenario);
         mapFeatureWithExpectedValues.forEach((flagName, expectedValue) -> {
             boolean isLDFlagEnabled = ldClient.boolVariation(flagName, user, false);
             status.add(flagName, isLDFlagEnabled == expectedValue);
         });
 
-        scenario.log(getDatabaseFlagsWithDefaultValue(scenario).toString());
         Map<String, Boolean> dbFlagMap = getDatabaseFlagsWithDefaultValue(scenario);
         dbFlagMap.forEach((dbFlagName, expectedValue) -> {
             boolean dbFlagValue = getDbFlagValue(dbFlagName);
 
-            System.out.println("isBdFlagEnabled: " + dbFlagValue);
+            scenario.log(String.format("isDbFlagEnabled: %s : %s",dbFlagName, dbFlagValue));
 
             System.out.println("Is Equals: " + (dbFlagValue == expectedValue));
 
@@ -94,24 +93,7 @@ public class LaunchDarklyFeatureToggleService implements FeatureToggleService {
                 .map(tag -> tag.substring(tag.indexOf("(") + 1, tag.indexOf(")"))).collect(Collectors.toList());
     }
 
-    private Map<String, Boolean> getFeatureFlagsWithDefaultValue(Scenario scenario) {
-        scenario.log("Getting getFeatureFlagsWithDefaultValue ");
-
-        System.out.println(scenario.getSourceTagNames());
-
-        System.out.println("Nitish2 + " + scenario.getSourceTagNames()
-                .stream()
-                .filter(tag -> tag.contains(LAUNCH_DARKLY_FLAG_WITH_EXPECTED_VALUE))
-                .map(tag -> tag.substring(tag.indexOf("(") + 1, tag.indexOf(")")))
-                .map(str -> str.split(","))
-                .collect(Collectors.toMap(str -> str[0], str -> Boolean.parseBoolean(str[1]))));
-
-        scenario.log("Nitish2 + " + scenario.getSourceTagNames()
-                .stream()
-                .filter(tag -> tag.contains(LAUNCH_DARKLY_FLAG_WITH_EXPECTED_VALUE))
-                .map(tag -> tag.substring(tag.indexOf("(") + 1, tag.indexOf(")")))
-                .map(str -> str.split(","))
-                .collect(Collectors.toMap(str -> str[0], str -> Boolean.parseBoolean(str[1]))));
+    private Map<String, Boolean> getFeatureFlagsWithExpectedValue(Scenario scenario) {
 
         return scenario.getSourceTagNames()
                 .stream()
@@ -122,7 +104,6 @@ public class LaunchDarklyFeatureToggleService implements FeatureToggleService {
     }
 
     private Map<String, Boolean> getDatabaseFlagsWithDefaultValue(Scenario scenario) {
-        System.out.println("getting dbFlagValue");
         Map<String, Boolean> dbFlagMap = new HashMap<>();
         scenario.getSourceTagNames().forEach(tagname -> {
             if (tagname.contains(DATABASE_FLAG_WITH_EXPECTED_VALUE)) {
@@ -135,19 +116,12 @@ public class LaunchDarklyFeatureToggleService implements FeatureToggleService {
 
     private boolean getDbFlagValue(String dbFlag) {
         RestAssured.useRelaxedHTTPSValidation();
-        StringBuilder path = new StringBuilder();
-        System.out.println("Base URI " + RestAssured.baseURI);
-        path.append("/")
-                .append(EnvironmentVariableUtils.getRequiredVariable("DB_FLAG_QUERY_PATH"))
-                .append(dbFlag);
-        RestAssured.baseURI = TestAutomationConfig.INSTANCE.getTestUrl(); //"http://localhost:4096";
-        System.out.println("path" + path.toString());
-        Response response = RestAssured.get(path.toString());
 
-        System.out.println(response.getStatusCode());
-        System.out.println(response.getBody().prettyPrint());
+        RestAssured.baseURI = TestAutomationConfig.INSTANCE.getTestUrl();
 
-        System.out.println("nitish 5");
+        String path = "/" + EnvironmentVariableUtils.getRequiredVariable("DB_FLAG_QUERY_PATH") + dbFlag;
+        Response response = RestAssured.get(path);
+
         if (response.getStatusCode() == HttpStatus.SC_OK) {
             return response.getBody().as(Boolean.class);
         }
