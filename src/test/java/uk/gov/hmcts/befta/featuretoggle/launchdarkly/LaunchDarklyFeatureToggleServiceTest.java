@@ -244,7 +244,7 @@ class LaunchDarklyFeatureToggleServiceTest {
     @SetEnvironmentVariable(key = LD_SDK_KEY, value = LD_SDK_KEY_VALUE)
     @SetEnvironmentVariable(key = MICROSERVICE_NAME, value = MICROSERVICE_NAME_VALUE)
     @SetEnvironmentVariable(key = LAUNCH_DARKLY_ENV, value = LAUNCH_DARKLY_ENV_VALUE)
-    void testGetToggleStatusForDbFlagWithExpectedValuesPositiveScenario() {
+    void testGetToggleStatusForExternalFlagWithExpectedValuesPositiveScenario() {
         Scenario scenario = mock(Scenario.class);
         LDClient ldClient = mock(LDClient.class);
 
@@ -279,7 +279,7 @@ class LaunchDarklyFeatureToggleServiceTest {
     @SetEnvironmentVariable(key = LD_SDK_KEY, value = LD_SDK_KEY_VALUE)
     @SetEnvironmentVariable(key = MICROSERVICE_NAME, value = MICROSERVICE_NAME_VALUE)
     @SetEnvironmentVariable(key = LAUNCH_DARKLY_ENV, value = LAUNCH_DARKLY_ENV_VALUE)
-    void testGetToggleStatusForDbFlagWithExpectedValuesNegativeScenario() {
+    void testGetToggleStatusForExternalFlagWithExpectedValuesNegativeScenario() {
         Scenario scenario = mock(Scenario.class);
         LDClient ldClient = mock(LDClient.class);
 
