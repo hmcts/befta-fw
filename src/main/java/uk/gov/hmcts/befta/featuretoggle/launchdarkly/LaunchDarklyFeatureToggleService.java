@@ -37,6 +37,7 @@ public class LaunchDarklyFeatureToggleService implements FeatureToggleService {
             return null;
 
         List<String> flagNames = getFeatureFlagsOn(scenario);
+
         Map<String, Boolean> mapFeatureWithExpectedValues = getFeatureFlagsWithExpectedValue(scenario);
         Map<String, Boolean> externalApiFlagMap = getExternalFlagsWithDefaultValue(scenario);
 
