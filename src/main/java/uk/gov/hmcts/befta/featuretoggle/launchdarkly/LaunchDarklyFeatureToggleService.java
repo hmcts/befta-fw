@@ -26,7 +26,7 @@ public class LaunchDarklyFeatureToggleService implements FeatureToggleService {
 
     private static final String LAUNCH_DARKLY_FLAG = "FeatureToggle";
     private static final String LAUNCH_DARKLY_FLAG_WITH_EXPECTED_VALUE = "FeatureFlagWithExpectedValue";
-    private static final String DATABASE_FLAG_WITH_EXPECTED_VALUE = "DatabaseFlagWithExpectedValue";
+    private static final String EXTERNAL_FLAG_WITH_EXPECTED_VALUE = "ExternalFlagWithExpectedValue";
 
     LDClient ldClient = LaunchDarklyConfig.getLdInstance();
 
@@ -38,7 +38,7 @@ public class LaunchDarklyFeatureToggleService implements FeatureToggleService {
 
         List<String> flagNames = getFeatureFlagsOn(scenario);
         Map<String, Boolean> mapFeatureWithExpectedValues = getFeatureFlagsWithExpectedValue(scenario);
-        Map<String, Boolean> externalApiFlagMap = getDatabaseFlagsWithDefaultValue(scenario);
+        Map<String, Boolean> externalApiFlagMap = getExternalFlagsWithDefaultValue(scenario);
 
         if (flagNames.isEmpty() && mapFeatureWithExpectedValues.isEmpty() && externalApiFlagMap.isEmpty()) {
             return status;
@@ -58,7 +58,7 @@ public class LaunchDarklyFeatureToggleService implements FeatureToggleService {
 
         externalApiFlagMap.forEach((externalFlagName, expectedValue) -> {
             boolean externalFlagValue = RestUtils.getApiFlagValue(externalFlagName);
-            scenario.log(String.format("isDbFlagEnabled: %s : %s", externalFlagName, externalFlagValue));
+            scenario.log(String.format("isExternalFlagEnabled: %s : %s", externalFlagName, externalFlagValue));
             status.add(externalFlagName, externalFlagValue == expectedValue);
         });
 
@@ -94,17 +94,15 @@ public class LaunchDarklyFeatureToggleService implements FeatureToggleService {
                 .collect(Collectors.toMap(str -> str[0], str -> Boolean.parseBoolean(str[1])));
     }
 
-    private Map<String, Boolean> getDatabaseFlagsWithDefaultValue(Scenario scenario) {
-        Map<String, Boolean> dbFlagMap = new HashMap<>();
+    private Map<String, Boolean> getExternalFlagsWithDefaultValue(Scenario scenario) {
+        Map<String, Boolean> externalFlagMap = new HashMap<>();
         scenario.getSourceTagNames().forEach(tagname -> {
-            if (tagname.contains(DATABASE_FLAG_WITH_EXPECTED_VALUE)) {
+            if (tagname.contains(EXTERNAL_FLAG_WITH_EXPECTED_VALUE)) {
                 String[] array = tagname.substring(tagname.indexOf("(") + 1, tagname.indexOf(")")).split(",");
-                System.out.println(array);
-                scenario.log(array.toString());
-                dbFlagMap.put(array[0], Boolean.valueOf(array[1]));
+                externalFlagMap.put(array[0], Boolean.valueOf(array[1]));
             }
         });
 
-        return dbFlagMap;
+        return externalFlagMap;
     }
 }

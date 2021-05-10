@@ -31,7 +31,7 @@ class LaunchDarklyFeatureToggleServiceTest {
     public static final String LD_SDK_KEY_VALUE = "LD_SDK_KEY_VALUE";
     private static final String LAUNCH_DARKLY_FLAG = "(FeatureToggle)";
     private static final String LAUNCH_DARKLY_FLAG_WITH_EXPECTED_VALUE = "FeatureFlagWithExpectedValue";
-    private static final String DATABASE_FLAG_WITH_EXPECTED_VALUE = "DatabaseFlagWithExpectedValue";
+    private static final String EXTERNAL_FLAG_WITH_EXPECTED_VALUE = "ExternalFlagWithExpectedValue";
     public static final String MICROSERVICE_NAME = "MICROSERVICE_NAME";
     public static final String MICROSERVICE_NAME_VALUE = "MICROSERVICE_NAME_VALUE";
     public static final String LAUNCH_DARKLY_ENV = "LAUNCH_DARKLY_ENV";
@@ -254,7 +254,7 @@ class LaunchDarklyFeatureToggleServiceTest {
             private static final long serialVersionUID = 2022L;
 
             {
-                add(DATABASE_FLAG_WITH_EXPECTED_VALUE + "(dummyFlag,true)");
+                add(EXTERNAL_FLAG_WITH_EXPECTED_VALUE + "(dummyFlag,true)");
             }
         };
         when(scenario.getSourceTagNames()).thenReturn(tags);
@@ -289,7 +289,7 @@ class LaunchDarklyFeatureToggleServiceTest {
             private static final long serialVersionUID = 2022L;
 
             {
-                add(DATABASE_FLAG_WITH_EXPECTED_VALUE + "(dummyFlag,false)");
+                add(EXTERNAL_FLAG_WITH_EXPECTED_VALUE + "(dummyFlag,false)");
             }
         };
         when(scenario.getSourceTagNames()).thenReturn(tags);
