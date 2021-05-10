@@ -32,52 +32,52 @@ public class LaunchDarklyFeatureToggleService implements FeatureToggleService {
     private static final String LAUNCH_DARKLY_FLAG_WITH_EXPECTED_VALUE = "FeatureFlagWithExpectedValue";
     private static final String DATABASE_FLAG_WITH_EXPECTED_VALUE = "DatabaseFlagWithExpectedValue";
 
-    private final LDClient ldClient = LaunchDarklyConfig.getLdInstance();
+    private LDClient ldClient = LaunchDarklyConfig.getLdInstance();
 
     @Override
     public FeatureToggleInfo getToggleStatusFor(Scenario scenario) {
-        if (ldClient == null)
-            return null;
-
         FeatureToggleInfo status = new FeatureToggleInfo();
-        List<String> flagNames = getFeatureFlagsOn(scenario);
-        if (flagNames.isEmpty())
-            return status;
+        try {
+            if (ldClient == null)
+                return null;
 
-        checkLaunchDarklyConfig(scenario);
+            List<String> flagNames = getFeatureFlagsOn(scenario);
+            Map<String, Boolean> mapFeatureWithExpectedValues = getFeatureFlagsWithExpectedValue(scenario);
+            Map<String, Boolean> dbFlagMap = getDatabaseFlagsWithDefaultValue(scenario);
 
-        for (String flag : flagNames) {
-            boolean isLDFlagEnabled = ldClient.boolVariation(flag, user, false);
-            status.add(flag, isLDFlagEnabled);
+            if (flagNames.isEmpty() && mapFeatureWithExpectedValues.isEmpty() && dbFlagMap.isEmpty()) {
+                return status;
+            }
+
+            checkLaunchDarklyConfig();
+
+            for (String flag : flagNames) {
+                boolean isLDFlagEnabled = ldClient.boolVariation(flag, user, false);
+                status.add(flag, isLDFlagEnabled);
+            }
+
+            mapFeatureWithExpectedValues.forEach((flagName, expectedValue) -> {
+                boolean isLDFlagEnabled = ldClient.boolVariation(flagName, user, false);
+                status.add(flagName, isLDFlagEnabled == expectedValue);
+            });
+
+            dbFlagMap.forEach((dbFlagName, expectedValue) -> {
+                boolean dbFlagValue = getDbFlagValue(dbFlagName);
+                scenario.log(String.format("isDbFlagEnabled: %s : %s", dbFlagName, dbFlagValue));
+                status.add(dbFlagName, dbFlagValue == expectedValue);
+            });
+
+            scenario.log("Enabled Flags  :" + status.getEnabledFeatureFlags());
+            scenario.log("Disabled Flags  :" + status.getDisabledFeatureFlags());
         }
-
-        Map<String, Boolean> mapFeatureWithExpectedValues = getFeatureFlagsWithExpectedValue(scenario);
-        mapFeatureWithExpectedValues.forEach((flagName, expectedValue) -> {
-            boolean isLDFlagEnabled = ldClient.boolVariation(flagName, user, false);
-            status.add(flagName, isLDFlagEnabled == expectedValue);
-        });
-
-        Map<String, Boolean> dbFlagMap = getDatabaseFlagsWithDefaultValue(scenario);
-        dbFlagMap.forEach((dbFlagName, expectedValue) -> {
-            boolean dbFlagValue = getDbFlagValue(dbFlagName);
-
-            scenario.log(String.format("isDbFlagEnabled: %s : %s",dbFlagName, dbFlagValue));
-
-            System.out.println("Is Equals: " + (dbFlagValue == expectedValue));
-
-            scenario.log("Is Equals: " + (dbFlagValue == expectedValue));
-            status.add(dbFlagName, dbFlagValue == expectedValue);
-        });
-
-        System.out.println("Enabled Flags is  :" + status.getEnabledFeatureFlags());
-        System.out.println("Disabled is  :" + status.getDisabledFeatureFlags());
-
-        scenario.log("Enabled Flags is  :" + status.getEnabledFeatureFlags());
-        scenario.log("Disabled is  :" + status.getDisabledFeatureFlags());
+        catch (Exception e) {
+            scenario.log("Exception is");
+            e.printStackTrace();
+        }
         return status;
     }
 
-    private void checkLaunchDarklyConfig(Scenario scenario) {
+    private void checkLaunchDarklyConfig() {
         if (LaunchDarklyConfig.getLDMicroserviceName() == null) {
             throw new FeatureToggleCheckFailureException(
                     "The Scenario is being skipped as MICROSERVICE_NAME variable is not configured");
@@ -108,9 +108,12 @@ public class LaunchDarklyFeatureToggleService implements FeatureToggleService {
         scenario.getSourceTagNames().forEach(tagname -> {
             if (tagname.contains(DATABASE_FLAG_WITH_EXPECTED_VALUE)) {
                 String[] array = tagname.substring(tagname.indexOf("(") + 1, tagname.indexOf(")")).split(",");
-                dbFlagMap.put(array[0].trim(), Boolean.valueOf(array[1].trim()));
+                System.out.println(array);
+                scenario.log(array.toString());
+                dbFlagMap.put(array[0], Boolean.valueOf(array[1]));
             }
         });
+
         return dbFlagMap;
     }
 
