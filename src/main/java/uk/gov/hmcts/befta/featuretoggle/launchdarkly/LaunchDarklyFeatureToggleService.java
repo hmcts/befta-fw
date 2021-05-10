@@ -3,14 +3,10 @@ package uk.gov.hmcts.befta.featuretoggle.launchdarkly;
 import com.launchdarkly.sdk.LDUser;
 import com.launchdarkly.sdk.server.LDClient;
 import io.cucumber.java.Scenario;
-import io.restassured.RestAssured;
-import io.restassured.response.Response;
-import org.apache.http.HttpStatus;
-import uk.gov.hmcts.befta.TestAutomationConfig;
 import uk.gov.hmcts.befta.exception.FeatureToggleCheckFailureException;
 import uk.gov.hmcts.befta.featuretoggle.FeatureToggleInfo;
 import uk.gov.hmcts.befta.featuretoggle.FeatureToggleService;
-import uk.gov.hmcts.befta.util.EnvironmentVariableUtils;
+import uk.gov.hmcts.befta.util.RestUtils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -25,55 +21,50 @@ public class LaunchDarklyFeatureToggleService implements FeatureToggleService {
     private static final String USER = "user";
     private static final String SERVICENAME = "servicename";
 
-    private static final LDUser user = new LDUser.Builder(LaunchDarklyConfig.getEnvironmentName()).firstName(BEFTA)
+    private static final LDUser ldUser = new LDUser.Builder(LaunchDarklyConfig.getEnvironmentName()).firstName(BEFTA)
             .lastName(USER).custom(SERVICENAME, LaunchDarklyConfig.getLDMicroserviceName()).build();
 
     private static final String LAUNCH_DARKLY_FLAG = "FeatureToggle";
     private static final String LAUNCH_DARKLY_FLAG_WITH_EXPECTED_VALUE = "FeatureFlagWithExpectedValue";
     private static final String DATABASE_FLAG_WITH_EXPECTED_VALUE = "DatabaseFlagWithExpectedValue";
 
-    private LDClient ldClient = LaunchDarklyConfig.getLdInstance();
+    LDClient ldClient = LaunchDarklyConfig.getLdInstance();
 
     @Override
     public FeatureToggleInfo getToggleStatusFor(Scenario scenario) {
         FeatureToggleInfo status = new FeatureToggleInfo();
-        try {
-            if (ldClient == null)
-                return null;
+        if (ldClient == null)
+            return null;
 
-            List<String> flagNames = getFeatureFlagsOn(scenario);
-            Map<String, Boolean> mapFeatureWithExpectedValues = getFeatureFlagsWithExpectedValue(scenario);
-            Map<String, Boolean> dbFlagMap = getDatabaseFlagsWithDefaultValue(scenario);
+        List<String> flagNames = getFeatureFlagsOn(scenario);
+        Map<String, Boolean> mapFeatureWithExpectedValues = getFeatureFlagsWithExpectedValue(scenario);
+        Map<String, Boolean> externalApiFlagMap = getDatabaseFlagsWithDefaultValue(scenario);
 
-            if (flagNames.isEmpty() && mapFeatureWithExpectedValues.isEmpty() && dbFlagMap.isEmpty()) {
-                return status;
-            }
-
-            checkLaunchDarklyConfig();
-
-            for (String flag : flagNames) {
-                boolean isLDFlagEnabled = ldClient.boolVariation(flag, user, false);
-                status.add(flag, isLDFlagEnabled);
-            }
-
-            mapFeatureWithExpectedValues.forEach((flagName, expectedValue) -> {
-                boolean isLDFlagEnabled = ldClient.boolVariation(flagName, user, false);
-                status.add(flagName, isLDFlagEnabled == expectedValue);
-            });
-
-            dbFlagMap.forEach((dbFlagName, expectedValue) -> {
-                boolean dbFlagValue = getDbFlagValue(dbFlagName);
-                scenario.log(String.format("isDbFlagEnabled: %s : %s", dbFlagName, dbFlagValue));
-                status.add(dbFlagName, dbFlagValue == expectedValue);
-            });
-
-            scenario.log("Enabled Flags  :" + status.getEnabledFeatureFlags());
-            scenario.log("Disabled Flags  :" + status.getDisabledFeatureFlags());
+        if (flagNames.isEmpty() && mapFeatureWithExpectedValues.isEmpty() && externalApiFlagMap.isEmpty()) {
+            return status;
         }
-        catch (Exception e) {
-            scenario.log("Exception is");
-            e.printStackTrace();
+
+        checkLaunchDarklyConfig();
+
+        for (String flag : flagNames) {
+            boolean isLDFlagEnabled = ldClient.boolVariation(flag, ldUser, false);
+            status.add(flag, isLDFlagEnabled);
         }
+
+        mapFeatureWithExpectedValues.forEach((flagName, expectedValue) -> {
+            boolean isLDFlagEnabled = ldClient.boolVariation(flagName, ldUser, false);
+            status.add(flagName, isLDFlagEnabled == expectedValue);
+        });
+
+        externalApiFlagMap.forEach((externalFlagName, expectedValue) -> {
+            boolean externalFlagValue = RestUtils.getApiFlagValue(externalFlagName);
+            scenario.log(String.format("isDbFlagEnabled: %s : %s", externalFlagName, externalFlagValue));
+            status.add(externalFlagName, externalFlagValue == expectedValue);
+        });
+
+        scenario.log("Enabled Flags  :" + status.getEnabledFeatureFlags());
+        scenario.log("Disabled Flags  :" + status.getDisabledFeatureFlags());
+
         return status;
     }
 
@@ -115,19 +106,5 @@ public class LaunchDarklyFeatureToggleService implements FeatureToggleService {
         });
 
         return dbFlagMap;
-    }
-
-    private boolean getDbFlagValue(String dbFlag) {
-        RestAssured.useRelaxedHTTPSValidation();
-
-        RestAssured.baseURI = TestAutomationConfig.INSTANCE.getTestUrl();
-
-        String path = "/" + EnvironmentVariableUtils.getRequiredVariable("DB_FLAG_QUERY_PATH") + dbFlag;
-        Response response = RestAssured.get(path);
-
-        if (response.getStatusCode() == HttpStatus.SC_OK) {
-            return response.getBody().as(Boolean.class);
-        }
-        return false;
     }
 }
