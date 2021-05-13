@@ -1,12 +1,9 @@
 package uk.gov.hmcts.befta;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Base64;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import uk.gov.hmcts.befta.auth.AuthApi;
 import uk.gov.hmcts.befta.auth.UserTokenProviderConfig;
 import uk.gov.hmcts.befta.data.UserData;
@@ -20,7 +17,15 @@ import uk.gov.hmcts.befta.util.ReflectionUtils;
 import uk.gov.hmcts.reform.authorisation.ServiceAuthorisationApi;
 import uk.gov.hmcts.reform.authorisation.generators.ServiceAuthTokenGenerator;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Base64;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+
 public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
+
+    private Logger logger = LoggerFactory.getLogger(DefaultTestAutomationAdapter.class);
 
     private static final String AUTHORIZATION_CODE = "authorization_code";
     private static final String CODE = "code";
@@ -30,19 +35,43 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
     private final AuthApi idamApi;
     private final ServiceAuthorisationApi serviceAuthorisationApi;
 
-    private final Map<String, ServiceAuthTokenGenerator> tokenGenerators = new ConcurrentHashMap<>();
-
-    private final Map<String, UserData> users = new HashMap<>();
+    private Cache<String, UserData> users;
+    private Cache<String, ServiceAuthTokenGenerator> tokenGenerators;
 
     private BeftaTestDataLoader dataLoader;
 
     public DefaultTestAutomationAdapter() {
         serviceAuthorisationApi = BeftaServiceAuthorisationApiClientFactory.createServiceAuthorisationApiClient();
         idamApi = BeftaIdamApiClientFactory.createAuthorizationClient();
+
+        dataLoader = buildTestDataLoader();
+
+        setupUsersCache();
+        setupTokenGeneratorsCache();
+    }
+
+    private void setupUsersCache() {
+        CacheBuilder<Object, Object> userCacheBuilder = CacheBuilder.newBuilder();
+
+        Long userCacheTtl = BeftaMain.getConfig().getUserTokenCacheTtlInSeconds();
+        if (userCacheTtl != 0) {
+            userCacheBuilder.expireAfterAccess(userCacheTtl, TimeUnit.SECONDS);
+        }
+        users = userCacheBuilder.build();
+    }
+
+    private void setupTokenGeneratorsCache() {
+        CacheBuilder<Object, Object> tokenGeneratorsCacheBuilder = CacheBuilder.newBuilder();
+        Long tokenGeneratorCacheTtl = BeftaMain.getConfig().getS2STokenCacheTtlInSeconds();
+        if (tokenGeneratorCacheTtl != 0) {
+            tokenGeneratorsCacheBuilder.expireAfterAccess(tokenGeneratorCacheTtl, TimeUnit.SECONDS);
+        }
+        tokenGenerators = tokenGeneratorsCacheBuilder.build();
+
         ServiceAuthTokenGenerator defaultGenerator = getNewS2sClientWithCredentials(
                 BeftaMain.getConfig().getS2SClientId(), BeftaMain.getConfig().getS2SClientSecret());
+
         tokenGenerators.put(BeftaMain.getConfig().getS2SClientId(), defaultGenerator);
-        dataLoader = buildTestDataLoader();
     }
 
     @Override
@@ -52,27 +81,43 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
 
     @Override
     public synchronized String getNewS2SToken(String clientId) {
-        return tokenGenerators.computeIfAbsent(clientId, key -> {
-            return getNewS2sClient(clientId);
-        }).generate();
+        String s2sToken = null;
+        try {
+            if(tokenGenerators.asMap().containsKey(clientId)) {
+                logger.info("Using S2S token from cache for the clientId: {}", clientId);
+            } else{
+                logger.info("Generating S2S token for the user: {}", clientId);
+            }
+            s2sToken = tokenGenerators.get(clientId, () -> getNewS2sClient(clientId)).generate();
+        } catch (ExecutionException e) {
+            BeftaUtils.defaultLog("Exception when acquiring a new S2S token for client Id:" + clientId);
+        }
+
+        return s2sToken;
     }
 
     @Override
-    public synchronized void authenticate(UserData user, String userTokenClientId) {
-        UserData cached = users.computeIfAbsent(user.getUsername(), e -> {
-            final String accessToken = getUserAccessToken(user.getUsername(), user
-                            .getPassword(),
-                    UserTokenProviderConfig.of(userTokenClientId));
-            final AuthApi.User idamUser = idamApi.getUser(accessToken);
-            user.setId(idamUser.getId());
-            user.setAccessToken(accessToken);
-            return user;
-        });
-
-        if (user != cached) {
-            user.setId(cached.getId());
-            user.setAccessToken(cached.getAccessToken());
+    public synchronized void authenticate(UserData user, String userTokenClientId) throws ExecutionException {
+        if(users.asMap().containsKey(user.getUsername())){
+            logger.info("Using token from cache for the user: {}", user.getUsername());
+        } else {
+            logger.info("Generating token for the user: {}", user.getUsername());
         }
+        UserData userData = users.get(user.getUsername(), () -> createAuthenticatedUserData(user.getUsername(), user.getPassword(), userTokenClientId));
+        user.setId(userData.getId());
+        user.setAccessToken(userData.getAccessToken());
+    }
+
+    private UserData createAuthenticatedUserData(String userName, String password, String userTokenClientId) {
+        final String accessToken = getUserAccessToken(userName, password,
+                UserTokenProviderConfig.of(userTokenClientId));
+        final AuthApi.User idamUser = idamApi.getUser(accessToken);
+
+        UserData userData = new UserData(userName, password);
+        userData.setId(idamUser.getId());
+        userData.setAccessToken(accessToken);
+
+        return userData;
     }
 
     protected BeftaTestDataLoader buildTestDataLoader() {

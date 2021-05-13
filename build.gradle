@@ -1,7 +1,6 @@
 plugins {
     id 'java-library'
     id 'maven-publish'
-    id 'com.jfrog.bintray' version '1.8.4'
     id 'maven'
 }
 
@@ -35,7 +34,7 @@ repositories {
     mavenCentral()
     jcenter()
     maven {
-        url 'https://dl.bintray.com/hmcts/hmcts-maven'
+        url 'https://jitpack.io'
     }
 }
 // end::repositories[]
@@ -135,23 +134,6 @@ publishing {
     }
 }
 
-bintray {
-    user = System.getenv('BINTRAY_USER')
-    key = System.getenv('BINTRAY_KEY')
-    publications = ['Main']
-    publish = true
-    pkg {
-        repo = 'hmcts-maven'
-        name = 'befta-fw'
-        userOrg = 'hmcts'
-        licenses = ['MIT']
-        vcsUrl = gitRepo
-        version {
-            name = project.version
-        }
-    }
-}
-
 wrapper.gradleVersion = '2.10'
 
 dependencies {
@@ -172,6 +154,7 @@ dependencies {
 
     compile group: 'org.apache.poi', name: 'poi', version: '4.0.0'
     compile group: 'org.apache.poi', name: 'poi-ooxml', version: '4.0.0'
+    compile group: 'com.github.rholder', name: 'guava-retrying', version: '2.0.0'
 
     implementation group: 'com.launchdarkly', name: 'launchdarkly-java-server-sdk', version: '5.+'
 

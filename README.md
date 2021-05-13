@@ -56,6 +56,13 @@ It provides the following functionalities and conveniences:
      will be delivered.
    * BEFTA_RESPONSE_HEADER_CHECK_POLICY: This env var can be used optionally to switch the policy applied to mismatching 
      response header values. It can be one of IGNORE, JUST_WARN and FAIL_TEST. Default behaviour is to assume FAIL_TEST.
+   * BEFTA_USER_AUTHENTICATION_RETRY_MAX_ATTEMPTS: This env var can be used to specify the number of retry attempts if 
+     token acquisition fails. Default to 3 attempts, if not specified.
+   * BEFTA_USER_AUTHENTICATION_RETRY_MAX_TIME_SECONDS: This specifies the max time to retry if token acquisition fails.
+   * BEFTA_USER_AUTHENTICATION_RETRY_MULTIPLIER_MILLISECONDS: This specifies the retry time after a given series of gaps
+     after every trial.
+   * BEFTA_USER_TOKEN_CACHE_TTL_SECONDS: Configurable amount of time in seconds for user token.
+   * BEFTA_S2S_TOKEN_CACHE_TTL_SECONDS: Configurable amount of time in seconds for s2s toke.
 
 
 ### 3.5) Domain Specific Environment Variables
@@ -82,7 +89,7 @@ Below are the environment needed specifically for CCD domain.
 ### 3.7) Run BEFTA Framework With Gradle
 1. Install Gradle 4.1 or higher. You can simply copy a gradle wrapper from `https://github.com/hmcts/befta-fw`.
 2. Add the following dependency to your build.gradle file:  
-   `testCompile group: 'uk.gov.hmcts', name: 'befta-fw', version: '1.2.1'`
+   `testCompile group: 'com.github.hmcts', name: 'befta-fw', version: '6.13.4'`
 3. Add a javaExec section to wherever you want a functional test suit to be executed, 
    like below:
    ```

@@ -3,30 +3,14 @@
  */
 package uk.gov.hmcts.befta;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.isA;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.mockStatic;
-import static org.mockito.Mockito.when;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junitpioneer.jupiter.SetEnvironmentVariable;
-import org.mockito.Matchers;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.io.File;
-import java.util.HashMap;
-
 import uk.gov.hmcts.befta.auth.AuthApi;
 import uk.gov.hmcts.befta.data.HttpTestData;
 import uk.gov.hmcts.befta.data.RequestData;
@@ -37,6 +21,23 @@ import uk.gov.hmcts.befta.factory.BeftaIdamApiClientFactory;
 import uk.gov.hmcts.befta.factory.BeftaServiceAuthorisationApiClientFactory;
 import uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext;
 import uk.gov.hmcts.reform.authorisation.ServiceAuthorisationApi;
+
+import java.io.File;
+import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.anyMapOf;
+import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.mockStatic;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * @author korneleehenry
@@ -60,6 +61,8 @@ class DefaultTestAutomationAdapterTest {
     private MockedStatic<BeftaServiceAuthorisationApiClientFactory> beftaServiceapi = null;
     private MockedStatic<BeftaIdamApiClientFactory> beftaIdamapi = null;
 
+    private AuthApi idamApi = mock(AuthApi.class);
+
     /**
      * Test method for
      * {@link uk.gov.hmcts.befta.DefaultTestAutomationAdapter#DefaultTestAutomationAdapter()}.
@@ -70,7 +73,6 @@ class DefaultTestAutomationAdapterTest {
             beftaServiceapi = mockStatic(BeftaServiceAuthorisationApiClientFactory.class);
             beftaIdamapi = mockStatic(BeftaIdamApiClientFactory.class);
             ServiceAuthorisationApi serviceAuthorisationApi = mock(ServiceAuthorisationApi.class);
-            AuthApi idamApi = mock(AuthApi.class);
             AuthApi.User idamUser = new AuthApi.User();
             AuthApi.TokenExchangeResponse idamtockenExch = new AuthApi.TokenExchangeResponse();
             ObjectMapper mapper = new ObjectMapper();
@@ -86,7 +88,7 @@ class DefaultTestAutomationAdapterTest {
             Mockito.when(idamApi.exchangeCode(isA(String.class), isA(String.class), isA(String.class),
                     isA(String.class), isA(String.class))).thenReturn(idamtockenExch);
 
-            Mockito.when(serviceAuthorisationApi.serviceToken(Matchers.anyMapOf(String.class, String.class)))
+            Mockito.when(serviceAuthorisationApi.serviceToken(anyMapOf(String.class, String.class)))
                     .thenReturn("adad");
             Mockito.when(BeftaServiceAuthorisationApiClientFactory.createServiceAuthorisationApiClient())
                     .thenReturn(serviceAuthorisationApi);
@@ -147,6 +149,7 @@ class DefaultTestAutomationAdapterTest {
         assertEquals("adad", tad.getNewS2SToken("OTHER"));
     }
 
+
     /**
      * Test method for
      * {@link uk.gov.hmcts.befta.DefaultTestAutomationAdapter#authenticate(uk.gov.hmcts.befta.data.UserData, java.lang.String)}.
@@ -167,12 +170,66 @@ class DefaultTestAutomationAdapterTest {
     @SetEnvironmentVariable(key = "BEFTA_OAUTH2_CLIENT_SECRET_OF_OTHER", value = "BEFTA_OAUTH2_CLIENT_SECRET_OF_OTHER_VALUE")
     @SetEnvironmentVariable(key = "BEFTA_OAUTH2_SCOPE_VARIABLES_OF_OTHER", value = "BEFTA_OAUTH2_SCOPE_VARIABLES_OF_OTHER_VALUE")
     @SetEnvironmentVariable(key = "BEFTA_OAUTH2_ACCESS_TOKEN_TYPE_OF_OTHER", value = "OIDC")
-    void testAuthenticate() {
+    void testAuthenticate() throws ExecutionException {
         UserData user = new UserData("user", "pwd");
         user.setId("id");
         String userTokenClientId = "OTHER";
         assertNotNull(tad);
         tad.authenticate(user, userTokenClientId);
+    }
+
+    /**
+     * Test method for
+     * {@link uk.gov.hmcts.befta.DefaultTestAutomationAdapter#authenticate(uk.gov.hmcts.befta.data.UserData, java.lang.String)}.
+     */
+    @Test
+    @SetEnvironmentVariable(key = "BEFTA_OAUTH2_REDIRECT_URI_OF_OTHER", value = "BEFTA_OAUTH2_REDIRECT_URI_OF_OTHER_VALUE")
+    @SetEnvironmentVariable(key = "BEFTA_OAUTH2_CLIENT_SECRET_OF_OTHER", value = "BEFTA_OAUTH2_CLIENT_SECRET_OF_OTHER_VALUE")
+    @SetEnvironmentVariable(key = "BEFTA_USER_TOKEN_CACHE_TTL_SECONDS", value="3")
+    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_ID_KEY, value = BEFTA_S2S_CLIENT_ID_VALUE)
+    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_SECRET_KEY, value = BEFTA_S2S_CLIENT_SECRET_VALUE)
+    void testAuthenticateTimeToLive() throws Exception {
+        UserData user = new UserData("user", "pwd");
+        user.setId("id");
+        String userTokenClientId = "OTHER";
+        assertNotNull(tad);
+
+        tad.authenticate(user, userTokenClientId);
+        tad.authenticate(user, userTokenClientId);
+        tad.authenticate(user, userTokenClientId);
+        verify(idamApi, times(1)).getUser(null);
+
+        Thread.sleep(4000);
+
+        tad.authenticate(user, userTokenClientId);
+        verify(idamApi, times(2)).getUser(null);
+    }
+
+    /**
+     * Test method for
+     * {@link uk.gov.hmcts.befta.DefaultTestAutomationAdapter#authenticate(uk.gov.hmcts.befta.data.UserData, java.lang.String)}.
+     */
+    @Test
+    @SetEnvironmentVariable(key = "BEFTA_OAUTH2_REDIRECT_URI_OF_OTHER", value = "BEFTA_OAUTH2_REDIRECT_URI_OF_OTHER_VALUE")
+    @SetEnvironmentVariable(key = "BEFTA_OAUTH2_CLIENT_SECRET_OF_OTHER", value = "BEFTA_OAUTH2_CLIENT_SECRET_OF_OTHER_VALUE")
+    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_ID_KEY, value = BEFTA_S2S_CLIENT_ID_VALUE)
+    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_SECRET_KEY, value = BEFTA_S2S_CLIENT_SECRET_VALUE)
+    void testAuthenticateTimeToLiveNotSet() throws Exception {
+        UserData user = new UserData("user", "pwd");
+        user.setId("id");
+        String userTokenClientId = "OTHER";
+        assertNotNull(tad);
+
+        tad.authenticate(user, userTokenClientId);
+        tad.authenticate(user, userTokenClientId);
+        tad.authenticate(user, userTokenClientId);
+        verify(idamApi, times(1)).getUser(null);
+
+        Thread.sleep(4000);
+
+        tad.authenticate(user, userTokenClientId);
+        verify(idamApi, times(1)).getUser(null);
+
     }
 
     @Test
@@ -191,7 +248,7 @@ class DefaultTestAutomationAdapterTest {
     @SetEnvironmentVariable(key = "BEFTA_OAUTH2_CLIENT_SECRET_OF_OTHER", value = "BEFTA_OAUTH2_CLIENT_SECRET_OF_OTHER_VALUE")
     @SetEnvironmentVariable(key = "BEFTA_OAUTH2_SCOPE_VARIABLES_OF_OTHER", value = "BEFTA_OAUTH2_SCOPE_VARIABLES_OF_OTHER_VALUE")
     @SetEnvironmentVariable(key = "BEFTA_OAUTH2_ACCESS_TOKEN_TYPE_OF_OTHER", value = "OUTH2")
-    void testAuthenticateOuth2() {
+    void testAuthenticateOuth2() throws Exception {
         UserData user = new UserData("user", "pwd");
         user.setId("id");
         String userTokenClientId = "OTHER";
