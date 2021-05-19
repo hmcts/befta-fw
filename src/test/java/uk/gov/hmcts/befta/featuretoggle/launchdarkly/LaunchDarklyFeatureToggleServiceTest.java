@@ -8,8 +8,8 @@ import org.junitpioneer.jupiter.SetEnvironmentVariable;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import uk.gov.hmcts.befta.exception.FeatureToggleCheckFailureException;
-import uk.gov.hmcts.befta.featuretoggle.FeatureToggleInfo;
-import uk.gov.hmcts.befta.util.RestUtils;
+import uk.gov.hmcts.befta.featuretoggle.ScenarioFeatureToggleInfo;
+import uk.gov.hmcts.befta.util.RasFeatureToggleService;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -46,7 +46,7 @@ class LaunchDarklyFeatureToggleServiceTest {
     void testGetToggleStatusForEmpty() {
         Scenario scenario = mock(Scenario.class);
         LaunchDarklyFeatureToggleService launchDarklyFeatureToggleService = new LaunchDarklyFeatureToggleService();
-        FeatureToggleInfo status = new FeatureToggleInfo();
+        ScenarioFeatureToggleInfo status = new ScenarioFeatureToggleInfo();
         final Collection<String> tags = new ArrayList<String>() {
             private static final long serialVersionUID = 1L;
 
@@ -128,7 +128,7 @@ class LaunchDarklyFeatureToggleServiceTest {
         };
         when(scenario.getSourceTagNames()).thenReturn(tags);
         LaunchDarklyFeatureToggleService launchDarklyFeatureToggleService = new LaunchDarklyFeatureToggleService();
-        FeatureToggleInfo status = new FeatureToggleInfo();
+        ScenarioFeatureToggleInfo status = new ScenarioFeatureToggleInfo();
         status.add("FeatureToggle", false);
 
         launchDarklyFeatureToggleService.getToggleStatusFor(scenario);
@@ -161,7 +161,7 @@ class LaunchDarklyFeatureToggleServiceTest {
         when(scenario.getSourceTagNames()).thenReturn(tags);
 
         LaunchDarklyFeatureToggleService launchDarklyFeatureToggleService = new LaunchDarklyFeatureToggleService();
-        FeatureToggleInfo status = new FeatureToggleInfo();
+        ScenarioFeatureToggleInfo status = new ScenarioFeatureToggleInfo();
         status.add("dummyFlag", true);
 
         launchDarklyFeatureToggleService.ldClient = ldClient;
@@ -194,7 +194,7 @@ class LaunchDarklyFeatureToggleServiceTest {
         when(scenario.getSourceTagNames()).thenReturn(tags);
 
         LaunchDarklyFeatureToggleService launchDarklyFeatureToggleService = new LaunchDarklyFeatureToggleService();
-        FeatureToggleInfo status = new FeatureToggleInfo();
+        ScenarioFeatureToggleInfo status = new ScenarioFeatureToggleInfo();
         status.add("dummyFlag", false);
 
         launchDarklyFeatureToggleService.ldClient = ldClient;
@@ -227,7 +227,7 @@ class LaunchDarklyFeatureToggleServiceTest {
         when(scenario.getSourceTagNames()).thenReturn(tags);
 
         LaunchDarklyFeatureToggleService launchDarklyFeatureToggleService = new LaunchDarklyFeatureToggleService();
-        FeatureToggleInfo status = new FeatureToggleInfo();
+        ScenarioFeatureToggleInfo status = new ScenarioFeatureToggleInfo();
         status.add("dummyFlag", false);
 
         launchDarklyFeatureToggleService.ldClient = ldClient;
@@ -260,12 +260,12 @@ class LaunchDarklyFeatureToggleServiceTest {
         when(scenario.getSourceTagNames()).thenReturn(tags);
 
         LaunchDarklyFeatureToggleService launchDarklyFeatureToggleService = new LaunchDarklyFeatureToggleService();
-        FeatureToggleInfo status = new FeatureToggleInfo();
+        ScenarioFeatureToggleInfo status = new ScenarioFeatureToggleInfo();
         status.add("dummyFlag", true);
 
         launchDarklyFeatureToggleService.ldClient = ldClient;
-        try (MockedStatic<RestUtils> utilities = Mockito.mockStatic(RestUtils.class)) {
-            utilities.when(() -> RestUtils.getApiFlagValue(anyString()))
+        try (MockedStatic<RasFeatureToggleService> utilities = Mockito.mockStatic(RasFeatureToggleService.class)) {
+            utilities.when(() -> RasFeatureToggleService.getApiFlagValue(anyString()))
                     .thenReturn(true);
             launchDarklyFeatureToggleService.getToggleStatusFor(scenario);
             assertEquals(status.getDisabledFeatureFlags(),
@@ -295,12 +295,12 @@ class LaunchDarklyFeatureToggleServiceTest {
         when(scenario.getSourceTagNames()).thenReturn(tags);
 
         LaunchDarklyFeatureToggleService launchDarklyFeatureToggleService = new LaunchDarklyFeatureToggleService();
-        FeatureToggleInfo status = new FeatureToggleInfo();
+        ScenarioFeatureToggleInfo status = new ScenarioFeatureToggleInfo();
         status.add("dummyFlag", false);
 
         launchDarklyFeatureToggleService.ldClient = ldClient;
-        try (MockedStatic<RestUtils> utilities = Mockito.mockStatic(RestUtils.class)) {
-            utilities.when(() -> RestUtils.getApiFlagValue(anyString()))
+        try (MockedStatic<RasFeatureToggleService> utilities = Mockito.mockStatic(RasFeatureToggleService.class)) {
+            utilities.when(() -> RasFeatureToggleService.getApiFlagValue(anyString()))
                     .thenReturn(true);
 
             assertEquals(status.getDisabledFeatureFlags(),

@@ -4,10 +4,10 @@ import io.cucumber.java.Scenario;
 import uk.gov.hmcts.befta.exception.FeatureToggleCheckFailureException;
 import uk.gov.hmcts.befta.featuretoggle.launchdarkly.LaunchDarklyFeatureToggleService;
 
-public interface FeatureToggleService {
+public interface FeatureToggleService<T,R> {
 
     FeatureToggleService DEFAULT_INSTANCE = LaunchDarklyFeatureToggleService.INSTANCE;
 
-    FeatureToggleInfo getToggleStatusFor(Scenario scenario) throws FeatureToggleCheckFailureException;
+    R getToggleStatusFor(T toggleable) throws FeatureToggleCheckFailureException;
 
 }

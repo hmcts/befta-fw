@@ -4,10 +4,13 @@ import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
 import uk.gov.hmcts.befta.TestAutomationConfig;
+import uk.gov.hmcts.befta.exception.FeatureToggleCheckFailureException;
+import uk.gov.hmcts.befta.featuretoggle.FeatureToggleService;
 
-public class RestUtils {
+public class RasFeatureToggleService implements FeatureToggleService<String, Boolean> {
 
-    public static boolean getApiFlagValue(String pathVariable) {
+    @Override
+    public Boolean getToggleStatusFor(String flagId) throws FeatureToggleCheckFailureException {
         RestAssured.useRelaxedHTTPSValidation();
 
         RestAssured.baseURI = TestAutomationConfig.INSTANCE.getTestUrl();
