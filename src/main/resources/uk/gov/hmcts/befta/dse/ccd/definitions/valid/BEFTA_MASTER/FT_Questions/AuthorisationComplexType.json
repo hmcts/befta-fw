@@ -4,7 +4,7 @@
   "CaseTypeID" : "FT_Questions",
   "CaseFieldID" : "qanda",
   "ListElementCode" : "question",
-  "UserRole" : "caseworker-befta_master-manager",
+  "AccessProfile" : "caseworker-befta_master-manager",
   "CRUD" : "CRU"
 }, {
   "LiveFrom" : "1/1/17",
@@ -12,7 +12,7 @@
   "CaseTypeID" : "FT_Questions",
   "CaseFieldID" : "qanda",
   "ListElementCode" : "question",
-  "UserRole" : "caseworker-befta_master-junior",
+  "AccessProfile" : "caseworker-befta_master-junior",
   "CRUD" : "R"
 }, {
   "LiveFrom" : "1/1/17",
@@ -20,7 +20,7 @@
   "CaseTypeID" : "FT_Questions",
   "CaseFieldID" : "qanda",
   "ListElementCode" : "answer",
-  "UserRole" : "caseworker-befta_master-manager",
+  "AccessProfile" : "caseworker-befta_master-manager",
   "CRUD" : "R"
 }, {
   "LiveFrom" : "1/1/17",
@@ -28,6 +28,6 @@
   "CaseTypeID" : "FT_Questions",
   "CaseFieldID" : "qanda",
   "ListElementCode" : "answer",
-  "UserRole" : "caseworker-befta_master-junior",
+  "AccessProfile" : "caseworker-befta_master-junior",
   "CRUD" : "CRU"
 } ]

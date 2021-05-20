@@ -3,41 +3,41 @@
   "LiveTo" : "",
   "CaseTypeID" : "FT_MasterCaseType",
   "CaseStateID" : "CaseCreated",
-  "UserRole" : "caseworker-befta_master",
+  "AccessProfile" : "caseworker-befta_master",
   "CRUD" : "CRUD"
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
   "CaseTypeID" : "FT_MasterCaseType",
   "CaseStateID" : "CaseCreated",
-  "UserRole" : "[ClaimantSolicitor]",
+  "AccessProfile" : "[ClaimantSolicitor]",
   "CRUD" : "r"
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
   "CaseTypeID" : "FT_MasterCaseType",
   "CaseStateID" : "CaseCreated",
-  "UserRole" : "caseworker-caa",
+  "AccessProfile" : "caseworker-caa",
   "CRUD" : "CRUD"
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
   "CaseTypeID" : "FT_MasterCaseType",
   "CaseStateID" : "CaseUpdated",
-  "UserRole" : "caseworker-befta_master",
+  "AccessProfile" : "caseworker-befta_master",
   "CRUD" : "CRUD"
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
   "CaseTypeID" : "FT_MasterCaseType",
   "CaseStateID" : "CaseUpdated",
-  "UserRole" : "caseworker-caa",
+  "AccessProfile" : "caseworker-caa",
   "CRUD" : "CRUD"
 }, {
   "LiveFrom" : "01/01/2017",
   "LiveTo" : "",
   "CaseTypeID" : "FT_MasterCaseType",
   "CaseStateID" : "CaseCreated",
-  "UserRole" : "caseworker-befta_master-solicitor",
+  "AccessProfile" : "caseworker-befta_master-solicitor",
   "CRUD" : "CRUD"
 } ]
