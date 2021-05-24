@@ -16,7 +16,7 @@ import uk.gov.hmcts.befta.util.FileUtils;
  */
 class ExcelTransformerTest {
 
-    private static final String DEFAULT_DEFINITIONS_PATH_EXCEL = "src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/excel/CCD_CNP_27.xlsx";
+    private static final String DEFAULT_DEFINITIONS_PATH_EXCEL = "src/test/resources/uk/gov/hmcts/befta/dse/ccd/definitions/excel/CCD_CNP_27.xlsx";
 
     private static final String TEMPORARY_DEFINITION_FOLDER = "temp_dir/ExcelTransformerTest/"
             + System.currentTimeMillis() + "/definition_files";

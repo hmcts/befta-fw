@@ -23,9 +23,9 @@ import uk.gov.hmcts.befta.util.FileUtils;
  */
 class JsonTransformerTest {
 
-    private static final String DEFAULT_DEFINITIONS_PATH_JSON_EMPTY_1_FILE = "src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/invalid/test/1/empty.json";
-    private static final String DEFAULT_DEFINITIONS_PATH_JSON_EMPTY = "src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/invalid/test";
-    private static final String DEFAULT_DEFINITIONS_PATH_JSON = "src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/valid/CCD_CNP_27";
+    private static final String DEFAULT_DEFINITIONS_PATH_JSON_EMPTY_1_FILE = "src/test/resources/uk/gov/hmcts/befta/dse/ccd/definitions/invalid/test/1/empty.json";
+    private static final String DEFAULT_DEFINITIONS_PATH_JSON_EMPTY = "src/test/resources/uk/gov/hmcts/befta/dse/ccd/definitions/invalid/test";
+    private static final String DEFAULT_DEFINITIONS_PATH_JSON = "src/test/resources/uk/gov/hmcts/befta/dse/ccd/definitions/valid/CCD_CNP_27";
 
     private static final String TEMPORARY_DEFINITION_FOLDER = "temp_dir/JsonTransformerTest/"
             + System.currentTimeMillis()
