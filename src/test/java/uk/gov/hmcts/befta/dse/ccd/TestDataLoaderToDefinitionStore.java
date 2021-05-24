@@ -31,7 +31,7 @@ import uk.gov.hmcts.befta.exception.FunctionalTestException;
  * @author korneleehenry
  *
  */
-class TestDataLoaderToDefinitionStoreTest {
+class TestDataLoaderToDefinitionStore {
 
     public static final String DEFINITION_STORE_HOST_KEY = "DEFINITION_STORE_HOST";
 	public static final String DEFINITION_STORE_HOST_VALUE = "http://127.0.0.1:8089/";
@@ -70,7 +70,7 @@ class TestDataLoaderToDefinitionStoreTest {
 
     /**
      * Test method for
-     * {@link uk.gov.hmcts.befta.dse.ccd.TestDataLoaderToDefinitionStore#TestDataLoaderToDefinitionStore(uk.gov.hmcts.befta.TestAutomationAdapter)}.
+     * {@link DataLoaderToDefinitionStore#DataLoaderToDefinitionStore(uk.gov.hmcts.befta.TestAutomationAdapter)}.
      */
 	@Test
     @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
@@ -80,12 +80,12 @@ class TestDataLoaderToDefinitionStoreTest {
     @SetEnvironmentVariable(key = S2S_URL_KEY, value = S2S_URL_VALUE)
 	void testTestDataLoaderToDefinitionStoreTestAutomationAdapter() {
 		DefaultTestAutomationAdapter defaultTestAutomationAdapter = new DefaultTestAutomationAdapter();
-		TestDataLoaderToDefinitionStore testDataLoaderToDefinitionStore = new TestDataLoaderToDefinitionStore(defaultTestAutomationAdapter);
-		assertNotNull(testDataLoaderToDefinitionStore);
+		DataLoaderToDefinitionStore dataLoaderToDefinitionStore = new DataLoaderToDefinitionStore(defaultTestAutomationAdapter);
+		assertNotNull(dataLoaderToDefinitionStore);
 	}
 
 	/**
-	 * Test method for {@link uk.gov.hmcts.befta.dse.ccd.TestDataLoaderToDefinitionStore#TestDataLoaderToDefinitionStore(uk.gov.hmcts.befta.TestAutomationAdapter, java.lang.String, java.lang.String)}.
+	 * Test method for {@link DataLoaderToDefinitionStore#DataLoaderToDefinitionStore(uk.gov.hmcts.befta.TestAutomationAdapter, java.lang.String)}.
 	 */
 	@Test
     @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
@@ -95,13 +95,13 @@ class TestDataLoaderToDefinitionStoreTest {
     @SetEnvironmentVariable(key = S2S_URL_KEY, value = S2S_URL_VALUE)
 	void testTestDataLoaderToDefinitionStoreTestAutomationAdapterStringString() {
 		DefaultTestAutomationAdapter defaultTestAutomationAdapter = new DefaultTestAutomationAdapter();
-		TestDataLoaderToDefinitionStore testDataLoaderToDefinitionStore = new TestDataLoaderToDefinitionStore(defaultTestAutomationAdapter,DEFAULT_DEFINITIONS_PATH_JSON,S2S_URL_VALUE);
-		assertNotNull(testDataLoaderToDefinitionStore);
+		DataLoaderToDefinitionStore dataLoaderToDefinitionStore = new DataLoaderToDefinitionStore(defaultTestAutomationAdapter,S2S_URL_VALUE);
+		assertNotNull(dataLoaderToDefinitionStore);
 	}
 
 
 	/**
-	 * Test method for {@link uk.gov.hmcts.befta.dse.ccd.TestDataLoaderToDefinitionStore#importDefinitions()}.
+	 * Test method for {@link DataLoaderToDefinitionStore#importCcdTestDefinitions()}.
 	 */
 	@Disabled
 	@Test
@@ -110,7 +110,7 @@ class TestDataLoaderToDefinitionStoreTest {
 	}
 
 	/**
-	 * Test method for {@link uk.gov.hmcts.befta.dse.ccd.TestDataLoaderToDefinitionStore#addCcdRoles()}.
+	 * Test method for {@link DataLoaderToDefinitionStore#addCcdRoles()}.
 	 */
 	@Test	
     @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
@@ -129,7 +129,7 @@ class TestDataLoaderToDefinitionStoreTest {
 		Response rs = mock(io.restassured.response.Response.class);
 
 		when(mockAdapter.getNewS2SToken()).thenReturn("s2s_token");
-		TestDataLoaderToDefinitionStore testDataLoaderToDefinitionStore = new TestDataLoaderToDefinitionStore(mockAdapter);
+		DataLoaderToDefinitionStore dataLoaderToDefinitionStore = new DataLoaderToDefinitionStore(mockAdapter);
         when(RestAssured.given(any())).thenReturn(requestSpecification);
         when(requestSpecification.header(any(), any(), ArgumentMatchers.<String>any())).thenReturn(requestSpecification);
         when(requestSpecification.given()).thenReturn(requestSpecification);
@@ -137,12 +137,12 @@ class TestDataLoaderToDefinitionStoreTest {
         when(requestSpecification.when()).thenReturn(requestSpecification);
         when(requestSpecification.put("/api/user-role")).thenReturn(rs);
         when(rs.getStatusCode()).thenReturn(200);
-		assertNotNull(testDataLoaderToDefinitionStore);
-		testDataLoaderToDefinitionStore.addCcdRoles();
+		assertNotNull(dataLoaderToDefinitionStore);
+		dataLoaderToDefinitionStore.addCcdRoles();
 	}
 
 	/**
-	 * Test method for {@link uk.gov.hmcts.befta.dse.ccd.TestDataLoaderToDefinitionStore#addCcdRole(uk.gov.hmcts.befta.dse.ccd.CcdRoleConfig)}.
+	 * Test method for {@link DataLoaderToDefinitionStore#addCcdRole(uk.gov.hmcts.befta.dse.ccd.CcdRoleConfig)}.
 	 */
 	@Test	
     @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
@@ -162,7 +162,7 @@ class TestDataLoaderToDefinitionStoreTest {
 
 		when(mockAdapter.getNewS2SToken()).thenReturn("s2s_token");
 		CcdRoleConfig roleConfig = new CcdRoleConfig("caseworker-autotest1", "PUBLIC");
-		TestDataLoaderToDefinitionStore testDataLoaderToDefinitionStore = new TestDataLoaderToDefinitionStore(mockAdapter);
+		DataLoaderToDefinitionStore dataLoaderToDefinitionStore = new DataLoaderToDefinitionStore(mockAdapter);
         mock(io.restassured.response.ResponseBody.class);
         when(RestAssured.given(any())).thenReturn(requestSpecification);
         when(requestSpecification.header(any(), any(), ArgumentMatchers.<String>any())).thenReturn(requestSpecification);
@@ -171,12 +171,12 @@ class TestDataLoaderToDefinitionStoreTest {
         when(requestSpecification.when()).thenReturn(requestSpecification);
         when(requestSpecification.put("/api/user-role")).thenReturn(rs);
         when(rs.getStatusCode()).thenReturn(200);
-		assertNotNull(testDataLoaderToDefinitionStore);
-		testDataLoaderToDefinitionStore.addCcdRole(roleConfig);
+		assertNotNull(dataLoaderToDefinitionStore);
+		dataLoaderToDefinitionStore.addCcdRole(roleConfig);
 	}
 
 	/**
-	 * Test method for {@link uk.gov.hmcts.befta.dse.ccd.TestDataLoaderToDefinitionStore#addCcdRole(uk.gov.hmcts.befta.dse.ccd.CcdRoleConfig)}.
+	 * Test method for {@link DataLoaderToDefinitionStore#addCcdRole(uk.gov.hmcts.befta.dse.ccd.CcdRoleConfig)}.
 	 */
 	@Test	
     @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
@@ -196,7 +196,7 @@ class TestDataLoaderToDefinitionStoreTest {
 
 		when(mockAdapter.getNewS2SToken()).thenReturn("s2s_token");
 		CcdRoleConfig roleConfig = new CcdRoleConfig("caseworker-autotest1", "PUBLIC");
-		TestDataLoaderToDefinitionStore testDataLoaderToDefinitionStore = new TestDataLoaderToDefinitionStore(mockAdapter);
+		DataLoaderToDefinitionStore dataLoaderToDefinitionStore = new DataLoaderToDefinitionStore(mockAdapter);
         ResponseBody<?> responseBody = mock(io.restassured.response.ResponseBody.class);
         when(RestAssured.given(any())).thenReturn(requestSpecification);
         when(requestSpecification.header(any(), any(), ArgumentMatchers.<String>any())).thenReturn(requestSpecification);
@@ -206,14 +206,14 @@ class TestDataLoaderToDefinitionStoreTest {
         when(requestSpecification.put("/api/user-role")).thenReturn(rs);
         when(rs.body()).thenReturn(responseBody);;
         when(responseBody.prettyPrint()).thenReturn("");
-		assertNotNull(testDataLoaderToDefinitionStore);
+		assertNotNull(dataLoaderToDefinitionStore);
         Assertions.assertThrows(FunctionalTestException.class, () -> {
-    		testDataLoaderToDefinitionStore.addCcdRole(roleConfig);
+    		dataLoaderToDefinitionStore.addCcdRole(roleConfig);
           });
 	}
 
 	/**
-	 * Test method for {@link uk.gov.hmcts.befta.dse.ccd.TestDataLoaderToDefinitionStore#getAllDefinitionFilesToLoad()}.
+	 * Test method for {@link DataLoaderToDefinitionStore#getAllDefinitionFilesToLoadAt(String)} ()}.
 	 */
 	@Test
     @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
@@ -229,12 +229,12 @@ class TestDataLoaderToDefinitionStoreTest {
     @SetEnvironmentVariable(key = "TEST_URL", value = "http://localhost:8080/dummy-api")
 	void testGetAllDefinitionFilesToLoad() {
 		DefaultTestAutomationAdapter defaultTestAutomationAdapter = new DefaultTestAutomationAdapter();
-		TestDataLoaderToDefinitionStore testDataLoaderToDefinitionStore = new TestDataLoaderToDefinitionStore(defaultTestAutomationAdapter);
-		testDataLoaderToDefinitionStore.getAllDefinitionFilesToLoad();
+		DataLoaderToDefinitionStore dataLoaderToDefinitionStore = new DataLoaderToDefinitionStore(defaultTestAutomationAdapter);
+		dataLoaderToDefinitionStore.getAllDefinitionFilesToLoadAt(DataLoaderToDefinitionStore.VALID_CCD_TEST_DEFINITIONS_PATH);
 	}
 
 	/**
-	 * Test method for {@link uk.gov.hmcts.befta.dse.ccd.TestDataLoaderToDefinitionStore#importDefinition(java.lang.String)}.
+	 * Test method for {@link DataLoaderToDefinitionStore#importDefinition(java.lang.String)}.
 	 */
 	@Disabled
 	@Test	
@@ -242,7 +242,7 @@ class TestDataLoaderToDefinitionStoreTest {
 	}
 
 	/**
-	 * Test method for {@link uk.gov.hmcts.befta.dse.ccd.TestDataLoaderToDefinitionStore#asAutoTestImporter()}.
+	 * Test method for {@link DataLoaderToDefinitionStore#asAutoTestImporter()}.
 	 */
 	@Disabled
 	@Test
