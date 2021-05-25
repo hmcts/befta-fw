@@ -75,6 +75,7 @@ public class DataLoaderToDefinitionStore {
     public DataLoaderToDefinitionStore(String dataSetupEnvironment) {
         super();
         this.dataSetupEnvironment = dataSetupEnvironment;
+        System.out.println("I am in Befta-fw:"+this.dataSetupEnvironment);
     }
 
     public DataLoaderToDefinitionStore(TestAutomationAdapter adapter) {
