@@ -62,12 +62,18 @@ public class DataLoaderToDefinitionStore {
             new CcdRoleConfig("caseworker-caa", "PUBLIC"),
             new CcdRoleConfig("caseworker-approver", "PUBLIC")
     };
+
     private TestAutomationAdapter adapter;
     private String definitionStoreUrl;
+    private String dataSetupEnvironment;
 
     public DataLoaderToDefinitionStore() {
         this(new DefaultTestAutomationAdapter(),
                 BeftaMain.getConfig().getDefinitionStoreUrl());
+    }
+
+    public DataLoaderToDefinitionStore(String dataSetupEnvironment) {
+        this.dataSetupEnvironment = dataSetupEnvironment;
     }
 
     public DataLoaderToDefinitionStore(TestAutomationAdapter adapter) {
