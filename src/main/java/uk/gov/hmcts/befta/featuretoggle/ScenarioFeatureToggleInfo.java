@@ -3,20 +3,25 @@ package uk.gov.hmcts.befta.featuretoggle;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
 public class ScenarioFeatureToggleInfo {
     //rename to actualToggleStatus
     private Map<String, Boolean> actualStatuses = new ConcurrentHashMap<>();
-    private Map<String, String> expectedStatuses = new ConcurrentHashMap<>();
+    private Map<String, Boolean> expectedStatuses = new ConcurrentHashMap<>();
 
     //New Map of expected status
 
     public ScenarioFeatureToggleInfo() {
     }
 
-    public void add(String flag, Boolean enabled) {
+    public void addActualStatus(String flag, Boolean enabled) {
         actualStatuses.put(flag, enabled);
+    }
+
+    public void addExpectedStatus(String flag, Boolean enabled) {
+        expectedStatuses.put(flag, enabled);
     }
 
     public boolean isAnyEnabled() {
@@ -45,7 +50,18 @@ public class ScenarioFeatureToggleInfo {
     }
 
     public boolean matchesExpectations() {
-        //match expected and actual statuses
+        AtomicBoolean matchesExpectations = new AtomicBoolean(true);
+        if (expectedStatuses.isEmpty() && isAnyDisabled()) {
+            matchesExpectations.set(false);
+        } else {
+            actualStatuses.forEach((actualStatusKey, actualStatusValue) -> {
+                if (expectedStatuses.containsKey(actualStatusKey) &&
+                        !expectedStatuses.get(actualStatusKey).equals(actualStatusValue)) {
+                    matchesExpectations.set(false);
+                }
+            });
+        }
+        return matchesExpectations.get();
     }
 
 }

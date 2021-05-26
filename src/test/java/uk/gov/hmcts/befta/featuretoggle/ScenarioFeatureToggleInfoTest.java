@@ -42,11 +42,11 @@ class ScenarioFeatureToggleInfoTest {
 
     /**
      * Test method for
-     * {@link ScenarioFeatureToggleInfo#add(java.lang.String, java.lang.Boolean)}.
+     * {@link ScenarioFeatureToggleInfo#addActualStatus(java.lang.String, java.lang.Boolean)}.
      */
     @Test
     void testAdd() {
-        scenarioFeatureToggleInfo.add("Flag", true);
+        scenarioFeatureToggleInfo.addActualStatus("Flag", true);
         assertTrue(scenarioFeatureToggleInfo.isAnyEnabled());
         assertTrue(scenarioFeatureToggleInfo.isAllEnabled());
         assertFalse(scenarioFeatureToggleInfo.isAnyDisabled());
@@ -59,7 +59,7 @@ class ScenarioFeatureToggleInfoTest {
      */
     @Test
     void testIsAnyEnabled() {
-        scenarioFeatureToggleInfo.add("Flag", false);
+        scenarioFeatureToggleInfo.addActualStatus("Flag", false);
         assertFalse(scenarioFeatureToggleInfo.isAnyEnabled());
     }
 
@@ -69,8 +69,8 @@ class ScenarioFeatureToggleInfoTest {
      */
     @Test
     void testIsAllEnabled() {
-        scenarioFeatureToggleInfo.add("Flag1", true);
-        scenarioFeatureToggleInfo.add("Flag2", true);
+        scenarioFeatureToggleInfo.addActualStatus("Flag1", true);
+        scenarioFeatureToggleInfo.addActualStatus("Flag2", true);
         assertTrue(scenarioFeatureToggleInfo.isAllEnabled());
     }
 
@@ -80,7 +80,7 @@ class ScenarioFeatureToggleInfoTest {
      */
     @Test
     void testIsAnyDisabled() {
-        scenarioFeatureToggleInfo.add("Flag", false);
+        scenarioFeatureToggleInfo.addActualStatus("Flag", false);
         assertTrue(scenarioFeatureToggleInfo.isAnyDisabled());
     }
 
@@ -90,8 +90,8 @@ class ScenarioFeatureToggleInfoTest {
      */
     @Test
     void testIsAllDisabled() {
-        scenarioFeatureToggleInfo.add("Flag1", false);
-        scenarioFeatureToggleInfo.add("Flag2", false);
+        scenarioFeatureToggleInfo.addActualStatus("Flag1", false);
+        scenarioFeatureToggleInfo.addActualStatus("Flag2", false);
         assertTrue(scenarioFeatureToggleInfo.isAllDisabled());
     }
 
@@ -102,10 +102,10 @@ class ScenarioFeatureToggleInfoTest {
     @Test
     void testGetDisabledFeatureFlags() {
         List<String> list = Arrays.asList("Flag1", "Flag2");
-        scenarioFeatureToggleInfo.add("Flag1", false);
-        scenarioFeatureToggleInfo.add("Flag2", false);
-        scenarioFeatureToggleInfo.add("Flag3", true);
-        scenarioFeatureToggleInfo.add("Flag4", true);
+        scenarioFeatureToggleInfo.addActualStatus("Flag1", false);
+        scenarioFeatureToggleInfo.addActualStatus("Flag2", false);
+        scenarioFeatureToggleInfo.addActualStatus("Flag3", true);
+        scenarioFeatureToggleInfo.addActualStatus("Flag4", true);
         assertFalse(scenarioFeatureToggleInfo.isAllEnabled());
         assertTrue(scenarioFeatureToggleInfo.getDisabledFeatureFlags().containsAll(list));
     }
@@ -117,9 +117,9 @@ class ScenarioFeatureToggleInfoTest {
     @Test
     void testGetEnabledFeatureFlags() {
         List<String> list = Arrays.asList("Flag3", "Flag4");
-        scenarioFeatureToggleInfo.add("Flag2", false);
-        scenarioFeatureToggleInfo.add("Flag3", true);
-        scenarioFeatureToggleInfo.add("Flag4", true);
+        scenarioFeatureToggleInfo.addActualStatus("Flag2", false);
+        scenarioFeatureToggleInfo.addActualStatus("Flag3", true);
+        scenarioFeatureToggleInfo.addActualStatus("Flag4", true);
         assertTrue(scenarioFeatureToggleInfo.getEnabledFeatureFlags().containsAll(list));
     }
 

@@ -1,3 +1,4 @@
+/*
 package uk.gov.hmcts.befta;
 
 import uk.gov.hmcts.befta.featuretoggle.FeatureToggleService;
@@ -14,3 +15,4 @@ public class RasDefaultMultiSourceFeatureToggleService extends DefaultMultiSourc
         }
     }
 }
+*/

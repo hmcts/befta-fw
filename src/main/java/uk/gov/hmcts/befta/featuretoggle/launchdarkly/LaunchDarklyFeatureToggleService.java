@@ -4,12 +4,9 @@ import com.launchdarkly.sdk.LDUser;
 import com.launchdarkly.sdk.server.LDClient;
 import io.cucumber.java.Scenario;
 import uk.gov.hmcts.befta.exception.FeatureToggleCheckFailureException;
-import uk.gov.hmcts.befta.featuretoggle.ScenarioFeatureToggleInfo;
 import uk.gov.hmcts.befta.featuretoggle.FeatureToggleService;
-import uk.gov.hmcts.befta.util.RasFeatureToggleService;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -24,7 +21,6 @@ public class LaunchDarklyFeatureToggleService implements FeatureToggleService<St
     private static final LDUser ldUser = new LDUser.Builder(LaunchDarklyConfig.getEnvironmentName()).firstName(BEFTA)
             .lastName(USER).custom(SERVICENAME, LaunchDarklyConfig.getLDMicroserviceName()).build();
 
-    private static final String LAUNCH_DARKLY_FLAG = "FeatureToggle";
     private static final String LAUNCH_DARKLY_FLAG_WITH_EXPECTED_VALUE = "FeatureFlagWithExpectedValue";
     private static final String EXTERNAL_FLAG_WITH_EXPECTED_VALUE = "ExternalFlagWithExpectedValue";
 
@@ -32,41 +28,12 @@ public class LaunchDarklyFeatureToggleService implements FeatureToggleService<St
 
     @Override
     public Boolean getToggleStatusFor(String flagId) {
-        ScenarioFeatureToggleInfo toggleInfo = new ScenarioFeatureToggleInfo();
-        if (ldClient == null)
-            return null;
-
-        List<String> flagNames = getFeatureFlagsOn(scenario);
-
-        Map<String, Boolean> mapFeatureWithExpectedValues = getFeatureFlagsWithExpectedValue(scenario);
-        Map<String, Boolean> externalApiFlagMap = getExternalFlagsWithDefaultValue(scenario);
-
-        if (flagNames.isEmpty() && mapFeatureWithExpectedValues.isEmpty() && externalApiFlagMap.isEmpty()) {
-            return toggleInfo;
+        if (ldClient == null) {
+            return Boolean.FALSE;
         }
-
         checkLaunchDarklyConfig();
+        return ldClient.boolVariation(flagId, ldUser, false);
 
-        for (String flag : flagNames) {
-            boolean isLDFlagEnabled = ldClient.boolVariation(flag, ldUser, false);
-            toggleInfo.add(flag, isLDFlagEnabled);
-        }
-
-        mapFeatureWithExpectedValues.forEach((flagName, expectedValue) -> {
-            boolean isLDFlagEnabled = ldClient.boolVariation(flagName, ldUser, false);
-            toggleInfo.add(flagName, isLDFlagEnabled == expectedValue);
-        });
-
-        externalApiFlagMap.forEach((externalFlagName, expectedValue) -> {
-            boolean externalFlagValue = RasFeatureToggleService.getApiFlagValue(externalFlagName);
-            scenario.log(String.format("isExternalFlagEnabled: %s : %s", externalFlagName, externalFlagValue));
-            toggleInfo.add(externalFlagName, externalFlagValue == expectedValue);
-        });
-
-        scenario.log("Enabled Flags  :" + toggleInfo.getEnabledFeatureFlags());
-        scenario.log("Disabled Flags  :" + toggleInfo.getDisabledFeatureFlags());
-
-        return toggleInfo;
     }
 
     private void checkLaunchDarklyConfig() {
@@ -80,10 +47,10 @@ public class LaunchDarklyFeatureToggleService implements FeatureToggleService<St
         }
     }
 
-    private List<String> getFeatureFlagsOn(Scenario scenario) {
+ /*   private List<String> getFeatureFlagsOn(Scenario scenario) {
         return scenario.getSourceTagNames().stream().filter(tag -> tag.contains(LAUNCH_DARKLY_FLAG))
                 .map(tag -> tag.substring(tag.indexOf("(") + 1, tag.indexOf(")"))).collect(Collectors.toList());
-    }
+    }*/
 
     private Map<String, Boolean> getFeatureFlagsWithExpectedValue(Scenario scenario) {
 
@@ -107,8 +74,4 @@ public class LaunchDarklyFeatureToggleService implements FeatureToggleService<St
         return externalFlagMap;
     }
 
-    @Override
-    public ScenarioFeatureToggleInfo getToggleStatusFor(List<String> toggleable) throws FeatureToggleCheckFailureException {
-        return null;
-    }
 }

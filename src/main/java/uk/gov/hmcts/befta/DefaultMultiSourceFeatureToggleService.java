@@ -2,37 +2,51 @@ package uk.gov.hmcts.befta;
 
 import io.cucumber.java.Scenario;
 import uk.gov.hmcts.befta.exception.FeatureToggleCheckFailureException;
-import uk.gov.hmcts.befta.featuretoggle.ScenarioFeatureToggleInfo;
 import uk.gov.hmcts.befta.featuretoggle.FeatureToggleService;
+import uk.gov.hmcts.befta.featuretoggle.ScenarioFeatureToggleInfo;
 import uk.gov.hmcts.befta.featuretoggle.launchdarkly.LaunchDarklyFeatureToggleService;
 
-import java.util.Map;
-
 public class DefaultMultiSourceFeatureToggleService implements FeatureToggleService<Scenario, ScenarioFeatureToggleInfo> {
+    public static final DefaultMultiSourceFeatureToggleService INSTANCE = new DefaultMultiSourceFeatureToggleService();
+    private static final String LAUNCH_DARKLY_FLAG = "FeatureToggle";
+
+    public static final String COLON = ":";
+    public static final String STRING_EQUALS = "=";
 
     @Override
     public ScenarioFeatureToggleInfo getToggleStatusFor(Scenario toggleable) throws FeatureToggleCheckFailureException {
-        Map<String, Boolean> expectedStatuses = null;
-        Map<String, Boolean> actualStatuses = null;
-        //prepare Expected Map
-        toggleable.getSourceTagNames().forEach(
-                // Get LD key
-        );
-        expectedStatus.forEach((key, value) -> {
-            //key = LD:id
-            String domain
-            String id;
-            String expectedStatus;
-            Boolean actualStatus;
-            //Identify the domain. It should be backwrad compatible
-            FeatureToggleService service = getToggleServiceFor(domain);
-            actualStatus = service.getToggleStatusFor(id);
-            actualStatuses.put(key, actualStatus);
+        ScenarioFeatureToggleInfo scenarioFeatureToggleInfo = new ScenarioFeatureToggleInfo();
+        //@FeatureToggle(LD:feature_id_1=on) @FeatureToggle(IAC:feature_id_2=off)
+        toggleable.getSourceTagNames().forEach(tag -> {
+            if(tag.contains(LAUNCH_DARKLY_FLAG)) {
+                String domain = null;
+                String id = null;
+                Boolean expectedStatus = null;
+                Boolean actualStatus;
+
+                domain = tag.contains(COLON) ? tag.substring(tag.indexOf("(") + 1, tag.indexOf(COLON)) : "LD";
+                if (!tag.contains(COLON) && !tag.contains(STRING_EQUALS)) {
+                    id = tag.substring(tag.indexOf("(") + 1, tag.indexOf(")"));
+                } else if (tag.contains(COLON) && !tag.contains(STRING_EQUALS)) {
+                    id = tag.substring(tag.indexOf(COLON) + 1, tag.indexOf(")"));
+                } else if (tag.contains(COLON) && tag.contains(STRING_EQUALS)) {
+                    id = tag.substring(tag.indexOf(COLON) + 1, tag.indexOf(STRING_EQUALS));
+                }
+
+                if (tag.contains(STRING_EQUALS)) {
+                    String expectedStatusString = tag.substring(tag.indexOf(STRING_EQUALS) + 1, tag.indexOf(")"));
+                    expectedStatus = expectedStatusString.equalsIgnoreCase("on");
+                    scenarioFeatureToggleInfo.addExpectedStatus(id, expectedStatus);
+                }
+                FeatureToggleService service = getToggleService(domain);
+                actualStatus = (Boolean) service.getToggleStatusFor(id);
+                scenarioFeatureToggleInfo.addActualStatus(id, actualStatus);
+            }
         });
-        return new ScenarioFeatureToggleInfo();
+        return scenarioFeatureToggleInfo;
     }
 
-    protected FeatureToggleService getToggleServiceFor(String toggleDomain) {
+    protected FeatureToggleService getToggleService(String toggleDomain) {
         if (toggleDomain.equalsIgnoreCase("LD") || toggleDomain.equalsIgnoreCase("LaunchDarkly")) {
             return new LaunchDarklyFeatureToggleService();
         } else throw new IllegalArgumentException("Doesn't know FeatureToggleService for Domain " + toggleDomain);

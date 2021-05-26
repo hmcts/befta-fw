@@ -129,7 +129,7 @@ class LaunchDarklyFeatureToggleServiceTest {
         when(scenario.getSourceTagNames()).thenReturn(tags);
         LaunchDarklyFeatureToggleService launchDarklyFeatureToggleService = new LaunchDarklyFeatureToggleService();
         ScenarioFeatureToggleInfo status = new ScenarioFeatureToggleInfo();
-        status.add("FeatureToggle", false);
+        status.addActualStatus("FeatureToggle", false);
 
         launchDarklyFeatureToggleService.getToggleStatusFor(scenario);
         assertEquals(status.getDisabledFeatureFlags(),
@@ -162,7 +162,7 @@ class LaunchDarklyFeatureToggleServiceTest {
 
         LaunchDarklyFeatureToggleService launchDarklyFeatureToggleService = new LaunchDarklyFeatureToggleService();
         ScenarioFeatureToggleInfo status = new ScenarioFeatureToggleInfo();
-        status.add("dummyFlag", true);
+        status.addActualStatus("dummyFlag", true);
 
         launchDarklyFeatureToggleService.ldClient = ldClient;
         launchDarklyFeatureToggleService.getToggleStatusFor(scenario);
@@ -195,7 +195,7 @@ class LaunchDarklyFeatureToggleServiceTest {
 
         LaunchDarklyFeatureToggleService launchDarklyFeatureToggleService = new LaunchDarklyFeatureToggleService();
         ScenarioFeatureToggleInfo status = new ScenarioFeatureToggleInfo();
-        status.add("dummyFlag", false);
+        status.addActualStatus("dummyFlag", false);
 
         launchDarklyFeatureToggleService.ldClient = ldClient;
         launchDarklyFeatureToggleService.getToggleStatusFor(scenario);
@@ -228,7 +228,7 @@ class LaunchDarklyFeatureToggleServiceTest {
 
         LaunchDarklyFeatureToggleService launchDarklyFeatureToggleService = new LaunchDarklyFeatureToggleService();
         ScenarioFeatureToggleInfo status = new ScenarioFeatureToggleInfo();
-        status.add("dummyFlag", false);
+        status.addActualStatus("dummyFlag", false);
 
         launchDarklyFeatureToggleService.ldClient = ldClient;
         launchDarklyFeatureToggleService.getToggleStatusFor(scenario);
@@ -261,7 +261,7 @@ class LaunchDarklyFeatureToggleServiceTest {
 
         LaunchDarklyFeatureToggleService launchDarklyFeatureToggleService = new LaunchDarklyFeatureToggleService();
         ScenarioFeatureToggleInfo status = new ScenarioFeatureToggleInfo();
-        status.add("dummyFlag", true);
+        status.addActualStatus("dummyFlag", true);
 
         launchDarklyFeatureToggleService.ldClient = ldClient;
         try (MockedStatic<RasFeatureToggleService> utilities = Mockito.mockStatic(RasFeatureToggleService.class)) {
@@ -296,7 +296,7 @@ class LaunchDarklyFeatureToggleServiceTest {
 
         LaunchDarklyFeatureToggleService launchDarklyFeatureToggleService = new LaunchDarklyFeatureToggleService();
         ScenarioFeatureToggleInfo status = new ScenarioFeatureToggleInfo();
-        status.add("dummyFlag", false);
+        status.addActualStatus("dummyFlag", false);
 
         launchDarklyFeatureToggleService.ldClient = ldClient;
         try (MockedStatic<RasFeatureToggleService> utilities = Mockito.mockStatic(RasFeatureToggleService.class)) {

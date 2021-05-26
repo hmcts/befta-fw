@@ -1,3 +1,4 @@
+/*
 package uk.gov.hmcts.befta.util;
 
 import io.restassured.RestAssured;
@@ -24,3 +25,4 @@ public class RasFeatureToggleService implements FeatureToggleService<String, Boo
         return false;
     }
 }
+*/
