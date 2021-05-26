@@ -18,13 +18,16 @@ public class DefaultMultiSourceFeatureToggleService implements FeatureToggleServ
         ScenarioFeatureToggleInfo scenarioFeatureToggleInfo = new ScenarioFeatureToggleInfo();
         //@FeatureToggle(LD:feature_id_1=on) @FeatureToggle(IAC:feature_id_2=off)
         toggleable.getSourceTagNames().forEach(tag -> {
-            if(tag.contains(LAUNCH_DARKLY_FLAG)) {
+            if (tag.contains(LAUNCH_DARKLY_FLAG)) {
                 String domain = null;
                 String id = null;
                 Boolean expectedStatus = null;
                 Boolean actualStatus;
 
                 domain = tag.contains(COLON) ? tag.substring(tag.indexOf("(") + 1, tag.indexOf(COLON)) : "LD";
+
+                FeatureToggleService service = getToggleService(domain);
+
                 if (!tag.contains(COLON) && !tag.contains(STRING_EQUALS)) {
                     id = tag.substring(tag.indexOf("(") + 1, tag.indexOf(")"));
                 } else if (tag.contains(COLON) && !tag.contains(STRING_EQUALS)) {
@@ -38,7 +41,7 @@ public class DefaultMultiSourceFeatureToggleService implements FeatureToggleServ
                     expectedStatus = expectedStatusString.equalsIgnoreCase("on");
                     scenarioFeatureToggleInfo.addExpectedStatus(id, expectedStatus);
                 }
-                FeatureToggleService service = getToggleService(domain);
+
                 actualStatus = (Boolean) service.getToggleStatusFor(id);
                 scenarioFeatureToggleInfo.addActualStatus(id, actualStatus);
             }

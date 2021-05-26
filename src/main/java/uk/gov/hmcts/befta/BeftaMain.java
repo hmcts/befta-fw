@@ -41,6 +41,16 @@ public class BeftaMain {
         }
     }
 
+    public static void main(String[] args, TestAutomationConfig config, TestAutomationAdapter taAdapter ,
+                            FeatureToggleService featureToggleService) {
+        setUp(config, taAdapter, featureToggleService);
+        try {
+            runCucumberMain(args);
+        } finally {
+            tearDown();
+        }
+    }
+
     public static void runCucumberMain(String[] args) {
         Main.main(args);
     }
