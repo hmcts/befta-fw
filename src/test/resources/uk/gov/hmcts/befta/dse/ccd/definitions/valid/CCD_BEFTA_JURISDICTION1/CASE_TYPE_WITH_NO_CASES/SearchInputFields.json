@@ -1,8 +1,0 @@
-[ {
-  "LiveFrom" : "01/01/2019",
-  "LiveTo" : "",
-  "CaseTypeID" : "CASE_TYPE_WITH_NO_CASES",
-  "CaseFieldID" : "TextField",
-  "Label" : "Search `Text` field",
-  "DisplayOrder" : 1
-} ]
