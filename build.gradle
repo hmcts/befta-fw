@@ -8,7 +8,7 @@ apply plugin: 'java'
 
 def buildNumber = System.getenv("RELEASE_VERSION")?.replace("refs/tags/", "") ?: "7.0.0-SNAPSHOT"
 
-group 'uk.gov.hmcts'
+group 'com.github.hmcts'
 
 version buildNumber
 
