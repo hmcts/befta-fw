@@ -1,6 +1,0 @@
-[ {
-  "BannerEnabled" : "true",
-  "BannerDescription" : "Test Jurisdiction Description",
-  "BannerUrlText" : "Click here to see it.>>>",
-  "BannerUrl" : "http://localhost:3451/testjurisdiction"
-} ]
