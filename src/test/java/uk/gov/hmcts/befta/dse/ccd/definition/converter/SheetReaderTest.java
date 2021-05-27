@@ -24,7 +24,7 @@ import java.io.IOException;
  */
 class SheetReaderTest {
 
-    public static final String DEFAULT_DEFINITIONS_PATH_EXCEL = "src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/excel/CCD_CNP_27.xlsx";
+    public static final String DEFAULT_DEFINITIONS_PATH_EXCEL = "src/test/resources/uk/gov/hmcts/befta/dse/ccd/definitions/excel/CCD_CNP_27.xlsx";
 
 	/**
 	 * Test method for {@link uk.gov.hmcts.befta.dse.ccd.definition.converter.SheetReader#transformToJson(org.apache.poi.ss.usermodel.Sheet)}.

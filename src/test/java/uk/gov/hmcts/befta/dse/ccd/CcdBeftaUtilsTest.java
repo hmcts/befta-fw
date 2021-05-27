@@ -21,9 +21,9 @@ import uk.gov.hmcts.befta.util.FileUtils;
  */
 class CcdBeftaUtilsTest {
 
-    public static final String DEFAULT_DEFINITIONS_PATH_JSON = "src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/valid/CCD_CNP_27";
-    public static final String DEFAULT_DEFINITIONS_PATH_EXCEL = "src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/excel/CCD_CNP_27.xlsx";
-    public static final String DEFAULT_DEFINITIONS_PATH_FOLDER = "src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/excel/AUTOTEST1";
+    public static final String DEFAULT_DEFINITIONS_PATH_JSON = "src/test/resources/uk/gov/hmcts/befta/dse/ccd/definitions/valid/CCD_CNP_27";
+    public static final String DEFAULT_DEFINITIONS_PATH_EXCEL = "src/test/resources/uk/gov/hmcts/befta/dse/ccd/definitions/excel/CCD_CNP_27.xlsx";
+    public static final String DEFAULT_DEFINITIONS_PATH_FOLDER = "src/test/resources/uk/gov/hmcts/befta/dse/ccd/definitions/excel/AUTOTEST1";
     File excelFile = null;
     File jsonFolder = null;
     File tempFolder = null;

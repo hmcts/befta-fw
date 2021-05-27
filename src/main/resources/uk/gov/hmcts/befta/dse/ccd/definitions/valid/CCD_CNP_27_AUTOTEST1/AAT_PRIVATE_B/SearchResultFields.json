@@ -1,8 +1,0 @@
-[ {
-  "LiveFrom" : "1/1/17",
-  "LiveTo" : "",
-  "CaseTypeID" : "AAT_PRIVATE_B",
-  "CaseFieldID" : "TextField",
-  "Label" : "`Text` search",
-  "DisplayOrder" : 1
-} ]
