@@ -7,11 +7,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
 public class ScenarioFeatureToggleInfo {
-    //rename to actualToggleStatus
+
     private Map<String, Boolean> actualStatuses = new ConcurrentHashMap<>();
     private Map<String, Boolean> expectedStatuses = new ConcurrentHashMap<>();
-
-    //New Map of expected status
 
     public ScenarioFeatureToggleInfo() {
     }
@@ -25,7 +23,7 @@ public class ScenarioFeatureToggleInfo {
     }
 
     public boolean isAnyEnabled() {
-        return actualStatuses.values().contains(Boolean.TRUE);
+        return actualStatuses.containsValue(Boolean.TRUE);
     }
 
     public boolean isAllEnabled() {
@@ -33,7 +31,7 @@ public class ScenarioFeatureToggleInfo {
     }
 
     public boolean isAnyDisabled() {
-        return actualStatuses.values().contains(Boolean.FALSE);
+        return actualStatuses.containsValue(Boolean.FALSE);
     }
 
     public boolean isAllDisabled() {
@@ -41,12 +39,12 @@ public class ScenarioFeatureToggleInfo {
     }
 
     public List<String> getDisabledFeatureFlags() {
-        return actualStatuses.entrySet().stream().filter(e -> !e.getValue()).map(e -> e.getKey())
+        return actualStatuses.entrySet().stream().filter(e -> !e.getValue()).map(Map.Entry::getKey)
                 .collect(Collectors.toList());
     }
 
     public List<String> getEnabledFeatureFlags() {
-        return actualStatuses.entrySet().stream().filter(e -> e.getValue()).map(e -> e.getKey()).collect(Collectors.toList());
+        return actualStatuses.entrySet().stream().filter(Map.Entry::getValue).map(Map.Entry::getKey).collect(Collectors.toList());
     }
 
     public boolean matchesExpectations() {
