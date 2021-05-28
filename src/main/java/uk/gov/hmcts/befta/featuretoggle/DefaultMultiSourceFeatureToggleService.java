@@ -1,12 +1,11 @@
-package uk.gov.hmcts.befta;
+package uk.gov.hmcts.befta.featuretoggle;
 
 import io.cucumber.java.Scenario;
 import uk.gov.hmcts.befta.exception.FeatureToggleCheckFailureException;
-import uk.gov.hmcts.befta.featuretoggle.FeatureToggleService;
-import uk.gov.hmcts.befta.featuretoggle.ScenarioFeatureToggleInfo;
 import uk.gov.hmcts.befta.featuretoggle.launchdarkly.LaunchDarklyFeatureToggleService;
 
 public class DefaultMultiSourceFeatureToggleService implements FeatureToggleService<Scenario, ScenarioFeatureToggleInfo> {
+
     public static final DefaultMultiSourceFeatureToggleService INSTANCE = new DefaultMultiSourceFeatureToggleService();
     private static final String LAUNCH_DARKLY_FLAG = "FeatureToggle";
 
@@ -16,7 +15,7 @@ public class DefaultMultiSourceFeatureToggleService implements FeatureToggleServ
     @Override
     public ScenarioFeatureToggleInfo getToggleStatusFor(Scenario toggleable) throws FeatureToggleCheckFailureException {
         ScenarioFeatureToggleInfo scenarioFeatureToggleInfo = new ScenarioFeatureToggleInfo();
-        //@FeatureToggle(LD:feature_id_1=on) @FeatureToggle(IAC:feature_id_2=off)
+        // Examples : @FeatureToggle(LD:feature_id_1=on) @FeatureToggle(IAC:feature_id_2=off)
         toggleable.getSourceTagNames().forEach(tag -> {
             if (tag.contains(LAUNCH_DARKLY_FLAG)) {
                 String domain = null;

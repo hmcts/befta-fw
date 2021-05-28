@@ -1,6 +1,5 @@
 package uk.gov.hmcts.befta.featuretoggle;
 
-import uk.gov.hmcts.befta.DefaultMultiSourceFeatureToggleService;
 import uk.gov.hmcts.befta.exception.FeatureToggleCheckFailureException;
 
 public interface FeatureToggleService<T, R> {
