@@ -15,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -85,8 +86,8 @@ class LaunchDarklyFeatureToggleServiceTest {
     void testGetToggleStatusForAll() {
 
         LDClient ldClient = mock(LDClient.class);
-        when(ldClient.boolVariation("enabledFlag", any(), anyBoolean())).thenReturn(true);
-        when(ldClient.boolVariation("disabledFlag", any(), anyBoolean())).thenReturn(false);
+        when(ldClient.boolVariation(eq("enabledFlag"), any(), anyBoolean())).thenReturn(true);
+        when(ldClient.boolVariation(eq("disabledFlag"), any(), anyBoolean())).thenReturn(false);
 
         LaunchDarklyFeatureToggleService launchDarklyFeatureToggleService = new LaunchDarklyFeatureToggleService();
 
