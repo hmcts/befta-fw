@@ -49,7 +49,6 @@ class LaunchDarklyFeatureToggleServiceTest {
 
     @Test
     @SetEnvironmentVariable(key = LD_SDK_KEY, value = LD_SDK_KEY_VALUE)
-    @SetEnvironmentVariable(key = MICROSERVICE_NAME, value = MICROSERVICE_NAME_VALUE)
     void testGetToggleStatusForFeature() {
         LDClient ldClient = mock(LDClient.class);
         when(ldClient.boolVariation(anyString(), any(), anyBoolean())).thenReturn(true);
