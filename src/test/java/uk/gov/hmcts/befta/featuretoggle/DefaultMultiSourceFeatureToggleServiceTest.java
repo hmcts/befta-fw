@@ -205,6 +205,9 @@ class DefaultMultiSourceFeatureToggleServiceTest {
      * {@link uk.gov.hmcts.befta.featuretoggle.DefaultMultiSourceFeatureToggleService#getToggleStatusFor(Scenario)}.
      */
     @Test
+    @SetEnvironmentVariable(key = LD_SDK_KEY, value = LD_SDK_KEY_VALUE)
+    @SetEnvironmentVariable(key = MICROSERVICE_NAME, value = MICROSERVICE_NAME_VALUE)
+    @SetEnvironmentVariable(key = LAUNCH_DARKLY_ENV, value = LAUNCH_DARKLY_ENV_VALUE)
     void shouldProcessTheFeatureToggleAnnotationWithCombinationOfAnnotationsScenario5() {
         Scenario scenario = mock(Scenario.class);
         final Collection<String> tags = new ArrayList<String>() {
