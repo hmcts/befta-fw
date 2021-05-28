@@ -4,6 +4,7 @@ import com.launchdarkly.sdk.server.LDClient;
 import io.cucumber.java.Scenario;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junitpioneer.jupiter.SetEnvironmentVariable;
 import uk.gov.hmcts.befta.exception.FeatureToggleCheckFailureException;
 
 import java.util.ArrayList;
@@ -22,6 +23,12 @@ import static org.mockito.Mockito.when;
 class DefaultMultiSourceFeatureToggleServiceTest {
 
     private static final String LAUNCH_DARKLY_FLAG = "@FeatureToggle";
+    public static final String LD_SDK_KEY = "LD_SDK_KEY";
+    public static final String LD_SDK_KEY_VALUE = "LD_SDK_KEY_VALUE";
+    public static final String MICROSERVICE_NAME = "MICROSERVICE_NAME";
+    public static final String MICROSERVICE_NAME_VALUE = "MICROSERVICE_NAME_VALUE";
+    public static final String LAUNCH_DARKLY_ENV = "LAUNCH_DARKLY_ENV";
+    public static final String LAUNCH_DARKLY_ENV_VALUE = "LAUNCH_DARKLY_ENV_VALUE";
 
     /**
      * Test method for
@@ -70,6 +77,9 @@ class DefaultMultiSourceFeatureToggleServiceTest {
      * {@link uk.gov.hmcts.befta.featuretoggle.DefaultMultiSourceFeatureToggleService#getToggleStatusFor(Scenario)}.
      */
     @Test
+    @SetEnvironmentVariable(key = LD_SDK_KEY, value = LD_SDK_KEY_VALUE)
+    @SetEnvironmentVariable(key = MICROSERVICE_NAME, value = MICROSERVICE_NAME_VALUE)
+    @SetEnvironmentVariable(key = LAUNCH_DARKLY_ENV, value = LAUNCH_DARKLY_ENV_VALUE)
     void shouldProcessTheFeatureToggleAnnotationWithCombinationOfAnnotationsScenario1() {
         Scenario scenario = mock(Scenario.class);
         final Collection<String> tags = new ArrayList<String>() {
@@ -99,6 +109,9 @@ class DefaultMultiSourceFeatureToggleServiceTest {
      * {@link uk.gov.hmcts.befta.featuretoggle.DefaultMultiSourceFeatureToggleService#getToggleStatusFor(Scenario)}.
      */
     @Test
+    @SetEnvironmentVariable(key = LD_SDK_KEY, value = LD_SDK_KEY_VALUE)
+    @SetEnvironmentVariable(key = MICROSERVICE_NAME, value = MICROSERVICE_NAME_VALUE)
+    @SetEnvironmentVariable(key = LAUNCH_DARKLY_ENV, value = LAUNCH_DARKLY_ENV_VALUE)
     void shouldProcessTheFeatureToggleAnnotationWithCombinationOfAnnotationsScenario2() {
         Scenario scenario = mock(Scenario.class);
         final Collection<String> tags = new ArrayList<String>() {
@@ -128,6 +141,9 @@ class DefaultMultiSourceFeatureToggleServiceTest {
      * {@link uk.gov.hmcts.befta.featuretoggle.DefaultMultiSourceFeatureToggleService#getToggleStatusFor(Scenario)}.
      */
     @Test
+    @SetEnvironmentVariable(key = LD_SDK_KEY, value = LD_SDK_KEY_VALUE)
+    @SetEnvironmentVariable(key = MICROSERVICE_NAME, value = MICROSERVICE_NAME_VALUE)
+    @SetEnvironmentVariable(key = LAUNCH_DARKLY_ENV, value = LAUNCH_DARKLY_ENV_VALUE)
     void shouldProcessTheFeatureToggleAnnotationWithCombinationOfAnnotationsScenario3() {
         Scenario scenario = mock(Scenario.class);
         final Collection<String> tags = new ArrayList<String>() {
@@ -157,6 +173,9 @@ class DefaultMultiSourceFeatureToggleServiceTest {
      * {@link uk.gov.hmcts.befta.featuretoggle.DefaultMultiSourceFeatureToggleService#getToggleStatusFor(Scenario)}.
      */
     @Test
+    @SetEnvironmentVariable(key = LD_SDK_KEY, value = LD_SDK_KEY_VALUE)
+    @SetEnvironmentVariable(key = MICROSERVICE_NAME, value = MICROSERVICE_NAME_VALUE)
+    @SetEnvironmentVariable(key = LAUNCH_DARKLY_ENV, value = LAUNCH_DARKLY_ENV_VALUE)
     void shouldProcessTheFeatureToggleAnnotationWithCombinationOfAnnotationsScenario4() {
         Scenario scenario = mock(Scenario.class);
         final Collection<String> tags = new ArrayList<String>() {
