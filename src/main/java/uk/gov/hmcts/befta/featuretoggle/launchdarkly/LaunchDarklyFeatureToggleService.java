@@ -16,9 +16,6 @@ public class LaunchDarklyFeatureToggleService implements FeatureToggleService<St
     private static final LDUser ldUser = new LDUser.Builder(LaunchDarklyConfig.getEnvironmentName()).firstName(BEFTA)
             .lastName(USER).custom(SERVICENAME, LaunchDarklyConfig.getLDMicroserviceName()).build();
 
-    private static final String LAUNCH_DARKLY_FLAG_WITH_EXPECTED_VALUE = "FeatureFlagWithExpectedValue";
-    private static final String EXTERNAL_FLAG_WITH_EXPECTED_VALUE = "ExternalFlagWithExpectedValue";
-
     private final LDClient ldClient = LaunchDarklyConfig.getLdInstance();
 
     @Override

@@ -78,21 +78,4 @@ class LaunchDarklyFeatureToggleServiceTest {
         assertTrue(
                 aeThrown.getMessage().contains("The Scenario is being skipped as LAUNCH_DARKLY_ENV is not configured"));
     }
-
-    @Test
-    @SetEnvironmentVariable(key = LD_SDK_KEY, value = LD_SDK_KEY_VALUE)
-    @SetEnvironmentVariable(key = MICROSERVICE_NAME, value = MICROSERVICE_NAME_VALUE)
-    @SetEnvironmentVariable(key = LAUNCH_DARKLY_ENV, value = LAUNCH_DARKLY_ENV_VALUE)
-    void testGetToggleStatusForAll() {
-
-        LDClient ldClient = mock(LDClient.class);
-        when(ldClient.boolVariation(eq("enabledFlag"), any(), anyBoolean())).thenReturn(true);
-        when(ldClient.boolVariation(eq("disabledFlag"), any(), anyBoolean())).thenReturn(false);
-
-        LaunchDarklyFeatureToggleService launchDarklyFeatureToggleService = new LaunchDarklyFeatureToggleService();
-
-        assertEquals(false, launchDarklyFeatureToggleService.getToggleStatusFor("disabledFlag"));
-        assertEquals(true, launchDarklyFeatureToggleService.getToggleStatusFor("enabledFlag"));
-
-    }
 }
