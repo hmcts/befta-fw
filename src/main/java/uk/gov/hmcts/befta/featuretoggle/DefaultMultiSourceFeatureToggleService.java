@@ -51,6 +51,7 @@ public class DefaultMultiSourceFeatureToggleService implements FeatureToggleServ
     protected FeatureToggleService getToggleService(String toggleDomain) {
         if (toggleDomain.equalsIgnoreCase("LD") || toggleDomain.equalsIgnoreCase("LaunchDarkly")) {
             return new LaunchDarklyFeatureToggleService();
-        } else throw new IllegalArgumentException("Doesn't know FeatureToggleService for Domain " + toggleDomain);
+        } else
+            throw new FeatureToggleCheckFailureException("Doesn't know FeatureToggleService for Domain " + toggleDomain);
     }
 }

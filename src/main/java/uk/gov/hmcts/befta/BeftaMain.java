@@ -2,6 +2,7 @@ package uk.gov.hmcts.befta;
 
 import io.cucumber.core.cli.Main;
 import io.cucumber.java.Scenario;
+import uk.gov.hmcts.befta.featuretoggle.DefaultMultiSourceFeatureToggleService;
 import uk.gov.hmcts.befta.featuretoggle.ScenarioFeatureToggleInfo;
 import uk.gov.hmcts.befta.featuretoggle.FeatureToggleService;
 import uk.gov.hmcts.befta.player.DefaultBackEndFunctionalTestScenarioPlayer;
@@ -17,7 +18,7 @@ public class BeftaMain {
 
     private static TestAutomationConfig config = TestAutomationConfig.INSTANCE;
     private static TestAutomationAdapter taAdapter = null;
-    // In RAS code we should inject this featureToggleService
+
     private static FeatureToggleService<Scenario, ScenarioFeatureToggleInfo> featureToggleService = new DefaultMultiSourceFeatureToggleService();
 
     public static void main(String[] args) {
