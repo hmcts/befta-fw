@@ -7,7 +7,7 @@ import uk.gov.hmcts.befta.featuretoggle.launchdarkly.LaunchDarklyFeatureToggleSe
 public class DefaultMultiSourceFeatureToggleService implements FeatureToggleService<Scenario, ScenarioFeatureToggleInfo> {
 
     public static final DefaultMultiSourceFeatureToggleService INSTANCE = new DefaultMultiSourceFeatureToggleService();
-    private static final String LAUNCH_DARKLY_FLAG = "FeatureToggle";
+    private static final String FEATURE_TOGGLE_SIGNER = "FeatureToggle";
 
     public static final String COLON = ":";
     public static final String STRING_EQUALS = "=";
@@ -17,7 +17,7 @@ public class DefaultMultiSourceFeatureToggleService implements FeatureToggleServ
         ScenarioFeatureToggleInfo scenarioFeatureToggleInfo = new ScenarioFeatureToggleInfo();
         // Examples : @FeatureToggle(LD:feature_id_1=on) @FeatureToggle(IAC:feature_id_2=off)
         toggleable.getSourceTagNames().forEach(tag -> {
-            if (tag.contains(LAUNCH_DARKLY_FLAG)) {
+            if (tag.contains(FEATURE_TOGGLE_SIGNER)) {
                 String domain = null;
                 String id = null;
                 Boolean expectedStatus = null;

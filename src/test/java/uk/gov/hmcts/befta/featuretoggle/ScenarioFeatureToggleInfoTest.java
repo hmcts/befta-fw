@@ -125,37 +125,37 @@ class ScenarioFeatureToggleInfoTest {
 
     /**
      * Test method for
-     * {@link ScenarioFeatureToggleInfo#matchesExpectations()}.
+     * {@link ScenarioFeatureToggleInfo#shouldScenarioBeRun()}.
      */
     @Test
     void testShouldReturnFalseForAnyDisabledFlag() {
         scenarioFeatureToggleInfo.addActualStatus("Flag2", false);
         scenarioFeatureToggleInfo.addActualStatus("Flag3", true);
         scenarioFeatureToggleInfo.addActualStatus("Flag4", true);
-        assertFalse(scenarioFeatureToggleInfo.matchesExpectations());
+        assertFalse(scenarioFeatureToggleInfo.shouldScenarioBeRun());
     }
 
     /**
      * Test method for
-     * {@link ScenarioFeatureToggleInfo#matchesExpectations()}.
+     * {@link ScenarioFeatureToggleInfo#shouldScenarioBeRun()}.
      */
     @Test
     void testShouldReturnFalseForExpectedFlagAsFalse() {
         scenarioFeatureToggleInfo.addActualStatus("Flag4", true);
         scenarioFeatureToggleInfo.addExpectedStatus("Flag4", false);
-        assertFalse(scenarioFeatureToggleInfo.matchesExpectations());
+        assertFalse(scenarioFeatureToggleInfo.shouldScenarioBeRun());
     }
 
     /**
      * Test method for
-     * {@link ScenarioFeatureToggleInfo#matchesExpectations()}.
+     * {@link ScenarioFeatureToggleInfo#shouldScenarioBeRun()}.
      */
     @Test
     void testShouldReturnTrueForExpectedFlagAsTrue() {
         scenarioFeatureToggleInfo.addActualStatus("Flag4", true);
         scenarioFeatureToggleInfo.addExpectedStatus("Flag4", true);
 
-        assertTrue(scenarioFeatureToggleInfo.matchesExpectations());
+        assertTrue(scenarioFeatureToggleInfo.shouldScenarioBeRun());
     }
 
 }
