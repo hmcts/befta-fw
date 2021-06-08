@@ -1,5 +1,8 @@
 package uk.gov.hmcts.befta;
 
+import static java.lang.String.format;
+import static uk.gov.hmcts.befta.util.BeftaUtils.defaultLog;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
@@ -12,9 +15,6 @@ import uk.gov.hmcts.befta.data.RecentExecutionsInfo;
 import uk.gov.hmcts.befta.util.BeftaUtils;
 import uk.gov.hmcts.befta.util.JsonUtils;
 
-import static java.lang.String.format;
-import static uk.gov.hmcts.befta.util.BeftaUtils.defaultLog;
-
 public class DefaultBeftaTestDataLoader implements BeftaTestDataLoader {
 
     private boolean isTestDataLoadedForCurrentRound = false;
@@ -25,7 +25,7 @@ public class DefaultBeftaTestDataLoader implements BeftaTestDataLoader {
     }
 
     @Override
-    public synchronized void loadTestDataIfNecessary() {
+    public synchronized void loadDataIfNotLoadedVeryRecently() {
         if (!isTestDataLoadedForCurrentRound && !shouldSkipDataLoad()) {
             try {
                 RestAssured.useRelaxedHTTPSValidation();
@@ -40,6 +40,7 @@ public class DefaultBeftaTestDataLoader implements BeftaTestDataLoader {
     }
 
     protected void doLoadTestData() {
+        BeftaUtils.defaultLog("No data is programmed to be loaded for this test suit.");
     }
 
     private boolean shouldSkipDataLoad() {

@@ -66,7 +66,7 @@ public class BeftaMain {
         setFeatureToggleService(featureToggleService);
         CucumberStepAnnotationUtils.injectCommonSyntacticFlexibilitiesIntoStepDefinitions(
                 DefaultBackEndFunctionalTestScenarioPlayer.class);
-        getAdapter().getDataLoader().loadTestDataIfNecessary();
+        getAdapter().getDataLoader().loadDataIfNotLoadedVeryRecently();
     }
 
     public static void tearDown() {
