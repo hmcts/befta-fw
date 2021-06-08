@@ -1,11 +1,12 @@
 package uk.gov.hmcts.befta;
 
+import static uk.gov.hmcts.befta.util.EnvironmentVariableUtils.getOptionalVariable;
+
 import org.apache.commons.lang3.math.NumberUtils;
+
 import uk.gov.hmcts.befta.auth.UserTokenProviderConfig;
 import uk.gov.hmcts.befta.data.CollectionVerificationConfig.Ordering;
 import uk.gov.hmcts.befta.util.EnvironmentVariableUtils;
-
-import static uk.gov.hmcts.befta.util.EnvironmentVariableUtils.getOptionalVariable;
 
 public class TestAutomationConfig {
 
@@ -21,31 +22,31 @@ public class TestAutomationConfig {
     }
 
     public String getIdamURL() {
-        return EnvironmentVariableUtils.getRequiredVariable("IDAM_URL");
+        return EnvironmentVariableUtils.getRequiredVariable("IDAM_API_URL_BASE");
     }
 
     public String getS2SURL() {
-        return EnvironmentVariableUtils.getRequiredVariable("S2S_URL");
+        return EnvironmentVariableUtils.getRequiredVariable("S2S_URL_BASE");
     }
 
     public String getS2SClientId() {
-        return EnvironmentVariableUtils.getRequiredVariable("BEFTA_S2S_CLIENT_ID");
+        return EnvironmentVariableUtils.getOptionalVariable("BEFTA_S2S_CLIENT_ID");
     }
 
     public String getS2SClientSecret() {
-        return EnvironmentVariableUtils.getRequiredVariable("BEFTA_S2S_CLIENT_SECRET");
+        return EnvironmentVariableUtils.getOptionalVariable("BEFTA_S2S_CLIENT_SECRET");
     }
 
     public String getDefinitionStoreUrl() {
-        return EnvironmentVariableUtils.getRequiredVariable("DEFINITION_STORE_HOST");
+        return EnvironmentVariableUtils.getRequiredVariable("DEFINITION_STORE_URL_BASE");
     }
 
     public String getImporterAutoTestEmail() {
-        return EnvironmentVariableUtils.getRequiredVariable("CCD_IMPORT_AUTOTEST_EMAIL");
+        return EnvironmentVariableUtils.getRequiredVariable("DEFINITION_IMPORTER_USERNAME");
     }
 
     public String getImporterAutoTestPassword() {
-        return EnvironmentVariableUtils.getRequiredVariable("CCD_IMPORT_AUTOTEST_PASSWORD");
+        return EnvironmentVariableUtils.getRequiredVariable("DEFINITION_IMPORTER_PASSWORD");
     }
 
     public UserTokenProviderConfig getUserTokenProviderConfig() {

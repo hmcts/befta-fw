@@ -3,12 +3,11 @@ package uk.gov.hmcts.befta.player;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.mockito.ArgumentMatchers.any;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -25,9 +24,7 @@ import java.util.Map.Entry;
 
 import io.cucumber.java.Scenario;
 import io.restassured.specification.RequestSpecification;
-import io.restassured.specification.ResponseSpecification;
 import uk.gov.hmcts.befta.BeftaMain;
-import uk.gov.hmcts.befta.DefaultTestAutomationAdapter;
 import uk.gov.hmcts.befta.TestAutomationAdapter;
 import uk.gov.hmcts.befta.data.HttpTestData;
 import uk.gov.hmcts.befta.data.JsonStoreHttpTestDataSource;
@@ -42,7 +39,7 @@ public class BackEndFunctionalTestScenarioContextTest {
 
     public static final String DEFINITION_STORE_HOST_KEY = "DEFINITION_STORE_HOST";
 	public static final String DEFINITION_STORE_HOST_VALUE = "http://127.0.0.1:8089/";
-	public static final String IDAM_URL_KEY = "IDAM_URL";
+    public static final String IDAM_URL_KEY = "IDAM_API_URL_BASE";
 	public static final String IDAM_URL_VALUE = "IDAM_URL_VALUE";
 	public static final String S2S_URL_KEY = "S2S_URL";
 	public static final String S2S_URL_VALUE = "S2S_URL_VALUE";

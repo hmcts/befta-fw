@@ -3,18 +3,19 @@
  */
 package uk.gov.hmcts.befta;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junitpioneer.jupiter.SetEnvironmentVariable;
-import uk.gov.hmcts.befta.TestAutomationConfig.ResponseHeaderCheckPolicy;
-import uk.gov.hmcts.befta.auth.UserTokenProviderConfig;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static uk.gov.hmcts.befta.data.CollectionVerificationConfig.Ordering;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junitpioneer.jupiter.SetEnvironmentVariable;
+
+import uk.gov.hmcts.befta.TestAutomationConfig.ResponseHeaderCheckPolicy;
+import uk.gov.hmcts.befta.auth.UserTokenProviderConfig;
+import uk.gov.hmcts.befta.data.CollectionVerificationConfig.Ordering;
 
 /**
  * @author korneleehenry
@@ -23,19 +24,19 @@ import static uk.gov.hmcts.befta.data.CollectionVerificationConfig.Ordering;
 class TestAutomationConfigTest {
     private static final String TEST_URL_KEY = "TEST_URL";
     private static final String TEST_URL_VALUE = "TEST_URL_VALUE";
-    private static final String IDAM_URL_KEY = "IDAM_URL";
+    private static final String IDAM_URL_KEY = "IDAM_API_URL_BASE";
     private static final String IDAM_URL_VALUE = "IDAM_URL_VALUE";
-    private static final String S2S_URL_KEY = "S2S_URL";
+    private static final String S2S_URL_KEY = "S2S_URL_BASE";
     private static final String S2S_URL_VALUE = "S2S_URL_VALUE";
     private static final String BEFTA_S2S_CLIENT_ID_KEY = "BEFTA_S2S_CLIENT_ID";
     private static final String BEFTA_S2S_CLIENT_ID_VALUE = "BEFTA_S2S_CLIENT_ID_VALUE";
     private static final String BEFTA_S2S_CLIENT_SECRET_KEY = "BEFTA_S2S_CLIENT_SECRET";
     private static final String BEFTA_S2S_CLIENT_SECRET_VALUE = "BEFTA_S2S_CLIENT_SECRET_VALUE";
-    private static final String DEFINITION_STORE_HOST_KEY = "DEFINITION_STORE_HOST";
+    private static final String DEFINITION_STORE_HOST_KEY = "DEFINITION_STORE_URL_BASE";
     private static final String DEFINITION_STORE_HOST_VALUE = "DEFINITION_STORE_HOST_VALUE";
-    private static final String CCD_IMPORT_AUTOTEST_EMAIL = "CCD_IMPORT_AUTOTEST_EMAIL";
+    private static final String CCD_IMPORT_AUTOTEST_EMAIL = "DEFINITION_IMPORTER_USERNAME";
     private static final String CCD_IMPORT_AUTOTEST_EMAIL_VALUE = "CCD_IMPORT_AUTOTEST_EMAIL_VALUE";
-    private static final String CCD_IMPORT_AUTOTEST_PASSWORD = "CCD_IMPORT_AUTOTEST_PASSWORD";
+    private static final String CCD_IMPORT_AUTOTEST_PASSWORD = "DEFINITION_IMPORTER_PASSWORD";
     private static final String CCD_IMPORT_AUTOTEST_PASSWORD_VALUE = "CCD_IMPORT_AUTOTEST_PASSWORD_VALUE";
     private static final String BEFTA_RESPONSE_HEADER_CHECK_POLICY = "BEFTA_RESPONSE_HEADER_CHECK_POLICY";
     private static final String BEFTA_RESPONSE_HEADER_CHECK_POLICY_VALUE = "JUST_WARN";
@@ -137,9 +138,9 @@ class TestAutomationConfigTest {
      * {@link uk.gov.hmcts.befta.TestAutomationConfig#getUserTokenProviderConfig()}.
      */
     @Test
-    @SetEnvironmentVariable(key = "OAUTH2_CLIENT_ID", value = "OAUTH2_CLIENT_ID_VALUE")
-    @SetEnvironmentVariable(key = "OAUTH2_CLIENT_SECRET", value = "OAUTH2_CLIENT_SECRET_VALUE")
-    @SetEnvironmentVariable(key = "OAUTH2_REDIRECT_URI", value = "OAUTH2_REDIRECT_URI_VALUE")
+    @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_CLIENT_ID", value = "OAUTH2_CLIENT_ID_VALUE")
+    @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_CLIENT_SECRET", value = "OAUTH2_CLIENT_SECRET_VALUE")
+    @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_REDIRECT_URL", value = "OAUTH2_REDIRECT_URI_VALUE")
     void testGetUserTokenProviderConfig() {
         UserTokenProviderConfig actual = TestAutomationConfig.INSTANCE.getUserTokenProviderConfig();
         assertNotNull(actual);

@@ -16,11 +16,11 @@ import java.io.File;
  *
  */
 class BeftaTestDataLoaderTest {
-    public static final String DEFINITION_STORE_HOST_KEY = "DEFINITION_STORE_HOST";
+    public static final String DEFINITION_STORE_HOST_KEY = "DEFINITION_STORE_URL_BASE";
     public static final String DEFINITION_STORE_HOST_VALUE = "http://127.0.0.1:8089/";
-    public static final String IDAM_URL_KEY = "IDAM_URL";
+    public static final String IDAM_URL_KEY = "IDAM_API_URL_BASE";
     public static final String IDAM_URL_VALUE = "IDAM_URL_VALUE";
-    public static final String S2S_URL_KEY = "S2S_URL";
+    public static final String S2S_URL_KEY = "S2S_URL_BASE";
     public static final String S2S_URL_VALUE = "S2S_URL_VALUE";
     public static final String BEFTA_S2S_CLIENT_ID_KEY = "BEFTA_S2S_CLIENT_ID";
     public static final String BEFTA_S2S_CLIENT_ID_VALUE = "BEFTA_S2S_CLIENT_ID_VALUE";
