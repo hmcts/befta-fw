@@ -25,7 +25,7 @@ public class DefaultBeftaTestDataLoader implements BeftaTestDataLoader {
     }
 
     @Override
-    public synchronized void loadTestDataIfNecessary() {
+    public synchronized void loadDataIfNotLoadedVeryRecently() {
         if (!isTestDataLoadedForCurrentRound && !shouldSkipDataLoad()) {
             try {
                 RestAssured.useRelaxedHTTPSValidation();

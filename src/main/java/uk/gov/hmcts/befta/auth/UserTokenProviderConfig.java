@@ -19,9 +19,9 @@ public class UserTokenProviderConfig {
     private String scopeVariables;
 
     private UserTokenProviderConfig() {
-        clientId = EnvironmentVariableUtils.getRequiredVariable("OAUTH2_CLIENT_ID");
-        clientSecret = EnvironmentVariableUtils.getRequiredVariable("OAUTH2_CLIENT_SECRET");
-        redirectUri = EnvironmentVariableUtils.getRequiredVariable("OAUTH2_REDIRECT_URI");
+        clientId = EnvironmentVariableUtils.getRequiredVariable("CCD_API_GATEWAY_OAUTH2_CLIENT_ID");
+        clientSecret = EnvironmentVariableUtils.getRequiredVariable("CCD_API_GATEWAY_OAUTH2_CLIENT_SECRET");
+        redirectUri = EnvironmentVariableUtils.getRequiredVariable("CCD_API_GATEWAY_OAUTH2_REDIRECT_URL");
         scopeVariables = EnvironmentVariableUtils.getOptionalVariable("OAUTH2_SCOPE_VARIABLES");
         accessTokenType = EnvironmentVariableUtils.getOptionalVariable("OAUTH2_ACCESS_TOKEN_TYPE");
         if (accessTokenType == null) {
