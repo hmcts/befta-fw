@@ -1,9 +1,0 @@
-[ {
-  "LiveFrom" : "01/01/2017",
-  "LiveTo" : "",
-  "CaseTypeID" : "CaseProgression",
-  "CaseFieldID" : "TextField1",
-  "Label" : "Text Field 1",
-  "ListElementCode" : "",
-  "DisplayOrder" : 1
-} ]

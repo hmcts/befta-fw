@@ -1,4 +1,4 @@
-name: Java CI
+name: Release with Jitpack
 
 on:
   pull_request:

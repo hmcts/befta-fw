@@ -2,6 +2,7 @@ package uk.gov.hmcts.befta.dse.ccd;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import com.google.common.reflect.ClassPath;
 
 import java.io.File;
@@ -62,12 +63,19 @@ public class DataLoaderToDefinitionStore {
             new CcdRoleConfig("caseworker-caa", "PUBLIC"),
             new CcdRoleConfig("caseworker-approver", "PUBLIC")
     };
+
     private TestAutomationAdapter adapter;
     private String definitionStoreUrl;
+    private String dataSetupEnvironment;
 
     public DataLoaderToDefinitionStore() {
         this(new DefaultTestAutomationAdapter(),
                 BeftaMain.getConfig().getDefinitionStoreUrl());
+    }
+
+    public DataLoaderToDefinitionStore(String dataSetupEnvironment) {
+        this();
+        this.dataSetupEnvironment = dataSetupEnvironment;
     }
 
     public DataLoaderToDefinitionStore(TestAutomationAdapter adapter) {
@@ -99,8 +107,8 @@ public class DataLoaderToDefinitionStore {
 
     public void importDefinitionsAt(String definitionsPath) {
         List<String> definitionFileResources = getAllDefinitionFilesToLoadAt(definitionsPath);
-        logger.info("{} definition files will be uploaded to '{}'.", definitionFileResources.size(),
-                definitionStoreUrl);
+        logger.info("{} definition files will be uploaded to '{}' on {}.", definitionFileResources.size(),
+                definitionStoreUrl, dataSetupEnvironment);
         try {
             for (String fileName : definitionFileResources) {
                 try {
