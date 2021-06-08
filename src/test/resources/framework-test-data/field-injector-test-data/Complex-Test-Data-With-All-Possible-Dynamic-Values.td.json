@@ -23,9 +23,9 @@
 		},
 		"pathVariables": {
 			"uid": "[[DEFAULT_AUTO_VALUE]]",
-			"dummyComplexPathVariable": "a.user@{{IDAM_URL}}/${[scenarioContext][childContexts][Token_Creation_Call_For_Complex_Data][testData][actualResponse][body][tokens][2][value]}#{{IDAM_USER_URL}}/documents/binary",
-			"binanyUrlOverIdam": "{{IDAM_URL}}/documents/binary",
-			"justIdamUrl": "{{IDAM_URL}}"
+			"dummyComplexPathVariable": "a.user@{{IDAM_API_URL_BASE}}/${[scenarioContext][childContexts][Token_Creation_Call_For_Complex_Data][testData][actualResponse][body][tokens][2][value]}#{{IDAM_USER_URL}}/documents/binary",
+			"binanyUrlOverIdam": "{{IDAM_API_URL_BASE}}/documents/binary",
+			"justIdamUrl": "{{IDAM_API_URL_BASE}}"
 		},
 		"body": {
 			"event": {
@@ -43,11 +43,11 @@
 				"onlyFormulaOnly": "${[scenarioContext][childContexts][Token_Creation_Call_For_Complex_Data][testData][actualResponse][body][tokens][2][value]}",
 
 				"oneEnvironmentVariableOnly": "{{IDAM_USER_URL}}",
-				"threeEnvironmentVariablesOnly": "{{IDAM_USER_URL}}{{CCD_CASEWORKER_AUTOTEST_PASSWORD}}{{DEFINITION_STORE_HOST}}",
+				"threeEnvironmentVariablesOnly": "{{IDAM_USER_URL}}{{CCD_CASEWORKER_AUTOTEST_PASSWORD}}{{DEFINITION_STORE_URL_BASE}}",
 				"twoFormulasOnly": "${[scenarioContext][childContexts][Token_Creation_Call_For_Complex_Data][testData][actualResponse][body][tokens][2][value]}${[scenarioContext][childContexts][Token_Creation_Call_For_Complex_Data][testData][actualResponse][body][tokens][2][value]}",
 
-				"complicatedNestedValue_1": "${[scenarioContext][childContexts][Token_Creation_Call_For_Complex_Data][testData][actualResponse][body][tokens][2][value]}{{IDAM_USER_URL}}abc123{{DEFINITION_STORE_HOST}}",
-				"complicatedNestedValue_2": "abc${[scenarioContext][childContexts][Token_Creation_Call_For_Complex_Data][testData][actualResponse][body][tokens][2][value]}.=.{{IDAM_USER_URL}}${[scenarioContext][childContexts][Token_Creation_Call_For_Complex_Data][testData][actualResponse][body][tokens][2][value]}abc123{{DEFINITION_STORE_HOST}}"
+				"complicatedNestedValue_1": "${[scenarioContext][childContexts][Token_Creation_Call_For_Complex_Data][testData][actualResponse][body][tokens][2][value]}{{IDAM_USER_URL}}abc123{{DEFINITION_STORE_URL_BASE}}",
+				"complicatedNestedValue_2": "abc${[scenarioContext][childContexts][Token_Creation_Call_For_Complex_Data][testData][actualResponse][body][tokens][2][value]}.=.{{IDAM_USER_URL}}${[scenarioContext][childContexts][Token_Creation_Call_For_Complex_Data][testData][actualResponse][body][tokens][2][value]}abc123{{DEFINITION_STORE_URL_BASE}}"
 			},
 			"event_token": "{{IDAM_USER_URL}}/documents/binary",
 			"ignore_warning": false,
@@ -78,12 +78,12 @@
 			"onlyPredefinedDynamic": "[[DEFAULT_AUTO_VALUE]]",
 			"onlyFormulaOnly": "token value at index 2",
 
-			"oneEnvironmentVariableOnly": "{{DEFINITION_STORE_HOST}}",
-			"threeEnvironmentVariablesOnly": "{{DEFINITION_STORE_HOST}}Pa55word11{{DEFINITION_STORE_HOST}}",
+			"oneEnvironmentVariableOnly": "{{DEFINITION_STORE_URL_BASE}}",
+			"threeEnvironmentVariablesOnly": "{{DEFINITION_STORE_URL_BASE}}Pa55word11{{DEFINITION_STORE_URL_BASE}}",
 			"twoFormulasOnly": "token value at index 2token value at index 2",
 
-			"complicatedNestedValue_1": "token value at index 2{{DEFINITION_STORE_HOST}}abc123{{DEFINITION_STORE_HOST}}",
-			"complicatedNestedValue_2": "abctoken value at index 2.=.{{DEFINITION_STORE_HOST}}token value at index 2abc123{{DEFINITION_STORE_HOST}}"
+			"complicatedNestedValue_1": "token value at index 2{{DEFINITION_STORE_URL_BASE}}abc123{{DEFINITION_STORE_URL_BASE}}",
+			"complicatedNestedValue_2": "abctoken value at index 2.=.{{DEFINITION_STORE_URL_BASE}}token value at index 2abc123{{DEFINITION_STORE_URL_BASE}}"
 		}
 	}
 }

@@ -8,6 +8,7 @@ import com.google.common.reflect.ClassPath;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -21,19 +22,23 @@ import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import uk.gov.hmcts.befta.BeftaMain;
+import uk.gov.hmcts.befta.DefaultBeftaTestDataLoader;
 import uk.gov.hmcts.befta.DefaultTestAutomationAdapter;
 import uk.gov.hmcts.befta.TestAutomationAdapter;
 import uk.gov.hmcts.befta.auth.UserTokenProviderConfig;
 import uk.gov.hmcts.befta.data.UserData;
 import uk.gov.hmcts.befta.dse.ccd.definition.converter.JsonTransformer;
-import uk.gov.hmcts.befta.exception.FunctionalTestException;
 import uk.gov.hmcts.befta.util.BeftaUtils;
 import uk.gov.hmcts.befta.util.FileUtils;
 
-public class DataLoaderToDefinitionStore {
+public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
+
     private static final Logger logger = LoggerFactory.getLogger(DataLoaderToDefinitionStore.class);
-    public static final String VALID_CCD_TEST_DEFINITIONS_PATH = "uk/gov/hmcts/befta/dse/ccd/definitions/valid";
+
+    public static final String VALID_CCD_TEST_DEFINITIONS_PATH = "uk/gov/hmcts/ccd/test_definitions/valid";
+
     private static final String TEMPORARY_DEFINITION_FOLDER = "definition_files";
+
     private static final CcdRoleConfig[] CCD_ROLES_NEEDED_FOR_TA = {
             new CcdRoleConfig("caseworker-autotest1", "PUBLIC"),
             new CcdRoleConfig("caseworker-autotest1-private", "PRIVATE"),
@@ -66,26 +71,88 @@ public class DataLoaderToDefinitionStore {
 
     private TestAutomationAdapter adapter;
     private String definitionStoreUrl;
-    private String dataSetupEnvironment;
+    private String definitionsPath;
+    private CcdEnvironment dataSetupEnvironment;
 
-    public DataLoaderToDefinitionStore() {
-        this(new DefaultTestAutomationAdapter(),
+    public DataLoaderToDefinitionStore(String definitionsPath) {
+        this(new DefaultTestAutomationAdapter(), definitionsPath, CcdEnvironment.AAT,
                 BeftaMain.getConfig().getDefinitionStoreUrl());
     }
 
-    public DataLoaderToDefinitionStore(String dataSetupEnvironment) {
-        this();
-        this.dataSetupEnvironment = dataSetupEnvironment;
+    public DataLoaderToDefinitionStore(CcdEnvironment dataSetupEnvironment) {
+        this(new DefaultTestAutomationAdapter(), VALID_CCD_TEST_DEFINITIONS_PATH, dataSetupEnvironment,
+                BeftaMain.getConfig().getDefinitionStoreUrl());
+    }
+
+    public DataLoaderToDefinitionStore(CcdEnvironment dataSetupEnvironment, String definitionsPath) {
+        this(new DefaultTestAutomationAdapter(), definitionsPath, dataSetupEnvironment,
+                BeftaMain.getConfig().getDefinitionStoreUrl());
     }
 
     public DataLoaderToDefinitionStore(TestAutomationAdapter adapter) {
-        this(adapter, BeftaMain.getConfig().getDefinitionStoreUrl());
+        this(adapter, VALID_CCD_TEST_DEFINITIONS_PATH, CcdEnvironment.AAT,
+                BeftaMain.getConfig().getDefinitionStoreUrl());
     }
 
-    public DataLoaderToDefinitionStore(TestAutomationAdapter adapter, String definitionStoreUrl) {
-        super();
+    public DataLoaderToDefinitionStore(TestAutomationAdapter adapter, String definitionsPath) {
+        this(adapter, definitionsPath, CcdEnvironment.AAT, BeftaMain.getConfig().getDefinitionStoreUrl());
+    }
+
+    public DataLoaderToDefinitionStore(TestAutomationAdapter adapter, String definitionsPath,
+            CcdEnvironment dataSetupEnvironment) {
+        this(adapter, definitionsPath, dataSetupEnvironment, BeftaMain.getConfig().getDefinitionStoreUrl());
+    }
+
+    public DataLoaderToDefinitionStore(TestAutomationAdapter adapter, String definitionsPath,
+            CcdEnvironment dataSetupEnvironment, String definitionStoreUrl) {
         this.adapter = adapter;
+        this.definitionsPath = definitionsPath;
+        this.dataSetupEnvironment = dataSetupEnvironment;
         this.definitionStoreUrl = definitionStoreUrl;
+    }
+
+    public static void main(String[] args) throws Throwable {
+        main(DataLoaderToDefinitionStore.class, args);
+    }
+
+    protected static void main(Class<? extends DataLoaderToDefinitionStore> klass, String[] args) throws Throwable {
+        CcdEnvironment environment = null;
+        if (args.length == 1) {
+            try {
+                environment = CcdEnvironment.valueOf(args[0].toUpperCase());
+            } catch (IllegalArgumentException e) {
+            }
+        }
+        if (environment == null) {
+            throw new IllegalArgumentException(
+                    "Must have 1 argument. Acceptable values: " + Arrays.asList(CcdEnvironment.values()) + ".");
+        }
+        execute(klass, environment);
+    }
+
+    protected static void execute(Class<? extends DataLoaderToDefinitionStore> klass, CcdEnvironment environment)
+            throws Throwable {
+        DataLoaderToDefinitionStore loader = null;
+        try {
+            loader = klass.getConstructor(CcdEnvironment.class).newInstance(environment);
+            loader.loadDataIfNotLoadedVeryRecently();
+        } catch (Throwable t) {
+            logger.error("Failed to load data to {}: {}", loader.dataSetupEnvironment, t.getMessage());
+            logger.error("Thrown: ", t);
+            if (loader == null || !loader.shouldTolerateDataSetupFailure()) {
+                throw t;
+            }
+        }
+    }
+
+    protected boolean shouldTolerateDataSetupFailure() {
+        return false;
+    }
+
+    @Override
+    protected void doLoadTestData() {
+        addCcdRoles();
+        importDefinitions();
     }
 
     public void addCcdRoles() {
@@ -97,15 +164,18 @@ public class DataLoaderToDefinitionStore {
                 logger.info("\n\nAdded CCD Role {}.", roleConfig);
             } catch (Exception e) {
                 logger.error("\n\nCouldn't add CCD Role {} - Exception: {}.\n\n", roleConfig, e);
+                if (!shouldTolerateDataSetupFailure()) {
+                    throw e;
+                }
             }
         }
     }
 
-    public void importCcdTestDefinitions() {
-        importDefinitionsAt(VALID_CCD_TEST_DEFINITIONS_PATH);
+    public void importDefinitions() {
+        importDefinitionsAt(definitionsPath);
     }
 
-    public void importDefinitionsAt(String definitionsPath) {
+    protected void importDefinitionsAt(String definitionsPath) {
         List<String> definitionFileResources = getAllDefinitionFilesToLoadAt(definitionsPath);
         logger.info("{} definition files will be uploaded to '{}' on {}.", definitionFileResources.size(),
                 definitionStoreUrl, dataSetupEnvironment);
@@ -117,6 +187,9 @@ public class DataLoaderToDefinitionStore {
                     logger.info("\nImported {}.\n\n", fileName);
                 } catch (Exception e) {
                     logger.error("Couldn't import {} - Exception: {}.\n\n", fileName, e);
+                    if (!shouldTolerateDataSetupFailure()) {
+                        throw new RuntimeException(e);
+                    }
                 }
             }
         } finally {
@@ -134,7 +207,7 @@ public class DataLoaderToDefinitionStore {
         if (response.getStatusCode() / 100 != 2) {
             String message = "Import failed with response body: " + response.body().prettyPrint();
             message += "\nand http code: " + response.statusCode();
-            throw new FunctionalTestException(message);
+            throw new RuntimeException(message);
         }
     }
 
@@ -174,7 +247,7 @@ public class DataLoaderToDefinitionStore {
             if (response.getStatusCode() != 201) {
                 String message = "Import failed with response body: " + response.body().prettyPrint();
                 message += "\nand http code: " + response.statusCode();
-                throw new FunctionalTestException(message);
+                throw new RuntimeException(message);
             }
         } finally {
             file.delete();
@@ -192,7 +265,7 @@ public class DataLoaderToDefinitionStore {
                     .header("ServiceAuthorization", s2sToken);
         } catch (ExecutionException e) {
             String message = String.format("authenticating as %s failed ", importingUser.getUsername());
-            throw new FunctionalTestException(message, e);
+            throw new RuntimeException(message, e);
         }
     }
 
