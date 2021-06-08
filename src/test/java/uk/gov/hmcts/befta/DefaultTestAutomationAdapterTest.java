@@ -3,29 +3,6 @@
  */
 package uk.gov.hmcts.befta;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junitpioneer.jupiter.SetEnvironmentVariable;
-import org.mockito.MockedStatic;
-import org.mockito.Mockito;
-import uk.gov.hmcts.befta.auth.AuthApi;
-import uk.gov.hmcts.befta.data.HttpTestData;
-import uk.gov.hmcts.befta.data.RequestData;
-import uk.gov.hmcts.befta.data.ResponseData;
-import uk.gov.hmcts.befta.data.UserData;
-import uk.gov.hmcts.befta.exception.FunctionalTestException;
-import uk.gov.hmcts.befta.factory.BeftaIdamApiClientFactory;
-import uk.gov.hmcts.befta.factory.BeftaServiceAuthorisationApiClientFactory;
-import uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext;
-import uk.gov.hmcts.reform.authorisation.ServiceAuthorisationApi;
-
-import java.io.File;
-import java.util.HashMap;
-import java.util.concurrent.ExecutionException;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -39,6 +16,31 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junitpioneer.jupiter.SetEnvironmentVariable;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.File;
+import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
+
+import uk.gov.hmcts.befta.auth.AuthApi;
+import uk.gov.hmcts.befta.data.HttpTestData;
+import uk.gov.hmcts.befta.data.RequestData;
+import uk.gov.hmcts.befta.data.ResponseData;
+import uk.gov.hmcts.befta.data.UserData;
+import uk.gov.hmcts.befta.exception.FunctionalTestException;
+import uk.gov.hmcts.befta.factory.BeftaIdamApiClientFactory;
+import uk.gov.hmcts.befta.factory.BeftaServiceAuthorisationApiClientFactory;
+import uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext;
+import uk.gov.hmcts.reform.authorisation.ServiceAuthorisationApi;
+
 /**
  * @author korneleehenry
  *
@@ -47,9 +49,9 @@ import static org.mockito.Mockito.when;
 class DefaultTestAutomationAdapterTest {
     public static final String DEFINITION_STORE_HOST_KEY = "DEFINITION_STORE_HOST";
     public static final String DEFINITION_STORE_HOST_VALUE = "http://127.0.0.1:8089/";
-    public static final String IDAM_URL_KEY = "IDAM_URL";
+    public static final String IDAM_URL_KEY = "DEFINITION_STORE_URL_BASE";
     public static final String IDAM_URL_VALUE = "IDAM_URL_VALUE";
-    public static final String S2S_URL_KEY = "S2S_URL";
+    public static final String S2S_URL_KEY = "S2S_URL_BASE";
     public static final String S2S_URL_VALUE = "S2S_URL_VALUE";
     public static final String BEFTA_S2S_CLIENT_ID_KEY = "BEFTA_S2S_CLIENT_ID";
     public static final String BEFTA_S2S_CLIENT_ID_VALUE = "BEFTA_S2S_CLIENT_ID_VALUE";
@@ -155,17 +157,17 @@ class DefaultTestAutomationAdapterTest {
      * {@link uk.gov.hmcts.befta.DefaultTestAutomationAdapter#authenticate(uk.gov.hmcts.befta.data.UserData, java.lang.String)}.
      */
     @Test
-    @SetEnvironmentVariable(key = "OAUTH2_CLIENT_ID", value = "OAUTH2_CLIENT_ID_VALUE")
-    @SetEnvironmentVariable(key = "OAUTH2_CLIENT_SECRET", value = "OAUTH2_CLIENT_SECRET_VALUE")
-    @SetEnvironmentVariable(key = "OAUTH2_REDIRECT_URI", value = "OAUTH2_REDIRECT_URI_VALUE")
+    @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_CLIENT_ID", value = "OAUTH2_CLIENT_ID_VALUE")
+    @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_CLIENT_SECRET", value = "OAUTH2_CLIENT_SECRET_VALUE")
+    @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_REDIRECT_URL", value = "OAUTH2_REDIRECT_URI_VALUE")
     @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
     @SetEnvironmentVariable(key = IDAM_URL_KEY, value = IDAM_URL_VALUE)
     @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_ID_KEY, value = BEFTA_S2S_CLIENT_ID_VALUE)
     @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_SECRET_KEY, value = BEFTA_S2S_CLIENT_SECRET_VALUE)
     @SetEnvironmentVariable(key = S2S_URL_KEY, value = S2S_URL_VALUE)
-    @SetEnvironmentVariable(key = "OAUTH2_CLIENT_ID", value = "OAUTH2_CLIENT_ID_VALUE")
-    @SetEnvironmentVariable(key = "OAUTH2_CLIENT_SECRET", value = "OAUTH2_CLIENT_SECRET_VALUE")
-    @SetEnvironmentVariable(key = "OAUTH2_REDIRECT_URI", value = "OAUTH2_REDIRECT_URI_VALUE")
+    @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_CLIENT_ID", value = "OAUTH2_CLIENT_ID_VALUE")
+    @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_CLIENT_SECRET", value = "OAUTH2_CLIENT_SECRET_VALUE")
+    @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_REDIRECT_URL", value = "OAUTH2_REDIRECT_URI_VALUE")
     @SetEnvironmentVariable(key = "BEFTA_OAUTH2_REDIRECT_URI_OF_OTHER", value = "BEFTA_OAUTH2_REDIRECT_URI_OF_OTHER_VALUE")
     @SetEnvironmentVariable(key = "BEFTA_OAUTH2_CLIENT_SECRET_OF_OTHER", value = "BEFTA_OAUTH2_CLIENT_SECRET_OF_OTHER_VALUE")
     @SetEnvironmentVariable(key = "BEFTA_OAUTH2_SCOPE_VARIABLES_OF_OTHER", value = "BEFTA_OAUTH2_SCOPE_VARIABLES_OF_OTHER_VALUE")
@@ -233,17 +235,17 @@ class DefaultTestAutomationAdapterTest {
     }
 
     @Test
-    @SetEnvironmentVariable(key = "OAUTH2_CLIENT_ID", value = "OAUTH2_CLIENT_ID_VALUE")
-    @SetEnvironmentVariable(key = "OAUTH2_CLIENT_SECRET", value = "OAUTH2_CLIENT_SECRET_VALUE")
-    @SetEnvironmentVariable(key = "OAUTH2_REDIRECT_URI", value = "OAUTH2_REDIRECT_URI_VALUE")
+    @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_CLIENT_ID", value = "OAUTH2_CLIENT_ID_VALUE")
+    @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_CLIENT_SECRET", value = "OAUTH2_CLIENT_SECRET_VALUE")
+    @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_REDIRECT_URL", value = "OAUTH2_REDIRECT_URI_VALUE")
     @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
     @SetEnvironmentVariable(key = IDAM_URL_KEY, value = IDAM_URL_VALUE)
     @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_ID_KEY, value = BEFTA_S2S_CLIENT_ID_VALUE)
     @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_SECRET_KEY, value = BEFTA_S2S_CLIENT_SECRET_VALUE)
     @SetEnvironmentVariable(key = S2S_URL_KEY, value = S2S_URL_VALUE)
-    @SetEnvironmentVariable(key = "OAUTH2_CLIENT_ID", value = "OAUTH2_CLIENT_ID_VALUE")
-    @SetEnvironmentVariable(key = "OAUTH2_CLIENT_SECRET", value = "OAUTH2_CLIENT_SECRET_VALUE")
-    @SetEnvironmentVariable(key = "OAUTH2_REDIRECT_URI", value = "OAUTH2_REDIRECT_URI_VALUE")
+    @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_CLIENT_ID", value = "OAUTH2_CLIENT_ID_VALUE")
+    @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_CLIENT_SECRET", value = "OAUTH2_CLIENT_SECRET_VALUE")
+    @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_REDIRECT_URL", value = "OAUTH2_REDIRECT_URI_VALUE")
     @SetEnvironmentVariable(key = "BEFTA_OAUTH2_REDIRECT_URI_OF_OTHER", value = "BEFTA_OAUTH2_REDIRECT_URI_OF_OTHER_VALUE")
     @SetEnvironmentVariable(key = "BEFTA_OAUTH2_CLIENT_SECRET_OF_OTHER", value = "BEFTA_OAUTH2_CLIENT_SECRET_OF_OTHER_VALUE")
     @SetEnvironmentVariable(key = "BEFTA_OAUTH2_SCOPE_VARIABLES_OF_OTHER", value = "BEFTA_OAUTH2_SCOPE_VARIABLES_OF_OTHER_VALUE")
@@ -267,7 +269,7 @@ class DefaultTestAutomationAdapterTest {
 
     /**
      * Test method for
-     * {@link uk.gov.hmcts.befta.DefaultTestAutomationAdapter#loadTestDataIfNecessary()}.
+     * {@link uk.gov.hmcts.befta.DefaultTestAutomationAdapter#loadDataIfNotLoadedVeryRecently()}.
      */
     @Test
     @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
@@ -280,10 +282,10 @@ class DefaultTestAutomationAdapterTest {
         assertNotNull(tad);
         assertFalse(tad.getDataLoader().isTestDataLoadedForCurrentRound());
         new File(TestAutomationAdapter.EXECUTION_INFO_FILE).delete();
-        tad.getDataLoader().loadTestDataIfNecessary();
+        tad.getDataLoader().loadDataIfNotLoadedVeryRecently();
         new File(TestAutomationAdapter.EXECUTION_INFO_FILE).deleteOnExit();
         assertTrue(tad.getDataLoader().isTestDataLoadedForCurrentRound());
-        tad.getDataLoader().loadTestDataIfNecessary();
+        tad.getDataLoader().loadDataIfNotLoadedVeryRecently();
         assertTrue(tad.getDataLoader().isTestDataLoadedForCurrentRound());
     }
 
@@ -303,7 +305,7 @@ class DefaultTestAutomationAdapterTest {
     void testGetNewS2sClient() {
         String s2sClientId = "OTHER";
         assertNotNull(tad);
-        assertNotNull(tad.getNewS2sClient(s2sClientId));
+        assertNotNull(tad.getNewS2sClient(s2sClientId, "Key"));
     }
 
     /**
