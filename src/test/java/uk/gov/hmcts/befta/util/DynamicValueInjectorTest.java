@@ -84,11 +84,14 @@ public class DynamicValueInjectorTest {
 
         underTest.injectDataFromContextBeforeApiCall();
         // Mocking
-        Mockito.when(EnvironmentVariableUtils.getRequiredVariable("S2S_URL")).thenReturn("http://s2s.hmcts.bla.bla");
-        Mockito.when(EnvironmentVariableUtils.getRequiredVariable("IDAM_URL")).thenReturn("http://idam.hmcts.bla.bla");
+        Mockito.when(EnvironmentVariableUtils.getRequiredVariable("S2S_URL_BASE"))
+                .thenReturn("http://s2s.hmcts.bla.bla");
+        Mockito.when(EnvironmentVariableUtils.getRequiredVariable("IDAM_API_URL_BASE"))
+                .thenReturn("http://idam.hmcts.bla.bla");
         Mockito.when(EnvironmentVariableUtils.getRequiredVariable("IDAM_USER_URL"))
                 .thenReturn("http://idamuser.hmcts.bla.bla");
-        Mockito.when(EnvironmentVariableUtils.getRequiredVariable("DEFINITION_STORE_HOST"))
+        Mockito.when(EnvironmentVariableUtils
+                .getRequiredVariable("DEFINITION_STORE_URL_BASE"))
                 .thenReturn("http://defstore.hmcts.bla.bla");
         Mockito.when(EnvironmentVariableUtils.getRequiredVariable("CCD_CASEWORKER_AUTOTEST_PASSWORD"))
                 .thenReturn("PassQ@rT");
@@ -121,11 +124,14 @@ public class DynamicValueInjectorTest {
 
 
         // Mocking
-        Mockito.when(EnvironmentVariableUtils.getRequiredVariable("S2S_URL")).thenReturn("http://s2s.hmcts.bla.bla");
-        Mockito.when(EnvironmentVariableUtils.getRequiredVariable("IDAM_URL")).thenReturn("http://idam.hmcts.bla.bla");
+        Mockito.when(EnvironmentVariableUtils.getRequiredVariable("S2S_URL_BASE"))
+                .thenReturn("http://s2s.hmcts.bla.bla");
+        Mockito.when(EnvironmentVariableUtils.getRequiredVariable("IDAM_API_URL_BASE"))
+                .thenReturn("http://idam.hmcts.bla.bla");
         Mockito.when(EnvironmentVariableUtils.getRequiredVariable("IDAM_USER_URL"))
                 .thenReturn("http://idamuser.hmcts.bla.bla");
-        Mockito.when(EnvironmentVariableUtils.getRequiredVariable("DEFINITION_STORE_HOST"))
+        Mockito.when(EnvironmentVariableUtils
+                .getRequiredVariable("DEFINITION_STORE_URL_BASE"))
                 .thenReturn("http://defstore.hmcts.bla.bla");
         Mockito.when(EnvironmentVariableUtils.getRequiredVariable("CCD_CASEWORKER_AUTOTEST_PASSWORD"))
                 .thenReturn("PassQ@rT");
@@ -150,19 +156,23 @@ public class DynamicValueInjectorTest {
         Assert.assertEquals("string without any dynamic part",
                 testData.getExpectedResponse().getBody().get("onlyStaticString"));
         Assert.assertEquals("token value at index 2", testData.getExpectedResponse().getBody().get("onlyFormulaOnly"));
-        Assert.assertEquals("{{DEFINITION_STORE_HOST}}",
+        Assert.assertEquals(
+                "{{DEFINITION_STORE_URL_BASE}}",
                 testData.getExpectedResponse().getBody().get("oneEnvironmentVariableOnly"));
-        Assert.assertEquals("{{DEFINITION_STORE_HOST}}Pa55word11{{DEFINITION_STORE_HOST}}",
+        Assert.assertEquals(
+                "{{DEFINITION_STORE_URL_BASE}}Pa55word11{{DEFINITION_STORE_URL_BASE}}",
                 testData.getExpectedResponse().getBody().get("threeEnvironmentVariablesOnly"));
         Assert.assertEquals("token value at index 2token value at index 2",
                 testData.getExpectedResponse().getBody().get("twoFormulasOnly"));
-        Assert.assertEquals("token value at index 2{{DEFINITION_STORE_HOST}}abc123{{DEFINITION_STORE_HOST}}",
+        Assert.assertEquals(
+                "token value at index 2{{DEFINITION_STORE_URL_BASE}}abc123{{DEFINITION_STORE_URL_BASE}}",
                 testData.getExpectedResponse().getBody().get("complicatedNestedValue_1"));
         Assert.assertEquals(
-                "abctoken value at index 2.=.{{DEFINITION_STORE_HOST}}token value at index 2abc123{{DEFINITION_STORE_HOST}}",
+                "abctoken value at index 2.=.{{DEFINITION_STORE_URL_BASE}}token value at index 2abc123{{DEFINITION_STORE_URL_BASE}}",
                 testData.getExpectedResponse().getBody().get("complicatedNestedValue_2"));
         underTest.injectDataFromContextAfterApiCall();
-        Mockito.when(EnvironmentVariableUtils.getRequiredVariable("IDAM_URL")).thenReturn("http://idam.hmcts.bla.bla");
+        Mockito.when(EnvironmentVariableUtils.getRequiredVariable("IDAM_API_URL_BASE"))
+                .thenReturn("http://idam.hmcts.bla.bla");
 
         Assert.assertEquals("http://defstore.hmcts.bla.blaPa55word11http://defstore.hmcts.bla.bla",
                 testData.getExpectedResponse().getBody().get("threeEnvironmentVariablesOnly"));
