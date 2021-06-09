@@ -259,7 +259,7 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
                 BeftaMain.getConfig().getImporterAutoTestPassword());
         try {
             adapter.authenticate(importingUser, UserTokenProviderConfig.DEFAULT_INSTANCE.getClientId());
-            String s2sToken = adapter.getNewS2SToken();
+            String s2sToken = adapter.getNewS2STokenWithEnvVar("CCD_API_GATEWAY_S2S_KEY");
             return RestAssured.given(new RequestSpecBuilder().setBaseUri(definitionStoreUrl).build())
                     .header("Authorization", "Bearer " + importingUser.getAccessToken())
                     .header("ServiceAuthorization", s2sToken);

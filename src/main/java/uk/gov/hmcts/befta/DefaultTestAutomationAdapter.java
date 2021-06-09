@@ -82,6 +82,11 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
     }
 
     @Override
+    public String getNewS2STokenWithEnvVar(String envVarName) {
+        return getNewS2SToken(EnvironmentVariableUtils.getRequiredVariable(envVarName));
+    }
+
+    @Override
     public synchronized String getNewS2SToken(String clientId) {
         String s2sToken = null;
         try {
