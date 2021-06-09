@@ -8,6 +8,7 @@ import com.google.common.reflect.ClassPath;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -35,7 +36,7 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
 
     private static final Logger logger = LoggerFactory.getLogger(DataLoaderToDefinitionStore.class);
 
-    public static final String VALID_CCD_TEST_DEFINITIONS_PATH = "uk/gov/hmcts/befta/dse/ccd/definitions/valid";
+    public static final String VALID_CCD_TEST_DEFINITIONS_PATH = "uk/gov/hmcts/ccd/test_definitions/valid";
 
     private static final String TEMPORARY_DEFINITION_FOLDER = "definition_files";
 
@@ -109,6 +110,44 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
         this.definitionsPath = definitionsPath;
         this.dataSetupEnvironment = dataSetupEnvironment;
         this.definitionStoreUrl = definitionStoreUrl;
+    }
+
+    public static void main(String[] args) throws Throwable {
+        main(DataLoaderToDefinitionStore.class, args);
+    }
+
+    protected static void main(Class<? extends DataLoaderToDefinitionStore> klass, String[] args) throws Throwable {
+        CcdEnvironment environment = null;
+        if (args.length == 1) {
+            try {
+                environment = CcdEnvironment.valueOf(args[0].toUpperCase());
+            } catch (IllegalArgumentException e) {
+            }
+        }
+        if (environment == null) {
+            throw new IllegalArgumentException(
+                    "Must have 1 argument. Acceptable values: " + Arrays.asList(CcdEnvironment.values()) + ".");
+        }
+        execute(klass, environment);
+    }
+
+    protected static void execute(Class<? extends DataLoaderToDefinitionStore> klass, CcdEnvironment environment)
+            throws Throwable {
+        DataLoaderToDefinitionStore loader = null;
+        try {
+            loader = klass.getConstructor(CcdEnvironment.class).newInstance(environment);
+            loader.loadDataIfNotLoadedVeryRecently();
+        } catch (Throwable t) {
+            logger.error("Failed to load data to {}: {}", loader.dataSetupEnvironment, t.getMessage());
+            logger.error("Thrown: ", t);
+            if (loader == null || !loader.shouldTolerateDataSetupFailure()) {
+                throw t;
+            }
+        }
+    }
+
+    protected boolean shouldTolerateDataSetupFailure() {
+        return false;
     }
 
     @Override
