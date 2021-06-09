@@ -30,11 +30,11 @@ public class TestAutomationConfig {
     }
 
     public String getS2SClientId() {
-        return EnvironmentVariableUtils.getRequiredVariable("BEFTA_S2S_CLIENT_ID");
+        return EnvironmentVariableUtils.getOptionalVariable("BEFTA_S2S_CLIENT_ID");
     }
 
     public String getS2SClientSecret() {
-        return EnvironmentVariableUtils.getRequiredVariable("BEFTA_S2S_CLIENT_SECRET");
+        return EnvironmentVariableUtils.getOptionalVariable("BEFTA_S2S_CLIENT_SECRET");
     }
 
     public String getDefinitionStoreUrl() {
