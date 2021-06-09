@@ -112,7 +112,7 @@ public class DataLoaderToDefinitionStore {
         }
     }
 
-    public void importCcdTestDefinitions() {
+    public void importDefinitions() {
         importDefinitionsAt(definitionsPath);
     }
 
