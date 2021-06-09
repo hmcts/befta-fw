@@ -70,10 +70,11 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
         }
         tokenGenerators = tokenGeneratorsCacheBuilder.build();
 
-        ServiceAuthTokenGenerator defaultGenerator = getNewS2sClientWithCredentials(
+        if (BeftaMain.getConfig().getS2SClientId() != null && BeftaMain.getConfig().getS2SClientSecret() != null) {
+            ServiceAuthTokenGenerator defaultGenerator = getNewS2sClientWithCredentials(
                 BeftaMain.getConfig().getS2SClientId(), BeftaMain.getConfig().getS2SClientSecret());
-
-        tokenGenerators.put(BeftaMain.getConfig().getS2SClientId(), defaultGenerator);
+            tokenGenerators.put(BeftaMain.getConfig().getS2SClientId(), defaultGenerator);
+        }
     }
 
     @Override
