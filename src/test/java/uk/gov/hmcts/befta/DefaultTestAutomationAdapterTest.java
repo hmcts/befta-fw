@@ -269,7 +269,7 @@ class DefaultTestAutomationAdapterTest {
 
     /**
      * Test method for
-     * {@link uk.gov.hmcts.befta.DefaultTestAutomationAdapter#loadTestDataIfNecessary()}.
+     * {@link uk.gov.hmcts.befta.DefaultTestAutomationAdapter#loadDataIfNotLoadedVeryRecently()}.
      */
     @Test
     @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
@@ -282,10 +282,10 @@ class DefaultTestAutomationAdapterTest {
         assertNotNull(tad);
         assertFalse(tad.getDataLoader().isTestDataLoadedForCurrentRound());
         new File(TestAutomationAdapter.EXECUTION_INFO_FILE).delete();
-        tad.getDataLoader().loadTestDataIfNecessary();
+        tad.getDataLoader().loadDataIfNotLoadedVeryRecently();
         new File(TestAutomationAdapter.EXECUTION_INFO_FILE).deleteOnExit();
         assertTrue(tad.getDataLoader().isTestDataLoadedForCurrentRound());
-        tad.getDataLoader().loadTestDataIfNecessary();
+        tad.getDataLoader().loadDataIfNotLoadedVeryRecently();
         assertTrue(tad.getDataLoader().isTestDataLoadedForCurrentRound());
     }
 

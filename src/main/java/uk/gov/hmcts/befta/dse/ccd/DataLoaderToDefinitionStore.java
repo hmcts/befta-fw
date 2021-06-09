@@ -21,6 +21,7 @@ import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import uk.gov.hmcts.befta.BeftaMain;
+import uk.gov.hmcts.befta.DefaultBeftaTestDataLoader;
 import uk.gov.hmcts.befta.DefaultTestAutomationAdapter;
 import uk.gov.hmcts.befta.TestAutomationAdapter;
 import uk.gov.hmcts.befta.auth.UserTokenProviderConfig;
@@ -30,7 +31,7 @@ import uk.gov.hmcts.befta.exception.FunctionalTestException;
 import uk.gov.hmcts.befta.util.BeftaUtils;
 import uk.gov.hmcts.befta.util.FileUtils;
 
-public class DataLoaderToDefinitionStore {
+public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
 
     private static final Logger logger = LoggerFactory.getLogger(DataLoaderToDefinitionStore.class);
 
@@ -71,32 +72,49 @@ public class DataLoaderToDefinitionStore {
     private TestAutomationAdapter adapter;
     private String definitionStoreUrl;
     private String definitionsPath;
-    private String dataSetupEnvironment;
+    private CcdEnvironment dataSetupEnvironment;
 
-    public DataLoaderToDefinitionStore(String dataSetupEnvironment) {
+    public DataLoaderToDefinitionStore(String definitionsPath) {
+        this(new DefaultTestAutomationAdapter(), definitionsPath, CcdEnvironment.AAT,
+                BeftaMain.getConfig().getDefinitionStoreUrl());
+    }
+
+    public DataLoaderToDefinitionStore(CcdEnvironment dataSetupEnvironment) {
         this(new DefaultTestAutomationAdapter(), VALID_CCD_TEST_DEFINITIONS_PATH, dataSetupEnvironment,
                 BeftaMain.getConfig().getDefinitionStoreUrl());
     }
 
+    public DataLoaderToDefinitionStore(CcdEnvironment dataSetupEnvironment, String definitionsPath) {
+        this(new DefaultTestAutomationAdapter(), definitionsPath, dataSetupEnvironment,
+                BeftaMain.getConfig().getDefinitionStoreUrl());
+    }
+
     public DataLoaderToDefinitionStore(TestAutomationAdapter adapter) {
-        this(adapter, VALID_CCD_TEST_DEFINITIONS_PATH, "aat", BeftaMain.getConfig().getDefinitionStoreUrl());
+        this(adapter, VALID_CCD_TEST_DEFINITIONS_PATH, CcdEnvironment.AAT,
+                BeftaMain.getConfig().getDefinitionStoreUrl());
     }
 
     public DataLoaderToDefinitionStore(TestAutomationAdapter adapter, String definitionsPath) {
-        this(adapter, definitionsPath, "aat", BeftaMain.getConfig().getDefinitionStoreUrl());
+        this(adapter, definitionsPath, CcdEnvironment.AAT, BeftaMain.getConfig().getDefinitionStoreUrl());
     }
 
     public DataLoaderToDefinitionStore(TestAutomationAdapter adapter, String definitionsPath,
-            String dataSetupEnvironment) {
+            CcdEnvironment dataSetupEnvironment) {
         this(adapter, definitionsPath, dataSetupEnvironment, BeftaMain.getConfig().getDefinitionStoreUrl());
     }
 
     public DataLoaderToDefinitionStore(TestAutomationAdapter adapter, String definitionsPath,
-            String dataSetupEnvironment, String definitionStoreUrl) {
+            CcdEnvironment dataSetupEnvironment, String definitionStoreUrl) {
         this.adapter = adapter;
         this.definitionsPath = definitionsPath;
         this.dataSetupEnvironment = dataSetupEnvironment;
         this.definitionStoreUrl = definitionStoreUrl;
+    }
+
+    @Override
+    protected void doLoadTestData() {
+        addCcdRoles();
+        importDefinitions();
     }
 
     public void addCcdRoles() {
