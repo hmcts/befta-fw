@@ -31,9 +31,13 @@ import uk.gov.hmcts.befta.util.BeftaUtils;
 import uk.gov.hmcts.befta.util.FileUtils;
 
 public class DataLoaderToDefinitionStore {
+
     private static final Logger logger = LoggerFactory.getLogger(DataLoaderToDefinitionStore.class);
+
     public static final String VALID_CCD_TEST_DEFINITIONS_PATH = "uk/gov/hmcts/befta/dse/ccd/definitions/valid";
+
     private static final String TEMPORARY_DEFINITION_FOLDER = "definition_files";
+
     private static final CcdRoleConfig[] CCD_ROLES_NEEDED_FOR_TA = {
             new CcdRoleConfig("caseworker-autotest1", "PUBLIC"),
             new CcdRoleConfig("caseworker-autotest1-private", "PRIVATE"),
@@ -66,25 +70,32 @@ public class DataLoaderToDefinitionStore {
 
     private TestAutomationAdapter adapter;
     private String definitionStoreUrl;
+    private String definitionsPath;
     private String dataSetupEnvironment;
 
-    public DataLoaderToDefinitionStore() {
-        this(new DefaultTestAutomationAdapter(),
+    public DataLoaderToDefinitionStore(String dataSetupEnvironment) {
+        this(new DefaultTestAutomationAdapter(), VALID_CCD_TEST_DEFINITIONS_PATH, dataSetupEnvironment,
                 BeftaMain.getConfig().getDefinitionStoreUrl());
     }
 
-    public DataLoaderToDefinitionStore(String dataSetupEnvironment) {
-        this();
-        this.dataSetupEnvironment = dataSetupEnvironment;
-    }
-
     public DataLoaderToDefinitionStore(TestAutomationAdapter adapter) {
-        this(adapter, BeftaMain.getConfig().getDefinitionStoreUrl());
+        this(adapter, VALID_CCD_TEST_DEFINITIONS_PATH, "aat", BeftaMain.getConfig().getDefinitionStoreUrl());
     }
 
-    public DataLoaderToDefinitionStore(TestAutomationAdapter adapter, String definitionStoreUrl) {
-        super();
+    public DataLoaderToDefinitionStore(TestAutomationAdapter adapter, String definitionsPath) {
+        this(adapter, definitionsPath, "aat", BeftaMain.getConfig().getDefinitionStoreUrl());
+    }
+
+    public DataLoaderToDefinitionStore(TestAutomationAdapter adapter, String definitionsPath,
+            String dataSetupEnvironment) {
+        this(adapter, definitionsPath, dataSetupEnvironment, BeftaMain.getConfig().getDefinitionStoreUrl());
+    }
+
+    public DataLoaderToDefinitionStore(TestAutomationAdapter adapter, String definitionsPath,
+            String dataSetupEnvironment, String definitionStoreUrl) {
         this.adapter = adapter;
+        this.definitionsPath = definitionsPath;
+        this.dataSetupEnvironment = dataSetupEnvironment;
         this.definitionStoreUrl = definitionStoreUrl;
     }
 
@@ -102,10 +113,10 @@ public class DataLoaderToDefinitionStore {
     }
 
     public void importCcdTestDefinitions() {
-        importDefinitionsAt(VALID_CCD_TEST_DEFINITIONS_PATH);
+        importDefinitionsAt(definitionsPath);
     }
 
-    public void importDefinitionsAt(String definitionsPath) {
+    protected void importDefinitionsAt(String definitionsPath) {
         List<String> definitionFileResources = getAllDefinitionFilesToLoadAt(definitionsPath);
         logger.info("{} definition files will be uploaded to '{}' on {}.", definitionFileResources.size(),
                 definitionStoreUrl, dataSetupEnvironment);

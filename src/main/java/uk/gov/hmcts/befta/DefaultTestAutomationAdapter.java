@@ -146,14 +146,14 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
 
     private String getIdamOauth2Token(String username, String password, UserTokenProviderConfig tokenProviderConfig) {
         String authorisation = username + ":" + password;
-        logger.info("User >> {}", printableOf(authorisation));
+        // logger.info("User >> {}", printableOf(authorisation));
         String base64Authorisation = Base64.getEncoder().encodeToString(authorisation.getBytes());
 
         AuthApi.AuthenticateUserResponse authenticateUserResponse = idamApi.authenticateUser(
                 BASIC + base64Authorisation, CODE, tokenProviderConfig.getClientId(),
                 tokenProviderConfig.getRedirectUri());
 
-        printLogs(tokenProviderConfig);
+        // printLogs(tokenProviderConfig);
         AuthApi.TokenExchangeResponse tokenExchangeResponse = idamApi.exchangeCode(authenticateUserResponse.getCode(),
                 AUTHORIZATION_CODE, tokenProviderConfig.getClientId(), tokenProviderConfig.getClientSecret(),
                 tokenProviderConfig.getRedirectUri());
@@ -161,7 +161,7 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
         return tokenExchangeResponse.getAccessToken();
     }
 
-    private void printLogs(UserTokenProviderConfig tokenProviderConfig) {
+    void printLogs(UserTokenProviderConfig tokenProviderConfig) {
         logger.info("Token type >> {}", tokenProviderConfig.getAccessTokenType());
         logger.info("Client id >> {}", tokenProviderConfig.getClientId());
         logger.info("Client secret >> {}", printableOf(tokenProviderConfig.getClientSecret()));
