@@ -15,6 +15,7 @@ import org.junitpioneer.jupiter.SetEnvironmentVariable;
 import java.io.File;
 import java.io.IOException;
 
+import uk.gov.hmcts.befta.dse.ccd.CcdEnvironment;
 import uk.gov.hmcts.befta.util.FileUtils;
 
 /**
@@ -57,7 +58,8 @@ class JsonTransformerTest {
 	@Test
     @SetEnvironmentVariable(key = "TEST_URL", value = "http://localhost:8080/dummy-api")
 	void testTransformToExcel() {
-		JsonTransformer jsonTransformer = new JsonTransformer(DEFAULT_DEFINITIONS_PATH_JSON,null);
+        JsonTransformer jsonTransformer = new JsonTransformer(CcdEnvironment.PREVIEW, DEFAULT_DEFINITIONS_PATH_JSON,
+                null);
 		String expected = DEFAULT_DEFINITIONS_PATH_JSON+".xlsx";
 		File tempfile = new File(expected);
 		String actual = jsonTransformer.transformToExcel();
@@ -70,7 +72,8 @@ class JsonTransformerTest {
 	 */
 	@Test
 	void testJsonTransformerStringString() {
-		JsonTransformer jsonTransformer = new JsonTransformer(DEFAULT_DEFINITIONS_PATH_JSON,TEMPORARY_DEFINITION_FOLDER_EXCEL);
+        JsonTransformer jsonTransformer = new JsonTransformer(CcdEnvironment.PREVIEW, DEFAULT_DEFINITIONS_PATH_JSON,
+                TEMPORARY_DEFINITION_FOLDER_EXCEL);
 		assertNotNull(jsonTransformer);
 	}
 
@@ -79,7 +82,7 @@ class JsonTransformerTest {
 	 */
 	@Test
 	void testJsonTransformerString() {
-		JsonTransformer jsonTransformer = new JsonTransformer(DEFAULT_DEFINITIONS_PATH_JSON);
+        JsonTransformer jsonTransformer = new JsonTransformer(CcdEnvironment.PREVIEW, DEFAULT_DEFINITIONS_PATH_JSON);
 		assertNotNull(jsonTransformer);
 	}
 
@@ -90,7 +93,8 @@ class JsonTransformerTest {
 	@Test
     @SetEnvironmentVariable(key = "TEST_URL", value = "http://localhost:8080/dummy-api")
 	void testParseDefinitionJson() throws IOException {
-		JsonTransformer jsonTransformer = new JsonTransformer(DEFAULT_DEFINITIONS_PATH_JSON_EMPTY);
+        JsonTransformer jsonTransformer = new JsonTransformer(CcdEnvironment.PREVIEW,
+                DEFAULT_DEFINITIONS_PATH_JSON_EMPTY);
     	jsonTransformer.parseDefinitionJson(DEFAULT_DEFINITIONS_PATH_JSON_EMPTY);;
 		assertNotNull(jsonTransformer);
 	}
@@ -101,7 +105,8 @@ class JsonTransformerTest {
 	@Test
     @SetEnvironmentVariable(key = "TEST_URL", value = "http://localhost:8080/dummy-api")
 	void testCreateWorkbook() {
-		JsonTransformer jsonTransformer = new JsonTransformer(DEFAULT_DEFINITIONS_PATH_JSON,TEMPORARY_DEFINITION_FOLDER_EXCEL);
+        JsonTransformer jsonTransformer = new JsonTransformer(CcdEnvironment.PREVIEW, DEFAULT_DEFINITIONS_PATH_JSON,
+                TEMPORARY_DEFINITION_FOLDER_EXCEL);
 		String expected = TEMPORARY_DEFINITION_FOLDER_EXCEL+"/CCD_CNP_27.xlsx";
 		File tempfile = new File(expected);
 		String actual = jsonTransformer.transformToExcel();
