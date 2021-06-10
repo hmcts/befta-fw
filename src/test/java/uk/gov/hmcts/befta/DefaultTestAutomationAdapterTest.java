@@ -281,9 +281,9 @@ class DefaultTestAutomationAdapterTest {
     void testLoadTestDataIfNecessary() {
         assertNotNull(tad);
         assertFalse(tad.getDataLoader().isTestDataLoadedForCurrentRound());
-        new File(TestAutomationAdapter.EXECUTION_INFO_FILE).delete();
+        new File(TestAutomationAdapter.getExecutionFileInfoNameFor(null)).delete();
         tad.getDataLoader().loadDataIfNotLoadedVeryRecently();
-        new File(TestAutomationAdapter.EXECUTION_INFO_FILE).deleteOnExit();
+        new File(TestAutomationAdapter.getExecutionFileInfoNameFor(null)).deleteOnExit();
         assertTrue(tad.getDataLoader().isTestDataLoadedForCurrentRound());
         tad.getDataLoader().loadDataIfNotLoadedVeryRecently();
         assertTrue(tad.getDataLoader().isTestDataLoadedForCurrentRound());

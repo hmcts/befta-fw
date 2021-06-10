@@ -7,7 +7,10 @@ import uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext;
 
 public interface TestAutomationAdapter {
 
-    public static final String EXECUTION_INFO_FILE = "./befta_recent_executions_info.json";
+    static String getExecutionFileInfoNameFor(Object environment) {
+        String infix = environment == null ? "" : "_" + environment;
+        return "./befta_recent_executions_info" + infix + ".json";
+    }
 
     String getNewS2SToken();
 

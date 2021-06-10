@@ -42,12 +42,12 @@ class BeftaTestDataLoaderTest {
     @SetEnvironmentVariable(key = S2S_URL_KEY, value = S2S_URL_VALUE)
     @SetEnvironmentVariable(key = TEST_DATA_LOAD_SKIP_PERIOD_KEY, value = TEST_DATA_LOAD_SKIP_PERIOD_VALUE)
     void testMain() {
-        new File(TestAutomationAdapter.EXECUTION_INFO_FILE).delete();
+        new File(TestAutomationAdapter.getExecutionFileInfoNameFor(null)).delete();
         String[] args = {};
         DefaultTestAutomationAdapter taAdapter = new DefaultTestAutomationAdapter();
         BeftaMain.setTaAdapter(taAdapter);
         BeftaTestDataLoader.main(args);
-        new File(TestAutomationAdapter.EXECUTION_INFO_FILE).deleteOnExit();
+        new File(TestAutomationAdapter.getExecutionFileInfoNameFor(null)).deleteOnExit();
         assertTrue(taAdapter.getDataLoader().isTestDataLoadedForCurrentRound());
     }
 

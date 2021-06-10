@@ -137,7 +137,7 @@ class TestDataLoaderToDefinitionStore {
         when(requestSpecification.put("/api/user-role")).thenReturn(rs);
         when(rs.getStatusCode()).thenReturn(200);
 		assertNotNull(dataLoaderToDefinitionStore);
-		dataLoaderToDefinitionStore.addCcdRoles();
+        dataLoaderToDefinitionStore.addCcdRoles();
 	}
 
 	/**

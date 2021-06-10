@@ -1,15 +1,15 @@
 package uk.gov.hmcts.befta;
 
-import io.cucumber.core.cli.Main;
-import uk.gov.hmcts.befta.featuretoggle.FeatureToggleService;
-import uk.gov.hmcts.befta.player.DefaultBackEndFunctionalTestScenarioPlayer;
-import uk.gov.hmcts.befta.util.CucumberStepAnnotationUtils;
+import static java.lang.String.format;
+import static uk.gov.hmcts.befta.util.BeftaUtils.defaultLog;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static java.lang.String.format;
-import static uk.gov.hmcts.befta.util.BeftaUtils.defaultLog;
+import io.cucumber.core.cli.Main;
+import uk.gov.hmcts.befta.featuretoggle.FeatureToggleService;
+import uk.gov.hmcts.befta.player.DefaultBackEndFunctionalTestScenarioPlayer;
+import uk.gov.hmcts.befta.util.CucumberStepAnnotationUtils;
 
 public class BeftaMain {
 
