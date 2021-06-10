@@ -67,10 +67,6 @@ class TestDataLoaderToDefinitionStore {
         }
     }	
 
-    /**
-     * Test method for
-     * {@link DataLoaderToDefinitionStore#DataLoaderToDefinitionStore(uk.gov.hmcts.befta.TestAutomationAdapter)}.
-     */
 	@Test
     @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
     @SetEnvironmentVariable(key = IDAM_URL_KEY, value = IDAM_URL_VALUE)
@@ -83,9 +79,6 @@ class TestDataLoaderToDefinitionStore {
 		assertNotNull(dataLoaderToDefinitionStore);
 	}
 
-	/**
-	 * Test method for {@link DataLoaderToDefinitionStore#DataLoaderToDefinitionStore(uk.gov.hmcts.befta.TestAutomationAdapter, java.lang.String)}.
-	 */
 	@Test
     @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
     @SetEnvironmentVariable(key = IDAM_URL_KEY, value = IDAM_URL_VALUE)
@@ -99,18 +92,12 @@ class TestDataLoaderToDefinitionStore {
 	}
 
 
-	/**
-	 * Test method for {@link DataLoaderToDefinitionStore#importCcdTestDefinitions()}.
-	 */
 	@Disabled
 	@Test
 	void testImportDefinitions() {
 		fail("Not yet implemented");
 	}
 
-	/**
-	 * Test method for {@link DataLoaderToDefinitionStore#addCcdRoles()}.
-	 */
 	@Test	
     @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
     @SetEnvironmentVariable(key = IDAM_URL_KEY, value = IDAM_URL_VALUE)
@@ -140,9 +127,6 @@ class TestDataLoaderToDefinitionStore {
         dataLoaderToDefinitionStore.addCcdRoles();
 	}
 
-	/**
-	 * Test method for {@link DataLoaderToDefinitionStore#addCcdRole(uk.gov.hmcts.befta.dse.ccd.CcdRoleConfig)}.
-	 */
 	@Test	
     @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
     @SetEnvironmentVariable(key = IDAM_URL_KEY, value = IDAM_URL_VALUE)
@@ -174,9 +158,6 @@ class TestDataLoaderToDefinitionStore {
 		dataLoaderToDefinitionStore.addCcdRole(roleConfig);
 	}
 
-	/**
-	 * Test method for {@link DataLoaderToDefinitionStore#addCcdRole(uk.gov.hmcts.befta.dse.ccd.CcdRoleConfig)}.
-	 */
 	@Test	
     @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
     @SetEnvironmentVariable(key = IDAM_URL_KEY, value = IDAM_URL_VALUE)
@@ -211,9 +192,6 @@ class TestDataLoaderToDefinitionStore {
           });
 	}
 
-	/**
-	 * Test method for {@link DataLoaderToDefinitionStore#getAllDefinitionFilesToLoadAt(String)} ()}.
-	 */
 	@Test
     @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
     @SetEnvironmentVariable(key = IDAM_URL_KEY, value = IDAM_URL_VALUE)
@@ -232,17 +210,11 @@ class TestDataLoaderToDefinitionStore {
 		dataLoaderToDefinitionStore.getAllDefinitionFilesToLoadAt(DataLoaderToDefinitionStore.VALID_CCD_TEST_DEFINITIONS_PATH);
 	}
 
-	/**
-	 * Test method for {@link DataLoaderToDefinitionStore#importDefinition(java.lang.String)}.
-	 */
 	@Disabled
 	@Test	
 	void testImportDefinition() {
 	}
 
-	/**
-	 * Test method for {@link DataLoaderToDefinitionStore#asAutoTestImporter()}.
-	 */
 	@Disabled
 	@Test
 	void testAsAutoTestImporter() {

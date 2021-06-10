@@ -1,19 +1,19 @@
 package uk.gov.hmcts.befta.dse.ccd;
 
+import java.io.File;
+
 import uk.gov.hmcts.befta.dse.ccd.definition.converter.ExcelTransformer;
 import uk.gov.hmcts.befta.dse.ccd.definition.converter.JsonTransformer;
 
-import java.io.File;
-
 public class CcdBeftaUtils {
 
-    public static File convertJsonDefinitionToExcel(String jsonFolderPath) {
-        String path = new JsonTransformer(jsonFolderPath).transformToExcel();
+    public static File convertJsonDefinitionToExcel(String jsonFolderPath, CcdEnvironment forEnvironment) {
+        String path = new JsonTransformer(forEnvironment, jsonFolderPath).transformToExcel();
         return new File(path);
     }
 
-    public static File convertJsonDefinitionToExcel(File jsonFolder) {
-        String path = new JsonTransformer(jsonFolder.getPath()).transformToExcel();
+    public static File convertJsonDefinitionToExcel(File jsonFolder, CcdEnvironment forEnvironment) {
+        String path = new JsonTransformer(forEnvironment, jsonFolder.getPath()).transformToExcel();
         return new File(path);
     }
 
@@ -23,7 +23,7 @@ public class CcdBeftaUtils {
     }
 
     public static File convertExcelFileToJson(File excelFile) {
-        String path = new ExcelTransformer(excelFile.getPath()).transformToJson();
+        String path = new ExcelTransformer( excelFile.getPath()).transformToJson();
         return new File(path);
     }
 
