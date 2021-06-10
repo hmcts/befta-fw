@@ -1,8 +1,11 @@
 package uk.gov.hmcts.befta.dse.ccd.definition.converter;
 
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -12,9 +15,11 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import uk.gov.hmcts.befta.dse.ccd.CcdEnvironment;
 import uk.gov.hmcts.befta.exception.DefinitionTransformerException;
 import uk.gov.hmcts.befta.exception.InvalidTestDataException;
+import uk.gov.hmcts.befta.util.BeftaUtils;
 import uk.gov.hmcts.befta.util.FileUtils;
 
 /**
@@ -27,6 +32,7 @@ public class JsonTransformer {
     private String jurisdiction;
     private String inputFolderPath;
     private String outputPath;
+    private CcdEnvironment forEnvironment;
 
     private static final List<String> SHEET_NAMES = Arrays.asList("CaseEvent", "AuthorisationCaseEvent",
             "AuthorisationCaseField", "AuthorisationCaseState", "AuthorisationCaseType", "AuthorisationComplexType",
@@ -42,14 +48,15 @@ public class JsonTransformer {
         return createWorkbook();
     }
 
-    public JsonTransformer(String inputFolderPath, String outputPath) {
+    public JsonTransformer(CcdEnvironment forEnvironment, String inputFolderPath, String outputPath) {
         this.inputFolderPath = inputFolderPath;
         this.outputPath = outputPath !=null ? outputPath : setOutputPath(inputFolderPath);
         this.jurisdiction = getFolderName(inputFolderPath);
+        this.forEnvironment = forEnvironment;
     }
 
-    public JsonTransformer(String inputFolderPath) {
-        this(inputFolderPath, null);
+    public JsonTransformer(CcdEnvironment dataSetupEnvironment, String inputFolderPath) {
+        this(dataSetupEnvironment, inputFolderPath, null);
     }
 
     private String setOutputPath(String inputPath){
@@ -75,7 +82,8 @@ public class JsonTransformer {
                     JsonNode rootSheetArray = objectMapper.readTree(jsonFile);
                     String jsonFileNameNoSuffix = jsonFile.getName().replace(".json", "");
 
-                    rootSheetArray = EnvironmentURLUtils.updateCallBackURLs(rootSheetArray, jsonFileNameNoSuffix);
+                    rootSheetArray = EnvironmentURLUtils.updateCallBackURLs(rootSheetArray, jsonFileNameNoSuffix,
+                            forEnvironment);
 
                     for (JsonNode sheetRow : rootSheetArray){
                         sheet = jsonFileNameNoSuffix;
@@ -109,6 +117,7 @@ public class JsonTransformer {
         try {
             FileOutputStream outputStream = new FileOutputStream(path);
             workbook.write(outputStream);
+            BeftaUtils.defaultLog("Generated [" + path + "] for target environment " + forEnvironment);
             workbook.close();
         } catch (IOException e) {
             e.printStackTrace();

@@ -179,11 +179,11 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
     }
 
     void printLogs(UserTokenProviderConfig tokenProviderConfig) {
-        logger.info("Token type >> {}", tokenProviderConfig.getAccessTokenType());
-        logger.info("Client id >> {}", tokenProviderConfig.getClientId());
-        logger.info("Client secret >> {}", printableOf(tokenProviderConfig.getClientSecret()));
-        logger.info("Redicrect uri >> {}", tokenProviderConfig.getRedirectUri());
-        logger.info("Scope vars >> {}", tokenProviderConfig.getScopeVariables());
+        logger.info("Token Type = [{}]", tokenProviderConfig.getAccessTokenType());
+        logger.info("Client Id = [{}]", tokenProviderConfig.getClientId());
+        logger.info("Client Secret = [{}]", printableOf(tokenProviderConfig.getClientSecret()));
+        logger.info("Redirect URL = [{}]", tokenProviderConfig.getRedirectUri());
+        logger.info("Scope Vars = [{}]", tokenProviderConfig.getScopeVariables());
     }
 
     private String printableOf(String s) {
