@@ -52,7 +52,7 @@ class CcdBeftaUtilsTest {
 
         String expected = DEFAULT_DEFINITIONS_PATH_JSON + ".xlsx";
         File tempfile = new File(expected);
-        File actual = CcdBeftaUtils.convertJsonDefinitionToExcel(DEFAULT_DEFINITIONS_PATH_JSON);
+        File actual = CcdBeftaUtils.convertJsonDefinitionToExcel(DEFAULT_DEFINITIONS_PATH_JSON, CcdEnvironment.PREVIEW);
         assertEquals(tempfile, actual);
         assertTrue(tempfile.delete());
     }
@@ -66,7 +66,7 @@ class CcdBeftaUtilsTest {
     void testConvertJsonDefinitionToExcelFile() {
         String expected = DEFAULT_DEFINITIONS_PATH_JSON + ".xlsx";
         File tempfile = new File(expected);
-        File actual = CcdBeftaUtils.convertJsonDefinitionToExcel(jsonFolder);
+        File actual = CcdBeftaUtils.convertJsonDefinitionToExcel(jsonFolder, CcdEnvironment.PREVIEW);
         assertEquals(tempfile, actual);
         assertTrue(tempfile.delete());
     }
