@@ -1,22 +1,25 @@
 package uk.gov.hmcts.befta.dse.ccd.definition.converter;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junitpioneer.jupiter.ClearEnvironmentVariable;
-import org.junitpioneer.jupiter.SetEnvironmentVariable;
-import uk.gov.hmcts.befta.exception.InvalidTestDataException;
-
-import java.io.IOException;
-import java.net.MalformedURLException;
-
 import static junit.framework.TestCase.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junitpioneer.jupiter.ClearEnvironmentVariable;
+import org.junitpioneer.jupiter.SetEnvironmentVariable;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+
+import uk.gov.hmcts.befta.dse.ccd.CcdEnvironment;
+import uk.gov.hmcts.befta.exception.InvalidTestDataException;
 
 public class EnvironmentURLUtilsTest {
 
@@ -115,7 +118,8 @@ public class EnvironmentURLUtilsTest {
     @Test
     void unsupportedSheetNamesShouldNotModifyURLs() throws Exception{
         JsonNode nullJsonNode = objectMapper.nullNode();
-        JsonNode modifiedJsonNode = EnvironmentURLUtils.updateCallBackURLs(nullJsonNode, "AFileNameThatIsNotCaseEvent");
+        JsonNode modifiedJsonNode = EnvironmentURLUtils.updateCallBackURLs(nullJsonNode, "AFileNameThatIsNotCaseEvent",
+                CcdEnvironment.PREVIEW);
 
         // check JSON has not been modified
         assertEquals(nullJsonNode, modifiedJsonNode);
@@ -128,7 +132,8 @@ public class EnvironmentURLUtilsTest {
                 CREATE_CASE_CALLBACK_MID_EVENT_HOST,
                 CREATE_CASE_CALLBACK_MID_EVENT_PATH));
 
-        JsonNode modifiedJsonNode = EnvironmentURLUtils.updateCallBackURLs(caseEventToFieldsNode, "CaseEventToFields");
+        JsonNode modifiedJsonNode = EnvironmentURLUtils.updateCallBackURLs(caseEventToFieldsNode, "CaseEventToFields",
+                CcdEnvironment.PREVIEW);
 
         // check JSON has been modified
         assertNotEquals(caseEventToFieldsNode, modifiedJsonNode);
@@ -148,7 +153,8 @@ public class EnvironmentURLUtilsTest {
                 CREATE_CASE_CALLBACK_MID_EVENT_HOST,
                 CREATE_CASE_CALLBACK_MID_EVENT_PATH));
 
-        JsonNode modifiedJsonNode = EnvironmentURLUtils.updateCallBackURLs(caseEventToFieldsNode, "CaseEventToFields");
+        JsonNode modifiedJsonNode = EnvironmentURLUtils.updateCallBackURLs(caseEventToFieldsNode, "CaseEventToFields",
+                CcdEnvironment.PREVIEW);
 
         // check JSON has been modified
         assertNotEquals(caseEventToFieldsNode, modifiedJsonNode);
@@ -165,7 +171,8 @@ public class EnvironmentURLUtilsTest {
     @ClearEnvironmentVariable(key = TEST_STUB_SERVICE_BASE_URL)
     @ClearEnvironmentVariable(key = MCA_API_BASE_URL)
     void caseEventUrlsUpdatedWithDefaultValuesWheNoEnvironmentVariablesSet() throws Exception {
-        JsonNode modifiedJsonNode = EnvironmentURLUtils.updateCallBackURLs(caseEventJson, CASE_EVENT);
+        JsonNode modifiedJsonNode = EnvironmentURLUtils.updateCallBackURLs(caseEventJson, CASE_EVENT,
+                CcdEnvironment.PREVIEW);
 
         // check JSON has been modified
         assertNotEquals(caseEventJson, modifiedJsonNode);
@@ -187,7 +194,8 @@ public class EnvironmentURLUtilsTest {
     @SetEnvironmentVariable(key = MCA_API_BASE_URL, value = LOCALHOST_URL)
     @ClearEnvironmentVariable(key = TEST_STUB_SERVICE_BASE_URL)
     void caseEventMcaApiBaseUrlUpdated() throws Exception {
-        JsonNode modifiedJsonNode = EnvironmentURLUtils.updateCallBackURLs(caseEventJson, CASE_EVENT);
+        JsonNode modifiedJsonNode = EnvironmentURLUtils.updateCallBackURLs(caseEventJson, CASE_EVENT,
+                CcdEnvironment.PREVIEW);
 
         // check JSON has been modified
         assertNotEquals(caseEventJson, modifiedJsonNode);
@@ -207,7 +215,8 @@ public class EnvironmentURLUtilsTest {
     @ClearEnvironmentVariable(key = MCA_API_BASE_URL)
     @SetEnvironmentVariable(key = TEST_STUB_SERVICE_BASE_URL, value = LOCALHOST_URL)
     void caseEventTestStubServiceBaseUrlUpdated() throws Exception {
-        JsonNode modifiedJsonNode = EnvironmentURLUtils.updateCallBackURLs(caseEventJson, CASE_EVENT);
+        JsonNode modifiedJsonNode = EnvironmentURLUtils.updateCallBackURLs(caseEventJson, CASE_EVENT,
+                CcdEnvironment.PREVIEW);
 
         // check JSON has been modified
         assertNotEquals(caseEventJson, modifiedJsonNode);
@@ -228,7 +237,8 @@ public class EnvironmentURLUtilsTest {
     @SetEnvironmentVariable(key = MCA_API_BASE_URL, value = LOCALHOST_URL)
     @SetEnvironmentVariable(key = TEST_STUB_SERVICE_BASE_URL, value = LOCALHOST_URL)
     void caseEventAllBaseUrlsUpdated() throws Exception {
-        JsonNode modifiedJsonNode = EnvironmentURLUtils.updateCallBackURLs(caseEventJson, CASE_EVENT);
+        JsonNode modifiedJsonNode = EnvironmentURLUtils.updateCallBackURLs(caseEventJson, CASE_EVENT,
+                CcdEnvironment.PREVIEW);
 
         // check JSON has been modified
         assertNotEquals(caseEventJson, modifiedJsonNode);
@@ -246,7 +256,7 @@ public class EnvironmentURLUtilsTest {
     @SetEnvironmentVariable(key = MCA_API_BASE_URL, value = "httpsMalformed://" + LOCALHOST_URL)
     void urlNotConvertedOnPreviewEnvironmentTestUrlMalformed()  {
         Exception exception = assertThrows(MalformedURLException.class,
-                () -> EnvironmentURLUtils.updateCallBackURLs(caseEventJson, CASE_EVENT));
+                () -> EnvironmentURLUtils.updateCallBackURLs(caseEventJson, CASE_EVENT, CcdEnvironment.PREVIEW));
         assertNotNull(exception);
         assertTrue(exception.getMessage().contains("unknown protocol"));
     }
@@ -261,7 +271,7 @@ public class EnvironmentURLUtilsTest {
         );
 
         Exception exception = assertThrows(InvalidTestDataException.class,
-                () -> EnvironmentURLUtils.updateCallBackURLs(caseEventJson, CASE_EVENT));
+                () -> EnvironmentURLUtils.updateCallBackURLs(caseEventJson, CASE_EVENT, CcdEnvironment.PREVIEW));
 
         assertNotNull(exception);
         assertEquals(exception.getMessage(),
@@ -278,7 +288,7 @@ public class EnvironmentURLUtilsTest {
         );
 
         Exception exception = assertThrows(InvalidTestDataException.class,
-                () -> EnvironmentURLUtils.updateCallBackURLs(caseEventJson, CASE_EVENT));
+                () -> EnvironmentURLUtils.updateCallBackURLs(caseEventJson, CASE_EVENT, CcdEnvironment.PREVIEW));
 
         assertNotNull(exception);
         assertEquals(exception.getMessage(),

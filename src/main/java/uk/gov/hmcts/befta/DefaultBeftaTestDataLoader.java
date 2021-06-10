@@ -3,6 +3,8 @@ package uk.gov.hmcts.befta;
 import static java.lang.String.format;
 import static uk.gov.hmcts.befta.util.BeftaUtils.defaultLog;
 
+import org.apache.commons.lang.StringUtils;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
@@ -11,7 +13,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import io.restassured.RestAssured;
-import net.logstash.logback.encoder.org.apache.commons.lang.StringUtils;
 import uk.gov.hmcts.befta.data.RecentExecutionsInfo;
 import uk.gov.hmcts.befta.util.BeftaUtils;
 import uk.gov.hmcts.befta.util.JsonUtils;
@@ -50,7 +51,8 @@ public class DefaultBeftaTestDataLoader implements BeftaTestDataLoader {
     }
 
     protected void doLoadTestData() {
-        BeftaUtils.defaultLog("No data is programmed to be loaded for this test suit.");
+        BeftaUtils.defaultLog("No data is programmed to be loaded for this test suit. Data setup environment: "
+                + dataSetupEnvironment);
     }
 
     private boolean shouldSkipDataLoad() {
@@ -66,17 +68,17 @@ public class DefaultBeftaTestDataLoader implements BeftaTestDataLoader {
                         .readObjectFromJsonFile(TestAutomationAdapter.getExecutionFileInfoNameFor(dataSetupEnvironment),
                                 RecentExecutionsInfo.class);
                 recentExecutionTime = recentExecutionsInfo.getLastExecutionTime();
-                defaultLog(format("recent exec file exists and timestamp is : %s", recentExecutionTime));
+                defaultLog(format("Recent execution file exists and timestamp is : %s.", recentExecutionTime));
                 if (isWithinSkipPeriod(
                         recentExecutionTime,
                         testDataLoadSkipPeriod)
                         && wasMostRecentDataForSameTests(recentExecutionsInfo)) {
-                    defaultLog("Should skip loading data.");
+                    defaultLog("Should skip loading data. Data setup environment: " + dataSetupEnvironment);
                     return true;
                 }
             }
         } catch (Exception e) {
-            defaultLog("Should NOT skip loading data.", e);
+            defaultLog("Should NOT skip loading data. Data setup environment: " + dataSetupEnvironment, e);
             return false;
         }
         return false;
@@ -150,8 +152,10 @@ public class DefaultBeftaTestDataLoader implements BeftaTestDataLoader {
         String recentExecutionEnv = recentExecutionsInfo.getDataSetupEnvironment();
         if (getCurrentGitRepo().contains(recentRepoSubString) && getCurrentGitBranch().equalsIgnoreCase(branchName)
                 && StringUtils.equalsIgnoreCase(recentExecutionEnv, "" + this.dataSetupEnvironment)) {
-            defaultLog(format("the repository (%s) and the branch (%s) from the recent execution"
-                    + " of %s matched", getCurrentGitRepo(), branchName, recentRepoSubString));
+            defaultLog(format(
+                    "The repository (%s) and the branch (%s) from the recent execution"
+                            + " of %s matched for data setup target environment %s.",
+                    getCurrentGitRepo(), branchName, recentRepoSubString, this.dataSetupEnvironment));
             return true;
         } else {
             defaultLog(format("The repository (%s) and the branch (%s) do not match: ",

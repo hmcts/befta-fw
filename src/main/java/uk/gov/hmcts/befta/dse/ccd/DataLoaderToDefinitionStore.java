@@ -107,8 +107,11 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
             CcdEnvironment dataSetupEnvironment, String definitionStoreUrl) {
         this.adapter = adapter;
         this.definitionsPath = definitionsPath;
-        this.dataSetupEnvironment = dataSetupEnvironment;
         this.definitionStoreUrl = definitionStoreUrl;
+        this.dataSetupEnvironment = dataSetupEnvironment;
+        if (definitionStoreUrl.contains("-preview.")) {
+            this.dataSetupEnvironment = CcdEnvironment.PREVIEW;
+        }
     }
 
     public static void main(String[] args) throws Throwable {
@@ -228,8 +231,12 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
                 }
             }
             if (convertJsonFilesToExcel) {
+                CcdEnvironment forEnvironment = dataSetupEnvironment == CcdEnvironment.PREVIEW ? CcdEnvironment.AAT
+                        : dataSetupEnvironment;
                 definitionFileResources.addAll(definitionJsonResourcesToTransform.stream()
-                        .map(folderPath -> new JsonTransformer(folderPath, TEMPORARY_DEFINITION_FOLDER)
+                        .map(folderPath -> new JsonTransformer(forEnvironment,
+                                folderPath,
+                                TEMPORARY_DEFINITION_FOLDER)
                                 .transformToExcel())
                         .collect(Collectors.toList()));
             }
