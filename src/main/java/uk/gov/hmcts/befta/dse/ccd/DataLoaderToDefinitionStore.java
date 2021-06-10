@@ -72,7 +72,6 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
     private TestAutomationAdapter adapter;
     private String definitionStoreUrl;
     private String definitionsPath;
-    private CcdEnvironment dataSetupEnvironment;
 
     public DataLoaderToDefinitionStore(String definitionsPath) {
         this(new DefaultTestAutomationAdapter(), definitionsPath, CcdEnvironment.AAT,
@@ -105,10 +104,18 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
 
     public DataLoaderToDefinitionStore(TestAutomationAdapter adapter, String definitionsPath,
             CcdEnvironment dataSetupEnvironment, String definitionStoreUrl) {
+        super(selectEnvironmentWith(dataSetupEnvironment, definitionStoreUrl));
         this.adapter = adapter;
         this.definitionsPath = definitionsPath;
-        this.dataSetupEnvironment = dataSetupEnvironment;
         this.definitionStoreUrl = definitionStoreUrl;
+    }
+
+    private static CcdEnvironment selectEnvironmentWith(CcdEnvironment dataSetupEnvironment,
+            String definitionStoreUrl) {
+        if (definitionStoreUrl.contains("-preview.")) {
+            return CcdEnvironment.PREVIEW;
+        }
+        return dataSetupEnvironment;
     }
 
     public static void main(String[] args) throws Throwable {
@@ -178,7 +185,7 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
     protected void importDefinitionsAt(String definitionsPath) {
         List<String> definitionFileResources = getAllDefinitionFilesToLoadAt(definitionsPath);
         logger.info("{} definition files will be uploaded to '{}' on {}.", definitionFileResources.size(),
-                definitionStoreUrl, dataSetupEnvironment);
+                definitionStoreUrl, getDataSetupEnvironment());
         try {
             for (String fileName : definitionFileResources) {
                 try {
@@ -228,8 +235,12 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
                 }
             }
             if (convertJsonFilesToExcel) {
+                CcdEnvironment forEnvironment = getDataSetupEnvironment() == CcdEnvironment.PREVIEW ? CcdEnvironment.AAT
+                        : (CcdEnvironment) getDataSetupEnvironment();
                 definitionFileResources.addAll(definitionJsonResourcesToTransform.stream()
-                        .map(folderPath -> new JsonTransformer(folderPath, TEMPORARY_DEFINITION_FOLDER)
+                        .map(folderPath -> new JsonTransformer(forEnvironment,
+                                folderPath,
+                                TEMPORARY_DEFINITION_FOLDER)
                                 .transformToExcel())
                         .collect(Collectors.toList()));
             }

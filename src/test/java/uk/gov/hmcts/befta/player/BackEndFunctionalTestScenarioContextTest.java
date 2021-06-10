@@ -38,24 +38,23 @@ import uk.gov.hmcts.common.TestUtils;
 public class BackEndFunctionalTestScenarioContextTest {
 
     public static final String DEFINITION_STORE_HOST_KEY = "DEFINITION_STORE_HOST";
-	public static final String DEFINITION_STORE_HOST_VALUE = "http://127.0.0.1:8089/";
+    public static final String DEFINITION_STORE_HOST_VALUE = "http://127.0.0.1:8089/";
     public static final String IDAM_URL_KEY = "IDAM_API_URL_BASE";
-	public static final String IDAM_URL_VALUE = "IDAM_URL_VALUE";
-	public static final String S2S_URL_KEY = "S2S_URL";
-	public static final String S2S_URL_VALUE = "S2S_URL_VALUE";
-	public static final String BEFTA_S2S_CLIENT_ID_KEY = "BEFTA_S2S_CLIENT_ID";
-	public static final String BEFTA_S2S_CLIENT_ID_VALUE = "BEFTA_S2S_CLIENT_ID_VALUE";
-	public static final String BEFTA_S2S_CLIENT_SECRET_KEY = "BEFTA_S2S_CLIENT_SECRET";
-	public static final String BEFTA_S2S_CLIENT_SECRET_VALUE = "BEFTA_S2S_CLIENT_SECRET_VALUE";
-
+    public static final String IDAM_URL_VALUE = "IDAM_URL_VALUE";
+    public static final String S2S_URL_KEY = "S2S_URL";
+    public static final String S2S_URL_VALUE = "S2S_URL_VALUE";
+    public static final String BEFTA_S2S_CLIENT_ID_KEY = "BEFTA_S2S_CLIENT_ID";
+    public static final String BEFTA_S2S_CLIENT_ID_VALUE = "BEFTA_S2S_CLIENT_ID_VALUE";
+    public static final String BEFTA_S2S_CLIENT_SECRET_KEY = "BEFTA_S2S_CLIENT_SECRET";
+    public static final String BEFTA_S2S_CLIENT_SECRET_VALUE = "BEFTA_S2S_CLIENT_SECRET_VALUE";
 
     private static final String VALID_TAG_ID = "S-133";
     private static final String USERNAME = "USERNAME";
     private static final String PASSWORD = "PASSWORD";
 
     private BackEndFunctionalTestScenarioContext contextUnderTest = new BackEndFunctionalTestScenarioContext();
-    private MockedStatic <BeftaMain> beftaMain = null;
-    private MockedStatic <DynamicValueInjectorFactory> dynamicValueInjectorFactory = null;
+    private MockedStatic<BeftaMain> beftaMain = null;
+    private MockedStatic<DynamicValueInjectorFactory> dynamicValueInjectorFactory = null;
     @Mock
     private HttpTestData s103TestData;
 
@@ -64,10 +63,11 @@ public class BackEndFunctionalTestScenarioContextTest {
 
     @Mock
     private JsonStoreHttpTestDataSource dataSource;
+
     public void prepareStaticMockedObjectUnderTest() {
         try {
-        	beftaMain = mockStatic(BeftaMain.class);
-        	dynamicValueInjectorFactory = mockStatic(DynamicValueInjectorFactory.class);
+            beftaMain = mockStatic(BeftaMain.class);
+            dynamicValueInjectorFactory = mockStatic(DynamicValueInjectorFactory.class);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -80,7 +80,7 @@ public class BackEndFunctionalTestScenarioContextTest {
                 beftaMain.close();
             }
             if (dynamicValueInjectorFactory != null) {
-            	dynamicValueInjectorFactory.close();
+                dynamicValueInjectorFactory.close();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -206,6 +206,7 @@ public class BackEndFunctionalTestScenarioContextTest {
         // ASSERT
         assertEquals(testContextId, result);
     }
+
     @Test
     public void testcalculateCustomValue() {
         // ARRANGE
@@ -224,68 +225,72 @@ public class BackEndFunctionalTestScenarioContextTest {
         assertNotNull(context.calculateCustomValue(today));
     }
 
-	/**
-	 * Test method for {@link uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext#initializeTestDataFor(io.cucumber.java.Scenario)}.
-	 */
-	@Test
-	void testInitializeTestDataForScenario() {
+    /**
+     * Test method for
+     * {@link uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext#initializeTestDataFor(io.cucumber.java.Scenario)}.
+     */
+    @Test
+    void testInitializeTestDataForScenario() {
         contextUnderTest = new BackEndFunctionalTestScenarioContext();
         Assertions.assertThrows(FunctionalTestException.class, () -> {
             contextUnderTest.initializeTestDataFor(scenario);
-          });
-	}
+        });
+    }
 
-	/**
-	 * Test method for {@link uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext#initializeTestDataFor(java.lang.String)}.
-	 */
-	@Test
-	void testInitializeTestDataForString() {
-		String testDataId = "S-33,S-356";
+    /**
+     * Test method for
+     * {@link uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext#initializeTestDataFor(java.lang.String)}.
+     */
+    @Test
+    void testInitializeTestDataForString() {
+        String testDataId = "S-33,S-356";
         when(dataSource.getDataForTestCall(testDataId)).thenReturn(null);
         contextUnderTest = new BackEndFunctionalTestScenarioContext();
         Assertions.assertThrows(FunctionalTestException.class, () -> {
             contextUnderTest.initializeTestDataFor(testDataId);
-          });
-	}
+        });
+    }
 
-	/**
-	 * Test method for {@link uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext#injectDataFromContextBeforeApiCall()}.
-	 */
-	@Test
-	void testInjectDataFromContextBeforeApiCall() {
-		String testDataId = "S-356";
+    /**
+     * Test method for
+     * {@link uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext#injectDataFromContextBeforeApiCall()}.
+     */
+    @Test
+    void testInjectDataFromContextBeforeApiCall() {
+        String testDataId = "S-356";
         when(dataSource.getDataForTestCall(testDataId)).thenReturn(s103TestData);
-		DynamicValueInjector dynamicValueInjector = mock(DynamicValueInjector.class);
+        DynamicValueInjector dynamicValueInjector = mock(DynamicValueInjector.class);
         contextUnderTest = new BackEndFunctionalTestScenarioContext();
         when(DynamicValueInjectorFactory.create(any(), any(), any())).thenReturn(dynamicValueInjector);
         contextUnderTest.initializeTestDataFor(testDataId);
         contextUnderTest.injectDataFromContextBeforeApiCall();
         verify(dynamicValueInjector).injectDataFromContextBeforeApiCall();
 
-	}
+    }
 
-	/**
-	 * Test method for {@link uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext#injectDataFromContextAfterApiCall()}.
-	 */
-	@Test
-	void testInjectDataFromContextAfterApiCall() {
-		String testDataId = "S-356";
+    /**
+     * Test method for
+     * {@link uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext#injectDataFromContextAfterApiCall()}.
+     */
+    @Test
+    void testInjectDataFromContextAfterApiCall() {
+        String testDataId = "S-356";
         when(dataSource.getDataForTestCall(testDataId)).thenReturn(s103TestData);
-		DynamicValueInjector dynamicValueInjector = mock(DynamicValueInjector.class);
+        DynamicValueInjector dynamicValueInjector = mock(DynamicValueInjector.class);
         contextUnderTest = new BackEndFunctionalTestScenarioContext();
         when(DynamicValueInjectorFactory.create(any(), any(), any())).thenReturn(dynamicValueInjector);
         contextUnderTest.initializeTestDataFor(testDataId);
         contextUnderTest.injectDataFromContextAfterApiCall();
         verify(dynamicValueInjector).injectDataFromContextAfterApiCall();
-	}
+    }
 
-
-	/**
-	 * Test method for {@link uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext#getNextUserToAuthenticate()}.
-	 */
-	@Test
-	void testGetNextUserToAuthenticate() {
-		String testDataId = "S-356";
+    /**
+     * Test method for
+     * {@link uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext#getNextUserToAuthenticate()}.
+     */
+    @Test
+    void testGetNextUserToAuthenticate() {
+        String testDataId = "S-356";
         when(dataSource.getDataForTestCall(testDataId)).thenReturn(s103TestData);
         UserData userData = mock(UserData.class);
         when(userData.getUsername()).thenReturn(USERNAME);
@@ -293,38 +298,38 @@ public class BackEndFunctionalTestScenarioContextTest {
         LinkedHashMap<String, UserData> users = new LinkedHashMap<>();
         users.put("someUser", userData);
         when(s103TestData.getUsers()).thenReturn(users);
-		DynamicValueInjector dynamicValueInjector = mock(DynamicValueInjector.class);
+        DynamicValueInjector dynamicValueInjector = mock(DynamicValueInjector.class);
         contextUnderTest = new BackEndFunctionalTestScenarioContext();
         when(DynamicValueInjectorFactory.create(any(), any(), any())).thenReturn(dynamicValueInjector);
         contextUnderTest.initializeTestDataFor(testDataId);
         Entry<String, UserData> actual = contextUnderTest.getNextUserToAuthenticate();
         assertNotNull(actual);
 
-	}
+    }
 
-	/**
-	 * Test method for {@link uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext#getTheRequest()}.
-	 */
-	@Test
-	void testGetTheRequest() {
+    /**
+     * Test method for
+     * {@link uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext#getTheRequest()}.
+     */
+    @Test
+    void testGetTheRequest() {
         BackEndFunctionalTestScenarioContext testContext = new BackEndFunctionalTestScenarioContext();
-		RequestSpecification requestSpecification = mock (RequestSpecification.class);
+        RequestSpecification requestSpecification = mock(RequestSpecification.class);
         testContext.setTheRequest(requestSpecification);
-        assertEquals(requestSpecification,testContext.getTheRequest());
-		
-	}
+        assertEquals(requestSpecification, testContext.getTheRequest());
 
+    }
 
-	/**
-	 * Test method for {@link uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext#getTheResponse()}.
-	 */
-	@Test
-	void testGetTheResponse() {
+    /**
+     * Test method for
+     * {@link uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext#getTheResponse()}.
+     */
+    @Test
+    void testGetTheResponse() {
         BackEndFunctionalTestScenarioContext testContext = new BackEndFunctionalTestScenarioContext();
-        ResponseData responseData = mock (ResponseData.class);
+        ResponseData responseData = mock(ResponseData.class);
         testContext.setTheResponse(responseData);
-        assertEquals(responseData,testContext.getTheResponse());
-	}
+        assertEquals(responseData, testContext.getTheResponse());
+    }
 
-    
 }

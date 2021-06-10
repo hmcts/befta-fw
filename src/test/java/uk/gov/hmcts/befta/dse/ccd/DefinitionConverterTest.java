@@ -3,6 +3,7 @@
  */
 package uk.gov.hmcts.befta.dse.ccd;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.jupiter.api.Assertions;
@@ -37,7 +38,9 @@ class DefinitionConverterTest {
 		IllegalArgumentException aeThrown = Assertions.assertThrows(IllegalArgumentException.class, () ->
         	DefinitionConverter.main(args),
 				"IllegalArgumentException is not thrown");
-		assertTrue(aeThrown.getMessage().contains("At least 2 arguments expected: <to-json|to-excel> <input folder/file path> "));
+        assertEquals(aeThrown
+                .getMessage(),
+                "First arg should be either 'to-json' or 'to-excel' but got ''");
 	}
 
 	/**
@@ -45,7 +48,7 @@ class DefinitionConverterTest {
 	 */
 	@Test
 	void testMainIncorrectArgs() {
-		String[] args = {"",""};
+        String[] args = { "", "", CcdEnvironment.PREVIEW.name() };
 		IllegalArgumentException aeThrown = Assertions.assertThrows(IllegalArgumentException.class, () ->
         	DefinitionConverter.main(args),
 				"IllegalArgumentException is not thrown");
@@ -57,11 +60,12 @@ class DefinitionConverterTest {
 	 */
 	@Test
 	void testMainIncorrectArgspos() {
-		String[] args = {"to-json","definition_files","true"};
+        String[] args = { "to-json", "definition_files", CcdEnvironment.PREVIEW.name(), "true" };
 		IllegalArgumentException aeThrown = Assertions.assertThrows(IllegalArgumentException.class, () ->
         	DefinitionConverter.main(args),
 				"IllegalArgumentException is not thrown");
-		assertTrue(aeThrown.getMessage().contains("Third arg should be a path not a boolean, if you wish to set Jurisdiction"));
+        assertTrue(aeThrown.getMessage()
+                .contains("Fourth arg should be a path not a boolean, if you wish to set Jurisdiction"));
 	}
 
 	/**
@@ -69,11 +73,11 @@ class DefinitionConverterTest {
 	 */
 	@Test
 	void testMainIncorrectArgsBool() {
-		String[] args = {"to-json","definition_files","null","tru1e"};
+        String[] args = { "to-json", "definition_files", CcdEnvironment.PREVIEW.name(), "null", "tru1e" };
 		IllegalArgumentException aeThrown = Assertions.assertThrows(IllegalArgumentException.class, () ->
         	DefinitionConverter.main(args),
 				"IllegalArgumentException is not thrown");
-		assertTrue(aeThrown.getMessage().contains("Forth arg should be a boolean but got: "));
+        assertTrue(aeThrown.getMessage().contains("Fifth arg should be a boolean but got: "));
 	}
 
 	/**
@@ -81,14 +85,16 @@ class DefinitionConverterTest {
 	 */
 	@Test
 	void testMainArgsTojsonTrue() {
-		String[] args = {"to-json",DEFAULT_DEFINITIONS_PATH_EXCEL,TEMPORARY_DEFINITION_FOLDER_JSON,"true"};
+        String[] args = { "to-json", DEFAULT_DEFINITIONS_PATH_EXCEL, CcdEnvironment.PREVIEW.name(),
+                TEMPORARY_DEFINITION_FOLDER_JSON, "true" };
     	DefinitionConverter.main(args);
     	assertTrue(FileUtils.deleteDirectory(TEMPORARY_DEFINITION_FOLDER));
 	}
 
 	@Test
 	void testMainArgsTojsonFalse() {
-		String[] args = {"to-json",DEFAULT_DEFINITIONS_PATH_EXCEL,TEMPORARY_DEFINITION_FOLDER_JSON,"false"};
+        String[] args = { "to-json", DEFAULT_DEFINITIONS_PATH_EXCEL, CcdEnvironment.PREVIEW.name(),
+                TEMPORARY_DEFINITION_FOLDER_JSON, "false" };
     	DefinitionConverter.main(args);
     	assertTrue(FileUtils.deleteDirectory(TEMPORARY_DEFINITION_FOLDER));
 	}
@@ -99,7 +105,7 @@ class DefinitionConverterTest {
     @SetEnvironmentVariable(key = "TEST_URL", value = "http://localhost:8080/dummy-api")
 	void testMainArgsTojson() {
         String tempJsonFolder = "src/test/resources/uk/gov/hmcts/befta/dse/ccd/definitions/excel/AUTOTEST1";
-		String[] args = {"to-json",DEFAULT_DEFINITIONS_PATH_EXCEL};
+        String[] args = { "to-json", DEFAULT_DEFINITIONS_PATH_EXCEL, CcdEnvironment.PREVIEW.name() };
     	DefinitionConverter.main(args);
     	assertTrue(FileUtils.deleteDirectory(tempJsonFolder));
 	}
@@ -110,7 +116,8 @@ class DefinitionConverterTest {
 	@Test
     @SetEnvironmentVariable(key = "TEST_URL", value = "http://localhost:8080/dummy-api")
 	void testMainArgsToexcelTrue() {
-		String[] args = {"to-excel",DEFAULT_DEFINITIONS_PATH_JSON,TEMPORARY_DEFINITION_FOLDER_EXCEL,"true"};
+        String[] args = { "to-excel", DEFAULT_DEFINITIONS_PATH_JSON, CcdEnvironment.PREVIEW.name(),
+                TEMPORARY_DEFINITION_FOLDER_EXCEL, "true" };
     	DefinitionConverter.main(args);
     	assertTrue(FileUtils.deleteDirectory(TEMPORARY_DEFINITION_FOLDER));
 	}
@@ -121,7 +128,8 @@ class DefinitionConverterTest {
 	@Test
     @SetEnvironmentVariable(key = "TEST_URL", value = "http://localhost:8080/dummy-api")
 	void testMainArgsToexcelfalse() {
-		String[] args = {"to-excel",DEFAULT_DEFINITIONS_PATH_JSON,TEMPORARY_DEFINITION_FOLDER_EXCEL,"false"};
+        String[] args = { "to-excel", DEFAULT_DEFINITIONS_PATH_JSON, CcdEnvironment.PREVIEW.name(),
+                TEMPORARY_DEFINITION_FOLDER_EXCEL, "false" };
     	DefinitionConverter.main(args);
         assertTrue(FileUtils.deleteDirectory(TEMPORARY_DEFINITION_FOLDER));
 	}
@@ -134,7 +142,7 @@ class DefinitionConverterTest {
 	void testMainArgsToexcel() {
         String tempExcel = "src/test/resources/uk/gov/hmcts/befta/dse/ccd/definitions/valid/CCD_CNP_27.xlsx";
 		File tempfile = new File(tempExcel);
-		String[] args = {"to-excel",DEFAULT_DEFINITIONS_PATH_JSON};
+        String[] args = { "to-excel", DEFAULT_DEFINITIONS_PATH_JSON, CcdEnvironment.PREVIEW.name() };
     	DefinitionConverter.main(args);
     	assertTrue(tempfile.delete());
 	}
