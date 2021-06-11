@@ -163,4 +163,9 @@ public class DefaultBeftaTestDataLoader implements BeftaTestDataLoader {
         }
         return false;
     }
+
+    public Object getDataSetupEnvironment() {
+        return dataSetupEnvironment;
+    }
+
 }
