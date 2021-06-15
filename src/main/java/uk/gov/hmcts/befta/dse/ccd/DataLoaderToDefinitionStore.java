@@ -112,8 +112,18 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
 
     private static CcdEnvironment selectEnvironmentWith(CcdEnvironment dataSetupEnvironment,
             String definitionStoreUrl) {
-        if (definitionStoreUrl.contains("-preview.")) {
-            return CcdEnvironment.PREVIEW;
+        if (dataSetupEnvironment == CcdEnvironment.PREVIEW) {
+            if (definitionStoreUrl.contains("-aat.")) {
+                return CcdEnvironment.AAT;
+            }
+        }
+        else if (dataSetupEnvironment == CcdEnvironment.AAT) {
+            if (definitionStoreUrl.contains("-preview.")) {
+                return CcdEnvironment.PREVIEW;
+            }
+        }
+        if (definitionStoreUrl.contains("localhost")) {
+            return CcdEnvironment.LOCAL;
         }
         return dataSetupEnvironment;
     }
