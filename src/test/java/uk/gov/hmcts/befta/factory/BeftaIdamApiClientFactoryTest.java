@@ -16,7 +16,7 @@ import uk.gov.hmcts.befta.auth.AuthApi;
  */
 class BeftaIdamApiClientFactoryTest {
 
-    public static final String IDAM_URL_KEY = "IDAM_URL";
+    public static final String IDAM_URL_KEY = "IDAM_API_URL_BASE";
 	public static final String IDAM_URL_VALUE = "IDAM_URL_VALUE\"";
 
 	/**
