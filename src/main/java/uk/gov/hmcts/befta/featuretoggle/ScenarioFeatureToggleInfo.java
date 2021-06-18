@@ -47,7 +47,7 @@ public class ScenarioFeatureToggleInfo {
         return actualStatuses.entrySet().stream().filter(Map.Entry::getValue).map(Map.Entry::getKey).collect(Collectors.toList());
     }
 
-    public boolean shouldScenarioBeRun() {
+    public boolean matchesExpectations() {
         AtomicBoolean matchesExpectations = new AtomicBoolean(true);
         if (expectedStatuses.isEmpty() && isAnyDisabled()) {
             matchesExpectations.set(false);

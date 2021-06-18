@@ -86,7 +86,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         if (toggleService != null) {
             try {
                 ScenarioFeatureToggleInfo toggleInfo = toggleService.getToggleStatusFor(scenario);
-                if (toggleInfo != null && !toggleInfo.shouldScenarioBeRun()) {
+                if (toggleInfo != null && !toggleInfo.matchesExpectations()) {
                     BeftaUtils.skipScenario(scenario, toggleInfo);
                 }
             } catch (FeatureToggleCheckFailureException e) {
