@@ -36,6 +36,7 @@ public class UserTokenProviderConfig {
         scopeVariables = EnvironmentVariableUtils.getOptionalVariable("BEFTA_OAUTH2_SCOPE_VARIABLES_OF_" + tokenProviderClientId.toUpperCase());
         accessTokenType = EnvironmentVariableUtils.getOptionalVariable(
                 "BEFTA_OAUTH2_ACCESS_TOKEN_TYPE_OF_" + tokenProviderClientId.toUpperCase());
+
         if (accessTokenType == null) {
             accessTokenType = OAUTH2;
         }
