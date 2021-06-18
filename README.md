@@ -46,9 +46,9 @@ It provides the following functionalities and conveniences:
 ### 3.4) Common Environment Variables
    Befta Framework uses the below environment variables:
    * TEST_URL: This is the base URL of the APIs to be tested.
-   * IDAM_URL: This is the base URL of the API authenticating the users on behalf of which the API calls will 
+   * IDAM_API_URL_BASE: This is the base URL of the API authenticating the users on behalf of which the API calls will 
      be delivered.
-   * S2S_URL: This is the base URL of the API authenticating the client applications on behalf of which the API calls will 
+   * S2S_URL_BASE: This is the base URL of the API authenticating the client applications on behalf of which the API calls will 
      be delivered.
    * BEFTA_S2S_CLIENT_ID: Client ID of the application on behalf of which the API calls 
      will be delivered.
@@ -67,10 +67,10 @@ It provides the following functionalities and conveniences:
 
 ### 3.5) Domain Specific Environment Variables
 Below are the environment needed specifically for CCD domain.
-   * DEFINITION_STORE_HOST: Base URL of the Definition Store APIs.
-   * CCD_IMPORT_AUTOTEST_EMAIL: Email id of the user on behalf of which definitions 
+   * DEFINITION_STORE_URL_BASE: Base URL of the Definition Store APIs.
+   * DEFINITION_IMPORTER_USERNAME: Email id of the user on behalf of which definitions 
      will be imported to Definition Store, for automated test data preparation.
-   * CCD_IMPORT_AUTOTEST_PASSWORD: Password of the user on behalf of which definitions 
+   * DEFINITION_IMPORTER_PASSWORD: Password of the user on behalf of which definitions 
      will be imported to Definition Store, for automated test data preparation.
 
 

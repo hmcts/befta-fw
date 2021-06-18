@@ -30,3 +30,7 @@ nbdist/
 .gradle/
 out/
 /definition_files/
+
+false/
+true/
+/befta_recent_executions_info_UnspecifiedEnvironment.json

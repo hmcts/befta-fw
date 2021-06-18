@@ -1,9 +1,17 @@
 package uk.gov.hmcts.befta;
 
-import com.google.common.cache.Cache;
-import com.google.common.cache.CacheBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Base64;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+
 import uk.gov.hmcts.befta.auth.AuthApi;
 import uk.gov.hmcts.befta.auth.UserTokenProviderConfig;
 import uk.gov.hmcts.befta.data.UserData;
@@ -16,12 +24,6 @@ import uk.gov.hmcts.befta.util.EnvironmentVariableUtils;
 import uk.gov.hmcts.befta.util.ReflectionUtils;
 import uk.gov.hmcts.reform.authorisation.ServiceAuthorisationApi;
 import uk.gov.hmcts.reform.authorisation.generators.ServiceAuthTokenGenerator;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Base64;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
 
 public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
 
@@ -68,19 +70,38 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
         }
         tokenGenerators = tokenGeneratorsCacheBuilder.build();
 
-        ServiceAuthTokenGenerator defaultGenerator = getNewS2sClientWithCredentials(
+        if (BeftaMain.getConfig().getS2SClientId() != null && BeftaMain.getConfig().getS2SClientSecret() != null) {
+            ServiceAuthTokenGenerator defaultGenerator = getNewS2sClientWithCredentials(
                 BeftaMain.getConfig().getS2SClientId(), BeftaMain.getConfig().getS2SClientSecret());
+            tokenGenerators.put(BeftaMain.getConfig().getS2SClientId(), defaultGenerator);
+        }
+    }
 
-        tokenGenerators.put(BeftaMain.getConfig().getS2SClientId(), defaultGenerator);
+    @Override
+    public String getNewS2STokenWithEnvVars(String envVarNameForId, String envVarNameForKey) {
+        return getNewS2SToken(EnvironmentVariableUtils.getRequiredVariable(envVarNameForId),
+                EnvironmentVariableUtils.getRequiredVariable(envVarNameForKey));
     }
 
     @Override
     public String getNewS2SToken() {
-        return getNewS2SToken(BeftaMain.getConfig().getS2SClientId());
+        return getNewS2SToken(BeftaMain.getConfig().getS2SClientId(), BeftaMain.getConfig().getS2SClientSecret());
     }
 
     @Override
-    public synchronized String getNewS2SToken(String clientId) {
+    public String getNewS2SToken(String clientId) {
+        String clientSecret = null;
+        if (clientId.equalsIgnoreCase(BeftaMain.getConfig().getS2SClientId())) {
+            clientSecret = BeftaMain.getConfig().getS2SClientSecret();
+        } else {
+            clientSecret = EnvironmentVariableUtils
+                    .getRequiredVariable("BEFTA_S2S_CLIENT_SECRET_OF_" + clientId.toUpperCase());
+        }
+        return getNewS2SToken(clientId, clientSecret);
+    }
+
+    @Override
+    public synchronized String getNewS2SToken(String clientId, String clientKey) {
         String s2sToken = null;
         try {
             if(tokenGenerators.asMap().containsKey(clientId)) {
@@ -88,12 +109,16 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
             } else{
                 logger.info("Generating S2S token for the user: {}", clientId);
             }
-            s2sToken = tokenGenerators.get(clientId, () -> getNewS2sClient(clientId)).generate();
+            s2sToken = tokenGenerators.get(clientId, () -> getNewS2sClient(clientId, clientKey)).generate();
         } catch (ExecutionException e) {
             BeftaUtils.defaultLog("Exception when acquiring a new S2S token for client Id:" + clientId);
         }
 
         return s2sToken;
+    }
+
+    protected ServiceAuthTokenGenerator getNewS2sClient(String s2sClientId, String clientKey) {
+        return getNewS2sClientWithCredentials(s2sClientId, clientKey);
     }
 
     @Override
@@ -124,12 +149,6 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
         return new DefaultBeftaTestDataLoader();
     }
 
-    protected ServiceAuthTokenGenerator getNewS2sClient(String s2sClientId) {
-        String clientSecret = EnvironmentVariableUtils
-                .getRequiredVariable("BEFTA_S2S_CLIENT_SECRET_OF_" + s2sClientId.toUpperCase());
-        return getNewS2sClientWithCredentials(s2sClientId, clientSecret);
-    }
-
     protected ServiceAuthTokenGenerator getNewS2sClientWithCredentials(String clientId, String clientSecret) {
         return new ServiceAuthTokenGenerator(clientSecret, clientId, serviceAuthorisationApi);
     }
@@ -144,17 +163,36 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
 
     private String getIdamOauth2Token(String username, String password, UserTokenProviderConfig tokenProviderConfig) {
         String authorisation = username + ":" + password;
+        // logger.info("User >> {}", printableOf(authorisation));
         String base64Authorisation = Base64.getEncoder().encodeToString(authorisation.getBytes());
 
         AuthApi.AuthenticateUserResponse authenticateUserResponse = idamApi.authenticateUser(
                 BASIC + base64Authorisation, CODE, tokenProviderConfig.getClientId(),
                 tokenProviderConfig.getRedirectUri());
 
+        // printLogs(tokenProviderConfig);
         AuthApi.TokenExchangeResponse tokenExchangeResponse = idamApi.exchangeCode(authenticateUserResponse.getCode(),
                 AUTHORIZATION_CODE, tokenProviderConfig.getClientId(), tokenProviderConfig.getClientSecret(),
                 tokenProviderConfig.getRedirectUri());
 
         return tokenExchangeResponse.getAccessToken();
+    }
+
+    void printLogs(UserTokenProviderConfig tokenProviderConfig) {
+        logger.info("Token Type = [{}]", tokenProviderConfig.getAccessTokenType());
+        logger.info("Client Id = [{}]", tokenProviderConfig.getClientId());
+        logger.info("Client Secret = [{}]", printableOf(tokenProviderConfig.getClientSecret()));
+        logger.info("Redirect URL = [{}]", tokenProviderConfig.getRedirectUri());
+        logger.info("Scope Vars = [{}]", tokenProviderConfig.getScopeVariables());
+    }
+
+    private String printableOf(String s) {
+        if (s == null)
+            return null;
+        String out = "";
+        for (int i = 0; i < s.length(); i++)
+            out = out + "_|_" + s.charAt(i);
+        return out;
     }
 
     private String getIdamOidcToken(String username, String password, UserTokenProviderConfig tokenProviderConfig) {
