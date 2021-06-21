@@ -1,5 +1,11 @@
 package uk.gov.hmcts.befta;
 
+import static java.lang.String.format;
+import static uk.gov.hmcts.befta.util.BeftaUtils.defaultLog;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import io.cucumber.core.cli.Main;
 import io.cucumber.java.Scenario;
 import uk.gov.hmcts.befta.featuretoggle.DefaultMultiSourceFeatureToggleService;
@@ -7,12 +13,6 @@ import uk.gov.hmcts.befta.featuretoggle.ScenarioFeatureToggleInfo;
 import uk.gov.hmcts.befta.featuretoggle.FeatureToggleService;
 import uk.gov.hmcts.befta.player.DefaultBackEndFunctionalTestScenarioPlayer;
 import uk.gov.hmcts.befta.util.CucumberStepAnnotationUtils;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import static java.lang.String.format;
-import static uk.gov.hmcts.befta.util.BeftaUtils.defaultLog;
 
 public class BeftaMain {
 
@@ -80,7 +80,7 @@ public class BeftaMain {
         setFeatureToggleService(featureToggleService);
         CucumberStepAnnotationUtils.injectCommonSyntacticFlexibilitiesIntoStepDefinitions(
                 DefaultBackEndFunctionalTestScenarioPlayer.class);
-        getAdapter().getDataLoader().loadTestDataIfNecessary();
+        getAdapter().getDataLoader().loadDataIfNotLoadedVeryRecently();
     }
 
     public static void tearDown() {
