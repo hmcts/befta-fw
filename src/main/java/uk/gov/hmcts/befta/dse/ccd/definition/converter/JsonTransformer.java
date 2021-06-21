@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import uk.gov.hmcts.befta.dse.ccd.CcdEnvironment;
@@ -66,7 +67,7 @@ public class JsonTransformer {
 
     private String getFolderName(String path){
         String delimiter = File.separator;
-        String[] dirStructure = path.split(delimiter);
+        String[] dirStructure = path.split(Pattern.quote(delimiter));
         return  dirStructure[dirStructure.length-1];
     }
 
