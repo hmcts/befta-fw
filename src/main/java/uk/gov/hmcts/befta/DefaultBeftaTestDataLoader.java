@@ -4,10 +4,14 @@ import static java.lang.String.format;
 import static uk.gov.hmcts.befta.util.BeftaUtils.defaultLog;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
+import java.net.InetAddress;
+import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -18,6 +22,8 @@ import uk.gov.hmcts.befta.util.BeftaUtils;
 import uk.gov.hmcts.befta.util.JsonUtils;
 
 public class DefaultBeftaTestDataLoader implements BeftaTestDataLoader {
+
+    private static final Logger logger = LoggerFactory.getLogger(DefaultBeftaTestDataLoader.class);
 
     private boolean isTestDataLoadedForCurrentRound = false;
     private Object dataSetupEnvironment;
@@ -37,6 +43,12 @@ public class DefaultBeftaTestDataLoader implements BeftaTestDataLoader {
 
     @Override
     public synchronized void loadDataIfNotLoadedVeryRecently() {
+        if (definitionStoreIsOnPreview() && !definitionStoreAvailable()) {
+            logger.warn(
+                    "Definition store dependency is not available on preview at [{}]. Skipping data setup now, assuming this was expected. If this is not expected, please fix this first.",
+                    BeftaMain.getConfig().getDefinitionStoreUrl());
+            return;
+        }
         if (!isTestDataLoadedForCurrentRound && !shouldSkipDataLoad()) {
             try {
                 RestAssured.useRelaxedHTTPSValidation();
@@ -47,6 +59,19 @@ public class DefaultBeftaTestDataLoader implements BeftaTestDataLoader {
             } finally {
                 isTestDataLoadedForCurrentRound = true;
             }
+        }
+    }
+
+    private boolean definitionStoreIsOnPreview() {
+        return BeftaMain.getConfig().getDefinitionStoreUrl().toLowerCase().contains("preview");
+    }
+
+    private boolean definitionStoreAvailable() {
+        try {
+            InetAddress.getByName(new URL(BeftaMain.getConfig().getDefinitionStoreUrl()).getHost());
+            return true;
+        } catch (Exception e) {
+            return false;
         }
     }
 
