@@ -4,10 +4,14 @@ import static java.lang.String.format;
 import static uk.gov.hmcts.befta.util.BeftaUtils.defaultLog;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
+import java.net.InetAddress;
+import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -18,6 +22,8 @@ import uk.gov.hmcts.befta.util.BeftaUtils;
 import uk.gov.hmcts.befta.util.JsonUtils;
 
 public class DefaultBeftaTestDataLoader implements BeftaTestDataLoader {
+
+    private static final Logger logger = LoggerFactory.getLogger(DefaultBeftaTestDataLoader.class);
 
     private boolean isTestDataLoadedForCurrentRound = false;
     private Object dataSetupEnvironment;
@@ -50,12 +56,36 @@ public class DefaultBeftaTestDataLoader implements BeftaTestDataLoader {
         }
     }
 
+    public boolean definitionStoreIsOnPreview() {
+        return BeftaMain.getConfig().getDefinitionStoreUrl().toLowerCase().contains("preview");
+    }
+
+    public boolean definitionStoreAvailable() {
+        try {
+            InetAddress.getByName(new URL(BeftaMain.getConfig().getDefinitionStoreUrl()).getHost());
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     protected void doLoadTestData() {
         BeftaUtils.defaultLog("No data is programmed to be loaded for this test suit. Data setup environment: "
                 + dataSetupEnvironment);
     }
 
-    private boolean shouldSkipDataLoad() {
+    protected boolean shouldSkipDataLoad() {
+        if (definitionStoreIsOnPreview() && !definitionStoreAvailable()) {
+            String defStoreHost = BeftaMain.getConfig().getDefinitionStoreUrl();
+            try {
+                defStoreHost = new URL(defStoreHost).getHost();
+            } catch (Exception e) {
+            }
+            logger.warn(
+                    "Definition store dependency is not available on preview at [{}]. Skipping data setup now, assuming this was expected. If this is not expected, please fix this first.",
+                    defStoreHost);
+            return true;
+        }
         try {
             //declaring with a dummy last execution time
             String recentExecutionTime  = "2020-01-01T00:00:00.001";
