@@ -11,6 +11,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
 import java.net.InetAddress;
+import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -67,7 +68,7 @@ public class DefaultBeftaTestDataLoader implements BeftaTestDataLoader {
 
     private boolean definitionStoreAvailable() {
         try {
-            InetAddress.getByName(BeftaMain.getConfig().getDefinitionStoreUrl());
+            InetAddress.getByName(new URL(BeftaMain.getConfig().getDefinitionStoreUrl()).getHost());
             return true;
         } catch (Exception e) {
             return false;
