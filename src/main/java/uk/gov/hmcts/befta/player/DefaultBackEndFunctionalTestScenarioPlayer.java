@@ -261,7 +261,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     }
 
     private RequestSpecification buildRestAssuredRequestWith(HttpTestData testData) throws IOException {
-        RequestSpecification aRequest = RestAssured.given();
+        RequestSpecification request = RestAssured.given();
 
         try {
             Method.valueOf(testData.getMethod().toUpperCase());
@@ -271,28 +271,29 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
 
         RequestData requestData = testData.getRequest();
         if (requestData.getHeaders() != null) {
-            requestData.getHeaders().forEach((header, value) -> aRequest.header(header, value));
+            requestData.getHeaders().forEach((header, value) -> request.header(header, value));
         }
 
         if (requestData.getPathVariables() != null) {
-            requestData.getPathVariables().forEach((pathVariable, value) -> aRequest.pathParam(pathVariable, value));
+            requestData.getPathVariables().forEach((pathVariable, value) -> request.pathParam(pathVariable, value));
         }
 
         if (requestData.getQueryParams() != null) {
-            requestData.getQueryParams().forEach((queryParam, value) -> aRequest.queryParam(queryParam, value));
+            requestData.getQueryParams().forEach((queryParam, value) -> request.queryParam(queryParam, value));
         }
 
         if (requestData.getBody() != null) {
-            buildRequestBody(aRequest, requestData);
+            buildRequestBody(request, requestData);
         }
-        return aRequest;
+        return request;
     }
 
     private void buildRequestBody(RequestSpecification request, RequestData requestData) throws IOException {
 
         Object requestBodyContent = requestData.getBody();
-        if (requestData.getBody().containsKey("arrayInMap"))
+        if (requestData.getBody().containsKey("arrayInMap")) {
             requestBodyContent = requestData.getBody().get("arrayInMap");
+        }
 
         if (requestData.isMultipart()) {
             if (requestBodyContent instanceof List<?>) {
@@ -315,13 +316,13 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         Object multipartValue = multipartInfo.get("value");
 
         File fileToUpload = null;
-        Boolean deleteAfterUpload = true;
+        boolean deleteAfterUpload = true;
         try {
             if (multipartInfo.containsKey("filePath")) {
                 fileToUpload = BeftaUtils.getClassPathResourceIntoTemporaryFile(multipartInfo.get("filePath"));
                 multipartValue = fileToUpload;
             } else if (multipartInfo.containsKey("localFilePath")) {
-                fileToUpload = new File(multipartInfo.get("localFilePath"));
+                fileToUpload = new File(getLocalFilePath(multipartInfo));
                 multipartValue = fileToUpload;
                 deleteAfterUpload = false;
             }
@@ -333,6 +334,17 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
                 fileToUpload.deleteOnExit();
             }
         }
+    }
+
+    private String getLocalFilePath(Map<String, String> multipartInfo) {
+        String localPath = multipartInfo.get("localFilePath");
+
+        // if path is relative to build path: replace with full path to build location
+        if (localPath.startsWith("$buildPath")) {
+            localPath = localPath.replaceFirst("^\\$buildPath", BeftaUtils.getBuildPath());
+        }
+
+        return localPath;
     }
 
     @Override
@@ -362,7 +374,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         }
 
         RequestSpecification theRequest = scenarioContext.getTheRequest();
-        QueryableRequestSpecification queryableRequest = SpecificationQuerier.query(theRequest);
+        final QueryableRequestSpecification queryableRequest = SpecificationQuerier.query(theRequest);
 
         HttpTestData testData = scenarioContext.getTestData();
         String uri = testData.getUri();
@@ -411,10 +423,14 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
 
     @SuppressWarnings("unchecked")
     private Map<String, Object> getMapForBodyFrom(Map<String, Object> wrappedInMap, String jsonForBody) {
-        if (wrappedInMap != null)
+        if (wrappedInMap != null) {
             return wrappedInMap;
-        if (jsonForBody == null || jsonForBody.isEmpty())
+        }
+
+        if (jsonForBody == null || jsonForBody.isEmpty()) {
             return null;
+        }
+
         try {
             return JsonUtils.readObjectFromJsonText(jsonForBody, Map.class);
         } catch (Exception e) {
@@ -512,7 +528,8 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         ResponseData expectedResponse = scenarioContext.getTestData().getExpectedResponse();
         ResponseData actualResponse = scenarioContext.getTheResponse();
 
-        List<String> issuesInResponseHeaders = null, issuesInResponseBody = null;
+        List<String> issuesInResponseHeaders = null;
+        List<String> issuesInResponseBody = null;
         String issueWithResponseCode = null;
 
         if (actualResponse.getResponseCode() != expectedResponse.getResponseCode()) {
@@ -619,18 +636,18 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     }
 
     private void resolveUserData(final BackEndFunctionalTestScenarioContext scenarioContext, String prefix,
-            UserData aUser) {
-        String resolvedUsername = EnvironmentVariableUtils.resolvePossibleVariable(aUser.getUsername());
+            UserData user) {
+        String resolvedUsername = EnvironmentVariableUtils.resolvePossibleVariable(user.getUsername());
 
-        String resolvedPassword = EnvironmentVariableUtils.resolvePossibleVariable(aUser.getPassword());
-        if (resolvedPassword.equals(aUser.getPassword())) {
+        String resolvedPassword = EnvironmentVariableUtils.resolvePossibleVariable(user.getPassword());
+        if (resolvedPassword.equals(user.getPassword())) {
             logger.warn(scenarioContext.getTestData().get_guid_()
                     + ": Expected environment variable declaration "
                     + "for " + prefix + ".password but found a hard coded value!'");
         }
 
-        aUser.setUsername(resolvedUsername);
-        aUser.setPassword(resolvedPassword);
+        user.setUsername(resolvedUsername);
+        user.setPassword(resolvedPassword);
     }
 
     private void authenticateUser(final BackEndFunctionalTestScenarioContext scenarioContext, String prefix,

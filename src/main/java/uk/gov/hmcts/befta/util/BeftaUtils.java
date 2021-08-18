@@ -20,14 +20,21 @@ import uk.gov.hmcts.befta.featuretoggle.FeatureToggleInfo;
 @Slf4j
 public class BeftaUtils {
 
-    public static File getSingleFileFromResource(String[] filelocation) {
-        if(filelocation!=null&&filelocation.length==1) {
-            return getFileFromResource(filelocation[0]);
-        }
-        else {
-            throw new JsonStoreCreationException("Invalid parameter, for array with single entry a Signle directory or a file location.");
+    private BeftaUtils() {
+        // Hide Utility Class Constructor : Utility classes should not have a public or default constructor
+        // (squid:S1118)
+    }
+
+    public static File getSingleFileFromResource(String[] fileLocation) {
+        if (fileLocation != null && fileLocation.length == 1) {
+            return getFileFromResource(fileLocation[0]);
+        } else {
+            throw new JsonStoreCreationException(
+                "Invalid parameter, for array with single entry a single directory or a file location."
+            );
         }
     }
+
     public static File getFileFromResource(String location) {
         URL url = ClassLoader.getSystemResource(location);
         return new File(url.getFile());
@@ -39,12 +46,16 @@ public class BeftaUtils {
 
     public static File createJsonDefinitionFileFromClasspath(String resourcePath) {
         String[] path = resourcePath.split("/");
-        String directoryStructure = "build" + File.separator + "tmp" + File.separator + path[path.length-3] + File.separator + path[path.length-2];
+        String directoryStructure =
+                "build" + File.separator + "tmp" + File.separator
+                        + path[path.length - 3] + File.separator
+                        + path[path.length - 2];
         FileUtils.createDirectoryHierarchy(directoryStructure);
         return createTempFile(resourcePath,directoryStructure);
     }
 
-    private static File createTempFile(String resourcePath, String directoryPath){
+    @SuppressWarnings({"squid:S899", "ResultOfMethodCallIgnored"})
+    private static File createTempFile(String resourcePath, String directoryPath) {
         try {
             int nameStartsAt = resourcePath.lastIndexOf("/");
             String simpleName = resourcePath.substring(nameStartsAt + 1);
@@ -55,7 +66,7 @@ public class BeftaUtils {
             InputStream stream = resource.openStream();
             byte[] buffer = IOUtils.toByteArray(stream);
             String pathName;
-            if (directoryPath.isEmpty()){
+            if (directoryPath.isEmpty()) {
                 pathName =  "_temp_" + System.currentTimeMillis() + "_" + simpleName;
             } else {
                 pathName = directoryPath + File.separator + simpleName;
@@ -67,7 +78,7 @@ public class BeftaUtils {
             outStream.close();
             return tempFile;
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new FunctionalTestException("Failed to create temp file.", e);
         }
     }
 
@@ -102,12 +113,27 @@ public class BeftaUtils {
     }
 
     public static String getDateTimeFormatRequested(String key) {
-        if (key.equals("today"))
+        if (key.equals("today")) {
             return "yyyy-MM-dd";
-        else if (key.equals("now"))
+        } else if (key.equals("now")) {
             return "yyyy-MM-dd'T'HH:mm:ss.SSS";
-        else if (key.startsWith("now("))
+        } else if (key.startsWith("now(")) {
             return key.substring(4, key.length() - 1);
+        }
         return null;
     }
+
+    /**
+     * Get build path.
+     * 
+     * @return full path to default build folder
+     */
+    public static String getBuildPath() {
+        try {
+            return new File("./build/").getCanonicalPath();
+        } catch (IOException e) {
+            throw new FunctionalTestException("Failed to retrieve build path.", e);
+        }
+    }
+
 }
