@@ -40,33 +40,33 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
     private static final String TEMPORARY_DEFINITION_FOLDER = "definition_files";
 
     private static final CcdRoleConfig[] CCD_ROLES_NEEDED_FOR_TA = {
-            new CcdRoleConfig("caseworker-autotest1", "PUBLIC"),
-            new CcdRoleConfig("caseworker-autotest1-private", "PRIVATE"),
-            new CcdRoleConfig("caseworker-autotest1-senior", "RESTRICTED"),
-            new CcdRoleConfig("caseworker-autotest1-solicitor", "PRIVATE"),
-            new CcdRoleConfig("caseworker-autotest2", "PUBLIC"),
-            new CcdRoleConfig("caseworker-autotest2-private", "PRIVATE"),
-            new CcdRoleConfig("caseworker-autotest2-senior", "RESTRICTED"),
-            new CcdRoleConfig("caseworker-autotest2-solicitor", "PRIVATE"),
-            new CcdRoleConfig("caseworker-befta_jurisdiction_1", "PUBLIC"),
-            new CcdRoleConfig("caseworker-befta_jurisdiction_2", "PUBLIC"),
-            new CcdRoleConfig("caseworker-befta_jurisdiction_2-solicitor_1", "PUBLIC"),
-            new CcdRoleConfig("caseworker-befta_jurisdiction_2-solicitor_2", "PUBLIC"),
-            new CcdRoleConfig("caseworker-befta_jurisdiction_2-solicitor_3", "PUBLIC"),
-            new CcdRoleConfig("citizen", "PUBLIC"),
-            new CcdRoleConfig("caseworker-befta_jurisdiction_3", "PUBLIC"),
-            new CcdRoleConfig("caseworker-befta_jurisdiction_3-solicitor", "PUBLIC"),
-            new CcdRoleConfig("caseworker-autotest1-manager", "PUBLIC"),
-            new CcdRoleConfig("caseworker-autotest1-junior", "PUBLIC"),
-            new CcdRoleConfig("caseworker-befta_master", "PUBLIC"),
-            new CcdRoleConfig("caseworker-befta_master-solicitor", "PUBLIC"),
-            new CcdRoleConfig("caseworker-befta_master-solicitor_1", "PUBLIC"),
-            new CcdRoleConfig("caseworker-befta_master-solicitor_2", "PUBLIC"),
-            new CcdRoleConfig("caseworker-befta_master-solicitor_3", "PUBLIC"),
-            new CcdRoleConfig("caseworker-befta_master-junior", "PUBLIC"),
-            new CcdRoleConfig("caseworker-befta_master-manager", "PUBLIC"),
-            new CcdRoleConfig("caseworker-caa", "PUBLIC"),
-            new CcdRoleConfig("caseworker-approver", "PUBLIC")
+        new CcdRoleConfig("caseworker-autotest1", "PUBLIC"),
+        new CcdRoleConfig("caseworker-autotest1-private", "PRIVATE"),
+        new CcdRoleConfig("caseworker-autotest1-senior", "RESTRICTED"),
+        new CcdRoleConfig("caseworker-autotest1-solicitor", "PRIVATE"),
+        new CcdRoleConfig("caseworker-autotest2", "PUBLIC"),
+        new CcdRoleConfig("caseworker-autotest2-private", "PRIVATE"),
+        new CcdRoleConfig("caseworker-autotest2-senior", "RESTRICTED"),
+        new CcdRoleConfig("caseworker-autotest2-solicitor", "PRIVATE"),
+        new CcdRoleConfig("caseworker-befta_jurisdiction_1", "PUBLIC"),
+        new CcdRoleConfig("caseworker-befta_jurisdiction_2", "PUBLIC"),
+        new CcdRoleConfig("caseworker-befta_jurisdiction_2-solicitor_1", "PUBLIC"),
+        new CcdRoleConfig("caseworker-befta_jurisdiction_2-solicitor_2", "PUBLIC"),
+        new CcdRoleConfig("caseworker-befta_jurisdiction_2-solicitor_3", "PUBLIC"),
+        new CcdRoleConfig("citizen", "PUBLIC"),
+        new CcdRoleConfig("caseworker-befta_jurisdiction_3", "PUBLIC"),
+        new CcdRoleConfig("caseworker-befta_jurisdiction_3-solicitor", "PUBLIC"),
+        new CcdRoleConfig("caseworker-autotest1-manager", "PUBLIC"),
+        new CcdRoleConfig("caseworker-autotest1-junior", "PUBLIC"),
+        new CcdRoleConfig("caseworker-befta_master", "PUBLIC"),
+        new CcdRoleConfig("caseworker-befta_master-solicitor", "PUBLIC"),
+        new CcdRoleConfig("caseworker-befta_master-solicitor_1", "PUBLIC"),
+        new CcdRoleConfig("caseworker-befta_master-solicitor_2", "PUBLIC"),
+        new CcdRoleConfig("caseworker-befta_master-solicitor_3", "PUBLIC"),
+        new CcdRoleConfig("caseworker-befta_master-junior", "PUBLIC"),
+        new CcdRoleConfig("caseworker-befta_master-manager", "PUBLIC"),
+        new CcdRoleConfig("caseworker-caa", "PUBLIC"),
+        new CcdRoleConfig("caseworker-approver", "PUBLIC")
     };
 
     private TestAutomationAdapter adapter;
@@ -116,8 +116,7 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
             if (definitionStoreUrl.contains("-aat.")) {
                 return CcdEnvironment.AAT;
             }
-        }
-        else if (dataSetupEnvironment == CcdEnvironment.AAT) {
+        } else if (dataSetupEnvironment == CcdEnvironment.AAT) {
             if (definitionStoreUrl.contains("-preview.")) {
                 return CcdEnvironment.PREVIEW;
             }
@@ -229,6 +228,10 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
     }
 
     protected List<String> getAllDefinitionFilesToLoadAt(String definitionsPath) {
+        return getAllDefinitionFilesToLoadAt(definitionsPath, TEMPORARY_DEFINITION_FOLDER);
+    }
+
+    public List<String> getAllDefinitionFilesToLoadAt(String definitionsPath, String generatedFileOutputPath) {
         try {
             boolean convertJsonFilesToExcel = false;
             Set<String> definitionJsonResourcesToTransform = new HashSet<>();
@@ -250,7 +253,7 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
                 definitionFileResources.addAll(definitionJsonResourcesToTransform.stream()
                         .map(folderPath -> new JsonTransformer(forEnvironment,
                                 folderPath,
-                                TEMPORARY_DEFINITION_FOLDER)
+                                generatedFileOutputPath)
                                 .transformToExcel())
                         .collect(Collectors.toList()));
             }
