@@ -315,16 +315,21 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         Object multipartValue = multipartInfo.get("value");
 
         File fileToUpload = null;
+        Boolean deleteAfterUpload = true;
         try {
             if (multipartInfo.containsKey("filePath")) {
                 fileToUpload = BeftaUtils.getClassPathResourceIntoTemporaryFile(multipartInfo.get("filePath"));
                 multipartValue = fileToUpload;
+            } else if (multipartInfo.containsKey("localFilePath")) {
+                fileToUpload = new File(multipartInfo.get("localFilePath"));
+                multipartValue = fileToUpload;
+                deleteAfterUpload = false;
             }
             request.multiPart(controlName, multipartValue);
         } catch (Exception e) {
             throw new FunctionalTestException("Failed to put multi-part into the request: " + controlName, e);
         } finally {
-            if (fileToUpload != null) {
+            if (fileToUpload != null && deleteAfterUpload) {
                 fileToUpload.deleteOnExit();
             }
         }
