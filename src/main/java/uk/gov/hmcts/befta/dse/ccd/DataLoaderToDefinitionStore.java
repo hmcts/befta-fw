@@ -1,5 +1,7 @@
 package uk.gov.hmcts.befta.dse.ccd;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -7,6 +9,8 @@ import com.google.common.reflect.ClassPath;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -72,6 +76,7 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
     private TestAutomationAdapter adapter;
     private String definitionStoreUrl;
     private String definitionsPath;
+    public static File DEFAULT_ROLE_ASSIGNMENTS_PATH_JSON = new File ("src/main/java/uk/gov/hmcts/befta/dse/ccd/RoleAssignment");
 
     public DataLoaderToDefinitionStore(String definitionsPath) {
         this(new DefaultTestAutomationAdapter(), definitionsPath, CcdEnvironment.AAT,
@@ -169,6 +174,49 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
     protected void doLoadTestData() {
         addCcdRoles();
         importDefinitions();
+        createRoleAssignments(DEFAULT_ROLE_ASSIGNMENTS_PATH_JSON);
+    }
+
+    private void createRoleAssignments(final File folder) {
+        File[] subFiles = folder.listFiles();
+        for (File subFile : subFiles) {
+            if (subFile.isDirectory())
+                createRoleAssignments(subFile);
+            else if (subFile.getName().toLowerCase().endsWith(".json")) {
+                String fileName = folder.getAbsolutePath() + "/" + subFile.getName();
+                createRoleAssignment(fileName);
+            }
+        }
+    }
+
+    private void createRoleAssignment(String fileName) {
+        try {
+            String payload = new String(Files.readAllBytes(Paths.get(fileName)));
+            asRoleAssignmentUser().given().header("Content-type", "application/json").body(
+                    payload)
+                    .when().post("/am/role-assignments")
+                    .prettyPeek()
+                    .then()
+                    .statusCode(201);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private RequestSpecification asRoleAssignmentUser() {
+        UserData raUser = new UserData(BeftaMain.getConfig().getRoleAssignmentEmail(),
+                BeftaMain.getConfig().getRoleAssignmentPassword());
+        try {
+            adapter.authenticate(raUser, UserTokenProviderConfig.DEFAULT_INSTANCE.getClientId());
+            String s2sToken = adapter.getNewS2STokenWithEnvVars("ROLE_ASSIGNMENT_S2S_CLIENT_ID", "ROLE_ASSIGNMENT_S2S_CLIENT_KEY");
+            return RestAssured.given(new RequestSpecBuilder().setBaseUri(BeftaMain.getConfig().getRoleAssignmentHost()).build())
+                    .header("Authorization", "Bearer " + raUser.getAccessToken())
+                    .header("ServiceAuthorization", s2sToken);
+        } catch (ExecutionException e) {
+            String message = String.format("authenticating as %s failed ", raUser.getUsername());
+            throw new RuntimeException(message, e);
+        }
     }
 
     public void addCcdRoles() {
