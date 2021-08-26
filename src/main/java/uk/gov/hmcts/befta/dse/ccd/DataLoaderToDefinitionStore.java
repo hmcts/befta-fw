@@ -1,7 +1,5 @@
 package uk.gov.hmcts.befta.dse.ccd;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ArrayNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -76,7 +74,7 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
     private TestAutomationAdapter adapter;
     private String definitionStoreUrl;
     private String definitionsPath;
-    public static File DEFAULT_ROLE_ASSIGNMENTS_PATH_JSON = new File ("src/main/java/uk/gov/hmcts/befta/dse/ccd/RoleAssignment");
+    public static File DEFAULT_ROLE_ASSIGNMENTS_PATH_JSON = new File ("src/main/resources/uk/gov/hmcts/befta/dse/ccd/roleAssignments");
 
     public DataLoaderToDefinitionStore(String definitionsPath) {
         this(new DefaultTestAutomationAdapter(), definitionsPath, CcdEnvironment.AAT,
@@ -192,12 +190,15 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
     private void createRoleAssignment(String fileName) {
         try {
             String payload = new String(Files.readAllBytes(Paths.get(fileName)));
-            asRoleAssignmentUser().given().header("Content-type", "application/json").body(
-                    payload)
-                    .when().post("/am/role-assignments")
-                    .prettyPeek()
-                    .then()
-                    .statusCode(201);
+            Response response = asRoleAssignmentUser().given()
+                    .header("Content-type", "application/json")
+                    .body(payload)
+                    .when().post("/am/role-assignments");
+            if (response.getStatusCode() != 201) {
+                String message = "Import failed with response body: " + response.body().prettyPrint();
+                message += "\nand http code: " + response.statusCode();
+                throw new RuntimeException(message);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -209,7 +210,7 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
                 BeftaMain.getConfig().getRoleAssignmentPassword());
         try {
             adapter.authenticate(raUser, UserTokenProviderConfig.DEFAULT_INSTANCE.getClientId());
-            String s2sToken = adapter.getNewS2STokenWithEnvVars("ROLE_ASSIGNMENT_S2S_CLIENT_ID", "ROLE_ASSIGNMENT_S2S_CLIENT_KEY");
+            String s2sToken = adapter.getNewS2STokenWithEnvVars("ROLE_ASSIGNMENT_API_GATEWAY_S2S_CLIENT_ID", "ROLE_ASSIGNMENT_API_GATEWAY_S2S_CLIENT_KEY");
             return RestAssured.given(new RequestSpecBuilder().setBaseUri(BeftaMain.getConfig().getRoleAssignmentHost()).build())
                     .header("Authorization", "Bearer " + raUser.getAccessToken())
                     .header("ServiceAuthorization", s2sToken);
