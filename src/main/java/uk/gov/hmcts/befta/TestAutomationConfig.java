@@ -49,6 +49,18 @@ public class TestAutomationConfig {
         return EnvironmentVariableUtils.getRequiredVariable("DEFINITION_IMPORTER_PASSWORD");
     }
 
+    public String getRoleAssignmentEmail() {
+        return EnvironmentVariableUtils.getRequiredVariable("ROLE_ASSIGNMENT_USER_EMAIL");
+    }
+
+    public String getRoleAssignmentPassword() {
+        return EnvironmentVariableUtils.getRequiredVariable("ROLE_ASSIGNMENT_USER_PASSWORD");
+    }
+
+    public String getRoleAssignmentHost() {
+        return EnvironmentVariableUtils.getRequiredVariable("ROLE_ASSIGNMENT_HOST");
+    }
+
     public UserTokenProviderConfig getUserTokenProviderConfig() {
         return UserTokenProviderConfig.DEFAULT_INSTANCE;
     }
