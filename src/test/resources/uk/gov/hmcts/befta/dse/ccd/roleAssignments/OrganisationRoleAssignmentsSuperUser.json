@@ -1,13 +1,13 @@
 {
   "roleRequest" : {
-    "assignerId" : "33f1b238-1e96-4816-a9da-b64ac9b943ad",
+    "assignerId" : "[[$ROLE_ASSIGNMENT_SUPER_USER]]",
     "process" : "ccd-fta-data-setup",
-    "reference" : "33f1b238-1e96-4816-a9da-b64ac9b943ad",
+    "reference" : "[[$ROLE_ASSIGNMENT_SUPER_USER]]",
     "replaceExisting" : true
   },
   "requestedRoles" : [
     {
-      "actorId" : "33f1b238-1e96-4816-a9da-b64ac9b943ad",
+      "actorId" : "[[$ROLE_ASSIGNMENT_SUPER_USER]]",
       "actorIdType" : "IDAM",
       "roleType" : "ORGANISATION",
       "roleName" : "Solicitor",

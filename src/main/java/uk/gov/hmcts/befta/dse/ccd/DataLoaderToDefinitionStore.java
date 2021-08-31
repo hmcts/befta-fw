@@ -1,5 +1,8 @@
 package uk.gov.hmcts.befta.dse.ccd;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,6 +34,7 @@ import uk.gov.hmcts.befta.auth.UserTokenProviderConfig;
 import uk.gov.hmcts.befta.data.UserData;
 import uk.gov.hmcts.befta.dse.ccd.definition.converter.JsonTransformer;
 import uk.gov.hmcts.befta.util.BeftaUtils;
+import uk.gov.hmcts.befta.util.EnvironmentVariableUtils;
 import uk.gov.hmcts.befta.util.FileUtils;
 
 public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
@@ -74,7 +78,7 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
     private TestAutomationAdapter adapter;
     private String definitionStoreUrl;
     private String definitionsPath;
-    public static File DEFAULT_ROLE_ASSIGNMENTS_PATH_JSON = new File ("src/main/resources/uk/gov/hmcts/befta/dse/ccd/roleAssignments");
+    public static File DEFAULT_ROLE_ASSIGNMENTS_PATH_JSON = new File ("src/test/resources/uk/gov/hmcts/befta/dse/ccd/roleAssignments");
 
     public DataLoaderToDefinitionStore(String definitionsPath) {
         this(new DefaultTestAutomationAdapter(), definitionsPath, CcdEnvironment.AAT,
@@ -190,9 +194,10 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
     private void createRoleAssignment(String fileName) {
         try {
             String payload = new String(Files.readAllBytes(Paths.get(fileName)));
+            JSONObject payLoadJSONObject = new JSONObject(payload);
             Response response = asRoleAssignmentUser().given()
                     .header("Content-type", "application/json")
-                    .body(payload)
+                    .body(readObjectFromJsonFile(payLoadJSONObject).toString())
                     .when().post("/am/role-assignments");
             if (response.getStatusCode() != 201) {
                 String message = "Import failed with response body: " + response.body().prettyPrint();
@@ -205,12 +210,57 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
 
     }
 
+    private  JSONObject readObjectFromJsonFile(JSONObject jsonObject) throws JSONException {
+        JSONArray keys = jsonObject.names();
+        for (int i = 0; i < keys.length(); i++) {
+            String current_key = keys.get(i).toString();
+            if (jsonObject.get(current_key).getClass().getName().equals("org.json.JSONObject")) {
+                readObjectFromJsonFile((JSONObject) jsonObject.get(current_key));
+            } else if (jsonObject.get(current_key).getClass().getName().equals("org.json.JSONArray")) {
+                for (int j = 0; j < ((JSONArray) jsonObject.get(current_key)).length(); j++) {
+                    if (((JSONArray) jsonObject.get(current_key)).get(j).getClass().getName().equals("org.json.JSONObject")) {
+                        readObjectFromJsonFile((JSONObject) ((JSONArray) jsonObject.get(current_key)).get(j));
+                    }
+                }
+            } else {
+                String value = jsonObject.optString(current_key);
+                if (value.startsWith("[[$")) {
+                    UserData raUser = resolveUserData(value);
+                    resolveUserIdamId(jsonObject, current_key, raUser);
+                }
+            }
+        }
+        return jsonObject;
+    }
+
+    private void resolveUserIdamId(JSONObject object, String current_key, UserData raUser) {
+        try {
+            adapter.authenticate(raUser, UserTokenProviderConfig.DEFAULT_INSTANCE.getClientId());
+            object.put(current_key, raUser.getId());
+        } catch (ExecutionException e) {
+            String message = String.format("parsing json as %s failed", raUser.getUsername());
+            throw new RuntimeException(message, e);
+        }
+    }
+
+    private UserData resolveUserData(String value) {
+        String resolvedUsername = EnvironmentVariableUtils.resolvePossibleVariable(value);
+        String resolvedPassword = EnvironmentVariableUtils.getRequiredVariable(
+                value.substring(3, value.length() - 2) + "_PWD");
+        return getUserData(resolvedUsername, resolvedPassword);
+    }
+
+    private UserData getUserData(String resolvedUsername, String resolvedPassword) {
+        return new UserData(resolvedUsername, resolvedPassword);
+    }
+
     private RequestSpecification asRoleAssignmentUser() {
         UserData raUser = new UserData(BeftaMain.getConfig().getRoleAssignmentEmail(),
                 BeftaMain.getConfig().getRoleAssignmentPassword());
         try {
             adapter.authenticate(raUser, UserTokenProviderConfig.DEFAULT_INSTANCE.getClientId());
-            String s2sToken = adapter.getNewS2STokenWithEnvVars("ROLE_ASSIGNMENT_API_GATEWAY_S2S_CLIENT_ID", "ROLE_ASSIGNMENT_API_GATEWAY_S2S_CLIENT_KEY");
+            String s2sToken = adapter.getNewS2STokenWithEnvVars("ROLE_ASSIGNMENT_API_GATEWAY_S2S_CLIENT_ID",
+                    "ROLE_ASSIGNMENT_API_GATEWAY_S2S_CLIENT_KEY");
             return RestAssured.given(new RequestSpecBuilder().setBaseUri(BeftaMain.getConfig().getRoleAssignmentHost()).build())
                     .header("Authorization", "Bearer " + raUser.getAccessToken())
                     .header("ServiceAuthorization", s2sToken);

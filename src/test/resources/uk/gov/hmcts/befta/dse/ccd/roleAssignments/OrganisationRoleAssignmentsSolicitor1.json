@@ -1,13 +1,13 @@
 {
   "roleRequest" : {
-    "assignerId" : "0f952dde-c0d1-438d-8951-af8677830a9b",
+    "assignerId" : "[[$ROLE_ASSIGNMENT_SOLICITOR_USER]]",
     "process" : "ccd-fta-data-setup",
-    "reference" : "0f952dde-c0d1-438d-8951-af8677830a9b",
+    "reference" : "[[$ROLE_ASSIGNMENT_SOLICITOR_USER]]",
     "replaceExisting" : true
   },
   "requestedRoles" : [
     {
-      "actorId" : "0f952dde-c0d1-438d-8951-af8677830a9b",
+      "actorId" : "[[$ROLE_ASSIGNMENT_SOLICITOR_USER]]",
       "actorIdType" : "IDAM",
       "roleType" : "ORGANISATION",
       "roleName" : "Solicitor",
@@ -22,7 +22,7 @@
       }
     },
     {
-      "actorId" : "0f952dde-c0d1-438d-8951-af8677830a9b",
+      "actorId" : "[[$ROLE_ASSIGNMENT_SOLICITOR_USER]]",
       "actorIdType" : "IDAM",
       "roleType" : "ORGANISATION",
       "roleName" : "Solicitor",
@@ -37,7 +37,7 @@
       }
     },
     {
-      "actorId" : "0f952dde-c0d1-438d-8951-af8677830a9b",
+      "actorId" : "[[$ROLE_ASSIGNMENT_SOLICITOR_USER]]",
       "actorIdType" : "IDAM",
       "roleType" : "ORGANISATION",
       "roleName" : "Solicitor",
@@ -52,7 +52,7 @@
       }
     },
     {
-      "actorId" : "0f952dde-c0d1-438d-8951-af8677830a9b",
+      "actorId" : "[[$ROLE_ASSIGNMENT_SOLICITOR_USER]]",
       "actorIdType" : "IDAM",
       "roleType" : "ORGANISATION",
       "roleName" : "Solicitor",
@@ -67,7 +67,7 @@
       }
     },
     {
-      "actorId" : "0f952dde-c0d1-438d-8951-af8677830a9b",
+      "actorId" : "[[$ROLE_ASSIGNMENT_SOLICITOR_USER]]",
       "actorIdType" : "IDAM",
       "roleType" : "ORGANISATION",
       "roleName" : "Solicitor",
