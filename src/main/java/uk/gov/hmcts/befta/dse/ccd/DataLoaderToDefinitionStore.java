@@ -78,7 +78,7 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
     private TestAutomationAdapter adapter;
     private String definitionStoreUrl;
     private String definitionsPath;
-    public static File DEFAULT_ROLE_ASSIGNMENTS_PATH_JSON = new File ("src/test/resources/uk/gov/hmcts/befta/dse/ccd/roleAssignments");
+    public static final String DEFAULT_ROLE_ASSIGNMENTS_PATH_JSON = "src/test/resources/uk/gov/hmcts/befta/dse/ccd/roleAssignments";
 
     public DataLoaderToDefinitionStore(String definitionsPath) {
         this(new DefaultTestAutomationAdapter(), definitionsPath, CcdEnvironment.AAT,
@@ -176,16 +176,20 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
     protected void doLoadTestData() {
         addCcdRoles();
         importDefinitions();
-        createRoleAssignments(DEFAULT_ROLE_ASSIGNMENTS_PATH_JSON);
+        createRoleAssignments();
     }
 
-    private void createRoleAssignments(final File folder) {
-        File[] subFiles = folder.listFiles();
+    private void createRoleAssignments() {
+        createRoleAssignmentsAt(new File(DEFAULT_ROLE_ASSIGNMENTS_PATH_JSON));
+    }
+
+    private void createRoleAssignmentsAt(File location) {
+        File[] subFiles = location.listFiles();
         for (File subFile : subFiles) {
             if (subFile.isDirectory())
-                createRoleAssignments(subFile);
+                createRoleAssignmentsAt(subFile);
             else if (subFile.getName().toLowerCase().endsWith(".json")) {
-                String fileName = folder.getAbsolutePath() + "/" + subFile.getName();
+                String fileName = location.getAbsolutePath() + "/" + subFile.getName();
                 createRoleAssignment(fileName);
             }
         }
@@ -200,12 +204,14 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
                     .body(readObjectFromJsonFile(payLoadJSONObject).toString())
                     .when().post("/am/role-assignments");
             if (response.getStatusCode() != 201) {
-                String message = "Import failed with response body: " + response.body().prettyPrint();
+                String message = "Calling Role Assignment service failed with response body: "
+                        + response.body().prettyPrint();
                 message += "\nand http code: " + response.statusCode();
                 throw new RuntimeException(message);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            String message = String.format("reading json from %s failed", fileName);
+            throw new RuntimeException(message, e);
         }
 
     }
