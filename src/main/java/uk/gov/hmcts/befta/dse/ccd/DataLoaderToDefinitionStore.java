@@ -179,7 +179,7 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
         createRoleAssignments();
     }
 
-    private void createRoleAssignments() {
+    public void createRoleAssignments() {
         createRoleAssignmentsAt(new File(DEFAULT_ROLE_ASSIGNMENTS_PATH_JSON));
     }
 
@@ -195,7 +195,7 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
         }
     }
 
-    private void createRoleAssignment(String fileName) {
+    protected void createRoleAssignment(String fileName) {
         try {
             String payload = new String(Files.readAllBytes(Paths.get(fileName)));
             JSONObject payLoadJSONObject = new JSONObject(payload);
@@ -203,7 +203,7 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
                     .header("Content-type", "application/json")
                     .body(readObjectFromJsonFile(payLoadJSONObject).toString())
                     .when().post("/am/role-assignments");
-            if (response.getStatusCode() != 201) {
+            if (response.getStatusCode() / 100 != 2) {
                 String message = "Calling Role Assignment service failed with response body: "
                         + response.body().prettyPrint();
                 message += "\nand http code: " + response.statusCode();
