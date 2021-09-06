@@ -46,6 +46,12 @@ class TestAutomationConfigTest {
     private static final String BEFTA_USER_AUTHENTICATION_RETRY_MULTIPLIER_VALUE = "1500";
     private static final String BEFTA_USER_TOKEN_CACHE_TTL_VALUE = "3";
     private static final String BEFTA_S2S_TOKEN_CACHE_TTL_VALUE = "4";
+    private static final String ROLE_ASSIGNMENT_USER_EMAIL = "ROLE_ASSIGNMENT_USER_EMAIL";
+    private static final String ROLE_ASSIGNMENT_USER_EMAIL_VALUE ="ROLE_ASSIGNMENT_USER_EMAIL_VALUE";
+    private static final String ROLE_ASSIGNMENT_USER_PASSWORD = "ROLE_ASSIGNMENT_USER_PASSWORD";
+    private static final String ROLE_ASSIGNMENT_USER_PASSWORD_VALUE = "ROLE_ASSIGNMENT_USER_PASSWORD_VALUE";
+    private static final String ROLE_ASSIGNMENT_HOST = "ROLE_ASSIGNMENT_HOST";
+    private static final String ROLE_ASSIGNMENT_HOST_VALUE = "ROLE_ASSIGNMENT_HOST_VALUE";
 
     @BeforeEach
 //    @SetEnvironmentVariable(key = "TEST_URL", value = TEST_URL_VALUE)
@@ -304,5 +310,35 @@ class TestAutomationConfigTest {
     @SetEnvironmentVariable(key = DEFAULT_COLLECTION_ASSERTION_MODE, value = "UNORDERED")
     void testDefaultCollectionAssertionModeReturnsValue() {
         assertEquals(Ordering.UNORDERED, TestAutomationConfig.INSTANCE.getDefaultCollectionAssertionMode());
+    }
+
+    /**
+     * Test method for
+     * {@link uk.gov.hmcts.befta.TestAutomationConfig#getRoleAssignmentEmail()}.
+     */
+    @Test
+    @SetEnvironmentVariable(key = ROLE_ASSIGNMENT_USER_EMAIL, value = ROLE_ASSIGNMENT_USER_EMAIL_VALUE)
+    void testGetRoleAssignmentEmail() {
+        assertEquals(ROLE_ASSIGNMENT_USER_EMAIL_VALUE, TestAutomationConfig.INSTANCE.getRoleAssignmentEmail());
+    }
+
+    /**
+     * Test method for
+     * {@link uk.gov.hmcts.befta.TestAutomationConfig#getRoleAssignmentPassword()}.
+     */
+    @Test
+    @SetEnvironmentVariable(key = ROLE_ASSIGNMENT_USER_PASSWORD, value = ROLE_ASSIGNMENT_USER_PASSWORD_VALUE)
+    void testGetRoleAssignmentPassword() {
+        assertEquals(ROLE_ASSIGNMENT_USER_PASSWORD_VALUE, TestAutomationConfig.INSTANCE.getRoleAssignmentPassword());
+    }
+
+    /**
+     * Test method for
+     * {@link uk.gov.hmcts.befta.TestAutomationConfig#getRoleAssignmentHost()}.
+     */
+    @Test
+    @SetEnvironmentVariable(key = ROLE_ASSIGNMENT_HOST, value = ROLE_ASSIGNMENT_HOST_VALUE)
+    void testGetRoleAssignmentHost() {
+        assertEquals(ROLE_ASSIGNMENT_HOST_VALUE, TestAutomationConfig.INSTANCE.getRoleAssignmentHost());
     }
 }
