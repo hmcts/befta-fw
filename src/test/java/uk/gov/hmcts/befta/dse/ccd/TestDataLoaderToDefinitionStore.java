@@ -314,6 +314,8 @@ class TestDataLoaderToDefinitionStore {
     @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_HOST", value = "ROLE_ASSIGNMENT_HOST")
     @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_SOLICITOR_USER", value = "ROLE_ASSIGNMENT_SOLICITOR_USER")
     @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_SOLICITOR_USER_PWD", value = "ROLE_ASSIGNMENT_SOLICITOR_USER_PWD")
+    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_SUPER_USER", value = "ROLE_ASSIGNMENT_SUPER_USER")
+    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_SUPER_USER_PWD", value = "ROLE_ASSIGNMENT_SUPER_USER_PWD")
     void testCreateRoleAssignmentExceptionWhenResponseIsNotSuccess() {
         TestAutomationAdapter mockAdapter = mock(TestAutomationAdapter.class);
         RequestSpecification requestSpecification = mock (RequestSpecification.class);
