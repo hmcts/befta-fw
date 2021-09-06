@@ -272,6 +272,7 @@ class TestDataLoaderToDefinitionStore {
     }
 
     @Test
+    @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
     @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_API_GATEWAY_S2S_CLIENT_ID", value = "ROLE_ASSIGNMENT_CLIENT_ID_VALUE")
     @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_API_GATEWAY_S2S_CLIENT_KEY", value = "ROLE_ASSIGNMENT_CLIENT_KEY_VALUE")
     void testCreateRoleAssignmentExceptionForNullFileName() {
@@ -288,13 +289,42 @@ class TestDataLoaderToDefinitionStore {
         when(requestSpecification.body(any(String.class))).thenReturn(requestSpecification);
         when(requestSpecification.when()).thenReturn(requestSpecification);
         when(requestSpecification.post("/am/role-assignments")).thenReturn(rs);
-        when(rs.body()).thenReturn(responseBody);;
+        when(rs.body()).thenReturn(responseBody);
         when(responseBody.prettyPrint()).thenReturn("");
         assertNotNull(dataLoaderToDefinitionStore);
         Exception exception = Assertions.assertThrows(RuntimeException.class, () -> {
             dataLoaderToDefinitionStore.createRoleAssignment(fileName);
         });
         assertEquals(exception.getMessage(),"reading json from  failed");
+    }
+
+    @Test
+    @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
+    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_API_GATEWAY_S2S_CLIENT_ID", value = "ROLE_ASSIGNMENT_CLIENT_ID_VALUE")
+    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_API_GATEWAY_S2S_CLIENT_KEY", value = "ROLE_ASSIGNMENT_CLIENT_KEY_VALUE")
+    void testCreateRoleAssignmentExceptionWhenResponseIsNotSuccess() {
+        TestAutomationAdapter mockAdapter = mock(TestAutomationAdapter.class);
+        RequestSpecification requestSpecification = mock (RequestSpecification.class);
+        Response rs = mock(io.restassured.response.Response.class);
+        when(mockAdapter.getNewS2SToken()).thenReturn("s2s_token");
+        DataLoaderToDefinitionStore dataLoaderToDefinitionStore = new DataLoaderToDefinitionStore(mockAdapter);
+        ResponseBody<?> responseBody = mock(io.restassured.response.ResponseBody.class);
+        when(RestAssured.given(any())).thenReturn(requestSpecification);
+        when(requestSpecification.header(any(), any(), ArgumentMatchers.<String>any())).thenReturn(requestSpecification);
+        when(requestSpecification.given()).thenReturn(requestSpecification);
+        when(requestSpecification.body(any(String.class))).thenReturn(requestSpecification);
+        when(requestSpecification.when()).thenReturn(requestSpecification);
+        when(requestSpecification.post("/am/role-assignments")).thenReturn(rs);
+        when(rs.getStatusCode()).thenReturn(404);
+        when(rs.body()).thenReturn(responseBody);
+        when(responseBody.prettyPrint()).thenReturn("Exception");
+        assertNotNull(dataLoaderToDefinitionStore);
+        Exception exception = Assertions.assertThrows(RuntimeException.class, () -> {
+            dataLoaderToDefinitionStore.createRoleAssignments();
+        });
+        assertEquals(exception.getMessage(),"Calling Role Assignment service failed with response body: Exception\n" +
+                "and http code: 0");
+
     }
 
 }
