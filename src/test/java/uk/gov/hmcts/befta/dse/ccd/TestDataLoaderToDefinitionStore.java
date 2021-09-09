@@ -235,6 +235,10 @@ class TestDataLoaderToDefinitionStore {
     @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_SOLICITOR_USER_PWD", value = "ROLE_ASSIGNMENT_SOLICITOR_USER_PWD")
     @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_SUPER_USER", value = "ROLE_ASSIGNMENT_SUPER_USER")
     @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_SUPER_USER_PWD", value = "ROLE_ASSIGNMENT_SUPER_USER_PWD")
+    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF1_USER", value = "$ROLE_ASSIGNMENT_STAFF1_USER")
+    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF1_USER_PWD", value = "$ROLE_ASSIGNMENT_STAFF1_USER_PWD")
+    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF2_USER", value = "$ROLE_ASSIGNMENT_STAFF2_USER")
+    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF2_USER_PWD", value = "$ROLE_ASSIGNMENT_STAFF2_USER_PWD")
        void testCreateRoleAssignments() {
         TestAutomationAdapter mockAdapter = mock(TestAutomationAdapter.class);
         RequestSpecification requestSpecification = mock (RequestSpecification.class);
@@ -264,6 +268,10 @@ class TestDataLoaderToDefinitionStore {
     @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_SOLICITOR_USER_PWD", value = "ROLE_ASSIGNMENT_SOLICITOR_USER_PWD")
     @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_SUPER_USER", value = "ROLE_ASSIGNMENT_SUPER_USER")
     @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_SUPER_USER_PWD", value = "ROLE_ASSIGNMENT_SUPER_USER_PWD")
+    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF1_USER", value = "$ROLE_ASSIGNMENT_STAFF1_USER")
+    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF1_USER_PWD", value = "$ROLE_ASSIGNMENT_STAFF1_USER_PWD")
+    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF2_USER", value = "$ROLE_ASSIGNMENT_STAFF2_USER")
+    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF2_USER_PWD", value = "$ROLE_ASSIGNMENT_STAFF2_USER_PWD")
     void testCreateRoleAssignmentException() {
         TestAutomationAdapter mockAdapter = mock(TestAutomationAdapter.class);
         RequestSpecification requestSpecification = mock (RequestSpecification.class);
@@ -297,6 +305,10 @@ class TestDataLoaderToDefinitionStore {
     @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_SOLICITOR_USER_PWD", value = "ROLE_ASSIGNMENT_SOLICITOR_USER_PWD")
     @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_SUPER_USER", value = "ROLE_ASSIGNMENT_SUPER_USER")
     @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_SUPER_USER_PWD", value = "ROLE_ASSIGNMENT_SUPER_USER_PWD")
+    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF1_USER", value = "$ROLE_ASSIGNMENT_STAFF1_USER")
+    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF1_USER_PWD", value = "$ROLE_ASSIGNMENT_STAFF1_USER_PWD")
+    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF2_USER", value = "$ROLE_ASSIGNMENT_STAFF2_USER")
+    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF2_USER_PWD", value = "$ROLE_ASSIGNMENT_STAFF2_USER_PWD")
     void testCreateRoleAssignmentExceptionForNullFileName() {
         TestAutomationAdapter mockAdapter = mock(TestAutomationAdapter.class);
         RequestSpecification requestSpecification = mock (RequestSpecification.class);
@@ -331,6 +343,10 @@ class TestDataLoaderToDefinitionStore {
     @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_SOLICITOR_USER_PWD", value = "ROLE_ASSIGNMENT_SOLICITOR_USER_PWD")
     @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_SUPER_USER", value = "ROLE_ASSIGNMENT_SUPER_USER")
     @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_SUPER_USER_PWD", value = "ROLE_ASSIGNMENT_SUPER_USER_PWD")
+    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF1_USER", value = "$ROLE_ASSIGNMENT_STAFF1_USER")
+    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF1_USER_PWD", value = "$ROLE_ASSIGNMENT_STAFF1_USER_PWD")
+    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF2_USER", value = "$ROLE_ASSIGNMENT_STAFF2_USER")
+    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF2_USER_PWD", value = "$ROLE_ASSIGNMENT_STAFF2_USER_PWD")
     void testCreateRoleAssignmentExceptionWhenResponseIsNotSuccess() {
         TestAutomationAdapter mockAdapter = mock(TestAutomationAdapter.class);
         RequestSpecification requestSpecification = mock (RequestSpecification.class);
