@@ -74,6 +74,8 @@ Below are the environment needed specifically for CCD domain.
      will be imported to Definition Store, for automated test data preparation.
 
 Below are the environment needed specifically to Create Role Assignment data.
+* ROLE_ASSIGNMENT_API_GATEWAY_S2S_CLIENT_ID:S2S service token for Role Assignment service.
+* ROLE_ASSIGNMENT_API_GATEWAY_S2S_CLIENT_KEY:S2S key for Role Assignment service.
 * ROLE_ASSIGNMENT_HOST: Base URL of the Role Assignment APIs.
 * ROLE_ASSIGNMENT_USER_EMAIL: Email id of the user who can access role Assignment service.
 * ROLE_ASSIGNMENT_USER_PASSWORD: Password of the user who can access role Assignment service.
