@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.when;
@@ -28,6 +29,7 @@ import io.restassured.specification.RequestSpecification;
 import uk.gov.hmcts.befta.DefaultTestAutomationAdapter;
 import uk.gov.hmcts.befta.TestAutomationAdapter;
 
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -235,10 +237,11 @@ class TestDataLoaderToDefinitionStore {
     @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_SOLICITOR_USER_PWD", value = "ROLE_ASSIGNMENT_SOLICITOR_USER_PWD")
     @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_SUPER_USER", value = "ROLE_ASSIGNMENT_SUPER_USER")
     @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_SUPER_USER_PWD", value = "ROLE_ASSIGNMENT_SUPER_USER_PWD")
-    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF1_USER", value = "$ROLE_ASSIGNMENT_STAFF1_USER")
-    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF1_USER_PWD", value = "$ROLE_ASSIGNMENT_STAFF1_USER_PWD")
-    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF2_USER", value = "$ROLE_ASSIGNMENT_STAFF2_USER")
-    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF2_USER_PWD", value = "$ROLE_ASSIGNMENT_STAFF2_USER_PWD")
+    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF1_USER", value = "ROLE_ASSIGNMENT_STAFF1_USER")
+    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF1_USER_PWD", value = "ROLE_ASSIGNMENT_STAFF1_USER_PWD")
+    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF2_USER", value = "ROLE_ASSIGNMENT_STAFF2_USER")
+    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF2_USER_PWD", value = "ROLE_ASSIGNMENT_STAFF2_USER_PWD")
+    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_FILE_PATH", value = "ROLE_ASSIGNMENT_FILE_PATH")
        void testCreateRoleAssignments() {
         TestAutomationAdapter mockAdapter = mock(TestAutomationAdapter.class);
         RequestSpecification requestSpecification = mock (RequestSpecification.class);
@@ -268,10 +271,11 @@ class TestDataLoaderToDefinitionStore {
     @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_SOLICITOR_USER_PWD", value = "ROLE_ASSIGNMENT_SOLICITOR_USER_PWD")
     @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_SUPER_USER", value = "ROLE_ASSIGNMENT_SUPER_USER")
     @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_SUPER_USER_PWD", value = "ROLE_ASSIGNMENT_SUPER_USER_PWD")
-    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF1_USER", value = "$ROLE_ASSIGNMENT_STAFF1_USER")
-    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF1_USER_PWD", value = "$ROLE_ASSIGNMENT_STAFF1_USER_PWD")
-    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF2_USER", value = "$ROLE_ASSIGNMENT_STAFF2_USER")
-    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF2_USER_PWD", value = "$ROLE_ASSIGNMENT_STAFF2_USER_PWD")
+    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF1_USER", value = "ROLE_ASSIGNMENT_STAFF1_USER")
+    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF1_USER_PWD", value = "ROLE_ASSIGNMENT_STAFF1_USER_PWD")
+    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF2_USER", value = "ROLE_ASSIGNMENT_STAFF2_USER")
+    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF2_USER_PWD", value = "ROLE_ASSIGNMENT_STAFF2_USER_PWD")
+    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_FILE_PATH", value = "ROLE_ASSIGNMENT_FILE_PATH")
     void testCreateRoleAssignmentException() {
         TestAutomationAdapter mockAdapter = mock(TestAutomationAdapter.class);
         RequestSpecification requestSpecification = mock (RequestSpecification.class);
@@ -305,10 +309,11 @@ class TestDataLoaderToDefinitionStore {
     @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_SOLICITOR_USER_PWD", value = "ROLE_ASSIGNMENT_SOLICITOR_USER_PWD")
     @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_SUPER_USER", value = "ROLE_ASSIGNMENT_SUPER_USER")
     @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_SUPER_USER_PWD", value = "ROLE_ASSIGNMENT_SUPER_USER_PWD")
-    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF1_USER", value = "$ROLE_ASSIGNMENT_STAFF1_USER")
-    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF1_USER_PWD", value = "$ROLE_ASSIGNMENT_STAFF1_USER_PWD")
-    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF2_USER", value = "$ROLE_ASSIGNMENT_STAFF2_USER")
-    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF2_USER_PWD", value = "$ROLE_ASSIGNMENT_STAFF2_USER_PWD")
+    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF1_USER", value = "ROLE_ASSIGNMENT_STAFF1_USER")
+    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF1_USER_PWD", value = "ROLE_ASSIGNMENT_STAFF1_USER_PWD")
+    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF2_USER", value = "ROLE_ASSIGNMENT_STAFF2_USER")
+    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF2_USER_PWD", value = "ROLE_ASSIGNMENT_STAFF2_USER_PWD")
+    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_FILE_PATH", value = "ROLE_ASSIGNMENT_FILE_PATH")
     void testCreateRoleAssignmentExceptionForNullFileName() {
         TestAutomationAdapter mockAdapter = mock(TestAutomationAdapter.class);
         RequestSpecification requestSpecification = mock (RequestSpecification.class);
@@ -343,33 +348,22 @@ class TestDataLoaderToDefinitionStore {
     @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_SOLICITOR_USER_PWD", value = "ROLE_ASSIGNMENT_SOLICITOR_USER_PWD")
     @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_SUPER_USER", value = "ROLE_ASSIGNMENT_SUPER_USER")
     @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_SUPER_USER_PWD", value = "ROLE_ASSIGNMENT_SUPER_USER_PWD")
-    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF1_USER", value = "$ROLE_ASSIGNMENT_STAFF1_USER")
-    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF1_USER_PWD", value = "$ROLE_ASSIGNMENT_STAFF1_USER_PWD")
-    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF2_USER", value = "$ROLE_ASSIGNMENT_STAFF2_USER")
-    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF2_USER_PWD", value = "$ROLE_ASSIGNMENT_STAFF2_USER_PWD")
-    void testCreateRoleAssignmentExceptionWhenResponseIsNotSuccess() {
+    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF1_USER", value = "ROLE_ASSIGNMENT_STAFF1_USER")
+    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF1_USER_PWD", value = "ROLE_ASSIGNMENT_STAFF1_USER_PWD")
+    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF2_USER", value = "ROLE_ASSIGNMENT_STAFF2_USER")
+    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF2_USER_PWD", value = "ROLE_ASSIGNMENT_STAFF2_USER_PWD")
+    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_FILE_PATH", value = "ROLE_ASSIGNMENT_FILE_PATH")
+    void testCreateRoleAssignmentExceptionWhenEnvVarLocationHasNoFiles() {
         TestAutomationAdapter mockAdapter = mock(TestAutomationAdapter.class);
         RequestSpecification requestSpecification = mock (RequestSpecification.class);
         Response rs = mock(io.restassured.response.Response.class);
         when(mockAdapter.getNewS2SToken()).thenReturn("s2s_token");
         DataLoaderToDefinitionStore dataLoaderToDefinitionStore = new DataLoaderToDefinitionStore(mockAdapter);
-        ResponseBody<?> responseBody = mock(io.restassured.response.ResponseBody.class);
         when(RestAssured.given(any())).thenReturn(requestSpecification);
         when(requestSpecification.header(any(), any(), ArgumentMatchers.<String>any())).thenReturn(requestSpecification);
         when(requestSpecification.given()).thenReturn(requestSpecification);
-        when(requestSpecification.body(any(String.class))).thenReturn(requestSpecification);
-        when(requestSpecification.when()).thenReturn(requestSpecification);
-        when(requestSpecification.post("/am/role-assignments")).thenReturn(rs);
-        when(rs.getStatusCode()).thenReturn(404);
-        when(rs.body()).thenReturn(responseBody);
-        when(responseBody.prettyPrint()).thenReturn("Exception");
         assertNotNull(dataLoaderToDefinitionStore);
-        Exception exception = Assertions.assertThrows(RuntimeException.class, () -> {
-            dataLoaderToDefinitionStore.createRoleAssignments();
-        });
-        assertEquals(exception.getMessage(),"Calling Role Assignment service failed with response body: Exception\n" +
-                "and http code: 0");
-
+        dataLoaderToDefinitionStore.createRoleAssignments();
     }
 
 }
