@@ -45,6 +45,10 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
 
     private static final String TEMPORARY_DEFINITION_FOLDER = "definition_files";
 
+    private static final String VALID_ROLE_ASSIGNMENTS_DATA_STORE_PATH = "/src/aat/resources/roleAssignments";
+
+    private static final int FILE_LENGTH_ZERO = 0;
+
     private static final CcdRoleConfig[] CCD_ROLES_NEEDED_FOR_TA = {
         new CcdRoleConfig("caseworker-autotest1", "PUBLIC"),
         new CcdRoleConfig("caseworker-autotest1-private", "PRIVATE"),
@@ -78,7 +82,6 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
     private TestAutomationAdapter adapter;
     private String definitionStoreUrl;
     private String definitionsPath;
-    public static final String DEFAULT_ROLE_ASSIGNMENTS_PATH_JSON = "src/test/resources/uk/gov/hmcts/befta/dse/ccd/roleAssignments";
 
     public DataLoaderToDefinitionStore(String definitionsPath) {
         this(new DefaultTestAutomationAdapter(), definitionsPath, CcdEnvironment.AAT,
@@ -180,19 +183,40 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
     }
 
     public void createRoleAssignments() {
-        createRoleAssignmentsAt(new File(DEFAULT_ROLE_ASSIGNMENTS_PATH_JSON));
+        File raFileLocation = getRoleAssignmentJsonFilesLocation();
+        createRoleAssignmentsAt(raFileLocation);
+    }
+
+    private File getRoleAssignmentJsonFilesLocation() {
+        String fileLocationFromEnvVar = EnvironmentVariableUtils.getRequiredVariable("ROLE_ASSIGNMENT_FILE_PATH");
+        if (fileLocationFromEnvVar.isEmpty()) {
+            String fileLocation = BeftaMain.getConfig().getDataStoreUrl() + VALID_ROLE_ASSIGNMENTS_DATA_STORE_PATH;
+            logger.info("Retrieving Role Assignment files from the path :" + fileLocation);
+            return new File(fileLocation);
+        } else {
+            logger.info("Retrieving Role Assignment files from the path :" + fileLocationFromEnvVar);
+            return new File(fileLocationFromEnvVar);
+        }
     }
 
     private void createRoleAssignmentsAt(File location) {
-        File[] subFiles = location.listFiles();
-        for (File subFile : subFiles) {
-            if (subFile.isDirectory())
-                createRoleAssignmentsAt(subFile);
-            else if (subFile.getName().toLowerCase().endsWith(".json")) {
-                String fileName = location.getAbsolutePath() + "/" + subFile.getName();
-                createRoleAssignment(fileName);
+        File[] subFiles = getAllJsonFilesToLoadAt(location);
+        int fileLength = subFiles != null ? subFiles.length : FILE_LENGTH_ZERO;
+        logger.info("{} json files will be assigned Role Assignments  on {}.", fileLength, getDataSetupEnvironment());
+        if (subFiles != null && subFiles.length != 0) {
+            for (File subFile : subFiles) {
+                if (subFile.isDirectory())
+                    createRoleAssignmentsAt(subFile);
+                else if (subFile.getName().toLowerCase().endsWith(".json")) {
+                    String fileName = location.getAbsolutePath() + "/" + subFile.getName();
+                    createRoleAssignment(fileName);
+                }
             }
         }
+    }
+
+    protected File[] getAllJsonFilesToLoadAt(File location) {
+        return location.listFiles();
     }
 
     protected void createRoleAssignment(String fileName) {
