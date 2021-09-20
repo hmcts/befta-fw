@@ -45,7 +45,7 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
 
     private static final String TEMPORARY_DEFINITION_FOLDER = "definition_files";
 
-    private static final String VALID_ROLE_ASSIGNMENTS_DATA_STORE_PATH = "/src/aat/resources/roleAssignments";
+    private static final String DEFAULT_ROLE_ASSIGNMENTS_FILE_PATH = "src/aat/resources/roleAssignments";
 
     private static final int FILE_LENGTH_ZERO = 0;
 
@@ -188,15 +188,23 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
     }
 
     private File getRoleAssignmentJsonFilesLocation() {
-        String fileLocationFromEnvVar = EnvironmentVariableUtils.getRequiredVariable("ROLE_ASSIGNMENT_FILE_PATH");
-        if (fileLocationFromEnvVar.isEmpty()) {
-            String fileLocation = BeftaMain.getConfig().getDataStoreUrl() + VALID_ROLE_ASSIGNMENTS_DATA_STORE_PATH;
-            logger.info("Retrieving Role Assignment files from the path :" + fileLocation);
-            return new File(fileLocation);
-        } else {
-            logger.info("Retrieving Role Assignment files from the path :" + fileLocationFromEnvVar);
-            return new File(fileLocationFromEnvVar);
+        try {
+            String fileLocationFromEnvVar = EnvironmentVariableUtils.getRequiredVariable("ROLE_ASSIGNMENT_FILE_PATH");
+            if (fileLocationFromEnvVar.isEmpty()) {
+                logger.info("Environment variable ROLE_ASSIGNMENT_FILE_PATH is empty. " +
+                        "Files retrieved from the path: "+DEFAULT_ROLE_ASSIGNMENTS_FILE_PATH);
+                return new File(  DEFAULT_ROLE_ASSIGNMENTS_FILE_PATH);
+            } else {
+                logger.info("Environment variable ROLE_ASSIGNMENT_FILE_PATH is set. " +
+                        "Files retrieved from the path: "+fileLocationFromEnvVar);
+                return new File( fileLocationFromEnvVar);
+            }
+        } catch (Exception e) {
+            logger.info("Environment variable ROLE_ASSIGNMENT_FILE_PATH is not present. " +
+                    "Files retrieved from the path: "+DEFAULT_ROLE_ASSIGNMENTS_FILE_PATH);
+            return new File(  DEFAULT_ROLE_ASSIGNMENTS_FILE_PATH);
         }
+
     }
 
     private void createRoleAssignmentsAt(File location) {
@@ -215,7 +223,7 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
         }
     }
 
-    protected File[] getAllJsonFilesToLoadAt(File location) {
+    private File[] getAllJsonFilesToLoadAt(File location) {
         return location.listFiles();
     }
 
