@@ -26,13 +26,16 @@ import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import org.springframework.core.io.ClassPathResource;
 import uk.gov.hmcts.befta.BeftaMain;
 import uk.gov.hmcts.befta.DefaultBeftaTestDataLoader;
 import uk.gov.hmcts.befta.DefaultTestAutomationAdapter;
 import uk.gov.hmcts.befta.TestAutomationAdapter;
 import uk.gov.hmcts.befta.auth.UserTokenProviderConfig;
+import uk.gov.hmcts.befta.data.HttpTestDataSource;
 import uk.gov.hmcts.befta.data.UserData;
 import uk.gov.hmcts.befta.dse.ccd.definition.converter.JsonTransformer;
+import uk.gov.hmcts.befta.factory.HttpTestDataSourceFactory;
 import uk.gov.hmcts.befta.util.BeftaUtils;
 import uk.gov.hmcts.befta.util.EnvironmentVariableUtils;
 import uk.gov.hmcts.befta.util.FileUtils;
@@ -45,9 +48,7 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
 
     private static final String TEMPORARY_DEFINITION_FOLDER = "definition_files";
 
-    private static final String DEFAULT_ROLE_ASSIGNMENTS_FILE_PATH = "src/aat/resources/roleAssignments";
-
-    private static final int FILE_LENGTH_ZERO = 0;
+    private static final String[] RA_DATA_RESOURCE_PACKAGES = { "roleAssignments" };
 
     private static final CcdRoleConfig[] CCD_ROLES_NEEDED_FOR_TA = {
         new CcdRoleConfig("caseworker-autotest1", "PUBLIC"),
@@ -178,58 +179,35 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
     @Override
     protected void doLoadTestData() {
         addCcdRoles();
-        importDefinitions();
         createRoleAssignments();
+        importDefinitions();
     }
 
     public void createRoleAssignments() {
-        File raFileLocation = getRoleAssignmentJsonFilesLocation();
-        createRoleAssignmentsAt(raFileLocation);
+        getRoleAssignmentFiles(RA_DATA_RESOURCE_PACKAGES);
     }
 
-    private File getRoleAssignmentJsonFilesLocation() {
+    private void getRoleAssignmentFiles(String[] resourcePackages) {
         try {
-            String fileLocationFromEnvVar = EnvironmentVariableUtils.getRequiredVariable("ROLE_ASSIGNMENT_FILE_PATH");
-            if (fileLocationFromEnvVar.isEmpty()) {
-                logger.info("Environment variable ROLE_ASSIGNMENT_FILE_PATH is empty. " +
-                        "Files retrieved from the path: "+DEFAULT_ROLE_ASSIGNMENTS_FILE_PATH);
-                return new File(  DEFAULT_ROLE_ASSIGNMENTS_FILE_PATH);
-            } else {
-                logger.info("Environment variable ROLE_ASSIGNMENT_FILE_PATH is set. " +
-                        "Files retrieved from the path: "+fileLocationFromEnvVar);
-                return new File( fileLocationFromEnvVar);
-            }
-        } catch (Exception e) {
-            logger.info("Environment variable ROLE_ASSIGNMENT_FILE_PATH is not present. " +
-                    "Files retrieved from the path: "+DEFAULT_ROLE_ASSIGNMENTS_FILE_PATH);
-            return new File(  DEFAULT_ROLE_ASSIGNMENTS_FILE_PATH);
-        }
-
-    }
-
-    private void createRoleAssignmentsAt(File location) {
-        File[] subFiles = getAllJsonFilesToLoadAt(location);
-        int fileLength = subFiles != null ? subFiles.length : FILE_LENGTH_ZERO;
-        logger.info("{} json files will be assigned Role Assignments  on {}.", fileLength, getDataSetupEnvironment());
-        if (subFiles != null && subFiles.length != 0) {
-            for (File subFile : subFiles) {
-                if (subFile.isDirectory())
-                    createRoleAssignmentsAt(subFile);
-                else if (subFile.getName().toLowerCase().endsWith(".json")) {
-                    String fileName = location.getAbsolutePath() + "/" + subFile.getName();
-                    createRoleAssignment(fileName);
+            ClassPath cp = ClassPath.from(Thread.currentThread().getContextClassLoader());
+            for (String resourcePackage : resourcePackages) {
+                String prefix = resourcePackage + "/";
+                for (ClassPath.ResourceInfo info : cp.getResources()) {
+                    if (info.getResourceName().startsWith(prefix)
+                            && info.getResourceName().endsWith(".ras.json")) {
+                        File resource = new ClassPathResource(info.getResourceName()).getFile();
+                        createRoleAssignment(resource);
+                    }
                 }
             }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
-    private File[] getAllJsonFilesToLoadAt(File location) {
-        return location.listFiles();
-    }
-
-    protected void createRoleAssignment(String fileName) {
+    protected void createRoleAssignment(File resource) {
         try {
-            String payload = new String(Files.readAllBytes(Paths.get(fileName)));
+            String payload = new String(Files.readAllBytes(resource.toPath()));
             JSONObject payLoadJSONObject = new JSONObject(payload);
             Response response = asRoleAssignmentUser().given()
                     .header("Content-type", "application/json")
@@ -242,7 +220,7 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
                 throw new RuntimeException(message);
             }
         } catch (IOException e) {
-            String message = String.format("reading json from %s failed", fileName);
+            String message = String.format("reading json from %s failed", resource.getName());
             throw new RuntimeException(message, e);
         }
 
