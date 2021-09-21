@@ -61,10 +61,6 @@ public class TestAutomationConfig {
         return EnvironmentVariableUtils.getRequiredVariable("ROLE_ASSIGNMENT_HOST");
     }
 
-    public String getDataStoreUrl() {
-        return EnvironmentVariableUtils.getRequiredVariable("DATA_STORE_URL_BASE");
-    }
-
     public UserTokenProviderConfig getUserTokenProviderConfig() {
         return UserTokenProviderConfig.DEFAULT_INSTANCE;
     }
