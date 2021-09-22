@@ -84,6 +84,9 @@ Below are the environment needed specifically to Create Role Assignment data.
   Password placeholder for the user [[$ENV_VAR_FOR_USER]] should be in the format of [[$ENV_VAR_FOR_USER_PWD]]
   Ex: If json payload contains [[$ROLE_ASSIGNMENT_SUPER_USER]] for ActorId, reference , the corresponding environment 
   Password variable should be ROLE_ASSIGNMENT_SUPER_USER_PWD
+    
+* The json payload files should be under 'src/aat/resources/roleAssignments' with extension '.ras.json'
+  
   
 
 ### 3.6) Run BEFTA Framework Without a Build Tool
