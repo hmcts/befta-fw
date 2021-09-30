@@ -179,8 +179,8 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
     @Override
     protected void doLoadTestData() {
         addCcdRoles();
-        createRoleAssignments();
         importDefinitions();
+        createRoleAssignments();
     }
 
     public void createRoleAssignments() {
