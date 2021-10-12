@@ -1,5 +1,6 @@
 package uk.gov.hmcts.befta.dse.ccd;
 
+import org.apache.commons.compress.utils.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -8,8 +9,8 @@ import org.slf4j.LoggerFactory;
 
 import com.google.common.reflect.ClassPath;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -178,8 +179,8 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
 
     @Override
     protected void doLoadTestData() {
-        addCcdRoles();
-        importDefinitions();
+    //        addCcdRoles();
+    //        importDefinitions();
         createRoleAssignments();
     }
 
@@ -195,8 +196,10 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
                 for (ClassPath.ResourceInfo info : cp.getResources()) {
                     if (info.getResourceName().startsWith(prefix)
                             && info.getResourceName().endsWith(".ras.json")) {
-                        File resource = new ClassPathResource(info.getResourceName()).getFile();
-                        createRoleAssignment(resource);
+                        InputStream resource = new ClassPathResource(info.getResourceName()).getInputStream();
+                        String result = new BufferedReader(new InputStreamReader(resource))
+                                .lines().collect(Collectors.joining("\n"));
+                        createRoleAssignment(result, info.getResourceName());
                     }
                 }
             }
@@ -205,10 +208,10 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
         }
     }
 
-    protected void createRoleAssignment(File resource) {
+    protected void createRoleAssignment(String resource, String filename) {
         try {
-            String payload = new String(Files.readAllBytes(resource.toPath()));
-            JSONObject payLoadJSONObject = new JSONObject(payload);
+    //            String payload = new String(Files.readAllBytes(resource.toPath()));
+            JSONObject payLoadJSONObject = new JSONObject(resource);
             Response response = asRoleAssignmentUser().given()
                     .header("Content-type", "application/json")
                     .body(readObjectFromJsonFile(payLoadJSONObject).toString())
@@ -219,8 +222,8 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
                 message += "\nand http code: " + response.statusCode();
                 throw new RuntimeException(message);
             }
-        } catch (IOException e) {
-            String message = String.format("reading json from %s failed", resource.getName());
+        } catch (Exception e) {
+            String message = String.format("reading json from %s failed",filename);
             throw new RuntimeException(message, e);
         }
 
