@@ -210,7 +210,6 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
 
     protected void createRoleAssignment(String resource, String filename) {
         try {
-    //            String payload = new String(Files.readAllBytes(resource.toPath()));
             JSONObject payLoadJSONObject = new JSONObject(resource);
             Response response = asRoleAssignmentUser().given()
                     .header("Content-type", "application/json")
@@ -221,6 +220,8 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
                         + response.body().prettyPrint();
                 message += "\nand http code: " + response.statusCode();
                 throw new RuntimeException(message);
+            } else {
+                logger.info("Role Assignment file " + filename + " loaded");
             }
         } catch (Exception e) {
             String message = String.format("reading json from %s failed",filename);
