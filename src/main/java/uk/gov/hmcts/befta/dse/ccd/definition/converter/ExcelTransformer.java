@@ -26,7 +26,7 @@ public class ExcelTransformer {
     private static final List<String> PER_CASE_TYPE_SHEET_NAMES = Arrays.asList("CaseEvent", "AuthorisationCaseEvent",
             "AuthorisationCaseField", "AuthorisationCaseState", "AuthorisationCaseType", "AuthorisationComplexType",
             "CaseEventToFields", "CaseField", "CaseRoles", "CaseTypeTab", "SearchInputFields", "SearchResultFields",
-            "State", "WorkBasketInputFields", "WorkBasketResultFields", "Category");
+            "State", "WorkBasketInputFields", "WorkBasketResultFields", "Category", "SearchAlias");
     private ObjectWriter writer = new ObjectMapper().writer(new DefaultPrettyPrinter());
     private SheetReader sheetTransformer = new SheetReader();
     private HashMap<String, ArrayNode> defFileMap = new HashMap<>();

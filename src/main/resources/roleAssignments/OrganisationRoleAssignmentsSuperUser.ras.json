@@ -20,6 +20,48 @@
         "jurisdiction" : "J1",
         "caseType" : "CT1"
       }
+    },
+    {
+      "actorId" : "[[$ROLE_ASSIGNMENT_SUPER_USER]]",
+      "actorIdType" : "IDAM",
+      "roleType" : "ORGANISATION",
+      "roleName" : "Staff",
+      "roleCategory" : "PROFESSIONAL",
+      "classification" : "RESTRICTED",
+      "grantType" : "STANDARD",
+      "readOnly" : false,
+      "beginTime" : "2021-01-01T00:00:00Z",
+      "attributes" : {
+        "jurisdiction" : "J1"
+      }
+    },
+    {
+      "actorId" : "[[$ROLE_ASSIGNMENT_SUPER_USER]]",
+      "actorIdType" : "IDAM",
+      "roleType" : "ORGANISATION",
+      "roleName" : "Staff",
+      "roleCategory" : "PROFESSIONAL",
+      "classification" : "PRIVATE",
+      "grantType" : "STANDARD",
+      "readOnly" : false,
+      "beginTime" : "2021-01-01T00:00:00Z",
+      "attributes" : {
+        "jurisdiction" : "J1"
+      }
+    },
+    {
+      "actorId" : "[[$ROLE_ASSIGNMENT_SUPER_USER]]",
+      "actorIdType" : "IDAM",
+      "roleType" : "ORGANISATION",
+      "roleName" : "Staff",
+      "roleCategory" : "PROFESSIONAL",
+      "classification" : "PUBLIC",
+      "grantType" : "STANDARD",
+      "readOnly" : false,
+      "beginTime" : "2021-01-01T00:00:00Z",
+      "attributes" : {
+        "jurisdiction" : "J1"
+      }
     }
   ]
 }
