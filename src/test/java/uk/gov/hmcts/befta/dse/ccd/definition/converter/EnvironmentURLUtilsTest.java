@@ -33,6 +33,32 @@ public class EnvironmentURLUtilsTest {
 
     JsonNode caseEventJson;
 
+    private String CASE_TYPE_TEMPLATE = "[ {\n"
+            + "  \"LiveFrom\" : \"01/01/2017\",\n"
+            + "  \"LiveTo\" : \"\",\n"
+            + "  \"ID\" : \"AAT_AUTH_15\",\n"
+            + "  \"Name\" : \"Demo case AAT_AUTH_15\",\n"
+            + "  \"Description\" : \"Demonstrate everything CCD can do!\",\n"
+            + "  \"JurisdictionID\" : \"AUTOTEST1\",\n"
+            + "  \"PrintableDocumentsUrl\" : \"\",\n"
+            + "  \"RetriesTimeoutURLPrintEvent\" : \"\",\n"
+            + "  \"SecurityClassification\" : \"PUBLIC\",\n"
+            + "  \"CallbackGetCaseUrl\" : \"%s%s\",\n"
+            + "  \"RetriesGetCaseUrl\" : \"\"\n"
+            + "}, {\n"
+            + "  \"LiveFrom\" : \"01/01/2017\",\n"
+            + "  \"LiveTo\" : \"\",\n"
+            + "  \"ID\" : \"AAT_AUTH_3\",\n"
+            + "  \"Name\" : \"Demo case AAT_AUTH_3\",\n"
+            + "  \"Description\" : \"Demonstrate AAT_AUTH_3's capability\",\n"
+            + "  \"JurisdictionID\" : \"AUTOTEST1\",\n"
+            + "  \"PrintableDocumentsUrl\" : \"\",\n"
+            + "  \"RetriesTimeoutURLPrintEvent\" : \"\",\n"
+            + "  \"SecurityClassification\" : \"PUBLIC\",\n"
+            + "  \"CallbackGetCaseUrl\" : \"\",\n"
+            + "  \"RetriesGetCaseUrl\" : \"\"\n"
+            + "} ]\n";
+
     private String CASE_EVENT_TO_FIELDS_TEMPLATE = "[ {\n" +
             "  \"CaseTypeID\" : \"FT_MultiplePages\",\n" +
             "  \"CaseEventID\" : \"createCase\",\n" +
@@ -106,6 +132,13 @@ public class EnvironmentURLUtilsTest {
     private static final String CREATE_CASE_CALLBACK_MID_EVENT_PATH
             = "/case_type/fe-functional-test/mid_event_dynamic_list";
 
+    private static final String GET_CASE_CALLBACK_DEFAULT_HOST
+            = "http://ccd-test-stubs-service:5555";
+    private static final String GET_CASE_CALLBACK_HOST
+            = String.format("${TEST_STUB_SERVICE_BASE_URL:%s}", GET_CASE_CALLBACK_DEFAULT_HOST);
+    private static final String GET_CASE_CALLBACK_PATH
+            = "/case_type/fe-functional-test/callback_get_case";
+
     @BeforeEach
     void setup() throws IOException {
         caseEventJson = objectMapper.readTree(
@@ -123,6 +156,26 @@ public class EnvironmentURLUtilsTest {
 
         // check JSON has not been modified
         assertEquals(nullJsonNode, modifiedJsonNode);
+    }
+
+    @Test
+    @SetEnvironmentVariable(key = TEST_STUB_SERVICE_BASE_URL, value = LOCALHOST_URL)
+    void caseTypeSheetModifyTestStubURL() throws Exception {
+        JsonNode caseTypeNode = objectMapper.readTree(String.format(CASE_TYPE_TEMPLATE,
+                                                                    GET_CASE_CALLBACK_HOST,
+                                                                    GET_CASE_CALLBACK_PATH));
+
+        JsonNode modifiedJsonNode = EnvironmentURLUtils.updateCallBackURLs(caseTypeNode, "CaseType",
+                                                                           CcdEnvironment.PREVIEW);
+
+        // check JSON has been modified
+        assertNotEquals(caseTypeNode, modifiedJsonNode);
+
+        // check placeholders are not still present
+        assertFalse(modifiedJsonNode.toString().contains(GET_CASE_CALLBACK_HOST));
+
+        // check URLs have been substituted with correct values
+        assertTrue(modifiedJsonNode.toString().contains(LOCALHOST_URL+ GET_CASE_CALLBACK_PATH));
     }
 
     @Test
