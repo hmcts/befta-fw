@@ -20,7 +20,9 @@ import uk.gov.hmcts.befta.util.BeftaUtils;
 public class EnvironmentURLUtils {
 
     private static final String BASE_URL_PLACEHOLDER_REGEX = "\\$\\{(.*?)}";
-    private static final List<String> SHEETS_FOR_URL_SUBSTITUTIONS = Arrays.asList("CaseEvent", "CaseEventToFields");
+    private static final List<String> SHEETS_FOR_URL_SUBSTITUTIONS = Arrays.asList("CaseType",
+                                                                                   "CaseEvent",
+                                                                                   "CaseEventToFields");
 
     public static JsonNode updateCallBackURLs(JsonNode rootSheetArray, String jsonFileName,
             CcdEnvironment forEnvironment)
