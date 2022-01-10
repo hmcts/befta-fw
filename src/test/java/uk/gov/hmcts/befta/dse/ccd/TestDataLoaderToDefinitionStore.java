@@ -3,9 +3,12 @@
  */
 package uk.gov.hmcts.befta.dse.ccd;
 
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.when;
@@ -23,8 +26,12 @@ import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.response.ResponseBody;
 import io.restassured.specification.RequestSpecification;
+import org.springframework.core.io.ClassPathResource;
 import uk.gov.hmcts.befta.DefaultTestAutomationAdapter;
 import uk.gov.hmcts.befta.TestAutomationAdapter;
+
+import java.io.*;
+import java.util.stream.Collectors;
 
 /**
  * @author korneleehenry
@@ -42,12 +49,11 @@ class TestDataLoaderToDefinitionStore {
 	public static final String BEFTA_S2S_CLIENT_SECRET_VALUE = "BEFTA_S2S_CLIENT_SECRET_VALUE";
     public static final String S2S_URL_KEY = "S2S_URL_BASE";
 	public static final String S2S_URL_VALUE = "S2S_URL_VALUE";
-	public static final String DEFAULT_DEFINITIONS_PATH_JSON = "src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/valid";
     public static final String CCD_IMPORT_AUTOTEST_EMAIL = "DEFINITION_IMPORTER_USERNAME";
 	public static final String CCD_IMPORT_AUTOTEST_EMAIL_VALUE = "CCD_IMPORT_AUTOTEST_EMAIL_VALUE";
     public static final String CCD_IMPORT_AUTOTEST_PASSWORD = "DEFINITION_IMPORTER_PASSWORD";
 	public static final String CCD_IMPORT_AUTOTEST_PASSWORD_VALUE = "CCD_IMPORT_AUTOTEST_PASSWORD_VALUE";
-    private MockedStatic<RestAssured> restAssuredMock = null; 
+    private MockedStatic<RestAssured> restAssuredMock = null;
 
     @BeforeEach
     public void prepareMockedObjectUnderTest() {
@@ -220,5 +226,73 @@ class TestDataLoaderToDefinitionStore {
 	void testAsAutoTestImporter() {
 		fail("Not yet implemented");
 	}
+
+    @Test
+    @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
+    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_API_GATEWAY_S2S_CLIENT_ID", value = "ROLE_ASSIGNMENT_CLIENT_ID_VALUE")
+    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_API_GATEWAY_S2S_CLIENT_KEY", value = "ROLE_ASSIGNMENT_CLIENT_KEY_VALUE")
+    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_USER_EMAIL", value = "ROLE_ASSIGNMENT_USER_EMAIL")
+    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_USER_PASSWORD", value = "ROLE_ASSIGNMENT_USER_PASSWORD")
+    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_HOST", value = "ROLE_ASSIGNMENT_HOST")
+    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_SOLICITOR_USER", value = "ROLE_ASSIGNMENT_SOLICITOR_USER")
+    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_SOLICITOR_USER_PWD", value = "ROLE_ASSIGNMENT_SOLICITOR_USER_PWD")
+    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_SUPER_USER", value = "ROLE_ASSIGNMENT_SUPER_USER")
+    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_SUPER_USER_PWD", value = "ROLE_ASSIGNMENT_SUPER_USER_PWD")
+    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF1_USER", value = "ROLE_ASSIGNMENT_STAFF1_USER")
+    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF1_USER_PWD", value = "ROLE_ASSIGNMENT_STAFF1_USER_PWD")
+    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF2_USER", value = "ROLE_ASSIGNMENT_STAFF2_USER")
+    @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF2_USER_PWD", value = "ROLE_ASSIGNMENT_STAFF2_USER_PWD")
+       void testCreateRoleAssignments() {
+        TestAutomationAdapter mockAdapter = mock(TestAutomationAdapter.class);
+        RequestSpecification requestSpecification = mock (RequestSpecification.class);
+        Response rs = mock(io.restassured.response.Response.class);
+        when(mockAdapter.getNewS2SToken()).thenReturn("s2s_token");
+        DataLoaderToDefinitionStore dataLoaderToDefinitionStore = new DataLoaderToDefinitionStore(mockAdapter);
+        when(RestAssured.given(any())).thenReturn(requestSpecification);
+        when(requestSpecification.header(any(), any(), ArgumentMatchers.<String>any())).thenReturn(requestSpecification);
+        when(requestSpecification.given()).thenReturn(requestSpecification);
+        when(requestSpecification.body(any(String.class))).thenReturn(requestSpecification);
+        when(requestSpecification.when()).thenReturn(requestSpecification);
+        when(requestSpecification.post("/am/role-assignments")).thenReturn(rs);
+        when(rs.getStatusCode()).thenReturn(200);
+        assertNotNull(dataLoaderToDefinitionStore);
+        dataLoaderToDefinitionStore.createRoleAssignments();
+    }
+
+            @Test
+            @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
+            @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_API_GATEWAY_S2S_CLIENT_ID", value = "ROLE_ASSIGNMENT_CLIENT_ID_VALUE")
+            @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_API_GATEWAY_S2S_CLIENT_KEY", value = "ROLE_ASSIGNMENT_CLIENT_KEY_VALUE")
+            @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_USER_EMAIL", value = "ROLE_ASSIGNMENT_USER_EMAIL")
+            @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_USER_PASSWORD", value = "ROLE_ASSIGNMENT_USER_PASSWORD")
+            @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_HOST", value = "ROLE_ASSIGNMENT_HOST")
+            @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_SOLICITOR_USER", value = "ROLE_ASSIGNMENT_SOLICITOR_USER")
+            @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_SOLICITOR_USER_PWD", value = "ROLE_ASSIGNMENT_SOLICITOR_USER_PWD")
+            @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_SUPER_USER", value = "ROLE_ASSIGNMENT_SUPER_USER")
+            @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_SUPER_USER_PWD", value = "ROLE_ASSIGNMENT_SUPER_USER_PWD")
+            @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF1_USER", value = "ROLE_ASSIGNMENT_STAFF1_USER")
+            @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF1_USER_PWD", value = "ROLE_ASSIGNMENT_STAFF1_USER_PWD")
+            @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF2_USER", value = "ROLE_ASSIGNMENT_STAFF2_USER")
+            @SetEnvironmentVariable(key = "ROLE_ASSIGNMENT_STAFF2_USER_PWD", value = "ROLE_ASSIGNMENT_STAFF2_USER_PWD")
+            void testCreateRoleAssignmentException() {
+                TestAutomationAdapter mockAdapter = mock(TestAutomationAdapter.class);
+                RequestSpecification requestSpecification = mock (RequestSpecification.class);
+                Response rs = mock(io.restassured.response.Response.class);
+                when(mockAdapter.getNewS2SToken()).thenReturn("s2s_token");
+                DataLoaderToDefinitionStore dataLoaderToDefinitionStore = new DataLoaderToDefinitionStore(mockAdapter);
+                ResponseBody<?> responseBody = mock(io.restassured.response.ResponseBody.class);
+                when(RestAssured.given(any())).thenReturn(requestSpecification);
+                when(requestSpecification.header(any(), any(), ArgumentMatchers.<String>any())).thenReturn(requestSpecification);
+                when(requestSpecification.given()).thenReturn(requestSpecification);
+                when(requestSpecification.body(any(String.class))).thenReturn(requestSpecification);
+                when(requestSpecification.when()).thenReturn(requestSpecification);
+                when(requestSpecification.post("/am/role-assignments")).thenReturn(rs);
+                when(rs.body()).thenReturn(responseBody);;
+                when(responseBody.prettyPrint()).thenReturn("");
+                assertNotNull(dataLoaderToDefinitionStore);
+                Assertions.assertThrows(RuntimeException.class, () -> {
+                   dataLoaderToDefinitionStore.createRoleAssignment("resource", "filename");
+                });
+            }
 
 }

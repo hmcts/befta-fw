@@ -73,6 +73,21 @@ Below are the environment needed specifically for CCD domain.
    * DEFINITION_IMPORTER_PASSWORD: Password of the user on behalf of which definitions 
      will be imported to Definition Store, for automated test data preparation.
 
+Below are the environment needed specifically to Create Role Assignment data.
+* ROLE_ASSIGNMENT_API_GATEWAY_S2S_CLIENT_ID:S2S service token for Role Assignment service.
+* ROLE_ASSIGNMENT_API_GATEWAY_S2S_CLIENT_KEY:S2S key for Role Assignment service.
+* ROLE_ASSIGNMENT_HOST: Base URL of the Role Assignment APIs.
+* ROLE_ASSIGNMENT_USER_EMAIL: Email id of the user who can access role Assignment service.
+* ROLE_ASSIGNMENT_USER_PASSWORD: Password of the user who can access role Assignment service.
+* [[$ENV_VAR_FOR_USER]]: The ActorID, reference, assignerId fields in the json payload will have placeholders 
+  which will be parsed to get the email address of the user.
+  Password placeholder for the user [[$ENV_VAR_FOR_USER]] should be in the format of [[$ENV_VAR_FOR_USER_PWD]]
+  Ex: If json payload contains [[$ROLE_ASSIGNMENT_SUPER_USER]] for ActorId, reference , the corresponding environment 
+  Password variable should be ROLE_ASSIGNMENT_SUPER_USER_PWD
+    
+* The json payload files should be under 'src/aat/resources/roleAssignments' with extension '.ras.json'
+  
+  
 
 ### 3.6) Run BEFTA Framework Without a Build Tool
 1. Download a copy of BEFTA Framework (say, version 1.2.1) in a local folder, say the root directory of an 

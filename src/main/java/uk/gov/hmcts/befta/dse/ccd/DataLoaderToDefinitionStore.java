@@ -1,12 +1,18 @@
 package uk.gov.hmcts.befta.dse.ccd;
 
+import org.apache.commons.compress.utils.IOUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.reflect.ClassPath;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -21,14 +27,18 @@ import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import org.springframework.core.io.ClassPathResource;
 import uk.gov.hmcts.befta.BeftaMain;
 import uk.gov.hmcts.befta.DefaultBeftaTestDataLoader;
 import uk.gov.hmcts.befta.DefaultTestAutomationAdapter;
 import uk.gov.hmcts.befta.TestAutomationAdapter;
 import uk.gov.hmcts.befta.auth.UserTokenProviderConfig;
+import uk.gov.hmcts.befta.data.HttpTestDataSource;
 import uk.gov.hmcts.befta.data.UserData;
 import uk.gov.hmcts.befta.dse.ccd.definition.converter.JsonTransformer;
+import uk.gov.hmcts.befta.factory.HttpTestDataSourceFactory;
 import uk.gov.hmcts.befta.util.BeftaUtils;
+import uk.gov.hmcts.befta.util.EnvironmentVariableUtils;
 import uk.gov.hmcts.befta.util.FileUtils;
 
 public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
@@ -38,6 +48,8 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
     public static final String VALID_CCD_TEST_DEFINITIONS_PATH = "uk/gov/hmcts/ccd/test_definitions/valid";
 
     private static final String TEMPORARY_DEFINITION_FOLDER = "definition_files";
+
+    private static final String[] RA_DATA_RESOURCE_PACKAGES = { "roleAssignments" };
 
     private static final CcdRoleConfig[] CCD_ROLES_NEEDED_FOR_TA = {
         new CcdRoleConfig("caseworker-autotest1", "PUBLIC"),
@@ -169,6 +181,113 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
     protected void doLoadTestData() {
         addCcdRoles();
         importDefinitions();
+        createRoleAssignments();
+    }
+
+    public void createRoleAssignments() {
+        getRoleAssignmentFiles(RA_DATA_RESOURCE_PACKAGES);
+    }
+
+    private void getRoleAssignmentFiles(String[] resourcePackages) {
+        try {
+            ClassPath cp = ClassPath.from(Thread.currentThread().getContextClassLoader());
+            for (String resourcePackage : resourcePackages) {
+                String prefix = resourcePackage + "/";
+                for (ClassPath.ResourceInfo info : cp.getResources()) {
+                    if (info.getResourceName().startsWith(prefix)
+                            && info.getResourceName().endsWith(".ras.json")) {
+                        InputStream resource = new ClassPathResource(info.getResourceName()).getInputStream();
+                        String result = new BufferedReader(new InputStreamReader(resource))
+                                .lines().collect(Collectors.joining("\n"));
+                        createRoleAssignment(result, info.getResourceName());
+                    }
+                }
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    protected void createRoleAssignment(String resource, String filename) {
+        try {
+            JSONObject payLoadJSONObject = new JSONObject(resource);
+            Response response = asRoleAssignmentUser().given()
+                    .header("Content-type", "application/json")
+                    .body(readObjectFromJsonFile(payLoadJSONObject).toString())
+                    .when().post("/am/role-assignments");
+            if (response.getStatusCode() / 100 != 2) {
+                String message = "Calling Role Assignment service failed with response body: "
+                        + response.body().prettyPrint();
+                message += "\nand http code: " + response.statusCode();
+                throw new RuntimeException(message);
+            } else {
+                logger.info("Role Assignment file " + filename + " loaded");
+            }
+        } catch (Exception e) {
+            String message = String.format("reading json from %s failed",filename);
+            throw new RuntimeException(message, e);
+        }
+
+    }
+
+    private  JSONObject readObjectFromJsonFile(JSONObject jsonObject) throws JSONException {
+        JSONArray keys = jsonObject.names();
+        for (int i = 0; i < keys.length(); i++) {
+            String current_key = keys.get(i).toString();
+            if (jsonObject.get(current_key).getClass().getName().equals("org.json.JSONObject")) {
+                readObjectFromJsonFile((JSONObject) jsonObject.get(current_key));
+            } else if (jsonObject.get(current_key).getClass().getName().equals("org.json.JSONArray")) {
+                for (int j = 0; j < ((JSONArray) jsonObject.get(current_key)).length(); j++) {
+                    if (((JSONArray) jsonObject.get(current_key)).get(j).getClass().getName().equals("org.json.JSONObject")) {
+                        readObjectFromJsonFile((JSONObject) ((JSONArray) jsonObject.get(current_key)).get(j));
+                    }
+                }
+            } else {
+                String value = jsonObject.optString(current_key);
+                if (value.startsWith("[[$")) {
+                    UserData raUser = resolveUserData(value);
+                    resolveUserIdamId(jsonObject, current_key, raUser);
+                }
+            }
+        }
+        return jsonObject;
+    }
+
+    private void resolveUserIdamId(JSONObject object, String current_key, UserData raUser) {
+        try {
+            adapter.authenticate(raUser, UserTokenProviderConfig.DEFAULT_INSTANCE.getClientId());
+            object.put(current_key, raUser.getId());
+        } catch (ExecutionException e) {
+            String message = String.format("parsing json as %s failed", raUser.getUsername());
+            throw new RuntimeException(message, e);
+        }
+    }
+
+    private UserData resolveUserData(String value) {
+        String resolvedUsername = EnvironmentVariableUtils.resolvePossibleVariable(value);
+        String resolvedPassword = EnvironmentVariableUtils.getRequiredVariable(
+                value.substring(3, value.length() - 2) + "_PWD");
+        return getUserData(resolvedUsername, resolvedPassword);
+    }
+
+    private UserData getUserData(String resolvedUsername, String resolvedPassword) {
+        return new UserData(resolvedUsername, resolvedPassword);
+    }
+
+    private RequestSpecification asRoleAssignmentUser() {
+        UserData raUser = new UserData(BeftaMain.getConfig().getRoleAssignmentEmail(),
+                BeftaMain.getConfig().getRoleAssignmentPassword());
+        try {
+            adapter.authenticate(raUser, UserTokenProviderConfig.DEFAULT_INSTANCE.getClientId());
+            String s2sToken = adapter.getNewS2STokenWithEnvVars("ROLE_ASSIGNMENT_API_GATEWAY_S2S_CLIENT_ID",
+                    "ROLE_ASSIGNMENT_API_GATEWAY_S2S_CLIENT_KEY");
+            return RestAssured.given(new RequestSpecBuilder().setBaseUri(BeftaMain.getConfig().getRoleAssignmentHost()).build())
+                    .header("Authorization", "Bearer " + raUser.getAccessToken())
+                    .header("ServiceAuthorization", s2sToken);
+        } catch (ExecutionException e) {
+            String message = String.format("authenticating as %s failed ", raUser.getUsername());
+            throw new RuntimeException(message, e);
+        }
     }
 
     public void addCcdRoles() {
