@@ -218,7 +218,7 @@ class TestAutomationConfigTest {
             value = BEFTA_USER_TOKEN_CACHE_TTL_VALUE)
     void testGetUserTokenCacheTtlInSeconds() {
         assertEquals(Long.parseLong(BEFTA_USER_TOKEN_CACHE_TTL_VALUE),
-                TestAutomationConfig.INSTANCE.getUserTokenCacheTtlInSeconds());
+                TestAutomationConfig.INSTANCE.getUserTokenCacheTtlInSeconds().longValue());
     }
 
     /**
@@ -228,7 +228,7 @@ class TestAutomationConfigTest {
     @Test
     void testGetUserTokenCacheTtlInSecondsNoValueSet() {
         assertEquals(0L,
-                TestAutomationConfig.INSTANCE.getUserTokenCacheTtlInSeconds());
+                TestAutomationConfig.INSTANCE.getUserTokenCacheTtlInSeconds().longValue());
     }
 
     /**
@@ -240,7 +240,7 @@ class TestAutomationConfigTest {
             value = BEFTA_S2S_TOKEN_CACHE_TTL_VALUE)
     void testGetS2STokenCacheTtlInSeconds() {
         assertEquals(Long.parseLong(BEFTA_S2S_TOKEN_CACHE_TTL_VALUE),
-                TestAutomationConfig.INSTANCE.getS2STokenCacheTtlInSeconds());
+                TestAutomationConfig.INSTANCE.getS2STokenCacheTtlInSeconds().longValue());
     }
 
     /**
@@ -250,7 +250,7 @@ class TestAutomationConfigTest {
     @Test
     void testGetS2STokenCacheTtlInSecondsNoValuesSet() {
         assertEquals(0L,
-                TestAutomationConfig.INSTANCE.getS2STokenCacheTtlInSeconds());
+                TestAutomationConfig.INSTANCE.getS2STokenCacheTtlInSeconds().longValue());
     }
 
     /**

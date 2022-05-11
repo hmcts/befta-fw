@@ -3,7 +3,7 @@ package uk.gov.hmcts.befta;
 import static java.lang.String.format;
 import static uk.gov.hmcts.befta.util.BeftaUtils.defaultLog;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
