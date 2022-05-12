@@ -5,6 +5,7 @@ plugins {
 
 apply plugin: 'java'
 
+
 def buildNumber = System.getenv("RELEASE_VERSION")?.replace("refs/tags/", "") ?: "8.7.2"
 
 group 'com.github.hmcts'
@@ -234,4 +235,9 @@ compileJava {
     options.incremental = false
 }
 
-sourceCompatibility = 17
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
