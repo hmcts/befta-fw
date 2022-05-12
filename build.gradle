@@ -67,6 +67,7 @@ tasks.withType(Test) {
 test {
   failFast = true
   testLogging.showStandardStreams = true
+  jvmArgs = ["--add-opens=java.base/java.lang.reflect=ALL-UNNAMED"]
 }
 
 artifacts {
@@ -142,13 +143,15 @@ dependencies {
     implementation group: 'io.rest-assured', name: 'rest-assured', version: '4.4.0'
 
 //    compile group: 'io.cucumber', name: 'cucumber-java', version: '5.7.0'
+//    implementation group: 'io.cucumber', name: 'cucumber-java', version: '7.3.4'
     implementation group: 'io.cucumber', name: 'cucumber-java', version: '5.7.0'
 //    compile group: 'io.cucumber', name: 'cucumber-junit', version: '5.7.0'
+//    implementation group: 'io.cucumber', name: 'cucumber-junit', version: '7.3.4'
     implementation group: 'io.cucumber', name: 'cucumber-junit', version: '5.7.0'
 
 //    compile 'org.projectlombok:lombok:1.18.4'
-    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.4'
-    annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.4'
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
+    annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
 
 //    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.26'
     implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.26'
@@ -188,9 +191,9 @@ dependencies {
 //    testCompile 'io.github.openfeign:feign-jackson:9.7.0'
     implementation group: 'io.github.openfeign', name: 'feign-jackson', version: '9.7.0'
 //    testCompile group: 'org.mockito', name: 'mockito-core', version: '3.3.3'
-    testImplementation group: 'org.mockito', name: 'mockito-core', version: '3.3.3'
+    testImplementation group: 'org.mockito', name: 'mockito-core', version: '4.5.1'
 //    testCompile group: 'org.mockito', name: 'mockito-inline', version: '3.4.0'
-    testImplementation group: 'org.mockito', name: 'mockito-inline', version: '3.4.0'
+    testImplementation group: 'org.mockito', name: 'mockito-inline', version: '4.5.1'
 //    testCompile group: 'org.junit-pioneer', name: 'junit-pioneer', version: '0.9.0'
     testImplementation group: 'org.junit-pioneer', name: 'junit-pioneer', version: '0.9.0'
 //    testCompile "org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}"
@@ -226,3 +229,9 @@ def getCaseTypes() {
     // TODO: Hardcode case types which are only available in spreadsheets and add to the list?
     return caseTypes
 }
+
+compileJava {
+    options.incremental = false
+}
+
+sourceCompatibility = 17

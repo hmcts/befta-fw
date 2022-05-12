@@ -62,6 +62,7 @@ public final class CucumberStepAnnotationUtils {
 
         Class<?> superclass = m.getClass().getSuperclass();
         Field declaredField = superclass.getDeclaredField("declaredAnnotations");
+        //Field declaredField = Unsafe.class.getDeclaredField("declaredAnnotations");
         declaredField.setAccessible(true);
 
         Map<Class<? extends Annotation>, Annotation> map = (Map<Class<? extends Annotation>, Annotation>) declaredField.get(m);
