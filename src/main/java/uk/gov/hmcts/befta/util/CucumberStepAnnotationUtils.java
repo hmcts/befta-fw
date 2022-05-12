@@ -63,7 +63,13 @@ public final class CucumberStepAnnotationUtils {
         Class<?> superclass = m.getClass().getSuperclass();
         Field declaredField = superclass.getDeclaredField("declaredAnnotations");
         //Field declaredField = Unsafe.class.getDeclaredField("declaredAnnotations");
-        declaredField.setAccessible(true);
+        //declaredField.setAccessible(true);
+        try {
+            declaredField.setAccessible(true);
+        } catch (RuntimeException e) {
+            Logger logger = LoggerFactory.getLogger(CucumberStepAnnotationUtils.class);
+            logger.error("Error occurred when annotations to accessible.", e);
+        }
 
         Map<Class<? extends Annotation>, Annotation> map = (Map<Class<? extends Annotation>, Annotation>) declaredField.get(m);
         map.put(clazz, annotation);
