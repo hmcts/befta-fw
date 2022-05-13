@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.InaccessibleObjectException;
 import java.util.Map;
 
 public final class CucumberStepAnnotationUtils {
@@ -66,7 +67,7 @@ public final class CucumberStepAnnotationUtils {
         //declaredField.setAccessible(true);
         try {
             declaredField.setAccessible(true);
-        } catch (RuntimeException e) {
+        } catch (InaccessibleObjectException e) {
             Logger logger = LoggerFactory.getLogger(CucumberStepAnnotationUtils.class);
             logger.error("Error occurred when annotations to accessible.", e);
         }
