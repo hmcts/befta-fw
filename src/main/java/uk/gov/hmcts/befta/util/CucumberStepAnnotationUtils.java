@@ -75,7 +75,7 @@ public final class CucumberStepAnnotationUtils {
                 logger.info("accessibility of field {} set to true successfully", declaredField);
             }
             else {
-                logger.info("accessibility of field {} set to true unsuccessfully", declaredField);
+                logger.error("accessibility of field {} couldn't be set to true", declaredField);
             }
         }
 
