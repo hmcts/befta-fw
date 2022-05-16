@@ -14,6 +14,8 @@ import java.util.Map;
 
 public final class CucumberStepAnnotationUtils {
 
+    private static Logger logger = LoggerFactory.getLogger(CucumberStepAnnotationUtils.class);
+
     // Hide Utility Class Constructor : Utility classes should not have a public or default constructor (squid:S1118)
     private CucumberStepAnnotationUtils() { }
 
@@ -68,9 +70,10 @@ public final class CucumberStepAnnotationUtils {
         try {
             declaredField.setAccessible(true);
         } catch (InaccessibleObjectException e) {
-            Logger logger = LoggerFactory.getLogger(CucumberStepAnnotationUtils.class);
             logger.error("Error occurred when annotations to accessible.", e);
         }
+
+        logger.info("accessibility of field {} is {}.", declaredField ,declaredField.isAccessible());
 
         Map<Class<? extends Annotation>, Annotation> map = (Map<Class<? extends Annotation>, Annotation>) declaredField.get(m);
         map.put(clazz, annotation);
