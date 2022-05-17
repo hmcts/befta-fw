@@ -12,14 +12,12 @@ public class TestUtils {
 
     public static void setFieldWithReflection(Object object, Field field, Object newValue) throws Exception {
         field.setAccessible(true);
-        //Field modifiersField = Field.class.getDeclaredField("modifiers");
         Field modifiersField = getModifiersField();
         modifiersField.setAccessible(true);
         modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
         field.set(object, newValue);
     }
 
-    //https://github.com/prestodb/presto/pull/15240/files
     private static Field getModifiersField() throws NoSuchFieldException
     {
         try {

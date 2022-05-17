@@ -5,7 +5,6 @@ plugins {
 
 apply plugin: 'java'
 
-
 def buildNumber = System.getenv("RELEASE_VERSION")?.replace("refs/tags/", "") ?: "8.7.2"
 
 group 'com.github.hmcts'
@@ -137,73 +136,37 @@ publishing {
 wrapper.gradleVersion = '2.10'
 
 dependencies {
-//    compile "com.fasterxml.jackson.core:jackson-databind:2.10.0"
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.10.0'
 
-//    compile group: 'io.rest-assured', name: 'rest-assured', version: '4.4.0'
     implementation group: 'io.rest-assured', name: 'rest-assured', version: '4.4.0'
 
-//    compile group: 'io.cucumber', name: 'cucumber-java', version: '5.7.0'
-//    implementation group: 'io.cucumber', name: 'cucumber-java', version: '7.3.4'
     implementation group: 'io.cucumber', name: 'cucumber-java', version: '5.7.0'
-//    compile group: 'io.cucumber', name: 'cucumber-junit', version: '5.7.0'
-//    implementation group: 'io.cucumber', name: 'cucumber-junit', version: '7.3.4'
     implementation group: 'io.cucumber', name: 'cucumber-junit', version: '5.7.0'
 
-//    compile 'org.projectlombok:lombok:1.18.4'
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
     annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
 
-//    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.26'
     implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.26'
-//    implementation group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.26'
 
-//    implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.17.2'
-//    implementation group: 'org.slf4j', name: 'slf4j-api', version: '2.0.0-alpha1'
-//    implementation 'org.apache.logging.log4j:log4j-slf4j18-impl:2.14.0'
-
-//    compileOnly 'org.projectlombok:lombok:1.18.16'
-//    annotationProcessor 'org.projectlombok:lombok:1.18.16'
-
-//    testCompileOnly 'org.projectlombok:lombok:1.18.16'
-//    testAnnotationProcessor 'org.projectlombok:lombok:1.18.16'
-
-
-
-//    compile group: 'com.github.hmcts', name: 'service-auth-provider-java-client', version: '3.1.4'
     implementation group: 'com.github.hmcts', name: 'service-auth-provider-java-client', version: '3.1.4'
-//    compile group: 'org.apache.httpcomponents', name: 'httpcore', version: '4.4.12'
     implementation group: 'org.apache.httpcomponents', name: 'httpcore', version: '4.4.12'
 
-//    compile group: 'com.google.guava', name: 'guava', version: '28.1-jre'
     implementation group: 'com.google.guava', name: 'guava', version: '28.1-jre'
 
-//    compile group: 'org.apache.poi', name: 'poi', version: '4.0.0'
     implementation group: 'org.apache.poi', name: 'poi', version: '4.0.0'
-//    compile group: 'org.apache.poi', name: 'poi-ooxml', version: '4.0.0'
     implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '4.0.0'
-
-//    compile group: 'com.github.rholder', name: 'guava-retrying', version: '2.0.0'
     implementation group: 'com.github.rholder', name: 'guava-retrying', version: '2.0.0'
 
     implementation group: 'com.launchdarkly', name: 'launchdarkly-java-server-sdk', version: '5.+'
     implementation group: 'org.json', name: 'json', version: '20200518'
 
-//    testCompile 'io.github.openfeign:feign-jackson:9.7.0'
     implementation group: 'io.github.openfeign', name: 'feign-jackson', version: '9.7.0'
-//    testCompile group: 'org.mockito', name: 'mockito-core', version: '3.3.3'
     testImplementation group: 'org.mockito', name: 'mockito-core', version: '4.5.1'
-//    testCompile group: 'org.mockito', name: 'mockito-inline', version: '3.4.0'
     testImplementation group: 'org.mockito', name: 'mockito-inline', version: '4.5.1'
-//    testCompile group: 'org.junit-pioneer', name: 'junit-pioneer', version: '0.9.0'
     testImplementation group: 'org.junit-pioneer', name: 'junit-pioneer', version: '0.9.0'
-//    testCompile "org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}"
     testImplementation "org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}"
-//    testRuntime "org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}"
     testImplementation "org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}"
-//    testRuntime "org.junit.platform:junit-platform-commons:1.5.2"
     implementation group: 'org.junit.platform', name: 'junit-platform-commons', version: '1.5.2'
-//    testRuntime "org.junit.platform:junit-platform-engine:1.6.2"
     testImplementation group: 'org.junit.platform', name: 'junit-platform-engine', version: '1.6.2'
 
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
@@ -240,7 +203,3 @@ java {
         languageVersion = JavaLanguageVersion.of(17)
     }
 }
-
-//sourceCompatibility = 17
-//targetCompatibility = 17
-

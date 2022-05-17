@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.lang.reflect.InaccessibleObjectException;
 import java.util.Map;
 
 public final class CucumberStepAnnotationUtils {
@@ -65,10 +64,8 @@ public final class CucumberStepAnnotationUtils {
 
         Class<?> superclass = m.getClass().getSuperclass();
         Field declaredField = superclass.getDeclaredField("declaredAnnotations");
-        //Field declaredField = Unsafe.class.getDeclaredField("declaredAnnotations");
-        //declaredField.setAccessible(true);
 
-        logger.info("initial accessibility of field {} is {}.", declaredField ,declaredField.isAccessible());
+        logger.info("initial accessibility of field {} is {}.", declaredField, declaredField.isAccessible());
 
         if (!declaredField.isAccessible()) {
             if (declaredField.trySetAccessible()) {
@@ -78,14 +75,6 @@ public final class CucumberStepAnnotationUtils {
                 logger.error("accessibility of field {} couldn't be set to true", declaredField);
             }
         }
-
-//        try {
-//            declaredField.setAccessible(true);
-//        } catch (InaccessibleObjectException e) {
-//            logger.error("Error occurred when annotations to accessible.", e);
-//        }
-
-//        logger.info("accessibility of field {} is {}.", declaredField ,declaredField.isAccessible());
 
         Map<Class<? extends Annotation>, Annotation> map = (Map<Class<? extends Annotation>, Annotation>) declaredField.get(m);
         map.put(clazz, annotation);

@@ -8,7 +8,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-//import static org.mockito.ArgumentMatchers.anyMapOf;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
@@ -89,8 +88,6 @@ class DefaultTestAutomationAdapterTest {
                     isA(String.class))).thenReturn(auresponse);
             Mockito.when(idamApi.exchangeCode(isA(String.class), isA(String.class), isA(String.class),
                     isA(String.class), isA(String.class))).thenReturn(idamtockenExch);
-            //Mockito.when(serviceAuthorisationApi.serviceToken(anyMapOf(String.class, String.class)))
-                    //.thenReturn("adad");
             Mockito.when(serviceAuthorisationApi.serviceToken(Mockito.anyMap()))
                     .thenReturn("adad");
             Mockito.when(BeftaServiceAuthorisationApiClientFactory.createServiceAuthorisationApiClient())
