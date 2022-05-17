@@ -28,18 +28,18 @@ It provides the following functionalities and conveniences:
 
 
 ### 3.1) System Requirements
-* System Resources (Memory, Disk, CPU) - Same for a JDK 8 installation.  
-  [Click here to see Oracle's reference for this.](https://docs.oracle.com/javase/8/docs/technotes/guides/install/windows_system_requirements.html)
+* System Resources (Memory, Disk, CPU) - Same for a JDK 17 installation.  
+  [Click here to see Oracle's reference for this.](https://docs.oracle.com/en/java/javase/17/install/overview-jdk-installation.html#GUID-8677A77F-231A-40F7-98B9-1FD0B48C346A)
 
 
 ### 3.2) Software Requirements
-* Java SE Development Kit 8 (JDK 8)
+* Java SE Development Kit 17 (JDK 17)
 * Your Favourite IDE
-* Gradle 4.10+
+* Gradle 7.4.2+
 
 
 ### 3.3) Setting Up Environment
-1. Install JDK 8 or higher
+1. Install JDK 17 or higher
 2. Install a command line terminal application
 
 
@@ -105,25 +105,48 @@ Below are the environment needed specifically to Create Role Assignment data.
 1. Install Gradle 4.1 or higher. You can simply copy a gradle wrapper from `https://github.com/hmcts/befta-fw`.
 2. Add the following dependency to your build.gradle file:  
    `testCompile group: 'com.github.hmcts', name: 'befta-fw', version: '6.13.4'`
-3. Add a javaExec section to wherever you want a functional test suit to be executed, 
-   like below:
-   ```
-           javaexec {
-            main = "uk.gov.hmcts.befta.BeftaMain"
-            classpath += configurations.cucumberRuntime + sourceSets.aat.runtimeClasspath + sourceSets.main.output + sourceSets.test.output
-            args = ['--plugin', "json:${projectDir}/target/cucumber.json", '--tags', 'not @Ignore', '--glue',
-                    'uk.gov.hmcts.befta.player', 'my-feature-files/are/here, and/here, and-also/there']
-        }
-   ```
-   You can place this block inside the
-   ```
-   task functional(type: Test) {
-      ...
-   }
-   ```
-   of your test automation project.  
-   Test automation teams can write their simple, tiny custom Main classes to customise 
-   the the test suite launching logic.
+   1. Add a javaExec section to wherever you want a functional test suit to be executed, 
+      like below:
+      ```
+              javaexec {
+               main = "uk.gov.hmcts.befta.BeftaMain"
+               classpath += configurations.cucumberRuntime + sourceSets.aat.runtimeClasspath + sourceSets.main.output + sourceSets.test.output
+               args = ['--plugin', "json:${projectDir}/target/cucumber.json", '--tags', 'not @Ignore', '--glue',
+                       'uk.gov.hmcts.befta.player', 'my-feature-files/are/here, and/here, and-also/there']
+           }
+      ```
+      You can place this block inside the
+      ```
+      task functional(type: Test) {
+         ...
+      }
+      ```
+      of your test automation project.  
+      Test automation teams can write their simple, tiny custom Main classes to customise 
+      the the test suite launching logic.
+       
+      If you see an error similar to 
+
+       ```
+       Failing to give add access to DeclaredFields in CucumberStepAnnotationUtils.replaceAnnotationClass.
+    
+       Exception in thread "main" java.lang.reflect.InaccessibleObjectException: Unable to make field private transient volatile java.util.Map java.lang.reflect.Executable.declaredAnnotations accessible: module java.base does not "opens java.lang.reflect" to unnamed module @1ca7bef1
+       at java.base/java.lang.reflect.AccessibleObject.checkCanSetAccessible(AccessibleObject.java:354)
+       at java.base/java.lang.reflect.Field.setAccessible(Field.java:172)
+       at uk.gov.hmcts.befta.util.CucumberStepAnnotationUtils.replaceAnnotationClass(CucumberStepAnnotationUtils.java:65)
+       at uk.gov.hmcts.befta.util.CucumberStepAnnotationUtils.injectCommonSyntacticFlexibilitiesIntoStepDefinitions(CucumberStepAnnotationUtils.java:29)
+       at uk.gov.hmcts.befta.BeftaMain.setUp(BeftaMain.java:85)
+       at uk.gov.hmcts.befta.BeftaMain.main(BeftaMain.java:37)
+       ```
+      you may need to add a line to the failing gradle task in youe build.gradle file allow opens via a jvmArg like in the below example
+       ```
+      test {
+          failFast = true
+          testLogging.showStandardStreams = true
+          jvmArgs = ["--add-opens=java.base/java.lang.reflect=ALL-UNNAMED"]
+       }
+      ```
+    
 
 
 ### 3.8) Observe Cucumber Report
