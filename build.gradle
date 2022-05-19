@@ -65,7 +65,7 @@ tasks.withType(Test) {
 }
 
 test {
-  failFast = true
+  failFast = false
   testLogging.showStandardStreams = true
 }
 
