@@ -214,6 +214,9 @@ class DefaultTestAutomationAdapterTest {
     @Test
     @SetEnvironmentVariable(key = "BEFTA_OAUTH2_REDIRECT_URI_OF_OTHER", value = "BEFTA_OAUTH2_REDIRECT_URI_OF_OTHER_VALUE")
     @SetEnvironmentVariable(key = "BEFTA_OAUTH2_CLIENT_SECRET_OF_OTHER", value = "BEFTA_OAUTH2_CLIENT_SECRET_OF_OTHER_VALUE")
+    @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_CLIENT_ID", value = "OAUTH2_CLIENT_ID_VALUE")
+    @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_CLIENT_SECRET", value = "OAUTH2_CLIENT_SECRET_VALUE")
+    @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_REDIRECT_URL", value = "OAUTH2_REDIRECT_URI_VALUE")
     @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_ID_KEY, value = BEFTA_S2S_CLIENT_ID_VALUE)
     @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_SECRET_KEY, value = BEFTA_S2S_CLIENT_SECRET_VALUE)
     void testAuthenticateTimeToLiveNotSet() throws Exception {
