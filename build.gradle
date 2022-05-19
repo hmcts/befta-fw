@@ -142,7 +142,7 @@ dependencies {
     implementation group: 'io.cucumber', name: 'cucumber-java', version: '5.7.0'
     implementation group: 'io.cucumber', name: 'cucumber-junit', version: '5.7.0'
 
-    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.4'
+    implementation group: 'org.projectlombok', name: 'lombok', version: '1.18.4'
     annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.4'
 
     implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.26'
