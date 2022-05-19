@@ -12,7 +12,7 @@ import io.cucumber.junit.CucumberOptions;
         plugin = "json:target/cucumber.json",
         glue = "uk.gov.hmcts.befta.player",
         features = { "classpath:features" },
-        tags = { "not @Ignore" }
+        tags = "not @Ignore"
 )
 public class DefaultBeftaRunner {
 
