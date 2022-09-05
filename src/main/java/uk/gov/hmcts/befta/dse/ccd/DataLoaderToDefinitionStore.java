@@ -78,7 +78,8 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
         new CcdRoleConfig("caseworker-befta_master-junior", "PUBLIC"),
         new CcdRoleConfig("caseworker-befta_master-manager", "PUBLIC"),
         new CcdRoleConfig("caseworker-caa", "PUBLIC"),
-        new CcdRoleConfig("caseworker-approver", "PUBLIC")
+        new CcdRoleConfig("caseworker-approver", "PUBLIC"),
+        new CcdRoleConfig("next-hearing-date-admin", "PUBLIC")
     };
 
     private TestAutomationAdapter adapter;
