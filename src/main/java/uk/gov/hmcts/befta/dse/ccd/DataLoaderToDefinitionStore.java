@@ -1,18 +1,32 @@
 package uk.gov.hmcts.befta.dse.ccd;
 
-import org.apache.commons.compress.utils.IOUtils;
+import com.google.common.reflect.ClassPath;
+import io.restassured.RestAssured;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.ClassPathResource;
+import uk.gov.hmcts.befta.BeftaMain;
+import uk.gov.hmcts.befta.DefaultBeftaTestDataLoader;
+import uk.gov.hmcts.befta.DefaultTestAutomationAdapter;
+import uk.gov.hmcts.befta.TestAutomationAdapter;
+import uk.gov.hmcts.befta.auth.UserTokenProviderConfig;
+import uk.gov.hmcts.befta.data.UserData;
+import uk.gov.hmcts.befta.dse.ccd.definition.converter.JsonTransformer;
+import uk.gov.hmcts.befta.util.BeftaUtils;
+import uk.gov.hmcts.befta.util.EnvironmentVariableUtils;
+import uk.gov.hmcts.befta.util.FileUtils;
 
-import com.google.common.reflect.ClassPath;
-
-import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -22,24 +36,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
-
-import io.restassured.RestAssured;
-import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.response.Response;
-import io.restassured.specification.RequestSpecification;
-import org.springframework.core.io.ClassPathResource;
-import uk.gov.hmcts.befta.BeftaMain;
-import uk.gov.hmcts.befta.DefaultBeftaTestDataLoader;
-import uk.gov.hmcts.befta.DefaultTestAutomationAdapter;
-import uk.gov.hmcts.befta.TestAutomationAdapter;
-import uk.gov.hmcts.befta.auth.UserTokenProviderConfig;
-import uk.gov.hmcts.befta.data.HttpTestDataSource;
-import uk.gov.hmcts.befta.data.UserData;
-import uk.gov.hmcts.befta.dse.ccd.definition.converter.JsonTransformer;
-import uk.gov.hmcts.befta.factory.HttpTestDataSourceFactory;
-import uk.gov.hmcts.befta.util.BeftaUtils;
-import uk.gov.hmcts.befta.util.EnvironmentVariableUtils;
-import uk.gov.hmcts.befta.util.FileUtils;
 
 public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
 
@@ -51,35 +47,40 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
 
     private static final String[] RA_DATA_RESOURCE_PACKAGES = { "roleAssignments" };
 
+    private static final String SECURITY_CLASSIFICATION_PUBLIC = "PUBLIC";
+    private static final String SECURITY_CLASSIFICATION_PRIVATE = "PRIVATE";
+    private static final String SECURITY_CLASSIFICATION_RESTRICTED = "RESTRICTED";
+
     private static final CcdRoleConfig[] CCD_ROLES_NEEDED_FOR_TA = {
-        new CcdRoleConfig("caseworker-autotest1", "PUBLIC"),
-        new CcdRoleConfig("caseworker-autotest1-private", "PRIVATE"),
-        new CcdRoleConfig("caseworker-autotest1-senior", "RESTRICTED"),
-        new CcdRoleConfig("caseworker-autotest1-solicitor", "PRIVATE"),
-        new CcdRoleConfig("caseworker-autotest2", "PUBLIC"),
-        new CcdRoleConfig("caseworker-autotest2-private", "PRIVATE"),
-        new CcdRoleConfig("caseworker-autotest2-senior", "RESTRICTED"),
-        new CcdRoleConfig("caseworker-autotest2-solicitor", "PRIVATE"),
-        new CcdRoleConfig("caseworker-befta_jurisdiction_1", "PUBLIC"),
-        new CcdRoleConfig("caseworker-befta_jurisdiction_2", "PUBLIC"),
-        new CcdRoleConfig("caseworker-befta_jurisdiction_2-solicitor_1", "PUBLIC"),
-        new CcdRoleConfig("caseworker-befta_jurisdiction_2-solicitor_2", "PUBLIC"),
-        new CcdRoleConfig("caseworker-befta_jurisdiction_2-solicitor_3", "PUBLIC"),
-        new CcdRoleConfig("citizen", "PUBLIC"),
-        new CcdRoleConfig("caseworker-befta_jurisdiction_3", "PUBLIC"),
-        new CcdRoleConfig("caseworker-befta_jurisdiction_3-solicitor", "PUBLIC"),
-        new CcdRoleConfig("caseworker-autotest1-manager", "PUBLIC"),
-        new CcdRoleConfig("caseworker-autotest1-junior", "PUBLIC"),
-        new CcdRoleConfig("caseworker-befta_master", "PUBLIC"),
-        new CcdRoleConfig("caseworker-befta_master-solicitor", "PUBLIC"),
-        new CcdRoleConfig("caseworker-befta_master-solicitor_1", "PUBLIC"),
-        new CcdRoleConfig("caseworker-befta_master-solicitor_2", "PUBLIC"),
-        new CcdRoleConfig("caseworker-befta_master-solicitor_3", "PUBLIC"),
-        new CcdRoleConfig("caseworker-befta_master-junior", "PUBLIC"),
-        new CcdRoleConfig("caseworker-befta_master-manager", "PUBLIC"),
-        new CcdRoleConfig("caseworker-caa", "PUBLIC"),
-        new CcdRoleConfig("caseworker-approver", "PUBLIC"),
-        new CcdRoleConfig("next-hearing-date-admin", "PUBLIC")
+        new CcdRoleConfig("caseworker-autotest1", SECURITY_CLASSIFICATION_PUBLIC),
+        new CcdRoleConfig("caseworker-autotest1-private", SECURITY_CLASSIFICATION_PRIVATE),
+        new CcdRoleConfig("caseworker-autotest1-senior", SECURITY_CLASSIFICATION_RESTRICTED),
+        new CcdRoleConfig("caseworker-autotest1-solicitor", SECURITY_CLASSIFICATION_PRIVATE),
+        new CcdRoleConfig("caseworker-autotest2", SECURITY_CLASSIFICATION_PUBLIC),
+        new CcdRoleConfig("caseworker-autotest2-private", SECURITY_CLASSIFICATION_PRIVATE),
+        new CcdRoleConfig("caseworker-autotest2-senior", SECURITY_CLASSIFICATION_RESTRICTED),
+        new CcdRoleConfig("caseworker-autotest2-solicitor", SECURITY_CLASSIFICATION_PRIVATE),
+        new CcdRoleConfig("caseworker-befta_jurisdiction_1", SECURITY_CLASSIFICATION_PUBLIC),
+        new CcdRoleConfig("caseworker-befta_jurisdiction_2", SECURITY_CLASSIFICATION_PUBLIC),
+        new CcdRoleConfig("caseworker-befta_jurisdiction_2-solicitor_1", SECURITY_CLASSIFICATION_PUBLIC),
+        new CcdRoleConfig("caseworker-befta_jurisdiction_2-solicitor_2", SECURITY_CLASSIFICATION_PUBLIC),
+        new CcdRoleConfig("caseworker-befta_jurisdiction_2-solicitor_3", SECURITY_CLASSIFICATION_PUBLIC),
+        new CcdRoleConfig("citizen", SECURITY_CLASSIFICATION_PUBLIC),
+        new CcdRoleConfig("caseworker-befta_jurisdiction_3", SECURITY_CLASSIFICATION_PUBLIC),
+        new CcdRoleConfig("caseworker-befta_jurisdiction_3-solicitor", SECURITY_CLASSIFICATION_PUBLIC),
+        new CcdRoleConfig("caseworker-autotest1-manager", SECURITY_CLASSIFICATION_PUBLIC),
+        new CcdRoleConfig("caseworker-autotest1-junior", SECURITY_CLASSIFICATION_PUBLIC),
+        new CcdRoleConfig("caseworker-befta_master", SECURITY_CLASSIFICATION_PUBLIC),
+        new CcdRoleConfig("caseworker-befta_master-solicitor", SECURITY_CLASSIFICATION_PUBLIC),
+        new CcdRoleConfig("caseworker-befta_master-solicitor_1", SECURITY_CLASSIFICATION_PUBLIC),
+        new CcdRoleConfig("caseworker-befta_master-solicitor_2", SECURITY_CLASSIFICATION_PUBLIC),
+        new CcdRoleConfig("caseworker-befta_master-solicitor_3", SECURITY_CLASSIFICATION_PUBLIC),
+        new CcdRoleConfig("caseworker-befta_master-junior", SECURITY_CLASSIFICATION_PUBLIC),
+        new CcdRoleConfig("caseworker-befta_master-manager", SECURITY_CLASSIFICATION_PUBLIC),
+        new CcdRoleConfig("caseworker-caa", SECURITY_CLASSIFICATION_PUBLIC),
+        new CcdRoleConfig("caseworker-approver", SECURITY_CLASSIFICATION_PUBLIC),
+        new CcdRoleConfig("next-hearing-date-admin", SECURITY_CLASSIFICATION_PUBLIC),
+        new CcdRoleConfig("GS_profile", SECURITY_CLASSIFICATION_PUBLIC)
     };
 
     private TestAutomationAdapter adapter;
