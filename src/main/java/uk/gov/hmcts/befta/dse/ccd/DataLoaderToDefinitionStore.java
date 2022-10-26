@@ -5,6 +5,7 @@ import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,12 +22,14 @@ import uk.gov.hmcts.befta.dse.ccd.definition.converter.JsonTransformer;
 import uk.gov.hmcts.befta.util.BeftaUtils;
 import uk.gov.hmcts.befta.util.EnvironmentVariableUtils;
 import uk.gov.hmcts.befta.util.FileUtils;
+import uk.gov.hmcts.befta.util.JsonUtils;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -51,6 +54,7 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
     private static final String SECURITY_CLASSIFICATION_PRIVATE = "PRIVATE";
     private static final String SECURITY_CLASSIFICATION_RESTRICTED = "RESTRICTED";
 
+    // NB: by default BEFTA-FW will load CCD Roles from a json file: this constant is the fallback if that load fails.
     private static final CcdRoleConfig[] CCD_ROLES_NEEDED_FOR_TA = {
         new CcdRoleConfig("caseworker-autotest1", SECURITY_CLASSIFICATION_PUBLIC),
         new CcdRoleConfig("caseworker-autotest1-private", SECURITY_CLASSIFICATION_PRIVATE),
@@ -83,9 +87,9 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
         new CcdRoleConfig("GS_profile", SECURITY_CLASSIFICATION_PUBLIC)
     };
 
-    private TestAutomationAdapter adapter;
-    private String definitionStoreUrl;
-    private String definitionsPath;
+    private final TestAutomationAdapter adapter;
+    private final String definitionStoreUrl;
+    private final String definitionsPath;
 
     public DataLoaderToDefinitionStore(String definitionsPath) {
         this(new DefaultTestAutomationAdapter(), definitionsPath, CcdEnvironment.AAT,
@@ -293,8 +297,9 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
     }
 
     public void addCcdRoles() {
-        logger.info("{} roles will be added to '{}'.", CCD_ROLES_NEEDED_FOR_TA.length, definitionStoreUrl);
-        for (CcdRoleConfig roleConfig : CCD_ROLES_NEEDED_FOR_TA) {
+        CcdRoleConfig[] ccdRoleConfigs = getCcdRolesConfig();
+        logger.info("{} roles will be added to '{}'.", ccdRoleConfigs.length, definitionStoreUrl);
+        for (CcdRoleConfig roleConfig : ccdRoleConfigs) {
             try {
                 logger.info("\n\nAdding CCD Role {}.", roleConfig);
                 addCcdRole(roleConfig);
@@ -343,7 +348,7 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
                 .when().put("/api/user-role");
         if (response.getStatusCode() / 100 != 2) {
             String message = "Import failed with response body: " + response.body().prettyPrint();
-            message += "\nand http code: " + response.statusCode();
+            message += "\nand http code: " + response.getStatusCode();
             throw new RuntimeException(message);
         }
     }
@@ -423,4 +428,27 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
     private boolean isUnderAJsonDefinitionPackage(String resourceName, String definitionsPath) {
         return resourceName.startsWith(definitionsPath) && resourceName.toLowerCase().endsWith(".json");
     }
+
+    private CcdRoleConfig[] getCcdRolesConfig() {
+
+        if (!StringUtils.isBlank(this.definitionsPath)) {
+
+            String ccdRolesPath = Paths.get(this.definitionsPath).resolve("../ccd-roles.json").normalize().toString();
+            try {
+                var ccdRolesResource = Thread.currentThread().getContextClassLoader().getResources(ccdRolesPath);
+                if (ccdRolesResource != null && ccdRolesResource.hasMoreElements()) {
+                    logger.info("Found CCD Roles JSON file: '{}'.", ccdRolesPath);
+                    return JsonUtils.readObjectFromJsonResource(ccdRolesPath, CCD_ROLES_NEEDED_FOR_TA.getClass());
+                } else {
+                    logger.info("No CCD Roles JSON file found: '{}'.", ccdRolesPath);
+                }
+            } catch (IOException ex) {
+                logger.warn("Error reading CCD Roles JSON file: '{}': ", ccdRolesPath, ex);
+            }
+        }
+
+        logger.info("Defaulting to load standard CCD Roles from BEFTA library.");
+        return CCD_ROLES_NEEDED_FOR_TA;
+    }
+
 }
