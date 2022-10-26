@@ -29,9 +29,11 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -435,7 +437,8 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
 
             String ccdRolesPath = Paths.get(this.definitionsPath).resolve("../ccd-roles.json").normalize().toString();
             try {
-                var ccdRolesResource = Thread.currentThread().getContextClassLoader().getResources(ccdRolesPath);
+                Enumeration<URL> ccdRolesResource
+                        = Thread.currentThread().getContextClassLoader().getResources(ccdRolesPath);
                 if (ccdRolesResource != null && ccdRolesResource.hasMoreElements()) {
                     logger.info("Found CCD Roles JSON file: '{}'.", ccdRolesPath);
                     return JsonUtils.readObjectFromJsonResource(ccdRolesPath, CCD_ROLES_NEEDED_FOR_TA.getClass());
