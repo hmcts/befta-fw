@@ -36,6 +36,7 @@ import uk.gov.hmcts.befta.auth.UserTokenProviderConfig;
 import uk.gov.hmcts.befta.data.HttpTestDataSource;
 import uk.gov.hmcts.befta.data.UserData;
 import uk.gov.hmcts.befta.dse.ccd.definition.converter.JsonTransformer;
+import uk.gov.hmcts.befta.exception.ImportException;
 import uk.gov.hmcts.befta.factory.HttpTestDataSourceFactory;
 import uk.gov.hmcts.befta.util.BeftaUtils;
 import uk.gov.hmcts.befta.util.EnvironmentVariableUtils;
@@ -315,22 +316,33 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
         List<String> definitionFileResources = getAllDefinitionFilesToLoadAt(definitionsPath);
         logger.info("{} definition files will be uploaded to '{}' on {}.", definitionFileResources.size(),
                 definitionStoreUrl, getDataSetupEnvironment());
+        String message = "Couldn't import {} - Exception: {}.\n\n";
         try {
             for (String fileName : definitionFileResources) {
                 try {
                     logger.info("\n\nImporting {}...", fileName);
                     importDefinition(fileName);
                     logger.info("\nImported {}.\n\n", fileName);
-                } catch (Exception e) {
-                    logger.error("Couldn't import {} - Exception: {}.\n\n", fileName, e);
-                    if (!shouldTolerateDataSetupFailure()) {
-                        throw new RuntimeException(e);
+                } catch (ImportException e) {
+                    logger.error(message, fileName, e);
+                    if (!shouldTolerateDataSetupFailure(e)) {
+                        throw e;
                     }
+                } catch (RuntimeException e) {
+                    logger.error(message, fileName, e);
+                        throw e;
+                } catch (IOException e) {
+                    logger.error(message, fileName, e);
+                    throw new RuntimeException(e);
                 }
             }
         } finally {
             FileUtils.deleteDirectory(TEMPORARY_DEFINITION_FOLDER);
         }
+    }
+
+    protected boolean shouldTolerateDataSetupFailure(Throwable e) {
+        return this.shouldTolerateDataSetupFailure();
     }
 
     protected void addCcdRole(CcdRoleConfig roleConfig) {
@@ -391,7 +403,7 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
             if (response.getStatusCode() != 201) {
                 String message = "Import failed with response body: " + response.body().prettyPrint();
                 message += "\nand http code: " + response.statusCode();
-                throw new RuntimeException(message);
+                throw new ImportException(message, response.statusCode());
             }
         } finally {
             file.delete();
