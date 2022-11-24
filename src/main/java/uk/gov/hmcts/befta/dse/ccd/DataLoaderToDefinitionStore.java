@@ -330,7 +330,7 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
                     }
                 } catch (RuntimeException e) {
                     logger.error(message, fileName, e);
-                        throw e;
+                    throw e;
                 } catch (IOException e) {
                     logger.error(message, fileName, e);
                     throw new RuntimeException(e);
@@ -342,7 +342,7 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
     }
 
     protected boolean shouldTolerateDataSetupFailure(Throwable e) {
-        return this.shouldTolerateDataSetupFailure();
+        return shouldTolerateDataSetupFailure();
     }
 
     protected void addCcdRole(CcdRoleConfig roleConfig) {
