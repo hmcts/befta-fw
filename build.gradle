@@ -5,7 +5,7 @@ plugins {
 
 apply plugin: 'java'
 
-def buildNumber = System.getenv("RELEASE_VERSION")?.replace("refs/tags/", "") ?: "8.7.6"
+def buildNumber = System.getenv("RELEASE_VERSION")?.replace("refs/tags/", "") ?: "8.7.9-prerelease-HMAN-490"
 
 group 'com.github.hmcts'
 
@@ -186,7 +186,7 @@ task elasticCurlCommands() {
 
 def getCaseTypes() {
     def caseTypes = []
-    new File("${projectDir}/src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/valid/").eachDir { 
+    new File("${projectDir}/src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/valid/").eachDir {
         new File(it.path).eachDir {
             if (it.name != 'common') caseTypes << it.name
         }
