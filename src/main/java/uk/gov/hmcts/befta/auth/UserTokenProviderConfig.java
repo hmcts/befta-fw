@@ -3,8 +3,10 @@ package uk.gov.hmcts.befta.auth;
 import java.util.Objects;
 
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import uk.gov.hmcts.befta.util.EnvironmentVariableUtils;
 
+@Slf4j
 @Getter
 public class UserTokenProviderConfig {
 
@@ -47,7 +49,16 @@ public class UserTokenProviderConfig {
     	Objects.requireNonNull(tokenProviderClientId);
         if (tokenProviderClientId.equals(DEFAULT_INSTANCE.getClientId()))
             return DEFAULT_INSTANCE;
-        return new UserTokenProviderConfig(tokenProviderClientId);
+//        return new UserTokenProviderConfig(tokenProviderClientId);
+
+        UserTokenProviderConfig userTokenProvider = new UserTokenProviderConfig(tokenProviderClientId);
+
+        log.info("Client id {}", userTokenProvider.clientId);
+        log.info("Token Type {}", userTokenProvider.accessTokenType);
+        log.info("Redirect URI {}", userTokenProvider.redirectUri);
+        log.info("Scope variables {}", userTokenProvider.scopeVariables);
+
+        return userTokenProvider;
     }
 
     public boolean isForOidc() {
