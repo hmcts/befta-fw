@@ -29,6 +29,8 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
@@ -66,6 +68,7 @@ import uk.gov.hmcts.befta.util.MapVerifier;
 
 public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFunctionalTestAutomationDSL {
 
+    static final String HTTP_S_REGEX = "^(http|https):.*";
     static final String PREREQUISITE_SPEC = "As a prerequisite";
 
     private Logger logger = LoggerFactory.getLogger(DefaultBackEndFunctionalTestScenarioPlayer.class);
@@ -367,7 +370,9 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         HttpTestData testData = scenarioContext.getTestData();
         String uri = testData.getUri();
 
-        if (!uri.trim().toLowerCase().startsWith("http:")) {
+        // set `baseUri` if testData URI is only a partial URL
+        Matcher httpUriMatcher = Pattern.compile(HTTP_S_REGEX).matcher(uri.trim().toLowerCase());
+        if (!httpUriMatcher.find()) {
             theRequest.baseUri(TestAutomationConfig.INSTANCE.getTestUrl());
         }
 
