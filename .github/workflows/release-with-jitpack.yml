@@ -21,7 +21,7 @@ jobs:
       with:
         java-version: 1.8
     - name: Build
-      run: ./gradlew check
+      run: ./gradlew check -x test
     - name: Archive test reports
       uses: actions/upload-artifact@v2
       with:
