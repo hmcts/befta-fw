@@ -65,6 +65,7 @@ import uk.gov.hmcts.befta.util.EnvironmentVariableUtils;
 import uk.gov.hmcts.befta.util.JsonUtils;
 import uk.gov.hmcts.befta.util.MapVerificationResult;
 import uk.gov.hmcts.befta.util.MapVerifier;
+import uk.gov.hmcts.befta.util.Retryable;
 
 public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFunctionalTestAutomationDSL {
 
@@ -376,7 +377,19 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
             theRequest.baseUri(TestAutomationConfig.INSTANCE.getTestUrl());
         }
 
-        Response response = theRequest.request(testData.getMethod(), uri);
+        Retryable retryable = scenarioContext.getRetryConfiguration();
+        logger.info("Applying retry policy with the following configuration:"
+                + " Max attempts: {}, Retry on status codes: {},"
+                + " Delay between retries: {}ms.", retryable.getMaxAttempts(), retryable.getStatusCodes()
+                , retryable.getDelay());
+
+        Retryer<Response> retryer = RetryerBuilder.<Response>newBuilder()
+                .retryIfResult(res -> retryable.getStatusCodes().contains(res.getStatusCode()))
+                .withStopStrategy(StopStrategies.stopAfterAttempt(retryable.getMaxAttempts()))
+                .withWaitStrategy(WaitStrategies.fixedWait(retryable.getDelay(), TimeUnit.MILLISECONDS))
+                .build();
+
+        Response response = executeHttpRequestWithRetry(theRequest, testData.getMethod(), uri, retryer);
 
         ResponseData responseData = convertRestAssuredResponseToBeftaResponse(scenarioContext, response);
         scenarioContext.getTestData().setActualResponse(responseData);
@@ -384,7 +397,21 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         scenario.log("Called: " + queryableRequest.getMethod() + " " + queryableRequest.getURI());
         scenario.log("Response:\n" + JsonUtils.getPrettyJsonFromObject(scenarioContext.getTheResponse()));
         scenarioContext.injectDataFromContextAfterApiCall();
+    }
 
+    private Response executeHttpRequestWithRetry(RequestSpecification theRequest, String method, String uri,
+                                                        Retryer<Response> retryer) {
+        try {
+            Callable<Response> callable = () -> theRequest.request(method, uri);
+            return retryer.call(callable);
+        } catch (RetryException retryException) {
+            throw new FunctionalTestException(
+                    String.format("Retry Exception when calling %s", uri), retryException);
+        } catch (ExecutionException executionException) {
+            throw new FunctionalTestException(
+                    String.format("Execution Exception when authenticating user %s", uri),
+                    executionException);
+        }
     }
 
     private ResponseData convertRestAssuredResponseToBeftaResponse(BackEndFunctionalTestScenarioContext scenarioContext,

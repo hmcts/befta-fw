@@ -1,5 +1,6 @@
 package uk.gov.hmcts.befta.util;
 
+import org.apache.logging.log4j.util.Strings;
 import org.junit.AssumptionViolatedException;
 
 import java.io.File;
@@ -8,6 +9,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -91,32 +94,44 @@ public class BeftaUtils {
                 .collect(Collectors.joining(","));
     }
 
-    public static RetryConfiguration getRetryTag(Scenario scenario) {
+    public static Retryable getRetryableTag(Scenario scenario) {
         String retryInput = scenario.getSourceTagNames().stream()
                 .filter(tag -> tag.startsWith("@Retryable"))
                 .map(tag -> tag.substring(tag.indexOf("(") + 1, tag.indexOf(")")))
                 .collect(Collectors.joining());
 
+        if (retryInput.isEmpty()) {
+            return Retryable.builder().build();
+        }
+
+        // default 1000ms
         int delay = Integer.parseInt(Optional.of(Pattern
                         .compile("delay=([^,]+|$)").matcher(retryInput))
                 .filter(Matcher::find)
                 .map(matcher -> matcher.group(1))
-                .orElse("0"));
+                .orElse("1000"));
 
+        // default 3
         int maxAttempts = Integer.parseInt(Optional.of(Pattern
                         .compile("maxAttempts=([^,]+|$)").matcher(retryInput))
                 .filter(Matcher::find)
                 .map(matcher -> matcher.group(1))
                 .orElse("3"));
 
-        String[] statusCodes = Optional.of(Pattern
-                        .compile("statusCodes=\\{([^}]+)\\}").matcher(retryInput))
+        // must be defined
+        HashSet<Integer> statusCodes = Optional.of(Pattern
+                        .compile("statusCodes=\\{([^}]+)\\}")
+                        .matcher(retryInput))
                 .filter(Matcher::find)
                 .map(matcher -> matcher.group(1))
-                .map(s -> s.split(","))
+                .map(s -> Arrays.stream(s.split(","))
+                        .map(String::trim)
+                        .filter(Strings::isNotEmpty)
+                        .map(Integer::parseInt)
+                        .collect(Collectors.toCollection(HashSet::new)))
                 .orElseThrow(() -> new FunctionalTestException("Missing statusCode configuration in @Retryable"));
 
-        return RetryConfiguration.builder()
+        return Retryable.builder()
                 .delay(delay)
                 .maxAttempts(maxAttempts)
                 .statusCodes(statusCodes)

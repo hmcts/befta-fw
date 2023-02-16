@@ -17,7 +17,7 @@ import uk.gov.hmcts.befta.factory.DynamicValueInjectorFactory;
 import uk.gov.hmcts.befta.factory.HttpTestDataSourceFactory;
 import uk.gov.hmcts.befta.util.BeftaUtils;
 import uk.gov.hmcts.befta.util.DynamicValueInjector;
-import uk.gov.hmcts.befta.util.RetryConfiguration;
+import uk.gov.hmcts.befta.util.Retryable;
 
 public class BackEndFunctionalTestScenarioContext {
 
@@ -29,7 +29,7 @@ public class BackEndFunctionalTestScenarioContext {
 
     protected HttpTestData testData;
 
-    protected RetryConfiguration retryConfiguration;
+    protected Retryable retryable;
 
     private RequestSpecification theRequest;
 
@@ -59,7 +59,7 @@ public class BackEndFunctionalTestScenarioContext {
 
     public synchronized void initializeTestDataFor(Scenario scenario) {
         this.scenario = scenario;
-        retryConfiguration = getRetryTag();
+        retryable = getRetryableTag();
         String scenarioTag = getCurrentScenarioTag();
         initializeTestDataFor(scenarioTag);
     }
@@ -86,8 +86,8 @@ public class BackEndFunctionalTestScenarioContext {
         return BeftaUtils.getScenarioTag(scenario);
     }
 
-    public synchronized RetryConfiguration getRetryTag() {
-        return BeftaUtils.getRetryTag(scenario);
+    public synchronized Retryable getRetryableTag() {
+        return BeftaUtils.getRetryableTag(scenario);
     }
 
     public synchronized String getContextId() {
@@ -138,6 +138,10 @@ public class BackEndFunctionalTestScenarioContext {
 
     public synchronized HttpTestData getTestData() {
         return testData;
+    }
+
+    public synchronized Retryable getRetryConfiguration() {
+        return retryable;
     }
 
     public synchronized RequestSpecification getTheRequest() {
