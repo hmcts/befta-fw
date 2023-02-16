@@ -5,6 +5,7 @@ import com.github.rholder.retry.Retryer;
 import com.github.rholder.retry.RetryerBuilder;
 import com.github.rholder.retry.StopStrategies;
 import com.github.rholder.retry.WaitStrategies;
+import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import org.apache.commons.collections4.map.HashedMap;
 import org.apache.http.impl.EnglishReasonPhraseCatalog;
@@ -43,6 +44,7 @@ import io.restassured.response.Response;
 import io.restassured.specification.QueryableRequestSpecification;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.SpecificationQuerier;
+import org.springframework.web.client.HttpClientErrorException;
 import uk.gov.hmcts.befta.AuthenticationRetryConfiguration;
 import uk.gov.hmcts.befta.BeftaMain;
 import uk.gov.hmcts.befta.TestAutomationConfig;
@@ -65,6 +67,7 @@ import uk.gov.hmcts.befta.util.EnvironmentVariableUtils;
 import uk.gov.hmcts.befta.util.JsonUtils;
 import uk.gov.hmcts.befta.util.MapVerificationResult;
 import uk.gov.hmcts.befta.util.MapVerifier;
+import uk.gov.hmcts.befta.util.RetryConfiguration;
 
 public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFunctionalTestAutomationDSL {
 
@@ -376,7 +379,29 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
             theRequest.baseUri(TestAutomationConfig.INSTANCE.getTestUrl());
         }
 
-        Response response = theRequest.request(testData.getMethod(), uri);
+        RetryConfiguration retryConfiguration = scenarioContext.getRetryConfiguration();
+
+        Callable<Response> callable = () -> theRequest.request(testData.getMethod(), uri);
+
+        Predicate<Response> pre= res -> res.getStatusCode() == 409;
+
+        Retryer<Response> retryer = RetryerBuilder.<Response>newBuilder()
+                .retryIfResult(pre)
+                .withStopStrategy(StopStrategies.stopAfterAttempt(retryConfiguration.getMaxAttempts()))
+                .withWaitStrategy(WaitStrategies.fixedWait(retryConfiguration.getDelay(), TimeUnit.MILLISECONDS))
+                .build();
+
+        Response response;
+        try {
+            response = retryer.call(callable);
+        } catch (RetryException retryException) {
+            throw new FunctionalTestException(
+                    String.format("Retry Exception when calling %s", uri), retryException);
+        } catch (ExecutionException executionException) {
+            throw new FunctionalTestException(
+                    String.format("Execution Exception when authenticating user %s", uri),
+                    executionException);
+        }
 
         ResponseData responseData = convertRestAssuredResponseToBeftaResponse(scenarioContext, response);
         scenarioContext.getTestData().setActualResponse(responseData);
