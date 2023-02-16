@@ -17,6 +17,7 @@ import uk.gov.hmcts.befta.factory.DynamicValueInjectorFactory;
 import uk.gov.hmcts.befta.factory.HttpTestDataSourceFactory;
 import uk.gov.hmcts.befta.util.BeftaUtils;
 import uk.gov.hmcts.befta.util.DynamicValueInjector;
+import uk.gov.hmcts.befta.util.RetryConfiguration;
 
 public class BackEndFunctionalTestScenarioContext {
 
@@ -27,6 +28,8 @@ public class BackEndFunctionalTestScenarioContext {
     private Scenario scenario;
 
     protected HttpTestData testData;
+
+    protected RetryConfiguration retryConfiguration;
 
     private RequestSpecification theRequest;
 
@@ -56,6 +59,7 @@ public class BackEndFunctionalTestScenarioContext {
 
     public synchronized void initializeTestDataFor(Scenario scenario) {
         this.scenario = scenario;
+        retryConfiguration = getRetryTag();
         String scenarioTag = getCurrentScenarioTag();
         initializeTestDataFor(scenarioTag);
     }
@@ -80,6 +84,10 @@ public class BackEndFunctionalTestScenarioContext {
 
     public synchronized String getCurrentScenarioTag() {
         return BeftaUtils.getScenarioTag(scenario);
+    }
+
+    public synchronized RetryConfiguration getRetryTag() {
+        return BeftaUtils.getRetryTag(scenario);
     }
 
     public synchronized String getContextId() {

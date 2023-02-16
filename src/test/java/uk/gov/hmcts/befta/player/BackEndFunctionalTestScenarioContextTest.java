@@ -2,6 +2,8 @@ package uk.gov.hmcts.befta.player;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
@@ -33,6 +35,7 @@ import uk.gov.hmcts.befta.data.UserData;
 import uk.gov.hmcts.befta.exception.FunctionalTestException;
 import uk.gov.hmcts.befta.factory.DynamicValueInjectorFactory;
 import uk.gov.hmcts.befta.util.DynamicValueInjector;
+import uk.gov.hmcts.befta.util.RetryConfiguration;
 import uk.gov.hmcts.common.TestUtils;
 
 public class BackEndFunctionalTestScenarioContextTest {
@@ -98,6 +101,46 @@ public class BackEndFunctionalTestScenarioContextTest {
         TestUtils.setFieldWithReflection(BackEndFunctionalTestScenarioContext.class.getDeclaredField("DATA_SOURCE"),
                 dataSource);
         prepareStaticMockedObjectUnderTest();
+    }
+
+    @Test
+    public void shouldMapRetryableToRetryConfiguration() {
+        final Collection<String> tags = new ArrayList<String>() {
+            private static final long serialVersionUID = 1L;
+            {
+                add("@S-133");
+                add("@Retryable(statusCodes={409},maxAttempts=2,delay=1000)");
+            }
+        };
+        when(scenario.getSourceTagNames()).thenReturn(tags);
+        contextUnderTest.initializeTestDataFor(scenario);
+
+        RetryConfiguration result = contextUnderTest.getRetryTag();
+        assertAll(
+                () -> assertEquals(1000, result.getDelay()),
+                () -> assertEquals(2, result.getMaxAttempts()),
+                () -> assertArrayEquals(new String[]{"409" }, result.getStatusCodes())
+        );
+    }
+
+    @Test
+    public void shouldMapRetryableToRetryConfigurationMultipleStatusCodes() {
+        final Collection<String> tags = new ArrayList<String>() {
+            private static final long serialVersionUID = 1L;
+            {
+                add("@S-133");
+                add("@Retryable(maxAttempts=2,delay=1000,statusCodes={400,409,502})");
+            }
+        };
+        when(scenario.getSourceTagNames()).thenReturn(tags);
+        contextUnderTest.initializeTestDataFor(scenario);
+
+        RetryConfiguration result = contextUnderTest.getRetryTag();
+        assertAll(
+                () -> assertEquals(1000, result.getDelay()),
+                () -> assertEquals(2, result.getMaxAttempts()),
+                () -> assertArrayEquals(new String[]{"400","409","502"}, result.getStatusCodes())
+        );
     }
 
     @Test
