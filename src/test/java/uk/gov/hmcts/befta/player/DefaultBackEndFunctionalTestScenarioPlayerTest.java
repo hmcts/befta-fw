@@ -39,6 +39,7 @@ import uk.gov.hmcts.befta.util.EnvironmentVariableUtils;
 import uk.gov.hmcts.befta.util.JsonUtils;
 import uk.gov.hmcts.befta.util.MapVerificationResult;
 import uk.gov.hmcts.befta.util.MapVerifier;
+import uk.gov.hmcts.befta.util.Retryable;
 import uk.gov.hmcts.common.TestUtils;
 
 import java.io.IOException;
@@ -293,6 +294,7 @@ class DefaultBackEndFunctionalTestScenarioPlayerTest {
         BackEndFunctionalTestScenarioContext prerequisiteContext = createAndPrepareMockPrerequisiteContext(prerequisiteTestDataId, context);
         Mockito.when(BeftaScenarioContextFactory.createBeftaScenarioContext()).thenReturn(prerequisiteContext);
         testData.setPrerequisites(Collections.singletonList(prerequisiteTestDataId));
+        when(prerequisiteContext.getRetryConfiguration()).thenReturn(Retryable.builder().build());
 
         // ACT
         scenarioPlayer.prepareARequestWithAppropriateValues();
@@ -326,6 +328,9 @@ class DefaultBackEndFunctionalTestScenarioPlayerTest {
         Mockito.when(BeftaScenarioContextFactory.createBeftaScenarioContext()).thenReturn(
                 prerequisiteContext1,
                 prerequisiteContext2, prerequisiteContext3);
+        when(prerequisiteContext1.getRetryConfiguration()).thenReturn(Retryable.builder().build());
+        when(prerequisiteContext2.getRetryConfiguration()).thenReturn(Retryable.builder().build());
+        when(prerequisiteContext3.getRetryConfiguration()).thenReturn(Retryable.builder().build());
 
         testData.setPrerequisites(Arrays.asList(new LinkedHashMap<String, String>() {
             private static final long serialVersionUID = 1L;
@@ -376,6 +381,8 @@ class DefaultBackEndFunctionalTestScenarioPlayerTest {
         Mockito.when(BeftaScenarioContextFactory.createBeftaScenarioContext()).thenReturn(
                 prerequisiteContext1,
                 prerequisiteContext2);
+
+        when(prerequisiteContext1.getRetryConfiguration()).thenReturn(Retryable.builder().build());
 
         // for simplicity add prerequisites just using strings of test data ids
         testData.setPrerequisites(Arrays.asList(testDataId1, testDataId2));
@@ -452,6 +459,7 @@ class DefaultBackEndFunctionalTestScenarioPlayerTest {
         BackEndFunctionalTestScenarioContext prerequisiteContext = createAndPrepareMockPrerequisiteContext(prerequisiteTestDataId, context);
         testData.setPrerequisites(Collections.singletonList(prerequisiteTestDataId));
         Mockito.when(BeftaScenarioContextFactory.createBeftaScenarioContext()).thenReturn(prerequisiteContext);
+        when(prerequisiteContext.getRetryConfiguration()).thenReturn(Retryable.builder().build());
 
         when(verificationResult.isVerified()).thenReturn(false);
 
@@ -523,6 +531,7 @@ class DefaultBackEndFunctionalTestScenarioPlayerTest {
         Mockito.when(BeftaScenarioContextFactory.createBeftaScenarioContext()).thenReturn(testDataContext);
         mapVerifierMock.when(() -> MapVerifier.createMapVerifier("actualResponse.headers", 1, false)).thenReturn(mapVerifier);
         mapVerifierMock.when(() -> MapVerifier.createMapVerifier("actualResponse.body", 20)).thenReturn(mapVerifier);
+        when(testDataContext.getRetryConfiguration()).thenReturn(Retryable.builder().build());
 
         // ACT
         scenarioPlayer.performAndVerifyTheExpectedResponseForAnApiCall(testDataSpec, testDataId);
@@ -800,6 +809,7 @@ class DefaultBackEndFunctionalTestScenarioPlayerTest {
         when(context.getTestData()).thenReturn(testData);
         testData.setMethod("POST");
         when(context.getTheRequest()).thenReturn(requestSpecification);
+        when(context.getRetryConfiguration()).thenReturn(Retryable.builder().build());
 
         Response response = mock(Response.class);
         when(response.getHeaders())
@@ -930,6 +940,7 @@ class DefaultBackEndFunctionalTestScenarioPlayerTest {
         when(testData.meetsSpec(any())).thenReturn(true);
         when(testData.meetsSpec(any())).thenReturn(true);
         when(context.getTestData()).thenReturn(testData);
+        when(testDataContext.getRetryConfiguration()).thenReturn(Retryable.builder().build());
 
         // ACT
         scenarioPlayer.createCaseWithTheDataProvidedInATestDataObject(testDataId);
@@ -1016,6 +1027,7 @@ class DefaultBackEndFunctionalTestScenarioPlayerTest {
         when(context.getTestData()).thenReturn(testData);
         testData.setMethod("POST");
         when(context.getTheRequest()).thenReturn(requestSpecification);
+        when(context.getRetryConfiguration()).thenReturn(Retryable.builder().build());
 
         Response response = mock(Response.class);
         when(response.getHeaders())

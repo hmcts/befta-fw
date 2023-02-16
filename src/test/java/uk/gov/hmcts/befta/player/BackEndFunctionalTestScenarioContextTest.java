@@ -1,16 +1,8 @@
 package uk.gov.hmcts.befta.player;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.mockStatic;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
+import com.google.common.collect.ImmutableSet;
+import io.cucumber.java.Scenario;
+import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,14 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockedStatic;
 import org.mockito.MockitoAnnotations;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.Map.Entry;
-
-import io.cucumber.java.Scenario;
-import io.restassured.specification.RequestSpecification;
 import uk.gov.hmcts.befta.BeftaMain;
 import uk.gov.hmcts.befta.TestAutomationAdapter;
 import uk.gov.hmcts.befta.data.HttpTestData;
@@ -35,8 +19,24 @@ import uk.gov.hmcts.befta.data.UserData;
 import uk.gov.hmcts.befta.exception.FunctionalTestException;
 import uk.gov.hmcts.befta.factory.DynamicValueInjectorFactory;
 import uk.gov.hmcts.befta.util.DynamicValueInjector;
-import uk.gov.hmcts.befta.util.RetryConfiguration;
+import uk.gov.hmcts.befta.util.Retryable;
 import uk.gov.hmcts.common.TestUtils;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.Map.Entry;
+
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.mockStatic;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class BackEndFunctionalTestScenarioContextTest {
 
@@ -115,11 +115,11 @@ public class BackEndFunctionalTestScenarioContextTest {
         when(scenario.getSourceTagNames()).thenReturn(tags);
         contextUnderTest.initializeTestDataFor(scenario);
 
-        RetryConfiguration result = contextUnderTest.getRetryTag();
+        Retryable result = contextUnderTest.getRetryableTag();
         assertAll(
                 () -> assertEquals(1000, result.getDelay()),
                 () -> assertEquals(2, result.getMaxAttempts()),
-                () -> assertArrayEquals(new String[]{"409" }, result.getStatusCodes())
+                () -> assertEquals(ImmutableSet.of(409), result.getStatusCodes())
         );
     }
 
@@ -135,11 +135,65 @@ public class BackEndFunctionalTestScenarioContextTest {
         when(scenario.getSourceTagNames()).thenReturn(tags);
         contextUnderTest.initializeTestDataFor(scenario);
 
-        RetryConfiguration result = contextUnderTest.getRetryTag();
+        Retryable result = contextUnderTest.getRetryableTag();
         assertAll(
                 () -> assertEquals(1000, result.getDelay()),
                 () -> assertEquals(2, result.getMaxAttempts()),
-                () -> assertArrayEquals(new String[]{"400","409","502"}, result.getStatusCodes())
+                () -> assertEquals(ImmutableSet.of(400,409,502), result.getStatusCodes())
+        );
+    }
+
+    @Test
+    public void shouldMapRetryableToRetryConfigurationDefaultValuesOfDelayAndMaxAttempts() {
+        final Collection<String> tags = new ArrayList<String>() {
+            private static final long serialVersionUID = 1L;
+            {
+                add("@S-133");
+                add("@Retryable(statusCodes={400,409,502})");
+            }
+        };
+        when(scenario.getSourceTagNames()).thenReturn(tags);
+        contextUnderTest.initializeTestDataFor(scenario);
+
+        Retryable result = contextUnderTest.getRetryableTag();
+        assertAll(
+                () -> assertEquals(1000, result.getDelay()),
+                () -> assertEquals(3, result.getMaxAttempts()),
+                () -> assertEquals(ImmutableSet.of(400,409,502), result.getStatusCodes())
+        );
+    }
+
+    @Test
+    public void shouldMapRetryableToDefaultRetryConfigurationWhenRetryableTagNotUsed() {
+        final Collection<String> tags = new ArrayList<String>() {
+            private static final long serialVersionUID = 1L;
+            {
+                add("@S-133");
+                add("@Retryable(maxAttempts=2,delay=1000)");
+            }
+        };
+        when(scenario.getSourceTagNames()).thenReturn(tags);
+        FunctionalTestException exception = assertThrows(FunctionalTestException.class,
+                () -> contextUnderTest.initializeTestDataFor(scenario));
+        assertEquals("Missing statusCode configuration in @Retryable", exception.getMessage());
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenStatusCodesMissingInRetryableTag() {
+        final Collection<String> tags = new ArrayList<String>() {
+            private static final long serialVersionUID = 1L;
+            {
+                add("@S-133");
+            }
+        };
+        when(scenario.getSourceTagNames()).thenReturn(tags);
+        contextUnderTest.initializeTestDataFor(scenario);
+
+        Retryable result = contextUnderTest.getRetryableTag();
+        assertAll(
+                () -> assertEquals(0, result.getDelay()),
+                () -> assertEquals(1, result.getMaxAttempts()),
+                () -> assertEquals(ImmutableSet.of(), result.getStatusCodes())
         );
     }
 
