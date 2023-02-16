@@ -140,6 +140,10 @@ public class BackEndFunctionalTestScenarioContext {
         return testData;
     }
 
+    public synchronized RetryConfiguration getRetryConfiguration() {
+        return retryConfiguration;
+    }
+
     public synchronized RequestSpecification getTheRequest() {
         return theRequest;
     }

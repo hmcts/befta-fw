@@ -97,6 +97,10 @@ public class BeftaUtils {
                 .map(tag -> tag.substring(tag.indexOf("(") + 1, tag.indexOf(")")))
                 .collect(Collectors.joining());
 
+        if (retryInput.isEmpty()) {
+            return RetryConfiguration.builder().build();
+        }
+
         int delay = Integer.parseInt(Optional.of(Pattern
                         .compile("delay=([^,]+|$)").matcher(retryInput))
                 .filter(Matcher::find)

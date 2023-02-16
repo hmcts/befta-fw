@@ -7,7 +7,10 @@ import lombok.Getter;
 @Getter
 public class RetryConfiguration {
 
-    private int maxAttempts;
-    private String[] statusCodes;
-    private int delay;
+    @Builder.Default
+    private int maxAttempts = 1;
+    @Builder.Default
+    private String[] statusCodes = new String[0];
+    @Builder.Default
+    private int delay = 0;
 }
