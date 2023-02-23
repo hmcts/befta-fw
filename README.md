@@ -698,3 +698,75 @@ Typical sequence of activities during the execution of test suite is as shown in
 below Sequence Diagram:
 ![](documentation/Sequence_Diagram_Draft.jpg)
 
+
+## 9) RETRY POLICY
+The Retryable Feature is a new addition that allows you to execute tests multiple times 
+until they pass or reach the maximum number of attempts. This is useful when you have flaky tests that 
+fail randomly due to network issues, timeouts, or other intermittent failures.
+
+The feature can be defined with an annotation as follows: `@Retryable(maxAttempts=3,delay=1000,statusCodes={400,502})`.
+This annotation specifies a mandatory list of HTTP status codes that trigger a retry, and optional parameters for the maximum 
+number of attempts and the delay between attempts.
+If you don't provide the optional parameters maxAttempts and delay, the default values will be used instead, 
+which are 3 and 1000 milliseconds, respectively.
+If you don't provide the optional parameters maxAttempts and delay, the default values will be used instead, which are 3 and 1000 milliseconds, respectively.
+If statusCode is not provided, the scenario will fail with a **FunctionalTestException**.
+
+### Usage
+To use the Retryable Feature, you need to annotate your test scenarios with the **@Retryable** annotation in your feature file and 
+provide the necessary parameters. Here's an example:
+
+```
+@S-096.1 @Retryable(maxAttempts=3,delay=500,statusCodes={409,500})
+  Scenario: Sample Scenario
+    Given given_context
+    When when_context
+    And and_context
+```
+In this example, the scenario **@S-096.1** will be executed up to 3 times with a delay of 500 milliseconds between each attempt. 
+If the HTTP response status code is either 409 or 500, the test will be retried.
+If you don't provide the optional parameters maxAttempts and delay, the default values will be used instead.
+
+### Examples
+
+Here are some examples of how you can use the Retryable Feature:
+
+```
+@S-096.1 @Retryable(statusCodes={500,502})
+  Scenario: Sample Scenario
+    Given given_context
+    When when_context
+    And and_context
+```
+In this example, the scenario **@S-096.1** will be executed up to 3 times with a delay of
+1000 milliseconds between each attempt. If the HTTP response status code is either 500 or 502, the test will be retried.
+
+```
+@S-096.1 @Retryable(statusCodes={404,503}, maxAttempts=5)
+  Scenario: Sample Scenario
+    Given given_context
+    When when_context
+    And and_context
+```
+In this example, the scenario **@S-096.1** will be executed up to 5 times with a delay of 
+1000 milliseconds between each attempt. If the HTTP response status code is either 404 or 503, the test will be retried.
+
+```
+@S-096.1 @Retryable(statusCodes={400,502}, delay=500)
+  Scenario: Sample Scenario
+    Given given_context
+    When when_context
+    And and_context
+```
+In this example, the scenario **@S-096.1** will be executed up to 3 times with a delay of 
+500 milliseconds between each attempt. If the HTTP response status code is either 400 or 502, the test will be retried.
+
+```
+@S-096.1 @Retryable(maxAttempts=2, delay=500)
+  Scenario: Sample Scenario
+    Given given_context
+    When when_context
+    And and_context
+```
+In this example, the scenario **@S-096.1** will fail with 
+**FunctionalTestException:Missing statusCode configuration in @Retryable**
