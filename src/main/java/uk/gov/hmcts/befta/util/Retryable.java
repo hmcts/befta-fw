@@ -10,6 +10,8 @@ import java.util.Set;
 @Getter
 public class Retryable {
 
+    public static Retryable N0_RETRYABLE = Retryable.builder().build();
+
     @Builder.Default
     private int maxAttempts = 1;
     @Builder.Default

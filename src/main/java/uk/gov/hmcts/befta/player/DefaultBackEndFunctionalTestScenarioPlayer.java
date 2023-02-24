@@ -622,6 +622,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
             String testDataSpec, String testDataId, String contextId) throws IOException {
         BackEndFunctionalTestScenarioContext subcontext = BeftaScenarioContextFactory.createBeftaScenarioContext();
         subcontext.initializeTestDataFor(testDataId);
+        subcontext.setRetryableTag(this.scenarioContext.getRetryableTag());
         if (contextId == null) {
             parentContext.addChildContext(subcontext);
         } else {

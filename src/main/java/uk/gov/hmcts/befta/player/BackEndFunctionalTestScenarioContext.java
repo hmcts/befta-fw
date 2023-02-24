@@ -86,6 +86,10 @@ public class BackEndFunctionalTestScenarioContext {
         return BeftaUtils.getScenarioTag(scenario);
     }
 
+    public synchronized void setRetryableTag(final Retryable retryable) {
+        this.retryable = retryable;
+    }
+
     public synchronized Retryable getRetryableTag() {
         return BeftaUtils.getRetryableTag(scenario);
     }
