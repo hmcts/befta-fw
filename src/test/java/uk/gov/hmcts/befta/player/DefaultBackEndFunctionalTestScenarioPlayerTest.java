@@ -1,5 +1,6 @@
 package uk.gov.hmcts.befta.player;
 
+import com.google.common.collect.ImmutableSet;
 import feign.FeignException;
 import io.cucumber.java.Scenario;
 import io.restassured.RestAssured;
@@ -39,6 +40,7 @@ import uk.gov.hmcts.befta.util.EnvironmentVariableUtils;
 import uk.gov.hmcts.befta.util.JsonUtils;
 import uk.gov.hmcts.befta.util.MapVerificationResult;
 import uk.gov.hmcts.befta.util.MapVerifier;
+import uk.gov.hmcts.befta.util.Retryable;
 import uk.gov.hmcts.common.TestUtils;
 
 import java.io.IOException;
@@ -293,6 +295,7 @@ class DefaultBackEndFunctionalTestScenarioPlayerTest {
         BackEndFunctionalTestScenarioContext prerequisiteContext = createAndPrepareMockPrerequisiteContext(prerequisiteTestDataId, context);
         Mockito.when(BeftaScenarioContextFactory.createBeftaScenarioContext()).thenReturn(prerequisiteContext);
         testData.setPrerequisites(Collections.singletonList(prerequisiteTestDataId));
+        when(prerequisiteContext.getRetryConfiguration()).thenReturn(Retryable.builder().build());
 
         // ACT
         scenarioPlayer.prepareARequestWithAppropriateValues();
@@ -326,6 +329,9 @@ class DefaultBackEndFunctionalTestScenarioPlayerTest {
         Mockito.when(BeftaScenarioContextFactory.createBeftaScenarioContext()).thenReturn(
                 prerequisiteContext1,
                 prerequisiteContext2, prerequisiteContext3);
+        when(prerequisiteContext1.getRetryConfiguration()).thenReturn(Retryable.builder().build());
+        when(prerequisiteContext2.getRetryConfiguration()).thenReturn(Retryable.builder().build());
+        when(prerequisiteContext3.getRetryConfiguration()).thenReturn(Retryable.builder().build());
 
         testData.setPrerequisites(Arrays.asList(new LinkedHashMap<String, String>() {
             private static final long serialVersionUID = 1L;
@@ -376,6 +382,8 @@ class DefaultBackEndFunctionalTestScenarioPlayerTest {
         Mockito.when(BeftaScenarioContextFactory.createBeftaScenarioContext()).thenReturn(
                 prerequisiteContext1,
                 prerequisiteContext2);
+
+        when(prerequisiteContext1.getRetryConfiguration()).thenReturn(Retryable.builder().build());
 
         // for simplicity add prerequisites just using strings of test data ids
         testData.setPrerequisites(Arrays.asList(testDataId1, testDataId2));
@@ -452,6 +460,7 @@ class DefaultBackEndFunctionalTestScenarioPlayerTest {
         BackEndFunctionalTestScenarioContext prerequisiteContext = createAndPrepareMockPrerequisiteContext(prerequisiteTestDataId, context);
         testData.setPrerequisites(Collections.singletonList(prerequisiteTestDataId));
         Mockito.when(BeftaScenarioContextFactory.createBeftaScenarioContext()).thenReturn(prerequisiteContext);
+        when(prerequisiteContext.getRetryConfiguration()).thenReturn(Retryable.builder().build());
 
         when(verificationResult.isVerified()).thenReturn(false);
 
@@ -523,6 +532,7 @@ class DefaultBackEndFunctionalTestScenarioPlayerTest {
         Mockito.when(BeftaScenarioContextFactory.createBeftaScenarioContext()).thenReturn(testDataContext);
         mapVerifierMock.when(() -> MapVerifier.createMapVerifier("actualResponse.headers", 1, false)).thenReturn(mapVerifier);
         mapVerifierMock.when(() -> MapVerifier.createMapVerifier("actualResponse.body", 20)).thenReturn(mapVerifier);
+        when(testDataContext.getRetryConfiguration()).thenReturn(Retryable.builder().build());
 
         // ACT
         scenarioPlayer.performAndVerifyTheExpectedResponseForAnApiCall(testDataSpec, testDataId);
@@ -800,6 +810,7 @@ class DefaultBackEndFunctionalTestScenarioPlayerTest {
         when(context.getTestData()).thenReturn(testData);
         testData.setMethod("POST");
         when(context.getTheRequest()).thenReturn(requestSpecification);
+        when(context.getRetryConfiguration()).thenReturn(Retryable.builder().build());
 
         Response response = mock(Response.class);
         when(response.getHeaders())
@@ -819,6 +830,7 @@ class DefaultBackEndFunctionalTestScenarioPlayerTest {
 
         scenarioPlayer.submitTheRequestToCallAnOperationOfAProduct(OPERATION, PRODUCT_NAME);
 
+        verify(requestSpecification, times(1)).request(eq("POST"), eq(uri));
         verify(testData).setActualResponse((ResponseData) captor.capture());
         if (resetBaseUri) {
             verify(requestSpecification).baseUri(TEST_URL);
@@ -930,6 +942,7 @@ class DefaultBackEndFunctionalTestScenarioPlayerTest {
         when(testData.meetsSpec(any())).thenReturn(true);
         when(testData.meetsSpec(any())).thenReturn(true);
         when(context.getTestData()).thenReturn(testData);
+        when(testDataContext.getRetryConfiguration()).thenReturn(Retryable.builder().build());
 
         // ACT
         scenarioPlayer.createCaseWithTheDataProvidedInATestDataObject(testDataId);
@@ -1016,6 +1029,7 @@ class DefaultBackEndFunctionalTestScenarioPlayerTest {
         when(context.getTestData()).thenReturn(testData);
         testData.setMethod("POST");
         when(context.getTheRequest()).thenReturn(requestSpecification);
+        when(context.getRetryConfiguration()).thenReturn(Retryable.builder().build());
 
         Response response = mock(Response.class);
         when(response.getHeaders())
@@ -1032,11 +1046,54 @@ class DefaultBackEndFunctionalTestScenarioPlayerTest {
 
         scenarioPlayer.submitTheRequestToCallAnOperationOfAProduct(OPERATION, PRODUCT_NAME);
 
+        verify(requestSpecification, times(1)).request(eq("POST"), eq(uri));
         verify(testData).setActualResponse((ResponseData) captor.capture());
         ResponseData responseData = (ResponseData) captor.getValue();
         assertEquals(200, responseData.getResponseCode());
         assertEquals(1, responseData.getHeaders().size());
         assertEquals("OK", responseData.getResponseMessage());
+    }
+
+    @Test
+    void testSubmitTheRequestToCallAndCountRetry() {
+        final String methodType = "POST";
+        final String uri = "URI";
+        final String bodyString = "{}";
+        HttpTestData testData = mock(HttpTestData.class);
+
+        when(testData.meetsOperationOfProduct(eq(PRODUCT_NAME), eq(OPERATION))).thenReturn(true);
+        when(testData.getMethod()).thenReturn(methodType);
+        when(testData.getUri()).thenReturn(uri);
+        ResponseData responseData1 = new ResponseData();
+        Map<String, Object> body = new HashMap<>();
+        body.put("__fileInBody__", "{}");
+        responseData1.setBody(body);
+        when(testData.getExpectedResponse()).thenReturn(responseData1);
+        when(context.getTestData()).thenReturn(testData);
+        testData.setMethod("POST");
+        when(context.getTheRequest()).thenReturn(requestSpecification);
+        when(context.getRetryConfiguration()).thenReturn(Retryable.builder()
+                        .maxAttempts(3)
+                        .statusCodes(ImmutableSet.of(409))
+                        .build());
+
+        Response response = mock(Response.class);
+        when(response.getHeaders())
+                .thenReturn(new Headers(Collections.singletonList(new Header("Content-Type", "application/json;charset=UTF-8"))));
+        when(response.getStatusCode()).thenReturn(409);
+        when(response.contentType()).thenReturn("application/json;charset=UTF-8");
+        when(requestSpecification.request(eq("POST"), eq(uri))).thenReturn(response);
+        QueryableRequestSpecification queryableRequest = mock(QueryableRequestSpecification.class);
+        when(SpecificationQuerier.query(eq(requestSpecification))).thenReturn(queryableRequest);
+
+        ResponseBody<?> responseBody = mock(ResponseBody.class);
+        when(response.getBody()).thenReturn(responseBody);
+        when(responseBody.asString()).thenReturn(bodyString);
+
+        assertThrows(FunctionalTestException.class, () -> scenarioPlayer
+                .submitTheRequestToCallAnOperationOfAProduct(OPERATION, PRODUCT_NAME));
+
+        verify(requestSpecification, times(3)).request(eq("POST"), eq(uri));
     }
 
     private ResponseData createResponseDataWithResponseCode(int responseCode) {
