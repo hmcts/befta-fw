@@ -199,7 +199,7 @@ public class BackEndFunctionalTestScenarioContextTest {
     }
 
     @Test
-    public void shouldThrowExceptionWhenStatusCodesMissingInRetryableTag() {
+    public void shouldRetrieveDefaultRetryWhenThereIsNoRetryableTag() {
         final Collection<String> tags = new ArrayList<String>() {
             private static final long serialVersionUID = 1L;
             {
@@ -211,9 +211,12 @@ public class BackEndFunctionalTestScenarioContextTest {
 
         Retryable result = contextUnderTest.getRetryableTag();
         assertAll(
-                () -> assertEquals(0, result.getDelay()),
+                () -> assertEquals(1000, result.getDelay()),
                 () -> assertEquals(1, result.getMaxAttempts()),
-                () -> assertEquals(ImmutableSet.of(), result.getStatusCodes())
+                () -> assertEquals(ImmutableSet.of(500,502,503,504), result.getStatusCodes()),
+                () -> assertEquals(ImmutableSet.of(java.net.ConnectException.class,java.net.SocketException.class,
+                                javax.net.ssl.SSLException.class),
+                        result.getRetryableExceptions())
         );
     }
 

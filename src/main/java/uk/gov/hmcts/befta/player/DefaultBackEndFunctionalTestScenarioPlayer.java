@@ -1,19 +1,52 @@
 package uk.gov.hmcts.befta.player;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.rholder.retry.RetryException;
 import com.github.rholder.retry.Retryer;
 import com.github.rholder.retry.RetryerBuilder;
 import com.github.rholder.retry.StopStrategies;
 import com.github.rholder.retry.WaitStrategies;
 import com.google.common.base.Predicates;
+import io.cucumber.java.Before;
+import io.cucumber.java.Scenario;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+import io.restassured.RestAssured;
+import io.restassured.http.Method;
+import io.restassured.response.Response;
+import io.restassured.specification.QueryableRequestSpecification;
+import io.restassured.specification.RequestSpecification;
+import io.restassured.specification.SpecificationQuerier;
 import org.apache.commons.collections4.map.HashedMap;
 import org.apache.http.impl.EnglishReasonPhraseCatalog;
 import org.aspectj.util.FileUtil;
 import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
+import uk.gov.hmcts.befta.AuthenticationRetryConfiguration;
+import uk.gov.hmcts.befta.BeftaMain;
+import uk.gov.hmcts.befta.TestAutomationConfig;
+import uk.gov.hmcts.befta.TestAutomationConfig.ResponseHeaderCheckPolicy;
+import uk.gov.hmcts.befta.data.FileInBody;
+import uk.gov.hmcts.befta.data.HttpTestData;
+import uk.gov.hmcts.befta.data.RequestData;
+import uk.gov.hmcts.befta.data.ResponseData;
+import uk.gov.hmcts.befta.data.UserData;
+import uk.gov.hmcts.befta.exception.FeatureToggleCheckFailureException;
+import uk.gov.hmcts.befta.exception.FunctionalTestException;
+import uk.gov.hmcts.befta.exception.InvalidTestDataException;
+import uk.gov.hmcts.befta.exception.UnconfirmedApiCallException;
+import uk.gov.hmcts.befta.exception.UnconfirmedDataSpecException;
+import uk.gov.hmcts.befta.factory.BeftaScenarioContextFactory;
+import uk.gov.hmcts.befta.featuretoggle.FeatureToggleService;
+import uk.gov.hmcts.befta.featuretoggle.ScenarioFeatureToggleInfo;
+import uk.gov.hmcts.befta.util.BeftaUtils;
+import uk.gov.hmcts.befta.util.EnvironmentVariableUtils;
+import uk.gov.hmcts.befta.util.JsonUtils;
+import uk.gov.hmcts.befta.util.MapVerificationResult;
+import uk.gov.hmcts.befta.util.MapVerifier;
+import uk.gov.hmcts.befta.util.Retryable;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -31,41 +64,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import io.cucumber.java.Before;
-import io.cucumber.java.Scenario;
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
-import io.restassured.RestAssured;
-import io.restassured.http.Method;
-import io.restassured.response.Response;
-import io.restassured.specification.QueryableRequestSpecification;
-import io.restassured.specification.RequestSpecification;
-import io.restassured.specification.SpecificationQuerier;
-import uk.gov.hmcts.befta.AuthenticationRetryConfiguration;
-import uk.gov.hmcts.befta.BeftaMain;
-import uk.gov.hmcts.befta.TestAutomationConfig;
-import uk.gov.hmcts.befta.TestAutomationConfig.ResponseHeaderCheckPolicy;
-import uk.gov.hmcts.befta.data.FileInBody;
-import uk.gov.hmcts.befta.data.HttpTestData;
-import uk.gov.hmcts.befta.data.RequestData;
-import uk.gov.hmcts.befta.data.ResponseData;
-import uk.gov.hmcts.befta.data.UserData;
-import uk.gov.hmcts.befta.exception.FeatureToggleCheckFailureException;
-import uk.gov.hmcts.befta.exception.FunctionalTestException;
-import uk.gov.hmcts.befta.exception.InvalidTestDataException;
-import uk.gov.hmcts.befta.exception.UnconfirmedApiCallException;
-import uk.gov.hmcts.befta.exception.UnconfirmedDataSpecException;
-import uk.gov.hmcts.befta.factory.BeftaScenarioContextFactory;
-import uk.gov.hmcts.befta.featuretoggle.ScenarioFeatureToggleInfo;
-import uk.gov.hmcts.befta.featuretoggle.FeatureToggleService;
-import uk.gov.hmcts.befta.util.BeftaUtils;
-import uk.gov.hmcts.befta.util.EnvironmentVariableUtils;
-import uk.gov.hmcts.befta.util.JsonUtils;
-import uk.gov.hmcts.befta.util.MapVerificationResult;
-import uk.gov.hmcts.befta.util.MapVerifier;
-import uk.gov.hmcts.befta.util.Retryable;
 
 public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFunctionalTestAutomationDSL {
 
@@ -358,6 +356,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         submitTheRequestToCallAnOperationOfAProduct(this.scenarioContext, operation, productName);
     }
 
+    @SuppressWarnings("UnstableApiUsage")
     private void submitTheRequestToCallAnOperationOfAProduct(BackEndFunctionalTestScenarioContext scenarioContext,
             String operationName, String productName) throws IOException {
         boolean isCorrectOperation = scenarioContext.getTestData().meetsOperationOfProduct(productName, operationName);
@@ -378,16 +377,30 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         }
 
         Retryable retryable = scenarioContext.getRetryConfiguration();
-        logger.info("Applying retry policy with the following configuration:"
-                + " Max attempts: {}, Retry on status codes: {},"
-                + " Delay between retries: {}ms.", retryable.getMaxAttempts(), retryable.getStatusCodes()
-                , retryable.getDelay());
+        Retryer<Response> retryer;
 
-        Retryer<Response> retryer = RetryerBuilder.<Response>newBuilder()
-                .retryIfResult(res -> retryable.getStatusCodes().contains(res.getStatusCode()))
-                .withStopStrategy(StopStrategies.stopAfterAttempt(retryable.getMaxAttempts()))
-                .withWaitStrategy(WaitStrategies.fixedWait(retryable.getDelay(), TimeUnit.MILLISECONDS))
-                .build();
+        logger.info("Calling: {} {}", testData.getMethod(), uri);
+        if (retryable.getNonRetryableHttpMethods().contains("*") || retryable.getNonRetryableHttpMethods()
+                                                                                .contains(testData.getMethod())) {
+            logger.info("Applying no-retry policy...");
+            retryer = RetryerBuilder.<Response>newBuilder().build();
+        } else {
+            logger.info("Applying active retry policy...");
+
+            retryer = RetryerBuilder.<Response>newBuilder()
+                    .withRetryListener(retryable.getRetryListener())
+                    .retryIfException(e -> {
+                        boolean isRetryableException = retryable.getRetryableExceptions().contains(e.getClass());
+                        Throwable cause = e.getCause();
+                        boolean isRetryableCause = cause != null && retryable.getRetryableExceptions()
+                                .contains(cause.getClass());
+                        return isRetryableException || isRetryableCause;
+                    })
+                    .retryIfResult(res -> retryable.getStatusCodes().contains(res.getStatusCode()))
+                    .withStopStrategy(StopStrategies.stopAfterAttempt(retryable.getMaxAttempts()))
+                    .withWaitStrategy(WaitStrategies.fixedWait(retryable.getDelay(), TimeUnit.MILLISECONDS))
+                    .build();
+        }
 
         Response response = executeHttpRequestWithRetry(theRequest, testData.getMethod(), uri, retryer);
 

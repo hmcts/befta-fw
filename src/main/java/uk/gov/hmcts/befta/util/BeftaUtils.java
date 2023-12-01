@@ -101,7 +101,7 @@ public class BeftaUtils {
                 .collect(Collectors.joining());
 
         if (retryInput.isEmpty()) {
-            return Retryable.N0_RETRYABLE;
+            return Retryable.RETRYABLE_FROM_CONFIG;
         }
 
         // default 1000ms
