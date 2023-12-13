@@ -704,6 +704,30 @@ The Retryable Feature is a new addition that allows you to execute tests multipl
 until they pass or reach the maximum number of attempts. This is useful when you have flaky tests that 
 fail randomly due to network issues, timeouts, or other intermittent failures.
 
+### Default Policy
+The Default Retry Policy provides a baseline configuration for retrying scenarios in the absence of service-specific settings. 
+This default behavior is configured using the following environment variables:
+
+* **BEFTA_RETRY_MAX_ATTEMPTS:** The maximum number of retry attempts for each service (default: 1).
+* **BEFTA_RETRY_STATUS_CODES:** A comma-separated list of HTTP status codes that trigger a retry (default: 500,502,503,504).
+* **BEFTA_RETRY_MAX_DELAY:** The maximum delay (in milliseconds) between retry attempts (default: 1000).
+* **BEFTA_RETRY_RETRYABLE_EXCEPTIONS:** A comma-separated list of Java exceptions that are considered retryable (default: java.net.SocketException, 
+javax.net.ssl.SSLException, java.net.ConnectException).
+* **BEFTA_RETRY_NON_RETRYABLE_HTTP_METHODS:** A comma-separated list of HTTP methods that should not be retried 
+(default: *). Use "*" to specify that no methods should be retried.
+* **BEFTA_RETRY_ENABLE_LISTENER:** A boolean flag indicating whether the Retry Policy listener should be enabled (default: true).
+
+#### Sample Configuration:
+```
+export BEFTA_RETRY_MAX_ATTEMPTS=3
+export BEFTA_RETRY_STATUS_CODES=500,502,503,504
+export BEFTA_RETRY_MAX_DELAY=1000
+export BEFTA_RETRY_RETRYABLE_EXCEPTIONS=java.net.SocketException,javax.net.ssl.SSLException,java.net.ConnectException
+export BEFTA_RETRY_NON_RETRYABLE_HTTP_METHODS=POST,PUT
+export BEFTA_RETRY_ENABLE_LISTENER=true
+```
+
+### Service Level Policy
 The feature can be defined with an annotation as follows: `@Retryable(maxAttempts=3,delay=1000,statusCodes={400,502})`.
 This annotation specifies a mandatory list of HTTP status codes that trigger a retry, and optional parameters for the maximum 
 number of attempts and the delay between attempts.
