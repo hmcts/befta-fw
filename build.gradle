@@ -154,7 +154,7 @@ dependencies {
 
     implementation group: 'com.google.guava', name: 'guava', version: '28.1-jre'
 
-    implementation group: 'org.apache.poi', name: 'poi', version: '4.0.0'
+    implementation group: 'org.apache.poi', name: 'poi', version: '4.1.2'
     implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '4.0.0'
 
     implementation group: 'com.github.rholder', name: 'guava-retrying', version: '2.0.0'
