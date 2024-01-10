@@ -137,7 +137,7 @@ wrapper.gradleVersion = '2.10'
 dependencies {
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.10.0'
 
-    implementation group: 'io.rest-assured', name: 'rest-assured', version: '4.4.0'
+    implementation group: 'io.rest-assured', name: 'rest-assured', version: '4.5.1'
 
     // NB: these libraries will often be used by the custom BeftaRunner and BeftaAdapter classes in each repo using BEFTA
     api group: 'io.cucumber', name: 'cucumber-java', version: '5.7.0'
