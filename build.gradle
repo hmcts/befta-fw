@@ -165,7 +165,7 @@ dependencies {
     testImplementation group: 'io.github.openfeign', name: 'feign-jackson', version: '9.7.0'
     testImplementation group: 'org.mockito', name: 'mockito-core', version: '3.3.3'
     testImplementation group: 'org.mockito', name: 'mockito-inline', version: '3.4.0'
-    testImplementation group: 'org.junit-pioneer', name: 'junit-pioneer', version: '0.9.0'
+    testImplementation group: 'org.junit-pioneer', name: 'junit-pioneer', version: '0.9.2'
     testImplementation "org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}"
     testImplementation "org.junit.jupiter:junit-jupiter-params:${junitJupiterVersion}"
     testRuntimeOnly  "org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}"
