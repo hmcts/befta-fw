@@ -38,7 +38,7 @@ repositories {
 // end::repositories[]
 
 ext {
-    junitJupiterVersion = '5.2.0'
+    junitJupiterVersion = '5.10.2'
     junitVintageVersion = '5.2.0'
     definitionConverterMain = "uk.gov.hmcts.befta.dse.ccd.DefinitionConverter"
 }
@@ -169,8 +169,8 @@ dependencies {
     testImplementation "org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}"
     testImplementation "org.junit.jupiter:junit-jupiter-params:${junitJupiterVersion}"
     testRuntimeOnly  "org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}"
-    testRuntimeOnly  group: 'org.junit.platform', name: 'junit-platform-commons', version: '1.5.2'
-    testRuntimeOnly  group: 'org.junit.platform', name: 'junit-platform-engine', version: '1.6.2'
+    testRuntimeOnly  group: 'org.junit.platform', name: 'junit-platform-commons', version: '1.10.2'
+    testRuntimeOnly  group: 'org.junit.platform', name: 'junit-platform-engine', version: '1.10.2'
 
 }
 // end::dependencies[]
