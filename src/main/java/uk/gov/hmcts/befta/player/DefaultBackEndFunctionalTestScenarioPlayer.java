@@ -1,35 +1,12 @@
 package uk.gov.hmcts.befta.player;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.rholder.retry.RetryException;
 import com.github.rholder.retry.Retryer;
 import com.github.rholder.retry.RetryerBuilder;
 import com.github.rholder.retry.StopStrategies;
 import com.github.rholder.retry.WaitStrategies;
 import com.google.common.base.Predicates;
-import org.apache.commons.collections4.map.HashedMap;
-import org.apache.http.impl.EnglishReasonPhraseCatalog;
-import org.aspectj.util.FileUtil;
-import org.junit.Assert;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.ConnectException;
-import java.text.DecimalFormat;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.TreeMap;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
-
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import io.cucumber.java.en.Given;
@@ -41,6 +18,12 @@ import io.restassured.response.Response;
 import io.restassured.specification.QueryableRequestSpecification;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.SpecificationQuerier;
+import org.apache.commons.collections4.map.HashedMap;
+import org.apache.http.impl.EnglishReasonPhraseCatalog;
+import org.aspectj.util.FileUtil;
+import org.junit.Assert;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import uk.gov.hmcts.befta.AuthenticationRetryConfiguration;
 import uk.gov.hmcts.befta.BeftaMain;
 import uk.gov.hmcts.befta.TestAutomationConfig;
@@ -56,16 +39,35 @@ import uk.gov.hmcts.befta.exception.InvalidTestDataException;
 import uk.gov.hmcts.befta.exception.UnconfirmedApiCallException;
 import uk.gov.hmcts.befta.exception.UnconfirmedDataSpecException;
 import uk.gov.hmcts.befta.factory.BeftaScenarioContextFactory;
-import uk.gov.hmcts.befta.featuretoggle.ScenarioFeatureToggleInfo;
 import uk.gov.hmcts.befta.featuretoggle.FeatureToggleService;
+import uk.gov.hmcts.befta.featuretoggle.ScenarioFeatureToggleInfo;
 import uk.gov.hmcts.befta.util.BeftaUtils;
 import uk.gov.hmcts.befta.util.EnvironmentVariableUtils;
 import uk.gov.hmcts.befta.util.JsonUtils;
 import uk.gov.hmcts.befta.util.MapVerificationResult;
 import uk.gov.hmcts.befta.util.MapVerifier;
+import uk.gov.hmcts.befta.util.Retryable;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.ConnectException;
+import java.text.DecimalFormat;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.TreeMap;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFunctionalTestAutomationDSL {
 
+    static final String HTTP_S_REGEX = "^(http|https):.*";
     static final String PREREQUISITE_SPEC = "As a prerequisite";
 
     private Logger logger = LoggerFactory.getLogger(DefaultBackEndFunctionalTestScenarioPlayer.class);
@@ -354,6 +356,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         submitTheRequestToCallAnOperationOfAProduct(this.scenarioContext, operation, productName);
     }
 
+    @SuppressWarnings("UnstableApiUsage")
     private void submitTheRequestToCallAnOperationOfAProduct(BackEndFunctionalTestScenarioContext scenarioContext,
             String operationName, String productName) throws IOException {
         boolean isCorrectOperation = scenarioContext.getTestData().meetsOperationOfProduct(productName, operationName);
@@ -367,11 +370,39 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         HttpTestData testData = scenarioContext.getTestData();
         String uri = testData.getUri();
 
-        if (!uri.trim().toLowerCase().startsWith("http:")) {
+        // set `baseUri` if testData URI is only a partial URL
+        Matcher httpUriMatcher = Pattern.compile(HTTP_S_REGEX).matcher(uri.trim().toLowerCase());
+        if (!httpUriMatcher.find()) {
             theRequest.baseUri(TestAutomationConfig.INSTANCE.getTestUrl());
         }
 
-        Response response = theRequest.request(testData.getMethod(), uri);
+        Retryable retryable = scenarioContext.getRetryConfiguration();
+        Retryer<Response> retryer;
+
+        logger.info("Calling: {} {}", testData.getMethod(), uri);
+        if (retryable.getNonRetryableHttpMethods().contains("*") || retryable.getNonRetryableHttpMethods()
+                                                                                .contains(testData.getMethod())) {
+            logger.info("Applying no-retry policy...");
+            retryer = RetryerBuilder.<Response>newBuilder().build();
+        } else {
+            logger.info("Applying active retry policy...");
+
+            retryer = RetryerBuilder.<Response>newBuilder()
+                    .withRetryListener(retryable.getRetryListener())
+                    .retryIfException(e -> {
+                        boolean isRetryableException = retryable.getRetryableExceptions().contains(e.getClass());
+                        Throwable cause = e.getCause();
+                        boolean isRetryableCause = cause != null && retryable.getRetryableExceptions()
+                                .contains(cause.getClass());
+                        return isRetryableException || isRetryableCause;
+                    })
+                    .retryIfResult(res -> retryable.getStatusCodes().contains(res.getStatusCode()))
+                    .withStopStrategy(StopStrategies.stopAfterAttempt(retryable.getMaxAttempts()))
+                    .withWaitStrategy(WaitStrategies.fixedWait(retryable.getDelay(), TimeUnit.MILLISECONDS))
+                    .build();
+        }
+
+        Response response = executeHttpRequestWithRetry(theRequest, testData.getMethod(), uri, retryer);
 
         ResponseData responseData = convertRestAssuredResponseToBeftaResponse(scenarioContext, response);
         scenarioContext.getTestData().setActualResponse(responseData);
@@ -379,7 +410,21 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         scenario.log("Called: " + queryableRequest.getMethod() + " " + queryableRequest.getURI());
         scenario.log("Response:\n" + JsonUtils.getPrettyJsonFromObject(scenarioContext.getTheResponse()));
         scenarioContext.injectDataFromContextAfterApiCall();
+    }
 
+    private Response executeHttpRequestWithRetry(RequestSpecification theRequest, String method, String uri,
+                                                        Retryer<Response> retryer) {
+        try {
+            Callable<Response> callable = () -> theRequest.request(method, uri);
+            return retryer.call(callable);
+        } catch (RetryException retryException) {
+            throw new FunctionalTestException(
+                    String.format("Retry Exception when calling %s", uri), retryException);
+        } catch (ExecutionException executionException) {
+            throw new FunctionalTestException(
+                    String.format("Execution Exception when authenticating user %s", uri),
+                    executionException);
+        }
     }
 
     private ResponseData convertRestAssuredResponseToBeftaResponse(BackEndFunctionalTestScenarioContext scenarioContext,
@@ -590,6 +635,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
             String testDataSpec, String testDataId, String contextId) throws IOException {
         BackEndFunctionalTestScenarioContext subcontext = BeftaScenarioContextFactory.createBeftaScenarioContext();
         subcontext.initializeTestDataFor(testDataId);
+        subcontext.setRetryableTag(this.scenarioContext.getRetryableTag());
         if (contextId == null) {
             parentContext.addChildContext(subcontext);
         } else {
