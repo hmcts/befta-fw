@@ -3,12 +3,10 @@
  */
 package uk.gov.hmcts.befta.dse.ccd;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doReturn;
+import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.when;
@@ -19,19 +17,15 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junitpioneer.jupiter.SetEnvironmentVariable;
-import org.mockito.ArgumentMatchers;
 import org.mockito.MockedStatic;
 
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.response.ResponseBody;
 import io.restassured.specification.RequestSpecification;
-import org.springframework.core.io.ClassPathResource;
 import uk.gov.hmcts.befta.DefaultTestAutomationAdapter;
 import uk.gov.hmcts.befta.TestAutomationAdapter;
 
-import java.io.*;
-import java.util.stream.Collectors;
 
 /**
  * @author korneleehenry
@@ -123,7 +117,7 @@ class TestDataLoaderToDefinitionStore {
 		when(mockAdapter.getNewS2SToken()).thenReturn("s2s_token");
 		DataLoaderToDefinitionStore dataLoaderToDefinitionStore = new DataLoaderToDefinitionStore(mockAdapter);
         when(RestAssured.given(any())).thenReturn(requestSpecification);
-        when(requestSpecification.header(any(), any(), ArgumentMatchers.<String>any())).thenReturn(requestSpecification);
+        when(requestSpecification.header(any())).thenReturn(requestSpecification);
         when(requestSpecification.given()).thenReturn(requestSpecification);
         when(requestSpecification.body(any(Object.class))).thenReturn(requestSpecification);
         when(requestSpecification.when()).thenReturn(requestSpecification);
@@ -154,7 +148,7 @@ class TestDataLoaderToDefinitionStore {
 		DataLoaderToDefinitionStore dataLoaderToDefinitionStore = new DataLoaderToDefinitionStore(mockAdapter);
         mock(io.restassured.response.ResponseBody.class);
         when(RestAssured.given(any())).thenReturn(requestSpecification);
-        when(requestSpecification.header(any(), any(), ArgumentMatchers.<String>any())).thenReturn(requestSpecification);
+        when(requestSpecification.header(any())).thenReturn(requestSpecification);
         when(requestSpecification.given()).thenReturn(requestSpecification);
         when(requestSpecification.body(any(Object.class))).thenReturn(requestSpecification);
         when(requestSpecification.when()).thenReturn(requestSpecification);
@@ -185,7 +179,7 @@ class TestDataLoaderToDefinitionStore {
 		DataLoaderToDefinitionStore dataLoaderToDefinitionStore = new DataLoaderToDefinitionStore(mockAdapter);
         ResponseBody<?> responseBody = mock(io.restassured.response.ResponseBody.class);
         when(RestAssured.given(any())).thenReturn(requestSpecification);
-        when(requestSpecification.header(any(), any(), ArgumentMatchers.<String>any())).thenReturn(requestSpecification);
+        when(requestSpecification.header(any())).thenReturn(requestSpecification);
         when(requestSpecification.given()).thenReturn(requestSpecification);
         when(requestSpecification.body(any(Object.class))).thenReturn(requestSpecification);
         when(requestSpecification.when()).thenReturn(requestSpecification);
@@ -249,7 +243,7 @@ class TestDataLoaderToDefinitionStore {
         when(mockAdapter.getNewS2SToken()).thenReturn("s2s_token");
         DataLoaderToDefinitionStore dataLoaderToDefinitionStore = new DataLoaderToDefinitionStore(mockAdapter);
         when(RestAssured.given(any())).thenReturn(requestSpecification);
-        when(requestSpecification.header(any(), any(), ArgumentMatchers.<String>any())).thenReturn(requestSpecification);
+        when(requestSpecification.header(any())).thenReturn(requestSpecification);
         when(requestSpecification.given()).thenReturn(requestSpecification);
         when(requestSpecification.body(any(String.class))).thenReturn(requestSpecification);
         when(requestSpecification.when()).thenReturn(requestSpecification);
@@ -282,7 +276,7 @@ class TestDataLoaderToDefinitionStore {
                 DataLoaderToDefinitionStore dataLoaderToDefinitionStore = new DataLoaderToDefinitionStore(mockAdapter);
                 ResponseBody<?> responseBody = mock(io.restassured.response.ResponseBody.class);
                 when(RestAssured.given(any())).thenReturn(requestSpecification);
-                when(requestSpecification.header(any(), any(), ArgumentMatchers.<String>any())).thenReturn(requestSpecification);
+                when(requestSpecification.header(any())).thenReturn(requestSpecification);
                 when(requestSpecification.given()).thenReturn(requestSpecification);
                 when(requestSpecification.body(any(String.class))).thenReturn(requestSpecification);
                 when(requestSpecification.when()).thenReturn(requestSpecification);

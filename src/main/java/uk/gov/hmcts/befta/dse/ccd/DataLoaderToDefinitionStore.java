@@ -1,6 +1,5 @@
 package uk.gov.hmcts.befta.dse.ccd;
 
-import org.apache.commons.compress.utils.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -10,9 +9,6 @@ import org.slf4j.LoggerFactory;
 import com.google.common.reflect.ClassPath;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -25,6 +21,7 @@ import java.util.stream.Collectors;
 
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.http.Header;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.springframework.core.io.ClassPathResource;
@@ -33,10 +30,8 @@ import uk.gov.hmcts.befta.DefaultBeftaTestDataLoader;
 import uk.gov.hmcts.befta.DefaultTestAutomationAdapter;
 import uk.gov.hmcts.befta.TestAutomationAdapter;
 import uk.gov.hmcts.befta.auth.UserTokenProviderConfig;
-import uk.gov.hmcts.befta.data.HttpTestDataSource;
 import uk.gov.hmcts.befta.data.UserData;
 import uk.gov.hmcts.befta.dse.ccd.definition.converter.JsonTransformer;
-import uk.gov.hmcts.befta.factory.HttpTestDataSourceFactory;
 import uk.gov.hmcts.befta.util.BeftaUtils;
 import uk.gov.hmcts.befta.util.EnvironmentVariableUtils;
 import uk.gov.hmcts.befta.util.FileUtils;
@@ -211,8 +206,9 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
     protected void createRoleAssignment(String resource, String filename) {
         try {
             JSONObject payLoadJSONObject = new JSONObject(resource);
+            Header contentType = new Header("Content-type", "application/json");
             Response response = asRoleAssignmentUser().given()
-                    .header("Content-type", "application/json")
+                    .header(contentType)
                     .body(readObjectFromJsonFile(payLoadJSONObject).toString())
                     .when().post("/am/role-assignments");
             if (response.getStatusCode() / 100 != 2) {
@@ -281,9 +277,11 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
             adapter.authenticate(raUser, UserTokenProviderConfig.DEFAULT_INSTANCE.getClientId());
             String s2sToken = adapter.getNewS2STokenWithEnvVars("ROLE_ASSIGNMENT_API_GATEWAY_S2S_CLIENT_ID",
                     "ROLE_ASSIGNMENT_API_GATEWAY_S2S_CLIENT_KEY");
+            Header auth = new Header("Authorization", "Bearer " + raUser.getAccessToken());
+            Header serviceAuth = new Header("ServiceAuthorization", s2sToken);
             return RestAssured.given(new RequestSpecBuilder().setBaseUri(BeftaMain.getConfig().getRoleAssignmentHost()).build())
-                    .header("Authorization", "Bearer " + raUser.getAccessToken())
-                    .header("ServiceAuthorization", s2sToken);
+                    .header(auth)
+                    .header(serviceAuth);
         } catch (ExecutionException e) {
             String message = String.format("authenticating as %s failed ", raUser.getUsername());
             throw new RuntimeException(message, e);
@@ -336,7 +334,8 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
         Map<String, String> ccdRoleInfo = new HashMap<>();
         ccdRoleInfo.put("role", roleConfig.getRole());
         ccdRoleInfo.put("security_classification", roleConfig.getSecurityClassification());
-        Response response = asAutoTestImporter().given().header("Content-type", "application/json").body(
+        Header contentType = new Header("Content-type", "application/json");
+        Response response = asAutoTestImporter().given().header(contentType).body(
                 ccdRoleInfo)
                 .when().put("/api/user-role");
         if (response.getStatusCode() / 100 != 2) {
@@ -403,9 +402,11 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
         try {
             adapter.authenticate(importingUser, UserTokenProviderConfig.DEFAULT_INSTANCE.getClientId());
             String s2sToken = adapter.getNewS2STokenWithEnvVars("CCD_API_GATEWAY_S2S_ID", "CCD_API_GATEWAY_S2S_KEY");
+            Header auth = new Header("Authorization", "Bearer " + importingUser.getAccessToken());
+            Header serviceAuth = new Header("ServiceAuthorization", s2sToken);
             return RestAssured.given(new RequestSpecBuilder().setBaseUri(definitionStoreUrl).build())
-                    .header("Authorization", "Bearer " + importingUser.getAccessToken())
-                    .header("ServiceAuthorization", s2sToken);
+                .header(auth)
+                .header(serviceAuth);
         } catch (ExecutionException e) {
             String message = String.format("authenticating as %s failed ", importingUser.getUsername());
             throw new RuntimeException(message, e);

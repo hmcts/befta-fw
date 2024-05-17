@@ -35,7 +35,7 @@ It provides the following functionalities and conveniences:
 ### 3.2) Software Requirements
 * Java SE Development Kit 17 (JDK 17)
 * Your Favourite IDE
-* Gradle 7.4.2+
+* Gradle 8.7+ (included as wrapper)
 
 
 ### 3.3) Setting Up Environment
