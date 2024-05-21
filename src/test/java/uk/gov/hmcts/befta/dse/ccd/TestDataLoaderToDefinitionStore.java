@@ -1,34 +1,36 @@
 package uk.gov.hmcts.befta.dse.ccd;
 
-import io.restassured.RestAssured;
-import io.restassured.response.Response;
-import io.restassured.response.ResponseBody;
-import io.restassured.specification.RequestSpecification;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
-import org.junitpioneer.jupiter.SetEnvironmentVariable;
-import org.mockito.ArgumentMatchers;
-import org.mockito.MockedStatic;
-import uk.gov.hmcts.befta.DefaultTestAutomationAdapter;
-import uk.gov.hmcts.befta.TestAutomationAdapter;
-
-import java.util.List;
-import java.util.stream.Stream;
-
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
+import static org.mockito.Mockito.when;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.junitpioneer.jupiter.SetEnvironmentVariable;
+import org.mockito.MockedStatic;
+
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+import io.restassured.response.ResponseBody;
+import io.restassured.specification.RequestSpecification;
+import uk.gov.hmcts.befta.DefaultTestAutomationAdapter;
+import uk.gov.hmcts.befta.TestAutomationAdapter;
+
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.mockito.ArgumentMatchers;
+import java.util.List;
+import java.util.stream.Stream;
+
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 @SuppressWarnings({"LineLength","VariableDeclarationUsageDistance"})
 class TestDataLoaderToDefinitionStore {
@@ -285,7 +287,7 @@ class TestDataLoaderToDefinitionStore {
         when(mockAdapter.getNewS2SToken()).thenReturn("s2s_token");
         DataLoaderToDefinitionStore dataLoaderToDefinitionStore = new DataLoaderToDefinitionStore(mockAdapter);
         when(RestAssured.given(any())).thenReturn(requestSpecification);
-        when(requestSpecification.header(any(), any(), ArgumentMatchers.<String>any())).thenReturn(requestSpecification);
+        when(requestSpecification.header(any())).thenReturn(requestSpecification);
         when(requestSpecification.given()).thenReturn(requestSpecification);
         when(requestSpecification.body(any(String.class))).thenReturn(requestSpecification);
         when(requestSpecification.when()).thenReturn(requestSpecification);
@@ -333,7 +335,7 @@ class TestDataLoaderToDefinitionStore {
 
     private void mockAddCcdRoleApiCalls(RequestSpecification requestSpecification, Response rs) {
         when(RestAssured.given(any())).thenReturn(requestSpecification);
-        when(requestSpecification.header(any(), any(), ArgumentMatchers.<String>any())).thenReturn(requestSpecification);
+        when(requestSpecification.header(any())).thenReturn(requestSpecification);
         when(requestSpecification.given()).thenReturn(requestSpecification);
         when(requestSpecification.body(any(Object.class))).thenReturn(requestSpecification);
         when(requestSpecification.when()).thenReturn(requestSpecification);
