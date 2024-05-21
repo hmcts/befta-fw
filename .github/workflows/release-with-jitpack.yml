@@ -25,7 +25,7 @@ jobs:
     - name: Build
       run: ./gradlew check
     - name: Archive test reports
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: test-reports
         path: build/reports/tests/
