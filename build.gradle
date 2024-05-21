@@ -145,7 +145,7 @@ dependencies {
     implementation group: 'io.rest-assured', name: 'rest-assured', version: '5.4.0'
 
     implementation group: 'io.cucumber', name: 'cucumber-java', version: '7.17.0'
-    implementation group: 'io.cucumber', name: 'cucumber-junit', version: '7.17.0'
+    implementation group: 'io.cucumber', name: 'cucumber-junit', version: '7.18.0'
 
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.32'
     annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.32'
