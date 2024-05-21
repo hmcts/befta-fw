@@ -1,6 +1,6 @@
 package uk.gov.hmcts.befta.featuretoggle.launchdarkly;
 
-import com.launchdarkly.sdk.LDUser;
+import com.launchdarkly.sdk.LDContext;
 import com.launchdarkly.sdk.server.LDClient;
 import uk.gov.hmcts.befta.exception.FeatureToggleCheckFailureException;
 import uk.gov.hmcts.befta.featuretoggle.FeatureToggleService;
@@ -9,12 +9,7 @@ public class LaunchDarklyFeatureToggleService implements FeatureToggleService<St
 
     public static final LaunchDarklyFeatureToggleService INSTANCE = new LaunchDarklyFeatureToggleService();
 
-    private static final String BEFTA = "befta";
-    private static final String USER = "user";
-    private static final String SERVICENAME = "servicename";
-
-    private static final LDUser ldUser = new LDUser.Builder(LaunchDarklyConfig.getEnvironmentName()).firstName(BEFTA)
-            .lastName(USER).custom(SERVICENAME, LaunchDarklyConfig.getLDMicroserviceName()).build();
+    private static final LDContext ldContext = LDContext.builder(LaunchDarklyConfig.LD_SDK_KEY).build();
 
     private final LDClient ldClient = LaunchDarklyConfig.getLdInstance();
 
@@ -24,7 +19,7 @@ public class LaunchDarklyFeatureToggleService implements FeatureToggleService<St
             return Boolean.FALSE;
         }
         checkLaunchDarklyConfig();
-        return ldClient.boolVariation(flagId, ldUser, false);
+        return ldClient.boolVariation(flagId, ldContext, false);
 
     }
 
