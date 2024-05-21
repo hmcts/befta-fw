@@ -1,0 +1,5 @@
+[
+  { "role": "test-public", "security_classification": "PUBLIC" },
+  { "role": "test-private", "security_classification": "PRIVATE" },
+  { "role": "casetest-restricted", "security_classification": "RESTRICTED" }
+]

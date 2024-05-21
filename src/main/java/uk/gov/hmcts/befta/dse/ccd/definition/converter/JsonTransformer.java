@@ -40,7 +40,7 @@ public class JsonTransformer {
             "CaseEventToFields", "CaseField", "CaseRoles", "CaseTypeTab" ,"SearchInputFields", "SearchResultFields", "State",
             "WorkBasketInputFields", "WorkBasketResultFields", "Category", "Banner", "CaseType", "ComplexTypes", "EventToComplexTypes",
             "FixedLists", "Jurisdiction", "UserProfile","SearchAlias", "SearchCasesResultFields","Categories",
-            "NoticeOfChangeConfig", "ChallengeQuestion", "RoleToAccessProfiles", "SearchParty", "SearchCriteria");
+            "NoticeOfChangeConfig", "ChallengeQuestion", "RoleToAccessProfiles", "SearchParty", "SearchCriteria", "AccessType", "AccessTypeRole");
 
     private Map<String, ArrayNode> defFileMap;
 

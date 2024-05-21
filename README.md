@@ -107,19 +107,19 @@ Below are the environment needed specifically to Create Role Assignment data.
    `testCompile group: 'com.github.hmcts', name: 'befta-fw', version: '6.13.4'`
 3. Add a javaExec section to wherever you want a functional test suit to be executed, 
    like below:
-   ```
-           javaexec {
-            main = "uk.gov.hmcts.befta.BeftaMain"
-            classpath += configurations.cucumberRuntime + sourceSets.aat.runtimeClasspath + sourceSets.main.output + sourceSets.test.output
-            args = ['--plugin', "json:${projectDir}/target/cucumber.json", '--tags', 'not @Ignore', '--glue',
-                    'uk.gov.hmcts.befta.player', 'my-feature-files/are/here, and/here, and-also/there']
-        }
+   ```gradle
+      javaexec {
+         main = "uk.gov.hmcts.befta.BeftaMain"
+         classpath += configurations.cucumberRuntime + sourceSets.aat.runtimeClasspath + sourceSets.main.output + sourceSets.test.output
+         args = ['--plugin', "json:${projectDir}/target/cucumber.json", '--tags', 'not @Ignore', '--glue',
+                  'uk.gov.hmcts.befta.player', 'my-feature-files/are/here, and/here, and-also/there']
+      }
    ```
    You can place this block inside the
-   ```
-   task functional(type: Test) {
-      ...
-   }
+   ```gradle
+      task functional(type: Test) {
+         ...
+      }
    ```
    of your test automation project.  
    Test automation teams can write their simple, tiny custom Main classes to customise 
@@ -143,7 +143,7 @@ a Main class with runtime arguments to specify where the features are, where the
 implementations are and scenarios with which tags to pick up and run. You can skip 
 all runtime arguments to this Main class, in which case the default arguments will 
 be:
-```
+```gradle
 '--plugin', "json:${projectDir}/target/cucumber.json", '--tags', 'not @Ignore', '--glue', 'uk.gov.hmcts.befta.player', 'src/aat/resources/features'
 ```
 
@@ -163,9 +163,52 @@ Obviously, to test a CCD application, for example, the proper setup procedure sh
 have been completed as a prerequisite. An incomplete setup, like some users not fully 
 and correctly configured, can cause some or all of the functional tests to fail as false positives.
 
-### 3.11) Importing definition files
+### 3.11) Importing test data configuration into CCD
+
+The BEFTA Framework also contains the `DataLoaderToDefinitionStore` as an alternative to the 
+`DefaultBeftaTestDataLoader`.  This extension can be registered using a custom `TestAutomationAdapter` and will add 
+functionality to allow:
+
+* [Importing CCD roles](#3111-importing-ccd-roles)
+* [Importing definition files](#3112-importing-definition-files)
+* [Create Role Assignment data](#3113-create-role-assignment-data)
+
+Example custom `TestAutomationAdapter` registering the `DataLoaderToDefinitionStore` but with `createRoleAssignment`
+functionality disabled:
+```java
+public class MyTestAutomationAdapter extends DefaultTestAutomationAdapter {
+
+    @Override
+    protected BeftaTestDataLoader buildTestDataLoader() {
+        return new DataLoaderToDefinitionStore(this,
+            DataLoaderToDefinitionStore.VALID_CCD_TEST_DEFINITIONS_PATH) {
+
+            @Override
+            protected void createRoleAssignment(String resource, String filename) {
+                // Do not create role assignments.
+                BeftaUtils.defaultLog("Will NOT create role assignments!");
+            }
+
+        };
+    }
+```
+
+#### 3.11.1) Importing CCD roles
+
+If the `DataLoaderToDefinitionStore` is used to load data: by default it will attempt to load CCD Roles from a file 
+named `ccd-roles.json` stored alongside the configured test definitions folder.  If this file does not exist or if it 
+fails to load, it will switch to use the list of CCD Roles hard coded into the `DataLoaderToDefinitionStore` class.
+
+For an example CCD Roles JSON file see the [ccd-test-definitions](https://github.com/hmcts/ccd-test-definitions) 
+repository.
+
+#### 3.11.2) Importing definition files
 
 BEFTA Framework contains definition files in both XLSX and JSON formats.
+
+> Note: The default CCD test definition files used by the `DataLoaderToDefinitionStore` are now stored in the 
+ [ccd-test-definitions](https://github.com/hmcts/ccd-test-definitions) repository. The commands below can still
+  be used to generate the required JSON template files when making changes inside the other repository. 
 
 Typically, CCD services under test will call BEFTA Framework code in order to load this definition
 data before running feature tests.
@@ -183,8 +226,8 @@ corresponding JSON files, by executing the `DefinitionConverter` class provided 
 * **Running `DefinitionConverter` against all XLSX files**
 
   The `definitionsToJson` gradle task will run the `DefinitionConverter` against each of the XLSX files in the directory
-  `src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/excel`.  This will relace the corresponding output in the folowing
-  directory: `src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions`.
+  `src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/excel`.  This will replace the corresponding output in the
+  following directory: `src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions`.
 
   ```bash
     ./gradlew definitionsToJson
@@ -204,6 +247,9 @@ OR
     arg4: (Optional) Boolean: true - use jurisdiction name to generate the parent folder name when converting from excel to JSON,
           false - use file name as the folder name
   ```
+
+#### 3.11.3) Create Role Assignment data
+For information on how to configure Role Assignments for import see [Domain Specific Environment Variables](#35-domain-specific-environment-variables).
 
 ## 4) SAMPLE REPOSITORIES USING BEFTA FRAMEWORK
 
@@ -433,7 +479,7 @@ terms.
 If the response body of an API is meant to contain a JSON array at root 
 level, the test data should follow the following convention for the body section of 
 the expected response:
-```
+```json
   "expectedResponse": {
     "body": {
       "arrayInMap": [
@@ -458,7 +504,7 @@ of the response body. Same convention is applicable for request bodies, as well.
 #### 5.6.2) Files in Request Bodies
 Files can be specified to be contained in request bodies. This is useful for APIs uploading 
 a file to a destination. Following is the structural convention for such a specification:
-```
+```json
 {
    ...
    "request": {
@@ -481,7 +527,7 @@ by the resource path, to the request body.
 To specify a more detailed 'form-data' in a request payload, fields (controls) in the 
 form along with their values can be specified as below. Note that this example specifies 
 multiple files to be attached to the same request body.
-```
+```json
    "body": {
        "arrayInMap": [
           {
@@ -514,7 +560,7 @@ If a file content is expected in a response body, the framework can be instructe
 check if the actual size of the download file is equal to that of the expected one.
 Below is the convention for such instruction:
 
-```
+```json
    "__fileInBody__" : {
       "fullPath" : "[[ANY_STRING_NOT_NULLABLE]]",
       "size" : "679361",
@@ -538,7 +584,7 @@ by the framework as an instructive configuration and the array's second element 
 be treated as the first data object intended to be listed. The instructive configuration 
 element should be as below:
 
-```
+```json
 "some-collection-field": [
    {
       "__operator__": "equivalent",
@@ -600,7 +646,7 @@ Default is `ordered` and the field can be omitted if that's the preferred one.
     Any wildcard element values or data resolved at runtime are excluded as `__elementId__` 
     candidates.  Examples would be
 
-    ```java
+    ```json
         "id": "[[ANY_STRING_NOT_NULLABLE]]"
         "case_id": "${}${[scenarioContext][siblingContexts][F-105_Case_Data_Create_C1][testData][actualResponse][body][id]}"
     ```  
@@ -652,3 +698,99 @@ Typical sequence of activities during the execution of test suite is as shown in
 below Sequence Diagram:
 ![](documentation/Sequence_Diagram_Draft.jpg)
 
+
+## 9) RETRY POLICY
+The Retryable Feature is a new addition that allows you to execute tests multiple times 
+until they pass or reach the maximum number of attempts. This is useful when you have flaky tests that 
+fail randomly due to network issues, timeouts, or other intermittent failures.
+
+### Default Policy
+The Default Retry Policy provides a baseline configuration for retrying scenarios in the absence of service-specific settings. 
+This default behavior is configured using the following environment variables:
+
+* **BEFTA_RETRY_MAX_ATTEMPTS:** The maximum number of retry attempts for each service (default: 1).
+* **BEFTA_RETRY_STATUS_CODES:** A comma-separated list of HTTP status codes that trigger a retry (default: 500,502,503,504).
+* **BEFTA_RETRY_MAX_DELAY:** The maximum delay (in milliseconds) between retry attempts (default: 1000).
+* **BEFTA_RETRY_RETRYABLE_EXCEPTIONS:** A comma-separated list of Java exceptions that are considered retryable (default: java.net.SocketException, 
+javax.net.ssl.SSLException, java.net.ConnectException).
+* **BEFTA_RETRY_NON_RETRYABLE_HTTP_METHODS:** A comma-separated list of HTTP methods that should not be retried 
+(default: *). Use "*" to specify that no methods should be retried.
+* **BEFTA_RETRY_ENABLE_LISTENER:** A boolean flag indicating whether the Retry Policy listener should be enabled (default: true).
+
+#### Sample Configuration:
+```
+export BEFTA_RETRY_MAX_ATTEMPTS=3
+export BEFTA_RETRY_STATUS_CODES=500,502,503,504
+export BEFTA_RETRY_MAX_DELAY=1000
+export BEFTA_RETRY_RETRYABLE_EXCEPTIONS=java.net.SocketException,javax.net.ssl.SSLException,java.net.ConnectException
+export BEFTA_RETRY_NON_RETRYABLE_HTTP_METHODS=POST,PUT
+export BEFTA_RETRY_ENABLE_LISTENER=true
+```
+
+### Service Level Policy
+The feature can be defined with an annotation as follows: `@Retryable(maxAttempts=3,delay=1000,statusCodes={400,502})`.
+This annotation specifies a mandatory list of HTTP status codes that trigger a retry, and optional parameters for the maximum 
+number of attempts and the delay between attempts.
+If you don't provide the optional parameters maxAttempts and delay, the default values will be used instead, 
+which are 3 and 1000 milliseconds, respectively.
+If you don't provide the optional parameters maxAttempts and delay, the default values will be used instead, which are 3 and 1000 milliseconds, respectively.
+If statusCode is not provided, the scenario will fail with a **FunctionalTestException**.
+
+### Usage
+To use the Retryable Feature, you need to annotate your test scenarios with the **@Retryable** annotation in your feature file and 
+provide the necessary parameters. Here's an example:
+
+```
+@S-096.1 @Retryable(maxAttempts=3,delay=500,statusCodes={409,500})
+  Scenario: Sample Scenario
+    Given given_context
+    When when_context
+    And and_context
+```
+In this example, the scenario **@S-096.1** will be executed up to 3 times with a delay of 500 milliseconds between each attempt. 
+If the HTTP response status code is either 409 or 500, the test will be retried.
+If you don't provide the optional parameters maxAttempts and delay, the default values will be used instead.
+
+### Examples
+
+Here are some examples of how you can use the Retryable Feature:
+
+```
+@S-096.1 @Retryable(statusCodes={500,502})
+  Scenario: Sample Scenario
+    Given given_context
+    When when_context
+    And and_context
+```
+In this example, the scenario **@S-096.1** will be executed up to 3 times with a delay of
+1000 milliseconds between each attempt. If the HTTP response status code is either 500 or 502, the test will be retried.
+
+```
+@S-096.1 @Retryable(statusCodes={404,503}, maxAttempts=5)
+  Scenario: Sample Scenario
+    Given given_context
+    When when_context
+    And and_context
+```
+In this example, the scenario **@S-096.1** will be executed up to 5 times with a delay of 
+1000 milliseconds between each attempt. If the HTTP response status code is either 404 or 503, the test will be retried.
+
+```
+@S-096.1 @Retryable(statusCodes={400,502}, delay=500)
+  Scenario: Sample Scenario
+    Given given_context
+    When when_context
+    And and_context
+```
+In this example, the scenario **@S-096.1** will be executed up to 3 times with a delay of 
+500 milliseconds between each attempt. If the HTTP response status code is either 400 or 502, the test will be retried.
+
+```
+@S-096.1 @Retryable(maxAttempts=2, delay=500)
+  Scenario: Sample Scenario
+    Given given_context
+    When when_context
+    And and_context
+```
+In this example, the scenario **@S-096.1** will fail with 
+**FunctionalTestException:Missing statusCode configuration in @Retryable**
