@@ -102,7 +102,7 @@ Below are the environment needed specifically to Create Role Assignment data.
 
 
 ### 3.7) Run BEFTA Framework With Gradle
-1. Install Gradle 8.1 or higher. You can simply copy a gradle wrapper from `https://github.com/hmcts/befta-fw`.
+1. Install Gradle 8.7 or higher. You can simply copy a gradle wrapper from `https://github.com/hmcts/befta-fw`.
 2. Add the following dependency to your build.gradle file:  
    `testCompile group: 'com.github.hmcts', name: 'befta-fw', version: '9.0.0'`
 3. Add a javaExec section to wherever you want a functional test suit to be executed, 
