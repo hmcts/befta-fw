@@ -167,7 +167,7 @@ dependencies {
 
     implementation group: 'com.github.rholder', name: 'guava-retrying', version: '2.0.0'
 
-    implementation group: 'com.launchdarkly', name: 'launchdarkly-java-server-sdk', version: '7.4.1'
+    implementation group: 'com.launchdarkly', name: 'launchdarkly-java-server-sdk', version: '7.5.0'
     implementation group: 'org.json', name: 'json', version: '20240303'
 
     implementation group: 'io.github.openfeign', name: 'feign-jackson', version: '13.2.1'
