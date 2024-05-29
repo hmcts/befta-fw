@@ -176,9 +176,15 @@ public final class CucumberStepAnnotationUtils {
         };
     }
 
+    /*
+     * RDM-7423: Optional Comma or Full Stop At End Of DSL Elements: i.e. append optionals "(.)" & "(,)"
+     * 
+     * CCD-5362: Comply with stricter cucumber requirements by removing regex from cucumber expression 
+     * see https://github.com/cucumber/cucumber-expressions?tab=readme-ov-file#cucumber-expressions
+     * > Cucumber supports both Cucumber Expressions and Regular Expressions for defining Step Definitions, 
+     * > but you cannot mix Cucumber Expression syntax with Regular Expression syntax in the same expression.
+     */
     private static String substituteStepAnnotationValue(final String value) {
-        // RDM-7423: Optional Comma or Full Stop At End Of DSL Elements: i.e. append optionals "(.)" & "(,)"
-        // RDM-7424: Extra Space Tolerance Between Words of DSL Elements: i.e. " " => "([\s]+)"
-        return value.replace(" ", "([\\s]+)") + "(.)(,)";
+        return value + "(.)(,)";
     }
 }
