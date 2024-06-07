@@ -619,11 +619,17 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
                 || issuesInResponseBody != null;
         if (anyVerificationIssue && null != timeOut) {
             long timeoutExpiredMs = System.currentTimeMillis() + timeOut;
+            long lastCheckedTime = System.currentTimeMillis();
             // Use time out calculations
             try {
                 while (System.currentTimeMillis() < timeoutExpiredMs) {
+                    long currentTime = System.currentTimeMillis();
+                     if (currentTime - lastCheckedTime >= WAIT_TIME) {
                     performAndVerifyTheExpectedResponseForAnApiCall(parentContext, testDataSpec, testDataId,
                             contextId, timeOut);
+                    lastCheckedTime = currentTime;
+                    }
+                    Thread.yield();
                 }
             } catch (IOException e) {
                 throw new RuntimeException(e);
