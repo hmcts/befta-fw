@@ -75,6 +75,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     private final BackEndFunctionalTestScenarioContext scenarioContext;
     private Scenario scenario;
     private ObjectMapper mapper = new ObjectMapper();
+    private static final Integer WAIT_TIME  = 1000;
 
     public DefaultBackEndFunctionalTestScenarioPlayer() {
         RestAssured.useRelaxedHTTPSValidation();
@@ -238,7 +239,8 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
             scenario.log("Prerequisite: [" + parentContext.getContextId() + "].[" + subcontextId
                     + "] from ["
                     + testDataId + "]");
-            performAndVerifyTheExpectedResponseForAnApiCall(parentContext, PREREQUISITE_SPEC, testDataId, subcontextId);
+            performAndVerifyTheExpectedResponseForAnApiCall(parentContext, PREREQUISITE_SPEC, testDataId, subcontextId,
+                    null);
         } else {
             scenario.log("Skipping prerequisite: [" + parentContext.getContextId() + "].[" + subcontextId + "]");
         }
@@ -549,10 +551,11 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     @Then("the response has all the details as expected")
     @Then("the response has all other details as expected")
     public void verifyThatTheResponseHasAllTheDetailsAsExpected() throws IOException {
-        verifyThatTheResponseHasAllTheDetailsAsExpected(this.scenarioContext);
+        verifyThatTheResponseHasAllTheDetailsAsExpected(this.scenarioContext, null);
     }
 
-    private void verifyThatTheResponseHasAllTheDetailsAsExpected(BackEndFunctionalTestScenarioContext scenarioContext)
+    private void verifyThatTheResponseHasAllTheDetailsAsExpected(BackEndFunctionalTestScenarioContext scenarioContext,
+                                                                 Integer timeOut)
             throws IOException {
         ResponseData expectedResponse = scenarioContext.getTestData().getExpectedResponse();
         ResponseData actualResponse = scenarioContext.getTheResponse();
@@ -577,14 +580,29 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
             issuesInResponseBody = bodyVerification.getAllIssues();
         }
 
-        processAnyIssuesInResponse(issueWithResponseCode, issuesInResponseHeaders, issuesInResponseBody);
+        processAnyIssuesInResponse(issueWithResponseCode, issuesInResponseHeaders, issuesInResponseBody, timeOut);
     }
 
     private void processAnyIssuesInResponse(String issueWithResponseCode, List<String> issuesInResponseHeaders,
-            List<String> issuesInResponseBody) {
+            List<String> issuesInResponseBody, Integer timeOut) {
         StringBuffer allVerificationIssues = new StringBuffer(
                 "Could not verify the actual response against expected one. Below are the issues.").append('\n');
 
+        if (null != timeOut && null != issueWithResponseCode) {
+            long timeoutExpiredMs = System.currentTimeMillis() + timeOut;
+            // use WAIT_TIME too
+            long waitMillis = timeoutExpiredMs - System.currentTimeMillis();
+            while (waitMillis > 0) {
+                verifyResponseHasIssues(issueWithResponseCode, issuesInResponseHeaders, issuesInResponseBody,
+                        allVerificationIssues);
+            }
+        }
+        verifyResponseHasIssues(issueWithResponseCode, issuesInResponseHeaders, issuesInResponseBody,
+                allVerificationIssues);
+    }
+
+    private void verifyResponseHasIssues(String issueWithResponseCode, List<String> issuesInResponseHeaders,
+                                         List<String> issuesInResponseBody, StringBuffer allVerificationIssues) {
         if (issueWithResponseCode != null) {
             allVerificationIssues.append(issueWithResponseCode).append('\n');
         }
@@ -628,11 +646,23 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     @Then("another call [{}] will get the expected response as in [{}]")
     public void performAndVerifyTheExpectedResponseForAnApiCall(String testDataSpec, String testDataId)
             throws IOException {
-        performAndVerifyTheExpectedResponseForAnApiCall(this.scenarioContext, testDataSpec, testDataId, null);
+        performAndVerifyTheExpectedResponseForAnApiCall(this.scenarioContext, testDataSpec, testDataId, null,
+                null);
+    }
+
+    @Override
+    @Given("a successful call [{}] as in [{}] within a timeout of [{}]")
+    @Given("another successful call [{}] as in [{}]")
+    @Then("a call [{}] will get the expected response as in [{}]")
+    @Then("another call [{}] will get the expected response as in [{}]")
+    public void performAndVerifyTheExpectedResponseForAnApiCallWithTimeout(String testDataSpec, String testDataId,
+                                                                           Integer timeOut) throws IOException {
+        performAndVerifyTheExpectedResponseForAnApiCall(this.scenarioContext, testDataSpec, testDataId, null,
+                timeOut);
     }
 
     private void performAndVerifyTheExpectedResponseForAnApiCall(BackEndFunctionalTestScenarioContext parentContext,
-            String testDataSpec, String testDataId, String contextId) throws IOException {
+            String testDataSpec, String testDataId, String contextId, Integer timeOut) throws IOException {
         BackEndFunctionalTestScenarioContext subcontext = BeftaScenarioContextFactory.createBeftaScenarioContext();
         subcontext.initializeTestDataFor(testDataId);
         subcontext.setRetryableTag(this.scenarioContext.getRetryableTag());
@@ -647,7 +677,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         verifyTheRequestInTheContextWithAParticularSpecification(subcontext, testDataSpec);
         submitTheRequestToCallAnOperationOfAProduct(subcontext, subcontext.getTestData().getOperationName(),
                 subcontext.getTestData().getProductName());
-        verifyThatTheResponseHasAllTheDetailsAsExpected(subcontext);
+        verifyThatTheResponseHasAllTheDetailsAsExpected(subcontext, timeOut);
     }
 
     private void verifyAllUsersInTheContext(BackEndFunctionalTestScenarioContext scenarioContext) {
