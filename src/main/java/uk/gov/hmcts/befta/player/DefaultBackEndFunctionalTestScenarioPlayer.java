@@ -591,8 +591,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         if (null != timeOut && null != issueWithResponseCode) {
             long timeoutExpiredMs = System.currentTimeMillis() + timeOut;
             // use WAIT_TIME too
-            long waitMillis = timeoutExpiredMs - System.currentTimeMillis();
-            while (waitMillis > 0) {
+            while (System.currentTimeMillis() < timeoutExpiredMs) {
                 verifyResponseHasIssues(issueWithResponseCode, issuesInResponseHeaders, issuesInResponseBody,
                         allVerificationIssues);
             }
