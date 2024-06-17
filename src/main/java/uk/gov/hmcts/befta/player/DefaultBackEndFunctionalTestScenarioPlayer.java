@@ -661,9 +661,6 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
 
     @Override
     @Given("a successful call [{}] as in [{}] within a timeout of [{}]")
-    @Given("another successful call [{}] as in [{}]")
-    @Then("a call [{}] will get the expected response as in [{}]")
-    @Then("another call [{}] will get the expected response as in [{}]")
     public void performAndVerifyTheExpectedResponseForAnApiCallWithTimeout(String testDataSpec, String testDataId,
                                                                            Integer timeOut) throws IOException {
         performAndVerifyTheExpectedResponseForAnApiCall(this.scenarioContext, testDataSpec, testDataId, null,
