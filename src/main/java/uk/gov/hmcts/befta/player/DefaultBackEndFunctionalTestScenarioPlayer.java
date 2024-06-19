@@ -618,13 +618,17 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
                 || (issuesInResponseHeaders != null && headerPolicy.equals(ResponseHeaderCheckPolicy.FAIL_TEST))
                 || issuesInResponseBody != null;
         if (anyVerificationIssue && null != timeOut) {
+            logger.info("anyVerificationIssue is {}", anyVerificationIssue);
             long timeoutExpiredMs = System.currentTimeMillis() + timeOut;
             long lastCheckedTime = System.currentTimeMillis();
             // Use time out calculations
             try {
                 while (System.currentTimeMillis() < timeoutExpiredMs) {
+                    logger.info(" local time {}", System.currentTimeMillis());
                     long currentTime = System.currentTimeMillis();
                      if (currentTime - lastCheckedTime >= WAIT_TIME) {
+                         logger.info("calling the method again time {}, wait time is  {}",
+                                 currentTime - lastCheckedTime, WAIT_TIME);
                     performAndVerifyTheExpectedResponseForAnApiCall(parentContext, testDataSpec, testDataId,
                             contextId, timeOut);
                     lastCheckedTime = currentTime;
@@ -655,6 +659,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     @Then("another call [{}] will get the expected response as in [{}]")
     public void performAndVerifyTheExpectedResponseForAnApiCall(String testDataSpec, String testDataId)
             throws IOException {
+        logger.info("Executing existing method ");
         performAndVerifyTheExpectedResponseForAnApiCall(this.scenarioContext, testDataSpec, testDataId, null,
                 null);
     }
@@ -663,6 +668,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     @Given("a successful call [{}] as in [{}] within a timeout of [{}]")
     public void performAndVerifyTheExpectedResponseForAnApiCallWithTimeout(String testDataSpec, String testDataId,
                                                                            Integer timeOut) throws IOException {
+        logger.info("Executing the time out method with timeout {} seconds", timeOut);
         performAndVerifyTheExpectedResponseForAnApiCall(this.scenarioContext, testDataSpec, testDataId, null,
                 timeOut);
     }
