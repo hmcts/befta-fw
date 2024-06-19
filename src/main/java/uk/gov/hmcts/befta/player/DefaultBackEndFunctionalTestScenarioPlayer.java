@@ -665,7 +665,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     }
 
     @Override
-    @Given("a successful call [{}] as in [{}] within a timeout of [{}]")
+    @Given("a successful call [{}] until the expected response is received [{}] within a timeout of [{}]")
     public void performAndVerifyTheExpectedResponseForAnApiCallWithTimeout(String testDataSpec, String testDataId,
                                                                            Integer timeOut) throws IOException {
         logger.info("Executing the time out method with timeout {} seconds", timeOut);
