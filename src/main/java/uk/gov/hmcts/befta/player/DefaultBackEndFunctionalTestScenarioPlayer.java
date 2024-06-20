@@ -630,11 +630,14 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
             // Use time out calculations
             try {
                 while (System.currentTimeMillis() < timeoutExpiredMs) {
-                    logger.info(" local time {}", System.currentTimeMillis());
                     long currentTime = System.currentTimeMillis();
+                    logger.info(" currentTime{}", currentTime);
+                    logger.info("comparing times {} {} ", currentTime - lastCheckedTime, WAIT_TIME);
                      if (currentTime - lastCheckedTime >= WAIT_TIME) {
                          logger.info("calling the method again time {}, wait time is  {}",
                                  currentTime - lastCheckedTime, WAIT_TIME);
+                         logger.info("performAndVerifyTheExpectedResponseForAnApiCall again {} {} {} {}",
+                                 testDataSpec, testDataId, contextId, timeOut);
                     performAndVerifyTheExpectedResponseForAnApiCall(parentContext, testDataSpec, testDataId,
                             contextId, timeOut);
                     lastCheckedTime = currentTime;
@@ -646,6 +649,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
             }
 
         }
+        logger.info("Asserting anyVerificationIssue is {}", anyVerificationIssue);
         Assert.assertFalse(allVerificationIssues.toString(), anyVerificationIssue);
     }
 
@@ -681,7 +685,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
 
     private void performAndVerifyTheExpectedResponseForAnApiCall(BackEndFunctionalTestScenarioContext parentContext,
             String testDataSpec, String testDataId, String contextId, Integer timeOut) throws IOException {
-        logger.info("In performAndVerifyTheExpectedResponseForAnApiCall" + testDataId + " " + contextId);
+        logger.info("In performAndVerifyTheExpectedResponseForAnApiCall {}, {}" , testDataId ,contextId);
         BackEndFunctionalTestScenarioContext subcontext = BeftaScenarioContextFactory.createBeftaScenarioContext();
         subcontext.initializeTestDataFor(testDataId);
         subcontext.setRetryableTag(this.scenarioContext.getRetryableTag());
