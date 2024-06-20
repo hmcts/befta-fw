@@ -90,12 +90,12 @@ Below are the environment needed specifically to Create Role Assignment data.
   
 
 ### 3.6) Run BEFTA Framework Without a Build Tool
-1. Download a copy of BEFTA Framework (say, version 1.2.1) in a local folder, say the root directory of an 
+1. Download a copy of BEFTA Framework (say, version 9.0.2) in a local folder, say the root directory of an 
    IDE project in which you (will) have your automated functional tests. //TODO: fat 
    jar release of framework
 2. Open your preferred terminal and change current directory to the root directory 
    of your test automation project.
-3. java -cp befta-fw-1.2.1.jar uk.gov.hmcts.befta.BeftaMain 'my-feature-files/are/here, and/here, and-also/there'
+3. java -cp befta-fw-9.0.2.jar uk.gov.hmcts.befta.BeftaMain 'my-feature-files/are/here, and/here, and-also/there'
    This will run the test scenarios under the local folder you specify.  
    Test automation teams can write their simple, tiny custom Main classes to customise 
    the the test suite launching logic.
@@ -104,12 +104,12 @@ Below are the environment needed specifically to Create Role Assignment data.
 ### 3.7) Run BEFTA Framework With Gradle
 1. Install Gradle 8.7 or higher. You can simply copy a gradle wrapper from `https://github.com/hmcts/befta-fw`.
 2. Add the following dependency to your build.gradle file:  
-   `testCompile group: 'com.github.hmcts', name: 'befta-fw', version: '9.0.0'`
+   `testCompile group: 'com.github.hmcts', name: 'befta-fw', version: '9.0.2'`
 3. Add a javaExec section to wherever you want a functional test suit to be executed, 
    like below:
    ```
       javaexec {
-         main = "uk.gov.hmcts.befta.BeftaMain"
+         mainClass = "uk.gov.hmcts.befta.BeftaMain"
          classpath += configurations.cucumberRuntime + sourceSets.aat.runtimeClasspath + sourceSets.main.output + sourceSets.test.output
          args = ['--plugin', "json:${projectDir}/target/cucumber.json", '--tags', 'not @Ignore', '--glue',
                  'uk.gov.hmcts.befta.player', 'my-feature-files/are/here, and/here, and-also/there']
