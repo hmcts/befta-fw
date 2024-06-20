@@ -622,6 +622,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         boolean anyVerificationIssue = issueWithResponseCode != null
                 || (issuesInResponseHeaders != null && headerPolicy.equals(ResponseHeaderCheckPolicy.FAIL_TEST))
                 || issuesInResponseBody != null;
+        timeOut=30;
         logger.info("anyVerificationIssue is {}, timeOut {}", anyVerificationIssue, timeOut);
         if (anyVerificationIssue && null != timeOut) {
             logger.info("anyVerificationIssue is {}", anyVerificationIssue);
@@ -631,7 +632,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
             try {
                 while (System.currentTimeMillis() < timeoutExpiredMs) {
                     long currentTime = System.currentTimeMillis();
-                    logger.info(" currentTime{}", currentTime);
+                    logger.info("currentTime {}", currentTime);
                     logger.info("comparing times {} {} ", currentTime - lastCheckedTime, WAIT_TIME);
                      if (currentTime - lastCheckedTime >= WAIT_TIME) {
                          logger.info("calling the method again time {}, wait time is  {}",
