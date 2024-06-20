@@ -560,12 +560,14 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
                                                                  String testDataSpec, String testDataId,
                                                                  String contextId, Integer timeOut)
             throws IOException {
+        logger.info("verifyThatTheResponseHasAllTheDetailsAsExpected");
         ResponseData expectedResponse = scenarioContext.getTestData().getExpectedResponse();
         ResponseData actualResponse = scenarioContext.getTheResponse();
 
         List<String> issuesInResponseHeaders = null, issuesInResponseBody = null;
         String issueWithResponseCode = null;
-
+        logger.info("actualResponse.getResponseCode() {} expectedResponse.getResponseCode() {}",
+                actualResponse.getResponseCode(), expectedResponse.getResponseCode());
         if (actualResponse.getResponseCode() != expectedResponse.getResponseCode()) {
             issueWithResponseCode = "Response code mismatch, expected: " + expectedResponse.getResponseCode()
                     + ", actual: " + actualResponse.getResponseCode();
@@ -573,6 +575,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
 
         MapVerificationResult headerVerification = MapVerifier.createMapVerifier("actualResponse.headers", 1, false)
                 .verifyMap(expectedResponse.getHeaders(), actualResponse.getHeaders());
+        logger.info("headerVerification.isVerified() {}", headerVerification.isVerified());
         if (!headerVerification.isVerified()) {
             issuesInResponseHeaders = headerVerification.getAllIssues();
         }
@@ -590,6 +593,8 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     private void processAnyIssuesInResponse(String issueWithResponseCode, List<String> issuesInResponseHeaders,
             List<String> issuesInResponseBody, BackEndFunctionalTestScenarioContext parentContext, String testDataSpec,
                                             String testDataId, String contextId, Integer timeOut)  {
+        logger.info("processAnyIssuesInResponse {} {} {} {} {} {} ", issueWithResponseCode, issuesInResponseHeaders,
+                issuesInResponseBody, parentContext, testDataSpec, testDataId, contextId, timeOut);
         StringBuffer allVerificationIssues = new StringBuffer(
                 "Could not verify the actual response against expected one. Below are the issues.").append('\n');
 
@@ -617,6 +622,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         boolean anyVerificationIssue = issueWithResponseCode != null
                 || (issuesInResponseHeaders != null && headerPolicy.equals(ResponseHeaderCheckPolicy.FAIL_TEST))
                 || issuesInResponseBody != null;
+        logger.info("anyVerificationIssue is {}, timeOut {}", anyVerificationIssue, timeOut);
         if (anyVerificationIssue && null != timeOut) {
             logger.info("anyVerificationIssue is {}", anyVerificationIssue);
             long timeoutExpiredMs = System.currentTimeMillis() + timeOut;
@@ -675,6 +681,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
 
     private void performAndVerifyTheExpectedResponseForAnApiCall(BackEndFunctionalTestScenarioContext parentContext,
             String testDataSpec, String testDataId, String contextId, Integer timeOut) throws IOException {
+        logger.info("In performAndVerifyTheExpectedResponseForAnApiCall" + testDataId + " " + contextId);
         BackEndFunctionalTestScenarioContext subcontext = BeftaScenarioContextFactory.createBeftaScenarioContext();
         subcontext.initializeTestDataFor(testDataId);
         subcontext.setRetryableTag(this.scenarioContext.getRetryableTag());
@@ -683,12 +690,16 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         } else {
             parentContext.addChildContext(contextId, subcontext);
         }
+        logger.info("calling verifyAllUsersInTheContext");
         verifyAllUsersInTheContext(subcontext);
         runPrerequisitesSpecifiedInTheContext(subcontext);
         prepareARequestWithAppropriateValues(subcontext);
+        logger.info("verifyTheRequestInTheContextWithAParticularSpecification");
         verifyTheRequestInTheContextWithAParticularSpecification(subcontext, testDataSpec);
+        logger.info("submitTheRequestToCallAnOperationOfAProduct");
         submitTheRequestToCallAnOperationOfAProduct(subcontext, subcontext.getTestData().getOperationName(),
                 subcontext.getTestData().getProductName());
+        logger.info("verifyThatTheResponseHasAllTheDetailsAsExpected");
         verifyThatTheResponseHasAllTheDetailsAsExpected(subcontext, parentContext, testDataSpec,testDataId, contextId,
                 timeOut);
     }
