@@ -630,7 +630,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
             long lastCheckedTime = System.currentTimeMillis();
             logger.info("timeoutExpiredMs {} , {}", timeoutExpiredMs, lastCheckedTime);
             // Use time out calculations
-            try {
+            //try {
                 while (System.currentTimeMillis() < timeoutExpiredMs) {
                     long currentTime = System.currentTimeMillis();
                     logger.info("currentTime {} {}", currentTime, timeoutExpiredMs);
@@ -647,9 +647,9 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
                     }
                     Thread.yield();
                 }
-            } catch (IOException e) {
+          /*  } catch (IOException e) {
                 throw new RuntimeException(e);
-            }
+            }*/
 
         }
         logger.info("Asserting anyVerificationIssue is {}", anyVerificationIssue);
