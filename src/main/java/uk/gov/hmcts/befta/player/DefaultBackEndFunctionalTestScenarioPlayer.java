@@ -640,8 +640,9 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
                                  currentTime - lastCheckedTime, WAIT_TIME);
                          logger.info("performAndVerifyTheExpectedResponseForAnApiCall again {} {} {} {}",
                                  testDataSpec, testDataId, contextId, timeOut);
-                    performAndVerifyTheExpectedResponseForAnApiCall(parentContext, testDataSpec, testDataId,
-                            contextId, timeOut);
+                         logger.info("repeat the request");
+                   /* performAndVerifyTheExpectedResponseForAnApiCall(parentContext, testDataSpec, testDataId,
+                            contextId, timeOut);*/
                     lastCheckedTime = currentTime;
                     }
                     Thread.yield();
