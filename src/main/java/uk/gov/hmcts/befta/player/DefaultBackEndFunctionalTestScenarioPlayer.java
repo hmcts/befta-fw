@@ -628,12 +628,13 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
             logger.info("anyVerificationIssue is {}", anyVerificationIssue);
             long timeoutExpiredMs = System.currentTimeMillis() + timeOut;
             long lastCheckedTime = System.currentTimeMillis();
+            logger.info("timeoutExpiredMs {} , {}", timeoutExpiredMs, lastCheckedTime);
             // Use time out calculations
             try {
                 while (System.currentTimeMillis() < timeoutExpiredMs) {
                     long currentTime = System.currentTimeMillis();
-                    logger.info("currentTime {}", currentTime);
-                    logger.info("comparing times {} {} ", currentTime - lastCheckedTime, WAIT_TIME);
+                    logger.info("currentTime {} {}", currentTime, timeoutExpiredMs);
+                    logger.info("comparing times {} , {}, {} ", currentTime - lastCheckedTime, lastCheckedTime, WAIT_TIME);
                      if (currentTime - lastCheckedTime >= WAIT_TIME) {
                          logger.info("calling the method again time {}, wait time is  {}",
                                  currentTime - lastCheckedTime, WAIT_TIME);
