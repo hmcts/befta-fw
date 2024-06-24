@@ -62,7 +62,7 @@ public interface BackEndFunctionalTestAutomationDSL {
     void performAndVerifyTheExpectedResponseForAnApiCall(String testDataSpec, String testDataId) throws IOException;
 
     // And a successful call [<some specification about status>] until the expected response is received [<some operation name>] within a timeout of [<seconds>]
-    void performAndVerifyTheExpectedResponseForAnApiCallWithTimeout(String testDataSpec, String testDataId, Long timeOut) throws IOException;
+    void performAndVerifyTheExpectedResponseForAnApiCallWithTimeout(String testDataSpec, String testDataId, String waitTime) throws IOException;
 
     // DSL Element:
     // "a wait time of [<wait time in seconds>] seconds [<some spec to describe the purpose of waiting>]"

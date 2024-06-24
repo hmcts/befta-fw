@@ -75,7 +75,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     private final BackEndFunctionalTestScenarioContext scenarioContext;
     private Scenario scenario;
     private ObjectMapper mapper = new ObjectMapper();
-    private static final long WAIT_TIME  = 1;
+    private static final double WAIT_TIME  = 1;
 
     public DefaultBackEndFunctionalTestScenarioPlayer() {
         RestAssured.useRelaxedHTTPSValidation();
@@ -558,7 +558,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     private void verifyThatTheResponseHasAllTheDetailsAsExpected(BackEndFunctionalTestScenarioContext scenarioContext,
                                                                  BackEndFunctionalTestScenarioContext parentContext,
                                                                  String testDataSpec, String testDataId,
-                                                                 String contextId, Long timeOut)
+                                                                 String contextId, String timeOut)
             throws IOException {
         logger.info("verifyThatTheResponseHasAllTheDetailsAsExpected1 {},{} ", scenarioContext, parentContext);
         logger.info("verifyThatTheResponseHasAllTheDetailsAsExpected2 {},{} ", testDataSpec, testDataId);
@@ -594,7 +594,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
 
     private void processAnyIssuesInResponse(String issueWithResponseCode, List<String> issuesInResponseHeaders,
             List<String> issuesInResponseBody, BackEndFunctionalTestScenarioContext parentContext, String testDataSpec,
-                                            String testDataId, String contextId, Long timeOut)  {
+                                            String testDataId, String contextId, String timeOut)  {
         logger.info("In processAnyIssuesInResponse1 {}, {} ", issueWithResponseCode, issuesInResponseHeaders);
         logger.info("In processAnyIssuesInResponse2 {}, {} ", issuesInResponseBody, parentContext);
         logger.info("In processAnyIssuesInResponse3 {}, {}, {}, {} ",  testDataSpec, testDataId, contextId, timeOut);
@@ -627,21 +627,24 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
                 || issuesInResponseBody != null;
         logger.info("anyVerificationIssue is {}, timeOut {}", anyVerificationIssue, timeOut);
         if (anyVerificationIssue && null != timeOut) {
-            logger.info("anyVerificationIssue is {}", anyVerificationIssue);
-            long timeoutExpiredMs = System.currentTimeMillis() + timeOut;
-            long lastCheckedTime = System.currentTimeMillis();
-            logger.info("timeoutExpiredMs {} , {}", timeoutExpiredMs, lastCheckedTime);
-            // Use time out calculations
+            DecimalFormat df = new DecimalFormat("#.##");
+            Double timeOutDouble = (Double.valueOf(df.format(Double.parseDouble(timeOut))) * 1000);
+            Double waitTimeDouble = (Double.valueOf(df.format(WAIT_TIME)) * 1000);
+            Double timeoutExpiredMs = System.currentTimeMillis() + timeOutDouble;
+            Double lastCheckedTime = (double) System.currentTimeMillis();
+            logger.info("anyVerificationIssue {} , timeoutExpiredMs {} , {}", timeoutExpiredMs, lastCheckedTime);
+            logger.info("timeOutDouble {} , waitTimeDouble {} ,timeoutExpiredMs {}, lastCheckedTime{}",
+                    timeOutDouble,waitTimeDouble, timeoutExpiredMs, lastCheckedTime);
             //try {
                 while (System.currentTimeMillis() < timeoutExpiredMs) {
-                    long currentTime = System.currentTimeMillis();
+                    Double currentTime = (double) System.currentTimeMillis();
                     logger.info("currentTime {} {}", currentTime, timeoutExpiredMs);
-                    logger.info("comparing times {} ,  {} ", currentTime - lastCheckedTime, WAIT_TIME);
-                     if (currentTime - lastCheckedTime >= WAIT_TIME) {
+                    logger.info("comparing times {} ,  {} ", currentTime - lastCheckedTime, waitTimeDouble);
+                     if (currentTime - lastCheckedTime >= waitTimeDouble) {
                          logger.info("calling the method again time {}, wait time is  {}",
-                                 currentTime - lastCheckedTime, WAIT_TIME);
-                         logger.info("performAndVerifyTheExpectedResponseForAnApiCall again {}, {}, {}, {}",
-                                 testDataSpec, testDataId, contextId, timeOut);
+                                 currentTime - lastCheckedTime, waitTimeDouble);
+                         logger.info("performAndVerifyTheExpectedResponseForAnApiCall again {}, {}, {}, {}, {}",
+                                 parentContext, testDataSpec, testDataId, contextId, timeOutDouble);
                          logger.info("repeat the request");
                    /* performAndVerifyTheExpectedResponseForAnApiCall(parentContext, testDataSpec, testDataId,
                             contextId, timeOut);*/
@@ -674,7 +677,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     @Then("another call [{}] will get the expected response as in [{}]")
     public void performAndVerifyTheExpectedResponseForAnApiCall(String testDataSpec, String testDataId)
             throws IOException {
-        logger.info("Executing existing method {], {}, {}, {}", this.scenarioContext, testDataSpec, testDataId, null);
+        logger.info("Executing existing method {}, {}, {}, {}", this.scenarioContext, testDataSpec, testDataId, null);
         performAndVerifyTheExpectedResponseForAnApiCall(this.scenarioContext, testDataSpec, testDataId, null,
                 null);
 
@@ -683,7 +686,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     @Override
     @Given("a successful call [{}] until the expected response is received [{}] within a timeout of [{}]")
     public void performAndVerifyTheExpectedResponseForAnApiCallWithTimeout(String testDataSpec, String testDataId,
-                                                                           Long timeOut) throws IOException {
+                                                                           String timeOut) throws IOException {
         logger.info("Executing the time out method with timeout1 {}, {} ", this.scenarioContext,  testDataSpec);
         logger.info("Executing the time out method with timeout2 {}, {} ", testDataId, timeOut);
         performAndVerifyTheExpectedResponseForAnApiCall(this.scenarioContext, testDataSpec, testDataId, null,
@@ -691,7 +694,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     }
 
     private void performAndVerifyTheExpectedResponseForAnApiCall(BackEndFunctionalTestScenarioContext parentContext,
-            String testDataSpec, String testDataId, String contextId, Long timeOut) throws IOException {
+            String testDataSpec, String testDataId, String contextId, String timeOut) throws IOException {
         logger.info("In performAndVerifyTheExpectedResponseForAnApiCall1 {}, {}" , parentContext ,testDataSpec);
         logger.info("In performAndVerifyTheExpectedResponseForAnApiCall2 {}, {}, {}" , testDataId,contextId ,timeOut);
         BackEndFunctionalTestScenarioContext subcontext = BeftaScenarioContextFactory.createBeftaScenarioContext();
