@@ -28,18 +28,18 @@ It provides the following functionalities and conveniences:
 
 
 ### 3.1) System Requirements
-* System Resources (Memory, Disk, CPU) - Same for a JDK 8 installation.  
-  [Click here to see Oracle's reference for this.](https://docs.oracle.com/javase/8/docs/technotes/guides/install/windows_system_requirements.html)
+* System Resources (Memory, Disk, CPU) - Same for a JDK 17 installation.  
+  [Click here to see Oracle's reference for this.](https://docs.oracle.com/en/java/javase/17/install/overview-jdk-installation.html#GUID-8677A77F-231A-40F7-98B9-1FD0B48C346A)
 
 
 ### 3.2) Software Requirements
-* Java SE Development Kit 8 (JDK 8)
+* Java SE Development Kit 17 (JDK 17)
 * Your Favourite IDE
-* Gradle 4.10+
+* Gradle 8.7+ (included as wrapper)
 
 
 ### 3.3) Setting Up Environment
-1. Install JDK 8 or higher
+1. Install JDK 17 or higher
 2. Install a command line terminal application
 
 
@@ -90,33 +90,33 @@ Below are the environment needed specifically to Create Role Assignment data.
   
 
 ### 3.6) Run BEFTA Framework Without a Build Tool
-1. Download a copy of BEFTA Framework (say, version 1.2.1) in a local folder, say the root directory of an 
+1. Download a copy of BEFTA Framework (say, version 9.0.2) in a local folder, say the root directory of an 
    IDE project in which you (will) have your automated functional tests. //TODO: fat 
    jar release of framework
 2. Open your preferred terminal and change current directory to the root directory 
    of your test automation project.
-3. java -cp befta-fw-1.2.1.jar uk.gov.hmcts.befta.BeftaMain 'my-feature-files/are/here, and/here, and-also/there'
+3. java -cp befta-fw-9.0.2.jar uk.gov.hmcts.befta.BeftaMain 'my-feature-files/are/here, and/here, and-also/there'
    This will run the test scenarios under the local folder you specify.  
    Test automation teams can write their simple, tiny custom Main classes to customise 
    the the test suite launching logic.
 
 
 ### 3.7) Run BEFTA Framework With Gradle
-1. Install Gradle 4.1 or higher. You can simply copy a gradle wrapper from `https://github.com/hmcts/befta-fw`.
+1. Install Gradle 8.7 or higher. You can simply copy a gradle wrapper from `https://github.com/hmcts/befta-fw`.
 2. Add the following dependency to your build.gradle file:  
-   `testCompile group: 'com.github.hmcts', name: 'befta-fw', version: '6.13.4'`
+   `testCompile group: 'com.github.hmcts', name: 'befta-fw', version: '9.0.2'`
 3. Add a javaExec section to wherever you want a functional test suit to be executed, 
    like below:
-   ```gradle
+   ```
       javaexec {
-         main = "uk.gov.hmcts.befta.BeftaMain"
+         mainClass = "uk.gov.hmcts.befta.BeftaMain"
          classpath += configurations.cucumberRuntime + sourceSets.aat.runtimeClasspath + sourceSets.main.output + sourceSets.test.output
          args = ['--plugin', "json:${projectDir}/target/cucumber.json", '--tags', 'not @Ignore', '--glue',
-                  'uk.gov.hmcts.befta.player', 'my-feature-files/are/here, and/here, and-also/there']
+                 'uk.gov.hmcts.befta.player', 'my-feature-files/are/here, and/here, and-also/there']
       }
    ```
    You can place this block inside the
-   ```gradle
+   ```
       task functional(type: Test) {
          ...
       }
@@ -124,6 +124,29 @@ Below are the environment needed specifically to Create Role Assignment data.
    of your test automation project.  
    Test automation teams can write their simple, tiny custom Main classes to customise 
    the the test suite launching logic.
+       
+   If you see an error similar to 
+
+   ```
+      Failing to give add access to DeclaredFields in CucumberStepAnnotationUtils.replaceAnnotationClass.
+    
+      Exception in thread "main" java.lang.reflect.InaccessibleObjectException: Unable to make field private transient volatile java.util.Map java.lang.reflect.Executable.declaredAnnotations accessible: module java.base does not "opens java.lang.reflect" to unnamed module @1ca7bef1
+      at java.base/java.lang.reflect.AccessibleObject.checkCanSetAccessible(AccessibleObject.java:354)
+      at java.base/java.lang.reflect.Field.setAccessible(Field.java:172)
+      at uk.gov.hmcts.befta.util.CucumberStepAnnotationUtils.replaceAnnotationClass(CucumberStepAnnotationUtils.java:65)
+      at uk.gov.hmcts.befta.util.CucumberStepAnnotationUtils.injectCommonSyntacticFlexibilitiesIntoStepDefinitions(CucumberStepAnnotationUtils.java:29)
+      at uk.gov.hmcts.befta.BeftaMain.setUp(BeftaMain.java:85)
+      at uk.gov.hmcts.befta.BeftaMain.main(BeftaMain.java:37)
+   ```
+   you may need to add a line to the failing gradle task in youe build.gradle file allow opens via a jvmArg like in the below example
+   ```
+      test {
+          failFast = true
+          testLogging.showStandardStreams = true
+          jvmArgs = ["--add-opens=java.base/java.lang.reflect=ALL-UNNAMED"]
+       }
+   ```
+    
 
 
 ### 3.8) Observe Cucumber Report
@@ -698,3 +721,99 @@ Typical sequence of activities during the execution of test suite is as shown in
 below Sequence Diagram:
 ![](documentation/Sequence_Diagram_Draft.jpg)
 
+
+## 9) RETRY POLICY
+The Retryable Feature is a new addition that allows you to execute tests multiple times 
+until they pass or reach the maximum number of attempts. This is useful when you have flaky tests that 
+fail randomly due to network issues, timeouts, or other intermittent failures.
+
+### Default Policy
+The Default Retry Policy provides a baseline configuration for retrying scenarios in the absence of service-specific settings. 
+This default behavior is configured using the following environment variables:
+
+* **BEFTA_RETRY_MAX_ATTEMPTS:** The maximum number of retry attempts for each service (default: 1).
+* **BEFTA_RETRY_STATUS_CODES:** A comma-separated list of HTTP status codes that trigger a retry (default: 500,502,503,504).
+* **BEFTA_RETRY_MAX_DELAY:** The maximum delay (in milliseconds) between retry attempts (default: 1000).
+* **BEFTA_RETRY_RETRYABLE_EXCEPTIONS:** A comma-separated list of Java exceptions that are considered retryable (default: java.net.SocketException, 
+javax.net.ssl.SSLException, java.net.ConnectException).
+* **BEFTA_RETRY_NON_RETRYABLE_HTTP_METHODS:** A comma-separated list of HTTP methods that should not be retried 
+(default: *). Use "*" to specify that no methods should be retried.
+* **BEFTA_RETRY_ENABLE_LISTENER:** A boolean flag indicating whether the Retry Policy listener should be enabled (default: true).
+
+#### Sample Configuration:
+```
+export BEFTA_RETRY_MAX_ATTEMPTS=3
+export BEFTA_RETRY_STATUS_CODES=500,502,503,504
+export BEFTA_RETRY_MAX_DELAY=1000
+export BEFTA_RETRY_RETRYABLE_EXCEPTIONS=java.net.SocketException,javax.net.ssl.SSLException,java.net.ConnectException
+export BEFTA_RETRY_NON_RETRYABLE_HTTP_METHODS=POST,PUT
+export BEFTA_RETRY_ENABLE_LISTENER=true
+```
+
+### Service Level Policy
+The feature can be defined with an annotation as follows: `@Retryable(maxAttempts=3,delay=1000,statusCodes={400,502})`.
+This annotation specifies a mandatory list of HTTP status codes that trigger a retry, and optional parameters for the maximum 
+number of attempts and the delay between attempts.
+If you don't provide the optional parameters maxAttempts and delay, the default values will be used instead, 
+which are 3 and 1000 milliseconds, respectively.
+If you don't provide the optional parameters maxAttempts and delay, the default values will be used instead, which are 3 and 1000 milliseconds, respectively.
+If statusCode is not provided, the scenario will fail with a **FunctionalTestException**.
+
+### Usage
+To use the Retryable Feature, you need to annotate your test scenarios with the **@Retryable** annotation in your feature file and 
+provide the necessary parameters. Here's an example:
+
+```
+@S-096.1 @Retryable(maxAttempts=3,delay=500,statusCodes={409,500})
+  Scenario: Sample Scenario
+    Given given_context
+    When when_context
+    And and_context
+```
+In this example, the scenario **@S-096.1** will be executed up to 3 times with a delay of 500 milliseconds between each attempt. 
+If the HTTP response status code is either 409 or 500, the test will be retried.
+If you don't provide the optional parameters maxAttempts and delay, the default values will be used instead.
+
+### Examples
+
+Here are some examples of how you can use the Retryable Feature:
+
+```
+@S-096.1 @Retryable(statusCodes={500,502})
+  Scenario: Sample Scenario
+    Given given_context
+    When when_context
+    And and_context
+```
+In this example, the scenario **@S-096.1** will be executed up to 3 times with a delay of
+1000 milliseconds between each attempt. If the HTTP response status code is either 500 or 502, the test will be retried.
+
+```
+@S-096.1 @Retryable(statusCodes={404,503}, maxAttempts=5)
+  Scenario: Sample Scenario
+    Given given_context
+    When when_context
+    And and_context
+```
+In this example, the scenario **@S-096.1** will be executed up to 5 times with a delay of 
+1000 milliseconds between each attempt. If the HTTP response status code is either 404 or 503, the test will be retried.
+
+```
+@S-096.1 @Retryable(statusCodes={400,502}, delay=500)
+  Scenario: Sample Scenario
+    Given given_context
+    When when_context
+    And and_context
+```
+In this example, the scenario **@S-096.1** will be executed up to 3 times with a delay of 
+500 milliseconds between each attempt. If the HTTP response status code is either 400 or 502, the test will be retried.
+
+```
+@S-096.1 @Retryable(maxAttempts=2, delay=500)
+  Scenario: Sample Scenario
+    Given given_context
+    When when_context
+    And and_context
+```
+In this example, the scenario **@S-096.1** will fail with 
+**FunctionalTestException:Missing statusCode configuration in @Retryable**

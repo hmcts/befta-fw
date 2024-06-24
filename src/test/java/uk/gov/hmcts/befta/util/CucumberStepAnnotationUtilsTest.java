@@ -23,13 +23,13 @@ public class CucumberStepAnnotationUtilsTest {
     private static final String WHEN = "WHEN";
 
     private static final String SINGLE_TEST_ANNOTATION = "single test annotation";
-    private static final String SINGLE_TEST_ANNOTATION_RESULT = "single([\\s]+)test([\\s]+)annotation(.)(,)";
+    private static final String SINGLE_TEST_ANNOTATION_RESULT = "single test annotation(.)(,)";
 
     private static final String MULTIPLE_TEST_ANNOTATION_1 = "multiple test annotation 1";
-    private static final String MULTIPLE_TEST_ANNOTATION_1_RESULT = "multiple([\\s]+)test([\\s]+)annotation([\\s]+)1(.)(,)";
+    private static final String MULTIPLE_TEST_ANNOTATION_1_RESULT = "multiple test annotation 1(.)(,)";
 
     private static final String MULTIPLE_TEST_ANNOTATION_2 = "multiple test annotation 2";
-    private static final String MULTIPLE_TEST_ANNOTATION_2_RESULT = "multiple([\\s]+)test([\\s]+)annotation([\\s]+)2(.)(,)";
+    private static final String MULTIPLE_TEST_ANNOTATION_2_RESULT = "multiple test annotation 2(.)(,)";
 
     @Test
     public void injectCommonSyntacticFlexibilitiesIntoStepDefinitions_shouldAdjustSingleGivenCucumberStepAnnotation() { //NOSONAR

@@ -256,19 +256,22 @@ public class MapVerifier {
 
         switch (verificationConfig.getOperator()) {
         case EQUIVALENT:
-            if (actualCount != expectedCount) {
+            if (actualCount != expectedCount
+                    && expectedCollection.size() != actualCollection.size()) {
                 badValueMessages.add(fieldPrefix + " has unexpected number of elements. Expected: "
                         + expectedCollection.size() + ", but actual: " + actualCollection.size() + ".");
             }
             break;
         case SUBSET:
-            if (actualCount > expectedCount) {
+            if (actualCount > expectedCount
+                    && expectedCollection.size() != actualCollection.size()) {
                 badValueMessages.add(fieldPrefix + " has unexpected number of elements. Expected <= "
                         + expectedCollection.size() + ", but actual: " + actualCollection.size() + ".");
             }
             break;
         case SUPERSET:
-            if (actualCount < expectedCount) {
+            if (actualCount < expectedCount
+                    && expectedCollection.size() != actualCollection.size()) {
                 badValueMessages.add(fieldPrefix + " has unexpected number of elements. Expected >= "
                         + expectedCollection.size() + ", but actual: " + actualCollection.size() + ".");
             }

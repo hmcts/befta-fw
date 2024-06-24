@@ -13,6 +13,8 @@ import java.util.Map;
 
 public final class CucumberStepAnnotationUtils {
 
+    private static Logger logger = LoggerFactory.getLogger(CucumberStepAnnotationUtils.class);
+
     // Hide Utility Class Constructor : Utility classes should not have a public or default constructor (squid:S1118)
     private CucumberStepAnnotationUtils() { }
 
@@ -62,7 +64,17 @@ public final class CucumberStepAnnotationUtils {
 
         Class<?> superclass = m.getClass().getSuperclass();
         Field declaredField = superclass.getDeclaredField("declaredAnnotations");
-        declaredField.setAccessible(true);
+
+        logger.info("initial accessibility of field {} is {}.", declaredField, declaredField.isAccessible());
+
+        if (!declaredField.isAccessible()) {
+            if (declaredField.trySetAccessible()) {
+                logger.info("accessibility of field {} set to true successfully", declaredField);
+            }
+            else {
+                logger.error("accessibility of field {} couldn't be set to true", declaredField);
+            }
+        }
 
         Map<Class<? extends Annotation>, Annotation> map = (Map<Class<? extends Annotation>, Annotation>) declaredField.get(m);
         map.put(clazz, annotation);
@@ -164,9 +176,15 @@ public final class CucumberStepAnnotationUtils {
         };
     }
 
+    /*
+     * RDM-7423: Optional Comma or Full Stop At End Of DSL Elements: i.e. append optionals "(.)" & "(,)"
+     * 
+     * CCD-5362: Comply with stricter cucumber requirements by removing regex from cucumber expression 
+     * see https://github.com/cucumber/cucumber-expressions?tab=readme-ov-file#cucumber-expressions
+     * > Cucumber supports both Cucumber Expressions and Regular Expressions for defining Step Definitions, 
+     * > but you cannot mix Cucumber Expression syntax with Regular Expression syntax in the same expression.
+     */
     private static String substituteStepAnnotationValue(final String value) {
-        // RDM-7423: Optional Comma or Full Stop At End Of DSL Elements: i.e. append optionals "(.)" & "(,)"
-        // RDM-7424: Extra Space Tolerance Between Words of DSL Elements: i.e. " " => "([\s]+)"
-        return value.replace(" ", "([\\s]+)") + "(.)(,)";
+        return value + "(.)(,)";
     }
 }
