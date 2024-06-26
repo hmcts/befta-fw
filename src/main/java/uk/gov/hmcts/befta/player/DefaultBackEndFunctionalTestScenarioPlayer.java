@@ -628,23 +628,20 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         logger.info("anyVerificationIssue is {}, timeOut {}", anyVerificationIssue, timeOut);
         if (anyVerificationIssue && null != timeOut) {
             DecimalFormat df = new DecimalFormat("#.##");
-            Double timeOutDouble = (Double.valueOf(df.format(Double.parseDouble(timeOut))) * 1000);
-            Double waitTimeDouble = (Double.valueOf(df.format(WAIT_TIME)) * 1000);
-            Double timeoutExpiredMs = System.currentTimeMillis() + timeOutDouble;
+            Double timeOutMs = (Double.valueOf(df.format(Double.parseDouble(timeOut))) * 1000);
+            Double waitTimeMs = (Double.valueOf(df.format(WAIT_TIME)) * 1000);
+            Double timeoutExpiredMs = System.currentTimeMillis() + timeOutMs;
             Double lastCheckedTime = (double) System.currentTimeMillis();
-            logger.info("anyVerificationIssue {} , timeoutExpiredMs {} , {}", timeoutExpiredMs, lastCheckedTime);
-            logger.info("timeOutDouble {} , waitTimeDouble {} ,timeoutExpiredMs {}, lastCheckedTime{}",
-                    timeOutDouble,waitTimeDouble, timeoutExpiredMs, lastCheckedTime);
             //try {
-                while (System.currentTimeMillis() < timeoutExpiredMs) {
+                while (lastCheckedTime < timeoutExpiredMs) {
                     Double currentTime = (double) System.currentTimeMillis();
-                    logger.info("currentTime {} {}", currentTime, timeoutExpiredMs);
-                    logger.info("comparing times {} ,  {} ", currentTime - lastCheckedTime, waitTimeDouble);
-                     if (currentTime - lastCheckedTime >= waitTimeDouble) {
+                    logger.info("comparing times {} ,  {} ", currentTime - lastCheckedTime, waitTimeMs);
+                    // wait for 1 second and retry the request
+                     if (currentTime - lastCheckedTime == waitTimeMs) {
                          logger.info("calling the method again time {}, wait time is  {}",
-                                 currentTime - lastCheckedTime, waitTimeDouble);
+                                 currentTime - lastCheckedTime, waitTimeMs);
                          logger.info("performAndVerifyTheExpectedResponseForAnApiCall again {}, {}, {}, {}, {}",
-                                 parentContext, testDataSpec, testDataId, contextId, timeOutDouble);
+                                 parentContext, testDataSpec, testDataId, contextId, timeOutMs);
                          logger.info("repeat the request");
                    /* performAndVerifyTheExpectedResponseForAnApiCall(parentContext, testDataSpec, testDataId,
                             contextId, timeOut);*/
