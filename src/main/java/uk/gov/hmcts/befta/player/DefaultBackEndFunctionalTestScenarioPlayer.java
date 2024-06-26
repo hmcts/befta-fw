@@ -634,8 +634,8 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
             Double lastCheckedTime = (double) System.currentTimeMillis();
             //try {
                 while (lastCheckedTime < timeoutExpiredMs) {
+                    logger.info("In while loop");
                     Double currentTime = (double) System.currentTimeMillis();
-                    logger.info("comparing times {} ,  {} ", currentTime - lastCheckedTime, waitTimeMs);
                     // wait for 1 second and retry the request
                      if (currentTime - lastCheckedTime >= waitTimeMs) {
                          logger.info("calling the method again time {}, wait time is  {}",
