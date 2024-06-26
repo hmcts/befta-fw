@@ -637,7 +637,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
                     Double currentTime = (double) System.currentTimeMillis();
                     logger.info("comparing times {} ,  {} ", currentTime - lastCheckedTime, waitTimeMs);
                     // wait for 1 second and retry the request
-                     if (currentTime - lastCheckedTime == waitTimeMs) {
+                     if (currentTime - lastCheckedTime >= waitTimeMs) {
                          logger.info("calling the method again time {}, wait time is  {}",
                                  currentTime - lastCheckedTime, waitTimeMs);
                          logger.info("performAndVerifyTheExpectedResponseForAnApiCall again {}, {}, {}, {}, {}",
