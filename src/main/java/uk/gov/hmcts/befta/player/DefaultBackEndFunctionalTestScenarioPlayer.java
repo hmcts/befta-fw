@@ -645,8 +645,8 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
                          logger.info("repeat the request");
                    /* performAndVerifyTheExpectedResponseForAnApiCall(parentContext, testDataSpec, testDataId,
                             contextId, timeOut);*/
-                    lastCheckedTime = currentTime;
                     }
+                    lastCheckedTime = currentTime;
                     Thread.yield();
                 }
           /*  } catch (IOException e) {
