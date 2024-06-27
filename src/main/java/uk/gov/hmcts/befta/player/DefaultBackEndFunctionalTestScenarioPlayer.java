@@ -594,7 +594,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
 
     private void processAnyIssuesInResponse(String issueWithResponseCode, List<String> issuesInResponseHeaders,
             List<String> issuesInResponseBody, BackEndFunctionalTestScenarioContext parentContext, String testDataSpec,
-                                            String testDataId, String contextId, String timeOut)  {
+                                            String testDataId, String contextId, String timeOut) throws InterruptedException {
         logger.info("In processAnyIssuesInResponse1 {}, {} ", issueWithResponseCode, issuesInResponseHeaders);
         logger.info("In processAnyIssuesInResponse2 {}, {} ", issuesInResponseBody, parentContext);
         logger.info("In processAnyIssuesInResponse3 {}, {}, {}, {} ",  testDataSpec, testDataId, contextId, timeOut);
@@ -631,22 +631,32 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
             Double timeOutMs = (Double.valueOf(df.format(Double.parseDouble(timeOut))) * 1000);// From FT Ex: 15 secs
             Double waitTimeMs = (Double.valueOf(df.format(WAIT_TIME)) * 1000); // 1 sec
             Double timeoutExpiredMs = System.currentTimeMillis() + timeOutMs;
-            Double lastCheckedTime = (double) System.currentTimeMillis();
-            Double elapsedTime = 0.0;
             Double startTime = (double) System.currentTimeMillis();
+            boolean success = false;
             logger.info("calling while loop");
-            while (true) {
-                elapsedTime = System.currentTimeMillis() - startTime;
-                // Break out of the loop if 10 seconds have passed
-                if (elapsedTime <= waitTimeMs) {
+            while (System.currentTimeMillis() - startTime < timeoutExpiredMs) {
+                try {
+                    logger.info("repeat the request");
                     logger.info("performAndVerifyTheExpectedResponseForAnApiCall again {}, {}, {}, {}, {}",
                             parentContext, testDataSpec, testDataId, contextId, timeOutMs);
-                    logger.info("repeat the request");
-                    break;
+                    if (success) {
+                        logger.info("call succeeded!");
+                        break;
+                    } else {
+                        logger.info("call failed, retrying...");
+                    }
+                    // Wait for the retry interval before retrying
+                    logger.info("waiting for 1 second .....");
+                    Thread.sleep(waitTimeMs.longValue());
+                } catch (InterruptedException e) {
+                    logger.info("Interrupted exception occurred: " + e.getMessage());
+                    // Handle the interruption appropriately
+                }
+                if (!success) {
+                    logger.info("Operation failed after reaching the timeout.");
                 }
             }
         }
-        logger.info("Asserting anyVerificationIssue is {}", anyVerificationIssue);
         Assert.assertFalse(allVerificationIssues.toString(), anyVerificationIssue);
     }
 
@@ -673,7 +683,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     }
 
     @Override
-    @Given("a successful call [{}] until the expected response is received [{}] within a timeout of [{}]")
+    @Then("a successful call [{}] until the expected response is received [{}] within a timeout of [{}]")
     public void performAndVerifyTheExpectedResponseForAnApiCallWithTimeout(String testDataSpec, String testDataId,
                                                                            String timeOut) throws IOException {
         logger.info("Executing the time out method with timeout1 {}, {} ", this.scenarioContext,  testDataSpec);
