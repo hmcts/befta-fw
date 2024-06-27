@@ -631,30 +631,28 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
                 || issuesInResponseBody != null;
         logger.info("anyVerificationIssue is {}, timeOut {}", anyVerificationIssue, timeOut);
         if (anyVerificationIssue && null != timeOut) {
-            DecimalFormat df = new DecimalFormat("#.##");
-            Double timeOutMs = (Double.valueOf(df.format(Double.parseDouble(timeOut))) * 1000);// From FT Ex: 15 secs
-            Double waitTimeMs = (Double.valueOf(df.format(WAIT_TIME)) * 1000); // 1 sec
-            Double timeoutExpiredMs = System.currentTimeMillis() + timeOutMs;
-            Double startTime = (double) System.currentTimeMillis();
+            long timeOutMs = Long.parseLong(timeOut) * 1000;
+            long waitTimeMs = (long) WAIT_TIME * 1000;
+            long startTime = System.currentTimeMillis();
             boolean success = false;
             logger.info("calling while loop");
-            while (System.currentTimeMillis() - startTime < timeoutExpiredMs) {
+            while (System.currentTimeMillis() - startTime < timeOutMs) {
                 try {
                     logger.info("repeat the request");
                     logger.info("performAndVerifyTheExpectedResponseForAnApiCall again {}, {}, {}, {}, {}",
                             parentContext, testDataSpec, testDataId, contextId, timeOutMs);
+                    // call the operation again
                     if (success) {
                         logger.info("call succeeded!");
                         break;
                     } else {
                         logger.info("call failed, retrying...");
                     }
-                    // Wait for the retry interval before retrying
+                    // Wait for the retry
                     logger.info("waiting for 1 second .....");
-                    Thread.sleep(waitTimeMs.longValue());
+                    Thread.sleep(waitTimeMs);
                 } catch (InterruptedException e) {
-                    logger.info("Interrupted exception occurred: " + e.getMessage());
-                    // Handle the interruption appropriately
+                    logger.info("Interrupted exception occurred: {}", e.getMessage());
                 }
                 if (!success) {
                     logger.info("Operation failed after reaching the timeout.");
