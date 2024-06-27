@@ -628,31 +628,23 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         logger.info("anyVerificationIssue is {}, timeOut {}", anyVerificationIssue, timeOut);
         if (anyVerificationIssue && null != timeOut) {
             DecimalFormat df = new DecimalFormat("#.##");
-            Double timeOutMs = (Double.valueOf(df.format(Double.parseDouble(timeOut))) * 1000);
-            Double waitTimeMs = (Double.valueOf(df.format(WAIT_TIME)) * 1000);
+            Double timeOutMs = (Double.valueOf(df.format(Double.parseDouble(timeOut))) * 1000);// From FT Ex: 15 secs
+            Double waitTimeMs = (Double.valueOf(df.format(WAIT_TIME)) * 1000); // 1 sec
             Double timeoutExpiredMs = System.currentTimeMillis() + timeOutMs;
             Double lastCheckedTime = (double) System.currentTimeMillis();
-            //try {
-                while (lastCheckedTime < timeoutExpiredMs) {
-                    logger.info("In while loop");
-                    Double currentTime = (double) System.currentTimeMillis();
-                    // wait for 1 second and retry the request
-                     if (currentTime - lastCheckedTime >= waitTimeMs) {
-                         logger.info("calling the method again time {}, wait time is  {}",
-                                 currentTime - lastCheckedTime, waitTimeMs);
-                         logger.info("performAndVerifyTheExpectedResponseForAnApiCall again {}, {}, {}, {}, {}",
-                                 parentContext, testDataSpec, testDataId, contextId, timeOutMs);
-                         logger.info("repeat the request");
-                   /* performAndVerifyTheExpectedResponseForAnApiCall(parentContext, testDataSpec, testDataId,
-                            contextId, timeOut);*/
-                    }
-                    lastCheckedTime = currentTime;
-                    Thread.yield();
+            Double elapsedTime = 0.0;
+            Double startTime = (double) System.currentTimeMillis();
+            logger.info("calling while loop");
+            while (true) {
+                elapsedTime = System.currentTimeMillis() - startTime;
+                // Break out of the loop if 10 seconds have passed
+                if (elapsedTime <= waitTimeMs) {
+                    logger.info("performAndVerifyTheExpectedResponseForAnApiCall again {}, {}, {}, {}, {}",
+                            parentContext, testDataSpec, testDataId, contextId, timeOutMs);
+                    logger.info("repeat the request");
+                    break;
                 }
-          /*  } catch (IOException e) {
-                throw new RuntimeException(e);
-            }*/
-
+            }
         }
         logger.info("Asserting anyVerificationIssue is {}", anyVerificationIssue);
         Assert.assertFalse(allVerificationIssues.toString(), anyVerificationIssue);
