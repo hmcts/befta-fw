@@ -588,8 +588,12 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
             issuesInResponseBody = bodyVerification.getAllIssues();
         }
 
-        processAnyIssuesInResponse(issueWithResponseCode, issuesInResponseHeaders, issuesInResponseBody,parentContext,
-                testDataSpec,testDataId,contextId,timeOut);
+        try {
+            processAnyIssuesInResponse(issueWithResponseCode, issuesInResponseHeaders, issuesInResponseBody,parentContext,
+                    testDataSpec,testDataId,contextId,timeOut);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void processAnyIssuesInResponse(String issueWithResponseCode, List<String> issuesInResponseHeaders,
