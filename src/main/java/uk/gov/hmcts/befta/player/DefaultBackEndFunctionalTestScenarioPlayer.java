@@ -638,8 +638,8 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
                             parentContext, testDataSpec, testDataId, contextId, timeOutMs);
                     // call the operation again
                     performAndVerifyTheExpectedResponseForAnApiCall(this.scenarioContext, testDataSpec, testDataId,
-                            null, timeOut);
-                    if (anyVerificationIssue) {
+                            null, String.valueOf(timeOutMs-waitTimeMs));
+                    if (!anyVerificationIssue) {
                         logger.info("call succeeded!");
                         break;
                     } else {
