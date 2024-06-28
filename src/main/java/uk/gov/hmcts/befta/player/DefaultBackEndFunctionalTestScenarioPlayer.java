@@ -558,18 +558,12 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     private void verifyThatTheResponseHasAllTheDetailsAsExpected(BackEndFunctionalTestScenarioContext scenarioContext,
                                                                  BackEndFunctionalTestScenarioContext parentContext,
                                                                  String testDataSpec, String testDataId,
-                                                                 String contextId, String timeOut)
-            throws IOException {
-        logger.info("verifyThatTheResponseHasAllTheDetailsAsExpected1 {},{} ", scenarioContext, parentContext);
-        logger.info("verifyThatTheResponseHasAllTheDetailsAsExpected2 {},{} ", testDataSpec, testDataId);
-        logger.info("verifyThatTheResponseHasAllTheDetailsAsExpected3 {},{} ", contextId, timeOut);
+                                                                 String contextId, String timeOut) {
         ResponseData expectedResponse = scenarioContext.getTestData().getExpectedResponse();
         ResponseData actualResponse = scenarioContext.getTheResponse();
 
         List<String> issuesInResponseHeaders = null, issuesInResponseBody = null;
         String issueWithResponseCode = null;
-        logger.info("actualResponse.getResponseCode() {} expectedResponse.getResponseCode() {}",
-                actualResponse.getResponseCode(), expectedResponse.getResponseCode());
         if (actualResponse.getResponseCode() != expectedResponse.getResponseCode()) {
             issueWithResponseCode = "Response code mismatch, expected: " + expectedResponse.getResponseCode()
                     + ", actual: " + actualResponse.getResponseCode();
@@ -577,7 +571,6 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
 
         MapVerificationResult headerVerification = MapVerifier.createMapVerifier("actualResponse.headers", 1, false)
                 .verifyMap(expectedResponse.getHeaders(), actualResponse.getHeaders());
-        logger.info("headerVerification.isVerified() {}", headerVerification.isVerified());
         if (!headerVerification.isVerified()) {
             issuesInResponseHeaders = headerVerification.getAllIssues();
         }
@@ -598,7 +591,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
 
     private void processAnyIssuesInResponse(String issueWithResponseCode, List<String> issuesInResponseHeaders,
             List<String> issuesInResponseBody, BackEndFunctionalTestScenarioContext parentContext, String testDataSpec,
-                                            String testDataId, String contextId, String timeOut) throws Exception {
+                                            String testDataId, String contextId, String timeOut)  {
         StringBuffer allVerificationIssues = new StringBuffer(
                 "Could not verify the actual response against expected one. Below are the issues.").append('\n');
 
@@ -675,7 +668,6 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     @Then("another call [{}] will get the expected response as in [{}]")
     public void performAndVerifyTheExpectedResponseForAnApiCall(String testDataSpec, String testDataId)
             throws IOException {
-        logger.info("Executing existing method {}, {}, {}, {}", this.scenarioContext, testDataSpec, testDataId, null);
         performAndVerifyTheExpectedResponseForAnApiCall(this.scenarioContext, testDataSpec, testDataId, null,
                 null);
 
@@ -685,16 +677,12 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     @Then("a successful call [{}] until the expected response is received [{}] within a timeout of [{}]")
     public void performAndVerifyTheExpectedResponseForAnApiCallWithTimeout(String testDataSpec, String testDataId,
                                                                            String timeOut) throws IOException {
-        logger.info("Executing the time out method with timeout1 {}, {} ", this.scenarioContext,  testDataSpec);
-        logger.info("Executing the time out method with timeout2 {}, {} ", testDataId, timeOut);
         performAndVerifyTheExpectedResponseForAnApiCall(this.scenarioContext, testDataSpec, testDataId, null,
                 timeOut);
     }
 
     private void performAndVerifyTheExpectedResponseForAnApiCall(BackEndFunctionalTestScenarioContext parentContext,
             String testDataSpec, String testDataId, String contextId, String timeOut) throws IOException {
-        logger.info("In performAndVerifyTheExpectedResponseForAnApiCall1 {}, {}" , parentContext ,testDataSpec);
-        logger.info("In performAndVerifyTheExpectedResponseForAnApiCall2 {}, {}, {}" , testDataId,contextId ,timeOut);
         BackEndFunctionalTestScenarioContext subcontext = BeftaScenarioContextFactory.createBeftaScenarioContext();
         subcontext.initializeTestDataFor(testDataId);
         subcontext.setRetryableTag(this.scenarioContext.getRetryableTag());
@@ -703,16 +691,12 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         } else {
             parentContext.addChildContext(contextId, subcontext);
         }
-        logger.info("calling verifyAllUsersInTheContext");
         verifyAllUsersInTheContext(subcontext);
         runPrerequisitesSpecifiedInTheContext(subcontext);
         prepareARequestWithAppropriateValues(subcontext);
-        logger.info("verifyTheRequestInTheContextWithAParticularSpecification");
         verifyTheRequestInTheContextWithAParticularSpecification(subcontext, testDataSpec);
-        logger.info("submitTheRequestToCallAnOperationOfAProduct");
         submitTheRequestToCallAnOperationOfAProduct(subcontext, subcontext.getTestData().getOperationName(),
                 subcontext.getTestData().getProductName());
-        logger.info("verifyThatTheResponseHasAllTheDetailsAsExpected");
         verifyThatTheResponseHasAllTheDetailsAsExpected(subcontext, parentContext, testDataSpec,testDataId, contextId,
                 timeOut);
     }
