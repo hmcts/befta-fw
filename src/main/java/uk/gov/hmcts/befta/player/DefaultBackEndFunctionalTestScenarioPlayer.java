@@ -599,9 +599,6 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     private void processAnyIssuesInResponse(String issueWithResponseCode, List<String> issuesInResponseHeaders,
             List<String> issuesInResponseBody, BackEndFunctionalTestScenarioContext parentContext, String testDataSpec,
                                             String testDataId, String contextId, String timeOut) throws Exception {
-        logger.info("In processAnyIssuesInResponse1 {}, {} ", issueWithResponseCode, issuesInResponseHeaders);
-        logger.info("In processAnyIssuesInResponse2 {}, {} ", issuesInResponseBody, parentContext);
-        logger.info("In processAnyIssuesInResponse3 {}, {}, {}, {} ",  testDataSpec, testDataId, contextId, timeOut);
         StringBuffer allVerificationIssues = new StringBuffer(
                 "Could not verify the actual response against expected one. Below are the issues.").append('\n');
 
@@ -640,8 +637,8 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
                     logger.info("performAndVerifyTheExpectedResponseForAnApiCall again {}, {}, {}, {}, {}",
                             parentContext, testDataSpec, testDataId, contextId, timeOutMs);
                     // call the operation again
-                    performAndVerifyTheExpectedResponseForAnApiCall(this.scenarioContext, testDataSpec, testDataId, null,
-                            null);
+                    performAndVerifyTheExpectedResponseForAnApiCall(this.scenarioContext, testDataSpec, testDataId,
+                            null, timeOut);
                     if (anyVerificationIssue) {
                         logger.info("call succeeded!");
                         break;
