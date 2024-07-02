@@ -160,7 +160,7 @@ dependencies {
 
     // Purposefully capping the version of org.apache.poi:poi-ooxml to 4.1.2 to avoid issue
     // NoSuchMethodError: org.apache.commons.io.IOUtils.byteArray() from commons-io:commons-io
-    implementation group: 'org.apache.poi', name: 'poi', version: '4.1.2'
+    implementation group: 'org.apache.poi', name: 'poi', version: '5.3.0'
     implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '4.1.2'
 
     implementation 'org.springframework.boot:spring-boot-starter-actuator:3.3.0'
