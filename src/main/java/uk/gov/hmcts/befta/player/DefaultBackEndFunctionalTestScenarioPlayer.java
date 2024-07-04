@@ -624,6 +624,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
             long timeOutMs = Long.parseLong(timeOut) * 1000;
             long retryIntervalMs = (long) WAIT_TIME * 1000;
             long startTime = System.currentTimeMillis();
+            logger.info("Entering while loop {}, {}" , System.currentTimeMillis() - startTime, timeOutMs);
             while (System.currentTimeMillis() - startTime < timeOutMs) {
                 logger.info("repeat the request");
                 try {
