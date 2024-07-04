@@ -622,16 +622,16 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         logger.info("anyVerificationIssue is {}, timeOut {}", anyVerificationIssue, timeOut);
         if (anyVerificationIssue && null != timeOut) {
             long timeOutMs = Long.parseLong(timeOut) * 1000;
-            long waitTimeMs = (long) WAIT_TIME * 1000;
+            long retryIntervalMs = (long) WAIT_TIME * 1000;
             long startTime = System.currentTimeMillis();
             while (System.currentTimeMillis() - startTime < timeOutMs) {
+                logger.info("repeat the request");
                 try {
-                    logger.info("repeat the request");
                     logger.info("performAndVerifyTheExpectedResponseForAnApiCall again {}, {}, {}, {}, {}",
                             parentContext, testDataSpec, testDataId, contextId, timeOutMs);
                     // call the operation again
                     performAndVerifyTheExpectedResponseForAnApiCall(this.scenarioContext, testDataSpec, testDataId,
-                            null, String.valueOf(timeOutMs-waitTimeMs));
+                            null, String.valueOf(timeOutMs-retryIntervalMs));
                     if (!anyVerificationIssue) {
                         logger.info("call succeeded!");
                         break;
@@ -639,14 +639,14 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
                         logger.info("call failed, retrying...");
                     }
                     // Wait for the retry
-                    logger.info("waiting for 1 second .....");
-                    Thread.sleep(waitTimeMs);
+                    logger.info("retry after 1 second .....");
+                    Thread.sleep(retryIntervalMs);
                 } catch (Exception e) {
                     logger.info("Interrupted exception occurred: {}", e.getMessage());
                 }
-                if (!anyVerificationIssue) {
-                    logger.info("Operation failed after reaching the timeout.");
-                }
+            }
+            if (!anyVerificationIssue) {
+                logger.info("Operation failed after reaching the timeout.");
             }
         }
         Assert.assertFalse(allVerificationIssues.toString(), anyVerificationIssue);
