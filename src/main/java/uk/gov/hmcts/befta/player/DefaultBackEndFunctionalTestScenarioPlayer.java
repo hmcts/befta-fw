@@ -75,7 +75,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     private final BackEndFunctionalTestScenarioContext scenarioContext;
     private Scenario scenario;
     private ObjectMapper mapper = new ObjectMapper();
-    private static final double WAIT_TIME  = 1;
+    private static final long WAIT_TIME_INMILLIS  = 1000;
 
     public DefaultBackEndFunctionalTestScenarioPlayer() {
         RestAssured.useRelaxedHTTPSValidation();
@@ -621,8 +621,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
                 || issuesInResponseBody != null;
         logger.info("anyVerificationIssue is {}, timeOut {}", anyVerificationIssue, timeOut);
         if (anyVerificationIssue && null != timeOut) {
-            long timeOutMs = Long.parseLong(timeOut) * 1000;
-            long retryIntervalMs = (long) WAIT_TIME * 1000;
+            int timeOutMs = Integer.parseInt(timeOut) * 1000;
             long startTime = System.currentTimeMillis();
             logger.info("Entering while loop {}, {}" , System.currentTimeMillis() - startTime, timeOutMs);
             while (System.currentTimeMillis() - startTime < timeOutMs) {
@@ -631,17 +630,17 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
                     logger.info("performAndVerifyTheExpectedResponseForAnApiCall again {}, {}, {}, {}, {}",
                             parentContext, testDataSpec, testDataId, contextId, timeOutMs);
                     // call the operation again
-                    performAndVerifyTheExpectedResponseForAnApiCall(this.scenarioContext, testDataSpec, testDataId,
-                            null, String.valueOf(timeOutMs-retryIntervalMs));
+                    /*performAndVerifyTheExpectedResponseForAnApiCall(this.scenarioContext, testDataSpec, testDataId,
+                            null, String.valueOf(timeOutMs-WAIT_TIME_INMILLIS));
                     if (!anyVerificationIssue) {
                         logger.info("call succeeded!");
                         break;
                     } else {
                         logger.info("call failed, retrying...");
-                    }
+                    }*/
                     // Wait for the retry
                     logger.info("retry after 1 second .....");
-                    Thread.sleep(retryIntervalMs);
+                    Thread.sleep(WAIT_TIME_INMILLIS);
                 } catch (Exception e) {
                     logger.info("Interrupted exception occurred: {}", e.getMessage());
                 }
