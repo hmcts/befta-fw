@@ -650,6 +650,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
                 logger.info("Operation failed after reaching the timeout.");
             }
         }
+        logger.info("anyVerificationIssue is {}", anyVerificationIssue);
         Assert.assertFalse(allVerificationIssues.toString(), anyVerificationIssue);
     }
 
