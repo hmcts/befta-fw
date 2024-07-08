@@ -583,6 +583,8 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         }
 
         try {
+            logger.info("calling processAnyIssuesInResponse issueWithResponseCode: {}", issueWithResponseCode);
+            logger.info("issuesInResponseHeaders {}", issuesInResponseHeaders);
             processAnyIssuesInResponse(issueWithResponseCode, issuesInResponseHeaders, issuesInResponseBody,parentContext,
                     testDataSpec,testDataId,contextId,timeOut);
         } catch (Exception e) {
@@ -620,6 +622,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         boolean anyVerificationIssue = issueWithResponseCode != null
                 || (issuesInResponseHeaders != null && headerPolicy.equals(ResponseHeaderCheckPolicy.FAIL_TEST))
                 || issuesInResponseBody != null;
+        logger.info("anyVerificationIssue is {}, timeout {}", anyVerificationIssue, timeOut);
         if(anyVerificationIssue && timeOut != null) {
             throw new HearingServiceWaitException("Retry the request again");
         }
