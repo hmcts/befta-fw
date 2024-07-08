@@ -35,6 +35,7 @@ import uk.gov.hmcts.befta.data.ResponseData;
 import uk.gov.hmcts.befta.data.UserData;
 import uk.gov.hmcts.befta.exception.FeatureToggleCheckFailureException;
 import uk.gov.hmcts.befta.exception.FunctionalTestException;
+import uk.gov.hmcts.befta.exception.HearingServiceWaitException;
 import uk.gov.hmcts.befta.exception.InvalidTestDataException;
 import uk.gov.hmcts.befta.exception.UnconfirmedApiCallException;
 import uk.gov.hmcts.befta.exception.UnconfirmedDataSpecException;
@@ -619,8 +620,11 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         boolean anyVerificationIssue = issueWithResponseCode != null
                 || (issuesInResponseHeaders != null && headerPolicy.equals(ResponseHeaderCheckPolicy.FAIL_TEST))
                 || issuesInResponseBody != null;
-        logger.info("anyVerificationIssue is {}, timeOut {}", anyVerificationIssue, timeOut);
-        if (anyVerificationIssue) {
+        if(anyVerificationIssue) {
+            throw new HearingServiceWaitException("Retry the request again");
+        }
+        logger.info("anyVerificationIssue is {}", anyVerificationIssue);
+      /*  if (anyVerificationIssue) {
             int timeOutMs = Integer.parseInt(timeOut) * 1000;
             long startTime = System.currentTimeMillis();
             logger.info("Entering while loop {}, {}" , System.currentTimeMillis() - startTime, timeOutMs);
@@ -648,8 +652,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
             if (!anyVerificationIssue) {
                 logger.info("Operation failed after reaching the timeout.");
             }
-        }
-        logger.info("anyVerificationIssue is {}", anyVerificationIssue);
+        }*/
         Assert.assertFalse(allVerificationIssues.toString(), anyVerificationIssue);
     }
 
