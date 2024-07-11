@@ -623,39 +623,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
                 || (issuesInResponseHeaders != null && headerPolicy.equals(ResponseHeaderCheckPolicy.FAIL_TEST))
                 || issuesInResponseBody != null;
         logger.info("anyVerificationIssue is {}, timeout {}", anyVerificationIssue, timeOut);
-        if(anyVerificationIssue && timeOut != null) {
-            throw new HearingServiceWaitException("Retry the request again");
-        }
         logger.info("anyVerificationIssue is {}", anyVerificationIssue);
-      /*  if (anyVerificationIssue) {
-            int timeOutMs = Integer.parseInt(timeOut) * 1000;
-            long startTime = System.currentTimeMillis();
-            logger.info("Entering while loop {}, {}" , System.currentTimeMillis() - startTime, timeOutMs);
-            while (System.currentTimeMillis() - startTime < timeOutMs) {
-                logger.info("repeat the request");
-                try {
-                    logger.info("performAndVerifyTheExpectedResponseForAnApiCall again {}, {}, {}, {}, {}",
-                            parentContext, testDataSpec, testDataId, contextId, timeOutMs);
-                    // call the operation again
-                    performAndVerifyTheExpectedResponseForAnApiCall(this.scenarioContext, testDataSpec, testDataId,
-                            null, null);
-                    if (!anyVerificationIssue) {
-                        logger.info("call succeeded!");
-                        break;
-                    } else {
-                        logger.info("call failed, retrying...");
-                    }
-                    // Wait for the retry
-                    logger.info("retry after 1 second .....");
-                    Thread.sleep(WAIT_TIME_INMILLIS);
-                } catch (Exception e) {
-                    logger.info("Interrupted exception occurred: {}", e.getMessage());
-                }
-            }
-            if (!anyVerificationIssue) {
-                logger.info("Operation failed after reaching the timeout.");
-            }
-        }*/
         Assert.assertFalse(allVerificationIssues.toString(), anyVerificationIssue);
     }
 
@@ -768,6 +736,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
             BeftaMain.getAdapter().authenticate(user, preferredTokenProviderClientId);
             return true;
         };
+
 
         Retryer<Boolean> retryer = RetryerBuilder.<Boolean>newBuilder()
                 .retryIfResult(Predicates.isNull())
