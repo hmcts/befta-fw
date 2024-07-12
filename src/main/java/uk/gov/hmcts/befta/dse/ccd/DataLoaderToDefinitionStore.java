@@ -254,22 +254,18 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
             Object value = jsonObject.get(current_key);
 
             if (value instanceof JSONObject) {
-                // Recursively process nested JSON object
                 readObjectFromJsonFile((JSONObject) value);
             } else if (value instanceof JSONArray) {
-                // Process each element in the array
                 JSONArray array = (JSONArray) value;
                 for (int j = 0; j < array.length(); ++j) {
                     Object arrayElement = array.get(j);
                     if (arrayElement instanceof JSONObject) {
                         readObjectFromJsonFile((JSONObject) arrayElement);
                     } else if (arrayElement instanceof String) {
-                        // Resolve placeholder if it is a string
                         resolvePlaceholder(array, j, (String) arrayElement);
                     }
                 }
             } else if (value instanceof String) {
-                // Resolve placeholder if it is a string
                 resolvePlaceholder(jsonObject, current_key, (String) value);
             }
         }
