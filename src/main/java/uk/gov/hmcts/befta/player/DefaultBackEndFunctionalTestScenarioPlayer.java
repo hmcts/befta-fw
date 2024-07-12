@@ -623,6 +623,9 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
                 || (issuesInResponseHeaders != null && headerPolicy.equals(ResponseHeaderCheckPolicy.FAIL_TEST))
                 || issuesInResponseBody != null;
         logger.info("anyVerificationIssue is {}, timeout {}", anyVerificationIssue, timeOut);
+        if(anyVerificationIssue && timeOut != null) {
+            throw new HearingServiceWaitException("Retry the request again");
+        }
         logger.info("anyVerificationIssue is {}", anyVerificationIssue);
         Assert.assertFalse(allVerificationIssues.toString(), anyVerificationIssue);
     }
