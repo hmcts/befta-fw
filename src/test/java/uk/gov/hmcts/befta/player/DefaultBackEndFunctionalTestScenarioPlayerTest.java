@@ -1,7 +1,9 @@
 package uk.gov.hmcts.befta.player;
 
+import ch.qos.logback.classic.Logger;
 import com.github.rholder.retry.Attempt;
 import com.github.rholder.retry.RetryListener;
+import com.google.common.base.Stopwatch;
 import com.google.common.collect.ImmutableSet;
 import feign.FeignException;
 import io.cucumber.java.Scenario;
@@ -25,6 +27,7 @@ import org.mockito.Mock;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.slf4j.LoggerFactory;
 import uk.gov.hmcts.befta.BeftaMain;
 import uk.gov.hmcts.befta.DefaultTestAutomationAdapter;
 import uk.gov.hmcts.befta.data.HttpTestData;
@@ -42,6 +45,7 @@ import uk.gov.hmcts.befta.util.JsonUtils;
 import uk.gov.hmcts.befta.util.MapVerificationResult;
 import uk.gov.hmcts.befta.util.MapVerifier;
 import uk.gov.hmcts.befta.util.Retryable;
+import uk.gov.hmcts.befta.util.TestLogAppender;
 import uk.gov.hmcts.common.TestUtils;
 
 import javax.net.ssl.SSLException;
@@ -56,6 +60,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
@@ -75,6 +80,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
+import static uk.gov.hmcts.befta.util.Retryable.setRetryListener;
 
 @SuppressWarnings("UnstableApiUsage")
 class DefaultBackEndFunctionalTestScenarioPlayerTest {
@@ -844,6 +850,194 @@ class DefaultBackEndFunctionalTestScenarioPlayerTest {
         assertEquals(1, responseData.getHeaders().size());
         assertEquals(body, responseData.getBody());
         assertEquals("OK", responseData.getResponseMessage());
+    }
+
+    @SuppressWarnings({ "rawtypes" })
+    @ParameterizedTest(name = "shouldSubmitTheRequestToCallAnOperationOfAProductWithRetryNoMatchWithCorrectOperation: uri={0}")
+    @MethodSource("shouldSubmitTheRequestToCallAnOperationOfAProductWithCorrectOperationParams")
+    void shouldSubmitTheRequestToCallAnOperationOfAProductWithRetryNoMatchWithCorrectOperation(
+            String uri,
+            boolean resetBaseUri
+    ) throws IOException {
+        final String methodType = "POST";
+        final String bodyString = "{"
+                + "\"id\": 12345,"
+                + "\"name\": \"Befta User\","
+                + "\"available\": true"
+                + "}";
+
+        when(EnvironmentVariableUtils.getRequiredVariable("TEST_URL")).thenReturn(TEST_URL);
+        HttpTestData testData = mock(HttpTestData.class);
+
+        when(testData.meetsOperationOfProduct(eq(PRODUCT_NAME), eq(OPERATION))).thenReturn(true);
+        when(testData.getMethod()).thenReturn(methodType);
+        when(testData.getUri()).thenReturn(uri);
+        when(testData.getExpectedResponse()).thenReturn(new ResponseData());
+        when(context.getTestData()).thenReturn(testData);
+        testData.setMethod("POST");
+        when(context.getTheRequest()).thenReturn(requestSpecification);
+        final String regex = "\"name\":\\s*\"CIVIL User\"";
+
+        Retryable retry = Retryable.builder()
+                .retryListener(setRetryListener(false))
+                .nonRetryableHttpMethods(Set.of())
+                .match(Set.of(regex))
+                .build();
+        when(context.getRetryConfiguration()).thenReturn(retry);
+
+        Response response = mock(Response.class);
+        when(response.getHeaders())
+                .thenReturn(new Headers(Collections.singletonList(new Header("Content-Type", "application/json;charset=UTF-8"))));
+        when(response.getStatusCode()).thenReturn(200);
+        when(response.contentType()).thenReturn("application/json;charset=UTF-8");
+        when(response.asString()).thenReturn(bodyString);
+
+        when(requestSpecification.request(eq("POST"), eq(uri))).thenReturn(response);
+        QueryableRequestSpecification queryableRequest = mock(QueryableRequestSpecification.class);
+        when(SpecificationQuerier.query(eq(requestSpecification))).thenReturn(queryableRequest);
+
+        ResponseBody responseBody = mock(ResponseBody.class);
+        when(response.getBody()).thenReturn(responseBody);
+        when(responseBody.asString()).thenReturn(bodyString);
+
+        Map<String, Object> body = new HashMap<>();
+        body.put("__plainTextValue__", "{\"id\": 12345,\"name\": \"Befta User\",\"available\": true}");
+
+        scenarioPlayer.submitTheRequestToCallAnOperationOfAProduct(OPERATION, PRODUCT_NAME);
+
+        verify(requestSpecification, times(1)).request(eq("POST"), eq(uri));
+        verify(testData).setActualResponse((ResponseData) captor.capture());
+        if (resetBaseUri) {
+            verify(requestSpecification).baseUri(TEST_URL);
+        } else {
+            verify(requestSpecification, never()).baseUri(anyString());
+        }
+        ResponseData responseData = (ResponseData) captor.getValue();
+        assertEquals(200, responseData.getResponseCode());
+        assertEquals(1, responseData.getHeaders().size());
+        assertEquals(body, responseData.getBody());
+        assertEquals("OK", responseData.getResponseMessage());
+    }
+
+    @SuppressWarnings({ "rawtypes" })
+    @ParameterizedTest(name = "shouldSubmitTheRequestToCallAnOperationOfAProductWithRetryMatchWithCorrectOperation: uri={0}")
+    @MethodSource("shouldSubmitTheRequestToCallAnOperationOfAProductWithCorrectOperationParams")
+    void shouldSubmitTheRequestToCallAnOperationOfAProductWithRetryMatchWithCorrectOperation(
+            String uri,
+            boolean resetBaseUri
+    ) throws IOException {
+        final String methodType = "POST";
+        final String bodyString = "{"
+                + "\"id\": 12345,"
+                + "\"name\": \"Befta User\","
+                + "\"available\": true"
+                + "}";
+
+        when(EnvironmentVariableUtils.getRequiredVariable("TEST_URL")).thenReturn(TEST_URL);
+        HttpTestData testData = mock(HttpTestData.class);
+
+        when(testData.meetsOperationOfProduct(eq(PRODUCT_NAME), eq(OPERATION))).thenReturn(true);
+        when(testData.getMethod()).thenReturn(methodType);
+        when(testData.getUri()).thenReturn(uri);
+        when(testData.getExpectedResponse()).thenReturn(new ResponseData());
+        when(context.getTestData()).thenReturn(testData);
+        testData.setMethod("POST");
+        when(context.getTheRequest()).thenReturn(requestSpecification);
+        final String regex = "\"name\":\\s*\"Befta User\"";
+
+        Retryable retry = Retryable.builder()
+                .retryListener(setRetryListener(false))
+                .nonRetryableHttpMethods(Set.of())
+                .match(Set.of(regex))
+                .build();
+        when(context.getRetryConfiguration()).thenReturn(retry);
+
+        Response response = mock(Response.class);
+        when(response.getHeaders())
+                .thenReturn(new Headers(Collections.singletonList(new Header("Content-Type", "application/json;charset=UTF-8"))));
+        when(response.getStatusCode()).thenReturn(200);
+        when(response.contentType()).thenReturn("application/json;charset=UTF-8");
+        when(response.asString()).thenReturn(bodyString);
+
+        when(requestSpecification.request(eq("POST"), eq(uri))).thenReturn(response);
+        QueryableRequestSpecification queryableRequest = mock(QueryableRequestSpecification.class);
+        when(SpecificationQuerier.query(eq(requestSpecification))).thenReturn(queryableRequest);
+
+        assertThrows(FunctionalTestException.class,
+                () -> scenarioPlayer.submitTheRequestToCallAnOperationOfAProduct(OPERATION, PRODUCT_NAME));
+    }
+
+    @SuppressWarnings({ "rawtypes" })
+    @ParameterizedTest(name = "shouldSubmitTheRequestToCallAnOperationOfAProductWithDelayWithCorrectOperation: uri={0}")
+    @MethodSource("shouldSubmitTheRequestToCallAnOperationOfAProductWithCorrectOperationParams")
+    void shouldSubmitTheRequestToCallAnOperationOfAProductWithDelayWithCorrectOperation(
+            String uri,
+            boolean resetBaseUri
+    ) throws IOException, InterruptedException {
+        final String methodType = "POST";
+        final String bodyString = "{}";
+
+        when(EnvironmentVariableUtils.getRequiredVariable("TEST_URL")).thenReturn(TEST_URL);
+        HttpTestData testData = mock(HttpTestData.class);
+
+        when(testData.meetsOperationOfProduct(eq(PRODUCT_NAME), eq(OPERATION))).thenReturn(true);
+        when(testData.getMethod()).thenReturn(methodType);
+        when(testData.getUri()).thenReturn(uri);
+        when(testData.getExpectedResponse()).thenReturn(new ResponseData());
+        when(context.getTestData()).thenReturn(testData);
+        testData.setMethod("POST");
+        when(context.getTheRequest()).thenReturn(requestSpecification);
+        when(context.getRetryConfiguration()).thenReturn(Retryable.DEFAULT_RETRYABLE);
+
+        Response response = mock(Response.class);
+        when(response.getHeaders())
+                .thenReturn(new Headers(Collections.singletonList(new Header("Content-Type", "application/json;charset=UTF-8"))));
+        when(response.getStatusCode()).thenReturn(200);
+        when(response.contentType()).thenReturn("application/json;charset=UTF-8");
+        when(requestSpecification.request(eq("POST"), eq(uri))).thenReturn(response);
+        QueryableRequestSpecification queryableRequest = mock(QueryableRequestSpecification.class);
+        when(SpecificationQuerier.query(eq(requestSpecification))).thenReturn(queryableRequest);
+
+        ResponseBody responseBody = mock(ResponseBody.class);
+        when(response.getBody()).thenReturn(responseBody);
+        when(responseBody.asString()).thenReturn(bodyString);
+
+        Map<String, Object> body = new HashMap<>();
+        body.put("__plainTextValue__", "{}");
+
+        int delay = 5;
+
+        Logger logger = (Logger) LoggerFactory.getLogger(DefaultBackEndFunctionalTestScenarioPlayer.class);
+        TestLogAppender testLogAppender = new TestLogAppender();
+        logger.addAppender(testLogAppender);
+        testLogAppender.start();
+
+        final Stopwatch stopwatch = Stopwatch.createStarted();
+        scenarioPlayer.submitTheRequestToCallAnOperationOfAProductWithDelay(OPERATION, PRODUCT_NAME, delay, "after");
+        stopwatch.stop();
+
+        long execTime = stopwatch.elapsed(TimeUnit.MILLISECONDS);
+        assertTrue(execTime >= delay * 999L, "The execution did not delay for at least " +
+                delay + " seconds. It took " + execTime + " milliseconds");
+
+        boolean logMessageFound = testLogAppender.getLogEvents().stream()
+                .anyMatch(event -> event.getFormattedMessage().contains("Delaying "+ delay + " seconds after " +
+                        "executing the '"+ OPERATION +"' operation on the '"+ PRODUCT_NAME +"'"));
+        assertTrue(logMessageFound, "Expected log message not found");
+
+        verify(requestSpecification, times(1)).request(eq("POST"), eq(uri));
+        verify(testData).setActualResponse((ResponseData) captor.capture());
+        if (resetBaseUri) {
+            verify(requestSpecification).baseUri(TEST_URL);
+        } else {
+            verify(requestSpecification, never()).baseUri(anyString());
+        }
+        ResponseData responseData = (ResponseData) captor.getValue();
+        assertEquals(200, responseData.getResponseCode());
+        assertEquals(1, responseData.getHeaders().size());
+        assertEquals(body, responseData.getBody());
+        assertEquals("OK", responseData.getResponseMessage());
+
     }
 
     @SuppressWarnings("unused")
