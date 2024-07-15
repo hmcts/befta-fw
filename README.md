@@ -751,52 +751,56 @@ export BEFTA_RETRY_ENABLE_LISTENER=true
 ```
 
 ### Service Level Policy
-The feature can be defined with an annotation as follows: `@Retryable(maxAttempts=3,delay=1000,statusCodes={400,502})`.
-This annotation specifies a mandatory list of HTTP status codes that trigger a retry, and optional parameters for the maximum 
-number of attempts and the delay between attempts.
-If you don't provide the optional parameters maxAttempts and delay, the default values will be used instead, 
-which are 3 and 1000 milliseconds, respectively.
-If you don't provide the optional parameters maxAttempts and delay, the default values will be used instead, which are 3 and 1000 milliseconds, respectively.
-If statusCode is not provided, the scenario will fail with a **FunctionalTestException**.
+The feature can be defined with an annotation as follows: @Retryable(maxAttempts=3, delay=1000, statusCodes={400, 502}, match={".*error.*"}). 
+This annotation specifies:
+* **statusCodes**: A mandatory list of HTTP status codes that trigger a retry. If not provided, the scenario will fail with a FunctionalTestException.
+* **maxAttempts**: An optional parameter specifying the maximum number of retry attempts. Defaults to 3 if not provided.
+* **delay**: An optional parameter specifying the delay between retry attempts in milliseconds. Defaults to 1000 milliseconds if not provided.
+* **match**: An optional parameter that accepts an array of regex patterns. If any of these patterns match the response content, a retry will be triggered.
 
 ### Usage
 To use the Retryable Feature, you need to annotate your test scenarios with the **@Retryable** annotation in your feature file and 
 provide the necessary parameters. Here's an example:
 
 ```
-@S-096.1 @Retryable(maxAttempts=3,delay=500,statusCodes={409,500})
+@S-096.1 @Retryable(maxAttempts=3, delay=500, statusCodes={409, 500}, match={".*error.*", ".*timeout.*"})
   Scenario: Sample Scenario
     Given given_context
     When when_context
     And and_context
 ```
-In this example, the scenario **@S-096.1** will be executed up to 3 times with a delay of 500 milliseconds between each attempt. 
-If the HTTP response status code is either 409 or 500, the test will be retried.
-If you don't provide the optional parameters maxAttempts and delay, the default values will be used instead.
+In this example:
+
+* The scenario **@S-096.1** will be executed up to 3 times with a delay of 500 milliseconds between each attempt.
+* The test will be retried if the HTTP response status code is either 409 or 500, or if the response content matches any of the provided regex patterns (**".*error.*"** or **".*timeout.*"**).
 
 ### Examples
 
-Here are some examples of how you can use the Retryable Feature:
+Here are some examples of how you can use the Retryable Feature with the **match** attribute:
 
 ```
-@S-096.1 @Retryable(statusCodes={500,502})
+@S-096.1 @Retryable(statusCodes={500, 502}, match={".*server.*"})
   Scenario: Sample Scenario
     Given given_context
     When when_context
     And and_context
 ```
-In this example, the scenario **@S-096.1** will be executed up to 3 times with a delay of
-1000 milliseconds between each attempt. If the HTTP response status code is either 500 or 502, the test will be retried.
+In this example:
+
+* The scenario @S-096.1 will be executed up to 3 times with a delay of 1000 milliseconds between each attempt.
+* The test will be retried if the HTTP response status code is either 500 or 502, or if the response content matches the regex pattern **".*server.*"**.
 
 ```
-@S-096.1 @Retryable(statusCodes={404,503}, maxAttempts=5)
+@S-096.1 @Retryable(statusCodes={404, 503}, maxAttempts=5, match={".*not found.*"})
   Scenario: Sample Scenario
     Given given_context
     When when_context
     And and_context
 ```
-In this example, the scenario **@S-096.1** will be executed up to 5 times with a delay of 
-1000 milliseconds between each attempt. If the HTTP response status code is either 404 or 503, the test will be retried.
+In this example:
+
+* The scenario **@S-096.1** will be executed up to 5 times with a delay of 1000 milliseconds between each attempt.
+* The test will be retried if the HTTP response status code is either 404 or 503, or if the response content matches the regex pattern **".*not found.*"**.
 
 ```
 @S-096.1 @Retryable(statusCodes={400,502}, delay=500)
@@ -816,4 +820,4 @@ In this example, the scenario **@S-096.1** will be executed up to 3 times with a
     And and_context
 ```
 In this example, the scenario **@S-096.1** will fail with 
-**FunctionalTestException:Missing statusCode configuration in @Retryable**
+**FunctionalTestException:Missing statusCode configuration in @Retryable** because the statusCodes parameter is mandatory and was not provided.
