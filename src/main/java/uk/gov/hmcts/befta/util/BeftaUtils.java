@@ -10,8 +10,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.util.Arrays;
-import java.util.HashSet;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -22,6 +24,8 @@ import lombok.extern.slf4j.Slf4j;
 import uk.gov.hmcts.befta.exception.FunctionalTestException;
 import uk.gov.hmcts.befta.exception.JsonStoreCreationException;
 import uk.gov.hmcts.befta.featuretoggle.ScenarioFeatureToggleInfo;
+
+import static uk.gov.hmcts.befta.util.Retryable.setRetryListener;
 
 @Slf4j
 public class BeftaUtils {
@@ -97,7 +101,15 @@ public class BeftaUtils {
     public static Retryable getRetryableTag(Scenario scenario) {
         String retryInput = scenario.getSourceTagNames().stream()
                 .filter(tag -> tag.startsWith("@Retryable"))
-                .map(tag -> tag.substring(tag.indexOf("(") + 1, tag.indexOf(")")))
+                .map(tag -> {
+                    log.info("Retryable tag: {}", tag);
+                    String regex = "\\(([^(){}@]+(?:\\{[^{}]*}|@[^()]*|[^(){}@])*)\\)";
+                    Matcher matcher = Pattern.compile(regex).matcher(tag);
+                    if (matcher.find()) {
+                        return matcher.group(1).replaceAll("\\s+", "");
+                    }
+                    return "";
+                })
                 .collect(Collectors.joining());
 
         if (retryInput.isEmpty()) {
@@ -105,22 +117,43 @@ public class BeftaUtils {
         }
 
         // default 1000ms
-        int delay = Integer.parseInt(Optional.of(Pattern
+        int delay = getDelay(retryInput);
+        // default 3
+        int maxAttempts = getMaxAttempts(retryInput);
+        // must be defined
+        Set<Integer> statusCodes = getStatusCodes(retryInput);
+        // default empty
+        List<String> matches = getMatches(retryInput);
+
+        return Retryable.builder()
+                .delay(delay)
+                .maxAttempts(maxAttempts)
+                .statusCodes(statusCodes)
+                .match(matches)
+                .nonRetryableHttpMethods(Collections.emptySet())
+                .retryListener(setRetryListener(true))
+                .build();
+    }
+
+    private static int getDelay(String retryInput) {
+        return Integer.parseInt(Optional.of(Pattern
                         .compile("delay=([^,]+|$)").matcher(retryInput))
                 .filter(Matcher::find)
                 .map(matcher -> matcher.group(1))
                 .orElse("1000"));
+    }
 
-        // default 3
-        int maxAttempts = Integer.parseInt(Optional.of(Pattern
+    private static int getMaxAttempts(String retryInput) {
+        return Integer.parseInt(Optional.of(Pattern
                         .compile("maxAttempts=([^,]+|$)").matcher(retryInput))
                 .filter(Matcher::find)
                 .map(matcher -> matcher.group(1))
                 .orElse("3"));
+    }
 
-        // must be defined
-        HashSet<Integer> statusCodes = Optional.of(Pattern
-                        .compile("statusCodes=\\{([^}]+)\\}")
+    private static Set<Integer> getStatusCodes(String retryInput) {
+        return Optional.of(Pattern
+                        .compile("statusCodes=\\{([^}]+)}")
                         .matcher(retryInput))
                 .filter(Matcher::find)
                 .map(matcher -> matcher.group(1))
@@ -128,14 +161,22 @@ public class BeftaUtils {
                         .map(String::trim)
                         .filter(Strings::isNotEmpty)
                         .map(Integer::parseInt)
-                        .collect(Collectors.toCollection(HashSet::new)))
+                        .collect(Collectors.toSet()))
                 .orElseThrow(() -> new FunctionalTestException("Missing statusCode configuration in @Retryable"));
+    }
 
-        return Retryable.builder()
-                .delay(delay)
-                .maxAttempts(maxAttempts)
-                .statusCodes(statusCodes)
-                .build();
+    private static List<String> getMatches(String retryInput) {
+        return Optional.of(Pattern
+                        .compile("match\\s*=\\s*\\{([^}]*)}")
+                        .matcher(retryInput))
+                .filter(Matcher::find)
+                .map(matcher -> matcher.group(1))
+                .map(s -> Arrays.stream(s.split(","))
+                        .map(String::trim)
+                        .filter(Strings::isNotEmpty)
+                        .map(match -> match.replaceAll("^\"|\"$", ""))
+                        .collect(Collectors.toList()))
+                .orElse(Collections.emptyList());
     }
 
     public static void defaultLog(Scenario scenario, String logString) {

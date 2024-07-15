@@ -356,6 +356,31 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         submitTheRequestToCallAnOperationOfAProduct(this.scenarioContext, operation, productName);
     }
 
+    @Override
+    @When("it is submitted to call the [{}] operation of [{}] with a delay of [{}] seconds [{}] the call")
+    public void submitTheRequestToCallAnOperationOfAProductWithDelay(String operation, String productName, int delay,
+                                                                     String delayPosition) throws IOException, InterruptedException {
+        long delayInMillisecond = delay * 1000L;
+        boolean isAfter = "after".equalsIgnoreCase(delayPosition);
+
+        // Delay before the request if specified
+        if (!isAfter) {
+            logger.info("Delaying {} seconds before executing the '{}' operation on the '{}'", delay, operation,
+                    productName);
+            Thread.sleep(delayInMillisecond);
+        }
+
+        // Perform the request
+        submitTheRequestToCallAnOperationOfAProduct(this.scenarioContext, operation, productName);
+
+        // Delay after the request if specified
+        if (isAfter) {
+            logger.info("Delaying {} seconds after executing the '{}' operation on the '{}'", delay, operation,
+                    productName);
+            Thread.sleep(delayInMillisecond);
+        }
+    }
+
     @SuppressWarnings("UnstableApiUsage")
     private void submitTheRequestToCallAnOperationOfAProduct(BackEndFunctionalTestScenarioContext scenarioContext,
             String operationName, String productName) throws IOException {
@@ -385,8 +410,6 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
             logger.info("Applying no-retry policy...");
             retryer = RetryerBuilder.<Response>newBuilder().build();
         } else {
-            logger.info("Applying active retry policy...");
-
             retryer = RetryerBuilder.<Response>newBuilder()
                     .withRetryListener(retryable.getRetryListener())
                     .retryIfException(e -> {
@@ -397,13 +420,26 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
                         return isRetryableException || isRetryableCause;
                     })
                     .retryIfResult(res -> retryable.getStatusCodes().contains(res.getStatusCode()))
+                    .retryIfResult(res -> {
+                        for (String match : retryable.getMatch()) {
+                            logger.info("Match: {}", match);
+                            logger.info("Response: {}", res.asString());
+                            Pattern pattern = Pattern.compile(match);
+                            Matcher matcher = pattern.matcher(res.asString());
+                            if (matcher.find()) {
+                                return true;
+                            }
+                        }
+                        return false;
+                    })
                     .withStopStrategy(StopStrategies.stopAfterAttempt(retryable.getMaxAttempts()))
                     .withWaitStrategy(WaitStrategies.fixedWait(retryable.getDelay(), TimeUnit.MILLISECONDS))
                     .build();
+
+            logger.info("Applying active retry policy... {}", retryable);
         }
 
         Response response = executeHttpRequestWithRetry(theRequest, testData.getMethod(), uri, retryer);
-
         ResponseData responseData = convertRestAssuredResponseToBeftaResponse(scenarioContext, response);
         scenarioContext.getTestData().setActualResponse(responseData);
         scenarioContext.setTheResponse(responseData);
