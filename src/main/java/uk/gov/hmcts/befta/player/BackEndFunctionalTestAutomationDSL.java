@@ -39,6 +39,12 @@ public interface BackEndFunctionalTestAutomationDSL {
     void submitTheRequestToCallAnOperationOfAProduct(String operation, String productName) throws IOException;
 
     // DSL Element:
+    // "It is submitted to call the [<some operation name>] operation of [<some application / api product name>]
+    // [with a delay of <delay duration> seconds <before/after> the request]."
+    void submitTheRequestToCallAnOperationOfAProductWithDelay(String operation, String productName, int delay,
+                                                              String delayPosition) throws IOException, InterruptedException;
+
+    // DSL Element:
     // "a positive response is received"
     void verifyThatAPositiveResponseWasReceived();
 
