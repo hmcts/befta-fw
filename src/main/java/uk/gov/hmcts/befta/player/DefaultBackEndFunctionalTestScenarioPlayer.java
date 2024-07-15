@@ -356,12 +356,14 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     @Override
     @When("it is submitted to call the [{}] operation of [{}]")
     public void submitTheRequestToCallAnOperationOfAProduct(String operation, String productName) throws IOException {
+        logger.info("calling submitTheRequestToCallAnOperationOfAProduct :{}, {}", operation, productName);
         submitTheRequestToCallAnOperationOfAProduct(this.scenarioContext, operation, productName);
     }
 
     @SuppressWarnings("UnstableApiUsage")
     private void submitTheRequestToCallAnOperationOfAProduct(BackEndFunctionalTestScenarioContext scenarioContext,
             String operationName, String productName) throws IOException {
+        logger.info("calling submitTheRequestToCallAnOperationOfAProduct :{}", operationName);
         boolean isCorrectOperation = scenarioContext.getTestData().meetsOperationOfProduct(productName, operationName);
         if (!isCorrectOperation) {
             throw new UnconfirmedApiCallException(productName, operationName);
@@ -392,8 +394,9 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
 
             retryer = RetryerBuilder.<Response>newBuilder()
                     .withRetryListener(retryable.getRetryListener())
+                    .retryIfResult(result -> result != null && !result.toString().contains("CANCELLATION_SUBMITTED"))
                     .retryIfException(e -> {
-                        boolean isRetryableException = retryable.getRetryableExceptions().contains(e.getClass());
+                        boolean isRetryableException = !retryable.getRetryableExceptions().contains(e.getClass());
                         Throwable cause = e.getCause();
                         boolean isRetryableCause = cause != null && retryable.getRetryableExceptions()
                                 .contains(cause.getClass());
