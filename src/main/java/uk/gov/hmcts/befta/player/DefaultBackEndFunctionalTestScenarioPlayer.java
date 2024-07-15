@@ -389,6 +389,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
 
             retryer = RetryerBuilder.<Response>newBuilder()
                     .withRetryListener(retryable.getRetryListener())
+                    .retryIfResult(result -> result != null && !result.toString().contains("CANCELLATION_SUBMITTED"))
                     .retryIfException(e -> {
                         boolean isRetryableException = retryable.getRetryableExceptions().contains(e.getClass());
                         Throwable cause = e.getCause();
