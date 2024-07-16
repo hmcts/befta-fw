@@ -359,6 +359,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     @SuppressWarnings("UnstableApiUsage")
     private void submitTheRequestToCallAnOperationOfAProduct(BackEndFunctionalTestScenarioContext scenarioContext,
             String operationName, String productName) throws IOException {
+        logger.info("Operation: " + operationName + " of product: " + productName);
         boolean isCorrectOperation = scenarioContext.getTestData().meetsOperationOfProduct(productName, operationName);
         if (!isCorrectOperation) {
             throw new UnconfirmedApiCallException(productName, operationName);
@@ -632,8 +633,17 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         performAndVerifyTheExpectedResponseForAnApiCall(this.scenarioContext, testDataSpec, testDataId, null);
     }
 
+    @Override
+    @Then("a successful call [{}] until the expected response is received [{}] within a timeout of [{}]")
+    public void performAndVerifyTheExpectedResponseForAnApiCallWithHmiWait(String testDataSpec, String testDataId,
+                                                                          String source) throws IOException {
+        logger.info("calling existing method :{}", source);
+        performAndVerifyTheExpectedResponseForAnApiCall(this.scenarioContext, testDataSpec, testDataId, null);
+    }
+
     private void performAndVerifyTheExpectedResponseForAnApiCall(BackEndFunctionalTestScenarioContext parentContext,
             String testDataSpec, String testDataId, String contextId) throws IOException {
+        logger.info("calling existing method with testDataId :{}", testDataId);
         BackEndFunctionalTestScenarioContext subcontext = BeftaScenarioContextFactory.createBeftaScenarioContext();
         subcontext.initializeTestDataFor(testDataId);
         subcontext.setRetryableTag(this.scenarioContext.getRetryableTag());
@@ -646,6 +656,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         runPrerequisitesSpecifiedInTheContext(subcontext);
         prepareARequestWithAppropriateValues(subcontext);
         verifyTheRequestInTheContextWithAParticularSpecification(subcontext, testDataSpec);
+        logger.info("calling the method to retry the request");
         submitTheRequestToCallAnOperationOfAProduct(subcontext, subcontext.getTestData().getOperationName(),
                 subcontext.getTestData().getProductName());
         verifyThatTheResponseHasAllTheDetailsAsExpected(subcontext);
