@@ -390,7 +390,10 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
 
             retryer = RetryerBuilder.<Response>newBuilder()
                     .withRetryListener(retryable.getRetryListener())
-                    .retryIfResult(result -> result != null && result.toString().contains("hearingResponse"))
+                    .retryIfResult(result -> {
+                      logger.info("result: {}", result);
+                        return result != null && result.toString().contains("hearingResponse");}
+                    )
                     .retryIfException(e -> {
                         boolean isRetryableException = retryable.getRetryableExceptions().contains(e.getClass());
                         Throwable cause = e.getCause();
