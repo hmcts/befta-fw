@@ -35,7 +35,6 @@ import uk.gov.hmcts.befta.data.ResponseData;
 import uk.gov.hmcts.befta.data.UserData;
 import uk.gov.hmcts.befta.exception.FeatureToggleCheckFailureException;
 import uk.gov.hmcts.befta.exception.FunctionalTestException;
-import uk.gov.hmcts.befta.exception.HearingServiceWaitException;
 import uk.gov.hmcts.befta.exception.InvalidTestDataException;
 import uk.gov.hmcts.befta.exception.UnconfirmedApiCallException;
 import uk.gov.hmcts.befta.exception.UnconfirmedDataSpecException;
@@ -394,7 +393,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
 
             retryer = RetryerBuilder.<Response>newBuilder()
                     .withRetryListener(retryable.getRetryListener())
-                    .retryIfResult(result -> result != null && !result.toString().contains("CANCELLATION_SUBMITTED"))
+                    .retryIfResult(result -> result != null && !result.toString().contains("HMI_WAIT"))
                     .retryIfException(e -> {
                         boolean isRetryableException = !retryable.getRetryableExceptions().contains(e.getClass());
                         Throwable cause = e.getCause();
@@ -626,10 +625,6 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
                 || (issuesInResponseHeaders != null && headerPolicy.equals(ResponseHeaderCheckPolicy.FAIL_TEST))
                 || issuesInResponseBody != null;
         logger.info("anyVerificationIssue is {}, timeout {}", anyVerificationIssue, timeOut);
-        if(anyVerificationIssue && timeOut != null) {
-            throw new HearingServiceWaitException("Retry the request again");
-        }
-        logger.info("anyVerificationIssue is {}", anyVerificationIssue);
         Assert.assertFalse(allVerificationIssues.toString(), anyVerificationIssue);
     }
 
@@ -657,7 +652,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     @Override
     @Then("a successful call [{}] until the expected response is received [{}] within a timeout of [{}]")
     public void performAndVerifyTheExpectedResponseForAnApiCallWithTimeout(String testDataSpec, String testDataId,
-                                                                           String timeOut) throws IOException {
+                                                                           String timeOut, String source) throws IOException {
         performAndVerifyTheExpectedResponseForAnApiCall(this.scenarioContext, testDataSpec, testDataId, null,
                 timeOut);
     }
