@@ -13,11 +13,6 @@ import static uk.gov.hmcts.befta.util.BeftaUtils.defaultLog;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import io.cucumber.core.cli.Main;
-import uk.gov.hmcts.befta.featuretoggle.FeatureToggleService;
-import uk.gov.hmcts.befta.player.DefaultBackEndFunctionalTestScenarioPlayer;
-import uk.gov.hmcts.befta.util.CucumberStepAnnotationUtils;
-
 public class BeftaMain {
 
     private static TestAutomationConfig config = TestAutomationConfig.INSTANCE;
