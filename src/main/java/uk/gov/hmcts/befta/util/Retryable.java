@@ -119,8 +119,7 @@ public class Retryable {
 
                     if (attempt.hasException()) {
                         logMessage.append(String.format("exception: '%s'. ", attempt.getExceptionCause()));
-                    } else if (attempt.getResult() instanceof RestAssuredResponseImpl) {
-                        RestAssuredResponseImpl result = (RestAssuredResponseImpl) attempt.getResult();
+                    } else if (attempt.getResult() instanceof RestAssuredResponseImpl result) {
                         logMessage.append(String.format("result: '%s'. ", result.response().getStatusLine().trim()));
                     }
 

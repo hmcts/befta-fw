@@ -26,6 +26,8 @@ import uk.gov.hmcts.befta.exception.FunctionalTestException;
 import uk.gov.hmcts.befta.exception.JsonStoreCreationException;
 import uk.gov.hmcts.befta.featuretoggle.ScenarioFeatureToggleInfo;
 
+import static uk.gov.hmcts.befta.util.Retryable.setRetryListener;
+
 @Slf4j
 public class BeftaUtils {
 
@@ -150,6 +152,7 @@ public class BeftaUtils {
                 .statusCodes(statusCodes)
                 .match(matchMap)
                 .nonRetryableHttpMethods(Collections.emptySet())
+                .retryListener(setRetryListener(true))
                 .build();
     }
 
