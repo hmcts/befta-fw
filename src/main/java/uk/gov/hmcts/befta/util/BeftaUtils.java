@@ -165,7 +165,7 @@ public class BeftaUtils {
             String matchString = matchMatcher.group(1).trim();
             log.info("I am in match Map: {}", matchString);
             Pattern keyValuePattern =
-                    Pattern.compile("@value\\(url\\s*=\\s*\"([^\"]+)\",\\s*regex\\s*=\\s*\"([^\"]+)\"\\)");
+                    Pattern.compile("value\\(url\\s*=\\s*\"([^\"]+)\",\\s*regex\\s*=\\s*\"([^\"]+)\"\\)");
             Matcher keyValueMatcher = keyValuePattern.matcher(matchString);
 
             while (keyValueMatcher.find()) {

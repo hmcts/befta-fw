@@ -161,7 +161,7 @@ public class BackEndFunctionalTestScenarioContextTest {
                 add("""
                         @Retryable(statusCodes={400,409,502},
                         match = {
-                                @value(url = "requestURI1", regex = "testValue1")
+                                value(url = "requestURI1", regex = "testValue1")
                             })""");
             }
         };
@@ -186,8 +186,8 @@ public class BackEndFunctionalTestScenarioContextTest {
                 add("""
                         @Retryable(statusCodes={400,409,502},
                         match = {
-                                @value(url = "requestURI1", regex = "testValue1"),
-                                @value(url = "requestURI2", regex = "testValue2")
+                                value(url = "requestURI1", regex = "testValue1"),
+                                value(url = "requestURI2", regex = "testValue2")
                             })""");
             }
         };
