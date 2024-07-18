@@ -9,7 +9,9 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.io.InputStream;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
@@ -47,6 +49,8 @@ public class Retryable {
     private int maxAttempts = DEFAULT_MAX_ATTEMPTS;
     @Builder.Default
     private Set<Integer> statusCodes = new HashSet<>();
+    @Builder.Default
+    private Map<String, String> match = new HashMap<>();
     @Builder.Default
     private int delay = DEFAULT_MAX_DELAY;
     @Builder.Default
@@ -88,12 +92,13 @@ public class Retryable {
                     .retryListener(setRetryListener(Boolean.parseBoolean(disableListener)))
                     .build();
 
-            log.info("Creating retry policy with the following configuration:\n"
-                            + "  Max attempts: {}\n"
-                            + "  Retry on status codes: {}\n"
-                            + "  Retry on exceptions: {}\n"
-                            + "  No retry on http methods: {}\n"
-                            + "  Delay between retries: {}ms.",
+            log.info("""
+                            Creating DEFAULT retry policy with the following configuration:
+                              Max attempts: {}
+                              Retry on status codes: {}
+                              Retry on exceptions: {}
+                              No retry on http methods: {}
+                              Delay between retries: {}ms.""",
                     retryable.getMaxAttempts(), retryable.getStatusCodes(), retryable.getRetryableExceptions(),
                     retryable.getNonRetryableHttpMethods(), retryable.getDelay());
 

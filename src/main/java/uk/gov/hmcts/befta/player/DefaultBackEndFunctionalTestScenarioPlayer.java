@@ -389,7 +389,6 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
 
             retryer = RetryerBuilder.<Response>newBuilder()
                     .withRetryListener(retryable.getRetryListener())
-                    .retryIfResult(result -> result != null && !result.toString().contains("CANCELLATION_SUBMITTED"))
                     .retryIfException(e -> {
                         boolean isRetryableException = retryable.getRetryableExceptions().contains(e.getClass());
                         Throwable cause = e.getCause();
@@ -398,6 +397,26 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
                         return isRetryableException || isRetryableCause;
                     })
                     .retryIfResult(res -> retryable.getStatusCodes().contains(res.getStatusCode()))
+                    .retryIfResult(res -> {
+                        logger.info("Response headers: {}", res.getHeaders());
+                        logger.info("Response body: {}", res.getBody());
+                        logger.info("Response status: {}", res.getStatusCode());
+                        logger.info("Response status-line: {}", res.getStatusLine());
+                        logger.info("Response asString: {}", res.asString());
+                        logger.info("Response cookies: {}", res.cookies());
+                        logger.info("Response detailedCookies: {}", res.detailedCookies());
+                        logger.info("Response sessionId: {}", res.sessionId());
+
+//                        for (Entry<String, String> entry : retryable.getMatch().entrySet()) {
+//                            Pattern pattern = Pattern.compile(entry.getValue());
+//                            Matcher matcher = pattern.matcher(res.toString());
+//                            if (matcher.find()) {
+//                                return true;
+//                            }
+//                        }
+
+                        return false;
+                    })
                     .withStopStrategy(StopStrategies.stopAfterAttempt(retryable.getMaxAttempts()))
                     .withWaitStrategy(WaitStrategies.fixedWait(retryable.getDelay(), TimeUnit.MILLISECONDS))
                     .build();

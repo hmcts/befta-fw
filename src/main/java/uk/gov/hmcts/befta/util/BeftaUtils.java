@@ -10,7 +10,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -97,7 +100,14 @@ public class BeftaUtils {
     public static Retryable getRetryableTag(Scenario scenario) {
         String retryInput = scenario.getSourceTagNames().stream()
                 .filter(tag -> tag.startsWith("@Retryable"))
-                .map(tag -> tag.substring(tag.indexOf("(") + 1, tag.indexOf(")")))
+                .map(tag -> {
+                    String regex = "\\(([^(){}@]+(?:\\{[^{}]*}|@[^()]*|[^(){}@])*)\\)";
+                    Matcher matcher = Pattern.compile(regex).matcher(tag);
+                    if (matcher.find()) {
+                        return matcher.group(1).replaceAll("\\s+", "");
+                    }
+                    return "";
+                })
                 .collect(Collectors.joining());
 
         if (retryInput.isEmpty()) {
@@ -120,7 +130,7 @@ public class BeftaUtils {
 
         // must be defined
         HashSet<Integer> statusCodes = Optional.of(Pattern
-                        .compile("statusCodes=\\{([^}]+)\\}")
+                        .compile("statusCodes=\\{([^}]+)}")
                         .matcher(retryInput))
                 .filter(Matcher::find)
                 .map(matcher -> matcher.group(1))
@@ -131,11 +141,35 @@ public class BeftaUtils {
                         .collect(Collectors.toCollection(HashSet::new)))
                 .orElseThrow(() -> new FunctionalTestException("Missing statusCode configuration in @Retryable"));
 
+        // Parse match key-value pairs
+        Pattern matchPattern = Pattern.compile("match=\\{([^}]+)}");
+        Map<String, String> matchMap = getMatch(matchPattern, retryInput);
         return Retryable.builder()
                 .delay(delay)
                 .maxAttempts(maxAttempts)
                 .statusCodes(statusCodes)
+                .match(matchMap)
+                .nonRetryableHttpMethods(Collections.emptySet())
                 .build();
+    }
+
+    private static Map<String, String> getMatch(Pattern matchPattern, String retryInput) {
+        Matcher matchMatcher = matchPattern.matcher(retryInput);
+
+        Map<String, String> match = new HashMap<>();
+        if (matchMatcher.find()) {
+            String matchString = matchMatcher.group(1).trim();
+            Pattern keyValuePattern = Pattern.compile("@value\\(url\\s*=\\s*\"([^\"]+)\",\\s*regex\\s*=\\s*\"" +
+                    "([^\"]+)\"\\)");
+            Matcher keyValueMatcher = keyValuePattern.matcher(matchString);
+
+            while (keyValueMatcher.find()) {
+                String key = keyValueMatcher.group(1).trim();
+                String value = keyValueMatcher.group(2).trim();
+                match.put(key, value);
+            }
+        }
+        return match;
     }
 
     public static void defaultLog(Scenario scenario, String logString) {
