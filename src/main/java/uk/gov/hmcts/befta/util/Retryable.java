@@ -5,6 +5,7 @@ import com.github.rholder.retry.RetryListener;
 import io.restassured.internal.RestAssuredResponseImpl;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.InputStream;
@@ -18,6 +19,7 @@ import java.util.Set;
 @Slf4j
 @Builder
 @Getter
+@ToString(exclude = "retryListener")
 @SuppressWarnings("UnstableApiUsage")
 public class Retryable {
     private static final String BEFTA_RETRY_MAX_ATTEMPTS_ENV_VAR = "BEFTA_RETRY_MAX_ATTEMPTS";

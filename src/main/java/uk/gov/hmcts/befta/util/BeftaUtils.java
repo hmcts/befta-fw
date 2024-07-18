@@ -103,6 +103,7 @@ public class BeftaUtils {
         String retryInput = scenario.getSourceTagNames().stream()
                 .filter(tag -> tag.startsWith("@Retryable"))
                 .map(tag -> {
+                    log.info("Retryable tag: {}", tag);
                     String regex = "\\(([^(){}@]+(?:\\{[^{}]*}|@[^()]*|[^(){}@])*)\\)";
                     Matcher matcher = Pattern.compile(regex).matcher(tag);
                     if (matcher.find()) {
@@ -162,14 +163,20 @@ public class BeftaUtils {
         Map<String, String> match = new HashMap<>();
         if (matchMatcher.find()) {
             String matchString = matchMatcher.group(1).trim();
-            Pattern keyValuePattern = Pattern.compile("@value\\(url\\s*=\\s*\"([^\"]+)\",\\s*regex\\s*=\\s*\"" +
-                    "([^\"]+)\"\\)");
+            log.info("I am in match Map: {}", matchString);
+            Pattern keyValuePattern =
+                    Pattern.compile("@value\\(url\\s*=\\s*\"([^\"]+)\",\\s*regex\\s*=\\s*\"([^\"]+)\"\\)");
             Matcher keyValueMatcher = keyValuePattern.matcher(matchString);
 
             while (keyValueMatcher.find()) {
                 String key = keyValueMatcher.group(1).trim();
                 String value = keyValueMatcher.group(2).trim();
+                log.info("Map key-value pair: {}:{}", key, value);
                 match.put(key, value);
+            }
+
+            if (match.isEmpty()) {
+                match.put("kaan", "aktas");
             }
         }
         return match;

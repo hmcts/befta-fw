@@ -419,9 +419,9 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
                     .withStopStrategy(StopStrategies.stopAfterAttempt(retryable.getMaxAttempts()))
                     .withWaitStrategy(WaitStrategies.fixedWait(retryable.getDelay(), TimeUnit.MILLISECONDS))
                     .build();
-        }
 
-        logger.info("Applying active retry policy... {}", retryer.toString());
+            logger.info("Applying active retry policy... {}", retryable);
+        }
 
         Response response;
         if (retryable.getMatch().isEmpty()) {
