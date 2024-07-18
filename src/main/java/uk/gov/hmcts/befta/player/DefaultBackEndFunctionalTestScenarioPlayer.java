@@ -54,6 +54,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.ConnectException;
 import java.text.DecimalFormat;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -435,7 +436,11 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     private Response executeHttpRequestWithRetry(RequestSpecification theRequest, String method, String uri,
                                                         Retryer<Response> retryer) {
         try {
-            Callable<Response> callable = () -> theRequest.request(method, uri);
+            Map<String, String> cookies = new HashMap<>();
+            cookies.put("cookieName1", "cookieValue1");
+            cookies.put("cookieName2", "cookieValue2");
+            RequestSpecification requestWithCookies = theRequest.cookies(cookies);
+            Callable<Response> callable = () -> requestWithCookies.request(method, uri);
             return retryer.call(callable);
         } catch (RetryException retryException) {
             throw new FunctionalTestException(
