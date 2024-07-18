@@ -423,7 +423,12 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
                     .build();
         }
 
-        Response response = executeHttpRequestWithRetry(theRequest, testData.getMethod(), uri, retryer);
+        Response response;
+        if (retryable.getMatch().isEmpty()) {
+            response = executeHttpRequestWithRetry(theRequest, testData.getMethod(), uri, retryer);
+        } else {
+            response = executeHttpRequestWithRetry(theRequest, testData.getMethod(), uri, retryer, retryable.getMatch());
+        }
 
         ResponseData responseData = convertRestAssuredResponseToBeftaResponse(scenarioContext, response);
         scenarioContext.getTestData().setActualResponse(responseData);
@@ -434,13 +439,21 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     }
 
     private Response executeHttpRequestWithRetry(RequestSpecification theRequest, String method, String uri,
-                                                        Retryer<Response> retryer) {
-        try {
-            Map<String, String> cookies = new HashMap<>();
-            cookies.put("cookieName1", "cookieValue1");
-            cookies.put("cookieName2", "cookieValue2");
+                                                 Retryer<Response> retryer, Map<String, String> cookies) {
             RequestSpecification requestWithCookies = theRequest.cookies(cookies);
-            Callable<Response> callable = () -> requestWithCookies.request(method, uri);
+            return getResponse(requestWithCookies, method, uri, retryer);
+
+    }
+
+    private Response executeHttpRequestWithRetry(RequestSpecification theRequest, String method, String uri,
+                                                        Retryer<Response> retryer) {
+        return getResponse(theRequest, method, uri, retryer);
+    }
+
+    private static Response getResponse(RequestSpecification theRequest, String method, String uri,
+                                        Retryer<Response> retryer) {
+        try {
+            Callable<Response> callable = () -> theRequest.request(method, uri);
             return retryer.call(callable);
         } catch (RetryException retryException) {
             throw new FunctionalTestException(
