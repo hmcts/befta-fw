@@ -386,8 +386,6 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
             logger.info("Applying no-retry policy...");
             retryer = RetryerBuilder.<Response>newBuilder().build();
         } else {
-            logger.info("Applying active retry policy...");
-
             retryer = RetryerBuilder.<Response>newBuilder()
                     .withRetryListener(retryable.getRetryListener())
                     .retryIfException(e -> {
@@ -422,6 +420,8 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
                     .withWaitStrategy(WaitStrategies.fixedWait(retryable.getDelay(), TimeUnit.MILLISECONDS))
                     .build();
         }
+
+        logger.info("Applying active retry policy... {}", retryer.toString());
 
         Response response;
         if (retryable.getMatch().isEmpty()) {
