@@ -368,8 +368,8 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         }
         submitTheRequestToCallAnOperationOfAProduct(this.scenarioContext, operation, productName);
         if (isAfter) {
-            Thread.sleep(delayInMillisecond);
             logger.info("Delaying {} seconds after the call '{}'", delay, operation);
+            Thread.sleep(delayInMillisecond);
         }
     }
 
