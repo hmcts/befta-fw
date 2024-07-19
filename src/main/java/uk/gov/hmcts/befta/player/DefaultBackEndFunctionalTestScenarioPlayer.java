@@ -357,16 +357,19 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     }
 
     @Override
-    @When("it is submitted to call the [{}] operation of [{}] [{}] delaying [{}] seconds ")
+    @When("it is submitted to call the [{}] operation of [{}] [{}] delaying [{}] seconds")
     public void submitTheRequestToCallAnOperationOfAProductWithDelay(String operation, String productName, String order,
                                                             int delay) throws IOException, InterruptedException {
+        long delayInMillisecond = delay * 1000L;
         boolean isAfter = "after".equals(order);
         if (!isAfter) {
-            Thread.sleep(delay);
+            logger.info("Delaying {} seconds before the call '{}'", delay, operation);
+            Thread.sleep(delayInMillisecond);
         }
         submitTheRequestToCallAnOperationOfAProduct(this.scenarioContext, operation, productName);
         if (isAfter) {
-            Thread.sleep(delay);
+            Thread.sleep(delayInMillisecond);
+            logger.info("Delaying {} seconds after the call '{}'", delay, operation);
         }
     }
 
