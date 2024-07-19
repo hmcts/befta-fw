@@ -52,7 +52,7 @@ public class Retryable {
     @Builder.Default
     private Set<Integer> statusCodes = new HashSet<>();
     @Builder.Default
-    private Map<String, String> match = new HashMap<>();
+    private Set<String> match = new HashSet<>();
     @Builder.Default
     private int delay = DEFAULT_MAX_DELAY;
     @Builder.Default

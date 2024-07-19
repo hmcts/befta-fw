@@ -12,9 +12,9 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -118,21 +118,42 @@ public class BeftaUtils {
         }
 
         // default 1000ms
-        int delay = Integer.parseInt(Optional.of(Pattern
+        int delay = getDelay(retryInput);
+        // default 3
+        int maxAttempts = getMaxAttempts(retryInput);
+        // must be defined
+        Set<Integer> statusCodes = getStatusCodes(retryInput);
+        // default empty
+        Set<String> matches = getMatches(retryInput);
+
+        return Retryable.builder()
+                .delay(delay)
+                .maxAttempts(maxAttempts)
+                .statusCodes(statusCodes)
+                .match(matches)
+                .nonRetryableHttpMethods(Collections.emptySet())
+                .retryListener(setRetryListener(true))
+                .build();
+    }
+
+    private static int getDelay(String retryInput) {
+        return Integer.parseInt(Optional.of(Pattern
                         .compile("delay=([^,]+|$)").matcher(retryInput))
                 .filter(Matcher::find)
                 .map(matcher -> matcher.group(1))
                 .orElse("1000"));
+    }
 
-        // default 3
-        int maxAttempts = Integer.parseInt(Optional.of(Pattern
+    private static int getMaxAttempts(String retryInput) {
+        return Integer.parseInt(Optional.of(Pattern
                         .compile("maxAttempts=([^,]+|$)").matcher(retryInput))
                 .filter(Matcher::find)
                 .map(matcher -> matcher.group(1))
                 .orElse("3"));
+    }
 
-        // must be defined
-        HashSet<Integer> statusCodes = Optional.of(Pattern
+    private static Set<Integer> getStatusCodes(String retryInput) {
+        return Optional.of(Pattern
                         .compile("statusCodes=\\{([^}]+)}")
                         .matcher(retryInput))
                 .filter(Matcher::find)
@@ -141,20 +162,22 @@ public class BeftaUtils {
                         .map(String::trim)
                         .filter(Strings::isNotEmpty)
                         .map(Integer::parseInt)
-                        .collect(Collectors.toCollection(HashSet::new)))
+                        .collect(Collectors.toSet()))
                 .orElseThrow(() -> new FunctionalTestException("Missing statusCode configuration in @Retryable"));
+    }
 
-        // Parse match key-value pairs
-        Pattern matchPattern = Pattern.compile("match=\\{([^}]+)}");
-        Map<String, String> matchMap = getMatch(matchPattern, retryInput);
-        return Retryable.builder()
-                .delay(delay)
-                .maxAttempts(maxAttempts)
-                .statusCodes(statusCodes)
-                .match(matchMap)
-                .nonRetryableHttpMethods(Collections.emptySet())
-                .retryListener(setRetryListener(true))
-                .build();
+    private static Set<String> getMatches(String retryInput) {
+        return Optional.of(Pattern
+                        .compile("match\\s*=\\s*\\{([^}]*)}")
+                        .matcher(retryInput))
+                .filter(Matcher::find)
+                .map(matcher -> matcher.group(1))
+                .map(s -> Arrays.stream(s.split(","))
+                        .map(String::trim)
+                        .map(str -> str.replaceAll("\"", ""))
+                        .filter(Strings::isNotEmpty)
+                        .collect(Collectors.toSet()))
+                .orElse(Collections.emptySet());
     }
 
     private static Map<String, String> getMatch(Pattern matchPattern, String retryInput) {

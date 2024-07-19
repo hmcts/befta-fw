@@ -54,7 +54,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.ConnectException;
 import java.text.DecimalFormat;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -357,6 +356,20 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         submitTheRequestToCallAnOperationOfAProduct(this.scenarioContext, operation, productName);
     }
 
+    @Override
+    @When("it is submitted to call the [{}] operation of [{}] [{}] delaying [{}] seconds ")
+    public void submitTheRequestToCallAnOperationOfAProductWithDelay(String operation, String productName, String order,
+                                                            int delay) throws IOException, InterruptedException {
+        boolean isAfter = "after".equals(order);
+        if (!isAfter) {
+            Thread.sleep(delay);
+        }
+        submitTheRequestToCallAnOperationOfAProduct(this.scenarioContext, operation, productName);
+        if (isAfter) {
+            Thread.sleep(delay);
+        }
+    }
+
     @SuppressWarnings("UnstableApiUsage")
     private void submitTheRequestToCallAnOperationOfAProduct(BackEndFunctionalTestScenarioContext scenarioContext,
             String operationName, String productName) throws IOException {
@@ -397,23 +410,13 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
                     })
                     .retryIfResult(res -> retryable.getStatusCodes().contains(res.getStatusCode()))
                     .retryIfResult(res -> {
-                        logger.info("Response headers: {}", res.getHeaders());
-                        logger.info("Response body: {}", res.getBody());
-                        logger.info("Response status: {}", res.getStatusCode());
-                        logger.info("Response status-line: {}", res.getStatusLine());
-                        logger.info("Response asString: {}", res.asString());
-                        logger.info("Response cookies: {}", res.cookies());
-                        logger.info("Response detailedCookies: {}", res.detailedCookies());
-                        logger.info("Response sessionId: {}", res.sessionId());
-
-//                        for (Entry<String, String> entry : retryable.getMatch().entrySet()) {
-//                            Pattern pattern = Pattern.compile(entry.getValue());
-//                            Matcher matcher = pattern.matcher(res.toString());
-//                            if (matcher.find()) {
-//                                return true;
-//                            }
-//                        }
-
+                        for (String match : retryable.getMatch()) {
+                            Pattern pattern = Pattern.compile(match);
+                            Matcher matcher = pattern.matcher(res.asString());
+                            if (matcher.find()) {
+                                return true;
+                            }
+                        }
                         return false;
                     })
                     .withStopStrategy(StopStrategies.stopAfterAttempt(retryable.getMaxAttempts()))
@@ -423,12 +426,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
             logger.info("Applying active retry policy... {}", retryable);
         }
 
-        Response response;
-        if (retryable.getMatch().isEmpty()) {
-            response = executeHttpRequestWithRetry(theRequest, testData.getMethod(), uri, retryer);
-        } else {
-            response = executeHttpRequestWithRetry(theRequest, testData.getMethod(), uri, retryer, retryable.getMatch());
-        }
+        Response response = executeHttpRequestWithRetry(theRequest, testData.getMethod(), uri, retryer);
 
         ResponseData responseData = convertRestAssuredResponseToBeftaResponse(scenarioContext, response);
         scenarioContext.getTestData().setActualResponse(responseData);
@@ -439,19 +437,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     }
 
     private Response executeHttpRequestWithRetry(RequestSpecification theRequest, String method, String uri,
-                                                 Retryer<Response> retryer, Map<String, String> cookies) {
-            RequestSpecification requestWithCookies = theRequest.cookies(cookies);
-            return getResponse(requestWithCookies, method, uri, retryer);
-
-    }
-
-    private Response executeHttpRequestWithRetry(RequestSpecification theRequest, String method, String uri,
                                                         Retryer<Response> retryer) {
-        return getResponse(theRequest, method, uri, retryer);
-    }
-
-    private static Response getResponse(RequestSpecification theRequest, String method, String uri,
-                                        Retryer<Response> retryer) {
         try {
             Callable<Response> callable = () -> theRequest.request(method, uri);
             return retryer.call(callable);

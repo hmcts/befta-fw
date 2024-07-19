@@ -159,10 +159,8 @@ public class BackEndFunctionalTestScenarioContextTest {
             {
                 add("@S-133");
                 add("""
-                        @Retryable(statusCodes={400,409,502},
-                        match = {
-                                value(url = "requestURI1", regex = "testValue1")
-                            })""");
+                        @Retryable(statusCodes={400,409,502},match ={"regex_1"})
+                        """);
             }
         };
         when(scenario.getSourceTagNames()).thenReturn(tags);
@@ -185,10 +183,8 @@ public class BackEndFunctionalTestScenarioContextTest {
                 add("@S-133");
                 add("""
                         @Retryable(statusCodes={400,409,502},
-                        match = {
-                                value(url = "requestURI1", regex = "testValue1"),
-                                value(url = "requestURI2", regex = "testValue2")
-                            })""");
+                        match ={"regex_1","regex_2"}
+                        )""");
             }
         };
         when(scenario.getSourceTagNames()).thenReturn(tags);
