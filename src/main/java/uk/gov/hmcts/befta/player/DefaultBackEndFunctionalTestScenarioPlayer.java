@@ -422,6 +422,8 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
                     .retryIfResult(res -> retryable.getStatusCodes().contains(res.getStatusCode()))
                     .retryIfResult(res -> {
                         for (String match : retryable.getMatch()) {
+                            logger.info("Match: {}", match);
+                            logger.info("Response: {}", res.asString());
                             Pattern pattern = Pattern.compile(match);
                             Matcher matcher = pattern.matcher(res.asString());
                             if (matcher.find()) {
