@@ -25,6 +25,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -158,7 +160,7 @@ public class BackEndFunctionalTestScenarioContextTest {
         final String regex = "\"value\"\\s*:\\s*\"BEFTA_CASETYPE_2_1\"";
 
         final String matchText = """
-                    @Retryable(statusCodes={400,409,502},match ={%s})
+                    @Retryable(statusCodes={400,409,502},match ={"%s"})
                     """;
 
         String tempMatchText = String.format(matchText, regex);

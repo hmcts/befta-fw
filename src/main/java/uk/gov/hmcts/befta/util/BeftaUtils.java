@@ -175,6 +175,7 @@ public class BeftaUtils {
                 .map(s -> Arrays.stream(s.split(","))
                         .map(String::trim)
                         .filter(Strings::isNotEmpty)
+                        .map(match -> match.replaceAll("^\"|\"$", ""))
                         .collect(Collectors.toSet()))
                 .orElse(Collections.emptySet());
     }
