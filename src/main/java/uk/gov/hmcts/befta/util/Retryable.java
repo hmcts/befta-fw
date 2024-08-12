@@ -5,17 +5,21 @@ import com.github.rholder.retry.RetryListener;
 import io.restassured.internal.RestAssuredResponseImpl;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 
 @Slf4j
 @Builder
 @Getter
+@ToString(exclude = "retryListener")
 @SuppressWarnings("UnstableApiUsage")
 public class Retryable {
     private static final String BEFTA_RETRY_MAX_ATTEMPTS_ENV_VAR = "BEFTA_RETRY_MAX_ATTEMPTS";
@@ -47,6 +51,8 @@ public class Retryable {
     private int maxAttempts = DEFAULT_MAX_ATTEMPTS;
     @Builder.Default
     private Set<Integer> statusCodes = new HashSet<>();
+    @Builder.Default
+    private List<String> match = new ArrayList<>();
     @Builder.Default
     private int delay = DEFAULT_MAX_DELAY;
     @Builder.Default
@@ -88,12 +94,13 @@ public class Retryable {
                     .retryListener(setRetryListener(Boolean.parseBoolean(disableListener)))
                     .build();
 
-            log.info("Creating retry policy with the following configuration:\n"
-                            + "  Max attempts: {}\n"
-                            + "  Retry on status codes: {}\n"
-                            + "  Retry on exceptions: {}\n"
-                            + "  No retry on http methods: {}\n"
-                            + "  Delay between retries: {}ms.",
+            log.info("""
+                            Creating DEFAULT retry policy with the following configuration:
+                              Max attempts: {}
+                              Retry on status codes: {}
+                              Retry on exceptions: {}
+                              No retry on http methods: {}
+                              Delay between retries: {}ms.""",
                     retryable.getMaxAttempts(), retryable.getStatusCodes(), retryable.getRetryableExceptions(),
                     retryable.getNonRetryableHttpMethods(), retryable.getDelay());
 
@@ -114,8 +121,7 @@ public class Retryable {
 
                     if (attempt.hasException()) {
                         logMessage.append(String.format("exception: '%s'. ", attempt.getExceptionCause()));
-                    } else if (attempt.getResult() instanceof RestAssuredResponseImpl) {
-                        RestAssuredResponseImpl result = (RestAssuredResponseImpl) attempt.getResult();
+                    } else if (attempt.getResult() instanceof RestAssuredResponseImpl result) {
                         logMessage.append(String.format("result: '%s'. ", result.response().getStatusLine().trim()));
                     }
 

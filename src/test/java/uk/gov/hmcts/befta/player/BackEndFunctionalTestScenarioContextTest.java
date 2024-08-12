@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableSet;
 import io.cucumber.java.Scenario;
 import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -27,11 +26,11 @@ import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThrows;
-import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
@@ -39,18 +38,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class BackEndFunctionalTestScenarioContextTest {
-
-    public static final String DEFINITION_STORE_HOST_KEY = "DEFINITION_STORE_HOST";
-    public static final String DEFINITION_STORE_HOST_VALUE = "http://127.0.0.1:8089/";
-    public static final String IDAM_URL_KEY = "IDAM_API_URL_BASE";
-    public static final String IDAM_URL_VALUE = "IDAM_URL_VALUE";
-    public static final String S2S_URL_KEY = "S2S_URL";
-    public static final String S2S_URL_VALUE = "S2S_URL_VALUE";
-    public static final String BEFTA_S2S_CLIENT_ID_KEY = "BEFTA_S2S_CLIENT_ID";
-    public static final String BEFTA_S2S_CLIENT_ID_VALUE = "BEFTA_S2S_CLIENT_ID_VALUE";
-    public static final String BEFTA_S2S_CLIENT_SECRET_KEY = "BEFTA_S2S_CLIENT_SECRET";
-    public static final String BEFTA_S2S_CLIENT_SECRET_VALUE = "BEFTA_S2S_CLIENT_SECRET_VALUE";
-
     private static final String VALID_TAG_ID = "S-133";
     private static final String USERNAME = "USERNAME";
     private static final String PASSWORD = "PASSWORD";
@@ -105,8 +92,7 @@ public class BackEndFunctionalTestScenarioContextTest {
 
     @Test
     public void shouldMapRetryableToRetryConfiguration() {
-        final Collection<String> tags = new ArrayList<String>() {
-            private static final long serialVersionUID = 1L;
+        final Collection<String> tags = new ArrayList<>() {
             {
                 add("@S-133");
                 add("@Retryable(statusCodes={409},maxAttempts=2,delay=1000)");
@@ -119,14 +105,15 @@ public class BackEndFunctionalTestScenarioContextTest {
         assertAll(
                 () -> assertEquals(1000, result.getDelay()),
                 () -> assertEquals(2, result.getMaxAttempts()),
-                () -> assertEquals(ImmutableSet.of(409), result.getStatusCodes())
+                () -> assertEquals(ImmutableSet.of(409), result.getStatusCodes()),
+                () -> assertTrue(result.getNonRetryableHttpMethods().isEmpty()),
+                () -> assertTrue(result.getMatch().isEmpty())
         );
     }
 
     @Test
     public void shouldMapRetryableToRetryConfigurationMultipleStatusCodes() {
-        final Collection<String> tags = new ArrayList<String>() {
-            private static final long serialVersionUID = 1L;
+        final Collection<String> tags = new ArrayList<>() {
             {
                 add("@S-133");
                 add("@Retryable(maxAttempts=2,delay=1000,statusCodes={400,409,502})");
@@ -139,14 +126,15 @@ public class BackEndFunctionalTestScenarioContextTest {
         assertAll(
                 () -> assertEquals(1000, result.getDelay()),
                 () -> assertEquals(2, result.getMaxAttempts()),
-                () -> assertEquals(ImmutableSet.of(400,409,502), result.getStatusCodes())
+                () -> assertEquals(ImmutableSet.of(400,409,502), result.getStatusCodes()),
+                () -> assertTrue(result.getNonRetryableHttpMethods().isEmpty()),
+                () -> assertTrue(result.getMatch().isEmpty())
         );
     }
 
     @Test
     public void shouldMapRetryableToRetryConfigurationDefaultValuesOfDelayAndMaxAttempts() {
-        final Collection<String> tags = new ArrayList<String>() {
-            private static final long serialVersionUID = 1L;
+        final Collection<String> tags = new ArrayList<>() {
             {
                 add("@S-133");
                 add("@Retryable(statusCodes={400,409,502})");
@@ -159,14 +147,69 @@ public class BackEndFunctionalTestScenarioContextTest {
         assertAll(
                 () -> assertEquals(1000, result.getDelay()),
                 () -> assertEquals(3, result.getMaxAttempts()),
-                () -> assertEquals(ImmutableSet.of(400,409,502), result.getStatusCodes())
+                () -> assertEquals(ImmutableSet.of(400,409,502), result.getStatusCodes()),
+                () -> assertTrue(result.getNonRetryableHttpMethods().isEmpty()),
+                () -> assertTrue(result.getMatch().isEmpty())
+        );
+    }
+
+    @Test
+    public void shouldMapRetryableToRetryConfigurationSetSingleMatchMap() {
+        final String regex = "\"value\"\\s*:\\s*\"BEFTA_CASETYPE_2_1\"";
+
+        final String matchText = """
+                    @Retryable(statusCodes={400,409,502},match ={"%s"})
+                    """;
+
+        String tempMatchText = String.format(matchText, regex);
+
+        final Collection<String> tags = new ArrayList<>() {
+            {
+                add("@S-133");
+                add(tempMatchText);
+            }
+        };
+        when(scenario.getSourceTagNames()).thenReturn(tags);
+        contextUnderTest.initializeTestDataFor(scenario);
+
+        Retryable result = contextUnderTest.getRetryableTag();
+        assertAll(
+                () -> assertEquals(1000, result.getDelay()),
+                () -> assertEquals(3, result.getMaxAttempts()),
+                () -> assertEquals(ImmutableSet.of(400,409,502), result.getStatusCodes()),
+                () -> assertTrue(result.getNonRetryableHttpMethods().isEmpty()),
+                () -> assertEquals(1, result.getMatch().size()),
+                () -> assertTrue(result.getMatch().contains(regex))
+        );
+    }
+
+    @Test
+    public void shouldMapRetryableToRetryConfigurationSetMatchMap() {
+        final Collection<String> tags = new ArrayList<>() {
+            {
+                add("@S-133");
+                add("""
+                        @Retryable(statusCodes={400,409,502},
+                        match ={"regex_1","regex_2"}
+                        )""");
+            }
+        };
+        when(scenario.getSourceTagNames()).thenReturn(tags);
+        contextUnderTest.initializeTestDataFor(scenario);
+
+        Retryable result = contextUnderTest.getRetryableTag();
+        assertAll(
+                () -> assertEquals(1000, result.getDelay()),
+                () -> assertEquals(3, result.getMaxAttempts()),
+                () -> assertEquals(ImmutableSet.of(400,409,502), result.getStatusCodes()),
+                () -> assertTrue(result.getNonRetryableHttpMethods().isEmpty()),
+                () -> assertEquals(2, result.getMatch().size())
         );
     }
 
     @Test
     public void shouldMapRetryableToDefaultRetryConfigurationWhenRetryableTagNotUsed() {
-        final Collection<String> tags = new ArrayList<String>() {
-            private static final long serialVersionUID = 1L;
+        final Collection<String> tags = new ArrayList<>() {
             {
                 add("@S-133");
                 add("@Retryable(maxAttempts=2,delay=1000)");
@@ -180,8 +223,7 @@ public class BackEndFunctionalTestScenarioContextTest {
 
     @Test
     public void shouldMapRetryableToDefaultRetryConfigurationWhenBlankCommaUsed() {
-        final Collection<String> tags = new ArrayList<String>() {
-            private static final long serialVersionUID = 1L;
+        final Collection<String> tags = new ArrayList<>() {
             {
                 add("@S-133");
                 add("@Retryable(maxAttempts=2,delay=100,statusCodes={400,,502})");
@@ -194,14 +236,14 @@ public class BackEndFunctionalTestScenarioContextTest {
         assertAll(
                 () -> assertEquals(100, result.getDelay()),
                 () -> assertEquals(2, result.getMaxAttempts()),
-                () -> assertEquals(ImmutableSet.of(400,502), result.getStatusCodes())
+                () -> assertEquals(ImmutableSet.of(400,502), result.getStatusCodes()),
+                () -> assertTrue(result.getNonRetryableHttpMethods().isEmpty())
         );
     }
 
     @Test
     public void shouldRetrieveDefaultRetryWhenThereIsNoRetryableTag() {
-        final Collection<String> tags = new ArrayList<String>() {
-            private static final long serialVersionUID = 1L;
+        final Collection<String> tags = new ArrayList<>() {
             {
                 add("@S-133");
             }
@@ -215,8 +257,8 @@ public class BackEndFunctionalTestScenarioContextTest {
                 () -> assertEquals(1, result.getMaxAttempts()),
                 () -> assertEquals(ImmutableSet.of(500,502,503,504), result.getStatusCodes()),
                 () -> assertEquals(ImmutableSet.of(java.net.ConnectException.class,java.net.SocketException.class,
-                                javax.net.ssl.SSLException.class),
-                        result.getRetryableExceptions())
+                                javax.net.ssl.SSLException.class), result.getRetryableExceptions()),
+                () -> assertTrue(result.getNonRetryableHttpMethods().contains("*"))
         );
     }
 
@@ -352,7 +394,7 @@ public class BackEndFunctionalTestScenarioContextTest {
     @Test
     void testInitializeTestDataForScenario() {
         contextUnderTest = new BackEndFunctionalTestScenarioContext();
-        Assertions.assertThrows(FunctionalTestException.class, () -> {
+        assertThrows(FunctionalTestException.class, () -> {
             contextUnderTest.initializeTestDataFor(scenario);
         });
     }
@@ -366,7 +408,7 @@ public class BackEndFunctionalTestScenarioContextTest {
         String testDataId = "S-33,S-356";
         when(dataSource.getDataForTestCall(testDataId)).thenReturn(null);
         contextUnderTest = new BackEndFunctionalTestScenarioContext();
-        Assertions.assertThrows(FunctionalTestException.class, () -> {
+        assertThrows(FunctionalTestException.class, () -> {
             contextUnderTest.initializeTestDataFor(testDataId);
         });
     }
