@@ -23,7 +23,7 @@ public class BackEndFunctionalTestScenarioContext {
 
     private static final String[] TEST_DATA_RESOURCE_PACKAGES = { "features" };
 
-    static final HttpTestDataSource DATA_SOURCE = HttpTestDataSourceFactory.createHttpTestDataSource(TEST_DATA_RESOURCE_PACKAGES);
+    static HttpTestDataSource DATA_SOURCE = HttpTestDataSourceFactory.createHttpTestDataSource(TEST_DATA_RESOURCE_PACKAGES);
 
     private Scenario scenario;
 

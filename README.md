@@ -28,18 +28,18 @@ It provides the following functionalities and conveniences:
 
 
 ### 3.1) System Requirements
-* System Resources (Memory, Disk, CPU) - Same for a JDK 17 installation.  
-  [Click here to see Oracle's reference for this.](https://docs.oracle.com/en/java/javase/17/install/overview-jdk-installation.html#GUID-8677A77F-231A-40F7-98B9-1FD0B48C346A)
+* System Resources (Memory, Disk, CPU) - Same for a JDK 21 installation.
+  [Click here to see Oracle's reference for this.](https://docs.oracle.com/en/java/javase/21/install/overview-jdk-installation.html#GUID-8677A77F-231A-40F7-98B9-1FD0B48C346A)
 
 
 ### 3.2) Software Requirements
-* Java SE Development Kit 17 (JDK 17)
+* Java SE Development Kit 21 (JDK 21)
 * Your Favourite IDE
-* Gradle 8.7+ (included as wrapper)
+* Gradle 8.10+ (included as wrapper)
 
 
 ### 3.3) Setting Up Environment
-1. Install JDK 17 or higher
+1. Install JDK 21 or higher
 2. Install a command line terminal application
 
 
