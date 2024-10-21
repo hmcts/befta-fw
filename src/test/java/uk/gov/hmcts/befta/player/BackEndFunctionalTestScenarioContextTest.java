@@ -19,7 +19,6 @@ import uk.gov.hmcts.befta.exception.FunctionalTestException;
 import uk.gov.hmcts.befta.factory.DynamicValueInjectorFactory;
 import uk.gov.hmcts.befta.util.DynamicValueInjector;
 import uk.gov.hmcts.befta.util.Retryable;
-import uk.gov.hmcts.common.TestUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -79,14 +78,13 @@ public class BackEndFunctionalTestScenarioContextTest {
 
     @SuppressWarnings("deprecation")
     @BeforeEach
-    public void setUp() throws Exception {
+    public void setUp() {
         MockitoAnnotations.initMocks(this);
 
         when(dataSource.getDataForTestCall(VALID_TAG_ID)).thenReturn(s103TestData);
         when(dataSource.getDataForTestCall("S-133,S-456")).thenReturn(s103TestData);
 
-        TestUtils.setFieldWithReflection(BackEndFunctionalTestScenarioContext.class.getDeclaredField("DATA_SOURCE"),
-                dataSource);
+        BackEndFunctionalTestScenarioContext.DATA_SOURCE = dataSource;
         prepareStaticMockedObjectUnderTest();
     }
 
