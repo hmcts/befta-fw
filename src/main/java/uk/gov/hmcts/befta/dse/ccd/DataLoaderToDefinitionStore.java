@@ -242,27 +242,55 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
 
     }
 
-    private  JSONObject readObjectFromJsonFile(JSONObject jsonObject) throws JSONException {
+    private JSONObject readObjectFromJsonFile(JSONObject jsonObject) throws JSONException {
         JSONArray keys = jsonObject.names();
-        for (int i = 0; i < keys.length(); i++) {
-            String current_key = keys.get(i).toString();
-            if (jsonObject.get(current_key).getClass().getName().equals("org.json.JSONObject")) {
-                readObjectFromJsonFile((JSONObject) jsonObject.get(current_key));
-            } else if (jsonObject.get(current_key).getClass().getName().equals("org.json.JSONArray")) {
-                for (int j = 0; j < ((JSONArray) jsonObject.get(current_key)).length(); j++) {
-                    if (((JSONArray) jsonObject.get(current_key)).get(j).getClass().getName().equals("org.json.JSONObject")) {
-                        readObjectFromJsonFile((JSONObject) ((JSONArray) jsonObject.get(current_key)).get(j));
+
+        if (keys == null) {
+            return jsonObject;
+        }
+
+        for (int i = 0; i < keys.length(); ++i) {
+            String current_key = keys.getString(i);
+            Object value = jsonObject.get(current_key);
+
+            if (value instanceof JSONObject) {
+                readObjectFromJsonFile((JSONObject) value);
+            } else if (value instanceof JSONArray) {
+                JSONArray array = (JSONArray) value;
+                for (int j = 0; j < array.length(); ++j) {
+                    Object arrayElement = array.get(j);
+                    if (arrayElement instanceof JSONObject) {
+                        readObjectFromJsonFile((JSONObject) arrayElement);
+                    } else if (arrayElement instanceof String) {
+                        resolvePlaceholder(array, j, (String) arrayElement);
                     }
                 }
-            } else {
-                String value = jsonObject.optString(current_key);
-                if (value.startsWith("[[$")) {
-                    UserData raUser = resolveUserData(value);
-                    resolveUserIdamId(jsonObject, current_key, raUser);
-                }
+            } else if (value instanceof String) {
+                resolvePlaceholder(jsonObject, current_key, (String) value);
             }
         }
+
         return jsonObject;
+    }
+
+    private void resolvePlaceholder(JSONObject jsonObject, String key, String value) {
+        if (value.startsWith("[[$")) {
+            UserData raUser = resolveUserData(value);
+            resolveUserIdamId(jsonObject, key, raUser);
+        }
+    }
+
+    private void resolvePlaceholder(JSONArray jsonArray, int index, String value) {
+        if (value.startsWith("[[$")) {
+            UserData raUser = resolveUserData(value);
+            try {
+                adapter.authenticate(raUser, UserTokenProviderConfig.DEFAULT_INSTANCE.getClientId());
+                jsonArray.put(index, raUser.getId());
+            } catch (ExecutionException e) {
+                String message = String.format("parsing json array as %s failed", raUser.getUsername());
+                throw new RuntimeException(message, e);
+            }
+        }
     }
 
     private void resolveUserIdamId(JSONObject object, String current_key, UserData raUser) {
