@@ -1,9 +1,6 @@
 package uk.gov.hmcts.befta.util;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -227,7 +224,10 @@ public class DynamicValueInjector {
         if (isArray(container)) {
             value = ((Object[]) container)[Integer.parseInt(fields[fieldIndex])];
         } else if (container instanceof List<?>) {
-            value = ((List<?>) container).get(Integer.parseInt(fields[fieldIndex]));
+            logger.debug("length of fields: {} , fieldIndex: {}", fields.length, fieldIndex);
+            if (collectionIsNotNullAndNotEmpty((List<?>) container)) {
+                value = ((List<?>) container).get(Integer.parseInt(fields[fieldIndex]));
+            }
         } else if (container instanceof Map<?, ?>) {
             value = ((Map<?, ?>) container).get(fields[fieldIndex]);
         } else if (container instanceof Function<?, ?>) {
@@ -246,6 +246,10 @@ public class DynamicValueInjector {
             return calculateInContainer(value, fields, fieldIndex + 1);
         }
 
+    }
+
+    private boolean collectionIsNotNullAndNotEmpty(List<?> collection) {
+        return Objects.nonNull(collection) && !collection.isEmpty();
     }
 
     private boolean isArray(Object object) {
