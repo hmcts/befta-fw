@@ -9,7 +9,18 @@ import uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext;
 import uk.gov.hmcts.befta.util.DynamicValueInjector;
 
 /**
- * @author korneleehenry
+ *  * Factory class for creating instances of DynamicValueInjector.
+ *  * This class provides a method to create a DynamicValueInjector
+ *  * using the provided TestAutomationAdapter, HttpTestData, and
+ *  * BackEndFunctionalTestScenarioContext.
+ *  *
+ *  * This factory ensures that the creation of DynamicValueInjector
+ *  * instances is centralized and consistent throughout the application.
+ *  *
+ *  * Usage:
+ *  * DynamicValueInjector injector = DynamicValueInjectorFactory.create(taAdapter, testData, scenarioContext);
+ *
+ * Author: korneleehenry
  *
  */
 public class DynamicValueInjectorFactory {

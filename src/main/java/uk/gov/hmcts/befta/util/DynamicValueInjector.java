@@ -8,6 +8,8 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import uk.gov.hmcts.befta.TestAutomationAdapter;
 import uk.gov.hmcts.befta.data.HttpTestData;
 import uk.gov.hmcts.befta.data.RequestData;
@@ -16,6 +18,8 @@ import uk.gov.hmcts.befta.exception.FunctionalTestException;
 import uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext;
 
 public class DynamicValueInjector {
+
+    private Logger logger = LoggerFactory.getLogger(DynamicValueInjector.class);
 
     private static final String DEFAULT_AUTO_VALUE = "[[DEFAULT_AUTO_VALUE]]";
 
@@ -209,8 +213,10 @@ public class DynamicValueInjector {
             return "";
         }
         String[] fields = formula.substring(3).split("\\]\\[|\\]\\}");
+
+        logger.debug("length of fields: {}", fields.length);
         if (fields.length <= 1) {
-            throw new FunctionalTestException("No processible field found in " + formula);
+            throw new FunctionalTestException("No processable field found in " + formula);
         }
         return calculateInContainer(container, fields, 1);
     }
@@ -236,6 +242,7 @@ public class DynamicValueInjector {
         if (fieldIndex == fields.length - 1) {
             return value;
         } else {
+            logger.debug("length of fields: {} , fieldIndex + 1: {} , value: {}", fields.length, fieldIndex + 1, value);
             return calculateInContainer(value, fields, fieldIndex + 1);
         }
 
