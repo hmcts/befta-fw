@@ -660,10 +660,10 @@ Default is `ordered` and the field can be omitted if that's the preferred one.
     is essential for the framework to be able to decide which object in the actual response 
     should be compared to which one in the expected response.
 
-    If `__operator__` is set to `UNORDERED`, either explicitly in test data or by setting `DEFAULT_COLLECTION_ASSERTION_MODE` 
-    environment variable and the the `__elementId__` field id(s) are specified, then these values are used by the framework.
+    If `__ordering__` is set to `UNORDERED`, either explicitly in test data or by setting `DEFAULT_COLLECTION_ASSERTION_MODE` 
+    environment variable and the `__elementId__` field id(s) are specified, then these values are used by the framework.
 
-    However, if the `__elementId__` id field is not specified, the framework automatically extracts best candidates for 
+    However, if the `__elementId__` id field is not specified, the framework automatically extracts the best candidates for 
     field(s) to uniquely identify the elements for matching static, expected test data.
 
     Any wildcard element values or data resolved at runtime are excluded as `__elementId__` 
