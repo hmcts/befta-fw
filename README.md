@@ -98,7 +98,7 @@ Below are the environment needed specifically to Create Role Assignment data.
 3. java -cp befta-fw-9.0.2.jar uk.gov.hmcts.befta.BeftaMain 'my-feature-files/are/here, and/here, and-also/there'
    This will run the test scenarios under the local folder you specify.  
    Test automation teams can write their simple, tiny custom Main classes to customise 
-   the the test suite launching logic.
+   the test suite launching logic.
 
 
 ### 3.7) Run BEFTA Framework With Gradle
