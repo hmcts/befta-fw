@@ -82,9 +82,7 @@ public class BeftaMain {
         getAdapter().getDataLoader().loadDataIfNotLoadedVeryRecently();
     }
 
-    public static void tearDown() {
-
-    }
+    public static void tearDown() {}
 
     public static TestAutomationAdapter getAdapter() {
         return taAdapter;
