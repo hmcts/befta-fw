@@ -16,6 +16,7 @@ version buildNumber
 def gitRepo = "https://github.com/hmcts/befta-fw"
 
 def pomConfig = {
+    
     licenses {
         license {
             name "MIT License"
