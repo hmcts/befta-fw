@@ -128,7 +128,7 @@ class DefaultBackEndFunctionalTestScenarioPlayerTest {
     private ArgumentCaptor<?> captor;
 
     @BeforeEach
-    public void prepareMockedObjectUnderTest() {
+    void prepareMockedObjectUnderTest() {
         try {
             restAssuredMock = mockStatic(RestAssured.class);
             environmentVariableUtilsMock = mockStatic(EnvironmentVariableUtils.class);
@@ -145,7 +145,7 @@ class DefaultBackEndFunctionalTestScenarioPlayerTest {
     }
 
     @AfterEach
-    public void closeMockedObjectUnderTest() {
+    void closeMockedObjectUnderTest() {
         try {
             scenarioPlayer = null;
             restAssuredMock.close();
@@ -1329,7 +1329,7 @@ class DefaultBackEndFunctionalTestScenarioPlayerTest {
         assertThrows(FunctionalTestException.class, () -> scenarioPlayer
                 .submitTheRequestToCallAnOperationOfAProduct(OPERATION, PRODUCT_NAME));
 
-        verify(requestSpecification, times(3)).request(eq("POST"), eq(uri));
+        verify(requestSpecification, times(1)).request(eq("POST"), eq(uri));
     }
 
     @Test
