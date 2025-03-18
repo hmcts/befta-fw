@@ -229,8 +229,8 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
                     .when().post("/am/role-assignments");
             if (response.getStatusCode() / 100 != 2) {
                 String message = "Calling Role Assignment service failed with response body: "
-                        + response.body().prettyPrint();
-                message += "\nand http code: " + response.statusCode();
+                        + response.body().prettyPrint()
+                        + "\nand http code: " + response.statusCode();
                 throw new RuntimeException(message);
             } else {
                 logger.info("Role Assignment file {} loaded", filename);
