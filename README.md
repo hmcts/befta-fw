@@ -28,18 +28,18 @@ It provides the following functionalities and conveniences:
 
 
 ### 3.1) System Requirements
-* System Resources (Memory, Disk, CPU) - Same for a JDK 17 installation.  
-  [Click here to see Oracle's reference for this.](https://docs.oracle.com/en/java/javase/17/install/overview-jdk-installation.html#GUID-8677A77F-231A-40F7-98B9-1FD0B48C346A)
+* System Resources (Memory, Disk, CPU) - Same for a JDK 21 installation.
+  [Click here to see Oracle's reference for this.](https://docs.oracle.com/en/java/javase/21/install/overview-jdk-installation.html#GUID-8677A77F-231A-40F7-98B9-1FD0B48C346A)
 
 
 ### 3.2) Software Requirements
-* Java SE Development Kit 17 (JDK 17)
+* Java SE Development Kit 21 (JDK 21)
 * Your Favourite IDE
-* Gradle 8.7+ (included as wrapper)
+* Gradle 8.10+ (included as wrapper)
 
 
 ### 3.3) Setting Up Environment
-1. Install JDK 17 or higher
+1. Install JDK 21 or higher
 2. Install a command line terminal application
 
 
@@ -660,10 +660,10 @@ Default is `ordered` and the field can be omitted if that's the preferred one.
     is essential for the framework to be able to decide which object in the actual response 
     should be compared to which one in the expected response.
 
-    If `__operator__` is set to `UNORDERED`, either explicitly in test data or by setting `DEFAULT_COLLECTION_ASSERTION_MODE` 
-    environment variable and the the `__elementId__` field id(s) are specified, then these values are used by the framework.
+    If `__ordering__` is set to `UNORDERED`, either explicitly in test data or by setting `DEFAULT_COLLECTION_ASSERTION_MODE` 
+    environment variable and the `__elementId__` field id(s) are specified, then these values are used by the framework.
 
-    However, if the `__elementId__` id field is not specified, the framework automatically extracts best candidates for 
+    However, if the `__elementId__` id field is not specified, the framework automatically extracts the best candidates for 
     field(s) to uniquely identify the elements for matching static, expected test data.
 
     Any wildcard element values or data resolved at runtime are excluded as `__elementId__` 
@@ -751,52 +751,56 @@ export BEFTA_RETRY_ENABLE_LISTENER=true
 ```
 
 ### Service Level Policy
-The feature can be defined with an annotation as follows: `@Retryable(maxAttempts=3,delay=1000,statusCodes={400,502})`.
-This annotation specifies a mandatory list of HTTP status codes that trigger a retry, and optional parameters for the maximum 
-number of attempts and the delay between attempts.
-If you don't provide the optional parameters maxAttempts and delay, the default values will be used instead, 
-which are 3 and 1000 milliseconds, respectively.
-If you don't provide the optional parameters maxAttempts and delay, the default values will be used instead, which are 3 and 1000 milliseconds, respectively.
-If statusCode is not provided, the scenario will fail with a **FunctionalTestException**.
+The feature can be defined with an annotation as follows: @Retryable(maxAttempts=3, delay=1000, statusCodes={400, 502}, match={".*error.*"}). 
+This annotation specifies:
+* **statusCodes**: A mandatory list of HTTP status codes that trigger a retry. If not provided, the scenario will fail with a FunctionalTestException.
+* **maxAttempts**: An optional parameter specifying the maximum number of retry attempts. Defaults to 3 if not provided.
+* **delay**: An optional parameter specifying the delay between retry attempts in milliseconds. Defaults to 1000 milliseconds if not provided.
+* **match**: An optional parameter that accepts an array of regex patterns. If any of these patterns match the response content, a retry will be triggered.
 
 ### Usage
 To use the Retryable Feature, you need to annotate your test scenarios with the **@Retryable** annotation in your feature file and 
 provide the necessary parameters. Here's an example:
 
 ```
-@S-096.1 @Retryable(maxAttempts=3,delay=500,statusCodes={409,500})
+@S-096.1 @Retryable(maxAttempts=3, delay=500, statusCodes={409, 500}, match={".*error.*", ".*timeout.*"})
   Scenario: Sample Scenario
     Given given_context
     When when_context
     And and_context
 ```
-In this example, the scenario **@S-096.1** will be executed up to 3 times with a delay of 500 milliseconds between each attempt. 
-If the HTTP response status code is either 409 or 500, the test will be retried.
-If you don't provide the optional parameters maxAttempts and delay, the default values will be used instead.
+In this example:
+
+* The scenario **@S-096.1** will be executed up to 3 times with a delay of 500 milliseconds between each attempt.
+* The test will be retried if the HTTP response status code is either 409 or 500, or if the response content matches any of the provided regex patterns (**".*error.*"** or **".*timeout.*"**).
 
 ### Examples
 
-Here are some examples of how you can use the Retryable Feature:
+Here are some examples of how you can use the Retryable Feature with the **match** attribute:
 
 ```
-@S-096.1 @Retryable(statusCodes={500,502})
+@S-096.1 @Retryable(statusCodes={500, 502}, match={".*server.*"})
   Scenario: Sample Scenario
     Given given_context
     When when_context
     And and_context
 ```
-In this example, the scenario **@S-096.1** will be executed up to 3 times with a delay of
-1000 milliseconds between each attempt. If the HTTP response status code is either 500 or 502, the test will be retried.
+In this example:
+
+* The scenario @S-096.1 will be executed up to 3 times with a delay of 1000 milliseconds between each attempt.
+* The test will be retried if the HTTP response status code is either 500 or 502, or if the response content matches the regex pattern **".*server.*"**.
 
 ```
-@S-096.1 @Retryable(statusCodes={404,503}, maxAttempts=5)
+@S-096.1 @Retryable(statusCodes={404, 503}, maxAttempts=5, match={".*not found.*"})
   Scenario: Sample Scenario
     Given given_context
     When when_context
     And and_context
 ```
-In this example, the scenario **@S-096.1** will be executed up to 5 times with a delay of 
-1000 milliseconds between each attempt. If the HTTP response status code is either 404 or 503, the test will be retried.
+In this example:
+
+* The scenario **@S-096.1** will be executed up to 5 times with a delay of 1000 milliseconds between each attempt.
+* The test will be retried if the HTTP response status code is either 404 or 503, or if the response content matches the regex pattern **".*not found.*"**.
 
 ```
 @S-096.1 @Retryable(statusCodes={400,502}, delay=500)
@@ -816,4 +820,39 @@ In this example, the scenario **@S-096.1** will be executed up to 3 times with a
     And and_context
 ```
 In this example, the scenario **@S-096.1** will fail with 
-**FunctionalTestException:Missing statusCode configuration in @Retryable**
+**FunctionalTestException:Missing statusCode configuration in @Retryable** because the statusCodes parameter is mandatory and was not provided.
+
+## 10) DELAYED HTTP CALLS 
+
+The Befta framework now supports delaying the flow before or after an HTTP call using a new feature. This can be 
+useful in scenarios where 
+you need to wait for a specific amount of time before making an HTTP request or after receiving a response. 
+The syntax for this feature is as follows:
+
+```
+it is submitted to call the [OPERATION_NAME] operation of [PRODUCT_NAME] with a delay of [DELAY_SECONDS] seconds [DELAY_POSITION] the call
+```
+
+Parameters:
+
+* **OPERATION_NAME:** The name of the operation being called (e.g., Get Document Metadata by Document ID).
+* **PRODUCT_NAME:** The name of the product or service that provides the operation (e.g., CCD Case Document AM API).
+* **DELAY_SECONDS:** The number of seconds to delay.
+* **DELAY_POSITION:** Specifies whether the delay is to be applied before or after the HTTP call. Possible values are before or after.
+
+### Example Usage:
+
+**Delay Before the HTTP Call:**
+
+```
+it is submitted to call the [Get User Details] operation of [User Management Service] with a delay of [10] seconds [before] the call
+```
+In this example, the framework will wait for 10 seconds before making the request to the "Get User Details" operation of the "User Management Service".
+
+**Delay After the HTTP Call:**
+
+```
+it is submitted to call the [Get User Details] operation of [User Management Service] with a delay of [5] seconds [after] the call
+```
+Here, the framework will wait for 5 seconds after making the request to "Get User Details" operation of the "User Management Service" before proceeding with the next steps.
+
