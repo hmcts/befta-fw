@@ -11,7 +11,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import uk.gov.hmcts.befta.BeftaMain;
 import uk.gov.hmcts.befta.DefaultBeftaTestDataLoader;
 import uk.gov.hmcts.befta.DefaultTestAutomationAdapter;
@@ -201,23 +202,19 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
 
     private void getRoleAssignmentFiles(String[] resourcePackages) {
         try {
-            ClassPath cp = ClassPath.from(Thread.currentThread().getContextClassLoader());
             for (String resourcePackage : resourcePackages) {
                 String prefix = resourcePackage + "/";
-                cp.getResources().stream()
-                        .filter(info -> info.getResourceName().startsWith(prefix) && info.getResourceName().endsWith(".ras.json"))
-                        .forEach(info -> {
-                            try (InputStream resource = new ClassPathResource(info.getResourceName()).getInputStream();
-                                 BufferedReader reader = new BufferedReader(new InputStreamReader(resource))) {
-                                String result = reader.lines().collect(Collectors.joining("\n"));
-                                createRoleAssignment(result, info.getResourceName());
-                            } catch (IOException e) {
-                                throw new RuntimeException(e);
-                            }
-                        });
+                Resource[] resources = new PathMatchingResourcePatternResolver()
+                        .getResources("classpath*:" + prefix + "**/*.ras.json");
+                for (Resource resource : resources) {
+                    InputStream inputStream = resource.getInputStream();
+                    String result = new BufferedReader(new InputStreamReader(inputStream))
+                            .lines().collect(Collectors.joining("\n"));
+                    createRoleAssignment(result, resource.getFilename());
+                }
             }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to read role assignment files", e);
         }
     }
 
