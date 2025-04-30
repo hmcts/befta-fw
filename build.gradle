@@ -153,7 +153,7 @@ dependencies {
 
     implementation group: 'org.slf4j', name: 'slf4j-api', version: '2.0.13'
 
-    implementation group: 'com.github.hmcts', name: 'service-auth-provider-java-client', version: '5.1.2'
+    implementation group: 'com.github.hmcts', name: 'service-auth-provider-java-client', version: '5.3.2'
     implementation group: 'org.apache.httpcomponents', name: 'httpcore', version: '4.4.16'
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.14.0'
 
