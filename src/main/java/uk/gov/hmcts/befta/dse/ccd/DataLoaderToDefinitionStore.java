@@ -229,11 +229,11 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
                     .when().post("/am/role-assignments");
             if (response.getStatusCode() / 100 != 2) {
                 String message = "Calling Role Assignment service failed with response body: "
-                        + response.body().prettyPrint();
-                message += "\nand http code: " + response.statusCode();
+                        + response.body().prettyPrint()
+                        + "\nand http code: " + response.statusCode();
                 throw new RuntimeException(message);
             } else {
-                logger.info("Role Assignment file " + filename + " loaded");
+                logger.info("Role Assignment file {} loaded", filename);
             }
         } catch (Exception e) {
             String message = String.format("reading json from %s failed",filename);
@@ -381,7 +381,7 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
         try {
             boolean convertJsonFilesToExcel = false;
             Set<String> definitionJsonResourcesToTransform = new HashSet<>();
-            List<String> definitionFileResources = new ArrayList<String>();
+            List<String> definitionFileResources = new ArrayList<>();
             ClassPath cp = ClassPath.from(Thread.currentThread().getContextClassLoader());
             for (ClassPath.ResourceInfo info : cp.getResources()) {
                 if (isAnExcelFileToImport(info.getResourceName(), definitionsPath)) {
@@ -401,7 +401,7 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
                                 folderPath,
                                 generatedFileOutputPath)
                                 .transformToExcel())
-                        .collect(Collectors.toList()));
+                        .toList());
             }
             return definitionFileResources;
         } catch (Exception e) {
@@ -454,19 +454,23 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
     private CcdRoleConfig[] getCcdRolesConfig() {
 
         if (!StringUtils.isBlank(this.definitionsPath)) {
-
-            String ccdRolesPath = Paths.get(this.definitionsPath).resolve("../ccd-roles.json").normalize().toString();
+            String ccdRolesPath = null;
             try {
+                ccdRolesPath = Paths.get(this.definitionsPath).resolve("../ccd-roles.json").normalize().toString();
                 Enumeration<URL> ccdRolesResource
                         = Thread.currentThread().getContextClassLoader().getResources(ccdRolesPath);
                 if (ccdRolesResource != null && ccdRolesResource.hasMoreElements()) {
                     logger.info("Found CCD Roles JSON file: '{}'.", ccdRolesPath);
-                    return JsonUtils.readObjectFromJsonResource(ccdRolesPath, CCD_ROLES_NEEDED_FOR_TA.getClass());
+                    try {
+                        return JsonUtils.readObjectFromJsonResource(ccdRolesPath, CCD_ROLES_NEEDED_FOR_TA.getClass());
+                    } catch (Exception ex) {
+                        logger.warn("Error processing CCD Roles JSON file: '{}'.", ccdRolesPath, ex);
+                    }
                 } else {
                     logger.info("No CCD Roles JSON file found: '{}'.", ccdRolesPath);
                 }
             } catch (IOException ex) {
-                logger.warn("Error reading CCD Roles JSON file: '{}': ", ccdRolesPath, ex);
+                logger.warn("Error reading CCD Roles JSON file: '{}'", ccdRolesPath, ex);
             }
         }
 
