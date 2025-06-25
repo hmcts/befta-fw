@@ -5,7 +5,7 @@ plugins {
 
 apply plugin: 'java'
 
-def buildNumber = System.getenv("RELEASE_VERSION")?.replace("refs/tags/", "") ?: "8.10.1"
+def buildNumber = System.getenv("RELEASE_VERSION") ?: "8.10.1"
 
 group 'com.github.hmcts'
 
@@ -32,7 +32,7 @@ repositories {
     mavenLocal()
     mavenCentral()
     maven {
-        url 'https://jitpack.io'
+        url 'https://pkgs.dev.azure.com/hmcts/Artifacts/_packaging/hmcts-lib/maven/v1'
     }
 }
 // end::repositories[]
@@ -130,6 +130,16 @@ publishing {
             }
         }
     }
+    repositories {
+        maven {
+            name = "AzureArtifacts"
+            url = uri("https://pkgs.dev.azure.com/hmcts/Artifacts/_packaging/hmcts-lib/maven/v1")
+            credentials {
+                username = System.getenv("AZURE_DEVOPS_ARTIFACT_USERNAME")
+                password = System.getenv("AZURE_DEVOPS_ARTIFACT_TOKEN")
+            }
+        }
+    }
 }
 
 wrapper.gradleVersion = '2.10'
@@ -148,7 +158,7 @@ dependencies {
 
     implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.26'
 
-    implementation group: 'com.github.hmcts', name: 'service-auth-provider-java-client', version: '3.1.4'
+    implementation group: 'com.github.hmcts', name: 'service-auth-provider-java-client', version: '3.1.4-fix'
     implementation group: 'org.apache.httpcomponents', name: 'httpcore', version: '4.4.12'
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
 
@@ -159,7 +169,7 @@ dependencies {
 
     implementation group: 'com.github.rholder', name: 'guava-retrying', version: '2.0.0'
 
-    implementation group: 'com.launchdarkly', name: 'launchdarkly-java-server-sdk', version: '5.+'
+    implementation group: 'com.launchdarkly', name: 'launchdarkly-java-server-sdk', version: '5.0.2'
     implementation group: 'org.json', name: 'json', version: '20200518'
 
     testImplementation group: 'io.github.openfeign', name: 'feign-jackson', version: '9.7.0'
