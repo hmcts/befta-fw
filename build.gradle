@@ -6,7 +6,7 @@ plugins {
 
 apply plugin: 'java'
 
-def buildNumber = System.getenv("RELEASE_VERSION")?.replace("refs/tags/", "") ?: "9.0.2-SNAPSHOT"
+def buildNumber = System.getenv("RELEASE_VERSION") ?: "9.2.0"
 
 group 'com.github.hmcts'
 
@@ -33,7 +33,7 @@ repositories {
     mavenLocal()
     mavenCentral()
     maven {
-        url 'https://jitpack.io'
+        url 'https://pkgs.dev.azure.com/hmcts/Artifacts/_packaging/hmcts-lib/maven/v1'
     }
 }
 // end::repositories[]
@@ -132,6 +132,16 @@ publishing {
                 root.appendNode('name', 'BEFTA FW')
                 root.appendNode('url', gitRepo)
                 root.children().last() + pomConfig
+            }
+        }
+    }
+    repositories {
+        maven {
+            name = "AzureArtifacts"
+            url = uri("https://pkgs.dev.azure.com/hmcts/Artifacts/_packaging/hmcts-lib/maven/v1")
+            credentials {
+                username = System.getenv("AZURE_DEVOPS_ARTIFACT_USERNAME")
+                password = System.getenv("AZURE_DEVOPS_ARTIFACT_TOKEN")
             }
         }
     }
