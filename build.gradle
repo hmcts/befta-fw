@@ -167,7 +167,7 @@ dependencies {
     implementation group: 'org.apache.httpcomponents', name: 'httpcore', version: '4.4.16'
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.14.0'
 
-    implementation group: 'com.google.guava', name: 'guava', version: '33.2.0-jre'
+    implementation group: 'com.google.guava', name: 'guava', version: '33.5.0-jre'
 
     // Purposefully capping the version of org.apache.poi:poi-ooxml to 4.1.2 to avoid issue
     // NoSuchMethodError: org.apache.commons.io.IOUtils.byteArray() from commons-io:commons-io
