@@ -151,7 +151,7 @@ publishing {
 wrapper.gradleVersion = '8.10'
 
 dependencies {
-    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.17.1'
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.20.1'
 
     implementation group: 'io.rest-assured', name: 'rest-assured', version: '5.4.0'
 
