@@ -11,7 +11,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import uk.gov.hmcts.befta.BeftaMain;
 import uk.gov.hmcts.befta.DefaultBeftaTestDataLoader;
 import uk.gov.hmcts.befta.DefaultTestAutomationAdapter;
@@ -201,21 +202,19 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
 
     private void getRoleAssignmentFiles(String[] resourcePackages) {
         try {
-            ClassPath cp = ClassPath.from(Thread.currentThread().getContextClassLoader());
             for (String resourcePackage : resourcePackages) {
                 String prefix = resourcePackage + "/";
-                for (ClassPath.ResourceInfo info : cp.getResources()) {
-                    if (info.getResourceName().startsWith(prefix)
-                            && info.getResourceName().endsWith(".ras.json")) {
-                        InputStream resource = new ClassPathResource(info.getResourceName()).getInputStream();
-                        String result = new BufferedReader(new InputStreamReader(resource))
-                                .lines().collect(Collectors.joining("\n"));
-                        createRoleAssignment(result, info.getResourceName());
-                    }
+                Resource[] resources = new PathMatchingResourcePatternResolver()
+                        .getResources("classpath*:" + prefix + "**/*.ras.json");
+                for (Resource resource : resources) {
+                    InputStream inputStream = resource.getInputStream();
+                    String result = new BufferedReader(new InputStreamReader(inputStream))
+                            .lines().collect(Collectors.joining("\n"));
+                    createRoleAssignment(result, resource.getFilename());
                 }
             }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to read role assignment files", e);
         }
     }
 
@@ -233,7 +232,7 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
                 message += "\nand http code: " + response.statusCode();
                 throw new RuntimeException(message);
             } else {
-                logger.info("Role Assignment file " + filename + " loaded");
+                logger.info("Role Assignment file {} loaded", filename);
             }
         } catch (Exception e) {
             String message = String.format("reading json from %s failed",filename);
@@ -381,7 +380,7 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
         try {
             boolean convertJsonFilesToExcel = false;
             Set<String> definitionJsonResourcesToTransform = new HashSet<>();
-            List<String> definitionFileResources = new ArrayList<String>();
+            List<String> definitionFileResources = new ArrayList<>();
             ClassPath cp = ClassPath.from(Thread.currentThread().getContextClassLoader());
             for (ClassPath.ResourceInfo info : cp.getResources()) {
                 if (isAnExcelFileToImport(info.getResourceName(), definitionsPath)) {
