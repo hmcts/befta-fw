@@ -183,7 +183,7 @@ dependencies {
     implementation group: 'com.launchdarkly', name: 'launchdarkly-java-server-sdk', version: '7.5.0'
     implementation group: 'org.json', name: 'json', version: '20240303'
 
-    implementation group: 'io.github.openfeign', name: 'feign-jackson', version: '13.2.1'
+    implementation group: 'io.github.openfeign', name: 'feign-jackson', version: '13.6'
     testImplementation group: 'org.mockito', name: 'mockito-core', version: '5.12.0'
     testImplementation group: 'org.mockito', name: 'mockito-inline', version: '5.2.0'
     testImplementation group: 'org.junit-pioneer', name: 'junit-pioneer', version: '2.2.0'
