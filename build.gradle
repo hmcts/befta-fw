@@ -158,8 +158,8 @@ dependencies {
     api group: 'io.cucumber', name: 'cucumber-java', version: '7.18.0'
     api group: 'io.cucumber', name: 'cucumber-junit', version: '7.18.0'
 
-    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.34'
-    annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.34'
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.42'
+    annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.42'
 
     implementation group: 'org.slf4j', name: 'slf4j-api', version: '2.0.13'
 
