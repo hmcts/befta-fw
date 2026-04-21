@@ -5,6 +5,71 @@
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+## Publishing a Release
+
+This repository publishes release artifacts to Azure Artifacts using the GitHub Actions workflow
+`Publish to Azure Artifacts`.
+
+There are two supported ways to publish:
+
+1. Manual run from GitHub Actions using a `release_version` value.
+2. Push a Git tag and use the tag name as the release version.
+
+### Manual publish
+
+Use this when you want to publish a pre-release or a version that should not be derived from the branch name.
+
+In GitHub:
+
+1. Open `Actions`.
+2. Open the `Publish to Azure Artifacts` workflow.
+3. Select `Run workflow`.
+4. Enter a `release_version`.
+5. Run the workflow.
+
+Examples of valid manual `release_version` values:
+
+* `9.2.2`
+* `9.2.2_BEFTA-1234`
+* `9.2.2-rc1`
+
+Examples of invalid values:
+
+* `feature/my-branch`
+* `BEFTA-1234`
+* `release 9.2.2`
+
+If the value is invalid, the workflow fails early with an error before publishing anything.
+
+### Tag-based publish
+
+If the workflow is triggered by pushing a Git tag, the tag name is used as the artifact version.
+
+For example:
+
+```bash
+git tag 9.2.2
+git push origin 9.2.2
+```
+
+Examples:
+
+* Tag `9.2.2` publishes version `9.2.2`
+* Tag `9.2.2-rc1` publishes version `9.2.2-rc1`
+* Tag `9.2.2_BEFTA-1234` publishes version `9.2.2_BEFTA-1234`
+
+### Which option to use
+
+Use manual publish when:
+
+* you are testing a pre-release version
+* you want an explicit version that is independent of the branch name
+
+Use tag-based publish when:
+
+* you want the Git tag to be the release version
+* you are performing a normal tagged release
+
 
 ## 1) WHAT IS BEFTA FRAMEWORK?
 BEFTA Framework is a framework for automation of functional tests for http-based APIs. It uses Cucumber and Rest Assured frameworks and supports a BDD (Behaviour-Driven Development) approach to software development.
@@ -855,4 +920,3 @@ In this example, the framework will wait for 10 seconds before making the reques
 it is submitted to call the [Get User Details] operation of [User Management Service] with a delay of [5] seconds [after] the call
 ```
 Here, the framework will wait for 5 seconds after making the request to "Get User Details" operation of the "User Management Service" before proceeding with the next steps.
-
