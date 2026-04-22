@@ -823,7 +823,7 @@ This default behavior is configured using the following environment variables:
 * **BEFTA_RETRY_RETRYABLE_EXCEPTIONS:** A comma-separated list of Java exceptions that are considered retryable (default: java.net.SocketException, 
 javax.net.ssl.SSLException, java.net.ConnectException).
 * **BEFTA_RETRY_NON_RETRYABLE_HTTP_METHODS:** A comma-separated list of HTTP methods that should not be retried 
-(default: *). Use "*" to specify that no methods should be retried.
+(default: \*). Use "\*" to specify that no methods should be retried.
 * **BEFTA_RETRY_ENABLE_LISTENER:** A boolean flag indicating whether the Retry Policy listener should be enabled (default: true).
 
 #### Sample Configuration:
