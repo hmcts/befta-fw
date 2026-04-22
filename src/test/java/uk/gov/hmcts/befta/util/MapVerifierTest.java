@@ -803,8 +803,28 @@ public class MapVerifierTest {
 
             MapVerificationResult result = new MapVerifier("actualResponse.body", 5).verifyMap(expected, actual);
             Assert.assertArrayEquals(new Object[] {
-                    "actualResponse.body.user contains a bad value: idam[0] contains a bad value: jurisdiction: "
+                    "actualResponse.body.user contains a bad value: idam[0|id=1573657630927756] contains a bad value: jurisdiction: "
                             + "expected 'AUTOTEST1' but got 'AUTOTEST1_x'" },
+                    result.getAllIssues().toArray());
+
+            assertFalse(result.isVerified());
+        }
+
+        @Test
+        @DisplayName("Should report CaseLinks CaseReference mismatch for real response payload")
+        public void shouldReportCaseLinksCaseReferenceMismatchForRealResponsePayload() {
+            // Covers a real response shape where MapVerifier traverses an array of objects
+            // and reports the mismatch at CaseLinks[0].CaseReference.
+            HashMap<String, Object> expected = (HashMap<String, Object>) TEST_DATA_RESOURCE
+                    .getDataForTestCall("CaseLinks-CaseReference-Mismatch_expected").getExpectedResponse()
+                    .getBody();
+            HashMap<String, Object> actual = (HashMap<String, Object>) TEST_DATA_RESOURCE
+                    .getDataForTestCall("CaseLinks-CaseReference-Mismatch_actual").getExpectedResponse()
+                    .getBody();
+            MapVerificationResult result = new MapVerifier("actualResponse.body", 5).verifyMap(expected, actual);
+            Assert.assertArrayEquals(new Object[] {
+                            "actualResponse.body contains a bad value: CaseLinks[0] contains a bad value: "
+                                    + "CaseReference: expected '1763648665371374' but got '1763648665371374'" },
                     result.getAllIssues().toArray());
 
             assertFalse(result.isVerified());
@@ -878,9 +898,9 @@ public class MapVerifierTest {
             @DisplayName("Should fail content that does not meet default ordering")
             public void shouldFailContentThatDoesNotMeetDefaultOrdering() {
                 assertVerificationErrors("default-config-not-verify-incorrect-order",
-                        "response.body contains a bad value: collection[1] contains a bad value: id: expected 'jur_2' but got 'jur_4'",
-                        "response.body contains a bad value: collection[2] contains a bad value: id: expected 'jur_3' but got 'jur_2'",
-                        "response.body contains a bad value: collection[3] contains a bad value: id: expected 'jur_4' but got 'jur_3'");
+                        "response.body contains a bad value: collection[1|id=jur_2] contains a bad value: id: expected 'jur_2' but got 'jur_4'",
+                        "response.body contains a bad value: collection[2|id=jur_3] contains a bad value: id: expected 'jur_3' but got 'jur_2'",
+                        "response.body contains a bad value: collection[3|id=jur_4] contains a bad value: id: expected 'jur_4' but got 'jur_3'");
             }
 
             @Test
@@ -901,10 +921,10 @@ public class MapVerifierTest {
             @DisplayName("Should fail content that has different element")
             public void shouldFailContentDueToDifferentElement() {
                 assertVerificationErrors("default-config-not-verify-different-element",
-                        "response.body contains a bad value: collection[1].versionX is unexpected.",
-                        "response.body contains a bad value: collection[1].version is unavailable though it was expected to be there",
-                        "response.body contains a bad value: collection[1] contains a bad value: id: expected 'AUTOTEST1_x' but got 'AUTOTEST1_z'",
-                        "response.body contains a bad value: collection[1] contains a bad value: state: expected 'TODO' but got 'TODOOO'");
+                        "response.body contains a bad value: collection[1|id=AUTOTEST1_x].versionX is unexpected.",
+                        "response.body contains a bad value: collection[1|id=AUTOTEST1_x].version is unavailable though it was expected to be there",
+                        "response.body contains a bad value: collection[1|id=AUTOTEST1_x] contains a bad value: id: expected 'AUTOTEST1_x' but got 'AUTOTEST1_z'",
+                        "response.body contains a bad value: collection[1|id=AUTOTEST1_x] contains a bad value: state: expected 'TODO' but got 'TODOOO'");
             }
 
             @Test
@@ -912,7 +932,7 @@ public class MapVerifierTest {
             public void shouldFailContentThatDoesNotMeetDefaultEquivalentOfOperatorDueToActualBeingASuperset() {
                 assertVerificationErrors("default-config-not-verify-actual-superset",
                         "response.body contains a bad value: response.body.collection has unexpected number of elements. Expected: 3, but actual: 4.",
-                        "response.body contains a bad value: collection[2] contains a bad value: id: expected 'jur_4' but got 'jur_3'");
+                        "response.body contains a bad value: collection[2|id=jur_4] contains a bad value: id: expected 'jur_4' but got 'jur_3'");
             }
 
             @Test
@@ -920,8 +940,8 @@ public class MapVerifierTest {
             public void shouldFailContentThatDoesNotMeetDefaultEquivalentOfOperatorDueToActualBeingASubset() {
                 assertVerificationErrors("default-config-not-verify-actual-subset",
                         "response.body contains a bad value: response.body.collection has unexpected number of elements. Expected: 4, but actual: 3.",
-                        "response.body contains a bad value: collection[1] contains a bad value: id: expected 'jur_2' but got 'jur_3'",
-                        "response.body contains a bad value: collection[2] contains a bad value: id: expected 'jur_3' but got 'jur_4'");
+                        "response.body contains a bad value: collection[1|id=jur_2] contains a bad value: id: expected 'jur_2' but got 'jur_3'",
+                        "response.body contains a bad value: collection[2|id=jur_3] contains a bad value: id: expected 'jur_3' but got 'jur_4'");
             }
         }
 

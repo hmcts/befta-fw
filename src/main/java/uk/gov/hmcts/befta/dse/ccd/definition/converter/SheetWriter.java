@@ -14,8 +14,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 
 public class SheetWriter {
+
+    private static final List<String> SUPPORTED_DATE_FORMATS = List.of(
+            ExcelProcessingUtils.CCD_DATE_FORMAT,
+            "dd/MM/yy");
 
     private ArrayList<String> keys;
     private CellStyle cellDateStyle;
@@ -87,13 +92,9 @@ public class SheetWriter {
             case STRING:
                 String value = jsonCellObject.asText();
                 if ((column.equals("LiveFrom") || column.equals("LiveTo")) && value.length() > 0) {
-                    try {
-                        Date dt = new SimpleDateFormat("dd/MM/yy").parse(value);
-                        cell.setCellValue(dt);
-                        cell.setCellStyle(getCellDateStyle());
-                    } catch (ParseException e) {
-                        throw new RuntimeException(e);
-                    }
+                    Date dt = parseDate(value);
+                    cell.setCellValue(dt);
+                    cell.setCellStyle(getCellDateStyle());
                 } else if (value.length() > 0) {
                     cell.setCellValue(jsonCellObject.asText());
                 }
@@ -122,6 +123,18 @@ public class SheetWriter {
 
     public void setCellDateStyle(CellStyle cellDateStyle) {
         this.cellDateStyle = cellDateStyle;
+    }
+
+    private Date parseDate(String value) {
+        for (String pattern : SUPPORTED_DATE_FORMATS) {
+            try {
+                SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
+                dateFormat.setLenient(false);
+                return dateFormat.parse(value);
+            } catch (ParseException ignored) {
+            }
+        }
+        throw new RuntimeException("Unable to parse date value: " + value);
     }
 
 }

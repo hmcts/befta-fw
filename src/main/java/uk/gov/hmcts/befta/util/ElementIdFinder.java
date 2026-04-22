@@ -9,6 +9,7 @@ import uk.gov.hmcts.befta.exception.InvalidTestDataException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -21,7 +22,8 @@ public class ElementIdFinder {
 
     private static final String COULD_NOT_CALCULATE_ELEMENT_ID = "Befta Framework could not calculate the element " +
             "IDs required to compare an unordered collection, please add an `__elementId__` to field '%s' in your " +
-            "expected response body, or change to an ordered comparison";
+            "expected response body, or change to an ordered comparison. Candidate scalar fields found: %s. " +
+            "Sample element: %s";
 
     private ElementIdFinder() {
 
@@ -101,10 +103,61 @@ public class ElementIdFinder {
                 .collect(Collectors.toCollection(TreeSet::new));
 
         if (commonMapKeys.isEmpty()) {
-            throw new InvalidTestDataException(String.format(COULD_NOT_CALCULATE_ELEMENT_ID, field));
+            throw new InvalidTestDataException(String.format(COULD_NOT_CALCULATE_ELEMENT_ID,
+                    field, getCandidateScalarFields(expectedCollection), getSampleElementSummary(expectedCollection)));
         }
 
         return String.join(",", commonMapKeys);
+    }
+
+    private static String getCandidateScalarFields(Collection<?> expectedCollection) {
+        Map<?, ?> map = getFirstDataMap(expectedCollection);
+        if (map == null) {
+            return "<none>";
+        }
+
+        Set<String> fields = new LinkedHashSet<>();
+        map.forEach((key, value) -> {
+            if (key instanceof String && (value instanceof String || value instanceof Boolean || value instanceof Integer)) {
+                fields.add((String) key);
+            }
+        });
+
+        return fields.isEmpty() ? "<none>" : String.join(", ", fields);
+    }
+
+    private static String getSampleElementSummary(Collection<?> expectedCollection) {
+        Map<?, ?> map = getFirstDataMap(expectedCollection);
+        if (map == null) {
+            return "<none>";
+        }
+
+        Set<String> parts = new LinkedHashSet<>();
+        map.forEach((key, value) -> {
+            if (key instanceof String && (value instanceof String || value instanceof Boolean || value instanceof Integer)) {
+                parts.add(key + "=" + value);
+            }
+        });
+
+        return parts.isEmpty() ? "<none>" : String.join(", ", parts);
+    }
+
+    private static Map<?, ?> getFirstDataMap(Collection<?> expectedCollection) {
+        Iterator<?> itr = expectedCollection.iterator();
+        if (CollectionVerificationConfig.isFirstElementOfCollectionMetadata(expectedCollection) && itr.hasNext()) {
+            itr.next();
+        }
+
+        if (!itr.hasNext()) {
+            return null;
+        }
+
+        Object currentElement = itr.next();
+        if (!(currentElement instanceof Map)) {
+            return null;
+        }
+
+        return (Map<?, ?>) currentElement;
     }
 
 }

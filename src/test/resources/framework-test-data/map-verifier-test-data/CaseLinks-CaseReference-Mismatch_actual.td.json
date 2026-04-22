@@ -1,0 +1,45 @@
+{
+  "_guid_": "CaseLinks-CaseReference-Mismatch_actual",
+  "_extends_": "S-000-Base-Success",
+  "title": "must return default user setting successfully for a user having a profile in CCD",
+  "specs": ["a detailed profile in CCD"],
+  "productName": "CCD Data Store",
+  "operationName": "Get default settings for user",
+  "method": "GET",
+  "uri": "/caseworkers/{uid}/profile",
+  "request": {
+    "pathVariables": {
+      "uid": "[[DEFAULT_AUTO_VALUE]]"
+    }
+  },
+  "expectedResponse": {
+  "responseCode" : 200,
+  "responseMessage" : "OK",
+  "headers" : {
+    "Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+    "Connection" : "keep-alive",
+    "Content-Length" : "267",
+    "Content-Type" : "application/json",
+    "Date" : "Thu, 20 Nov 2025 14:25:01 GMT",
+    "Expires" : "0",
+    "Keep-Alive" : "timeout=60",
+    "Pragma" : "no-cache",
+    "X-Content-Type-Options" : "nosniff",
+    "X-Frame-Options" : "DENY",
+    "X-XSS-Protection" : "1; mode=block"
+  },
+  "body" : {
+    "CaseLinks" : [ {
+      "CaseReference" : 1763648665371374,
+      "LinkedCaseReference" : 1763648553880650,
+      "CaseTypeId" : "FT_MasterCaseType",
+      "StandardLink" : true
+    }, {
+      "CaseReference" : 1763648665371374,
+      "LinkedCaseReference" : 1763648566106861,
+      "CaseTypeId" : "FT_Conditionals",
+      "StandardLink" : true
+    } ]
+  }
+}
+}

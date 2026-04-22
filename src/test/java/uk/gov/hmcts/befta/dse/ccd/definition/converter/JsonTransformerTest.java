@@ -7,12 +7,15 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junitpioneer.jupiter.SetEnvironmentVariable;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 
 import uk.gov.hmcts.befta.dse.ccd.CcdEnvironment;
@@ -120,6 +123,24 @@ class JsonTransformerTest {
         String actual = jsonTransformer.transformToExcel();
         assertEquals(expected, actual);
         assertTrue(tempfile.delete());
+    }
+
+    @Test
+    @SetEnvironmentVariable(key = "TEST_URL", value = "http://localhost:8080/dummy-api")
+    void testTransformToExcelPreservesCanonicalLiveFromDateFormat() throws IOException {
+        JsonTransformer jsonTransformer = new JsonTransformer(CcdEnvironment.PREVIEW, DEFAULT_DEFINITIONS_PATH_JSON,
+                TEMPORARY_DEFINITION_FOLDER_EXCEL);
+        String outputPath = jsonTransformer.transformToExcel();
+
+        try (FileInputStream inputStream = new FileInputStream(outputPath);
+             Workbook workbook = WorkbookFactory.create(inputStream)) {
+            String formattedValue = ExcelProcessingUtils.getStringDateFromCell(workbook.getSheet("Jurisdiction")
+                    .getRow(3)
+                    .getCell(0));
+            assertEquals("01/01/2017", formattedValue);
+        }
+
+        assertTrue(new File(outputPath).delete());
     }
 
 }

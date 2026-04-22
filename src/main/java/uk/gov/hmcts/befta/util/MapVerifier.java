@@ -197,10 +197,17 @@ public class MapVerifier {
 
     private String getSubfieldFor(String field, CollectionVerificationConfig verificationConfig, int index,
             Object objectWorkedOn) {
-        if (verificationConfig.getOrdering() == Ordering.ORDERED || isPrimitive(objectWorkedOn))
+        if (isPrimitive(objectWorkedOn))
             return field + "[" + index + "]";
-        else
-            return field + "[" + getIdValueIn(objectWorkedOn, verificationConfig.getElementId()) + "]";
+
+        String idDescription = getIdDescriptionIn(objectWorkedOn, verificationConfig.getElementId());
+        if (verificationConfig.getOrdering() == Ordering.ORDERED) {
+            return idDescription == null ? field + "[" + index + "]"
+                    : field + "[" + index + "|" + idDescription + "]";
+        } else {
+            return idDescription == null ? field + "[" + index + "]"
+                    : field + "[" + idDescription + "]";
+        }
     }
 
     private boolean isPrimitive(Object o) {
@@ -221,6 +228,27 @@ public class MapVerifier {
             return null;
         }
     }
+
+    private String getIdDescriptionIn(Object objectWorkedOn, String elementId) {
+        if (elementId == null || elementId.isEmpty()) {
+            return null;
+        }
+        try {
+            String[] idElements = elementId.split(",");
+            List<String> descriptions = new ArrayList<>();
+            for (String idElement : idElements) {
+                Object idElementValue = ReflectionUtils.deepGetFieldInObject(objectWorkedOn, idElement);
+                if (idElementValue == null) {
+                    return null;
+                }
+                descriptions.add(idElement + "=" + idElementValue);
+            }
+            return String.join(",", descriptions);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
 
     @SuppressWarnings("unchecked")
     private void applyVerificationOnCollectionElements(Object o1, Object o2, String fieldPrefix2, String subfield,

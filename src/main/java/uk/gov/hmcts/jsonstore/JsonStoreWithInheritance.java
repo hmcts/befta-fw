@@ -12,6 +12,7 @@ import com.google.common.collect.Sets;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
@@ -30,6 +31,8 @@ public abstract class JsonStoreWithInheritance {
     protected JsonNode rootNode;
     protected Map<String, JsonNode> nodeLibrary = new HashMap<>();
     protected Map<Class<?>, Map<String, ?>> objectLibraryPerTypes = new HashMap<>();
+    protected Map<String, String> guidSources = new HashMap<>();
+    protected Set<String> duplicateGuidErrors = new LinkedHashSet<>();
     protected final String idFieldName;
     protected final String inheritanceFieldName;
     protected Set<String> processedGUIDs = Sets.newHashSet();
@@ -113,9 +116,18 @@ public abstract class JsonStoreWithInheritance {
 
     protected abstract void buildObjectStore() throws Exception;
 
-    protected void validateGUID(String guid) {
-        if (processedGUIDs.contains(guid))
-            throw new InvalidTestDataException("Object with _guid_=" + guid + " already exists");
+    protected void validateGUID(String guid, String source) {
+        if (processedGUIDs.contains(guid)) {
+            String originalSource = guidSources.get(guid);
+            duplicateGuidErrors.add("Object with _guid_=" + guid + " already exists in "
+                    + originalSource + " and " + source);
+        }
+    }
+
+    protected void throwIfDuplicateGUIDsFound() {
+        if (!duplicateGuidErrors.isEmpty()) {
+            throw new InvalidTestDataException(String.join(System.lineSeparator(), duplicateGuidErrors));
+        }
     }
 
     private void inheritAndOverlayValuesFor(JsonNode object) {

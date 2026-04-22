@@ -8,13 +8,15 @@ import org.apache.poi.ss.usermodel.Workbook;
 
 public class ExcelProcessingUtils {
 
+    public static final String CCD_DATE_FORMAT = "dd/MM/yyyy";
+
     private ExcelProcessingUtils() {
     }
 
     public static CellStyle getExcelDateCellStyle(Workbook wb) {
         CreationHelper createHelper = wb.getCreationHelper();
         CellStyle cellStyle = wb.createCellStyle();
-        cellStyle.setDataFormat(createHelper.createDataFormat().getFormat("DD/mm/YYYY"));
+        cellStyle.setDataFormat(createHelper.createDataFormat().getFormat(CCD_DATE_FORMAT));
         return cellStyle;
     }
 

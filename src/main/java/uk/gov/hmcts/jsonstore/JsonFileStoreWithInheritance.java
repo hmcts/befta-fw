@@ -33,21 +33,34 @@ public class JsonFileStoreWithInheritance extends JsonStoreWithInheritance {
         ArrayNode store = new ArrayNode(null);
         for (File subfile : subfiles) {
             JsonNode substore = null;
+            boolean isJsonFile = false;
             if (subfile.isDirectory())
                 substore = buildObjectStoreIn(subfile);
-            else if (subfile.getName().toLowerCase().endsWith(".json"))
+            else if (subfile.getName().toLowerCase().endsWith(".json")) {
                 substore = buildObjectStoreInAFile(subfile);
+                isJsonFile = true;
+            }
 
-            if (substore != null) {
+            if (substore != null && isJsonFile) {
                 String guid = substore.get(GUID).asText();
-                validateGUID(guid);
+                validateGUID(guid, subfile.getPath());
                 if (substore.isArray()) {
                     for (int i = 0; i < substore.size(); i++)
                         store.add(substore.get(i));
                 } else
                     store.add(substore);
+                processedGUIDs.add(guid);
+                guidSources.put(guid, subfile.getPath());
+            } else if (substore != null) {
+                if (substore.isArray()) {
+                    for (int i = 0; i < substore.size(); i++)
+                        store.add(substore.get(i));
+                } else {
+                    store.add(substore);
+                }
             }
         }
+        throwIfDuplicateGUIDsFound();
         if (store.size() == 1)
             return store.get(0);
         return store;

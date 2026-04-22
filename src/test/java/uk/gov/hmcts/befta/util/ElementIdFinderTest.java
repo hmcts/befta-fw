@@ -162,6 +162,8 @@ public class ElementIdFinderTest {
         InvalidTestDataException invalidTestDataException =
                 assertThrows(InvalidTestDataException.class, () -> ElementIdFinder.findElementIds(caseUsers, FIELD));
         assertTrue(invalidTestDataException.getMessage().contains(FIELD));
+        assertTrue(invalidTestDataException.getMessage().contains("Candidate scalar fields found: case_id"));
+        assertTrue(invalidTestDataException.getMessage().contains("Sample element: case_id="));
 
     }
 
@@ -175,6 +177,8 @@ public class ElementIdFinderTest {
 
         InvalidTestDataException invalidTestDataException = assertThrows(InvalidTestDataException.class, () -> ElementIdFinder.findElementIds(caseUsers, FIELD));
         assertTrue(invalidTestDataException.getMessage().contains(FIELD));
+        assertTrue(invalidTestDataException.getMessage().contains("Candidate scalar fields found: case_role"));
+        assertTrue(invalidTestDataException.getMessage().contains("Sample element: case_role=[[ANYTHING_PRESENT]"));
 
     }
 
@@ -215,7 +219,12 @@ public class ElementIdFinderTest {
         caseRole.put("case_role", "[CR-2]");
         caseUsers.add(caseRole);
 
-        assertThrows(InvalidTestDataException.class, () -> ElementIdFinder.findElementIds(caseUsers, FIELD));
+        InvalidTestDataException invalidTestDataException =
+                assertThrows(InvalidTestDataException.class, () -> ElementIdFinder.findElementIds(caseUsers, FIELD));
+        assertTrue(invalidTestDataException.getMessage().contains("Candidate scalar fields found:"));
+        assertTrue(invalidTestDataException.getMessage().contains("case_role"));
+        assertTrue(invalidTestDataException.getMessage().contains("Sample element:"));
+        assertTrue(invalidTestDataException.getMessage().contains("case_role=[CR-1]"));
     }
 
     @Test

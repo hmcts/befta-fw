@@ -3,6 +3,7 @@ package uk.gov.hmcts.jsonstore;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.Assert;
@@ -32,7 +33,12 @@ public class JsonStoreWithInheritanceTest {
     public void shouldHaveOnlyUniqueGUID() {
         final RuntimeException exception = assertThrows(RuntimeException.class, () ->
                 TEST_DATA_RESOURCE_WITH_DUPLICATE_GUIDS.getDataForTestCall("F-050_Test_Data_Base"));
-        assertThat(exception.getMessage(), is("uk.gov.hmcts.befta.exception.InvalidTestDataException: Object with _guid_=F-050_Test_Data_Base already exists"));
+        assertTrue(exception.getMessage().startsWith("uk.gov.hmcts.befta.exception.InvalidTestDataException: "
+                + "Object with _guid_=F-050_Test_Data_Base already exists in "));
+        assertTrue(exception.getMessage().contains(
+                "framework-test-data-duplicate-guids/features-with-duplicate-guids/F-050/F-050_Test_Data_Base.td.json"));
+        assertTrue(exception.getMessage().contains(
+                "framework-test-data-duplicate-guids/features-with-duplicate-guids/F-050/F-050_Test_Data_Base_DUPLICATE.td.json"));
         assertThat(exception.getCause(), is(instanceOf(InvalidTestDataException.class)));
     }
 
