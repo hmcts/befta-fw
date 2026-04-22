@@ -7,6 +7,8 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.junit.jupiter.api.AfterEach;
@@ -34,6 +36,7 @@ class JsonTransformerTest {
     private static final String TEMPORARY_DEFINITION_FOLDER = "temp_dir/JsonTransformerTest/"
             + System.currentTimeMillis() + "/definition_files";
     private static final String TEMPORARY_DEFINITION_FOLDER_EXCEL = TEMPORARY_DEFINITION_FOLDER + "/excel";
+    private static final String TEMPORARY_DEFINITION_FOLDER_JSON = TEMPORARY_DEFINITION_FOLDER + "/json";
 
     @BeforeEach
     void setup() {
@@ -141,6 +144,22 @@ class JsonTransformerTest {
         }
 
         assertTrue(new File(outputPath).delete());
+    }
+
+    @Test
+    @SetEnvironmentVariable(key = "TEST_URL", value = "http://localhost:8080/dummy-api")
+    void testDateFormatIsPreservedAcrossJsonExcelJsonRoundTrip() throws IOException {
+        JsonTransformer jsonTransformer = new JsonTransformer(CcdEnvironment.PREVIEW, DEFAULT_DEFINITIONS_PATH_JSON,
+                TEMPORARY_DEFINITION_FOLDER_EXCEL);
+        String excelPath = jsonTransformer.transformToExcel();
+
+        ExcelTransformer excelTransformer = new ExcelTransformer(excelPath, TEMPORARY_DEFINITION_FOLDER_JSON, true);
+        String jsonOutputFolder = excelTransformer.transformToJson();
+
+        File jurisdictionJson = new File(jsonOutputFolder + "/common/Jurisdiction.json");
+        JsonNode jurisdictionNode = new ObjectMapper().readTree(jurisdictionJson);
+
+        assertEquals("01/01/2017", jurisdictionNode.get(0).get("LiveFrom").asText());
     }
 
 }
