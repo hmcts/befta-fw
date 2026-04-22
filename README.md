@@ -12,12 +12,38 @@ This repository publishes release artifacts to Azure Artifacts using the GitHub 
 
 There are two supported ways to publish:
 
-1. Manual run from GitHub Actions using a `release_version` value.
-2. Push a Git tag and use the tag name as the release version.
+| Method | When to use | Version source | Naming rule |
+| --- | --- | --- |
+| Manual publish | Pre-release or explicit version publish | `release_version` entered in GitHub Actions | Must match the valid version format below |
+| Tag-based publish | Normal tagged release | Git tag name | Tag name must match the valid version format below |
+
+### Version format
+
+The same version format is used for manual `release_version` values and tag-based releases.
+
+Naming rule:
+
+| Case | Format | Example |
+| --- | --- | --- |
+| Released version | `<major>.<minor>.<patch>` | `9.2.2` |
+| PR or pre-release version | `<major>.<minor>.<patch>_BEFTA-<ticket>` | `9.2.2_BEFTA-1234` |
+| Release candidate version | `<major>.<minor>.<patch>-<suffix>` | `9.2.2-rc1` |
+
+Examples of valid values:
+
+| Valid | Invalid |
+| --- | --- |
+| `9.2.2` | `feature/my-branch` |
+| `9.2.2_BEFTA-1234` | `BEFTA-1234` |
+| `9.2.2-rc1` | `release 9.2.2` |
+|  | `9.2.2_hotfix` |
+|  | `9.2.2-feature1` |
+|  | `9.2.2_BEFTA1234` |
+
+If the value is invalid, the workflow fails early with an error before publishing anything.
+If the artifact version already exists in Azure Artifacts, the workflow also fails before publishing.
 
 ### Manual publish
-
-Use this when you want to publish a pre-release or a version that should not be derived from the branch name.
 
 In GitHub:
 
@@ -26,20 +52,6 @@ In GitHub:
 3. Select `Run workflow`.
 4. Enter a `release_version`.
 5. Run the workflow.
-
-Examples of valid manual `release_version` values:
-
-* `9.2.2`
-* `9.2.2_BEFTA-1234`
-* `9.2.2-rc1`
-
-Examples of invalid values:
-
-* `feature/my-branch`
-* `BEFTA-1234`
-* `release 9.2.2`
-
-If the value is invalid, the workflow fails early with an error before publishing anything.
 
 ### Tag-based publish
 
@@ -52,23 +64,32 @@ git tag 9.2.2
 git push origin 9.2.2
 ```
 
-Examples:
-
-* Tag `9.2.2` publishes version `9.2.2`
-* Tag `9.2.2-rc1` publishes version `9.2.2-rc1`
-* Tag `9.2.2_BEFTA-1234` publishes version `9.2.2_BEFTA-1234`
-
 ### Which option to use
 
-Use manual publish when:
+| Use manual publish when | Use tag-based publish when |
+| --- | --- |
+| you are testing a pre-release version | you want the Git tag to be the release version |
+| you want an explicit version that is independent of the branch name | you are performing a normal tagged release |
 
-* you are testing a pre-release version
-* you want an explicit version that is independent of the branch name
+### Artifact cleanup workflow setup
 
-Use tag-based publish when:
+The `Delete Azure Artifacts Versions` workflow is intended for repository maintainers only.
 
-* you want the Git tag to be the release version
-* you are performing a normal tagged release
+| Requirement | Purpose |
+| --- | --- |
+| GitHub Actions environment `artifact-cleanup` | Adds an approval gate for deletion |
+| Required reviewers on `artifact-cleanup` | Restricts who can approve cleanup runs |
+| Repository variable `ARTIFACT_DELETE_ALLOWED_USERS` | Restricts who can start the workflow |
+| Secrets `AZURE_DEVOPS_ARTIFACT_USERNAME` and `AZURE_DEVOPS_ARTIFACT_TOKEN` | Authorises Azure Artifacts API calls |
+
+Recommended usage:
+
+| Setting | Recommendation |
+| --- | --- |
+| `dry_run` | Run with `true` first |
+| `delete_mode` | Use `recycle_bin` before `permanent_delete` |
+
+Deleting a version from Azure Artifacts does not make that version reusable.
 
 
 ## 1) WHAT IS BEFTA FRAMEWORK?
