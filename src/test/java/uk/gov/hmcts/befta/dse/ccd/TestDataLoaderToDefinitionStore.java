@@ -2,16 +2,20 @@ package uk.gov.hmcts.befta.dse.ccd;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.when;
 
+import com.github.rholder.retry.Retryer;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 import org.junitpioneer.jupiter.SetEnvironmentVariable;
 import org.mockito.MockedStatic;
 
@@ -21,16 +25,25 @@ import io.restassured.response.ResponseBody;
 import io.restassured.specification.RequestSpecification;
 import uk.gov.hmcts.befta.DefaultTestAutomationAdapter;
 import uk.gov.hmcts.befta.TestAutomationAdapter;
+import uk.gov.hmcts.befta.util.Retryable;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.ArgumentMatchers;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Stream;
+import javax.net.ssl.SSLException;
 
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static uk.gov.hmcts.befta.util.HttpRequestRetryer.createRetryer;
 
 @SuppressWarnings({"LineLength","VariableDeclarationUsageDistance"})
 class TestDataLoaderToDefinitionStore {
@@ -259,6 +272,56 @@ class TestDataLoaderToDefinitionStore {
         fail("Not yet implemented");
     }
 
+    @Test
+    @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
+    @SetEnvironmentVariable(key = IDAM_URL_KEY, value = IDAM_URL_VALUE)
+    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_ID_KEY, value = BEFTA_S2S_CLIENT_ID_VALUE)
+    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_SECRET_KEY, value = BEFTA_S2S_CLIENT_SECRET_VALUE)
+    @SetEnvironmentVariable(key = S2S_URL_KEY, value = S2S_URL_VALUE)
+    @SetEnvironmentVariable(key = CCD_IMPORT_AUTOTEST_EMAIL, value = CCD_IMPORT_AUTOTEST_EMAIL_VALUE)
+    @SetEnvironmentVariable(key = CCD_IMPORT_AUTOTEST_PASSWORD, value = CCD_IMPORT_AUTOTEST_PASSWORD_VALUE)
+    @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_CLIENT_ID", value = "OAUTH2_CLIENT_ID_VALUE")
+    @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_CLIENT_SECRET", value = "OAUTH2_CLIENT_SECRET_VALUE")
+    @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_REDIRECT_URL", value = "OAUTH2_REDIRECT_URI_VALUE")
+    void testImportDefinitionRetriesRetryableSslException(@TempDir Path tempDir) throws IOException {
+        TestAutomationAdapter mockAdapter = mock(TestAutomationAdapter.class);
+        when(mockAdapter.getNewS2STokenWithEnvVars("CCD_API_GATEWAY_S2S_ID", "CCD_API_GATEWAY_S2S_KEY"))
+                .thenReturn("s2s_token");
+
+        RequestSpecification requestSpecification = mock(RequestSpecification.class);
+        Response rs = mock(Response.class);
+
+        when(RestAssured.given(any())).thenReturn(requestSpecification);
+        when(requestSpecification.header(any())).thenReturn(requestSpecification);
+        when(requestSpecification.given()).thenReturn(requestSpecification);
+        when(requestSpecification.multiPart(any(File.class))).thenReturn(requestSpecification);
+        when(requestSpecification.when()).thenReturn(requestSpecification);
+        when(requestSpecification.request(eq("POST"), eq("/import")))
+                .thenAnswer(invocation -> {
+                    throw new SSLException("bad_record_mac");
+                })
+                .thenReturn(rs);
+        when(rs.getStatusCode()).thenReturn(201);
+
+        Retryable retryable = Retryable.builder()
+                .maxAttempts(2)
+                .retryableExceptions(Set.of(SSLException.class))
+                .nonRetryableHttpMethods(Set.of("POST", "PUT"))
+                .retryListener(Retryable.setRetryListener(false))
+                .build();
+        DataLoaderToDefinitionStore dataLoaderToDefinitionStore = new RetryableDataLoaderToDefinitionStore(
+                mockAdapter,
+                createRetryer(DataLoaderToDefinitionStore.createDefinitionImportRetryConfiguration(retryable),
+                        "POST"));
+
+        Path definitionFile = Files.writeString(tempDir.resolve("definition.xlsx"), "definition");
+
+        dataLoaderToDefinitionStore.importDefinition(definitionFile.toString());
+
+        verify(requestSpecification, times(2)).request(eq("POST"), eq("/import"));
+        verify(requestSpecification, never()).post("/import");
+    }
+
     @Disabled("Not yet implemented")
     @Test
     void testAsAutoTestImporter() {
@@ -357,6 +420,21 @@ class TestDataLoaderToDefinitionStore {
                 Arguments.of("ccd-roles-test-data/without-ccd-roles/definitions", numberOfCcdRolesInDefaultList),
                 Arguments.of("ccd-roles-test-data/with-bad-ccd-roles/definitions", numberOfCcdRolesInDefaultList)
         );
+    }
+
+    private static class RetryableDataLoaderToDefinitionStore extends DataLoaderToDefinitionStore {
+
+        private final Retryer<Response> definitionImportRetryer;
+
+        RetryableDataLoaderToDefinitionStore(TestAutomationAdapter adapter, Retryer<Response> definitionImportRetryer) {
+            super(adapter);
+            this.definitionImportRetryer = definitionImportRetryer;
+        }
+
+        @Override
+        protected Retryer<Response> getDefinitionImportRetryer() {
+            return definitionImportRetryer;
+        }
     }
 
 }

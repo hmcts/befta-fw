@@ -1,5 +1,6 @@
 package uk.gov.hmcts.befta.dse.ccd;
 
+import com.github.rholder.retry.Retryer;
 import com.google.common.reflect.ClassPath;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
@@ -24,6 +25,7 @@ import uk.gov.hmcts.befta.util.BeftaUtils;
 import uk.gov.hmcts.befta.util.EnvironmentVariableUtils;
 import uk.gov.hmcts.befta.util.FileUtils;
 import uk.gov.hmcts.befta.util.JsonUtils;
+import uk.gov.hmcts.befta.util.Retryable;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -45,6 +47,9 @@ import java.util.stream.Collectors;
 
 import io.restassured.http.Header;
 
+import static uk.gov.hmcts.befta.util.HttpRequestRetryer.createRetryer;
+import static uk.gov.hmcts.befta.util.HttpRequestRetryer.executeHttpRequestWithRetry;
+
 public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
 
     private static final Logger logger = LoggerFactory.getLogger(DataLoaderToDefinitionStore.class);
@@ -52,6 +57,8 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
     public static final String VALID_CCD_TEST_DEFINITIONS_PATH = "uk/gov/hmcts/ccd/test_definitions/valid";
 
     private static final String TEMPORARY_DEFINITION_FOLDER = "definition_files";
+    private static final String IMPORT_DEFINITION_PATH = "/import";
+    private static final String POST_METHOD = "POST";
 
     private static final String[] RA_DATA_RESOURCE_PACKAGES = { "roleAssignments" };
 
@@ -95,6 +102,7 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
     private final TestAutomationAdapter adapter;
     private final String definitionStoreUrl;
     private final String definitionsPath;
+    private final Retryer<Response> definitionImportRetryer;
 
     public DataLoaderToDefinitionStore(String definitionsPath) {
         this(new DefaultTestAutomationAdapter(), definitionsPath, CcdEnvironment.AAT,
@@ -131,6 +139,9 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
         this.adapter = adapter;
         this.definitionsPath = definitionsPath;
         this.definitionStoreUrl = definitionStoreUrl;
+        this.definitionImportRetryer = createRetryer(
+                createDefinitionImportRetryConfiguration(Retryable.RETRYABLE_FROM_CONFIG),
+                POST_METHOD);
     }
 
     private static CcdEnvironment selectEnvironmentWith(CcdEnvironment dataSetupEnvironment,
@@ -413,7 +424,12 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
         File file = new File(fileResourcePath).exists() ? new File(fileResourcePath)
                 : BeftaUtils.getClassPathResourceIntoTemporaryFile(fileResourcePath);
         try {
-            Response response = asAutoTestImporter().given().multiPart(file).when().post("/import");
+            RequestSpecification importRequest = asAutoTestImporter().given().multiPart(file).when();
+            Response response = executeHttpRequestWithRetry(
+                    importRequest,
+                    POST_METHOD,
+                    IMPORT_DEFINITION_PATH,
+                    getDefinitionImportRetryer());
             if (response.getStatusCode() != 201) {
                 String message = "Import failed with response body: " + response.body().prettyPrint();
                 message += "\nand http code: " + response.statusCode();
@@ -422,6 +438,22 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
         } finally {
             file.delete();
         }
+    }
+
+    protected Retryer<Response> getDefinitionImportRetryer() {
+        return definitionImportRetryer;
+    }
+
+    static Retryable createDefinitionImportRetryConfiguration(Retryable retryable) {
+        return Retryable.builder()
+                .maxAttempts(retryable.getMaxAttempts())
+                .statusCodes(retryable.getStatusCodes())
+                .match(retryable.getMatch())
+                .delay(retryable.getDelay())
+                .retryableExceptions(retryable.getRetryableExceptions())
+                .nonRetryableHttpMethods(new HashSet<>())
+                .retryListener(retryable.getRetryListener())
+                .build();
     }
 
     protected RequestSpecification asAutoTestImporter() {
