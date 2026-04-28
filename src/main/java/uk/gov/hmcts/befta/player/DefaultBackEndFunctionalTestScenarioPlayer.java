@@ -65,6 +65,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static uk.gov.hmcts.befta.util.HttpRequestRetryer.createRetryer;
+import static uk.gov.hmcts.befta.util.HttpRequestRetryer.executeHttpRequestWithRetry;
+
 public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFunctionalTestAutomationDSL {
 
     static final String HTTP_S_REGEX = "^(http|https):.*";
@@ -402,40 +405,9 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         }
 
         Retryable retryable = scenarioContext.getRetryConfiguration();
-        Retryer<Response> retryer;
+        Retryer<Response> retryer = createRetryer(retryable, testData.getMethod());
 
         logger.info("Calling: {} {}", testData.getMethod(), uri);
-        if (retryable.getNonRetryableHttpMethods().contains("*") || retryable.getNonRetryableHttpMethods()
-                                                                                .contains(testData.getMethod())) {
-            logger.info("Applying no-retry policy...");
-            retryer = RetryerBuilder.<Response>newBuilder().build();
-        } else {
-            retryer = RetryerBuilder.<Response>newBuilder()
-                    .withRetryListener(retryable.getRetryListener())
-                    .retryIfException(e -> {
-                        boolean isRetryableException = retryable.getRetryableExceptions().contains(e.getClass());
-                        Throwable cause = e.getCause();
-                        boolean isRetryableCause = cause != null && retryable.getRetryableExceptions()
-                                .contains(cause.getClass());
-                        return isRetryableException || isRetryableCause;
-                    })
-                    .retryIfResult(res -> retryable.getStatusCodes().contains(res.getStatusCode()))
-                    .retryIfResult(res -> {
-                        for (String match : retryable.getMatch()) {
-                            Pattern pattern = Pattern.compile(match);
-                            Matcher matcher = pattern.matcher(res.asString());
-                            if (matcher.find()) {
-                                return true;
-                            }
-                        }
-                        return false;
-                    })
-                    .withStopStrategy(StopStrategies.stopAfterAttempt(retryable.getMaxAttempts()))
-                    .withWaitStrategy(WaitStrategies.fixedWait(retryable.getDelay(), TimeUnit.MILLISECONDS))
-                    .build();
-
-            logger.info("Applying active retry policy... {}", retryable);
-        }
 
         Response response = executeHttpRequestWithRetry(theRequest, testData.getMethod(), uri, retryer);
         ResponseData responseData = convertRestAssuredResponseToBeftaResponse(scenarioContext, response);
@@ -444,21 +416,6 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
         scenario.log("Called: " + queryableRequest.getMethod() + " " + queryableRequest.getURI());
         scenario.log("Response:\n" + JsonUtils.getPrettyJsonFromObject(scenarioContext.getTheResponse()));
         scenarioContext.injectDataFromContextAfterApiCall();
-    }
-
-    private Response executeHttpRequestWithRetry(RequestSpecification theRequest, String method, String uri,
-                                                        Retryer<Response> retryer) {
-        try {
-            Callable<Response> callable = () -> theRequest.request(method, uri);
-            return retryer.call(callable);
-        } catch (RetryException retryException) {
-            throw new FunctionalTestException(
-                    String.format("Retry Exception when calling %s", uri), retryException);
-        } catch (ExecutionException executionException) {
-            throw new FunctionalTestException(
-                    String.format("Execution Exception when authenticating user %s", uri),
-                    executionException);
-        }
     }
 
     private ResponseData convertRestAssuredResponseToBeftaResponse(BackEndFunctionalTestScenarioContext scenarioContext,
