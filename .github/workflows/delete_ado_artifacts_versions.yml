@@ -1,0 +1,105 @@
+name: Delete Azure Artifacts Versions
+
+on:
+  workflow_dispatch:
+    inputs:
+      versions:
+        description: 'Newline-separated artifact versions to delete'
+        required: true
+        type: string
+      delete_mode:
+        description: 'Delete mode'
+        required: true
+        default: recycle_bin
+        type: choice
+        options:
+          - recycle_bin
+          - permanent_delete
+      dry_run:
+        description: 'Preview only without deleting'
+        required: true
+        default: true
+        type: boolean
+
+jobs:
+  DeleteAzureArtifactsVersions:
+    runs-on: ubuntu-latest
+    environment: artifact-cleanup
+
+    steps:
+      - name: Check actor is allowlisted
+        env:
+          GITHUB_ACTOR_NAME: ${{ github.actor }}
+          ALLOWED_USERS: ${{ vars.ARTIFACT_DELETE_ALLOWED_USERS }}
+        run: |
+          set -euo pipefail
+
+          if [[ -z "${ALLOWED_USERS// }" ]]; then
+            echo "Repository variable ARTIFACT_DELETE_ALLOWED_USERS is not configured."
+            exit 1
+          fi
+
+          allowed_match=false
+          IFS=',' read -ra allowed_users <<< "$ALLOWED_USERS"
+          for allowed_user in "${allowed_users[@]}"; do
+            allowed_user="${allowed_user#"${allowed_user%%[![:space:]]*}"}"
+            allowed_user="${allowed_user%"${allowed_user##*[![:space:]]}"}"
+            if [[ "$GITHUB_ACTOR_NAME" == "$allowed_user" ]]; then
+              allowed_match=true
+              break
+            fi
+          done
+
+          if [[ "$allowed_match" != "true" ]]; then
+            echo "User ${GITHUB_ACTOR_NAME} is not permitted to run this workflow."
+            exit 1
+          fi
+        shell: bash
+
+      - name: Delete requested artifact versions
+        env:
+          AZURE_DEVOPS_ARTIFACT_USERNAME: ${{ secrets.AZURE_DEVOPS_ARTIFACT_USERNAME }}
+          AZURE_DEVOPS_ARTIFACT_TOKEN: ${{ secrets.AZURE_DEVOPS_ARTIFACT_TOKEN }}
+          RAW_VERSIONS: ${{ inputs.versions }}
+          DELETE_MODE: ${{ inputs.delete_mode }}
+          DRY_RUN: ${{ inputs.dry_run }}
+          ORGANIZATION: hmcts
+          FEED: hmcts-lib
+          GROUP_ID: com.github.hmcts
+          ARTIFACT_ID: befta-fw
+        run: |
+          set -euo pipefail
+
+          group_path="${GROUP_ID//./\/}"
+
+          if [[ "$DELETE_MODE" == "recycle_bin" ]]; then
+            base_url="https://pkgs.dev.azure.com/${ORGANIZATION}/Artifacts/_packaging/${FEED}/maven/groups/${group_path}/artifacts/${ARTIFACT_ID}/versions"
+          else
+            base_url="https://pkgs.dev.azure.com/${ORGANIZATION}/Artifacts/_packaging/${FEED}/maven/RecycleBin/groups/${group_path}/artifacts/${ARTIFACT_ID}/versions"
+          fi
+
+          while IFS= read -r version; do
+            version="${version#"${version%%[![:space:]]*}"}"
+            version="${version%"${version##*[![:space:]]}"}"
+
+            if [[ -z "$version" ]]; then
+              continue
+            fi
+
+            encoded_version="$(python3 -c 'import sys, urllib.parse; print(urllib.parse.quote(sys.argv[1], safe=""))' "$version")"
+            delete_url="${base_url}/${encoded_version}?api-version=7.1-preview.1"
+
+            if [[ "$DRY_RUN" == "true" ]]; then
+              echo "DRY RUN: would delete ${GROUP_ID}:${ARTIFACT_ID}:${version} using ${DELETE_MODE}"
+              echo "DRY RUN: ${delete_url}"
+              continue
+            fi
+
+            echo "Deleting ${GROUP_ID}:${ARTIFACT_ID}:${version} using ${DELETE_MODE}"
+            curl --fail --silent --show-error \
+              --request DELETE \
+              --user "${AZURE_DEVOPS_ARTIFACT_USERNAME}:${AZURE_DEVOPS_ARTIFACT_TOKEN}" \
+              "$delete_url"
+            echo "Deleted ${version}"
+          done <<< "$RAW_VERSIONS"
+        shell: bash
