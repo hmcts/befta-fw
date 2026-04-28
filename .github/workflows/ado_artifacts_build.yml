@@ -37,9 +37,9 @@ jobs:
       - name: Validate release version
         run: |
           release_version="${{ env.release_version }}"
-          if [[ ! "$release_version" =~ ^[0-9]+\.[0-9]+\.[0-9]+(_BEFTA-[0-9]+|-rc[0-9]+)?$ ]]; then
+          if [[ ! "$release_version" =~ ^[0-9]+\.[0-9]+\.[0-9]+(_(BEFTA|CCD)-[0-9]+|-rc[0-9]+)?$ ]]; then
             echo "Invalid release_version: $release_version"
-            echo "Expected formats: 9.2.2, 9.2.2_BEFTA-1234, or 9.2.2-rc1"
+            echo "Expected formats: 9.2.2, 9.2.2_BEFTA-1234, 9.2.2_CCD-7522, or 9.2.2-rc1"
             exit 1
           fi
         shell: bash

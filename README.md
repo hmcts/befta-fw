@@ -26,8 +26,10 @@ Naming rule:
 | Case | Format | Example |
 | --- | --- | --- |
 | Released version | `<major>.<minor>.<patch>` | `9.2.2` |
-| PR or pre-release version | `<major>.<minor>.<patch>_BEFTA-<ticket>` | `9.2.2_BEFTA-1234` |
+| PR or pre-release version | `<major>.<minor>.<patch>_<ticket-prefix>-<ticket>` | `9.2.2_BEFTA-1234`, `9.2.2_CCD-7522` |
 | Release candidate version | `<major>.<minor>.<patch>-<suffix>` | `9.2.2-rc1` |
+
+Supported ticket prefixes are `BEFTA` and `CCD`.
 
 Examples of valid values:
 
@@ -35,6 +37,7 @@ Examples of valid values:
 | --- | --- |
 | `9.2.2` | `feature/my-branch` |
 | `9.2.2_BEFTA-1234` | `BEFTA-1234` |
+| `9.2.2_CCD-7522` | `9.2.2_CCD7522` |
 | `9.2.2-rc1` | `release 9.2.2` |
 |  | `9.2.2_hotfix` |
 |  | `9.2.2-feature1` |
