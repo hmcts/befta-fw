@@ -72,6 +72,8 @@ Below are the environment needed specifically for CCD domain.
      will be imported to Definition Store, for automated test data preparation.
    * DEFINITION_IMPORTER_PASSWORD: Password of the user on behalf of which definitions 
      will be imported to Definition Store, for automated test data preparation.
+   * BEFTA_FORCE_IMPORT_RETRY: Optional. Set to `true` to retry transient transport failures during CCD definition
+     import. Defaults to no retry.
 
 Below are the environment needed specifically to Create Role Assignment data.
 * ROLE_ASSIGNMENT_API_GATEWAY_S2S_CLIENT_ID:S2S service token for Role Assignment service.
@@ -239,6 +241,11 @@ data before running feature tests.
 The BEFTA Framework will always load the JSON definitions in `befta-fw` from the directory 
 `src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions`, use them to create a XLSX file and import it to the 
 ccd definition store.  
+
+`DataLoaderToDefinitionStore` does not use the global retry policy for the definition import call. To opt in to
+import-specific retry, set `BEFTA_FORCE_IMPORT_RETRY=true`. This retries transient transport exceptions, such as
+`javax.net.ssl.SSLException`, for up to 3 total import attempts. The first retry waits 1000 ms and the second retry
+waits 2000 ms. HTTP import failures are not retried.
 
 :warning: Any changes made to XLSX files in the directory `src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/excel` will 
 *NOT* be imported to the definition store.
