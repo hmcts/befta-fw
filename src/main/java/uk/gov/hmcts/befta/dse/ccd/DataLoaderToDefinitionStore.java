@@ -24,6 +24,7 @@ import uk.gov.hmcts.befta.util.BeftaUtils;
 import uk.gov.hmcts.befta.util.EnvironmentVariableUtils;
 import uk.gov.hmcts.befta.util.FileUtils;
 import uk.gov.hmcts.befta.util.JsonUtils;
+import uk.gov.hmcts.befta.util.Retryable;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -57,8 +58,6 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
     public static final String VALID_CCD_TEST_DEFINITIONS_PATH = "uk/gov/hmcts/ccd/test_definitions/valid";
 
     private static final String TEMPORARY_DEFINITION_FOLDER = "definition_files";
-    private static final int DEFINITION_IMPORT_MAX_ATTEMPTS = 3;
-    private static final long DEFINITION_IMPORT_RETRY_DELAY_MILLIS = 5000L;
 
     private static final String[] RA_DATA_RESOURCE_PACKAGES = { "roleAssignments" };
 
@@ -470,11 +469,11 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
     }
 
     protected int getDefinitionImportMaxAttempts() {
-        return DEFINITION_IMPORT_MAX_ATTEMPTS;
+        return Retryable.RETRYABLE_FROM_CONFIG.getMaxAttempts();
     }
 
     protected long getDefinitionImportRetryDelayInMilliseconds() {
-        return DEFINITION_IMPORT_RETRY_DELAY_MILLIS;
+        return Retryable.RETRYABLE_FROM_CONFIG.getDelay();
     }
 
     protected void waitBeforeDefinitionImportRetry(long retryDelayInMilliseconds) {

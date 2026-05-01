@@ -454,6 +454,11 @@ class TestDataLoaderToDefinitionStore {
         }
 
         @Override
+        protected int getDefinitionImportMaxAttempts() {
+            return 3;
+        }
+
+        @Override
         protected long getDefinitionImportRetryDelayInMilliseconds() {
             return 0L;
         }
