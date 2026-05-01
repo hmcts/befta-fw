@@ -29,6 +29,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junitpioneer.jupiter.ClearEnvironmentVariable;
 import org.junitpioneer.jupiter.SetEnvironmentVariable;
 import org.mockito.ArgumentMatchers;
 import org.mockito.MockedStatic;
@@ -265,6 +266,35 @@ class TestDataLoaderToDefinitionStore {
 
     @Test
     @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
+    @ClearEnvironmentVariable(key = "BEFTA_FORCE_IMPORT_RETRY")
+    void testImportDefinitionRetryDefaultsToOneAttempt() {
+        TestAutomationAdapter mockAdapter = mock(TestAutomationAdapter.class);
+        DataLoaderToDefinitionStore dataLoaderToDefinitionStore = new DataLoaderToDefinitionStore(mockAdapter);
+
+        Assertions.assertFalse(dataLoaderToDefinitionStore.shouldForceImportRetry());
+        Assertions.assertEquals(1, dataLoaderToDefinitionStore.getDefinitionImportMaxAttempts());
+        Assertions.assertEquals(1000L, dataLoaderToDefinitionStore.getDefinitionImportRetryDelayInMilliseconds());
+        Assertions.assertEquals(1000L, dataLoaderToDefinitionStore.getDefinitionImportRetryDelayInMilliseconds(1));
+        Assertions.assertEquals(2000L, dataLoaderToDefinitionStore.getDefinitionImportRetryDelayInMilliseconds(2));
+    }
+
+    @Test
+    @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
+    @SetEnvironmentVariable(key = "BEFTA_FORCE_IMPORT_RETRY", value = "true")
+    void testImportDefinitionRetryUsesForceImportRetryEnvironmentVariable() {
+        TestAutomationAdapter mockAdapter = mock(TestAutomationAdapter.class);
+        DataLoaderToDefinitionStore dataLoaderToDefinitionStore = new DataLoaderToDefinitionStore(mockAdapter);
+
+        Assertions.assertTrue(dataLoaderToDefinitionStore.shouldForceImportRetry());
+        Assertions.assertEquals(3, dataLoaderToDefinitionStore.getDefinitionImportMaxAttempts());
+        Assertions.assertEquals(1000L, dataLoaderToDefinitionStore.getDefinitionImportRetryDelayInMilliseconds());
+        Assertions.assertEquals(1000L, dataLoaderToDefinitionStore.getDefinitionImportRetryDelayInMilliseconds(1));
+        Assertions.assertEquals(2000L, dataLoaderToDefinitionStore.getDefinitionImportRetryDelayInMilliseconds(2));
+        Assertions.assertEquals(3000L, dataLoaderToDefinitionStore.getDefinitionImportRetryDelayInMilliseconds(3));
+    }
+
+    @Test
+    @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
     @SetEnvironmentVariable(key = IDAM_URL_KEY, value = IDAM_URL_VALUE)
     @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_ID_KEY, value = BEFTA_S2S_CLIENT_ID_VALUE)
     @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_SECRET_KEY, value = BEFTA_S2S_CLIENT_SECRET_VALUE)
@@ -305,6 +335,7 @@ class TestDataLoaderToDefinitionStore {
     @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_CLIENT_ID", value = "OAUTH2_CLIENT_ID_VALUE")
     @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_CLIENT_SECRET", value = "OAUTH2_CLIENT_SECRET_VALUE")
     @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_REDIRECT_URL", value = "OAUTH2_REDIRECT_URI_VALUE")
+    @SetEnvironmentVariable(key = "BEFTA_FORCE_IMPORT_RETRY", value = "true")
     void testImportDefinitionRetriesSslTransportException() throws Exception {
         TestAutomationAdapter mockAdapter = mock(TestAutomationAdapter.class);
         RequestSpecification requestSpecification = mock(RequestSpecification.class);
@@ -451,11 +482,6 @@ class TestDataLoaderToDefinitionStore {
 
         TestableDataLoaderToDefinitionStore(TestAutomationAdapter adapter) {
             super(adapter);
-        }
-
-        @Override
-        protected int getDefinitionImportMaxAttempts() {
-            return 3;
         }
 
         @Override

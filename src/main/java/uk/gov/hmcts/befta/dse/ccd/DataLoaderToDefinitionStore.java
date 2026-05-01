@@ -24,7 +24,6 @@ import uk.gov.hmcts.befta.util.BeftaUtils;
 import uk.gov.hmcts.befta.util.EnvironmentVariableUtils;
 import uk.gov.hmcts.befta.util.FileUtils;
 import uk.gov.hmcts.befta.util.JsonUtils;
-import uk.gov.hmcts.befta.util.Retryable;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -58,6 +57,10 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
     public static final String VALID_CCD_TEST_DEFINITIONS_PATH = "uk/gov/hmcts/ccd/test_definitions/valid";
 
     private static final String TEMPORARY_DEFINITION_FOLDER = "definition_files";
+    private static final String BEFTA_FORCE_IMPORT_RETRY = "BEFTA_FORCE_IMPORT_RETRY";
+    private static final int DEFINITION_IMPORT_RETRY_MAX_ATTEMPTS = 3;
+    private static final int DEFINITION_IMPORT_NO_RETRY_MAX_ATTEMPTS = 1;
+    private static final long DEFINITION_IMPORT_RETRY_DELAY_MILLIS = 1000L;
 
     private static final String[] RA_DATA_RESOURCE_PACKAGES = { "roleAssignments" };
 
@@ -427,7 +430,6 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
 
     private void importDefinitionWithRetry(File file) throws IOException {
         int maxAttempts = Math.max(1, getDefinitionImportMaxAttempts());
-        long retryDelayInMilliseconds = Math.max(0L, getDefinitionImportRetryDelayInMilliseconds());
 
         for (int attempt = 1; attempt <= maxAttempts; attempt++) {
             long attemptStartTime = System.currentTimeMillis();
@@ -444,6 +446,7 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
                     rethrowDefinitionImportException(e);
                 }
 
+                long retryDelayInMilliseconds = getDefinitionImportRetryDelayInMilliseconds(attempt);
                 logger.warn(
                         "Transport failure importing definition file '{}' on attempt {} of {} after {} ms. "
                                 + "Retrying in {} ms. Cause: {}",
@@ -469,11 +472,21 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
     }
 
     protected int getDefinitionImportMaxAttempts() {
-        return Retryable.RETRYABLE_FROM_CONFIG.getMaxAttempts();
+        return shouldForceImportRetry()
+                ? DEFINITION_IMPORT_RETRY_MAX_ATTEMPTS
+                : DEFINITION_IMPORT_NO_RETRY_MAX_ATTEMPTS;
     }
 
     protected long getDefinitionImportRetryDelayInMilliseconds() {
-        return Retryable.RETRYABLE_FROM_CONFIG.getDelay();
+        return DEFINITION_IMPORT_RETRY_DELAY_MILLIS;
+    }
+
+    protected long getDefinitionImportRetryDelayInMilliseconds(int failedAttempt) {
+        return Math.max(0L, getDefinitionImportRetryDelayInMilliseconds()) * Math.max(1, failedAttempt);
+    }
+
+    protected boolean shouldForceImportRetry() {
+        return Boolean.parseBoolean(EnvironmentVariableUtils.getOptionalVariable(BEFTA_FORCE_IMPORT_RETRY));
     }
 
     protected void waitBeforeDefinitionImportRetry(long retryDelayInMilliseconds) {
