@@ -72,6 +72,8 @@ Below are the environment needed specifically for CCD domain.
      will be imported to Definition Store, for automated test data preparation.
    * DEFINITION_IMPORTER_PASSWORD: Password of the user on behalf of which definitions 
      will be imported to Definition Store, for automated test data preparation.
+   * BEFTA_FORCE_IMPORT_RETRY: Optional. Set to `true` to opt in to CCD definition import retry. Defaults to no
+     retry. See [CCD Definition Import Retry](#ccd-definition-import-retry).
 
 Below are the environment needed specifically to Create Role Assignment data.
 * ROLE_ASSIGNMENT_API_GATEWAY_S2S_CLIENT_ID:S2S service token for Role Assignment service.
@@ -239,6 +241,9 @@ data before running feature tests.
 The BEFTA Framework will always load the JSON definitions in `befta-fw` from the directory 
 `src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions`, use them to create a XLSX file and import it to the 
 ccd definition store.  
+
+For retry behavior around transient import transport failures, see
+[CCD Definition Import Retry](#ccd-definition-import-retry).
 
 :warning: Any changes made to XLSX files in the directory `src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/excel` will 
 *NOT* be imported to the definition store.
@@ -727,6 +732,14 @@ The Retryable Feature is a new addition that allows you to execute tests multipl
 until they pass or reach the maximum number of attempts. This is useful when you have flaky tests that 
 fail randomly due to network issues, timeouts, or other intermittent failures.
 
+### CCD Definition Import Retry
+CCD definition import uses a separate, opt-in retry from the global retry policy because the `/import` request is a
+multipart POST and is intentionally scoped to `DataLoaderToDefinitionStore`.
+
+Set `BEFTA_FORCE_IMPORT_RETRY=true` to retry transient transport exceptions during `DataLoaderToDefinitionStore`
+definition import, such as `javax.net.ssl.SSLException`. Defaults to no retry. When enabled, BEFTA makes up to 3 total
+import attempts. The first retry waits 1000 ms and the second retry waits 2000 ms. HTTP import failures are not retried.
+
 ### Default Policy
 The Default Retry Policy provides a baseline configuration for retrying scenarios in the absence of service-specific settings. 
 This default behavior is configured using the following environment variables:
@@ -855,4 +868,3 @@ In this example, the framework will wait for 10 seconds before making the reques
 it is submitted to call the [Get User Details] operation of [User Management Service] with a delay of [5] seconds [after] the call
 ```
 Here, the framework will wait for 5 seconds after making the request to "Get User Details" operation of the "User Management Service" before proceeding with the next steps.
-
