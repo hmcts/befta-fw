@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
     inputs:
       release_version:
-        description: 'Artifact version to publish when running manually'
-        required: true
+        description: 'Artifact version to publish when running manually. Leave empty on master to use the build version.'
+        required: false
         type: string
   push:
     tags:
@@ -23,8 +23,29 @@ jobs:
 
       - name: Resolve release version
         run: |
-          release_version="${{ inputs.release_version || github.ref_name }}"
+          if [[ "$GITHUB_EVENT_NAME" == "workflow_dispatch" && "$GITHUB_REF_NAME" == "master" ]]; then
+            build_version="$(sed -nE 's/.*\?: "([^"]+)".*/\1/p' build.gradle | head -n 1)"
+            if [[ ! "$build_version" =~ ^([0-9]+\.[0-9]+\.[0-9]+) ]]; then
+              echo "Unable to resolve numeric build version from build.gradle: $build_version"
+              echo "Master publish requires build.gradle to contain a version starting with major.minor.patch, for example: 9.2.7"
+              echo "Please fix the build.gradle fallback version before rerunning the workflow."
+              exit 1
+            fi
+            release_version="${BASH_REMATCH[1]}"
+          elif [[ "$GITHUB_EVENT_NAME" == "workflow_dispatch" ]]; then
+            if [[ -z "$INPUT_RELEASE_VERSION" ]]; then
+              echo "release_version is required unless the workflow is run from master"
+              exit 1
+            fi
+            release_version="$INPUT_RELEASE_VERSION"
+          else
+            release_version="$GITHUB_REF_NAME"
+          fi
+
           echo "release_version=$release_version" >> "$GITHUB_ENV"
+          echo "Resolved release_version: $release_version"
+        env:
+          INPUT_RELEASE_VERSION: ${{ inputs.release_version || '' }}
         shell: bash
 
       - name: Set up JDK
@@ -37,9 +58,15 @@ jobs:
       - name: Validate release version
         run: |
           release_version="${{ env.release_version }}"
-          if [[ ! "$release_version" =~ ^[0-9]+\.[0-9]+\.[0-9]+(_BEFTA-[0-9]+|-rc[0-9]+)?$ ]]; then
+          if [[ "$GITHUB_EVENT_NAME" == "workflow_dispatch" && "$GITHUB_REF_NAME" == "master" ]]; then
+            if [[ ! "$release_version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+              echo "Invalid master release_version: $release_version"
+              echo "Master builds must publish a numeric version, for example: 9.2.2"
+              exit 1
+            fi
+          elif [[ ! "$release_version" =~ ^[0-9]+\.[0-9]+\.[0-9]+(_(BEFTA|CCD)-[0-9]+)?(-SNAPSHOT[0-9]*)?$ && ! "$release_version" =~ ^[0-9]+\.[0-9]+\.[0-9]+-rc[0-9]+$ ]]; then
             echo "Invalid release_version: $release_version"
-            echo "Expected formats: 9.2.2, 9.2.2_BEFTA-1234, or 9.2.2-rc1"
+            echo "Expected formats: 9.2.2, 9.2.2_BEFTA-1234, 9.2.2_CCD-7522, 9.2.2_CCD-7522-SNAPSHOT1, or 9.2.2-rc1"
             exit 1
           fi
         shell: bash
