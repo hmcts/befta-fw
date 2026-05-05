@@ -2,6 +2,11 @@ name: Publish to Azure Artifacts
 
 on:
   workflow_dispatch:
+    inputs:
+      release_version:
+        description: 'Artifact version to publish when running manually'
+        required: true
+        type: string
   push:
     tags:
       - '*'
@@ -16,6 +21,12 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Resolve release version
+        run: |
+          release_version="${{ inputs.release_version || github.ref_name }}"
+          echo "release_version=$release_version" >> "$GITHUB_ENV"
+        shell: bash
+
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
@@ -23,11 +34,42 @@ jobs:
           java-version: 21
           cache: 'gradle'
 
+      - name: Validate release version
+        run: |
+          release_version="${{ env.release_version }}"
+          if [[ ! "$release_version" =~ ^[0-9]+\.[0-9]+\.[0-9]+(_(BEFTA|CCD)-[0-9]+)?(-SNAPSHOT[0-9]*)?$ && ! "$release_version" =~ ^[0-9]+\.[0-9]+\.[0-9]+-rc[0-9]+$ ]]; then
+            echo "Invalid release_version: $release_version"
+            echo "Expected formats: 9.2.2, 9.2.2_BEFTA-1234, 9.2.2_CCD-7522, 9.2.2_CCD-7522-SNAPSHOT1, or 9.2.2-rc1"
+            exit 1
+          fi
+        shell: bash
+
+      - name: Fail if artifact version already exists
+        run: |
+          metadata_url="https://pkgs.dev.azure.com/hmcts/Artifacts/_packaging/hmcts-lib/maven/v1/com/github/hmcts/befta-fw/maven-metadata.xml"
+          metadata_file="$(mktemp)"
+
+          curl --fail --silent --show-error \
+            --user "${AZURE_DEVOPS_ARTIFACT_USERNAME}:${AZURE_DEVOPS_ARTIFACT_TOKEN}" \
+            --output "$metadata_file" \
+            "$metadata_url"
+
+          if grep -Fqx "      <version>${{ env.release_version }}</version>" "$metadata_file" || \
+             grep -Fqx "    <release>${{ env.release_version }}</release>" "$metadata_file" || \
+             grep -Fqx "    <latest>${{ env.release_version }}</latest>" "$metadata_file"; then
+            echo "Artifact version already exists: ${{ env.release_version }}"
+            exit 1
+          fi
+        env:
+          AZURE_DEVOPS_ARTIFACT_USERNAME: ${{ secrets.AZURE_DEVOPS_ARTIFACT_USERNAME }}
+          AZURE_DEVOPS_ARTIFACT_TOKEN: ${{ secrets.AZURE_DEVOPS_ARTIFACT_TOKEN }}
+        shell: bash
+
       - name: Publish to Azure DevOps Artifacts
         run: |
           ./gradlew publish
         env:
           AZURE_DEVOPS_ARTIFACT_USERNAME: ${{ secrets.AZURE_DEVOPS_ARTIFACT_USERNAME }}
           AZURE_DEVOPS_ARTIFACT_TOKEN: ${{ secrets.AZURE_DEVOPS_ARTIFACT_TOKEN }}
-          RELEASE_VERSION: ${{ github.ref_name }}
+          RELEASE_VERSION: ${{ env.release_version }}
         shell: bash

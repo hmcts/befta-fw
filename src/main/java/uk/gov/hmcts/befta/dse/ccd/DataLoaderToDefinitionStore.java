@@ -24,12 +24,16 @@ import uk.gov.hmcts.befta.util.BeftaUtils;
 import uk.gov.hmcts.befta.util.EnvironmentVariableUtils;
 import uk.gov.hmcts.befta.util.FileUtils;
 import uk.gov.hmcts.befta.util.JsonUtils;
+import uk.gov.hmcts.befta.util.Retryable;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.ConnectException;
+import java.net.SocketException;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -42,6 +46,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
+import javax.net.ssl.SSLException;
+import javax.net.ssl.SSLHandshakeException;
 
 import io.restassured.http.Header;
 
@@ -413,15 +419,110 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
         File file = new File(fileResourcePath).exists() ? new File(fileResourcePath)
                 : BeftaUtils.getClassPathResourceIntoTemporaryFile(fileResourcePath);
         try {
-            Response response = asAutoTestImporter().given().multiPart(file).when().post("/import");
-            if (response.getStatusCode() != 201) {
-                String message = "Import failed with response body: " + response.body().prettyPrint();
-                message += "\nand http code: " + response.statusCode();
-                throw new ImportException(message, response.statusCode());
-            }
+            importDefinitionWithRetry(file);
         } finally {
             file.delete();
         }
+    }
+
+    private void importDefinitionWithRetry(File file) throws IOException {
+        int maxAttempts = Math.max(1, getDefinitionImportMaxAttempts());
+        long retryDelayInMilliseconds = Math.max(0L, getDefinitionImportRetryDelayInMilliseconds());
+
+        for (int attempt = 1; attempt <= maxAttempts; attempt++) {
+            long attemptStartTime = System.currentTimeMillis();
+            try {
+                Response response = postDefinitionImport(file);
+                if (response.getStatusCode() != 201) {
+                    String message = "Import failed with response body: " + response.body().prettyPrint();
+                    message += "\nand http code: " + response.statusCode();
+                    throw new ImportException(message, response.statusCode());
+                }
+                return;
+            } catch (Exception e) {
+                if (!isRetryableDefinitionImportException(e) || attempt >= maxAttempts) {
+                    rethrowDefinitionImportException(e);
+                }
+
+                logger.warn(
+                        "Transport failure importing definition file '{}' on attempt {} of {} after {} ms. "
+                                + "Retrying in {} ms. Cause: {}",
+                        file.getPath(),
+                        attempt,
+                        maxAttempts,
+                        System.currentTimeMillis() - attemptStartTime,
+                        retryDelayInMilliseconds,
+                        getExceptionSummary(e)
+                );
+                waitBeforeDefinitionImportRetry(retryDelayInMilliseconds);
+            }
+        }
+    }
+
+    private Response postDefinitionImport(File file) {
+        Header connectionClose = new Header("Connection", "close");
+        return asAutoTestImporter().given()
+                .header(connectionClose)
+                .multiPart(file)
+                .when()
+                .post("/import");
+    }
+
+    protected int getDefinitionImportMaxAttempts() {
+        return Retryable.RETRYABLE_FROM_CONFIG.getMaxAttempts();
+    }
+
+    protected long getDefinitionImportRetryDelayInMilliseconds() {
+        return Retryable.RETRYABLE_FROM_CONFIG.getDelay();
+    }
+
+    protected void waitBeforeDefinitionImportRetry(long retryDelayInMilliseconds) {
+        if (retryDelayInMilliseconds == 0L) {
+            return;
+        }
+        try {
+            Thread.sleep(retryDelayInMilliseconds);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new RuntimeException("Interrupted while waiting to retry definition import.", e);
+        }
+    }
+
+    private boolean isRetryableDefinitionImportException(Throwable exception) {
+        Throwable current = exception;
+        while (current != null) {
+            if (current instanceof SSLHandshakeException) {
+                return false;
+            }
+            if (current instanceof SSLException
+                    || current instanceof SocketException
+                    || current instanceof ConnectException
+                    || current instanceof SocketTimeoutException) {
+                return true;
+            }
+            current = current.getCause();
+        }
+        return false;
+    }
+
+    private String getExceptionSummary(Throwable exception) {
+        Throwable current = exception;
+        Throwable rootCause = exception;
+        while (current != null) {
+            rootCause = current;
+            current = current.getCause();
+        }
+        return rootCause.getClass().getName() + ": " + rootCause.getMessage();
+    }
+
+    private void rethrowDefinitionImportException(Exception e) throws IOException {
+        if (e instanceof IOException) {
+            throw (IOException) e;
+        }
+        if (e instanceof RuntimeException) {
+            throw (RuntimeException) e;
+        }
+        throw new RuntimeException(e);
     }
 
     protected RequestSpecification asAutoTestImporter() {
