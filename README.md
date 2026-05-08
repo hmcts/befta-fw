@@ -74,6 +74,10 @@ Below are the environment needed specifically for CCD domain.
      will be imported to Definition Store, for automated test data preparation.
    * BEFTA_FORCE_IMPORT_RETRY: Optional. Set to `true` to opt in to CCD definition import retry. Defaults to no
      retry. See [CCD Definition Import Retry](#ccd-definition-import-retry).
+   * BEFTA_IMPORT_GATEWAY_TIMEOUT_VERSION_POLL_MAX_ATTEMPTS: Optional. Number of case type version checks after a
+     CCD definition import returns 504 Gateway Timeout. Defaults to 10.
+   * BEFTA_IMPORT_GATEWAY_TIMEOUT_VERSION_POLL_DELAY_MILLISECONDS: Optional. Delay between case type version checks
+     after a CCD definition import returns 504 Gateway Timeout. Defaults to 5000.
 
 Below are the environment needed specifically to Create Role Assignment data.
 * ROLE_ASSIGNMENT_API_GATEWAY_S2S_CLIENT_ID:S2S service token for Role Assignment service.
@@ -739,6 +743,15 @@ multipart POST and is intentionally scoped to `DataLoaderToDefinitionStore`.
 Set `BEFTA_FORCE_IMPORT_RETRY=true` to retry transient transport exceptions during `DataLoaderToDefinitionStore`
 definition import, such as `javax.net.ssl.SSLException`. Defaults to no retry. When enabled, BEFTA makes up to 3 total
 import attempts. The first retry waits 1000 ms and the second retry waits 2000 ms. HTTP import failures are not retried.
+
+When Definition Store returns 504 Gateway Timeout for `/import`, BEFTA checks whether the case type versions from the
+definition file have changed. If they have changed, BEFTA treats the import as successful and continues. Configure this
+verification in Jenkins or any other runner with:
+
+```
+BEFTA_IMPORT_GATEWAY_TIMEOUT_VERSION_POLL_MAX_ATTEMPTS=10
+BEFTA_IMPORT_GATEWAY_TIMEOUT_VERSION_POLL_DELAY_MILLISECONDS=5000
+```
 
 ### Default Policy
 The Default Retry Policy provides a baseline configuration for retrying scenarios in the absence of service-specific settings. 

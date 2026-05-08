@@ -68,14 +68,18 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
 
     private static final String TEMPORARY_DEFINITION_FOLDER = "definition_files";
     private static final String BEFTA_FORCE_IMPORT_RETRY = "BEFTA_FORCE_IMPORT_RETRY";
+    private static final String BEFTA_IMPORT_GATEWAY_TIMEOUT_VERSION_POLL_MAX_ATTEMPTS =
+            "BEFTA_IMPORT_GATEWAY_TIMEOUT_VERSION_POLL_MAX_ATTEMPTS";
+    private static final String BEFTA_IMPORT_GATEWAY_TIMEOUT_VERSION_POLL_DELAY_MILLISECONDS =
+            "BEFTA_IMPORT_GATEWAY_TIMEOUT_VERSION_POLL_DELAY_MILLISECONDS";
     private static final int HTTP_STATUS_OK = 200;
     private static final int HTTP_STATUS_CREATED = 201;
     private static final int HTTP_STATUS_GATEWAY_TIMEOUT = 504;
     private static final int DEFINITION_IMPORT_RETRY_MAX_ATTEMPTS = 3;
     private static final int DEFINITION_IMPORT_NO_RETRY_MAX_ATTEMPTS = 1;
     private static final long DEFINITION_IMPORT_RETRY_DELAY_MILLIS = 1000L;
-    private static final int VERSION_POLL_MAX_ATTEMPTS = 10;
-    private static final long VERSION_POLL_DELAY_MILLIS = 5_000L;
+    private static final int DEFAULT_VERSION_POLL_MAX_ATTEMPTS = 10;
+    private static final long DEFAULT_VERSION_POLL_DELAY_MILLIS = 5_000L;
     private static final String CASE_TYPE_SHEET_NAME = "CaseType";
     private static final String CASE_TYPE_ID_COLUMN = "ID";
     private static final int DEFINITION_HEADER_ROW = 2;
@@ -596,7 +600,8 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
     }
 
     private boolean pollForVersionChange(Map<String, String> previousVersions) {
-        for (int attempt = 1; attempt <= getVersionPollMaxAttempts(); attempt++) {
+        int maxAttempts = getVersionPollMaxAttempts();
+        for (int attempt = 1; attempt <= maxAttempts; attempt++) {
             try {
                 waitBeforeVersionCheck();
             } catch (InterruptedException ie) {
@@ -605,7 +610,7 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
             }
 
             logger.info("Checking case type versions after 504 Gateway Timeout (attempt {}/{})",
-                    attempt, getVersionPollMaxAttempts());
+                    attempt, maxAttempts);
             Map<String, String> latestVersions = getCaseTypeVersions(previousVersions.keySet());
             if (allVersionsChanged(previousVersions, latestVersions)) {
                 logger.info("Case type versions changed from {} to {}", previousVersions, latestVersions);
@@ -670,11 +675,51 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
     }
 
     protected int getVersionPollMaxAttempts() {
-        return VERSION_POLL_MAX_ATTEMPTS;
+        return getOptionalIntegerEnvironmentVariable(BEFTA_IMPORT_GATEWAY_TIMEOUT_VERSION_POLL_MAX_ATTEMPTS,
+                DEFAULT_VERSION_POLL_MAX_ATTEMPTS,
+                1);
+    }
+
+    protected long getVersionPollDelayInMilliseconds() {
+        return getOptionalLongEnvironmentVariable(BEFTA_IMPORT_GATEWAY_TIMEOUT_VERSION_POLL_DELAY_MILLISECONDS,
+                DEFAULT_VERSION_POLL_DELAY_MILLIS,
+                0L);
     }
 
     protected void waitBeforeVersionCheck() throws InterruptedException {
-        Thread.sleep(VERSION_POLL_DELAY_MILLIS);
+        long versionPollDelayInMilliseconds = getVersionPollDelayInMilliseconds();
+        if (versionPollDelayInMilliseconds == 0L) {
+            return;
+        }
+        Thread.sleep(versionPollDelayInMilliseconds);
+    }
+
+    private int getOptionalIntegerEnvironmentVariable(String variableName, int defaultValue, int minimumValue) {
+        String configuredValue = EnvironmentVariableUtils.getOptionalVariable(variableName);
+        if (StringUtils.isBlank(configuredValue)) {
+            return defaultValue;
+        }
+        try {
+            return Math.max(minimumValue, Integer.parseInt(configuredValue));
+        } catch (NumberFormatException e) {
+            logger.warn("Invalid value '{}' for {}. Using default value {}.",
+                    configuredValue, variableName, defaultValue);
+            return defaultValue;
+        }
+    }
+
+    private long getOptionalLongEnvironmentVariable(String variableName, long defaultValue, long minimumValue) {
+        String configuredValue = EnvironmentVariableUtils.getOptionalVariable(variableName);
+        if (StringUtils.isBlank(configuredValue)) {
+            return defaultValue;
+        }
+        try {
+            return Math.max(minimumValue, Long.parseLong(configuredValue));
+        } catch (NumberFormatException e) {
+            logger.warn("Invalid value '{}' for {}. Using default value {}.",
+                    configuredValue, variableName, defaultValue);
+            return defaultValue;
+        }
     }
 
     private boolean isRetryableDefinitionImportException(Throwable exception) {

@@ -300,6 +300,30 @@ class TestDataLoaderToDefinitionStore {
 
     @Test
     @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
+    @ClearEnvironmentVariable(key = "BEFTA_IMPORT_GATEWAY_TIMEOUT_VERSION_POLL_MAX_ATTEMPTS")
+    @ClearEnvironmentVariable(key = "BEFTA_IMPORT_GATEWAY_TIMEOUT_VERSION_POLL_DELAY_MILLISECONDS")
+    void testGatewayTimeoutVersionPollingUsesDefaultConfiguration() {
+        TestAutomationAdapter mockAdapter = mock(TestAutomationAdapter.class);
+        DataLoaderToDefinitionStore dataLoaderToDefinitionStore = new TestableDataLoaderToDefinitionStore(mockAdapter);
+
+        Assertions.assertEquals(10, dataLoaderToDefinitionStore.getVersionPollMaxAttempts());
+        Assertions.assertEquals(5000L, dataLoaderToDefinitionStore.getVersionPollDelayInMilliseconds());
+    }
+
+    @Test
+    @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
+    @SetEnvironmentVariable(key = "BEFTA_IMPORT_GATEWAY_TIMEOUT_VERSION_POLL_MAX_ATTEMPTS", value = "4")
+    @SetEnvironmentVariable(key = "BEFTA_IMPORT_GATEWAY_TIMEOUT_VERSION_POLL_DELAY_MILLISECONDS", value = "250")
+    void testGatewayTimeoutVersionPollingUsesEnvironmentConfiguration() {
+        TestAutomationAdapter mockAdapter = mock(TestAutomationAdapter.class);
+        DataLoaderToDefinitionStore dataLoaderToDefinitionStore = new TestableDataLoaderToDefinitionStore(mockAdapter);
+
+        Assertions.assertEquals(4, dataLoaderToDefinitionStore.getVersionPollMaxAttempts());
+        Assertions.assertEquals(250L, dataLoaderToDefinitionStore.getVersionPollDelayInMilliseconds());
+    }
+
+    @Test
+    @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
     @SetEnvironmentVariable(key = IDAM_URL_KEY, value = IDAM_URL_VALUE)
     @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_ID_KEY, value = BEFTA_S2S_CLIENT_ID_VALUE)
     @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_SECRET_KEY, value = BEFTA_S2S_CLIENT_SECRET_VALUE)
