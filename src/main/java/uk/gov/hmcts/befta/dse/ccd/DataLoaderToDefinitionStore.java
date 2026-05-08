@@ -5,6 +5,12 @@ import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,6 +33,7 @@ import uk.gov.hmcts.befta.util.JsonUtils;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -37,9 +44,12 @@ import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -58,9 +68,22 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
 
     private static final String TEMPORARY_DEFINITION_FOLDER = "definition_files";
     private static final String BEFTA_FORCE_IMPORT_RETRY = "BEFTA_FORCE_IMPORT_RETRY";
+    private static final String BEFTA_IMPORT_GATEWAY_TIMEOUT_VERSION_POLL_MAX_ATTEMPTS =
+            "BEFTA_IMPORT_GATEWAY_TIMEOUT_VERSION_POLL_MAX_ATTEMPTS";
+    private static final String BEFTA_IMPORT_GATEWAY_TIMEOUT_VERSION_POLL_DELAY_MILLISECONDS =
+            "BEFTA_IMPORT_GATEWAY_TIMEOUT_VERSION_POLL_DELAY_MILLISECONDS";
+    private static final int HTTP_STATUS_OK = 200;
+    private static final int HTTP_STATUS_CREATED = 201;
+    private static final int HTTP_STATUS_GATEWAY_TIMEOUT = 504;
     private static final int DEFINITION_IMPORT_RETRY_MAX_ATTEMPTS = 3;
     private static final int DEFINITION_IMPORT_NO_RETRY_MAX_ATTEMPTS = 1;
     private static final long DEFINITION_IMPORT_RETRY_DELAY_MILLIS = 1000L;
+    private static final int DEFAULT_VERSION_POLL_MAX_ATTEMPTS = 10;
+    private static final long DEFAULT_VERSION_POLL_DELAY_MILLIS = 5_000L;
+    private static final String CASE_TYPE_SHEET_NAME = "CaseType";
+    private static final String CASE_TYPE_ID_COLUMN = "ID";
+    private static final int DEFINITION_HEADER_ROW = 2;
+    private static final int DEFINITION_DATA_START_ROW = 3;
 
     private static final String[] RA_DATA_RESOURCE_PACKAGES = { "roleAssignments" };
 
@@ -421,27 +444,35 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
     protected void importDefinition(String fileResourcePath) throws IOException {
         File file = new File(fileResourcePath).exists() ? new File(fileResourcePath)
                 : BeftaUtils.getClassPathResourceIntoTemporaryFile(fileResourcePath);
+        Map<String, String> caseTypeVersionsBeforeImport = getCaseTypeVersionsFromDefinition(file);
         try {
-            importDefinitionWithRetry(file);
+            importDefinitionWithRetry(file, caseTypeVersionsBeforeImport);
         } finally {
             file.delete();
         }
     }
 
-    private void importDefinitionWithRetry(File file) throws IOException {
+    private void importDefinitionWithRetry(File file, Map<String, String> caseTypeVersionsBeforeImport)
+            throws IOException {
         int maxAttempts = Math.max(1, getDefinitionImportMaxAttempts());
 
         for (int attempt = 1; attempt <= maxAttempts; attempt++) {
             long attemptStartTime = System.currentTimeMillis();
             try {
                 Response response = postDefinitionImport(file);
-                if (response.getStatusCode() != 201) {
+                int statusCode = response.getStatusCode();
+                if (statusCode != HTTP_STATUS_CREATED) {
                     String message = "Import failed with response body: " + response.body().prettyPrint();
-                    message += "\nand http code: " + response.statusCode();
-                    throw new ImportException(message, response.statusCode());
+                    message += "\nand http code: " + statusCode;
+                    throw new ImportException(message, statusCode);
                 }
                 return;
             } catch (Exception e) {
+                if (isGatewayTimeoutImportException(e)
+                        && wasDefinitionImportedAfterGatewayTimeout(file, caseTypeVersionsBeforeImport)) {
+                    return;
+                }
+
                 if (!isRetryableDefinitionImportException(e) || attempt >= maxAttempts) {
                     rethrowDefinitionImportException(e);
                 }
@@ -460,6 +491,148 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
                 waitBeforeDefinitionImportRetry(retryDelayInMilliseconds);
             }
         }
+    }
+
+    private Map<String, String> getCaseTypeVersionsFromDefinition(File file) {
+        Set<String> caseTypeIds = getCaseTypeIdsFromDefinition(file);
+        if (caseTypeIds.isEmpty()) {
+            return Collections.emptyMap();
+        }
+        return getCaseTypeVersions(caseTypeIds);
+    }
+
+    protected Set<String> getCaseTypeIdsFromDefinition(File file) {
+        DataFormatter dataFormatter = new DataFormatter();
+        try (FileInputStream inputStream = new FileInputStream(file);
+             Workbook workbook = WorkbookFactory.create(inputStream)) {
+            Sheet caseTypeSheet = workbook.getSheet(CASE_TYPE_SHEET_NAME);
+            if (caseTypeSheet == null) {
+                logger.debug("No '{}' sheet found in definition file '{}'.", CASE_TYPE_SHEET_NAME, file.getPath());
+                return Collections.emptySet();
+            }
+
+            int caseTypeIdColumn = getColumnIndex(caseTypeSheet.getRow(DEFINITION_HEADER_ROW),
+                    CASE_TYPE_ID_COLUMN,
+                    dataFormatter);
+            if (caseTypeIdColumn < 0) {
+                logger.debug("No '{}' column found on '{}' sheet in definition file '{}'.",
+                        CASE_TYPE_ID_COLUMN, CASE_TYPE_SHEET_NAME, file.getPath());
+                return Collections.emptySet();
+            }
+
+            Set<String> caseTypeIds = new LinkedHashSet<>();
+            for (int rowIndex = DEFINITION_DATA_START_ROW; rowIndex <= caseTypeSheet.getLastRowNum(); rowIndex++) {
+                Row row = caseTypeSheet.getRow(rowIndex);
+                if (row != null) {
+                    String caseTypeId = dataFormatter.formatCellValue(row.getCell(caseTypeIdColumn)).trim();
+                    if (StringUtils.isNotBlank(caseTypeId)) {
+                        caseTypeIds.add(caseTypeId);
+                    }
+                }
+            }
+            return caseTypeIds;
+        } catch (Exception e) {
+            logger.debug("Could not read case type IDs from definition file '{}': {}", file.getPath(), e.getMessage());
+            return Collections.emptySet();
+        }
+    }
+
+    private int getColumnIndex(Row headerRow, String columnName, DataFormatter dataFormatter) {
+        if (headerRow == null) {
+            return -1;
+        }
+        for (Cell cell : headerRow) {
+            if (columnName.equals(dataFormatter.formatCellValue(cell).trim())) {
+                return cell.getColumnIndex();
+            }
+        }
+        return -1;
+    }
+
+    private Map<String, String> getCaseTypeVersions(Set<String> caseTypeIds) {
+        Map<String, String> caseTypeVersions = new LinkedHashMap<>();
+        for (String caseTypeId : caseTypeIds) {
+            caseTypeVersions.put(caseTypeId, getCaseTypeVersion(caseTypeId));
+        }
+        return caseTypeVersions;
+    }
+
+    protected String getCaseTypeVersion(String caseType) {
+        try {
+            Response response = asAutoTestImporter()
+                    .given().when().get("/api/data/case-type/" + caseType + "/version");
+            if (response.getStatusCode() == HTTP_STATUS_OK) {
+                return response.body().asString().trim();
+            }
+            logger.debug("Could not fetch current {} case type version. HTTP status: {}",
+                    caseType, response.getStatusCode());
+        } catch (Exception ex) {
+            logger.debug("Could not fetch current {} case type version: {}", caseType, ex.getMessage());
+        }
+        return null;
+    }
+
+    private boolean wasDefinitionImportedAfterGatewayTimeout(File file,
+                                                            Map<String, String> caseTypeVersionsBeforeImport) {
+        if (caseTypeVersionsBeforeImport.isEmpty()) {
+            logger.warn("Import got 504 Gateway Timeout for '{}', but there are no case type versions to verify.",
+                    file.getPath());
+            return false;
+        }
+        if (caseTypeVersionsBeforeImport.containsValue(null)) {
+            logger.warn("Import got 504 Gateway Timeout for '{}', but one or more case type versions "
+                    + "could not be read before import: {}", file.getPath(), caseTypeVersionsBeforeImport);
+            return false;
+        }
+
+        logger.warn("Import got 504 Gateway Timeout for '{}'. Checking whether case type versions changed: {}",
+                file.getPath(), caseTypeVersionsBeforeImport.keySet());
+
+        if (pollForVersionChange(caseTypeVersionsBeforeImport)) {
+            logger.info("Case type versions changed after 504 Gateway Timeout. Treating '{}' as imported.",
+                    file.getPath());
+            return true;
+        }
+
+        logger.error("Case type versions did not change after 504 Gateway Timeout. Import failed for '{}'.",
+                file.getPath());
+        return false;
+    }
+
+    private boolean pollForVersionChange(Map<String, String> previousVersions) {
+        int maxAttempts = getVersionPollMaxAttempts();
+        for (int attempt = 1; attempt <= maxAttempts; attempt++) {
+            try {
+                waitBeforeVersionCheck();
+            } catch (InterruptedException ie) {
+                Thread.currentThread().interrupt();
+                return false;
+            }
+
+            logger.info("Checking case type versions after 504 Gateway Timeout (attempt {}/{})",
+                    attempt, maxAttempts);
+            Map<String, String> latestVersions = getCaseTypeVersions(previousVersions.keySet());
+            if (allVersionsChanged(previousVersions, latestVersions)) {
+                logger.info("Case type versions changed from {} to {}", previousVersions, latestVersions);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean allVersionsChanged(Map<String, String> previousVersions, Map<String, String> latestVersions) {
+        for (Map.Entry<String, String> previousVersion : previousVersions.entrySet()) {
+            String latestVersion = latestVersions.get(previousVersion.getKey());
+            if (latestVersion == null || latestVersion.equals(previousVersion.getValue())) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean isGatewayTimeoutImportException(Throwable exception) {
+        return exception instanceof ImportException
+                && ((ImportException) exception).getHttpStatusCode() == HTTP_STATUS_GATEWAY_TIMEOUT;
     }
 
     private Response postDefinitionImport(File file) {
@@ -498,6 +671,54 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new RuntimeException("Interrupted while waiting to retry definition import.", e);
+        }
+    }
+
+    protected int getVersionPollMaxAttempts() {
+        return getOptionalIntegerEnvironmentVariable(BEFTA_IMPORT_GATEWAY_TIMEOUT_VERSION_POLL_MAX_ATTEMPTS,
+                DEFAULT_VERSION_POLL_MAX_ATTEMPTS,
+                1);
+    }
+
+    protected long getVersionPollDelayInMilliseconds() {
+        return getOptionalLongEnvironmentVariable(BEFTA_IMPORT_GATEWAY_TIMEOUT_VERSION_POLL_DELAY_MILLISECONDS,
+                DEFAULT_VERSION_POLL_DELAY_MILLIS,
+                0L);
+    }
+
+    protected void waitBeforeVersionCheck() throws InterruptedException {
+        long versionPollDelayInMilliseconds = getVersionPollDelayInMilliseconds();
+        if (versionPollDelayInMilliseconds == 0L) {
+            return;
+        }
+        Thread.sleep(versionPollDelayInMilliseconds);
+    }
+
+    private int getOptionalIntegerEnvironmentVariable(String variableName, int defaultValue, int minimumValue) {
+        String configuredValue = EnvironmentVariableUtils.getOptionalVariable(variableName);
+        if (StringUtils.isBlank(configuredValue)) {
+            return defaultValue;
+        }
+        try {
+            return Math.max(minimumValue, Integer.parseInt(configuredValue));
+        } catch (NumberFormatException e) {
+            logger.warn("Invalid value '{}' for {}. Using default value {}.",
+                    configuredValue, variableName, defaultValue);
+            return defaultValue;
+        }
+    }
+
+    private long getOptionalLongEnvironmentVariable(String variableName, long defaultValue, long minimumValue) {
+        String configuredValue = EnvironmentVariableUtils.getOptionalVariable(variableName);
+        if (StringUtils.isBlank(configuredValue)) {
+            return defaultValue;
+        }
+        try {
+            return Math.max(minimumValue, Long.parseLong(configuredValue));
+        } catch (NumberFormatException e) {
+            logger.warn("Invalid value '{}' for {}. Using default value {}.",
+                    configuredValue, variableName, defaultValue);
+            return defaultValue;
         }
     }
 

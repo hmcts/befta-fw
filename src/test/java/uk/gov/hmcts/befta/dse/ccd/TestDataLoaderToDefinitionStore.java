@@ -12,7 +12,12 @@ import static org.mockito.Mockito.when;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayDeque;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Queue;
+import java.util.Set;
 import java.util.stream.Stream;
 import javax.net.ssl.SSLException;
 
@@ -295,6 +300,30 @@ class TestDataLoaderToDefinitionStore {
 
     @Test
     @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
+    @ClearEnvironmentVariable(key = "BEFTA_IMPORT_GATEWAY_TIMEOUT_VERSION_POLL_MAX_ATTEMPTS")
+    @ClearEnvironmentVariable(key = "BEFTA_IMPORT_GATEWAY_TIMEOUT_VERSION_POLL_DELAY_MILLISECONDS")
+    void testGatewayTimeoutVersionPollingUsesDefaultConfiguration() {
+        TestAutomationAdapter mockAdapter = mock(TestAutomationAdapter.class);
+        DataLoaderToDefinitionStore dataLoaderToDefinitionStore = new TestableDataLoaderToDefinitionStore(mockAdapter);
+
+        Assertions.assertEquals(10, dataLoaderToDefinitionStore.getVersionPollMaxAttempts());
+        Assertions.assertEquals(5000L, dataLoaderToDefinitionStore.getVersionPollDelayInMilliseconds());
+    }
+
+    @Test
+    @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
+    @SetEnvironmentVariable(key = "BEFTA_IMPORT_GATEWAY_TIMEOUT_VERSION_POLL_MAX_ATTEMPTS", value = "4")
+    @SetEnvironmentVariable(key = "BEFTA_IMPORT_GATEWAY_TIMEOUT_VERSION_POLL_DELAY_MILLISECONDS", value = "250")
+    void testGatewayTimeoutVersionPollingUsesEnvironmentConfiguration() {
+        TestAutomationAdapter mockAdapter = mock(TestAutomationAdapter.class);
+        DataLoaderToDefinitionStore dataLoaderToDefinitionStore = new TestableDataLoaderToDefinitionStore(mockAdapter);
+
+        Assertions.assertEquals(4, dataLoaderToDefinitionStore.getVersionPollMaxAttempts());
+        Assertions.assertEquals(250L, dataLoaderToDefinitionStore.getVersionPollDelayInMilliseconds());
+    }
+
+    @Test
+    @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
     @SetEnvironmentVariable(key = IDAM_URL_KEY, value = IDAM_URL_VALUE)
     @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_ID_KEY, value = BEFTA_S2S_CLIENT_ID_VALUE)
     @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_SECRET_KEY, value = BEFTA_S2S_CLIENT_SECRET_VALUE)
@@ -385,6 +414,79 @@ class TestDataLoaderToDefinitionStore {
         Assertions.assertThrows(ImportException.class, () -> dataLoaderToDefinitionStore.importDefinition(file.toString()));
 
         verify(requestSpecification).post("/import");
+    }
+
+    @Test
+    @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
+    @SetEnvironmentVariable(key = IDAM_URL_KEY, value = IDAM_URL_VALUE)
+    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_ID_KEY, value = BEFTA_S2S_CLIENT_ID_VALUE)
+    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_SECRET_KEY, value = BEFTA_S2S_CLIENT_SECRET_VALUE)
+    @SetEnvironmentVariable(key = S2S_URL_KEY, value = S2S_URL_VALUE)
+    @SetEnvironmentVariable(key = CCD_IMPORT_AUTOTEST_EMAIL, value = CCD_IMPORT_AUTOTEST_EMAIL_VALUE)
+    @SetEnvironmentVariable(key = CCD_IMPORT_AUTOTEST_PASSWORD, value = CCD_IMPORT_AUTOTEST_PASSWORD_VALUE)
+    @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_CLIENT_ID", value = "OAUTH2_CLIENT_ID_VALUE")
+    @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_CLIENT_SECRET", value = "OAUTH2_CLIENT_SECRET_VALUE")
+    @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_REDIRECT_URL", value = "OAUTH2_REDIRECT_URI_VALUE")
+    @ClearEnvironmentVariable(key = "BEFTA_FORCE_IMPORT_RETRY")
+    void testImportDefinitionTreatsGatewayTimeoutAsSuccessWhenCaseTypeVersionChanges() throws Exception {
+        TestAutomationAdapter mockAdapter = mock(TestAutomationAdapter.class);
+        RequestSpecification requestSpecification = mock(RequestSpecification.class);
+        Response rs = mock(io.restassured.response.Response.class);
+        ResponseBody<?> responseBody = mock(io.restassured.response.ResponseBody.class);
+        Path file = Files.createTempFile("definition", ".xlsx");
+
+        mockImportDefinitionApiCalls(requestSpecification);
+        when(rs.getStatusCode()).thenReturn(504);
+        when(rs.body()).thenReturn(responseBody);
+        when(responseBody.prettyPrint()).thenReturn("Gateway Timeout");
+        when(requestSpecification.post("/import")).thenReturn(rs);
+
+        GatewayTimeoutVerificationDataLoaderToDefinitionStore dataLoaderToDefinitionStore =
+                new GatewayTimeoutVerificationDataLoaderToDefinitionStore(mockAdapter, "1", "2");
+
+        Assertions.assertDoesNotThrow(() -> dataLoaderToDefinitionStore.importDefinition(file.toString()));
+
+        verify(requestSpecification).post("/import");
+        Assertions.assertEquals(2, dataLoaderToDefinitionStore.versionChecks);
+        Assertions.assertEquals("AAT", dataLoaderToDefinitionStore.lastCaseType);
+    }
+
+    @Test
+    @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
+    @SetEnvironmentVariable(key = IDAM_URL_KEY, value = IDAM_URL_VALUE)
+    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_ID_KEY, value = BEFTA_S2S_CLIENT_ID_VALUE)
+    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_SECRET_KEY, value = BEFTA_S2S_CLIENT_SECRET_VALUE)
+    @SetEnvironmentVariable(key = S2S_URL_KEY, value = S2S_URL_VALUE)
+    @SetEnvironmentVariable(key = CCD_IMPORT_AUTOTEST_EMAIL, value = CCD_IMPORT_AUTOTEST_EMAIL_VALUE)
+    @SetEnvironmentVariable(key = CCD_IMPORT_AUTOTEST_PASSWORD, value = CCD_IMPORT_AUTOTEST_PASSWORD_VALUE)
+    @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_CLIENT_ID", value = "OAUTH2_CLIENT_ID_VALUE")
+    @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_CLIENT_SECRET", value = "OAUTH2_CLIENT_SECRET_VALUE")
+    @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_REDIRECT_URL", value = "OAUTH2_REDIRECT_URI_VALUE")
+    @ClearEnvironmentVariable(key = "BEFTA_FORCE_IMPORT_RETRY")
+    void testImportDefinitionRethrowsGatewayTimeoutWhenCaseTypeVersionDoesNotChange() throws Exception {
+        TestAutomationAdapter mockAdapter = mock(TestAutomationAdapter.class);
+        RequestSpecification requestSpecification = mock(RequestSpecification.class);
+        Response rs = mock(io.restassured.response.Response.class);
+        ResponseBody<?> responseBody = mock(io.restassured.response.ResponseBody.class);
+        Path file = Files.createTempFile("definition", ".xlsx");
+
+        mockImportDefinitionApiCalls(requestSpecification);
+        when(rs.getStatusCode()).thenReturn(504);
+        when(rs.body()).thenReturn(responseBody);
+        when(responseBody.prettyPrint()).thenReturn("Gateway Timeout");
+        when(requestSpecification.post("/import")).thenReturn(rs);
+
+        GatewayTimeoutVerificationDataLoaderToDefinitionStore dataLoaderToDefinitionStore =
+                new GatewayTimeoutVerificationDataLoaderToDefinitionStore(mockAdapter, "1", "1", "1");
+
+        ImportException exception = Assertions.assertThrows(
+                ImportException.class,
+                () -> dataLoaderToDefinitionStore.importDefinition(file.toString())
+        );
+
+        Assertions.assertEquals(504, exception.getHttpStatusCode());
+        verify(requestSpecification).post("/import");
+        Assertions.assertEquals(3, dataLoaderToDefinitionStore.versionChecks);
     }
 
     @Disabled("Not yet implemented")
@@ -487,6 +589,41 @@ class TestDataLoaderToDefinitionStore {
         @Override
         protected long getDefinitionImportRetryDelayInMilliseconds() {
             return 0L;
+        }
+    }
+
+    private static class GatewayTimeoutVerificationDataLoaderToDefinitionStore
+            extends TestableDataLoaderToDefinitionStore {
+
+        private final Queue<String> versions = new ArrayDeque<>();
+        private int versionChecks;
+        private String lastCaseType;
+
+        GatewayTimeoutVerificationDataLoaderToDefinitionStore(TestAutomationAdapter adapter, String... versions) {
+            super(adapter);
+            this.versions.addAll(Arrays.asList(versions));
+        }
+
+        @Override
+        protected Set<String> getCaseTypeIdsFromDefinition(File file) {
+            return Collections.singleton("AAT");
+        }
+
+        @Override
+        protected String getCaseTypeVersion(String caseType) {
+            versionChecks++;
+            lastCaseType = caseType;
+            return versions.poll();
+        }
+
+        @Override
+        protected int getVersionPollMaxAttempts() {
+            return 2;
+        }
+
+        @Override
+        protected void waitBeforeVersionCheck() {
+            // Keep the 504 verification tests fast.
         }
     }
 
