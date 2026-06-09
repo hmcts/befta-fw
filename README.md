@@ -5,6 +5,92 @@
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+## Publishing a Release
+
+This repository publishes release artifacts to Azure Artifacts using the GitHub Actions workflow
+`Publish to Azure Artifacts`.
+
+There are two supported ways to publish:
+
+| Method | When to use | Version source | Naming rule |
+| --- | --- | --- |
+| Manual publish | Pre-release or explicit version publish | `release_version` entered in GitHub Actions | Must match the valid version format below |
+| Tag-based publish | Normal tagged release | Git tag name | Tag name must match the valid version format below |
+
+### Version format
+
+The same version format is used for manual `release_version` values and tag-based releases.
+
+Naming rule:
+
+| Case | Format | Example |
+| --- | --- | --- |
+| Released version | `<major>.<minor>.<patch>` | `9.2.2` |
+| PR or pre-release version | `<major>.<minor>.<patch>_BEFTA-<ticket>` | `9.2.2_BEFTA-1234` |
+| Release candidate version | `<major>.<minor>.<patch>-<suffix>` | `9.2.2-rc1` |
+
+Examples of valid values:
+
+| Valid | Invalid |
+| --- | --- |
+| `9.2.2` | `feature/my-branch` |
+| `9.2.2_BEFTA-1234` | `BEFTA-1234` |
+| `9.2.2-rc1` | `release 9.2.2` |
+|  | `9.2.2_hotfix` |
+|  | `9.2.2-feature1` |
+|  | `9.2.2_BEFTA1234` |
+
+If the value is invalid, the workflow fails early with an error before publishing anything.
+If the artifact version already exists in Azure Artifacts, the workflow also fails before publishing.
+
+### Manual publish
+
+In GitHub:
+
+1. Open `Actions`.
+2. Open the `Publish to Azure Artifacts` workflow.
+3. Select `Run workflow`.
+4. Enter a `release_version`.
+5. Run the workflow.
+
+### Tag-based publish
+
+If the workflow is triggered by pushing a Git tag, the tag name is used as the artifact version.
+
+For example:
+
+```bash
+git tag 9.2.2
+git push origin 9.2.2
+```
+
+### Which option to use
+
+| Use manual publish when | Use tag-based publish when |
+| --- | --- |
+| you are testing a pre-release version | you want the Git tag to be the release version |
+| you want an explicit version that is independent of the branch name | you are performing a normal tagged release |
+
+### Artifact cleanup workflow setup
+
+The `Delete Azure Artifacts Versions` workflow is intended for repository maintainers only.
+
+| Requirement | Purpose |
+| --- | --- |
+| GitHub Actions environment `artifact-cleanup` | Adds an approval gate for deletion |
+| Required reviewers on `artifact-cleanup` | Restricts who can approve cleanup runs |
+| Repository variable `ARTIFACT_DELETE_ALLOWED_USERS` | Restricts who can start the workflow |
+| Secrets `AZURE_DEVOPS_ARTIFACT_USERNAME` and `AZURE_DEVOPS_ARTIFACT_TOKEN` | Authorises Azure Artifacts API calls |
+
+Recommended usage:
+
+| Setting | Recommendation |
+| --- | --- |
+| `dry_run` | Run with `true` first |
+| `delete_mode` | Use `recycle_bin` before `permanent_delete` |
+
+Deleting a version from Azure Artifacts does not make that version reusable.
+
 
 ## 1) WHAT IS BEFTA FRAMEWORK?
 BEFTA Framework is a framework for automation of functional tests for http-based APIs. It uses Cucumber and Rest Assured frameworks and supports a BDD (Behaviour-Driven Development) approach to software development.
