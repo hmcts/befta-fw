@@ -22,7 +22,7 @@ public class TestAutomationConfig {
     }
 
     public String getIdamURL() {
-        return EnvironmentVariableUtils.getRequiredVariable("IDAM_API_URL_BASE");
+        return EnvironmentVariableUtils.getRequiredVariable("IDAM_HMCTS_ACCESS_URL_BASE");
     }
 
     public String getS2SURL() {

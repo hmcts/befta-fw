@@ -23,9 +23,9 @@
 		},
 		"pathVariables": {
 			"uid": "[[DEFAULT_AUTO_VALUE]]",
-			"dummyComplexPathVariable": "a.user@{{IDAM_API_URL_BASE}}/${[scenarioContext][childContexts][Token_Creation_Call_For_Complex_Data][testData][actualResponse][body][tokens][2][value]}#{{IDAM_USER_URL}}/documents/binary",
-			"binanyUrlOverIdam": "{{IDAM_API_URL_BASE}}/documents/binary",
-			"justIdamUrl": "{{IDAM_API_URL_BASE}}"
+			"dummyComplexPathVariable": "a.user@{{IDAM_HMCTS_ACCESS_URL_BASE}}/${[scenarioContext][childContexts][Token_Creation_Call_For_Complex_Data][testData][actualResponse][body][tokens][2][value]}#{{IDAM_USER_URL}}/documents/binary",
+			"binanyUrlOverIdam": "{{IDAM_HMCTS_ACCESS_URL_BASE}}/documents/binary",
+			"justIdamUrl": "{{IDAM_HMCTS_ACCESS_URL_BASE}}"
 		},
 		"body": {
 			"event": {

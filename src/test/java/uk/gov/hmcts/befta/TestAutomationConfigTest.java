@@ -24,8 +24,8 @@ import uk.gov.hmcts.befta.data.CollectionVerificationConfig.Ordering;
 class TestAutomationConfigTest {
     private static final String TEST_URL_KEY = "TEST_URL";
     private static final String TEST_URL_VALUE = "TEST_URL_VALUE";
-    private static final String IDAM_URL_KEY = "IDAM_API_URL_BASE";
-    private static final String IDAM_URL_VALUE = "IDAM_URL_VALUE";
+    private static final String IDAM_URL_KEY = "IDAM_HMCTS_ACCESS_URL_BASE";
+    private static final String IDAM_URL_VALUE = "IDAM_HMCTS_ACCESS_URL_VALUE";
     private static final String S2S_URL_KEY = "S2S_URL_BASE";
     private static final String S2S_URL_VALUE = "S2S_URL_VALUE";
     private static final String BEFTA_S2S_CLIENT_ID_KEY = "BEFTA_S2S_CLIENT_ID";

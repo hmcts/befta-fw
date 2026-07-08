@@ -132,7 +132,7 @@ It provides the following functionalities and conveniences:
 ### 3.4) Common Environment Variables
    Befta Framework uses the below environment variables:
    * TEST_URL: This is the base URL of the APIs to be tested.
-   * IDAM_API_URL_BASE: This is the base URL of the API authenticating the users on behalf of which the API calls will 
+   * IDAM_HMCTS_ACCESS_URL_BASE: This is the base URL of the API authenticating the users on behalf of which the API calls will 
      be delivered.
    * S2S_URL_BASE: This is the base URL of the API authenticating the client applications on behalf of which the API calls will 
      be delivered.

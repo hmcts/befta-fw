@@ -86,7 +86,7 @@ public class DynamicValueInjectorTest {
         // Mocking
         Mockito.when(EnvironmentVariableUtils.getRequiredVariable("S2S_URL_BASE"))
                 .thenReturn("http://s2s.hmcts.bla.bla");
-        Mockito.when(EnvironmentVariableUtils.getRequiredVariable("IDAM_API_URL_BASE"))
+        Mockito.when(EnvironmentVariableUtils.getRequiredVariable("IDAM_HMCTS_ACCESS_URL_BASE"))
                 .thenReturn("http://idam.hmcts.bla.bla");
         Mockito.when(EnvironmentVariableUtils.getRequiredVariable("IDAM_USER_URL"))
                 .thenReturn("http://idamuser.hmcts.bla.bla");
@@ -126,7 +126,7 @@ public class DynamicValueInjectorTest {
         // Mocking
         Mockito.when(EnvironmentVariableUtils.getRequiredVariable("S2S_URL_BASE"))
                 .thenReturn("http://s2s.hmcts.bla.bla");
-        Mockito.when(EnvironmentVariableUtils.getRequiredVariable("IDAM_API_URL_BASE"))
+        Mockito.when(EnvironmentVariableUtils.getRequiredVariable("IDAM_HMCTS_ACCESS_URL_BASE"))
                 .thenReturn("http://idam.hmcts.bla.bla");
         Mockito.when(EnvironmentVariableUtils.getRequiredVariable("IDAM_USER_URL"))
                 .thenReturn("http://idamuser.hmcts.bla.bla");
@@ -171,7 +171,7 @@ public class DynamicValueInjectorTest {
                 "abctoken value at index 2.=.{{DEFINITION_STORE_URL_BASE}}token value at index 2abc123{{DEFINITION_STORE_URL_BASE}}",
                 testData.getExpectedResponse().getBody().get("complicatedNestedValue_2"));
         underTest.injectDataFromContextAfterApiCall();
-        Mockito.when(EnvironmentVariableUtils.getRequiredVariable("IDAM_API_URL_BASE"))
+        Mockito.when(EnvironmentVariableUtils.getRequiredVariable("IDAM_HMCTS_ACCESS_URL_BASE"))
                 .thenReturn("http://idam.hmcts.bla.bla");
 
         Assert.assertEquals("http://defstore.hmcts.bla.blaPa55word11http://defstore.hmcts.bla.bla",
