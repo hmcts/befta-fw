@@ -42,6 +42,9 @@ public interface AuthApi {
     @Headers("Authorization: Bearer {access_token}")
     User getUser(@Param("access_token") String accessToken);
 
+    @RequestLine("GET /o/userinfo")
+    @Headers("Authorization: Bearer {access_token}")
+    IdamUser getUserInfo(@Param("access_token") String accessToken);
 
     @Getter
     class AuthenticateUserResponse {
@@ -59,6 +62,15 @@ public interface AuthApi {
     class User {
         @JsonProperty("id")
         private String id;
+
+        @JsonProperty("roles")
+        private List<String> roles;
+    }
+
+    @Getter
+    class IdamUser {
+        @JsonProperty("uid")
+        private String uid;
 
         @JsonProperty("roles")
         private List<String> roles;

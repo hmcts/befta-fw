@@ -75,6 +75,7 @@ class DefaultTestAutomationAdapterTest {
             beftaIdamapi = mockStatic(BeftaIdamApiClientFactory.class);
             ServiceAuthorisationApi serviceAuthorisationApi = mock(ServiceAuthorisationApi.class);
             AuthApi.User idamUser = new AuthApi.User();
+            AuthApi.IdamUser oidcIdamUser = new AuthApi.IdamUser();
             AuthApi.TokenExchangeResponse idamtockenExch = new AuthApi.TokenExchangeResponse();
             ObjectMapper mapper = new ObjectMapper();
             String json = "{\"code\" : \"abc\"}";
@@ -82,6 +83,7 @@ class DefaultTestAutomationAdapterTest {
                     .readValue(json);
 
             Mockito.when(idamApi.getUser(null)).thenReturn(idamUser);
+            Mockito.when(idamApi.getUserInfo(null)).thenReturn(oidcIdamUser);
             Mockito.when(idamApi.generateOIDCToken(isA(String.class), isA(String.class), isA(String.class),
                     isA(String.class), isA(String.class), isA(String.class))).thenReturn(idamtockenExch);
             Mockito.when(idamApi.authenticateUser(isA(String.class), isA(String.class), isA(String.class),
@@ -176,6 +178,7 @@ class DefaultTestAutomationAdapterTest {
         String userTokenClientId = "OTHER";
         assertNotNull(tad);
         tad.authenticate(user, userTokenClientId);
+        verify(idamApi, times(1)).getUserInfo(null);
     }
 
     /**

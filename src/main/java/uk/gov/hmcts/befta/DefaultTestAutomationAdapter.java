@@ -134,13 +134,18 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
     }
 
     private UserData createAuthenticatedUserData(String userName, String password, String userTokenClientId) {
-        final String accessToken = getUserAccessToken(userName, password,
-                UserTokenProviderConfig.of(userTokenClientId));
-        final AuthApi.User idamUser = idamApi.getUser(accessToken);
-
+        UserTokenProviderConfig tokenProviderConfig = UserTokenProviderConfig.of(userTokenClientId);
+        final String accessToken = getUserAccessToken(userName, password, tokenProviderConfig);
         UserData userData = new UserData(userName, password);
-        userData.setId(idamUser.getId());
         userData.setAccessToken(accessToken);
+
+        if (tokenProviderConfig.isForOidc()) {
+            final AuthApi.IdamUser idamUser = idamApi.getUserInfo(accessToken);
+            userData.setId(idamUser.getUid());
+        } else {
+            final AuthApi.User idamUser = idamApi.getUser(accessToken);
+            userData.setId(idamUser.getId());
+        }
 
         return userData;
     }
