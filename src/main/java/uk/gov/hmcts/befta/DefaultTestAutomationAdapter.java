@@ -135,6 +135,10 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
 
     private UserData createAuthenticatedUserData(String userName, String password, String userTokenClientId) {
         UserTokenProviderConfig tokenProviderConfig = UserTokenProviderConfig.of(userTokenClientId);
+        BeftaUtils.defaultLog("Using tokenProviderConfig accessTokenType : " + tokenProviderConfig.getAccessTokenType());
+        BeftaUtils.defaultLog("Using tokenProviderConfig client ID : " + tokenProviderConfig.getClientId());
+        BeftaUtils.defaultLog("Using tokenProviderConfig redirect URI : " + tokenProviderConfig.getRedirectUri());
+        BeftaUtils.defaultLog("Using tokenProviderConfig scope : " + tokenProviderConfig.getScopeVariables());
         final String accessToken = getUserAccessToken(userName, password, tokenProviderConfig);
         UserData userData = new UserData(userName, password);
         userData.setAccessToken(accessToken);
