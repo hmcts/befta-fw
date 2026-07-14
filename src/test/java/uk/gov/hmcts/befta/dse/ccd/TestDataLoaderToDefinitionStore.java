@@ -13,11 +13,13 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Stream;
 import javax.net.ssl.SSLException;
 
 import io.restassured.RestAssured;
 import io.restassured.http.Header;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.response.ResponseBody;
 import io.restassured.specification.RequestSpecification;
@@ -54,6 +56,9 @@ class TestDataLoaderToDefinitionStore {
     public static final String CCD_IMPORT_AUTOTEST_EMAIL_VALUE = "CCD_IMPORT_AUTOTEST_EMAIL_VALUE";
     public static final String CCD_IMPORT_AUTOTEST_PASSWORD = "DEFINITION_IMPORTER_PASSWORD";
     public static final String CCD_IMPORT_AUTOTEST_PASSWORD_VALUE = "CCD_IMPORT_AUTOTEST_PASSWORD_VALUE";
+    public static final String DEFINITION_IMPORT_JOB_ID = "BEFTA_DEFINITION_IMPORT_JOB_ID";
+    public static final String DEFINITION_IMPORT_JOB_ID_VALUE = "11111111-2222-3333-4444-555555555555";
+    public static final String DEFINITION_IMPORT_JOB_ID_HEADER = "X-Import-Job-Id";
     private MockedStatic<RestAssured> restAssuredMock = null;
 
     @BeforeEach
@@ -267,6 +272,7 @@ class TestDataLoaderToDefinitionStore {
     @Test
     @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
     @ClearEnvironmentVariable(key = "BEFTA_FORCE_IMPORT_RETRY")
+    @ClearEnvironmentVariable(key = DEFINITION_IMPORT_JOB_ID)
     void testImportDefinitionRetryDefaultsToOneAttempt() {
         TestAutomationAdapter mockAdapter = mock(TestAutomationAdapter.class);
         DataLoaderToDefinitionStore dataLoaderToDefinitionStore = new DataLoaderToDefinitionStore(mockAdapter);
@@ -276,11 +282,13 @@ class TestDataLoaderToDefinitionStore {
         Assertions.assertEquals(1000L, dataLoaderToDefinitionStore.getDefinitionImportRetryDelayInMilliseconds());
         Assertions.assertEquals(1000L, dataLoaderToDefinitionStore.getDefinitionImportRetryDelayInMilliseconds(1));
         Assertions.assertEquals(2000L, dataLoaderToDefinitionStore.getDefinitionImportRetryDelayInMilliseconds(2));
+        UUID.fromString(dataLoaderToDefinitionStore.getDefinitionImportJobId());
     }
 
     @Test
     @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
     @SetEnvironmentVariable(key = "BEFTA_FORCE_IMPORT_RETRY", value = "true")
+    @ClearEnvironmentVariable(key = DEFINITION_IMPORT_JOB_ID)
     void testImportDefinitionRetryUsesForceImportRetryEnvironmentVariable() {
         TestAutomationAdapter mockAdapter = mock(TestAutomationAdapter.class);
         DataLoaderToDefinitionStore dataLoaderToDefinitionStore = new DataLoaderToDefinitionStore(mockAdapter);
@@ -295,6 +303,45 @@ class TestDataLoaderToDefinitionStore {
 
     @Test
     @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
+    @SetEnvironmentVariable(key = DEFINITION_IMPORT_JOB_ID, value = DEFINITION_IMPORT_JOB_ID_VALUE)
+    void testImportDefinitionJobIdUsesConfiguredUuid() {
+        TestAutomationAdapter mockAdapter = mock(TestAutomationAdapter.class);
+        DataLoaderToDefinitionStore dataLoaderToDefinitionStore = new DataLoaderToDefinitionStore(mockAdapter);
+
+        Assertions.assertEquals(DEFINITION_IMPORT_JOB_ID_VALUE, dataLoaderToDefinitionStore.getDefinitionImportJobId());
+    }
+
+    @Test
+    @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
+    @SetEnvironmentVariable(key = DEFINITION_IMPORT_JOB_ID, value = "not-a-uuid")
+    void testImportDefinitionJobIdRejectsInvalidConfiguredUuid() {
+        TestAutomationAdapter mockAdapter = mock(TestAutomationAdapter.class);
+        DataLoaderToDefinitionStore dataLoaderToDefinitionStore = new DataLoaderToDefinitionStore(mockAdapter);
+
+        Assertions.assertThrows(IllegalArgumentException.class, dataLoaderToDefinitionStore::getDefinitionImportJobId);
+    }
+
+    @Test
+    @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
+    @SetEnvironmentVariable(key = DEFINITION_IMPORT_JOB_ID, value = DEFINITION_IMPORT_JOB_ID_VALUE)
+    void testImportDefinitionsRejectsConfiguredImportJobIdForMultipleFiles() {
+        TestAutomationAdapter mockAdapter = mock(TestAutomationAdapter.class);
+        DataLoaderToDefinitionStore dataLoaderToDefinitionStore
+                = new TestableDataLoaderToDefinitionStore(mockAdapter) {
+                    @Override
+                    protected List<String> getAllDefinitionFilesToLoadAt(String definitionsPath) {
+                        return List.of("first.xlsx", "second.xlsx");
+                    }
+                };
+
+        Assertions.assertThrows(
+                IllegalArgumentException.class,
+                () -> dataLoaderToDefinitionStore.importDefinitionsAt("definitions")
+        );
+    }
+
+    @Test
+    @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
     @SetEnvironmentVariable(key = IDAM_URL_KEY, value = IDAM_URL_VALUE)
     @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_ID_KEY, value = BEFTA_S2S_CLIENT_ID_VALUE)
     @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_SECRET_KEY, value = BEFTA_S2S_CLIENT_SECRET_VALUE)
@@ -304,6 +351,7 @@ class TestDataLoaderToDefinitionStore {
     @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_CLIENT_ID", value = "OAUTH2_CLIENT_ID_VALUE")
     @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_CLIENT_SECRET", value = "OAUTH2_CLIENT_SECRET_VALUE")
     @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_REDIRECT_URL", value = "OAUTH2_REDIRECT_URI_VALUE")
+    @ClearEnvironmentVariable(key = DEFINITION_IMPORT_JOB_ID)
     void testImportDefinitionClosesConnectionAndPostsImport() throws Exception {
         TestAutomationAdapter mockAdapter = mock(TestAutomationAdapter.class);
         RequestSpecification requestSpecification = mock(RequestSpecification.class);
@@ -321,6 +369,7 @@ class TestDataLoaderToDefinitionStore {
         verify(requestSpecification).header(ArgumentMatchers.<Header>argThat(header ->
                 "Connection".equals(header.getName()) && "close".equals(header.getValue())
         ));
+        verify(requestSpecification).header(ArgumentMatchers.<Header>argThat(this::isImportJobHeaderWithValidUuid));
         verify(requestSpecification).post("/import");
     }
 
@@ -335,7 +384,68 @@ class TestDataLoaderToDefinitionStore {
     @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_CLIENT_ID", value = "OAUTH2_CLIENT_ID_VALUE")
     @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_CLIENT_SECRET", value = "OAUTH2_CLIENT_SECRET_VALUE")
     @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_REDIRECT_URL", value = "OAUTH2_REDIRECT_URI_VALUE")
+    @SetEnvironmentVariable(key = DEFINITION_IMPORT_JOB_ID, value = DEFINITION_IMPORT_JOB_ID_VALUE)
+    void testImportDefinitionPostsConfiguredImportJobId() throws Exception {
+        TestAutomationAdapter mockAdapter = mock(TestAutomationAdapter.class);
+        RequestSpecification requestSpecification = mock(RequestSpecification.class);
+        Response rs = mock(io.restassured.response.Response.class);
+        Path file = Files.createTempFile("definition", ".xlsx");
+
+        mockImportDefinitionApiCalls(requestSpecification);
+        when(rs.getStatusCode()).thenReturn(201);
+        when(requestSpecification.post("/import")).thenReturn(rs);
+
+        DataLoaderToDefinitionStore dataLoaderToDefinitionStore = new TestableDataLoaderToDefinitionStore(mockAdapter);
+
+        dataLoaderToDefinitionStore.importDefinition(file.toString());
+
+        verify(requestSpecification).header(ArgumentMatchers.<Header>argThat(header ->
+                DEFINITION_IMPORT_JOB_ID_HEADER.equals(header.getName())
+                        && DEFINITION_IMPORT_JOB_ID_VALUE.equals(header.getValue())
+        ));
+        verify(requestSpecification).post("/import");
+    }
+
+    @Test
+    @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
+    @SetEnvironmentVariable(key = IDAM_URL_KEY, value = IDAM_URL_VALUE)
+    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_ID_KEY, value = BEFTA_S2S_CLIENT_ID_VALUE)
+    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_SECRET_KEY, value = BEFTA_S2S_CLIENT_SECRET_VALUE)
+    @SetEnvironmentVariable(key = S2S_URL_KEY, value = S2S_URL_VALUE)
+    @SetEnvironmentVariable(key = CCD_IMPORT_AUTOTEST_EMAIL, value = CCD_IMPORT_AUTOTEST_EMAIL_VALUE)
+    @SetEnvironmentVariable(key = CCD_IMPORT_AUTOTEST_PASSWORD, value = CCD_IMPORT_AUTOTEST_PASSWORD_VALUE)
+    @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_CLIENT_ID", value = "OAUTH2_CLIENT_ID_VALUE")
+    @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_CLIENT_SECRET", value = "OAUTH2_CLIENT_SECRET_VALUE")
+    @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_REDIRECT_URL", value = "OAUTH2_REDIRECT_URI_VALUE")
+    void testGetImportJobUsesImportJobsEndpoint() {
+        TestAutomationAdapter mockAdapter = mock(TestAutomationAdapter.class);
+        RequestSpecification requestSpecification = mock(RequestSpecification.class);
+        Response rs = mock(io.restassured.response.Response.class);
+
+        mockGetImportJobApiCalls(requestSpecification);
+        when(requestSpecification.get("/import-jobs/{id}", DEFINITION_IMPORT_JOB_ID_VALUE)).thenReturn(rs);
+
+        DataLoaderToDefinitionStore dataLoaderToDefinitionStore = new TestableDataLoaderToDefinitionStore(mockAdapter);
+
+        Response response = dataLoaderToDefinitionStore.getImportJob(DEFINITION_IMPORT_JOB_ID_VALUE);
+
+        Assertions.assertEquals(rs, response);
+        verify(requestSpecification).get("/import-jobs/{id}", DEFINITION_IMPORT_JOB_ID_VALUE);
+    }
+
+    @Test
+    @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
+    @SetEnvironmentVariable(key = IDAM_URL_KEY, value = IDAM_URL_VALUE)
+    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_ID_KEY, value = BEFTA_S2S_CLIENT_ID_VALUE)
+    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_SECRET_KEY, value = BEFTA_S2S_CLIENT_SECRET_VALUE)
+    @SetEnvironmentVariable(key = S2S_URL_KEY, value = S2S_URL_VALUE)
+    @SetEnvironmentVariable(key = CCD_IMPORT_AUTOTEST_EMAIL, value = CCD_IMPORT_AUTOTEST_EMAIL_VALUE)
+    @SetEnvironmentVariable(key = CCD_IMPORT_AUTOTEST_PASSWORD, value = CCD_IMPORT_AUTOTEST_PASSWORD_VALUE)
+    @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_CLIENT_ID", value = "OAUTH2_CLIENT_ID_VALUE")
+    @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_CLIENT_SECRET", value = "OAUTH2_CLIENT_SECRET_VALUE")
+    @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_REDIRECT_URL", value = "OAUTH2_REDIRECT_URI_VALUE")
     @SetEnvironmentVariable(key = "BEFTA_FORCE_IMPORT_RETRY", value = "true")
+    @ClearEnvironmentVariable(key = DEFINITION_IMPORT_JOB_ID)
     void testImportDefinitionRetriesSslTransportException() throws Exception {
         TestAutomationAdapter mockAdapter = mock(TestAutomationAdapter.class);
         RequestSpecification requestSpecification = mock(RequestSpecification.class);
@@ -353,6 +463,46 @@ class TestDataLoaderToDefinitionStore {
         dataLoaderToDefinitionStore.importDefinition(file.toString());
 
         verify(requestSpecification, times(2)).post("/import");
+    }
+
+    @Test
+    @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
+    @SetEnvironmentVariable(key = IDAM_URL_KEY, value = IDAM_URL_VALUE)
+    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_ID_KEY, value = BEFTA_S2S_CLIENT_ID_VALUE)
+    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_SECRET_KEY, value = BEFTA_S2S_CLIENT_SECRET_VALUE)
+    @SetEnvironmentVariable(key = S2S_URL_KEY, value = S2S_URL_VALUE)
+    @SetEnvironmentVariable(key = CCD_IMPORT_AUTOTEST_EMAIL, value = CCD_IMPORT_AUTOTEST_EMAIL_VALUE)
+    @SetEnvironmentVariable(key = CCD_IMPORT_AUTOTEST_PASSWORD, value = CCD_IMPORT_AUTOTEST_PASSWORD_VALUE)
+    @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_CLIENT_ID", value = "OAUTH2_CLIENT_ID_VALUE")
+    @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_CLIENT_SECRET", value = "OAUTH2_CLIENT_SECRET_VALUE")
+    @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_REDIRECT_URL", value = "OAUTH2_REDIRECT_URI_VALUE")
+    @SetEnvironmentVariable(key = "BEFTA_FORCE_IMPORT_RETRY", value = "true")
+    @SetEnvironmentVariable(key = DEFINITION_IMPORT_JOB_ID, value = DEFINITION_IMPORT_JOB_ID_VALUE)
+    void testImportDefinitionTreatsCompletedExistingImportJobAsSuccess() throws Exception {
+        TestAutomationAdapter mockAdapter = mock(TestAutomationAdapter.class);
+        RequestSpecification requestSpecification = mock(RequestSpecification.class);
+        Response conflictResponse = mock(io.restassured.response.Response.class);
+        Response importJobResponse = mock(io.restassured.response.Response.class);
+        JsonPath jsonPath = mock(JsonPath.class);
+        Path file = Files.createTempFile("definition", ".xlsx");
+
+        mockImportDefinitionApiCalls(requestSpecification);
+        when(conflictResponse.getStatusCode()).thenReturn(409);
+        when(importJobResponse.getStatusCode()).thenReturn(200);
+        when(importJobResponse.jsonPath()).thenReturn(jsonPath);
+        when(jsonPath.getString("status")).thenReturn("COMPLETED");
+        when(requestSpecification.post("/import"))
+                .thenThrow(new RuntimeException(new SSLException("Tag mismatch")))
+                .thenReturn(conflictResponse);
+        when(requestSpecification.get("/import-jobs/{id}", DEFINITION_IMPORT_JOB_ID_VALUE))
+                .thenReturn(importJobResponse);
+
+        DataLoaderToDefinitionStore dataLoaderToDefinitionStore = new TestableDataLoaderToDefinitionStore(mockAdapter);
+
+        dataLoaderToDefinitionStore.importDefinition(file.toString());
+
+        verify(requestSpecification, times(2)).post("/import");
+        verify(requestSpecification).get("/import-jobs/{id}", DEFINITION_IMPORT_JOB_ID_VALUE);
     }
 
     @Test
@@ -476,6 +626,25 @@ class TestDataLoaderToDefinitionStore {
         when(requestSpecification.given()).thenReturn(requestSpecification);
         when(requestSpecification.multiPart(any(File.class))).thenReturn(requestSpecification);
         when(requestSpecification.when()).thenReturn(requestSpecification);
+    }
+
+    private void mockGetImportJobApiCalls(RequestSpecification requestSpecification) {
+        when(RestAssured.given(any())).thenReturn(requestSpecification);
+        when(requestSpecification.header(any())).thenReturn(requestSpecification);
+        when(requestSpecification.given()).thenReturn(requestSpecification);
+        when(requestSpecification.when()).thenReturn(requestSpecification);
+    }
+
+    private boolean isImportJobHeaderWithValidUuid(Header header) {
+        if (!DEFINITION_IMPORT_JOB_ID_HEADER.equals(header.getName())) {
+            return false;
+        }
+        try {
+            UUID.fromString(header.getValue());
+            return true;
+        } catch (IllegalArgumentException ex) {
+            return false;
+        }
     }
 
     private static class TestableDataLoaderToDefinitionStore extends DataLoaderToDefinitionStore {

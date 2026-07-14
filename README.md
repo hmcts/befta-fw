@@ -160,6 +160,8 @@ Below are the environment needed specifically for CCD domain.
      will be imported to Definition Store, for automated test data preparation.
    * BEFTA_FORCE_IMPORT_RETRY: Optional. Set to `true` to opt in to CCD definition import retry. Defaults to no
      retry. See [CCD Definition Import Retry](#ccd-definition-import-retry).
+   * BEFTA_DEFINITION_IMPORT_JOB_ID: Optional. UUID to send to Definition Store in the `X-Import-Job-Id` header
+     during definition import. When omitted, BEFTA generates a UUID for each definition import.
 
 Below are the environment needed specifically to Create Role Assignment data.
 * ROLE_ASSIGNMENT_API_GATEWAY_S2S_CLIENT_ID:S2S service token for Role Assignment service.
@@ -821,6 +823,12 @@ fail randomly due to network issues, timeouts, or other intermittent failures.
 ### CCD Definition Import Retry
 CCD definition import uses a separate, opt-in retry from the global retry policy because the `/import` request is a
 multipart POST and is intentionally scoped to `DataLoaderToDefinitionStore`.
+
+BEFTA sends an `X-Import-Job-Id` header with each definition import so the corresponding Definition Store job can be
+looked up with `GET /import-jobs/{id}`. Set `BEFTA_DEFINITION_IMPORT_JOB_ID=<uuid>` to provide a known job ID, or omit
+it and BEFTA will generate one. A configured UUID can only be used when importing one definition file; omit it when a
+loader imports multiple files so BEFTA can generate a unique UUID for each import. If a retry receives `409` because the
+job already exists, BEFTA checks `GET /import-jobs/{id}` and treats a `COMPLETED` job as a successful import.
 
 Set `BEFTA_FORCE_IMPORT_RETRY=true` to retry transient transport exceptions during `DataLoaderToDefinitionStore`
 definition import, such as `javax.net.ssl.SSLException`. Defaults to no retry. When enabled, BEFTA makes up to 3 total

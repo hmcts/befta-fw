@@ -43,6 +43,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 import javax.net.ssl.SSLException;
@@ -61,6 +62,8 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
     private static final int DEFINITION_IMPORT_RETRY_MAX_ATTEMPTS = 3;
     private static final int DEFINITION_IMPORT_NO_RETRY_MAX_ATTEMPTS = 1;
     private static final long DEFINITION_IMPORT_RETRY_DELAY_MILLIS = 1000L;
+    private static final String DEFINITION_IMPORT_JOB_ID_HEADER = "X-Import-Job-Id";
+    private static final String IMPORT_JOB_STATUS_COMPLETED = "COMPLETED";
 
     private static final String[] RA_DATA_RESOURCE_PACKAGES = { "roleAssignments" };
 
@@ -336,6 +339,10 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
 
     protected void importDefinitionsAt(String definitionsPath) {
         List<String> definitionFileResources = getAllDefinitionFilesToLoadAt(definitionsPath);
+        if (hasConfiguredDefinitionImportJobId() && definitionFileResources.size() > 1) {
+            throw new IllegalArgumentException("BEFTA_DEFINITION_IMPORT_JOB_ID can only be used when importing one "
+                    + "definition file. Omit it to auto-generate a unique import job ID for each definition import.");
+        }
         logger.info("{} definition files will be uploaded to '{}' on {}.", definitionFileResources.size(),
                 definitionStoreUrl, getDataSetupEnvironment());
         String message = "Couldn't import {} - Exception: {}.\n\n";
@@ -430,14 +437,19 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
 
     private void importDefinitionWithRetry(File file) throws IOException {
         int maxAttempts = Math.max(1, getDefinitionImportMaxAttempts());
+        String importJobId = getDefinitionImportJobId();
 
         for (int attempt = 1; attempt <= maxAttempts; attempt++) {
             long attemptStartTime = System.currentTimeMillis();
             try {
-                Response response = postDefinitionImport(file);
+                Response response = postDefinitionImport(file, importJobId);
                 if (response.getStatusCode() != 201) {
+                    if (isCompletedExistingImportJob(response, importJobId)) {
+                        return;
+                    }
                     String message = "Import failed with response body: " + response.body().prettyPrint();
                     message += "\nand http code: " + response.statusCode();
+                    message += "\nand import job id: " + importJobId;
                     throw new ImportException(message, response.statusCode());
                 }
                 return;
@@ -462,13 +474,60 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
         }
     }
 
-    private Response postDefinitionImport(File file) {
+    private Response postDefinitionImport(File file, String importJobId) {
         Header connectionClose = new Header("Connection", "close");
+        Header importJobIdHeader = new Header(DEFINITION_IMPORT_JOB_ID_HEADER, importJobId);
         return asAutoTestImporter().given()
                 .header(connectionClose)
+                .header(importJobIdHeader)
                 .multiPart(file)
                 .when()
                 .post("/import");
+    }
+
+    protected boolean hasConfiguredDefinitionImportJobId() {
+        return !StringUtils.isBlank(BeftaMain.getConfig().getDefinitionImportJobId());
+    }
+
+    protected String getDefinitionImportJobId() {
+        String configuredImportJobId = BeftaMain.getConfig().getDefinitionImportJobId();
+        if (StringUtils.isBlank(configuredImportJobId)) {
+            return UUID.randomUUID().toString();
+        }
+        try {
+            return UUID.fromString(configuredImportJobId).toString();
+        } catch (IllegalArgumentException ex) {
+            throw new IllegalArgumentException("Invalid BEFTA_DEFINITION_IMPORT_JOB_ID: must be a valid UUID", ex);
+        }
+    }
+
+    protected Response getImportJob(String importJobId) {
+        return asAutoTestImporter().given()
+                .when()
+                .get("/import-jobs/{id}", importJobId);
+    }
+
+    private boolean isCompletedExistingImportJob(Response importResponse, String importJobId) {
+        if (importResponse.getStatusCode() != 409) {
+            return false;
+        }
+
+        Response importJobResponse = getImportJob(importJobId);
+        if (importJobResponse.getStatusCode() != 200) {
+            logger.warn("Definition import job '{}' already exists, but GET /import-jobs/{} returned HTTP {}.",
+                    importJobId, importJobId, importJobResponse.getStatusCode());
+            return false;
+        }
+
+        String status = importJobResponse.jsonPath().getString("status");
+        if (IMPORT_JOB_STATUS_COMPLETED.equals(status)) {
+            logger.info("Definition import job '{}' already completed. Treating duplicate import response as success.",
+                    importJobId);
+            return true;
+        }
+
+        logger.warn("Definition import job '{}' already exists with status '{}'.", importJobId, status);
+        return false;
     }
 
     protected int getDefinitionImportMaxAttempts() {
