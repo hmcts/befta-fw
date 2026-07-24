@@ -3,6 +3,7 @@ package uk.gov.hmcts.befta.dse.ccd;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.times;
@@ -34,6 +35,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.junitpioneer.jupiter.ClearEnvironmentVariable;
 import org.junitpioneer.jupiter.SetEnvironmentVariable;
 import org.mockito.ArgumentMatchers;
+import org.mockito.ArgumentCaptor;
 import org.mockito.MockedStatic;
 import uk.gov.hmcts.befta.DefaultTestAutomationAdapter;
 import uk.gov.hmcts.befta.TestAutomationAdapter;
@@ -338,6 +340,51 @@ class TestDataLoaderToDefinitionStore {
                 IllegalArgumentException.class,
                 () -> dataLoaderToDefinitionStore.importDefinitionsAt("definitions")
         );
+    }
+
+    @Test
+    @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
+    @SetEnvironmentVariable(key = IDAM_URL_KEY, value = IDAM_URL_VALUE)
+    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_ID_KEY, value = BEFTA_S2S_CLIENT_ID_VALUE)
+    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_SECRET_KEY, value = BEFTA_S2S_CLIENT_SECRET_VALUE)
+    @SetEnvironmentVariable(key = S2S_URL_KEY, value = S2S_URL_VALUE)
+    @SetEnvironmentVariable(key = CCD_IMPORT_AUTOTEST_EMAIL, value = CCD_IMPORT_AUTOTEST_EMAIL_VALUE)
+    @SetEnvironmentVariable(key = CCD_IMPORT_AUTOTEST_PASSWORD, value = CCD_IMPORT_AUTOTEST_PASSWORD_VALUE)
+    @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_CLIENT_ID", value = "OAUTH2_CLIENT_ID_VALUE")
+    @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_CLIENT_SECRET", value = "OAUTH2_CLIENT_SECRET_VALUE")
+    @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_REDIRECT_URL", value = "OAUTH2_REDIRECT_URI_VALUE")
+    @ClearEnvironmentVariable(key = DEFINITION_IMPORT_JOB_ID)
+    void testImportDefinitionsPostsGeneratedImportJobIdsWhenNotConfigured() throws Exception {
+        TestAutomationAdapter mockAdapter = mock(TestAutomationAdapter.class);
+        RequestSpecification requestSpecification = mock(RequestSpecification.class);
+        Response rs = mock(io.restassured.response.Response.class);
+        Path firstFile = Files.createTempFile("definition-first", ".xlsx");
+        Path secondFile = Files.createTempFile("definition-second", ".xlsx");
+        ArgumentCaptor<Header> headerCaptor = ArgumentCaptor.forClass(Header.class);
+
+        mockImportDefinitionApiCalls(requestSpecification);
+        when(rs.getStatusCode()).thenReturn(201);
+        when(requestSpecification.post("/import")).thenReturn(rs);
+
+        DataLoaderToDefinitionStore dataLoaderToDefinitionStore
+                = new TestableDataLoaderToDefinitionStore(mockAdapter) {
+                    @Override
+                    protected List<String> getAllDefinitionFilesToLoadAt(String definitionsPath) {
+                        return List.of(firstFile.toString(), secondFile.toString());
+                    }
+                };
+
+        dataLoaderToDefinitionStore.importDefinitionsAt("definitions");
+
+        verify(requestSpecification, atLeast(2)).header(headerCaptor.capture());
+        List<String> importJobIds = headerCaptor.getAllValues().stream()
+                .filter(header -> DEFINITION_IMPORT_JOB_ID_HEADER.equals(header.getName()))
+                .map(Header::getValue)
+                .toList();
+        Assertions.assertEquals(2, importJobIds.size());
+        importJobIds.forEach(UUID::fromString);
+        Assertions.assertNotEquals(importJobIds.get(0), importJobIds.get(1));
+        verify(requestSpecification, times(2)).post("/import");
     }
 
     @Test

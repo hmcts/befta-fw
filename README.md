@@ -161,7 +161,8 @@ Below are the environment needed specifically for CCD domain.
    * BEFTA_FORCE_IMPORT_RETRY: Optional. Set to `true` to opt in to CCD definition import retry. Defaults to no
      retry. See [CCD Definition Import Retry](#ccd-definition-import-retry).
    * BEFTA_DEFINITION_IMPORT_JOB_ID: Optional. UUID to send to Definition Store in the `X-Import-Job-Id` header
-     during definition import. When omitted, BEFTA generates a UUID for each definition import.
+     during definition import. Only set this when the loader imports one definition file. See
+     [CCD Definition Import Job ID](#ccd-definition-import-job-id).
 
 Below are the environment needed specifically to Create Role Assignment data.
 * ROLE_ASSIGNMENT_API_GATEWAY_S2S_CLIENT_ID:S2S service token for Role Assignment service.
@@ -330,7 +331,8 @@ The BEFTA Framework will always load the JSON definitions in `befta-fw` from the
 `src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions`, use them to create a XLSX file and import it to the 
 ccd definition store.  
 
-For retry behavior around transient import transport failures, see
+For import job ID and retry behavior around transient import transport failures, see
+[CCD Definition Import Job ID](#ccd-definition-import-job-id) and
 [CCD Definition Import Retry](#ccd-definition-import-retry).
 
 :warning: Any changes made to XLSX files in the directory `src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/excel` will 
@@ -820,15 +822,51 @@ The Retryable Feature is a new addition that allows you to execute tests multipl
 until they pass or reach the maximum number of attempts. This is useful when you have flaky tests that 
 fail randomly due to network issues, timeouts, or other intermittent failures.
 
+### CCD Definition Import Job ID
+BEFTA sends an `X-Import-Job-Id` header with each CCD definition import. Definition Store uses that value as the import
+job identifier, which means BEFTA can look the job up later with `GET /import-jobs/{id}`.
+
+`BEFTA_DEFINITION_IMPORT_JOB_ID` is optional. When it is not set, BEFTA generates a new UUID for each definition file
+that it imports. This is the default and recommended behaviour when a loader imports multiple definition files.
+
+Only set `BEFTA_DEFINITION_IMPORT_JOB_ID` when the loader imports a single definition file. BEFTA reuses the configured
+UUID for the import request and any retry of that same request. If the same configured UUID were used for multiple
+definition files, those uploads would all point at the same Definition Store import job, so BEFTA rejects that
+configuration before uploading.
+
+If a retry receives `409` because the job already exists, BEFTA calls `GET /import-jobs/{id}` using the same UUID. If
+Definition Store reports the job status as `COMPLETED`, BEFTA treats the import as successful. This covers the case where
+the original multipart upload reached Definition Store but the client connection failed before BEFTA received the
+response.
+
+For a Jenkins pipeline that runs one definition upload, generate a UUID for that one command and pass it as an
+environment variable:
+
+```groovy
+stage('BEFTA definition import') {
+    steps {
+        script {
+            withEnv(["BEFTA_DEFINITION_IMPORT_JOB_ID=${UUID.randomUUID().toString()}"]) {
+                sh './gradlew <your-befta-functional-test-task>'
+            }
+        }
+    }
+}
+```
+
+If the same Jenkins stage can import multiple definition files, do not set `BEFTA_DEFINITION_IMPORT_JOB_ID`:
+
+```groovy
+stage('BEFTA definition import') {
+    steps {
+        sh './gradlew <your-befta-functional-test-task>'
+    }
+}
+```
+
 ### CCD Definition Import Retry
 CCD definition import uses a separate, opt-in retry from the global retry policy because the `/import` request is a
 multipart POST and is intentionally scoped to `DataLoaderToDefinitionStore`.
-
-BEFTA sends an `X-Import-Job-Id` header with each definition import so the corresponding Definition Store job can be
-looked up with `GET /import-jobs/{id}`. Set `BEFTA_DEFINITION_IMPORT_JOB_ID=<uuid>` to provide a known job ID, or omit
-it and BEFTA will generate one. A configured UUID can only be used when importing one definition file; omit it when a
-loader imports multiple files so BEFTA can generate a unique UUID for each import. If a retry receives `409` because the
-job already exists, BEFTA checks `GET /import-jobs/{id}` and treats a `COMPLETED` job as a successful import.
 
 Set `BEFTA_FORCE_IMPORT_RETRY=true` to retry transient transport exceptions during `DataLoaderToDefinitionStore`
 definition import, such as `javax.net.ssl.SSLException`. Defaults to no retry. When enabled, BEFTA makes up to 3 total
