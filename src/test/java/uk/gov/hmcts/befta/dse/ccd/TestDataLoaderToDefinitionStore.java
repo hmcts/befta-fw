@@ -10,6 +10,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import ch.qos.logback.classic.Logger;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -37,9 +38,11 @@ import org.junitpioneer.jupiter.SetEnvironmentVariable;
 import org.mockito.ArgumentMatchers;
 import org.mockito.ArgumentCaptor;
 import org.mockito.MockedStatic;
+import org.slf4j.LoggerFactory;
 import uk.gov.hmcts.befta.DefaultTestAutomationAdapter;
 import uk.gov.hmcts.befta.TestAutomationAdapter;
 import uk.gov.hmcts.befta.exception.ImportException;
+import uk.gov.hmcts.befta.util.TestLogAppender;
 
 @SuppressWarnings({"LineLength","VariableDeclarationUsageDistance"})
 class TestDataLoaderToDefinitionStore {
@@ -279,7 +282,6 @@ class TestDataLoaderToDefinitionStore {
         TestAutomationAdapter mockAdapter = mock(TestAutomationAdapter.class);
         DataLoaderToDefinitionStore dataLoaderToDefinitionStore = new DataLoaderToDefinitionStore(mockAdapter);
 
-        Assertions.assertEquals(300, dataLoaderToDefinitionStore.getDefinitionImportJobPollMaxAttempts());
         Assertions.assertEquals(1000L, dataLoaderToDefinitionStore.getDefinitionImportJobPollDelayInMilliseconds());
         UUID.fromString(dataLoaderToDefinitionStore.getDefinitionImportJobId());
     }
@@ -424,14 +426,26 @@ class TestDataLoaderToDefinitionStore {
         when(requestSpecification.post("/import")).thenReturn(rs);
 
         DataLoaderToDefinitionStore dataLoaderToDefinitionStore = new TestableDataLoaderToDefinitionStore(mockAdapter);
+        Logger logger = (Logger) LoggerFactory.getLogger(DataLoaderToDefinitionStore.class);
+        TestLogAppender testLogAppender = new TestLogAppender();
+        logger.addAppender(testLogAppender);
+        testLogAppender.start();
 
-        dataLoaderToDefinitionStore.importDefinition(file.toString());
+        try {
+            dataLoaderToDefinitionStore.importDefinition(file.toString());
+        } finally {
+            logger.detachAppender(testLogAppender);
+            testLogAppender.stop();
+        }
 
         verify(requestSpecification).header(ArgumentMatchers.<Header>argThat(header ->
                 DEFINITION_IMPORT_JOB_ID_HEADER.equals(header.getName())
                         && DEFINITION_IMPORT_JOB_ID_VALUE.equals(header.getValue())
         ));
         verify(requestSpecification).post("/import");
+        Assertions.assertTrue(testLogAppender.getLogEvents().stream()
+                .anyMatch(event -> event.getFormattedMessage()
+                        .contains("Import is starting with " + DEFINITION_IMPORT_JOB_ID_VALUE)));
     }
 
     @Test
@@ -802,11 +816,6 @@ class TestDataLoaderToDefinitionStore {
 
         TestableDataLoaderToDefinitionStore(TestAutomationAdapter adapter) {
             super(adapter);
-        }
-
-        @Override
-        protected int getDefinitionImportJobPollMaxAttempts() {
-            return 2;
         }
 
         @Override

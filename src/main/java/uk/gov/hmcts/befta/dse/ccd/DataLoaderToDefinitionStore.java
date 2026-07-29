@@ -54,11 +54,8 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
     public static final String VALID_CCD_TEST_DEFINITIONS_PATH = "uk/gov/hmcts/ccd/test_definitions/valid";
 
     private static final String TEMPORARY_DEFINITION_FOLDER = "definition_files";
-    private static final String BEFTA_DEFINITION_IMPORT_JOB_POLL_MAX_ATTEMPTS =
-            "BEFTA_DEFINITION_IMPORT_JOB_POLL_MAX_ATTEMPTS";
     private static final String BEFTA_DEFINITION_IMPORT_JOB_POLL_INTERVAL_MILLISECONDS =
             "BEFTA_DEFINITION_IMPORT_JOB_POLL_INTERVAL_MILLISECONDS";
-    private static final int DEFINITION_IMPORT_JOB_POLL_MAX_ATTEMPTS = 300;
     private static final long DEFINITION_IMPORT_JOB_POLL_DELAY_MILLIS = 1000L;
     private static final String DEFINITION_IMPORT_JOB_ID_HEADER = "X-Import-Job-Id";
     private static final String IMPORT_JOB_STATUS_COMPLETED = "COMPLETED";
@@ -436,6 +433,7 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
 
     private void importDefinitionWithRecovery(File file) throws IOException {
         String importJobId = getDefinitionImportJobId();
+        logger.info("Import is starting with {}", importJobId);
         long attemptStartTime = System.currentTimeMillis();
         Response response;
         int statusCode;
@@ -518,19 +516,13 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
     }
 
     private void pollImportJobUntilCompleted(String importJobId) {
-        int maxPollAttempts = Math.max(1, getDefinitionImportJobPollMaxAttempts());
-        int lastHttpStatus = 0;
-        String lastImportJobStatus = null;
-        Exception lastPollException = null;
-
-        for (int pollAttempt = 1; pollAttempt <= maxPollAttempts; pollAttempt++) {
+        for (long pollAttempt = 1; ; pollAttempt++) {
             try {
                 Response importJobResponse = getImportJob(importJobId);
-                lastPollException = null;
-                lastHttpStatus = importJobResponse.getStatusCode();
+                int lastHttpStatus = importJobResponse.getStatusCode();
 
                 if (lastHttpStatus == 200) {
-                    lastImportJobStatus = importJobResponse.jsonPath().getString("status");
+                    String lastImportJobStatus = importJobResponse.jsonPath().getString("status");
                     if (isCompletedImportJobStatus(lastImportJobStatus)) {
                         logger.info("Definition import job '{}' completed. Treating import as successful.", importJobId);
                         return;
@@ -539,39 +531,24 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
                         throw new ImportException("Definition import job '" + importJobId
                                 + "' failed with status '" + lastImportJobStatus + "'.", lastHttpStatus);
                     }
-                    logger.info("Definition import job '{}' is currently '{}'. Poll attempt {} of {}.",
-                            importJobId, lastImportJobStatus, pollAttempt, maxPollAttempts);
+                    logger.info("Definition import job '{}' is currently '{}'. Poll attempt {}.",
+                            importJobId, lastImportJobStatus, pollAttempt);
                 } else if (lastHttpStatus == 404) {
-                    logger.info("Definition import job '{}' was not found. Poll attempt {} of {}.",
-                            importJobId, pollAttempt, maxPollAttempts);
+                    logger.info("Definition import job '{}' was not found. Poll attempt {}.",
+                            importJobId, pollAttempt);
                 } else {
-                    logger.warn("GET /import-jobs/{} returned HTTP {}. Poll attempt {} of {}.",
-                            importJobId, lastHttpStatus, pollAttempt, maxPollAttempts);
+                    logger.warn("GET /import-jobs/{} returned HTTP {}. Poll attempt {}.",
+                            importJobId, lastHttpStatus, pollAttempt);
                 }
             } catch (ImportException e) {
                 throw e;
             } catch (Exception e) {
-                lastPollException = e;
-                logger.warn("Exception polling definition import job '{}'. Poll attempt {} of {}. Cause: {}",
-                        importJobId, pollAttempt, maxPollAttempts, getExceptionSummary(e));
+                logger.warn("Exception polling definition import job '{}'. Poll attempt {}. Cause: {}",
+                        importJobId, pollAttempt, getExceptionSummary(e));
             }
 
-            if (pollAttempt < maxPollAttempts) {
-                waitBeforeDefinitionImportJobPoll(getDefinitionImportJobPollDelayInMilliseconds());
-            }
+            waitBeforeDefinitionImportJobPoll(getDefinitionImportJobPollDelayInMilliseconds());
         }
-
-        String message = "Definition import job '" + importJobId + "' did not reach status '"
-                + IMPORT_JOB_STATUS_COMPLETED + "' after " + maxPollAttempts + " poll attempts.";
-        if (!StringUtils.isBlank(lastImportJobStatus)) {
-            message += " Last import job status: '" + lastImportJobStatus + "'.";
-        } else if (lastPollException != null) {
-            message += " Last import job poll exception: " + getExceptionSummary(lastPollException) + ".";
-        } else {
-            message += " Last import job endpoint HTTP status: " + lastHttpStatus + ".";
-        }
-        message += " Not retrying /import because the import job already exists or may still be running.";
-        throw new ImportException(message, lastHttpStatus);
     }
 
     /**
@@ -606,11 +583,12 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
         return Math.max(0L, getDefinitionImportRetryDelayInMilliseconds()) * Math.max(1, failedAttempt);
     }
 
+    /**
+     * Import job polling is now unbounded. This hook is retained for source compatibility.
+     */
+    @Deprecated
     protected int getDefinitionImportJobPollMaxAttempts() {
-        return NumberUtils.toInt(
-                EnvironmentVariableUtils.getOptionalVariable(BEFTA_DEFINITION_IMPORT_JOB_POLL_MAX_ATTEMPTS),
-                DEFINITION_IMPORT_JOB_POLL_MAX_ATTEMPTS
-        );
+        return Integer.MAX_VALUE;
     }
 
     protected long getDefinitionImportJobPollDelayInMilliseconds() {

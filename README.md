@@ -163,8 +163,6 @@ Below are the environment needed specifically for CCD domain.
    * BEFTA_DEFINITION_IMPORT_JOB_ID: Optional. UUID to send to Definition Store in the `X-Import-Job-Id` header
      during definition import. Only set this when the loader imports one definition file. See
      [CCD Definition Import Job ID](#ccd-definition-import-job-id).
-   * BEFTA_DEFINITION_IMPORT_JOB_POLL_MAX_ATTEMPTS: Optional. Maximum number of times BEFTA polls
-     `GET /import-jobs/{id}` after a non-4xx import failure or exception. Defaults to `300`.
    * BEFTA_DEFINITION_IMPORT_JOB_POLL_INTERVAL_MILLISECONDS: Optional. Delay between import job polls. Defaults to
      `1000`.
 
@@ -842,7 +840,7 @@ After BEFTA sends `/import`, it waits for the initial response. A `201` response
 including `409`, fails immediately because retrying a client-side error will not help.
 
 If `/import` returns `5xx` or throws an exception, BEFTA calls `GET /import-jobs/{id}` using the same UUID and polls until
-Definition Store reports `COMPLETED` or `FAILED`, or until the poll limit is reached. `COMPLETED` is treated as success.
+Definition Store reports `COMPLETED` or `FAILED`. `COMPLETED` is treated as success.
 `FAILED` is treated as an import failure. BEFTA does not post the multipart file again after the initial `/import` call;
 it keeps polling even if the import-job endpoint temporarily returns `404`, another non-terminal HTTP status, or a
 transient polling exception.
