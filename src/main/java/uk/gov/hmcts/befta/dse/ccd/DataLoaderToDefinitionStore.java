@@ -6,6 +6,7 @@ import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,9 +31,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.ConnectException;
-import java.net.SocketException;
-import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -46,8 +44,6 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
-import javax.net.ssl.SSLException;
-import javax.net.ssl.SSLHandshakeException;
 
 import io.restassured.http.Header;
 
@@ -58,12 +54,15 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
     public static final String VALID_CCD_TEST_DEFINITIONS_PATH = "uk/gov/hmcts/ccd/test_definitions/valid";
 
     private static final String TEMPORARY_DEFINITION_FOLDER = "definition_files";
-    private static final String BEFTA_FORCE_IMPORT_RETRY = "BEFTA_FORCE_IMPORT_RETRY";
-    private static final int DEFINITION_IMPORT_RETRY_MAX_ATTEMPTS = 3;
-    private static final int DEFINITION_IMPORT_NO_RETRY_MAX_ATTEMPTS = 1;
-    private static final long DEFINITION_IMPORT_RETRY_DELAY_MILLIS = 1000L;
+    private static final String BEFTA_DEFINITION_IMPORT_JOB_POLL_MAX_ATTEMPTS =
+            "BEFTA_DEFINITION_IMPORT_JOB_POLL_MAX_ATTEMPTS";
+    private static final String BEFTA_DEFINITION_IMPORT_JOB_POLL_INTERVAL_MILLISECONDS =
+            "BEFTA_DEFINITION_IMPORT_JOB_POLL_INTERVAL_MILLISECONDS";
+    private static final int DEFINITION_IMPORT_JOB_POLL_MAX_ATTEMPTS = 300;
+    private static final long DEFINITION_IMPORT_JOB_POLL_DELAY_MILLIS = 1000L;
     private static final String DEFINITION_IMPORT_JOB_ID_HEADER = "X-Import-Job-Id";
     private static final String IMPORT_JOB_STATUS_COMPLETED = "COMPLETED";
+    private static final String IMPORT_JOB_STATUS_FAILED = "FAILED";
 
     private static final String[] RA_DATA_RESOURCE_PACKAGES = { "roleAssignments" };
 
@@ -429,49 +428,60 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
         File file = new File(fileResourcePath).exists() ? new File(fileResourcePath)
                 : BeftaUtils.getClassPathResourceIntoTemporaryFile(fileResourcePath);
         try {
-            importDefinitionWithRetry(file);
+            importDefinitionWithRecovery(file);
         } finally {
             file.delete();
         }
     }
 
-    private void importDefinitionWithRetry(File file) throws IOException {
-        int maxAttempts = Math.max(1, getDefinitionImportMaxAttempts());
+    private void importDefinitionWithRecovery(File file) throws IOException {
         String importJobId = getDefinitionImportJobId();
+        long attemptStartTime = System.currentTimeMillis();
+        Response response;
+        int statusCode;
 
-        for (int attempt = 1; attempt <= maxAttempts; attempt++) {
-            long attemptStartTime = System.currentTimeMillis();
-            try {
-                Response response = postDefinitionImport(file, importJobId);
-                if (response.getStatusCode() != 201) {
-                    if (isCompletedExistingImportJob(response, importJobId)) {
-                        return;
-                    }
-                    String message = "Import failed with response body: " + response.body().prettyPrint();
-                    message += "\nand http code: " + response.statusCode();
-                    message += "\nand import job id: " + importJobId;
-                    throw new ImportException(message, response.statusCode());
-                }
-                return;
-            } catch (Exception e) {
-                if (!isRetryableDefinitionImportException(e) || attempt >= maxAttempts) {
-                    rethrowDefinitionImportException(e);
-                }
-
-                long retryDelayInMilliseconds = getDefinitionImportRetryDelayInMilliseconds(attempt);
-                logger.warn(
-                        "Transport failure importing definition file '{}' on attempt {} of {} after {} ms. "
-                                + "Retrying in {} ms. Cause: {}",
-                        file.getPath(),
-                        attempt,
-                        maxAttempts,
-                        System.currentTimeMillis() - attemptStartTime,
-                        retryDelayInMilliseconds,
-                        getExceptionSummary(e)
-                );
-                waitBeforeDefinitionImportRetry(retryDelayInMilliseconds);
-            }
+        try {
+            response = postDefinitionImport(file, importJobId);
+            statusCode = response.getStatusCode();
+        } catch (Exception e) {
+            logger.warn(
+                    "Exception importing definition file '{}' after {} ms. "
+                            + "Polling import job '{}' before treating the import as failed. Cause: {}",
+                    file.getPath(),
+                    System.currentTimeMillis() - attemptStartTime,
+                    importJobId,
+                    getExceptionSummary(e)
+            );
+            pollImportJobUntilCompleted(importJobId);
+            return;
         }
+
+        if (statusCode == 201) {
+            return;
+        }
+        if (isClientErrorStatus(statusCode)) {
+            throw buildDefinitionImportException(response, importJobId);
+        }
+        logger.warn(
+                "Definition import file '{}' returned HTTP {} after {} ms. "
+                        + "Polling import job '{}' before treating the import as failed.",
+                file.getPath(),
+                statusCode,
+                System.currentTimeMillis() - attemptStartTime,
+                importJobId
+        );
+        pollImportJobUntilCompleted(importJobId);
+    }
+
+    private boolean isClientErrorStatus(int statusCode) {
+        return statusCode >= 400 && statusCode < 500;
+    }
+
+    private ImportException buildDefinitionImportException(Response response, String importJobId) {
+        String message = "Import failed with response body: " + response.body().prettyPrint();
+        message += "\nand http code: " + response.statusCode();
+        message += "\nand import job id: " + importJobId;
+        return new ImportException(message, response.statusCode());
     }
 
     private Response postDefinitionImport(File file, String importJobId) {
@@ -507,74 +517,127 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
                 .get("/import-jobs/{id}", importJobId);
     }
 
-    private boolean isCompletedExistingImportJob(Response importResponse, String importJobId) {
-        if (importResponse.getStatusCode() != 409) {
-            return false;
+    private void pollImportJobUntilCompleted(String importJobId) {
+        int maxPollAttempts = Math.max(1, getDefinitionImportJobPollMaxAttempts());
+        int lastHttpStatus = 0;
+        String lastImportJobStatus = null;
+        Exception lastPollException = null;
+
+        for (int pollAttempt = 1; pollAttempt <= maxPollAttempts; pollAttempt++) {
+            try {
+                Response importJobResponse = getImportJob(importJobId);
+                lastPollException = null;
+                lastHttpStatus = importJobResponse.getStatusCode();
+
+                if (lastHttpStatus == 200) {
+                    lastImportJobStatus = importJobResponse.jsonPath().getString("status");
+                    if (isCompletedImportJobStatus(lastImportJobStatus)) {
+                        logger.info("Definition import job '{}' completed. Treating import as successful.", importJobId);
+                        return;
+                    }
+                    if (isFailedImportJobStatus(lastImportJobStatus)) {
+                        throw new ImportException("Definition import job '" + importJobId
+                                + "' failed with status '" + lastImportJobStatus + "'.", lastHttpStatus);
+                    }
+                    logger.info("Definition import job '{}' is currently '{}'. Poll attempt {} of {}.",
+                            importJobId, lastImportJobStatus, pollAttempt, maxPollAttempts);
+                } else if (lastHttpStatus == 404) {
+                    logger.info("Definition import job '{}' was not found. Poll attempt {} of {}.",
+                            importJobId, pollAttempt, maxPollAttempts);
+                } else {
+                    logger.warn("GET /import-jobs/{} returned HTTP {}. Poll attempt {} of {}.",
+                            importJobId, lastHttpStatus, pollAttempt, maxPollAttempts);
+                }
+            } catch (ImportException e) {
+                throw e;
+            } catch (Exception e) {
+                lastPollException = e;
+                logger.warn("Exception polling definition import job '{}'. Poll attempt {} of {}. Cause: {}",
+                        importJobId, pollAttempt, maxPollAttempts, getExceptionSummary(e));
+            }
+
+            if (pollAttempt < maxPollAttempts) {
+                waitBeforeDefinitionImportJobPoll(getDefinitionImportJobPollDelayInMilliseconds());
+            }
         }
 
-        Response importJobResponse = getImportJob(importJobId);
-        if (importJobResponse.getStatusCode() != 200) {
-            logger.warn("Definition import job '{}' already exists, but GET /import-jobs/{} returned HTTP {}.",
-                    importJobId, importJobId, importJobResponse.getStatusCode());
-            return false;
+        String message = "Definition import job '" + importJobId + "' did not reach status '"
+                + IMPORT_JOB_STATUS_COMPLETED + "' after " + maxPollAttempts + " poll attempts.";
+        if (!StringUtils.isBlank(lastImportJobStatus)) {
+            message += " Last import job status: '" + lastImportJobStatus + "'.";
+        } else if (lastPollException != null) {
+            message += " Last import job poll exception: " + getExceptionSummary(lastPollException) + ".";
+        } else {
+            message += " Last import job endpoint HTTP status: " + lastHttpStatus + ".";
         }
-
-        String status = importJobResponse.jsonPath().getString("status");
-        if (IMPORT_JOB_STATUS_COMPLETED.equals(status)) {
-            logger.info("Definition import job '{}' already completed. Treating duplicate import response as success.",
-                    importJobId);
-            return true;
-        }
-
-        logger.warn("Definition import job '{}' already exists with status '{}'.", importJobId, status);
-        return false;
+        message += " Not retrying /import because the import job already exists or may still be running.";
+        throw new ImportException(message, lastHttpStatus);
     }
 
+    /**
+     * Import is now submitted once. This hook is retained for source compatibility.
+     */
+    @Deprecated
     protected int getDefinitionImportMaxAttempts() {
-        return shouldForceImportRetry()
-                ? DEFINITION_IMPORT_RETRY_MAX_ATTEMPTS
-                : DEFINITION_IMPORT_NO_RETRY_MAX_ATTEMPTS;
+        return 1;
     }
 
+    /**
+     * Import recovery is now enabled for all non-4xx import failures. This hook is retained for source compatibility.
+     */
+    @Deprecated
+    protected boolean shouldForceImportRetry() {
+        return true;
+    }
+
+    /**
+     * Import is now submitted once. This hook is retained for source compatibility.
+     */
+    @Deprecated
     protected long getDefinitionImportRetryDelayInMilliseconds() {
-        return DEFINITION_IMPORT_RETRY_DELAY_MILLIS;
+        return 0L;
     }
 
+    /**
+     * Import is now submitted once. This hook is retained for source compatibility.
+     */
+    @Deprecated
     protected long getDefinitionImportRetryDelayInMilliseconds(int failedAttempt) {
         return Math.max(0L, getDefinitionImportRetryDelayInMilliseconds()) * Math.max(1, failedAttempt);
     }
 
-    protected boolean shouldForceImportRetry() {
-        return Boolean.parseBoolean(EnvironmentVariableUtils.getOptionalVariable(BEFTA_FORCE_IMPORT_RETRY));
+    protected int getDefinitionImportJobPollMaxAttempts() {
+        return NumberUtils.toInt(
+                EnvironmentVariableUtils.getOptionalVariable(BEFTA_DEFINITION_IMPORT_JOB_POLL_MAX_ATTEMPTS),
+                DEFINITION_IMPORT_JOB_POLL_MAX_ATTEMPTS
+        );
     }
 
-    protected void waitBeforeDefinitionImportRetry(long retryDelayInMilliseconds) {
-        if (retryDelayInMilliseconds == 0L) {
+    protected long getDefinitionImportJobPollDelayInMilliseconds() {
+        return NumberUtils.toLong(
+                EnvironmentVariableUtils.getOptionalVariable(BEFTA_DEFINITION_IMPORT_JOB_POLL_INTERVAL_MILLISECONDS),
+                DEFINITION_IMPORT_JOB_POLL_DELAY_MILLIS
+        );
+    }
+
+    protected void waitBeforeDefinitionImportJobPoll(long pollDelayInMilliseconds) {
+        if (pollDelayInMilliseconds == 0L) {
             return;
         }
         try {
-            Thread.sleep(retryDelayInMilliseconds);
+            Thread.sleep(pollDelayInMilliseconds);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-            throw new RuntimeException("Interrupted while waiting to retry definition import.", e);
+            throw new RuntimeException("Interrupted while waiting to poll definition import job.", e);
         }
     }
 
-    private boolean isRetryableDefinitionImportException(Throwable exception) {
-        Throwable current = exception;
-        while (current != null) {
-            if (current instanceof SSLHandshakeException) {
-                return false;
-            }
-            if (current instanceof SSLException
-                    || current instanceof SocketException
-                    || current instanceof ConnectException
-                    || current instanceof SocketTimeoutException) {
-                return true;
-            }
-            current = current.getCause();
-        }
-        return false;
+    private boolean isCompletedImportJobStatus(String status) {
+        return IMPORT_JOB_STATUS_COMPLETED.equalsIgnoreCase(status);
+    }
+
+    private boolean isFailedImportJobStatus(String status) {
+        return IMPORT_JOB_STATUS_FAILED.equalsIgnoreCase(status);
     }
 
     private String getExceptionSummary(Throwable exception) {
@@ -585,16 +648,6 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
             current = current.getCause();
         }
         return rootCause.getClass().getName() + ": " + rootCause.getMessage();
-    }
-
-    private void rethrowDefinitionImportException(Exception e) throws IOException {
-        if (e instanceof IOException) {
-            throw (IOException) e;
-        }
-        if (e instanceof RuntimeException) {
-            throw (RuntimeException) e;
-        }
-        throw new RuntimeException(e);
     }
 
     protected RequestSpecification asAutoTestImporter() {
