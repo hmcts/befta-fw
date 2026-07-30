@@ -41,6 +41,10 @@ public class TestAutomationConfig {
         return EnvironmentVariableUtils.getRequiredVariable("DEFINITION_STORE_URL_BASE");
     }
 
+    public String getDefinitionImportJobId() {
+        return EnvironmentVariableUtils.getOptionalVariable("BEFTA_DEFINITION_IMPORT_JOB_ID");
+    }
+
     public String getImporterAutoTestEmail() {
         return EnvironmentVariableUtils.getRequiredVariable("DEFINITION_IMPORTER_USERNAME");
     }
@@ -136,5 +140,4 @@ public class TestAutomationConfig {
         return retryMultiplierInMilliseconds !=0 ? retryMultiplierInMilliseconds : 60;
     }
 }
-
 
