@@ -840,10 +840,10 @@ After BEFTA sends `/import`, it waits for the initial response. A `201` response
 including `409`, fails immediately because retrying a client-side error will not help.
 
 If `/import` returns `5xx` or throws an exception, BEFTA calls `GET /import-jobs/{id}` using the same UUID and polls until
-Definition Store reports `COMPLETED` or `FAILED`. `COMPLETED` is treated as success.
-`FAILED` is treated as an import failure. BEFTA does not post the multipart file again after the initial `/import` call;
-it keeps polling even if the import-job endpoint temporarily returns `404`, another non-terminal HTTP status, or a
-transient polling exception.
+Definition Store reports `COMPLETED`, `FAILED`, or `EXPIRED`. `COMPLETED` is treated as success.
+`FAILED` and `EXPIRED` are treated as import failures. BEFTA does not post the multipart file again after the initial
+`/import` call; it keeps polling even if the import-job endpoint temporarily returns `404`, another non-terminal HTTP
+status, or a transient polling exception.
 
 For a Jenkins pipeline that runs one definition upload, generate a UUID for that one command and pass it as an
 environment variable:

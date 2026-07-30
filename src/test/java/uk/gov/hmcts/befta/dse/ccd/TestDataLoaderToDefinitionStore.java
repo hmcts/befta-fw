@@ -639,6 +639,47 @@ class TestDataLoaderToDefinitionStore {
     @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_CLIENT_SECRET", value = "OAUTH2_CLIENT_SECRET_VALUE")
     @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_REDIRECT_URL", value = "OAUTH2_REDIRECT_URI_VALUE")
     @SetEnvironmentVariable(key = DEFINITION_IMPORT_JOB_ID, value = DEFINITION_IMPORT_JOB_ID_VALUE)
+    void testImportDefinitionTreatsExpiredImportJobAsFailure() throws Exception {
+        TestAutomationAdapter mockAdapter = mock(TestAutomationAdapter.class);
+        RequestSpecification requestSpecification = mock(RequestSpecification.class);
+        Response rs = mock(io.restassured.response.Response.class);
+        Response importJobResponse = mock(io.restassured.response.Response.class);
+        JsonPath jsonPath = mock(JsonPath.class);
+        Path file = Files.createTempFile("definition", ".xlsx");
+
+        mockImportDefinitionApiCalls(requestSpecification);
+        when(rs.getStatusCode()).thenReturn(500);
+        when(importJobResponse.getStatusCode()).thenReturn(200);
+        when(importJobResponse.jsonPath()).thenReturn(jsonPath);
+        when(jsonPath.getString("status")).thenReturn("EXPIRED");
+        when(requestSpecification.post("/import")).thenReturn(rs);
+        when(requestSpecification.get("/import-jobs/{id}", DEFINITION_IMPORT_JOB_ID_VALUE))
+                .thenReturn(importJobResponse);
+
+        DataLoaderToDefinitionStore dataLoaderToDefinitionStore = new TestableDataLoaderToDefinitionStore(mockAdapter);
+
+        ImportException exception = Assertions.assertThrows(
+                ImportException.class,
+                () -> dataLoaderToDefinitionStore.importDefinition(file.toString())
+        );
+
+        Assertions.assertTrue(exception.getMessage().contains("status 'EXPIRED'"));
+        verify(requestSpecification).post("/import");
+        verify(requestSpecification).get("/import-jobs/{id}", DEFINITION_IMPORT_JOB_ID_VALUE);
+    }
+
+    @Test
+    @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
+    @SetEnvironmentVariable(key = IDAM_URL_KEY, value = IDAM_URL_VALUE)
+    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_ID_KEY, value = BEFTA_S2S_CLIENT_ID_VALUE)
+    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_SECRET_KEY, value = BEFTA_S2S_CLIENT_SECRET_VALUE)
+    @SetEnvironmentVariable(key = S2S_URL_KEY, value = S2S_URL_VALUE)
+    @SetEnvironmentVariable(key = CCD_IMPORT_AUTOTEST_EMAIL, value = CCD_IMPORT_AUTOTEST_EMAIL_VALUE)
+    @SetEnvironmentVariable(key = CCD_IMPORT_AUTOTEST_PASSWORD, value = CCD_IMPORT_AUTOTEST_PASSWORD_VALUE)
+    @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_CLIENT_ID", value = "OAUTH2_CLIENT_ID_VALUE")
+    @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_CLIENT_SECRET", value = "OAUTH2_CLIENT_SECRET_VALUE")
+    @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_REDIRECT_URL", value = "OAUTH2_REDIRECT_URI_VALUE")
+    @SetEnvironmentVariable(key = DEFINITION_IMPORT_JOB_ID, value = DEFINITION_IMPORT_JOB_ID_VALUE)
     void testImportDefinitionKeepsPollingImportJobAfterPollException() throws Exception {
         TestAutomationAdapter mockAdapter = mock(TestAutomationAdapter.class);
         RequestSpecification requestSpecification = mock(RequestSpecification.class);

@@ -60,6 +60,7 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
     private static final String DEFINITION_IMPORT_JOB_ID_HEADER = "X-Import-Job-Id";
     private static final String IMPORT_JOB_STATUS_COMPLETED = "COMPLETED";
     private static final String IMPORT_JOB_STATUS_FAILED = "FAILED";
+    private static final String IMPORT_JOB_STATUS_EXPIRED = "EXPIRED";
 
     private static final String[] RA_DATA_RESOURCE_PACKAGES = { "roleAssignments" };
 
@@ -527,7 +528,7 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
                         logger.info("Definition import job '{}' completed. Treating import as successful.", importJobId);
                         return;
                     }
-                    if (isFailedImportJobStatus(lastImportJobStatus)) {
+                    if (isFailedOrExpiredImportJobStatus(lastImportJobStatus)) {
                         throw new ImportException("Definition import job '" + importJobId
                                 + "' failed with status '" + lastImportJobStatus + "'.", lastHttpStatus);
                     }
@@ -614,8 +615,9 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
         return IMPORT_JOB_STATUS_COMPLETED.equalsIgnoreCase(status);
     }
 
-    private boolean isFailedImportJobStatus(String status) {
-        return IMPORT_JOB_STATUS_FAILED.equalsIgnoreCase(status);
+    private boolean isFailedOrExpiredImportJobStatus(String status) {
+        return IMPORT_JOB_STATUS_FAILED.equalsIgnoreCase(status)
+                || IMPORT_JOB_STATUS_EXPIRED.equalsIgnoreCase(status);
     }
 
     private String getExceptionSummary(Throwable exception) {
