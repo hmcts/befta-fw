@@ -158,8 +158,13 @@ Below are the environment needed specifically for CCD domain.
      will be imported to Definition Store, for automated test data preparation.
    * DEFINITION_IMPORTER_PASSWORD: Password of the user on behalf of which definitions 
      will be imported to Definition Store, for automated test data preparation.
-   * BEFTA_FORCE_IMPORT_RETRY: Optional. Set to `true` to opt in to CCD definition import retry. Defaults to no
-     retry. See [CCD Definition Import Retry](#ccd-definition-import-retry).
+   * BEFTA_FORCE_IMPORT_RETRY: Deprecated. CCD definition import recovery is enabled by default for non-4xx failures.
+     This variable is no longer required.
+   * BEFTA_DEFINITION_IMPORT_JOB_ID: Optional. UUID to send to Definition Store in the `X-Import-Job-Id` header
+     during definition import. Only set this when the loader imports one definition file. See
+     [CCD Definition Import Job ID](#ccd-definition-import-job-id).
+   * BEFTA_DEFINITION_IMPORT_JOB_POLL_INTERVAL_MILLISECONDS: Optional. Delay between import job polls. Defaults to
+     `1000`.
 
 Below are the environment needed specifically to Create Role Assignment data.
 * ROLE_ASSIGNMENT_API_GATEWAY_S2S_CLIENT_ID:S2S service token for Role Assignment service.
@@ -328,7 +333,8 @@ The BEFTA Framework will always load the JSON definitions in `befta-fw` from the
 `src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions`, use them to create a XLSX file and import it to the 
 ccd definition store.  
 
-For retry behavior around transient import transport failures, see
+For import job ID and retry behavior around transient import transport failures, see
+[CCD Definition Import Job ID](#ccd-definition-import-job-id) and
 [CCD Definition Import Retry](#ccd-definition-import-retry).
 
 :warning: Any changes made to XLSX files in the directory `src/main/resources/uk/gov/hmcts/befta/dse/ccd/definitions/excel` will 
@@ -818,13 +824,60 @@ The Retryable Feature is a new addition that allows you to execute tests multipl
 until they pass or reach the maximum number of attempts. This is useful when you have flaky tests that 
 fail randomly due to network issues, timeouts, or other intermittent failures.
 
-### CCD Definition Import Retry
-CCD definition import uses a separate, opt-in retry from the global retry policy because the `/import` request is a
-multipart POST and is intentionally scoped to `DataLoaderToDefinitionStore`.
+### CCD Definition Import Job ID
+BEFTA sends an `X-Import-Job-Id` header with each CCD definition import. Definition Store uses that value as the import
+job identifier, which means BEFTA can look the job up later with `GET /import-jobs/{id}`.
 
-Set `BEFTA_FORCE_IMPORT_RETRY=true` to retry transient transport exceptions during `DataLoaderToDefinitionStore`
-definition import, such as `javax.net.ssl.SSLException`. Defaults to no retry. When enabled, BEFTA makes up to 3 total
-import attempts. The first retry waits 1000 ms and the second retry waits 2000 ms. HTTP import failures are not retried.
+`BEFTA_DEFINITION_IMPORT_JOB_ID` is optional. When it is not set, BEFTA generates a new UUID for each definition file
+that it imports. This is the default and recommended behaviour when a loader imports multiple definition files.
+
+Only set `BEFTA_DEFINITION_IMPORT_JOB_ID` when the loader imports a single definition file. BEFTA reuses the configured
+UUID for the import request and any job polling for that same request. If the same configured UUID were used for multiple
+definition files, those uploads would all point at the same Definition Store import job, so BEFTA rejects that
+configuration before uploading.
+
+After BEFTA sends `/import`, it waits for the initial response. A `201` response succeeds immediately. A `4xx` response,
+including `409`, fails immediately because retrying a client-side error will not help.
+
+If `/import` returns `5xx` or throws an exception, BEFTA calls `GET /import-jobs/{id}` using the same UUID and polls until
+Definition Store reports `COMPLETED`, `FAILED`, or `EXPIRED`. `COMPLETED` is treated as success.
+`FAILED` and `EXPIRED` are treated as import failures. BEFTA does not post the multipart file again after the initial
+`/import` call; it keeps polling even if the import-job endpoint temporarily returns `404`, another non-terminal HTTP
+status, or a transient polling exception.
+
+For a Jenkins pipeline that runs one definition upload, generate a UUID for that one command and pass it as an
+environment variable:
+
+```groovy
+stage('BEFTA definition import') {
+    steps {
+        script {
+            withEnv(["BEFTA_DEFINITION_IMPORT_JOB_ID=${UUID.randomUUID().toString()}"]) {
+                sh './gradlew <your-befta-functional-test-task>'
+            }
+        }
+    }
+}
+```
+
+If the same Jenkins stage can import multiple definition files, do not set `BEFTA_DEFINITION_IMPORT_JOB_ID`:
+
+```groovy
+stage('BEFTA definition import') {
+    steps {
+        sh './gradlew <your-befta-functional-test-task>'
+    }
+}
+```
+
+### CCD Definition Import Retry
+CCD definition import recovery is separate from the global retry policy because the `/import` request is a multipart POST
+and is intentionally scoped to `DataLoaderToDefinitionStore`.
+
+Recovery is enabled by default for non-4xx failures. BEFTA sends one `/import` request and waits for the initial response.
+If the response is `201`, the import is complete. If the response is `4xx`, the import fails immediately. If the response
+is `5xx` or the request throws an exception, such as `javax.net.ssl.SSLException`, BEFTA polls `GET /import-jobs/{id}` for
+the UUID it sent with the failed `/import` call. BEFTA does not retry the `/import` request after that initial call.
 
 ### Default Policy
 The Default Retry Policy provides a baseline configuration for retrying scenarios in the absence of service-specific settings. 
