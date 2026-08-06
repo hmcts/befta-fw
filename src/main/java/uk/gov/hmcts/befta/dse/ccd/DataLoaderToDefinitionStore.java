@@ -451,7 +451,7 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
             response = postDefinitionImport(file, importJobId);
             statusCode = response.getStatusCode();
         } catch (Exception e) {
-            throwIfNonRetryableClientErrorDuringImportRecovery(importJobId, null, e);
+            throwIfClientErrorDuringImportSubmission(importJobId, e);
             logger.warn(
                     "Exception importing definition file '{}' after {} ms. "
                             + "Polling import job '{}' before treating the import as failed. Cause: {}",
@@ -467,7 +467,7 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
         if (statusCode == 201) {
             return;
         }
-        if (isNonRetryableClientErrorStatus(statusCode)) {
+        if (isNonRetryableImportSubmissionClientErrorStatus(statusCode)) {
             throw buildDefinitionImportException(response, importJobId);
         }
         logger.warn(
@@ -485,11 +485,21 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
         return statusCode >= 400 && statusCode < 500;
     }
 
-    private boolean isNonRetryableClientErrorStatus(int statusCode) {
-        return isClientErrorStatus(statusCode)
-                && statusCode != HTTP_STATUS_REQUEST_TIMEOUT
-                && statusCode != HTTP_STATUS_TOO_EARLY
-                && statusCode != HTTP_STATUS_TOO_MANY_REQUESTS;
+    private boolean isNonRetryableImportSubmissionClientErrorStatus(int statusCode) {
+        return isClientErrorStatus(statusCode) && !isRetryableImportSubmissionClientErrorStatus(statusCode);
+    }
+
+    private boolean isRetryableImportSubmissionClientErrorStatus(int statusCode) {
+        return statusCode == HTTP_STATUS_REQUEST_TIMEOUT || statusCode == HTTP_STATUS_TOO_EARLY;
+    }
+
+    private boolean isNonRetryableImportRecoveryClientErrorStatus(int statusCode) {
+        return isClientErrorStatus(statusCode) && !isRetryableImportRecoveryClientErrorStatus(statusCode);
+    }
+
+    private boolean isRetryableImportRecoveryClientErrorStatus(int statusCode) {
+        return isRetryableImportSubmissionClientErrorStatus(statusCode)
+                || statusCode == HTTP_STATUS_TOO_MANY_REQUESTS;
     }
 
     private ImportException buildDefinitionImportException(Response response, String importJobId) {
@@ -560,7 +570,7 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
                     lastImportJobStatus = null;
                     logger.info("Definition import job '{}' was not found. Poll attempt {}.",
                             importJobId, pollAttempt);
-                } else if (isNonRetryableClientErrorStatus(lastHttpStatus)) {
+                } else if (isNonRetryableImportRecoveryClientErrorStatus(lastHttpStatus)) {
                     lastImportJobStatus = null;
                     throw new ImportException("Definition import job '" + importJobId
                             + "' polling failed with non-retryable HTTP " + lastHttpStatus
@@ -677,7 +687,7 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
             Exception exception
     ) {
         FeignException feignException = findCause(exception, FeignException.class);
-        if (feignException == null || !isNonRetryableClientErrorStatus(feignException.status())) {
+        if (feignException == null || !isNonRetryableImportRecoveryClientErrorStatus(feignException.status())) {
             return;
         }
 
@@ -688,6 +698,19 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
             message += " on poll attempt " + pollAttempt;
         }
         message += ". Cause: " + getExceptionSummary(exception);
+        throw new ImportException(message, feignException.status(), exception);
+    }
+
+    private void throwIfClientErrorDuringImportSubmission(String importJobId, Exception exception) {
+        FeignException feignException = findCause(exception, FeignException.class);
+        if (feignException == null || !isClientErrorStatus(feignException.status())) {
+            return;
+        }
+
+        String message = "Definition import job '" + importJobId
+                + "' submission failed with HTTP " + feignException.status()
+                + " client error before polling could confirm an import job. Cause: "
+                + getExceptionSummary(exception);
         throw new ImportException(message, feignException.status(), exception);
     }
 
