@@ -60,8 +60,8 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
     private static final String BEFTA_DEFINITION_IMPORT_JOB_POLL_MAX_ATTEMPTS =
             "BEFTA_DEFINITION_IMPORT_JOB_POLL_MAX_ATTEMPTS";
     private static final long DEFINITION_IMPORT_JOB_POLL_DELAY_MILLIS = 1000L;
-    private static final int DEFINITION_IMPORT_JOB_POLL_MAX_ATTEMPTS = 100;
-    private static final int DEFINITION_IMPORT_JOB_POLL_TIMEOUT_STATUS_CODE = 408;
+    private static final int DEFINITION_IMPORT_JOB_POLL_MAX_ATTEMPTS = 300;
+    private static final int DEFINITION_IMPORT_JOB_POLL_TIMEOUT_STATUS_CODE = -1;
     private static final String DEFINITION_IMPORT_JOB_ID_HEADER = "X-Import-Job-Id";
     private static final String IMPORT_JOB_STATUS_COMPLETED = "COMPLETED";
     private static final String IMPORT_JOB_STATUS_FAILED = "FAILED";
@@ -524,13 +524,18 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
 
     private void pollImportJobUntilCompleted(String importJobId) {
         int pollMaxAttempts = getDefinitionImportJobPollMaxAttempts();
-        for (long pollAttempt = 1; pollAttempt <= pollMaxAttempts; pollAttempt++) {
+        boolean isPollingUnbounded = pollMaxAttempts <= 0;
+        int lastHttpStatus = 0;
+        String lastImportJobStatus = null;
+        String lastPollException = null;
+        for (long pollAttempt = 1; isPollingUnbounded || pollAttempt <= pollMaxAttempts; pollAttempt++) {
             try {
                 Response importJobResponse = getImportJob(importJobId);
-                int lastHttpStatus = importJobResponse.getStatusCode();
+                lastPollException = null;
+                lastHttpStatus = importJobResponse.getStatusCode();
 
                 if (lastHttpStatus == 200) {
-                    String lastImportJobStatus = importJobResponse.jsonPath().getString("status");
+                    lastImportJobStatus = importJobResponse.jsonPath().getString("status");
                     if (isCompletedImportJobStatus(lastImportJobStatus)) {
                         logger.info("Definition import job '{}' completed. Treating import as successful.", importJobId);
                         return;
@@ -542,9 +547,16 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
                     logger.info("Definition import job '{}' is currently '{}'. Poll attempt {}.",
                             importJobId, lastImportJobStatus, pollAttempt);
                 } else if (lastHttpStatus == 404) {
+                    lastImportJobStatus = null;
                     logger.info("Definition import job '{}' was not found. Poll attempt {}.",
                             importJobId, pollAttempt);
+                } else if (isClientErrorStatus(lastHttpStatus)) {
+                    lastImportJobStatus = null;
+                    throw new ImportException("Definition import job '" + importJobId
+                            + "' polling failed with non-retryable HTTP " + lastHttpStatus
+                            + " on poll attempt " + pollAttempt + ".", lastHttpStatus);
                 } else {
+                    lastImportJobStatus = null;
                     logger.warn("GET /import-jobs/{} returned HTTP {}. Poll attempt {}.",
                             importJobId, lastHttpStatus, pollAttempt);
                 }
@@ -552,17 +564,22 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
                 throw e;
             } catch (Exception e) {
                 throwIfNonRetryableClientErrorDuringImportRecovery(importJobId, pollAttempt, e);
+                lastPollException = getExceptionSummary(e);
                 logger.warn("Exception polling definition import job '{}'. Poll attempt {}. Cause: {}",
-                        importJobId, pollAttempt, getExceptionSummary(e));
+                        importJobId, pollAttempt, lastPollException);
             }
 
-            if (pollAttempt < pollMaxAttempts) {
+            if (isPollingUnbounded || pollAttempt < pollMaxAttempts) {
                 waitBeforeDefinitionImportJobPoll(getDefinitionImportJobPollDelayInMilliseconds());
             }
         }
-        throw new ImportException("Definition import job '" + importJobId
-                + "' did not complete after " + pollMaxAttempts + " poll attempts.",
-                DEFINITION_IMPORT_JOB_POLL_TIMEOUT_STATUS_CODE);
+        throw new ImportException(buildDefinitionImportJobPollTimeoutMessage(
+                importJobId,
+                pollMaxAttempts,
+                lastHttpStatus,
+                lastImportJobStatus,
+                lastPollException
+        ), DEFINITION_IMPORT_JOB_POLL_TIMEOUT_STATUS_CODE);
     }
 
     /**
@@ -598,10 +615,10 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
     }
 
     protected int getDefinitionImportJobPollMaxAttempts() {
-        return Math.max(1, NumberUtils.toInt(
+        return NumberUtils.toInt(
                 EnvironmentVariableUtils.getOptionalVariable(BEFTA_DEFINITION_IMPORT_JOB_POLL_MAX_ATTEMPTS),
                 DEFINITION_IMPORT_JOB_POLL_MAX_ATTEMPTS
-        ));
+        );
     }
 
     protected long getDefinitionImportJobPollDelayInMilliseconds() {
@@ -671,6 +688,27 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
             current = current.getCause();
         }
         return null;
+    }
+
+    private String buildDefinitionImportJobPollTimeoutMessage(
+            String importJobId,
+            int pollMaxAttempts,
+            int lastHttpStatus,
+            String lastImportJobStatus,
+            String lastPollException
+    ) {
+        String message = "Definition import job '" + importJobId
+                + "' did not complete after " + pollMaxAttempts + " poll attempts.";
+        if (lastHttpStatus != 0) {
+            message += " Last HTTP status: " + lastHttpStatus + ".";
+        }
+        if (lastImportJobStatus != null) {
+            message += " Last import job status: " + lastImportJobStatus + ".";
+        }
+        if (lastPollException != null) {
+            message += " Last poll exception: " + lastPollException + ".";
+        }
+        return message;
     }
 
     protected RequestSpecification asAutoTestImporter() {
