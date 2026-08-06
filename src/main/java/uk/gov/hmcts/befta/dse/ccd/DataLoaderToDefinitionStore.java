@@ -62,6 +62,9 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
     private static final long DEFINITION_IMPORT_JOB_POLL_DELAY_MILLIS = 1000L;
     private static final int DEFINITION_IMPORT_JOB_POLL_MAX_ATTEMPTS = 300;
     private static final int DEFINITION_IMPORT_JOB_POLL_TIMEOUT_STATUS_CODE = -1;
+    private static final int HTTP_STATUS_REQUEST_TIMEOUT = 408;
+    private static final int HTTP_STATUS_TOO_EARLY = 425;
+    private static final int HTTP_STATUS_TOO_MANY_REQUESTS = 429;
     private static final String DEFINITION_IMPORT_JOB_ID_HEADER = "X-Import-Job-Id";
     private static final String IMPORT_JOB_STATUS_COMPLETED = "COMPLETED";
     private static final String IMPORT_JOB_STATUS_FAILED = "FAILED";
@@ -464,7 +467,7 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
         if (statusCode == 201) {
             return;
         }
-        if (isClientErrorStatus(statusCode)) {
+        if (isNonRetryableClientErrorStatus(statusCode)) {
             throw buildDefinitionImportException(response, importJobId);
         }
         logger.warn(
@@ -480,6 +483,13 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
 
     private boolean isClientErrorStatus(int statusCode) {
         return statusCode >= 400 && statusCode < 500;
+    }
+
+    private boolean isNonRetryableClientErrorStatus(int statusCode) {
+        return isClientErrorStatus(statusCode)
+                && statusCode != HTTP_STATUS_REQUEST_TIMEOUT
+                && statusCode != HTTP_STATUS_TOO_EARLY
+                && statusCode != HTTP_STATUS_TOO_MANY_REQUESTS;
     }
 
     private ImportException buildDefinitionImportException(Response response, String importJobId) {
@@ -550,7 +560,7 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
                     lastImportJobStatus = null;
                     logger.info("Definition import job '{}' was not found. Poll attempt {}.",
                             importJobId, pollAttempt);
-                } else if (isClientErrorStatus(lastHttpStatus)) {
+                } else if (isNonRetryableClientErrorStatus(lastHttpStatus)) {
                     lastImportJobStatus = null;
                     throw new ImportException("Definition import job '" + importJobId
                             + "' polling failed with non-retryable HTTP " + lastHttpStatus
@@ -564,6 +574,8 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
                 throw e;
             } catch (Exception e) {
                 throwIfNonRetryableClientErrorDuringImportRecovery(importJobId, pollAttempt, e);
+                lastHttpStatus = 0;
+                lastImportJobStatus = null;
                 lastPollException = getExceptionSummary(e);
                 logger.warn("Exception polling definition import job '{}'. Poll attempt {}. Cause: {}",
                         importJobId, pollAttempt, lastPollException);
@@ -622,10 +634,10 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
     }
 
     protected long getDefinitionImportJobPollDelayInMilliseconds() {
-        return NumberUtils.toLong(
+        return Math.max(0L, NumberUtils.toLong(
                 EnvironmentVariableUtils.getOptionalVariable(BEFTA_DEFINITION_IMPORT_JOB_POLL_INTERVAL_MILLISECONDS),
                 DEFINITION_IMPORT_JOB_POLL_DELAY_MILLIS
-        );
+        ));
     }
 
     protected void waitBeforeDefinitionImportJobPoll(long pollDelayInMilliseconds) {
@@ -665,7 +677,7 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
             Exception exception
     ) {
         FeignException feignException = findCause(exception, FeignException.class);
-        if (feignException == null || !isClientErrorStatus(feignException.status())) {
+        if (feignException == null || !isNonRetryableClientErrorStatus(feignException.status())) {
             return;
         }
 
