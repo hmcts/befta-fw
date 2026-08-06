@@ -164,7 +164,9 @@ Below are the environment needed specifically for CCD domain.
      during definition import. Only set this when the loader imports one definition file. See
      [CCD Definition Import Job ID](#ccd-definition-import-job-id).
    * BEFTA_DEFINITION_IMPORT_JOB_POLL_INTERVAL_MILLISECONDS: Optional. Delay between import job polls. Defaults to
-     `1000`.
+     `1000`. Negative values are treated as `0`.
+   * BEFTA_DEFINITION_IMPORT_JOB_POLL_MAX_ATTEMPTS: Optional. Maximum number of import job polls before failing.
+     Defaults to `300`. Set to `0` or a negative number to poll without an attempt limit.
 
 Below are the environment needed specifically to Create Role Assignment data.
 * ROLE_ASSIGNMENT_API_GATEWAY_S2S_CLIENT_ID:S2S service token for Role Assignment service.
@@ -836,14 +838,24 @@ UUID for the import request and any job polling for that same request. If the sa
 definition files, those uploads would all point at the same Definition Store import job, so BEFTA rejects that
 configuration before uploading.
 
-After BEFTA sends `/import`, it waits for the initial response. A `201` response succeeds immediately. A `4xx` response,
-including `409`, fails immediately because retrying a client-side error will not help.
+After BEFTA sends `/import`, it waits for the initial response. A `201` response succeeds immediately. Non-retryable
+`4xx` responses, including `409` and `429`, fail immediately because retrying a client-side error will not help. `408`
+and `425` are treated as retryable because Definition Store may still have processed the import.
 
-If `/import` returns `5xx` or throws an exception, BEFTA calls `GET /import-jobs/{id}` using the same UUID and polls until
-Definition Store reports `COMPLETED`, `FAILED`, or `EXPIRED`. `COMPLETED` is treated as success.
-`FAILED` and `EXPIRED` are treated as import failures. BEFTA does not post the multipart file again after the initial
-`/import` call; it keeps polling even if the import-job endpoint temporarily returns `404`, another non-terminal HTTP
-status, or a transient polling exception.
+If `/import` returns `5xx`, returns `408` or `425`, or throws a retryable exception, BEFTA calls
+`GET /import-jobs/{id}` using the same UUID and polls until Definition Store reports `COMPLETED`, `FAILED`, or `EXPIRED`,
+or until the configured poll limit is reached. Set `BEFTA_DEFINITION_IMPORT_JOB_POLL_MAX_ATTEMPTS` to `0` or a negative
+number to poll without an attempt limit. `COMPLETED` is treated as success.
+`FAILED`, `EXPIRED`, and non-`404` client errors other than `408`, `425`, and `429` are treated as failures. BEFTA does
+not post the multipart file again after the initial `/import` call; it keeps polling even if the import-job endpoint
+temporarily returns `404`, another retryable HTTP status, or a transient polling exception. A `429` from `/import` fails
+immediately because a rate-limited submission is not expected to create an import job, while a `429` from
+`/import-jobs/{id}` is retried as transient polling pressure.
+
+If the configured poll limit is reached, BEFTA throws an `ImportException` with HTTP status code `-1` because Definition
+Store did not return a terminal HTTP status for that failure. Subclasses overriding
+`getDefinitionImportJobPollMaxAttempts()` still control the poll limit; the environment variable is used by the default
+implementation.
 
 For a Jenkins pipeline that runs one definition upload, generate a UUID for that one command and pass it as an
 environment variable:
