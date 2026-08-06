@@ -8,6 +8,11 @@ public class ImportException extends RuntimeException {
         this.httpStatusCode = httpStatusCode;
     }
 
+    public ImportException(String message, int httpStatusCode, Throwable cause) {
+        super(message, cause);
+        this.httpStatusCode = httpStatusCode;
+    }
+
     public int getHttpStatusCode() {
         return this.httpStatusCode;
     }

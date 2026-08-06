@@ -11,9 +11,13 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import ch.qos.logback.classic.Logger;
+import feign.FeignException;
+import feign.Request;
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Stream;
@@ -63,6 +67,8 @@ class TestDataLoaderToDefinitionStore {
     public static final String CCD_IMPORT_AUTOTEST_PASSWORD_VALUE = "CCD_IMPORT_AUTOTEST_PASSWORD_VALUE";
     public static final String DEFINITION_IMPORT_JOB_ID = "BEFTA_DEFINITION_IMPORT_JOB_ID";
     public static final String DEFINITION_IMPORT_JOB_ID_VALUE = "11111111-2222-3333-4444-555555555555";
+    public static final String DEFINITION_IMPORT_JOB_POLL_MAX_ATTEMPTS =
+            "BEFTA_DEFINITION_IMPORT_JOB_POLL_MAX_ATTEMPTS";
     public static final String DEFINITION_IMPORT_JOB_ID_HEADER = "X-Import-Job-Id";
     private MockedStatic<RestAssured> restAssuredMock = null;
 
@@ -304,6 +310,26 @@ class TestDataLoaderToDefinitionStore {
         DataLoaderToDefinitionStore dataLoaderToDefinitionStore = new DataLoaderToDefinitionStore(mockAdapter);
 
         Assertions.assertThrows(IllegalArgumentException.class, dataLoaderToDefinitionStore::getDefinitionImportJobId);
+    }
+
+    @Test
+    @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
+    @ClearEnvironmentVariable(key = DEFINITION_IMPORT_JOB_POLL_MAX_ATTEMPTS)
+    void testDefinitionImportJobPollMaxAttemptsDefaultsTo100() {
+        TestAutomationAdapter mockAdapter = mock(TestAutomationAdapter.class);
+        DataLoaderToDefinitionStore dataLoaderToDefinitionStore = new TestableDataLoaderToDefinitionStore(mockAdapter);
+
+        Assertions.assertEquals(100, dataLoaderToDefinitionStore.getDefinitionImportJobPollMaxAttempts());
+    }
+
+    @Test
+    @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
+    @SetEnvironmentVariable(key = DEFINITION_IMPORT_JOB_POLL_MAX_ATTEMPTS, value = "50")
+    void testDefinitionImportJobPollMaxAttemptsCanBeOverridden() {
+        TestAutomationAdapter mockAdapter = mock(TestAutomationAdapter.class);
+        DataLoaderToDefinitionStore dataLoaderToDefinitionStore = new TestableDataLoaderToDefinitionStore(mockAdapter);
+
+        Assertions.assertEquals(50, dataLoaderToDefinitionStore.getDefinitionImportJobPollMaxAttempts());
     }
 
     @Test
@@ -718,6 +744,116 @@ class TestDataLoaderToDefinitionStore {
     @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_CLIENT_SECRET", value = "OAUTH2_CLIENT_SECRET_VALUE")
     @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_REDIRECT_URL", value = "OAUTH2_REDIRECT_URI_VALUE")
     @SetEnvironmentVariable(key = DEFINITION_IMPORT_JOB_ID, value = DEFINITION_IMPORT_JOB_ID_VALUE)
+    @SetEnvironmentVariable(key = DEFINITION_IMPORT_JOB_POLL_MAX_ATTEMPTS, value = "2")
+    void testImportDefinitionFailsWhenImportJobPollMaxAttemptsExceeded() throws Exception {
+        TestAutomationAdapter mockAdapter = mock(TestAutomationAdapter.class);
+        RequestSpecification requestSpecification = mock(RequestSpecification.class);
+        Response rs = mock(io.restassured.response.Response.class);
+        Response importJobNotFoundResponse = mock(io.restassured.response.Response.class);
+        Path file = Files.createTempFile("definition", ".xlsx");
+
+        mockImportDefinitionApiCalls(requestSpecification);
+        when(rs.getStatusCode()).thenReturn(500);
+        when(importJobNotFoundResponse.getStatusCode()).thenReturn(404);
+        when(requestSpecification.post("/import")).thenReturn(rs);
+        when(requestSpecification.get("/import-jobs/{id}", DEFINITION_IMPORT_JOB_ID_VALUE))
+                .thenReturn(importJobNotFoundResponse);
+
+        DataLoaderToDefinitionStore dataLoaderToDefinitionStore = new TestableDataLoaderToDefinitionStore(mockAdapter);
+
+        ImportException exception = Assertions.assertThrows(
+                ImportException.class,
+                () -> dataLoaderToDefinitionStore.importDefinition(file.toString())
+        );
+
+        Assertions.assertEquals(408, exception.getHttpStatusCode());
+        Assertions.assertTrue(exception.getMessage().contains("after 2 poll attempts"));
+        verify(requestSpecification).post("/import");
+        verify(requestSpecification, times(2)).get("/import-jobs/{id}", DEFINITION_IMPORT_JOB_ID_VALUE);
+    }
+
+    @Test
+    @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
+    @SetEnvironmentVariable(key = IDAM_URL_KEY, value = IDAM_URL_VALUE)
+    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_ID_KEY, value = BEFTA_S2S_CLIENT_ID_VALUE)
+    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_SECRET_KEY, value = BEFTA_S2S_CLIENT_SECRET_VALUE)
+    @SetEnvironmentVariable(key = S2S_URL_KEY, value = S2S_URL_VALUE)
+    @SetEnvironmentVariable(key = CCD_IMPORT_AUTOTEST_EMAIL, value = CCD_IMPORT_AUTOTEST_EMAIL_VALUE)
+    @SetEnvironmentVariable(key = CCD_IMPORT_AUTOTEST_PASSWORD, value = CCD_IMPORT_AUTOTEST_PASSWORD_VALUE)
+    @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_CLIENT_ID", value = "OAUTH2_CLIENT_ID_VALUE")
+    @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_CLIENT_SECRET", value = "OAUTH2_CLIENT_SECRET_VALUE")
+    @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_REDIRECT_URL", value = "OAUTH2_REDIRECT_URI_VALUE")
+    @SetEnvironmentVariable(key = DEFINITION_IMPORT_JOB_ID, value = DEFINITION_IMPORT_JOB_ID_VALUE)
+    void testImportDefinitionDoesNotPollAfterNonRetryableClientErrorDuringSubmission() throws Exception {
+        TestAutomationAdapter mockAdapter = mock(TestAutomationAdapter.class);
+        RequestSpecification requestSpecification = mock(RequestSpecification.class);
+        Path file = Files.createTempFile("definition", ".xlsx");
+
+        mockImportDefinitionApiCalls(requestSpecification);
+        when(requestSpecification.post("/import")).thenThrow(new RuntimeException(badRequestFeignException()));
+
+        DataLoaderToDefinitionStore dataLoaderToDefinitionStore = new TestableDataLoaderToDefinitionStore(mockAdapter);
+
+        ImportException exception = Assertions.assertThrows(
+                ImportException.class,
+                () -> dataLoaderToDefinitionStore.importDefinition(file.toString())
+        );
+
+        Assertions.assertEquals(400, exception.getHttpStatusCode());
+        Assertions.assertTrue(exception.getMessage().contains("non-retryable HTTP 400"));
+        verify(requestSpecification).post("/import");
+        verify(requestSpecification, times(0)).get("/import-jobs/{id}", DEFINITION_IMPORT_JOB_ID_VALUE);
+    }
+
+    @Test
+    @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
+    @SetEnvironmentVariable(key = IDAM_URL_KEY, value = IDAM_URL_VALUE)
+    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_ID_KEY, value = BEFTA_S2S_CLIENT_ID_VALUE)
+    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_SECRET_KEY, value = BEFTA_S2S_CLIENT_SECRET_VALUE)
+    @SetEnvironmentVariable(key = S2S_URL_KEY, value = S2S_URL_VALUE)
+    @SetEnvironmentVariable(key = CCD_IMPORT_AUTOTEST_EMAIL, value = CCD_IMPORT_AUTOTEST_EMAIL_VALUE)
+    @SetEnvironmentVariable(key = CCD_IMPORT_AUTOTEST_PASSWORD, value = CCD_IMPORT_AUTOTEST_PASSWORD_VALUE)
+    @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_CLIENT_ID", value = "OAUTH2_CLIENT_ID_VALUE")
+    @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_CLIENT_SECRET", value = "OAUTH2_CLIENT_SECRET_VALUE")
+    @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_REDIRECT_URL", value = "OAUTH2_REDIRECT_URI_VALUE")
+    @SetEnvironmentVariable(key = DEFINITION_IMPORT_JOB_ID, value = DEFINITION_IMPORT_JOB_ID_VALUE)
+    void testImportDefinitionStopsPollingAfterNonRetryableClientErrorDuringPoll() throws Exception {
+        TestAutomationAdapter mockAdapter = mock(TestAutomationAdapter.class);
+        RequestSpecification requestSpecification = mock(RequestSpecification.class);
+        Response rs = mock(io.restassured.response.Response.class);
+        Path file = Files.createTempFile("definition", ".xlsx");
+
+        mockImportDefinitionApiCalls(requestSpecification);
+        when(rs.getStatusCode()).thenReturn(500);
+        when(requestSpecification.post("/import")).thenReturn(rs);
+        when(requestSpecification.get("/import-jobs/{id}", DEFINITION_IMPORT_JOB_ID_VALUE))
+                .thenThrow(new RuntimeException(badRequestFeignException()));
+
+        DataLoaderToDefinitionStore dataLoaderToDefinitionStore = new TestableDataLoaderToDefinitionStore(mockAdapter);
+
+        ImportException exception = Assertions.assertThrows(
+                ImportException.class,
+                () -> dataLoaderToDefinitionStore.importDefinition(file.toString())
+        );
+
+        Assertions.assertEquals(400, exception.getHttpStatusCode());
+        Assertions.assertTrue(exception.getMessage().contains("poll attempt 1"));
+        verify(requestSpecification).post("/import");
+        verify(requestSpecification).get("/import-jobs/{id}", DEFINITION_IMPORT_JOB_ID_VALUE);
+    }
+
+    @Test
+    @SetEnvironmentVariable(key = DEFINITION_STORE_HOST_KEY, value = DEFINITION_STORE_HOST_VALUE)
+    @SetEnvironmentVariable(key = IDAM_URL_KEY, value = IDAM_URL_VALUE)
+    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_ID_KEY, value = BEFTA_S2S_CLIENT_ID_VALUE)
+    @SetEnvironmentVariable(key = BEFTA_S2S_CLIENT_SECRET_KEY, value = BEFTA_S2S_CLIENT_SECRET_VALUE)
+    @SetEnvironmentVariable(key = S2S_URL_KEY, value = S2S_URL_VALUE)
+    @SetEnvironmentVariable(key = CCD_IMPORT_AUTOTEST_EMAIL, value = CCD_IMPORT_AUTOTEST_EMAIL_VALUE)
+    @SetEnvironmentVariable(key = CCD_IMPORT_AUTOTEST_PASSWORD, value = CCD_IMPORT_AUTOTEST_PASSWORD_VALUE)
+    @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_CLIENT_ID", value = "OAUTH2_CLIENT_ID_VALUE")
+    @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_CLIENT_SECRET", value = "OAUTH2_CLIENT_SECRET_VALUE")
+    @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_REDIRECT_URL", value = "OAUTH2_REDIRECT_URI_VALUE")
+    @SetEnvironmentVariable(key = DEFINITION_IMPORT_JOB_ID, value = DEFINITION_IMPORT_JOB_ID_VALUE)
     @SetEnvironmentVariable(key = "BEFTA_FORCE_IMPORT_RETRY", value = "false")
     void testImportDefinitionPollsImportJobAfterUnexpectedExceptionWhenForceImportRetryIsFalse() throws Exception {
         TestAutomationAdapter mockAdapter = mock(TestAutomationAdapter.class);
@@ -851,6 +987,24 @@ class TestDataLoaderToDefinitionStore {
         } catch (IllegalArgumentException ex) {
             return false;
         }
+    }
+
+    private FeignException badRequestFeignException() {
+        Request request = Request.create(
+                Request.HttpMethod.POST,
+                IDAM_URL_VALUE + "/oauth2/authorize",
+                Collections.emptyMap(),
+                new byte[0],
+                StandardCharsets.UTF_8
+        );
+        return FeignException.errorStatus(
+                "AuthApi#authenticateUser(String,String,String,String)",
+                feign.Response.builder()
+                        .status(400)
+                        .reason("Bad Request")
+                        .request(request)
+                        .build()
+        );
     }
 
     private static class TestableDataLoaderToDefinitionStore extends DataLoaderToDefinitionStore {
