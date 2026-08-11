@@ -27,7 +27,7 @@ jobs:
     environment: artifact-cleanup
 
     steps:
-      - name: Check actor is allowlisted
+      - name: Check actor allowlist when configured
         env:
           GITHUB_ACTOR_NAME: ${{ github.actor }}
           ALLOWED_USERS: ${{ vars.ARTIFACT_DELETE_ALLOWED_USERS }}
@@ -35,8 +35,8 @@ jobs:
           set -euo pipefail
 
           if [[ -z "${ALLOWED_USERS// }" ]]; then
-            echo "Repository variable ARTIFACT_DELETE_ALLOWED_USERS is not configured."
-            exit 1
+            echo "Repository variable ARTIFACT_DELETE_ALLOWED_USERS is not configured; relying on artifact-cleanup environment protection."
+            exit 0
           fi
 
           allowed_match=false
