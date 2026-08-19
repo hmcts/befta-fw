@@ -178,7 +178,7 @@ class DefaultTestAutomationAdapterTest {
         String userTokenClientId = "OTHER";
         assertNotNull(tad);
         tad.authenticate(user, userTokenClientId);
-        verify(idamApi, times(1)).getUserInfo(null);
+        verify(idamApi).getUserInfo(null);
     }
 
     /**
@@ -200,7 +200,7 @@ class DefaultTestAutomationAdapterTest {
         tad.authenticate(user, userTokenClientId);
         tad.authenticate(user, userTokenClientId);
         tad.authenticate(user, userTokenClientId);
-        verify(idamApi, times(1)).getUser(null);
+        verify(idamApi).getUser(null);
 
         Thread.sleep(4000);
 
@@ -229,12 +229,12 @@ class DefaultTestAutomationAdapterTest {
         tad.authenticate(user, userTokenClientId);
         tad.authenticate(user, userTokenClientId);
         tad.authenticate(user, userTokenClientId);
-        verify(idamApi, times(1)).getUser(null);
+        verify(idamApi).getUser(null);
 
         Thread.sleep(4000);
 
         tad.authenticate(user, userTokenClientId);
-        verify(idamApi, times(1)).getUser(null);
+        verify(idamApi).getUser(null);
 
     }
 
@@ -259,16 +259,9 @@ class DefaultTestAutomationAdapterTest {
         user.setId("id");
         String userTokenClientId = "OTHER";
         assertNotNull(tad);
-//		AuthApi idamApi = mock(AuthApi.class);
-//		AuthApi.User idamUser = new AuthApi.User();
-//		AuthApi.TokenExchangeResponse idamtockenExch = new AuthApi.TokenExchangeResponse ();
-//		AuthApi.AuthenticateUserResponse auresponse = new AuthApi.AuthenticateUserResponse();
-//        Mockito.when(idamApi.getUser(null)).thenReturn(idamUser);
-//        Mockito.when(idamApi.generateOIDCToken(isA(String.class), isA(String.class), isA(String.class), isA(String.class), isA(String.class), isA(String.class))).thenReturn(idamtockenExch);
-//        Mockito.when(idamApi.authenticateUser(isA(String.class), isA(String.class), isA(String.class), isA(String.class))).thenReturn(auresponse);
-//        Mockito.when(idamApi.exchangeCode(isA(String.class), isA(String.class), isA(String.class), isA(String.class), isA(String.class))).thenReturn(idamtockenExch);
-
+        
         tad.authenticate(user, userTokenClientId);
+        verify(idamApi).getUser(null);
     }
 
     /**
