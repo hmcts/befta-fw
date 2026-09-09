@@ -6,6 +6,8 @@ import org.slf4j.LoggerFactory;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Base64;
@@ -202,8 +204,12 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
 
     private String getIdamOidcToken(String username, String password, UserTokenProviderConfig tokenProviderConfig) {
 
+        // encode username to fix x-www-form-urlencoded issues
+        String encodedUsername = URLEncoder.encode(username, StandardCharsets.UTF_8);
+
+
         AuthApi.TokenExchangeResponse generateOIDCToken = idamApi.generateOIDCToken(tokenProviderConfig.getClientId(),
-                tokenProviderConfig.getClientSecret(), PASSWORD, tokenProviderConfig.getScopeVariables(), username, password);
+                tokenProviderConfig.getClientSecret(), PASSWORD, tokenProviderConfig.getScopeVariables(), encodedUsername, password);
 
         return generateOIDCToken.getAccessToken();
     }
