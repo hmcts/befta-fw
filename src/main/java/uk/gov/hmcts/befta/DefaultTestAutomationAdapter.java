@@ -6,8 +6,6 @@ import org.slf4j.LoggerFactory;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Base64;
@@ -170,27 +168,17 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
 
     private String getIdamOauth2Token(String username, String password, UserTokenProviderConfig tokenProviderConfig) {
         String authorisation = username + ":" + password;
-        // logger.info("User >> {}", printableOf(authorisation));
         String base64Authorisation = Base64.getEncoder().encodeToString(authorisation.getBytes());
 
         AuthApi.AuthenticateUserResponse authenticateUserResponse = idamApi.authenticateUser(
                 BASIC + base64Authorisation, CODE, tokenProviderConfig.getClientId(),
                 tokenProviderConfig.getRedirectUri());
 
-        // printLogs(tokenProviderConfig);
         AuthApi.TokenExchangeResponse tokenExchangeResponse = idamApi.exchangeCode(authenticateUserResponse.getCode(),
                 AUTHORIZATION_CODE, tokenProviderConfig.getClientId(), tokenProviderConfig.getClientSecret(),
                 tokenProviderConfig.getRedirectUri());
 
         return tokenExchangeResponse.getAccessToken();
-    }
-
-    void printLogs(UserTokenProviderConfig tokenProviderConfig) {
-        logger.info("Token Type = [{}]", tokenProviderConfig.getAccessTokenType());
-        logger.info("Client Id = [{}]", tokenProviderConfig.getClientId());
-        logger.info("Client Secret = [{}]", printableOf(tokenProviderConfig.getClientSecret()));
-        logger.info("Redirect URL = [{}]", tokenProviderConfig.getRedirectUri());
-        logger.info("Scope Vars = [{}]", tokenProviderConfig.getScopeVariables());
     }
 
     private String printableOf(String s) {
@@ -204,12 +192,8 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
 
     private String getIdamOidcToken(String username, String password, UserTokenProviderConfig tokenProviderConfig) {
 
-        // encode username to fix x-www-form-urlencoded issues
-        String encodedUsername = URLEncoder.encode(username, StandardCharsets.UTF_8);
-
-
         AuthApi.TokenExchangeResponse generateOIDCToken = idamApi.generateOIDCToken(tokenProviderConfig.getClientId(),
-                tokenProviderConfig.getClientSecret(), PASSWORD, tokenProviderConfig.getScopeVariables(), encodedUsername, password);
+            tokenProviderConfig.getClientSecret(), PASSWORD, tokenProviderConfig.getScopeVariables(), username, password);
 
         return generateOIDCToken.getAccessToken();
     }
