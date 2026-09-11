@@ -18,4 +18,11 @@ class FormUrlEncodedExpanderTest {
         assertEquals("scope%2Bvalue", encoded);
         assertEquals("scope+value", URLDecoder.decode(encoded, StandardCharsets.UTF_8));
     }
+
+    @Test
+    void shouldNotEncodeNull() {
+        String encoded = expander.expand(null);
+
+        assertEquals(null, encoded);
+    }
 }
