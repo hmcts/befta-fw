@@ -35,9 +35,11 @@ public class UserTokenProviderConfig {
         clientId = tokenProviderClientId;
         clientSecret = EnvironmentVariableUtils.getRequiredVariable("BEFTA_OAUTH2_CLIENT_SECRET_OF_" + tokenProviderClientId.toUpperCase());
         redirectUri = EnvironmentVariableUtils.getRequiredVariable("BEFTA_OAUTH2_REDIRECT_URI_OF_" + tokenProviderClientId.toUpperCase());
-        scopeVariables = EnvironmentVariableUtils.getOptionalVariable("BEFTA_OAUTH2_SCOPE_VARIABLES_OF_" + tokenProviderClientId.toUpperCase());
-        accessTokenType = EnvironmentVariableUtils.getOptionalVariable(
-                "BEFTA_OAUTH2_ACCESS_TOKEN_TYPE_OF_" + tokenProviderClientId.toUpperCase());
+        String accessTokenTypeEnvVar = "BEFTA_OAUTH2_ACCESS_TOKEN_TYPE_OF_" + tokenProviderClientId.toUpperCase();
+        String scopeVariablesEnvVar = "BEFTA_OAUTH2_SCOPE_VARIABLES_OF_" + tokenProviderClientId.toUpperCase();
+        scopeVariables = EnvironmentVariableUtils.getConditionallyRequiredVariable(scopeVariablesEnvVar, accessTokenTypeEnvVar, OIDC);
+        
+        accessTokenType = EnvironmentVariableUtils.getOptionalVariable(accessTokenTypeEnvVar);
         if (accessTokenType == null) {
             accessTokenType = OAUTH2;
         }
