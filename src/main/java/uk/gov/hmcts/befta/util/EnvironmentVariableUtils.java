@@ -1,7 +1,6 @@
 package uk.gov.hmcts.befta.util;
 
 import org.apache.commons.lang3.Validate;
-import java.util.Objects;
 
 public class EnvironmentVariableUtils {
 
@@ -32,7 +31,7 @@ public class EnvironmentVariableUtils {
             return value;
         }
         String dependencyValue = System.getenv(dependency);
-        if (Objects.equals(dependencyValue, condition)) {
+        if (StringUtils.equalsIgnoreCase(dependencyValue, condition)) {
             String conditionMessage = condition == null ? "missing" : "equal to `" + condition + "`";
             String validationText = "Environment variable `%s` is required when `%s` is %s";
             Validate.notNull(null, validationText, name, dependency, conditionMessage);

@@ -56,6 +56,13 @@ public class EnvironmentVariableUtilsTest {
 
     @Test
     @SetEnvironmentVariable(key = ENV_VAR_NAME, value = RETURN_VALUE)
+    @SetEnvironmentVariable(key = DEPENDENCY, value = CONDITION)
+    public void shouldReturnConditionallyRequiredVariableWhenItExistsAndConditionMet_caseInsensitive() {
+        assertEquals(RETURN_VALUE, EnvironmentVariableUtils.getConditionallyRequiredVariable(ENV_VAR_NAME, DEPENDENCY, "cOnDiTiOn"));
+    }
+
+    @Test
+    @SetEnvironmentVariable(key = ENV_VAR_NAME, value = RETURN_VALUE)
     public void shouldReturnConditionallyRequiredVariableWhenItExistsAndConditionNotMet() {
         assertEquals(RETURN_VALUE, EnvironmentVariableUtils.getConditionallyRequiredVariable(ENV_VAR_NAME, DEPENDENCY, CONDITION));
     }
