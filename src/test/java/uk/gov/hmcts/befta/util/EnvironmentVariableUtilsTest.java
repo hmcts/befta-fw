@@ -13,6 +13,8 @@ public class EnvironmentVariableUtilsTest {
     private static final String KEY = "[[$ENV_VAR]]";
     private static final String NULL_VALUE = null;
     private static final String INVALID_KEY = "[$ENV_VAR]";
+    private static final String DEPENDENCY = "DEPENDENCY_VAR";
+    private static final String CONDITION = "CONDITION";
 
     @Test
     @SetEnvironmentVariable(key = ENV_VAR_NAME, value = RETURN_VALUE)
@@ -43,6 +45,39 @@ public class EnvironmentVariableUtilsTest {
         Assertions.assertThrows(NullPointerException.class, () -> {
             EnvironmentVariableUtils.getRequiredVariable(ENV_VAR_NAME);
           });     
+    }
+
+    @Test
+    @SetEnvironmentVariable(key = ENV_VAR_NAME, value = RETURN_VALUE)
+    @SetEnvironmentVariable(key = DEPENDENCY, value = CONDITION)
+    public void shouldReturnConditionallyRequiredVariableWhenItExistsAndConditionMet() {
+        assertEquals(RETURN_VALUE, EnvironmentVariableUtils.getConditionallyRequiredVariable(ENV_VAR_NAME, DEPENDENCY, CONDITION));
+    }
+
+    @Test
+    @SetEnvironmentVariable(key = ENV_VAR_NAME, value = RETURN_VALUE)
+    @SetEnvironmentVariable(key = DEPENDENCY, value = CONDITION)
+    public void shouldReturnConditionallyRequiredVariableWhenItExistsAndConditionMet_caseInsensitive() {
+        assertEquals(RETURN_VALUE, EnvironmentVariableUtils.getConditionallyRequiredVariable(ENV_VAR_NAME, DEPENDENCY, "cOnDiTiOn"));
+    }
+
+    @Test
+    @SetEnvironmentVariable(key = ENV_VAR_NAME, value = RETURN_VALUE)
+    public void shouldReturnConditionallyRequiredVariableWhenItExistsAndConditionNotMet() {
+        assertEquals(RETURN_VALUE, EnvironmentVariableUtils.getConditionallyRequiredVariable(ENV_VAR_NAME, DEPENDENCY, CONDITION));
+    }
+
+    @Test 
+    public void shouldReturnNullWhenConditionallyRequiredVariableDoesNotExistsAndConditionNotMet() {
+        assertEquals(null, EnvironmentVariableUtils.getConditionallyRequiredVariable(ENV_VAR_NAME, DEPENDENCY, CONDITION));
+    }
+
+    @Test
+    @SetEnvironmentVariable(key = DEPENDENCY, value = CONDITION)
+    public void shouldThrowExceptionWhenConditionallyRequiredVariableDoesNotExistAndConditionMet() {
+        Assertions.assertThrows(NullPointerException.class, () -> {
+            EnvironmentVariableUtils.getConditionallyRequiredVariable(ENV_VAR_NAME, DEPENDENCY, CONDITION);
+        });
     }
 
     @Test

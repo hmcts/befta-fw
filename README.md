@@ -13,7 +13,7 @@ This repository publishes release artifacts to Azure Artifacts using the GitHub 
 There are two supported ways to publish:
 
 | Method | When to use | Version source | Naming rule |
-| --- | --- | --- |
+| --- | --- | --- | --- |
 | Manual publish | Pre-release or explicit version publish | `release_version` entered in GitHub Actions | Must match the valid version format below |
 | Tag-based publish | Normal tagged release | Git tag name | Tag name must match the valid version format below |
 

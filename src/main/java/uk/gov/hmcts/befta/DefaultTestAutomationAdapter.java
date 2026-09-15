@@ -134,13 +134,18 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
     }
 
     private UserData createAuthenticatedUserData(String userName, String password, String userTokenClientId) {
-        final String accessToken = getUserAccessToken(userName, password,
-                UserTokenProviderConfig.of(userTokenClientId));
-        final AuthApi.User idamUser = idamApi.getUser(accessToken);
-
+        UserTokenProviderConfig tokenProviderConfig = UserTokenProviderConfig.of(userTokenClientId);
+        final String accessToken = getUserAccessToken(userName, password, tokenProviderConfig);
         UserData userData = new UserData(userName, password);
-        userData.setId(idamUser.getId());
         userData.setAccessToken(accessToken);
+
+        if (tokenProviderConfig.isForOidc()) {
+            final AuthApi.IdamUser idamUser = idamApi.getUserInfo(accessToken);
+            userData.setId(idamUser.getUid());
+        } else {
+            final AuthApi.User idamUser = idamApi.getUser(accessToken);
+            userData.setId(idamUser.getId());
+        }
 
         return userData;
     }
@@ -163,27 +168,17 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
 
     private String getIdamOauth2Token(String username, String password, UserTokenProviderConfig tokenProviderConfig) {
         String authorisation = username + ":" + password;
-        // logger.info("User >> {}", printableOf(authorisation));
         String base64Authorisation = Base64.getEncoder().encodeToString(authorisation.getBytes());
 
         AuthApi.AuthenticateUserResponse authenticateUserResponse = idamApi.authenticateUser(
                 BASIC + base64Authorisation, CODE, tokenProviderConfig.getClientId(),
                 tokenProviderConfig.getRedirectUri());
 
-        // printLogs(tokenProviderConfig);
         AuthApi.TokenExchangeResponse tokenExchangeResponse = idamApi.exchangeCode(authenticateUserResponse.getCode(),
                 AUTHORIZATION_CODE, tokenProviderConfig.getClientId(), tokenProviderConfig.getClientSecret(),
                 tokenProviderConfig.getRedirectUri());
 
         return tokenExchangeResponse.getAccessToken();
-    }
-
-    void printLogs(UserTokenProviderConfig tokenProviderConfig) {
-        logger.info("Token Type = [{}]", tokenProviderConfig.getAccessTokenType());
-        logger.info("Client Id = [{}]", tokenProviderConfig.getClientId());
-        logger.info("Client Secret = [{}]", printableOf(tokenProviderConfig.getClientSecret()));
-        logger.info("Redirect URL = [{}]", tokenProviderConfig.getRedirectUri());
-        logger.info("Scope Vars = [{}]", tokenProviderConfig.getScopeVariables());
     }
 
     private String printableOf(String s) {
@@ -198,7 +193,7 @@ public class DefaultTestAutomationAdapter implements TestAutomationAdapter {
     private String getIdamOidcToken(String username, String password, UserTokenProviderConfig tokenProviderConfig) {
 
         AuthApi.TokenExchangeResponse generateOIDCToken = idamApi.generateOIDCToken(tokenProviderConfig.getClientId(),
-                tokenProviderConfig.getClientSecret(), PASSWORD, tokenProviderConfig.getScopeVariables(), username, password);
+            tokenProviderConfig.getClientSecret(), PASSWORD, tokenProviderConfig.getScopeVariables(), username, password);
 
         return generateOIDCToken.getAccessToken();
     }
