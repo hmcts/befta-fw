@@ -6,7 +6,7 @@ plugins {
 
 apply plugin: 'java'
 
-def buildNumber = System.getenv("RELEASE_VERSION")?.replace("refs/tags/", "") ?: "9.2.12-CCD-8293"
+def buildNumber = System.getenv("RELEASE_VERSION")?.replace("refs/tags/", "") ?: "9.2.12_CCD-8293-SNAPSHOT1"
 System.out.println("version = " + buildNumber)
 
 group 'com.github.hmcts'
