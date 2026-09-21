@@ -47,6 +47,7 @@ import uk.gov.hmcts.befta.util.JsonUtils;
 import uk.gov.hmcts.befta.util.MapVerificationResult;
 import uk.gov.hmcts.befta.util.MapVerifier;
 import uk.gov.hmcts.befta.util.Retryable;
+import uk.gov.hmcts.befta.util.RestAssuredConfigurator;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -77,7 +78,7 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
     private ObjectMapper mapper = new ObjectMapper();
 
     public DefaultBackEndFunctionalTestScenarioPlayer() {
-        RestAssured.useRelaxedHTTPSValidation();
+        RestAssuredConfigurator.configure();
         scenarioContext = BeftaScenarioContextFactory.createBeftaScenarioContext();
     }
 

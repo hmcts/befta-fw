@@ -149,6 +149,8 @@ It provides the following functionalities and conveniences:
      after every trial.
    * BEFTA_USER_TOKEN_CACHE_TTL_SECONDS: Configurable amount of time in seconds for user token.
    * BEFTA_S2S_TOKEN_CACHE_TTL_SECONDS: Configurable amount of time in seconds for s2s toke.
+   * BEFTA_HTTP_CLOSE_CONNECTION_AFTER_RESPONSE: Set to true to close idle RestAssured HTTP connections after each
+     response. Default behaviour is false.
 
 
 ### 3.5) Domain Specific Environment Variables

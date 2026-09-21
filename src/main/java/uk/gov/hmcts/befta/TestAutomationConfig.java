@@ -125,6 +125,10 @@ public class TestAutomationConfig {
         return Boolean.parseBoolean(getOptionalVariable("BEFTA_HTTP_LOGGING_ENABLED"));
     }
 
+    public boolean isHttpCloseConnectionAfterResponseEnabled() {
+        return Boolean.parseBoolean(getOptionalVariable("BEFTA_HTTP_CLOSE_CONNECTION_AFTER_RESPONSE"));
+    }
+
     private int getRetryAttempts() {
         int retryAttempts = NumberUtils.toInt(getOptionalVariable("BEFTA_USER_AUTHENTICATION_RETRY_MAX_ATTEMPTS"));
         return retryAttempts !=0 ? retryAttempts : 3;
@@ -140,4 +144,3 @@ public class TestAutomationConfig {
         return retryMultiplierInMilliseconds !=0 ? retryMultiplierInMilliseconds : 60;
     }
 }
-
