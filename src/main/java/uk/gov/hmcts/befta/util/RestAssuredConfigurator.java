@@ -1,8 +1,7 @@
 package uk.gov.hmcts.befta.util;
 
-import static io.restassured.config.ConnectionConfig.connectionConfig;
-
 import io.restassured.RestAssured;
+import io.restassured.config.ConnectionConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uk.gov.hmcts.befta.BeftaMain;
@@ -17,10 +16,11 @@ public final class RestAssuredConfigurator {
     public static void configure() {
         RestAssured.useRelaxedHTTPSValidation();
 
-        if (BeftaMain.getConfig().isHttpCloseConnectionAfterResponseEnabled()) {
-            log.info("BEFTA HTTP close connection after each response is ENABLED");
+        if (BeftaMain.getConfig().shouldUseFreshHttpClientForEachRequest()) {
+            log.info("BEFTA HTTP fresh client per request is ENABLED");
             RestAssured.config = RestAssured.config()
-                    .connectionConfig(connectionConfig().closeIdleConnectionsAfterEachResponse());
+                    .httpClient(RestAssured.config().getHttpClientConfig().dontReuseHttpClientInstance())
+                    .connectionConfig(new ConnectionConfig());
         }
     }
 }

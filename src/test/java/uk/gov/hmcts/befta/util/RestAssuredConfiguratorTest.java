@@ -26,10 +26,16 @@ class RestAssuredConfiguratorTest {
 
     @Test
     @SetEnvironmentVariable(key = "BEFTA_HTTP_CLOSE_CONNECTION_AFTER_RESPONSE", value = "true")
-    void shouldCloseIdleConnectionsAfterEachResponseWhenEnabled() {
+    void shouldUseFreshHttpClientWithoutClosingIdleConnectionsWhenEnabled() {
         RestAssuredConfigurator.configure();
 
         assertTrue(RestAssured.config()
+                .getHttpClientConfig()
+                .isUserConfigured());
+        assertFalse(RestAssured.config()
+                .getHttpClientConfig()
+                .isConfiguredToReuseTheSameHttpClientInstance());
+        assertFalse(RestAssured.config()
                 .getConnectionConfig()
                 .shouldCloseIdleConnectionsAfterEachResponse());
     }

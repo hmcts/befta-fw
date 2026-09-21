@@ -129,6 +129,10 @@ public class TestAutomationConfig {
         return Boolean.parseBoolean(getOptionalVariable("BEFTA_HTTP_CLOSE_CONNECTION_AFTER_RESPONSE"));
     }
 
+    public boolean shouldUseFreshHttpClientForEachRequest() {
+        return isHttpCloseConnectionAfterResponseEnabled();
+    }
+
     private int getRetryAttempts() {
         int retryAttempts = NumberUtils.toInt(getOptionalVariable("BEFTA_USER_AUTHENTICATION_RETRY_MAX_ATTEMPTS"));
         return retryAttempts !=0 ? retryAttempts : 3;
