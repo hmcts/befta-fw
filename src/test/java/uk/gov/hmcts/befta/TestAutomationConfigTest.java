@@ -52,6 +52,8 @@ class TestAutomationConfigTest {
     private static final String ROLE_ASSIGNMENT_USER_PASSWORD_VALUE = "ROLE_ASSIGNMENT_USER_PASSWORD_VALUE";
     private static final String ROLE_ASSIGNMENT_HOST = "ROLE_ASSIGNMENT_HOST";
     private static final String ROLE_ASSIGNMENT_HOST_VALUE = "ROLE_ASSIGNMENT_HOST_VALUE";
+    private static final String BEFTA_HTTP_CLOSE_CONNECTION_AFTER_RESPONSE =
+            "BEFTA_HTTP_CLOSE_CONNECTION_AFTER_RESPONSE";
 
     @BeforeEach
 //    @SetEnvironmentVariable(key = "TEST_URL", value = TEST_URL_VALUE)
@@ -283,6 +285,38 @@ class TestAutomationConfigTest {
     void testIsHttpLoggingEnabledEnvVarNotPresent() {
         assertFalse(TestAutomationConfig.INSTANCE.isHttpLoggingEnabled());
     }
+
+    /**
+     * Test method for
+     * {@link TestAutomationConfig#isHttpCloseConnectionAfterResponseEnabled()}.
+     */
+    @Test
+    @SetEnvironmentVariable(key = BEFTA_HTTP_CLOSE_CONNECTION_AFTER_RESPONSE,
+            value = "TRUE")
+    void testIsHttpCloseConnectionAfterResponseEnabled() {
+        assertTrue(TestAutomationConfig.INSTANCE.isHttpCloseConnectionAfterResponseEnabled());
+    }
+
+    /**
+     * Test method for
+     * {@link TestAutomationConfig#isHttpCloseConnectionAfterResponseEnabled()}.
+     */
+    @Test
+    @SetEnvironmentVariable(key = BEFTA_HTTP_CLOSE_CONNECTION_AFTER_RESPONSE,
+            value = "Not True")
+    void testIsHttpCloseConnectionAfterResponseEnabledValueNotBoolean() {
+        assertFalse(TestAutomationConfig.INSTANCE.isHttpCloseConnectionAfterResponseEnabled());
+    }
+
+    /**
+     * Test method for
+     * {@link TestAutomationConfig#isHttpCloseConnectionAfterResponseEnabled()}.
+     */
+    @Test
+    void testIsHttpCloseConnectionAfterResponseEnabledEnvVarNotPresent() {
+        assertFalse(TestAutomationConfig.INSTANCE.isHttpCloseConnectionAfterResponseEnabled());
+    }
+
     /**
      * Test method for
      * {@link TestAutomationConfig#getDefaultCollectionAssertionMode()} ()}.
