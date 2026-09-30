@@ -79,8 +79,11 @@ The `Delete Azure Artifacts Versions` workflow is intended for repository mainta
 | --- | --- |
 | GitHub Actions environment `artifact-cleanup` | Adds an approval gate for deletion |
 | Required reviewers on `artifact-cleanup` | Restricts who can approve cleanup runs |
-| Repository variable `ARTIFACT_DELETE_ALLOWED_USERS` | Restricts who can start the workflow |
+| Optional repository variable `ARTIFACT_DELETE_ALLOWED_USERS` | Adds a comma-separated allowlist for who can start the workflow |
 | Secrets `AZURE_DEVOPS_ARTIFACT_USERNAME` and `AZURE_DEVOPS_ARTIFACT_TOKEN` | Authorises Azure Artifacts API calls |
+
+If `ARTIFACT_DELETE_ALLOWED_USERS` is not set, access is controlled by the
+`artifact-cleanup` environment reviewers.
 
 Recommended usage:
 
