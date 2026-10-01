@@ -16,10 +16,10 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import io.restassured.RestAssured;
 import uk.gov.hmcts.befta.data.RecentExecutionsInfo;
 import uk.gov.hmcts.befta.util.BeftaUtils;
 import uk.gov.hmcts.befta.util.JsonUtils;
+import uk.gov.hmcts.befta.util.RestAssuredConfigurator;
 
 public class DefaultBeftaTestDataLoader implements BeftaTestDataLoader {
 
@@ -45,7 +45,7 @@ public class DefaultBeftaTestDataLoader implements BeftaTestDataLoader {
     public synchronized void loadDataIfNotLoadedVeryRecently() {
         if (!isTestDataLoadedForCurrentRound && !shouldSkipDataLoad()) {
             try {
-                RestAssured.useRelaxedHTTPSValidation();
+                RestAssuredConfigurator.configure();
                 doLoadTestData();
                 updateDataLoadDetailsInRecentExecutionsInfo();
             } catch (Exception e) {
