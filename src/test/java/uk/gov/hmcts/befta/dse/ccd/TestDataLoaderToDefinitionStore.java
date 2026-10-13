@@ -430,7 +430,7 @@ class TestDataLoaderToDefinitionStore {
     @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_CLIENT_SECRET", value = "OAUTH2_CLIENT_SECRET_VALUE")
     @SetEnvironmentVariable(key = "CCD_API_GATEWAY_OAUTH2_REDIRECT_URL", value = "OAUTH2_REDIRECT_URI_VALUE")
     @ClearEnvironmentVariable(key = DEFINITION_IMPORT_JOB_ID)
-    void testImportDefinitionClosesConnectionAndPostsImport() throws Exception {
+    void testImportDefinitionPostsImportJobIdAndImport() throws Exception {
         TestAutomationAdapter mockAdapter = mock(TestAutomationAdapter.class);
         RequestSpecification requestSpecification = mock(RequestSpecification.class);
         Response rs = mock(io.restassured.response.Response.class);
@@ -444,10 +444,10 @@ class TestDataLoaderToDefinitionStore {
 
         dataLoaderToDefinitionStore.importDefinition(file.toString());
 
-        verify(requestSpecification).header(ArgumentMatchers.<Header>argThat(header ->
-                "Connection".equals(header.getName()) && "close".equals(header.getValue())
-        ));
         verify(requestSpecification).header(ArgumentMatchers.<Header>argThat(this::isImportJobHeaderWithValidUuid));
+        verify(requestSpecification, times(0)).header(ArgumentMatchers.<Header>argThat(header ->
+                "Connection".equalsIgnoreCase(header.getName())
+        ));
         verify(requestSpecification).post("/import");
     }
 

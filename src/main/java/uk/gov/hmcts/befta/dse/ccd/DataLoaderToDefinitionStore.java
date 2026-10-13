@@ -510,10 +510,8 @@ public class DataLoaderToDefinitionStore extends DefaultBeftaTestDataLoader {
     }
 
     private Response postDefinitionImport(File file, String importJobId) {
-        Header connectionClose = new Header("Connection", "close");
         Header importJobIdHeader = new Header(DEFINITION_IMPORT_JOB_ID_HEADER, importJobId);
         return asAutoTestImporter().given()
-                .header(connectionClose)
                 .header(importJobIdHeader)
                 .multiPart(file)
                 .when()
