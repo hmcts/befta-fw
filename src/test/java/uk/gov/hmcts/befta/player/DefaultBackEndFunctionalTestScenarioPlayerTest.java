@@ -49,6 +49,7 @@ import uk.gov.hmcts.befta.util.TestLogAppender;
 import uk.gov.hmcts.common.TestUtils;
 
 import javax.net.ssl.SSLException;
+import javax.net.ssl.SSLHandshakeException;
 import java.io.IOException;
 import java.net.SocketException;
 import java.util.AbstractMap;
@@ -166,6 +167,9 @@ class DefaultBackEndFunctionalTestScenarioPlayerTest {
         TestUtils.setFieldWithReflection(context,
                 context.getClass().getDeclaredField("DATA_SOURCE"),
                 dataSource);
+
+        environmentVariableUtilsMock.when(() -> EnvironmentVariableUtils.getOptionalVariable(
+                DefaultBackEndFunctionalTestScenarioPlayer.BEFTA_RETRY_TRANSPORT_FAILURE_DELAY)).thenReturn("0");
 
         scenarioPlayer = new DefaultBackEndFunctionalTestScenarioPlayer();
         TestUtils.setFieldWithReflection(scenarioPlayer,
@@ -1378,6 +1382,139 @@ class DefaultBackEndFunctionalTestScenarioPlayerTest {
                 .submitTheRequestToCallAnOperationOfAProduct(OPERATION, PRODUCT_NAME));
 
         verify(requestSpecification, times(1)).request(eq("POST"), eq(uri));
+    }
+
+    @Test
+    void testSubmitTheRequestRetriesTransientSslFailureForNonRetryableHttpMethod() throws Exception {
+        final String uri = "/case-types/{ctid}/cases";
+        prepareTransportFailureScenario(uri, ImmutableSet.of("POST", "PUT"));
+        Response response = mockJsonResponse(201);
+
+        when(requestSpecification.request(eq("POST"), eq(uri)))
+                .thenAnswer(invocation -> {
+                    throw new SSLException("(bad_record_mac) Tag mismatch");
+                })
+                .thenReturn(response);
+
+        assertDoesNotThrow(() -> scenarioPlayer
+                .submitTheRequestToCallAnOperationOfAProduct(OPERATION, PRODUCT_NAME));
+
+        verify(requestSpecification, times(2)).request(eq("POST"), eq(uri));
+    }
+
+    @Test
+    void testSubmitTheRequestStopsRetryingTransientSslFailureAfterMaxAttempts() {
+        final String uri = "/case-types/{ctid}/cases";
+        prepareTransportFailureScenario(uri, ImmutableSet.of("*"));
+
+        when(requestSpecification.request(eq("POST"), eq(uri)))
+                .thenAnswer(invocation -> {
+                    throw new SSLException("(bad_record_mac) Tag mismatch");
+                });
+
+        FunctionalTestException exception = assertThrows(FunctionalTestException.class, () -> scenarioPlayer
+                .submitTheRequestToCallAnOperationOfAProduct(OPERATION, PRODUCT_NAME));
+
+        assertEquals("Retry Exception when calling " + uri, exception.getMessage());
+        verify(requestSpecification, times(3)).request(eq("POST"), eq(uri));
+    }
+
+    @Test
+    void testSubmitTheRequestDoesNotRetrySslHandshakeFailure() {
+        final String uri = "/case-types/{ctid}/cases";
+        prepareTransportFailureScenario(uri, ImmutableSet.of("POST"));
+
+        when(requestSpecification.request(eq("POST"), eq(uri)))
+                .thenAnswer(invocation -> {
+                    throw new SSLHandshakeException("PKIX path building failed");
+                });
+
+        FunctionalTestException exception = assertThrows(FunctionalTestException.class, () -> scenarioPlayer
+                .submitTheRequestToCallAnOperationOfAProduct(OPERATION, PRODUCT_NAME));
+
+        assertEquals("Execution Exception when calling " + uri, exception.getMessage());
+        verify(requestSpecification, times(1)).request(eq("POST"), eq(uri));
+    }
+
+    @Test
+    void testSubmitTheRequestDoesNotRetryTransientSslFailureWhenDisabled() {
+        final String uri = "/case-types/{ctid}/cases";
+        prepareTransportFailureScenario(uri, ImmutableSet.of("POST"));
+        environmentVariableUtilsMock.when(() -> EnvironmentVariableUtils.getOptionalVariable(
+                DefaultBackEndFunctionalTestScenarioPlayer.BEFTA_RETRY_TRANSPORT_FAILURE_MAX_ATTEMPTS)).thenReturn("1");
+
+        when(requestSpecification.request(eq("POST"), eq(uri)))
+                .thenAnswer(invocation -> {
+                    throw new SSLException("(bad_record_mac) Tag mismatch");
+                });
+
+        assertThrows(FunctionalTestException.class, () -> scenarioPlayer
+                .submitTheRequestToCallAnOperationOfAProduct(OPERATION, PRODUCT_NAME));
+
+        verify(requestSpecification, times(1)).request(eq("POST"), eq(uri));
+    }
+
+    @Test
+    void testSubmitTheRequestRetriesTransientSslFailureUpToTransportLimitWithActivePolicy() {
+        final String uri = "/case-types/{ctid}/cases";
+        prepareTransportFailureScenario(uri, Collections.emptySet());
+        when(context.getRetryConfiguration()).thenReturn(Retryable.builder()
+                .maxAttempts(1)
+                .statusCodes(ImmutableSet.of(500))
+                .nonRetryableHttpMethods(Collections.emptySet())
+                .retryListener(setRetryListener(false))
+                .build());
+
+        when(requestSpecification.request(eq("POST"), eq(uri)))
+                .thenAnswer(invocation -> {
+                    throw new SocketException("Connection reset");
+                });
+
+        assertThrows(FunctionalTestException.class, () -> scenarioPlayer
+                .submitTheRequestToCallAnOperationOfAProduct(OPERATION, PRODUCT_NAME));
+
+        verify(requestSpecification, times(3)).request(eq("POST"), eq(uri));
+    }
+
+    @Test
+    void testIsTransientTransportFailure() {
+        assertTrue(scenarioPlayer.isTransientTransportFailure(new SSLException("(bad_record_mac) Tag mismatch")));
+        assertTrue(scenarioPlayer.isTransientTransportFailure(
+                new RuntimeException(new SocketException("Connection reset"))));
+        assertTrue(scenarioPlayer.isTransientTransportFailure(
+                new org.apache.http.NoHttpResponseException("failed to respond")));
+        assertTrue(!scenarioPlayer.isTransientTransportFailure(new SSLHandshakeException("handshake")));
+        assertTrue(!scenarioPlayer.isTransientTransportFailure(new IOException("other")));
+    }
+
+    private void prepareTransportFailureScenario(String uri, Set<String> nonRetryableHttpMethods) {
+        HttpTestData testData = mock(HttpTestData.class);
+        when(testData.meetsOperationOfProduct(eq(PRODUCT_NAME), eq(OPERATION))).thenReturn(true);
+        when(testData.getMethod()).thenReturn("POST");
+        when(testData.getUri()).thenReturn(uri);
+        when(testData.getExpectedResponse()).thenReturn(new ResponseData());
+        when(context.getTestData()).thenReturn(testData);
+        when(context.getTheRequest()).thenReturn(requestSpecification);
+        when(context.getRetryConfiguration()).thenReturn(Retryable.builder()
+                .maxAttempts(3)
+                .statusCodes(ImmutableSet.of(500))
+                .nonRetryableHttpMethods(nonRetryableHttpMethods)
+                .retryListener(setRetryListener(false))
+                .build());
+        QueryableRequestSpecification queryableRequest = mock(QueryableRequestSpecification.class);
+        when(SpecificationQuerier.query(eq(requestSpecification))).thenReturn(queryableRequest);
+    }
+
+    private Response mockJsonResponse(int statusCode) {
+        Response response = mock(Response.class);
+        when(response.getHeaders())
+                .thenReturn(new Headers(Collections.singletonList(new Header("Content-Type", "application/json"))));
+        when(response.getStatusCode()).thenReturn(statusCode);
+        when(response.getContentType()).thenReturn("application/json");
+        ResponseBody<?> responseBody = mock(ResponseBody.class);
+        when(response.getBody()).thenReturn(responseBody);
+        when(responseBody.asString()).thenReturn("{}");
+        return response;
     }
 
     private ResponseData createResponseDataWithResponseCode(int responseCode) {

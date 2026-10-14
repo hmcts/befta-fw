@@ -1,11 +1,15 @@
 package uk.gov.hmcts.befta.player;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.rholder.retry.Attempt;
 import com.github.rholder.retry.RetryException;
+import com.github.rholder.retry.RetryListener;
 import com.github.rholder.retry.Retryer;
 import com.github.rholder.retry.RetryerBuilder;
 import com.github.rholder.retry.StopStrategies;
+import com.github.rholder.retry.StopStrategy;
 import com.github.rholder.retry.WaitStrategies;
+import com.github.rholder.retry.WaitStrategy;
 import com.google.common.base.Predicates;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
@@ -19,6 +23,8 @@ import io.restassured.specification.QueryableRequestSpecification;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.SpecificationQuerier;
 import org.apache.commons.collections4.map.HashedMap;
+import org.apache.commons.lang3.math.NumberUtils;
+import org.apache.http.NoHttpResponseException;
 import org.apache.http.impl.EnglishReasonPhraseCatalog;
 import org.aspectj.util.FileUtil;
 import org.junit.Assert;
@@ -53,6 +59,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.ConnectException;
+import java.net.SocketException;
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
@@ -64,11 +71,19 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.net.ssl.SSLException;
+import javax.net.ssl.SSLHandshakeException;
+import javax.net.ssl.SSLPeerUnverifiedException;
 
 public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFunctionalTestAutomationDSL {
 
     static final String HTTP_S_REGEX = "^(http|https):.*";
     static final String PREREQUISITE_SPEC = "As a prerequisite";
+
+    static final String BEFTA_RETRY_TRANSPORT_FAILURE_MAX_ATTEMPTS = "BEFTA_RETRY_TRANSPORT_FAILURE_MAX_ATTEMPTS";
+    static final String BEFTA_RETRY_TRANSPORT_FAILURE_DELAY = "BEFTA_RETRY_TRANSPORT_FAILURE_DELAY";
+    private static final int DEFAULT_TRANSPORT_FAILURE_MAX_ATTEMPTS = 3;
+    private static final long DEFAULT_TRANSPORT_FAILURE_DELAY_MILLIS = 1000L;
 
     private Logger logger = LoggerFactory.getLogger(DefaultBackEndFunctionalTestScenarioPlayer.class);
 
@@ -403,21 +418,33 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
 
         Retryable retryable = scenarioContext.getRetryConfiguration();
         Retryer<Response> retryer;
+        int transportFailureMaxAttempts = getTransportFailureMaxAttempts();
+        long transportFailureDelay = getTransportFailureDelayInMilliseconds();
 
         logger.info("Calling: {} {}", testData.getMethod(), uri);
         if (retryable.getNonRetryableHttpMethods().contains("*") || retryable.getNonRetryableHttpMethods()
                                                                                 .contains(testData.getMethod())) {
-            logger.info("Applying no-retry policy...");
-            retryer = RetryerBuilder.<Response>newBuilder().build();
+            logger.info("Applying no-retry policy (transient transport failures are still retried)...");
+            // Transient TLS/socket failures (e.g. 'bad_record_mac') mean no HTTP response was received, so they are
+            // retried on a fresh connection even when the configured policy does not retry this http method.
+            retryer = RetryerBuilder.<Response>newBuilder()
+                    .withRetryListener(transportFailureRetryListener(testData.getMethod(), uri,
+                            transportFailureMaxAttempts))
+                    .retryIfException(this::isTransientTransportFailure)
+                    .withStopStrategy(transportAwareStopStrategy(1, transportFailureMaxAttempts))
+                    .withWaitStrategy(transportAwareWaitStrategy(0, transportFailureDelay))
+                    .build();
         } else {
+            int maxAttempts = Math.max(retryable.getMaxAttempts(), transportFailureMaxAttempts);
             retryer = RetryerBuilder.<Response>newBuilder()
                     .withRetryListener(retryable.getRetryListener())
+                    .withRetryListener(transportFailureRetryListener(testData.getMethod(), uri, maxAttempts))
                     .retryIfException(e -> {
                         boolean isRetryableException = retryable.getRetryableExceptions().contains(e.getClass());
                         Throwable cause = e.getCause();
                         boolean isRetryableCause = cause != null && retryable.getRetryableExceptions()
                                 .contains(cause.getClass());
-                        return isRetryableException || isRetryableCause;
+                        return isRetryableException || isRetryableCause || isTransientTransportFailure(e);
                     })
                     .retryIfResult(res -> retryable.getStatusCodes().contains(res.getStatusCode()))
                     .retryIfResult(res -> {
@@ -430,8 +457,9 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
                         }
                         return false;
                     })
-                    .withStopStrategy(StopStrategies.stopAfterAttempt(retryable.getMaxAttempts()))
-                    .withWaitStrategy(WaitStrategies.fixedWait(retryable.getDelay(), TimeUnit.MILLISECONDS))
+                    .withStopStrategy(transportAwareStopStrategy(retryable.getMaxAttempts(),
+                            transportFailureMaxAttempts))
+                    .withWaitStrategy(transportAwareWaitStrategy(retryable.getDelay(), transportFailureDelay))
                     .build();
 
             logger.info("Applying active retry policy... {}", retryable);
@@ -456,9 +484,79 @@ public class DefaultBackEndFunctionalTestScenarioPlayer implements BackEndFuncti
                     String.format("Retry Exception when calling %s", uri), retryException);
         } catch (ExecutionException executionException) {
             throw new FunctionalTestException(
-                    String.format("Execution Exception when authenticating user %s", uri),
+                    String.format("Execution Exception when calling %s", uri),
                     executionException);
         }
+    }
+
+    protected int getTransportFailureMaxAttempts() {
+        return Math.max(1, NumberUtils.toInt(
+                EnvironmentVariableUtils.getOptionalVariable(BEFTA_RETRY_TRANSPORT_FAILURE_MAX_ATTEMPTS),
+                DEFAULT_TRANSPORT_FAILURE_MAX_ATTEMPTS));
+    }
+
+    protected long getTransportFailureDelayInMilliseconds() {
+        return Math.max(0L, NumberUtils.toLong(
+                EnvironmentVariableUtils.getOptionalVariable(BEFTA_RETRY_TRANSPORT_FAILURE_DELAY),
+                DEFAULT_TRANSPORT_FAILURE_DELAY_MILLIS));
+    }
+
+    /**
+     * A transient transport failure is a TLS record or socket level failure where no HTTP response was received,
+     * e.g. 'javax.net.ssl.SSLException: (bad_record_mac) Tag mismatch' or 'Connection reset'. Handshake and
+     * certificate failures are configuration problems and are not treated as transient.
+     */
+    boolean isTransientTransportFailure(Throwable exception) {
+        Throwable current = exception;
+        while (current != null) {
+            if (current instanceof SSLHandshakeException || current instanceof SSLPeerUnverifiedException) {
+                return false;
+            }
+            if (current instanceof SSLException
+                    || current instanceof SocketException
+                    || current instanceof NoHttpResponseException) {
+                return true;
+            }
+            current = current.getCause();
+        }
+        return false;
+    }
+
+    private boolean isTransientTransportFailure(Attempt<?> attempt) {
+        return attempt.hasException() && isTransientTransportFailure(attempt.getExceptionCause());
+    }
+
+    private StopStrategy transportAwareStopStrategy(int maxAttempts, int transportFailureMaxAttempts) {
+        return attempt -> attempt.getAttemptNumber() >= (isTransientTransportFailure(attempt)
+                ? Math.max(maxAttempts, transportFailureMaxAttempts)
+                : maxAttempts);
+    }
+
+    private WaitStrategy transportAwareWaitStrategy(long delay, long transportFailureDelay) {
+        return attempt -> isTransientTransportFailure(attempt)
+                ? transportFailureDelay * attempt.getAttemptNumber()
+                : delay;
+    }
+
+    private RetryListener transportFailureRetryListener(String method, String uri, int maxAttempts) {
+        return new RetryListener() {
+            @Override
+            public <V> void onRetry(Attempt<V> attempt) {
+                if (isTransientTransportFailure(attempt)) {
+                    logger.warn("Transient transport failure calling {} {} on attempt {} of {}. Cause: {}",
+                            method, uri, attempt.getAttemptNumber(), maxAttempts,
+                            getRootCauseSummary(attempt.getExceptionCause()));
+                }
+            }
+        };
+    }
+
+    private String getRootCauseSummary(Throwable exception) {
+        Throwable rootCause = exception;
+        while (rootCause.getCause() != null) {
+            rootCause = rootCause.getCause();
+        }
+        return rootCause.getClass().getName() + ": " + rootCause.getMessage();
     }
 
     private ResponseData convertRestAssuredResponseToBeftaResponse(BackEndFunctionalTestScenarioContext scenarioContext,
