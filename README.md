@@ -914,6 +914,22 @@ export BEFTA_RETRY_NON_RETRYABLE_HTTP_METHODS=POST,PUT
 export BEFTA_RETRY_ENABLE_LISTENER=true
 ```
 
+### Transient Transport Failure Retry
+Independently of the policies above, every API call made by a scenario is retried on a fresh connection when it fails
+with a transient transport failure before an HTTP response is received, for example
+`javax.net.ssl.SSLException: (bad_record_mac) Tag mismatch`, `java.net.SocketException: Connection reset` or
+`org.apache.http.NoHttpResponseException`. This applies to every HTTP method, including those listed in
+`BEFTA_RETRY_NON_RETRYABLE_HTTP_METHODS`, and to scenarios tagged with `@Retryable`. TLS handshake and certificate
+failures (`SSLHandshakeException`, `SSLPeerUnverifiedException`) are not retried.
+
+Because the request may already have reached the service, a retried `POST` can be processed twice (e.g. a second case
+is created). The response of the last attempt is the one verified by the scenario.
+
+* **BEFTA_RETRY_TRANSPORT_FAILURE_MAX_ATTEMPTS:** Total attempts for a transient transport failure (default: 3).
+  Set to `1` to disable. When a retry policy is active, the larger of this value and its max attempts is used.
+* **BEFTA_RETRY_TRANSPORT_FAILURE_DELAY:** Base delay in milliseconds, multiplied by the failed attempt number
+  (default: 1000, i.e. 1000 ms then 2000 ms).
+
 ### Service Level Policy
 The feature can be defined with an annotation as follows: @Retryable(maxAttempts=3, delay=1000, statusCodes={400, 502}, match={".*error.*"}). 
 This annotation specifies:
