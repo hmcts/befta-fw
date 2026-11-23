@@ -7,7 +7,7 @@ import static uk.gov.hmcts.common.CommonAssertions.applyCommonAssertionsOnOverri
 
 import org.junit.jupiter.api.Test;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import tools.jackson.databind.JsonNode;
 
 import uk.gov.hmcts.befta.data.HttpTestData;
 
@@ -42,8 +42,8 @@ public class JsonResourceStoreWithInheritanceTest {
 
         final JsonNode rootNode = resourceStore.getRootNode();
         assertEquals(2, rootNode.size());
-        assertEquals(FILE_IN_ROOT_ID, rootNode.get(0).get(ID_KEY).textValue());
-        assertEquals(FILE_IN_SUBDIRECTORY_ID, rootNode.get(1).get(ID_KEY).textValue());
+        assertEquals(FILE_IN_ROOT_ID, rootNode.get(0).get(ID_KEY).stringValue());
+        assertEquals(FILE_IN_SUBDIRECTORY_ID, rootNode.get(1).get(ID_KEY).stringValue());
     }
 
     @Test

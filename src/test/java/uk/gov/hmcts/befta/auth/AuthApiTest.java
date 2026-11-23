@@ -2,8 +2,8 @@ package uk.gov.hmcts.befta.auth;
 
 import com.sun.net.httpserver.HttpServer;
 import feign.Feign;
-import feign.jackson.JacksonDecoder;
-import feign.jackson.JacksonEncoder;
+import feign.jackson3.Jackson3Decoder;
+import feign.jackson3.Jackson3Encoder;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,8 +36,8 @@ class AuthApiTest {
 
 
         authApi = Feign.builder()
-            .encoder(new JacksonEncoder())
-            .decoder(new JacksonDecoder())
+            .encoder(new Jackson3Encoder())
+            .decoder(new Jackson3Decoder())
             .target(AuthApi.class, "http://localhost:" + server.getAddress().getPort());
     }
 

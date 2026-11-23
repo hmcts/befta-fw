@@ -4,11 +4,10 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
-import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-import com.fasterxml.jackson.databind.node.ArrayNode;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectWriter;
+import tools.jackson.databind.node.ArrayNode;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -27,7 +26,7 @@ public class ExcelTransformer {
             "AuthorisationCaseField", "AuthorisationCaseState", "AuthorisationCaseType", "AuthorisationComplexType",
             "CaseEventToFields", "CaseField", "CaseRoles", "CaseTypeTab", "SearchInputFields", "SearchResultFields",
             "State", "WorkBasketInputFields", "WorkBasketResultFields", "Category", "SearchAlias");
-    private ObjectWriter writer = new ObjectMapper().writer(new DefaultPrettyPrinter());
+    private ObjectWriter writer = new ObjectMapper().writerWithDefaultPrettyPrinter();
     private SheetReader sheetTransformer = new SheetReader();
     private HashMap<String, ArrayNode> defFileMap = new HashMap<>();
     private ObjectMapper objectMapper = new ObjectMapper();

@@ -2,9 +2,9 @@ package uk.gov.hmcts.befta.dse.ccd.definition.converter;
 
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.node.ArrayNode;
 
 import java.io.File;
 import java.io.FileOutputStream;

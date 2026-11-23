@@ -1,5 +1,7 @@
 package uk.gov.hmcts.befta.data;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -19,9 +21,11 @@ public class HttpTestData {
 
     private static final String KEY_INVOKING_USER = "invokingUser";
 
+    @JsonProperty("_guid_")
     @SuppressWarnings({ CHECKSTYLE_MEMBER_NAME, JAVA_S116 })
     private String _guid_;
 
+    @JsonProperty("_extends_")
     @SuppressWarnings({ CHECKSTYLE_MEMBER_NAME, JAVA_S116 })
     private String _extends_;
 
