@@ -154,8 +154,8 @@ ext {
 }
 
 dependencies {
-    implementation platform('org.springframework.boot:spring-boot-dependencies:4.1.2')
-    implementation platform('org.springframework.cloud:spring-cloud-dependencies:2025.1.3')
+    implementation platform('org.springframework.boot:spring-boot-dependencies:4.2.0')
+    implementation platform('org.springframework.cloud:spring-cloud-dependencies:2025.1.5')
 
     implementation "com.github.rholder:guava-retrying:2.0.0"
     implementation "com.github.hmcts:service-auth-provider-java-client:6.1.2"
