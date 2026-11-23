@@ -1,13 +1,14 @@
 package uk.gov.hmcts.jsonstore;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.BooleanNode;
-import com.fasterxml.jackson.databind.node.NullNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import tools.jackson.databind.DeserializationFeature;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
+import tools.jackson.databind.SerializationFeature;
+import tools.jackson.databind.node.ArrayNode;
+import tools.jackson.databind.node.BooleanNode;
+import tools.jackson.databind.node.NullNode;
+import tools.jackson.databind.node.ObjectNode;
 import com.google.common.collect.Sets;
 
 import java.util.HashMap;
@@ -74,9 +75,10 @@ public abstract class JsonStoreWithInheritance {
         if (objectLibrary == null) {
             objectLibrary = new HashMap<String, T>();
             Set<String> keys = getNodeLibrary().keySet();
-            ObjectMapper om = new ObjectMapper();
-            om.enable(SerializationFeature.INDENT_OUTPUT);
-            om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+                ObjectMapper om = JsonMapper.builderWithJackson2Defaults()
+                    .enable(SerializationFeature.INDENT_OUTPUT)
+                    .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
+                    .build();
             for (String key : keys) {
                 JsonNode nodeInLibrary = nodeLibrary.get(key);
                 String jsonText = om.writeValueAsString(nodeInLibrary);
@@ -127,7 +129,7 @@ public abstract class JsonStoreWithInheritance {
             JsonNode parentNode = nodeLibrary.get(parentId);
             throwExceptionIfParentNotFound(object, parentNode, parentId);
             inheritAndOverlayValuesFor(parentNode);
-            Iterator<String> parentIterator = parentNode.fieldNames();
+            Iterator<String> parentIterator = parentNode.propertyNames().iterator();
             while (parentIterator.hasNext()) {
                 String fieldNameInParent = parentIterator.next();
                 if (!isInheritanceMechanismField(fieldNameInParent)) {
@@ -162,7 +164,7 @@ public abstract class JsonStoreWithInheritance {
                     ((ArrayNode) parentFieldCopy).addAll((ArrayNode) thisField);
                 }
                 ((ObjectNode) object).set(fieldNameInParent, parentFieldCopy);
-            } else if (thisField.isContainerNode()) {
+            } else if (thisField.isContainer()) {
                 inheritAndOverlayValuesFor(thisField);
                 if (!(parentFieldCopy instanceof NullNode)) {
                     overlayFieldWith(parentFieldCopy, thisField);
@@ -175,7 +177,7 @@ public abstract class JsonStoreWithInheritance {
     }
 
     private boolean shouldApplyInheritanceOn(JsonNode object) {
-        if (object == null || !object.isContainerNode())
+        if (object == null || !object.isContainer())
             return false;
         if (object.has(INHERITANCE_APPLIED))
             return false;
@@ -202,13 +204,13 @@ public abstract class JsonStoreWithInheritance {
             } else
                 ((ArrayNode) overlaidField).addAll((ArrayNode) overlayingField);
         } else {
-            Iterator<String> overlayingSubfields = overlayingField.fieldNames();
+            Iterator<String> overlayingSubfields = overlayingField.propertyNames().iterator();
             while (overlayingSubfields.hasNext()) {
                 String overlayingSubFieldName = overlayingSubfields.next();
                 if (!isInheritanceMechanismField(overlayingSubFieldName)) {
                     JsonNode overlayingSubField = overlayingField.get(overlayingSubFieldName);
                     JsonNode overlaidSubField = overlaidField.get(overlayingSubFieldName);
-                    if (overlaidSubField != null && overlaidSubField.isContainerNode()) {
+                    if (overlaidSubField != null && overlaidSubField.isContainer()) {
                         overlayFieldWith(overlaidSubField, overlayingSubField);
                     } else if (overlaidField instanceof ObjectNode) {
                         ((ObjectNode) overlaidField).set(overlayingSubFieldName, overlayingSubField);

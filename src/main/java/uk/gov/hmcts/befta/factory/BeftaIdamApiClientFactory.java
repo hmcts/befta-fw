@@ -5,8 +5,8 @@ package uk.gov.hmcts.befta.factory;
 
 import feign.Feign;
 import feign.Logger;
-import feign.jackson.JacksonDecoder;
-import feign.jackson.JacksonEncoder;
+import feign.jackson3.Jackson3Decoder;
+import feign.jackson3.Jackson3Encoder;
 import uk.gov.hmcts.befta.BeftaMain;
 import uk.gov.hmcts.befta.auth.AuthApi;
 import uk.gov.hmcts.befta.util.BeftaUtils;
@@ -23,8 +23,8 @@ public class BeftaIdamApiClientFactory {
     public static AuthApi createAuthorizationClient() {
 
         Feign.Builder feignBuilder = Feign.builder()
-                .encoder(new JacksonEncoder())
-                .decoder(new JacksonDecoder());
+                .encoder(new Jackson3Encoder())
+                .decoder(new Jackson3Decoder());
 
         if (BeftaMain.getConfig().isHttpLoggingEnabled()) {
             feignBuilder

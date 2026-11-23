@@ -1,8 +1,8 @@
 package uk.gov.hmcts.befta.dse.ccd.definition.converter;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -26,7 +26,7 @@ public class EnvironmentURLUtils {
 
     public static JsonNode updateCallBackURLs(JsonNode rootSheetArray, String jsonFileName,
             CcdEnvironment forEnvironment)
-            throws JsonProcessingException, MalformedURLException, InvalidTestDataException {
+            throws JacksonException, MalformedURLException, InvalidTestDataException {
         if (SHEETS_FOR_URL_SUBSTITUTIONS.contains(jsonFileName)) {
             return new ObjectMapper().readTree(parseCallbackHostValues(rootSheetArray.toString(), forEnvironment));
         } else {

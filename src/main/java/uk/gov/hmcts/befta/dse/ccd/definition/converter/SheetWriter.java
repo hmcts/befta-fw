@@ -6,8 +6,8 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ArrayNode;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ArrayNode;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -48,7 +48,7 @@ public class SheetWriter {
      * @param sheetArrayNode
      */
     private void createHeaderRow(Sheet sheet, ArrayNode sheetArrayNode) {
-        Iterator<String> headers = sheetArrayNode.get(0).fieldNames();
+        Iterator<String> headers = sheetArrayNode.get(0).propertyNames().iterator();
         ArrayList<String> keys = new ArrayList<>();
 
         int nextRow = sheet.getPhysicalNumberOfRows();
@@ -74,7 +74,7 @@ public class SheetWriter {
     private void writeRowToSheet(Sheet sheet, JsonNode jsonNodeRow) {
         int nextRow = sheet.getPhysicalNumberOfRows();
         Row row = sheet.createRow(nextRow);
-        Iterator<JsonNode> jsonNodeCellIterator = jsonNodeRow.elements();
+        Iterator<JsonNode> jsonNodeCellIterator = jsonNodeRow.iterator();
         int columnIndex = 0;
         while (jsonNodeCellIterator.hasNext()) {
             String column = getKeys().get(columnIndex);
